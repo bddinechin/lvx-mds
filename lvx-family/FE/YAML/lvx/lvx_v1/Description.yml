@@ -38676,19 +38676,7 @@ NativeType:
     width: 128
     type: Float
 Platform:
-  - ID: kv3_32
-    charWidth: 8
-    addrWidth: 32
-    endian: Little
-    alignText: 8
-    alignData: 8
-    alignHeap: 8
-    alignStack: 8
-    nativeInt: Int32
-    nativeUInt: UInt32
-    nativeFloat: Float64
-    nativePtr: UInt32
-  - ID: kv3_64
+  - ID: lvx_64
     charWidth: 8
     addrWidth: 32
     endian: Little
@@ -48796,7 +48784,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     linker: [ R_LVX_32_PCREL ]
-    elfIds: [ 7 ]
+    elfIds: [ 5 ]
     fields: [ WORD ]
   - ID: pcrel_signed37
     what: extended 37 bits PC relative relocation on symbol + addend
@@ -48804,7 +48792,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     linker: [ R_LVX_S37_PCREL_UP27, R_LVX_S37_PCREL_LO10 ]
-    elfIds: [ 9, 8 ]
+    elfIds: [ 7, 6 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: pcrel_signed43
@@ -48813,7 +48801,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     linker: [ R_LVX_S43_PCREL_EX6, R_LVX_S43_PCREL_UP27, R_LVX_S43_PCREL_LO10 ]
-    elfIds: [ 12, 11, 10 ]
+    elfIds: [ 10, 9, 8 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
   - ID: pcrel_signed64
@@ -48822,7 +48810,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     linker: [ R_LVX_S64_PCREL_EX27, R_LVX_S64_PCREL_UP27, R_LVX_S64_PCREL_LO10 ]
-    elfIds: [ 15, 14, 13 ]
+    elfIds: [ 13, 12, 11 ]
     fields: [ extend27, upper27, lower10 ]
     operands: [ extend27_upper27_lower10 ]
   - ID: pcrel64
@@ -48832,14 +48820,14 @@ Relocation:
     type: Rel_s_a
     relative: PC
     linker: [ R_LVX_64_PCREL ]
-    elfIds: [ 16 ]
+    elfIds: [ 14 ]
     fields: [ DOUBLE ]
   - ID: signed16
     what: extended 16 bits relocation on symbol + addend
     overflow: Signed
     type: Rel_s_a
     linker: [ R_LVX_S16 ]
-    elfIds: [ 17 ]
+    elfIds: [ 15 ]
     fields: [ signed16 ]
     operands: [ signed16 ]
   - ID: signed32
@@ -48847,14 +48835,14 @@ Relocation:
     syntax: '@signed32'
     type: Rel_s_a
     linker: [ R_LVX_S32_UP27, R_LVX_S32_LO5 ]
-    elfIds: [ 19, 18 ]
+    elfIds: [ 17, 16 ]
     fields: [ upper27, lower5 ]
     operands: [ upper27_lower5 ]
   - ID: signed37
     what: extended 37 bits relocation on symbol + addend
     type: Rel_s_a
     linker: [ R_LVX_S37_UP27, R_LVX_S37_LO10 ]
-    elfIds: [ 21, 20 ]
+    elfIds: [ 19, 18 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: gotoff_signed37
@@ -48863,7 +48851,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S37_GOTOFF_UP27, R_LVX_S37_GOTOFF_LO10 ]
-    elfIds: [ 23, 22 ]
+    elfIds: [ 21, 20 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: gotoff_signed43
@@ -48872,7 +48860,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S43_GOTOFF_EX6, R_LVX_S43_GOTOFF_UP27, R_LVX_S43_GOTOFF_LO10 ]
-    elfIds: [ 26, 25, 24 ]
+    elfIds: [ 24, 23, 22 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
   - ID: gotoff_32
@@ -48881,7 +48869,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_32_GOTOFF ]
-    elfIds: [ 27 ]
+    elfIds: [ 25 ]
     fields: [ WORD ]
   - ID: gotoff_64
     what: 64 bits GOT relative relocation on symbol + addend
@@ -48889,7 +48877,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_64_GOTOFF ]
-    elfIds: [ 28 ]
+    elfIds: [ 26 ]
     fields: [ DOUBLE ]
   - ID: got_32
     what: 32 bits GOT relative relocation on symbol + addend
@@ -48898,7 +48886,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_32_GOT ]
-    elfIds: [ 29 ]
+    elfIds: [ 27 ]
     fields: [ WORD ]
   - ID: got_signed37
     what: extended 37 bits GOT relative relocation on symbol + addend
@@ -48906,7 +48894,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S37_GOT_UP27, R_LVX_S37_GOT_LO10 ]
-    elfIds: [ 31, 30 ]
+    elfIds: [ 29, 28 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: got_signed43
@@ -48915,7 +48903,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S43_GOT_EX6, R_LVX_S43_GOT_UP27, R_LVX_S43_GOT_LO10 ]
-    elfIds: [ 34, 33, 32 ]
+    elfIds: [ 32, 31, 30 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
   - ID: got_64
@@ -48924,7 +48912,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_64_GOT ]
-    elfIds: [ 35 ]
+    elfIds: [ 33 ]
     fields: [ DOUBLE ]
   - ID: glob_dat
     what: pointer sized GOT entry
@@ -48932,39 +48920,39 @@ Relocation:
     type: Rel_s
     relative: GOT
     linker: [ R_LVX_GLOB_DAT ]
-    elfIds: [ 36 ]
+    elfIds: [ 34 ]
     fields: [ WORD ]
   - ID: copy
     what: Copy relocation
     type: Rel_s_a
     linker: [ R_LVX_COPY ]
-    elfIds: [ 37 ]
+    elfIds: [ 35 ]
     fields: [ WORD ]
   - ID: jump_slot
     what: Pointer-sized jump slot relocation
     type: Rel_s_a
     linker: [ R_LVX_JMP_SLOT ]
-    elfIds: [ 38 ]
+    elfIds: [ 36 ]
     fields: [ WORD ]
   - ID: relative
     what: Pointer-sized relative relocation on base + addend
     relative: BASE
     type: Rel_s_a
     linker: [ R_LVX_RELATIVE ]
-    elfIds: [ 39 ]
+    elfIds: [ 37 ]
     fields: [ WORD ]
   - ID: signed43
     what: extended 43 bits relocation on symbol + addend
     type: Rel_s_a
     linker: [ R_LVX_S43_EX6, R_LVX_S43_UP27, R_LVX_S43_LO10 ]
-    elfIds: [ 42, 41, 40 ]
+    elfIds: [ 40, 39, 38 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
   - ID: signed64
     what: 64 bits relocation on symbol + addend
     type: Rel_s_a
     linker: [ R_LVX_S64_EX27, R_LVX_S64_UP27, R_LVX_S64_LO10 ]
-    elfIds: [ 45, 44, 43 ]
+    elfIds: [ 43, 42, 41 ]
     fields: [ extend27, upper27, lower10 ]
     operands: [ extend27_upper27_lower10 ]
   - ID: gotaddr_signed37
@@ -48973,7 +48961,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     linker: [ R_LVX_S37_GOTADDR_UP27, R_LVX_S37_GOTADDR_LO10 ]
-    elfIds: [ 47, 46 ]
+    elfIds: [ 45, 44 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: gotaddr_signed43
@@ -48982,7 +48970,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     linker: [ R_LVX_S43_GOTADDR_EX6, R_LVX_S43_GOTADDR_UP27, R_LVX_S43_GOTADDR_LO10 ]
-    elfIds: [ 50, 49, 48 ]
+    elfIds: [ 48, 47, 46 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
   - ID: gotaddr_signed64
@@ -48991,27 +48979,27 @@ Relocation:
     type: Rel_s_a
     relative: PC
     linker: [ R_LVX_S64_GOTADDR_EX27, R_LVX_S64_GOTADDR_UP27, R_LVX_S64_GOTADDR_LO10 ]
-    elfIds: [ 53, 52, 51 ]
+    elfIds: [ 51, 50, 49 ]
     fields: [ extend27, upper27, lower10 ]
     operands: [ extend27_upper27_lower10 ]
   - ID: dtpmod64
     what: 64 bits relocation for dynamic module identifier
     type: Rel_s_a
     linker: [ R_LVX_64_DTPMOD ]
-    elfIds: [ 54 ]
+    elfIds: [ 52 ]
     fields: [ DOUBLE ]
   - ID: dtpoff64
     what: 64 bits relocation for offset of symbol + addend relative to dynamic TLS block
     type: Rel_s_a
     linker: [ R_LVX_64_DTPOFF ]
-    elfIds: [ 55 ]
+    elfIds: [ 53 ]
     fields: [ DOUBLE ]
   - ID: dtpoff_signed37
     what: extended 37 bits relocation for offset on symbol + addend relative to dynamic TLS block
     syntax: '@dtpoff'
     type: Rel_s_a
     linker: [ R_LVX_S37_TLS_DTPOFF_UP27, R_LVX_S37_TLS_DTPOFF_LO10 ]
-    elfIds: [ 57, 56 ]
+    elfIds: [ 55, 54 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: dtpoff_signed43
@@ -49019,7 +49007,7 @@ Relocation:
     syntax: '@tlsgd'
     type: Rel_s_a
     linker: [ R_LVX_S43_TLS_DTPOFF_EX6, R_LVX_S43_TLS_DTPOFF_UP27, R_LVX_S43_TLS_DTPOFF_LO10 ]
-    elfIds: [ 60, 59, 58 ]
+    elfIds: [ 58, 57, 56 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
   - ID: tlsgd_signed37
@@ -49028,7 +49016,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S37_TLS_GD_UP27, R_LVX_S37_TLS_GD_LO10 ]
-    elfIds: [ 62, 61 ]
+    elfIds: [ 60, 59 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: tlsgd_signed43
@@ -49037,7 +49025,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S43_TLS_GD_EX6, R_LVX_S43_TLS_GD_UP27, R_LVX_S43_TLS_GD_LO10 ]
-    elfIds: [ 65, 64, 63 ]
+    elfIds: [ 63, 62, 61 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
   - ID: tlsld_signed37
@@ -49046,7 +49034,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S37_TLS_LD_UP27, R_LVX_S37_TLS_LD_LO10 ]
-    elfIds: [ 67, 66 ]
+    elfIds: [ 65, 64 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: tlsld_signed43
@@ -49055,7 +49043,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S43_TLS_LD_EX6, R_LVX_S43_TLS_LD_UP27, R_LVX_S43_TLS_LD_LO10 ]
-    elfIds: [ 70, 69, 68 ]
+    elfIds: [ 68, 67, 66 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
   - ID: tpoff64
@@ -49063,7 +49051,7 @@ Relocation:
     relative: TP
     type: Rel_s_a
     linker: [ R_LVX_64_TPOFF ]
-    elfIds: [ 71 ]
+    elfIds: [ 69 ]
     fields: [ DOUBLE ]
   - ID: tlsie_signed37
     what: extended 37 bits GOT relative relocation on symbol + addend for TLS IE descriptor
@@ -49071,7 +49059,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S37_TLS_IE_UP27, R_LVX_S37_TLS_IE_LO10 ]
-    elfIds: [ 73, 72 ]
+    elfIds: [ 71, 70 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: tlsie_signed43
@@ -49080,7 +49068,7 @@ Relocation:
     type: Rel_s_a
     relative: GOT
     linker: [ R_LVX_S43_TLS_IE_EX6, R_LVX_S43_TLS_IE_UP27, R_LVX_S43_TLS_IE_LO10 ]
-    elfIds: [ 76, 75, 74 ]
+    elfIds: [ 74, 73, 72 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
   - ID: tlsle_signed37
@@ -49089,7 +49077,7 @@ Relocation:
     type: Rel_s_a
     relative: TP
     linker: [ R_LVX_S37_TLS_LE_UP27, R_LVX_S37_TLS_LE_LO10 ]
-    elfIds: [ 78, 77 ]
+    elfIds: [ 76, 75 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
   - ID: tlsle_signed43
@@ -49098,7 +49086,7 @@ Relocation:
     type: Rel_s_a
     relative: TP
     linker: [ R_LVX_S43_TLS_LE_EX6, R_LVX_S43_TLS_LE_UP27, R_LVX_S43_TLS_LE_LO10 ]
-    elfIds: [ 81, 80, 79 ]
+    elfIds: [ 79, 78, 77 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
 ## Adding new relocations here to avoid to change all relocation elf ids
@@ -49107,7 +49095,7 @@ Relocation:
     overflow: Unsigned
     type: Rel_s_a
     linker: [ R_LVX_8 ]
-    elfIds: [ 82 ]
+    elfIds: [ 80 ]
     fields: [ BYTE ]
   - ID: pcrel11s2
     what: extended 11 bits PC relative relocation on symbol + addend
@@ -49117,7 +49105,7 @@ Relocation:
     relative: PC
     scaling: 2
     linker: [ R_LVX_S11S2_PCREL ]
-    elfIds: [ 83 ]
+    elfIds: [ 81 ]
     fields: [ pcrel11s2 ]
     operands: [ pcrel11s2 ]
   - ID: pcrel17s2
@@ -49128,7 +49116,7 @@ Relocation:
     relative: PC
     scaling: 2
     linker: [ R_LVX_S17S2_PCREL ]
-    elfIds: [ 84 ]
+    elfIds: [ 82 ]
     fields: [ pcrel17s2 ]
     operands: [ pcrel17s2 ]
   - ID: pcrel27s2
@@ -49139,7 +49127,7 @@ Relocation:
     relative: PC
     scaling: 2
     linker: [ R_LVX_S27S2_PCREL ]
-    elfIds: [ 85 ]
+    elfIds: [ 83 ]
     fields: [ pcrel27s2 ]
     operands: [ pcrel27s2 ]
   - ID: pcrel38s2
@@ -49150,7 +49138,7 @@ Relocation:
     relative: PC
     scaling: 2
     linker: [ R_LVX_S38S2_PCREL_UP27, R_LVX_S38S2_PCREL_LO11 ]
-    elfIds: [ 87, 86 ]
+    elfIds: [ 85, 84 ]
     fields: [ upper27, lower11 ]
     operands: [ upper27_lower11 ]
   - ID: pcrel44s2
@@ -49161,7 +49149,7 @@ Relocation:
     relative: PC
     scaling: 2
     linker: [ R_LVX_S44S2_PCREL_UP27, R_LVX_S44S2_PCREL_LO17 ]
-    elfIds: [ 89, 88 ]
+    elfIds: [ 87, 86 ]
     fields: [ upper27, lower17 ]
     operands: [ upper27_lower17 ]
   - ID: pcrel54s2
@@ -49172,7 +49160,7 @@ Relocation:
     relative: PC
     scaling: 2
     linker: [ R_LVX_S54S2_PCREL_UP27, R_LVX_S54S2_PCREL_LO27 ]
-    elfIds: [ 91, 90 ]
+    elfIds: [ 89, 88 ]
     fields: [ upper27, lower27 ]
     operands: [ upper27_lower27 ]
 Reservation:
