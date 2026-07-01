@@ -71,7 +71,7 @@ END
 
     my $end_reloc = << "END";
 ENUMDOC
-  KVX Relocations.
+  LVX Relocations.
 ENUM
   BFD_RELOC_${FAMILY}_RELOC_END
 ENUMDOC

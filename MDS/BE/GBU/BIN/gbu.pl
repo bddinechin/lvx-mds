@@ -54,7 +54,7 @@ sub printHeader {
     #    my $copyrights = &MDS::get_copyrights("*** ","\n");
 
     print $file <<"EOT";
-/* KVX assembler/disassembler support.
+/* LVX assembler/disassembler support.
 
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
    Contributed by Kalray SA.
@@ -448,7 +448,7 @@ struct ${Family}_operand {
   struct ${Family}_bitfield bfield[];
 };
 
-struct kvx_pseudo_relocs
+struct lvx_pseudo_relocs
 {
   enum
   {
@@ -465,7 +465,7 @@ struct kvx_pseudo_relocs
 
   /* Used when pseudo func should expand to different relocations
      based on the 32/64 bits mode.
-     Enum values should match the kvx_arch_size var set by -m32
+     Enum values should match the lvx_arch_size var set by -m32
    */
   enum
   {
@@ -479,7 +479,7 @@ struct kvx_pseudo_relocs
 
   bfd_reloc_code_real_type reloc_lo5, reloc_lo10, reloc_up27, reloc_ex;
   bfd_reloc_code_real_type single;
-  struct kvx_reloc *kreloc;
+  struct lvx_reloc *kreloc;
 };
 
 typedef struct symbol symbolS;
@@ -489,7 +489,7 @@ struct pseudo_func
   const char *name;
 
   symbolS *sym;
-  struct kvx_pseudo_relocs pseudo_relocs;
+  struct lvx_pseudo_relocs pseudo_relocs;
 };
 
 /* Flags for ${Family}_operand  */

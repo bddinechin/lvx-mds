@@ -46,7 +46,7 @@ sub printRelocations {
     ## the content in binutils' BFD files.
     print $file "START_RELOC_NUMBERS (elf_${Family}_reloc_type)\n";
     my %bfd_relocs;
-    $bfd_relocs{0} = "R_KVX_NONE";
+    $bfd_relocs{0} = "R_LVX_NONE";
     foreach my  $reloc (@Relocation::table) {
         my @linker_reloc = split(/\s+/,$reloc->attribute("linker"));
         my @linker_elf_ids = split(/\s+/,$reloc->attribute("elfIds"));

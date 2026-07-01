@@ -13,7 +13,7 @@ line=$(($line + 1))
 # put the qemu header
 cat <<EOF
 /*
- * KVX assembler/disassembler support
+ * LVX assembler/disassembler support
  *
  * Copyright (c) 2021 Kalray SA
  *

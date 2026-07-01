@@ -4,7 +4,7 @@ Relocation:
     what: 16 bits relocation on symbol + addend
     overflow: Unsigned
     type: Rel_s_a
-    linker: [ R_KVX_16 ]
+    linker: [ R_LVX_16 ]
     elfIds: [ 1 ]
     fields: [ HALF ]
 
@@ -12,7 +12,7 @@ Relocation:
     what: 32 bits relocation on symbol + addend
     overflow: Unsigned
     type: Rel_s_a
-    linker: [ R_KVX_32 ]
+    linker: [ R_LVX_32 ]
     elfIds: [ 2 ]
     fields: [ WORD ]
 
@@ -20,7 +20,7 @@ Relocation:
     what: 64 bits relocation on symbol + addend
     overflow: Unsigned
     type: Rel_s_a
-    linker: [ R_KVX_64 ]
+    linker: [ R_LVX_64 ]
     elfIds: [ 3 ]
     fields: [ DOUBLE ]
 
@@ -30,7 +30,7 @@ Relocation:
     syntax: '@pcrel'
     type: Rel_s_a
     relative: PC
-    linker: [ R_KVX_S16_PCREL ]
+    linker: [ R_LVX_S16_PCREL ]
     elfIds: [ 4 ]
     fields: [ signed16 ]
     operands: [ signed16 ]
@@ -41,7 +41,7 @@ Relocation:
     underflow: 1
     type: Rel_s_a
     relative: PC
-    linker: [ R_KVX_32_PCREL ]
+    linker: [ R_LVX_32_PCREL ]
     elfIds: [ 5 ]
     fields: [ WORD ]
 
@@ -50,7 +50,7 @@ Relocation:
     syntax: '@pcrel'
     type: Rel_s_a
     relative: PC
-    linker: [ R_KVX_S37_PCREL_UP27, R_KVX_S37_PCREL_LO10 ]
+    linker: [ R_LVX_S37_PCREL_UP27, R_LVX_S37_PCREL_LO10 ]
     elfIds: [ 7, 6 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -60,7 +60,7 @@ Relocation:
     syntax: '@pcrel'
     type: Rel_s_a
     relative: PC
-    linker: [ R_KVX_S43_PCREL_EX6, R_KVX_S43_PCREL_UP27, R_KVX_S43_PCREL_LO10 ]
+    linker: [ R_LVX_S43_PCREL_EX6, R_LVX_S43_PCREL_UP27, R_LVX_S43_PCREL_LO10 ]
     elfIds: [ 10, 9, 8 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -70,7 +70,7 @@ Relocation:
     syntax: '@pcrel'
     type: Rel_s_a
     relative: PC
-    linker: [ R_KVX_S64_PCREL_EX27, R_KVX_S64_PCREL_UP27, R_KVX_S64_PCREL_LO10 ]
+    linker: [ R_LVX_S64_PCREL_EX27, R_LVX_S64_PCREL_UP27, R_LVX_S64_PCREL_LO10 ]
     elfIds: [ 13, 12, 11 ]
     fields: [ extend27, upper27, lower10 ]
     operands: [ extend27_upper27_lower10 ]
@@ -81,7 +81,7 @@ Relocation:
     underflow: 1
     type: Rel_s_a
     relative: PC
-    linker: [ R_KVX_64_PCREL ]
+    linker: [ R_LVX_64_PCREL ]
     elfIds: [ 14 ]
     fields: [ DOUBLE ]
 
@@ -89,7 +89,7 @@ Relocation:
     what: extended 16 bits relocation on symbol + addend
     overflow: Signed
     type: Rel_s_a
-    linker: [ R_KVX_S16 ]
+    linker: [ R_LVX_S16 ]
     elfIds: [ 15 ]
     fields: [ signed16 ]
     operands: [ signed16 ]
@@ -98,7 +98,7 @@ Relocation:
     what: extended 32 bits relocation on symbol + addend
     syntax: '@signed32'
     type: Rel_s_a
-    linker: [ R_KVX_S32_UP27, R_KVX_S32_LO5 ]
+    linker: [ R_LVX_S32_UP27, R_LVX_S32_LO5 ]
     elfIds: [ 17, 16 ]
     fields: [ upper27, lower5 ]
     operands: [ upper27_lower5 ]
@@ -106,7 +106,7 @@ Relocation:
   - ID: signed37
     what: extended 37 bits relocation on symbol + addend
     type: Rel_s_a
-    linker: [ R_KVX_S37_UP27, R_KVX_S37_LO10 ]
+    linker: [ R_LVX_S37_UP27, R_LVX_S37_LO10 ]
     elfIds: [ 19, 18 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -116,7 +116,7 @@ Relocation:
     syntax: '@gotoff'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S37_GOTOFF_UP27, R_KVX_S37_GOTOFF_LO10 ]
+    linker: [ R_LVX_S37_GOTOFF_UP27, R_LVX_S37_GOTOFF_LO10 ]
     elfIds: [ 21, 20 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -126,7 +126,7 @@ Relocation:
     syntax: '@gotoff'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S43_GOTOFF_EX6, R_KVX_S43_GOTOFF_UP27, R_KVX_S43_GOTOFF_LO10 ]
+    linker: [ R_LVX_S43_GOTOFF_EX6, R_LVX_S43_GOTOFF_UP27, R_LVX_S43_GOTOFF_LO10 ]
     elfIds: [ 24, 23, 22 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -136,7 +136,7 @@ Relocation:
     syntax: '@gotoff'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_32_GOTOFF ]
+    linker: [ R_LVX_32_GOTOFF ]
     elfIds: [ 25 ]
     fields: [ WORD ]
 
@@ -145,7 +145,7 @@ Relocation:
     syntax: '@gotoff'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_64_GOTOFF ]
+    linker: [ R_LVX_64_GOTOFF ]
     elfIds: [ 26 ]
     fields: [ DOUBLE ]
 
@@ -155,7 +155,7 @@ Relocation:
     syntax: '@got'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_32_GOT ]
+    linker: [ R_LVX_32_GOT ]
     elfIds: [ 27 ]
     fields: [ WORD ]
 
@@ -164,7 +164,7 @@ Relocation:
     syntax: '@got'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S37_GOT_UP27, R_KVX_S37_GOT_LO10 ]
+    linker: [ R_LVX_S37_GOT_UP27, R_LVX_S37_GOT_LO10 ]
     elfIds: [ 29, 28 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -174,7 +174,7 @@ Relocation:
     syntax: '@got'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S43_GOT_EX6, R_KVX_S43_GOT_UP27, R_KVX_S43_GOT_LO10 ]
+    linker: [ R_LVX_S43_GOT_EX6, R_LVX_S43_GOT_UP27, R_LVX_S43_GOT_LO10 ]
     elfIds: [ 32, 31, 30 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -184,7 +184,7 @@ Relocation:
     syntax: '@got'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_64_GOT ]
+    linker: [ R_LVX_64_GOT ]
     elfIds: [ 33 ]
     fields: [ DOUBLE ]
 
@@ -193,21 +193,21 @@ Relocation:
     underflow: 1
     type: Rel_s
     relative: GOT
-    linker: [ R_KVX_GLOB_DAT ]
+    linker: [ R_LVX_GLOB_DAT ]
     elfIds: [ 34 ]
     fields: [ WORD ]
 
   - ID: copy
     what: Copy relocation
     type: Rel_s_a
-    linker: [ R_KVX_COPY ]
+    linker: [ R_LVX_COPY ]
     elfIds: [ 35 ]
     fields: [ WORD ]
 
   - ID: jump_slot
     what: Pointer-sized jump slot relocation
     type: Rel_s_a
-    linker: [ R_KVX_JMP_SLOT ]
+    linker: [ R_LVX_JMP_SLOT ]
     elfIds: [ 36 ]
     fields: [ WORD ]
 
@@ -215,14 +215,14 @@ Relocation:
     what: Pointer-sized relative relocation on base + addend
     relative: BASE
     type: Rel_s_a
-    linker: [ R_KVX_RELATIVE ]
+    linker: [ R_LVX_RELATIVE ]
     elfIds: [ 37 ]
     fields: [ WORD ]
 
   - ID: signed43
     what: extended 43 bits relocation on symbol + addend
     type: Rel_s_a
-    linker: [  R_KVX_S43_EX6, R_KVX_S43_UP27, R_KVX_S43_LO10 ]
+    linker: [  R_LVX_S43_EX6, R_LVX_S43_UP27, R_LVX_S43_LO10 ]
     elfIds: [ 40, 39, 38 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -230,7 +230,7 @@ Relocation:
   - ID: signed64
     what: 64 bits relocation on symbol + addend
     type: Rel_s_a
-    linker: [  R_KVX_S64_EX27, R_KVX_S64_UP27, R_KVX_S64_LO10 ]
+    linker: [  R_LVX_S64_EX27, R_LVX_S64_UP27, R_LVX_S64_LO10 ]
     elfIds: [ 43, 42, 41 ]
     fields: [ extend27, upper27, lower10 ]
     operands: [ extend27_upper27_lower10 ]
@@ -240,7 +240,7 @@ Relocation:
     syntax: '@gotaddr'
     type: Rel_s_a
     relative: PC
-    linker: [ R_KVX_S37_GOTADDR_UP27, R_KVX_S37_GOTADDR_LO10 ]
+    linker: [ R_LVX_S37_GOTADDR_UP27, R_LVX_S37_GOTADDR_LO10 ]
     elfIds: [ 45, 44 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -250,7 +250,7 @@ Relocation:
     syntax: '@gotaddr'
     type: Rel_s_a
     relative: PC
-    linker: [ R_KVX_S43_GOTADDR_EX6, R_KVX_S43_GOTADDR_UP27, R_KVX_S43_GOTADDR_LO10 ]
+    linker: [ R_LVX_S43_GOTADDR_EX6, R_LVX_S43_GOTADDR_UP27, R_LVX_S43_GOTADDR_LO10 ]
     elfIds: [ 48, 47, 46 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -260,7 +260,7 @@ Relocation:
     syntax: '@gotaddr'
     type: Rel_s_a
     relative: PC
-    linker: [ R_KVX_S64_GOTADDR_EX27, R_KVX_S64_GOTADDR_UP27, R_KVX_S64_GOTADDR_LO10 ]
+    linker: [ R_LVX_S64_GOTADDR_EX27, R_LVX_S64_GOTADDR_UP27, R_LVX_S64_GOTADDR_LO10 ]
     elfIds: [ 51, 50, 49 ]
     fields: [ extend27, upper27, lower10 ]
     operands: [ extend27_upper27_lower10 ]
@@ -268,14 +268,14 @@ Relocation:
   - ID: dtpmod64
     what: 64 bits relocation for dynamic module identifier
     type: Rel_s_a
-    linker: [ R_KVX_64_DTPMOD ]
+    linker: [ R_LVX_64_DTPMOD ]
     elfIds: [ 52 ]
     fields: [ DOUBLE ]
 
   - ID: dtpoff64
     what: 64 bits relocation for offset of symbol + addend relative to dynamic TLS block
     type: Rel_s_a
-    linker: [ R_KVX_64_DTPOFF ]
+    linker: [ R_LVX_64_DTPOFF ]
     elfIds: [ 53 ]
     fields: [ DOUBLE ]
 
@@ -283,7 +283,7 @@ Relocation:
     what: extended 37 bits relocation for offset on symbol + addend relative to dynamic TLS block
     syntax: '@dtpoff'
     type: Rel_s_a
-    linker: [ R_KVX_S37_TLS_DTPOFF_UP27, R_KVX_S37_TLS_DTPOFF_LO10 ]
+    linker: [ R_LVX_S37_TLS_DTPOFF_UP27, R_LVX_S37_TLS_DTPOFF_LO10 ]
     elfIds: [ 55, 54 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -292,7 +292,7 @@ Relocation:
     what: extended 43 bits relocation for offset on symbol + addend relative to dynamic TLS block
     syntax: '@tlsgd'
     type: Rel_s_a
-    linker: [ R_KVX_S43_TLS_DTPOFF_EX6, R_KVX_S43_TLS_DTPOFF_UP27, R_KVX_S43_TLS_DTPOFF_LO10 ]
+    linker: [ R_LVX_S43_TLS_DTPOFF_EX6, R_LVX_S43_TLS_DTPOFF_UP27, R_LVX_S43_TLS_DTPOFF_LO10 ]
     elfIds: [ 58, 57, 56 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -302,7 +302,7 @@ Relocation:
     syntax: '@tlsgd'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S37_TLS_GD_UP27, R_KVX_S37_TLS_GD_LO10 ]
+    linker: [ R_LVX_S37_TLS_GD_UP27, R_LVX_S37_TLS_GD_LO10 ]
     elfIds: [ 60, 59 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -312,7 +312,7 @@ Relocation:
     syntax: '@tlsgd'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S43_TLS_GD_EX6, R_KVX_S43_TLS_GD_UP27, R_KVX_S43_TLS_GD_LO10 ]
+    linker: [ R_LVX_S43_TLS_GD_EX6, R_LVX_S43_TLS_GD_UP27, R_LVX_S43_TLS_GD_LO10 ]
     elfIds: [ 63, 62, 61 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -322,7 +322,7 @@ Relocation:
     syntax: '@tlsld'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S37_TLS_LD_UP27, R_KVX_S37_TLS_LD_LO10 ]
+    linker: [ R_LVX_S37_TLS_LD_UP27, R_LVX_S37_TLS_LD_LO10 ]
     elfIds: [ 65, 64 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -332,7 +332,7 @@ Relocation:
     syntax: '@tlsld'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S43_TLS_LD_EX6, R_KVX_S43_TLS_LD_UP27, R_KVX_S43_TLS_LD_LO10 ]
+    linker: [ R_LVX_S43_TLS_LD_EX6, R_LVX_S43_TLS_LD_UP27, R_LVX_S43_TLS_LD_LO10 ]
     elfIds: [ 68, 67, 66 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -341,7 +341,7 @@ Relocation:
     what: 64 bits relocation for offset of symbol + addend in static TLS block for TLS IE
     relative: TP
     type: Rel_s_a
-    linker: [ R_KVX_64_TPOFF ]
+    linker: [ R_LVX_64_TPOFF ]
     elfIds: [ 69 ]
     fields: [ DOUBLE ]
 
@@ -350,7 +350,7 @@ Relocation:
     syntax: '@tlsie'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S37_TLS_IE_UP27, R_KVX_S37_TLS_IE_LO10 ]
+    linker: [ R_LVX_S37_TLS_IE_UP27, R_LVX_S37_TLS_IE_LO10 ]
     elfIds: [ 71, 70 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -360,7 +360,7 @@ Relocation:
     syntax: '@tlsie'
     type: Rel_s_a
     relative: GOT
-    linker: [ R_KVX_S43_TLS_IE_EX6, R_KVX_S43_TLS_IE_UP27, R_KVX_S43_TLS_IE_LO10 ]
+    linker: [ R_LVX_S43_TLS_IE_EX6, R_LVX_S43_TLS_IE_UP27, R_LVX_S43_TLS_IE_LO10 ]
     elfIds: [ 74, 73, 72 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -370,7 +370,7 @@ Relocation:
     syntax: '@tlsle'
     type: Rel_s_a
     relative: TP
-    linker: [ R_KVX_S37_TLS_LE_UP27, R_KVX_S37_TLS_LE_LO10 ]
+    linker: [ R_LVX_S37_TLS_LE_UP27, R_LVX_S37_TLS_LE_LO10 ]
     elfIds: [ 76, 75 ]
     fields: [ upper27, lower10 ]
     operands: [ upper27_lower10 ]
@@ -380,7 +380,7 @@ Relocation:
     syntax: '@tlsle'
     type: Rel_s_a
     relative: TP
-    linker: [ R_KVX_S43_TLS_LE_EX6, R_KVX_S43_TLS_LE_UP27, R_KVX_S43_TLS_LE_LO10 ]
+    linker: [ R_LVX_S43_TLS_LE_EX6, R_LVX_S43_TLS_LE_UP27, R_LVX_S43_TLS_LE_LO10 ]
     elfIds: [ 79, 78, 77 ]
     fields: [ extend6, upper27, lower10 ]
     operands: [ extend6_upper27_lower10 ]
@@ -390,7 +390,7 @@ Relocation:
     what: 8 bits relocation on symbol + addend
     overflow: Unsigned
     type: Rel_s_a
-    linker: [ R_KVX_8 ]
+    linker: [ R_LVX_8 ]
     elfIds: [ 80 ]
     fields: [ BYTE ]
 
@@ -403,7 +403,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     scaling: 2
-    linker: [ R_KVX_S11S2_PCREL ]
+    linker: [ R_LVX_S11S2_PCREL ]
     elfIds: [ 81 ]
     fields: [ pcrel11s2 ]
     operands: [ pcrel11s2 ]
@@ -415,7 +415,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     scaling: 2
-    linker: [ R_KVX_S17S2_PCREL ]
+    linker: [ R_LVX_S17S2_PCREL ]
     elfIds: [ 82 ]
     fields: [ pcrel17s2 ]
     operands: [ pcrel17s2 ]
@@ -427,7 +427,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     scaling: 2
-    linker: [ R_KVX_S27S2_PCREL ]
+    linker: [ R_LVX_S27S2_PCREL ]
     elfIds: [ 83 ]
     fields: [ pcrel27s2 ]
     operands: [ pcrel27s2 ]
@@ -439,7 +439,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     scaling: 2
-    linker: [ R_KVX_S38S2_PCREL_UP27, R_KVX_S38S2_PCREL_LO11 ]
+    linker: [ R_LVX_S38S2_PCREL_UP27, R_LVX_S38S2_PCREL_LO11 ]
     elfIds: [ 85, 84 ]
     fields: [ upper27, lower11 ]
     operands: [ upper27_lower11 ]
@@ -451,7 +451,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     scaling: 2
-    linker: [ R_KVX_S44S2_PCREL_UP27, R_KVX_S44S2_PCREL_LO17 ]
+    linker: [ R_LVX_S44S2_PCREL_UP27, R_LVX_S44S2_PCREL_LO17 ]
     elfIds: [ 87, 86 ]
     fields: [ upper27, lower17 ]
     operands: [ upper27_lower17 ]
@@ -463,7 +463,7 @@ Relocation:
     type: Rel_s_a
     relative: PC
     scaling: 2
-    linker: [ R_KVX_S54S2_PCREL_UP27, R_KVX_S54S2_PCREL_LO27 ]
+    linker: [ R_LVX_S54S2_PCREL_UP27, R_LVX_S54S2_PCREL_LO27 ]
     elfIds: [ 89, 88 ]
     fields: [ upper27, lower27 ]
     operands: [ upper27_lower27 ]

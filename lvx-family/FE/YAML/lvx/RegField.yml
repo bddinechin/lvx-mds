@@ -4741,7 +4741,7 @@ RegField:
 
 ################ RVC ################
   - ID: RVC_ECRID
-    what: The GPR register to be used by the RISC-V ecall for KVX scall
+    what: The GPR register to be used by the RISC-V ecall for LVX scall
     location: [ RVC, 0..4 ]
     owners: [ MO_RVC ]
     rerrors: [ READ0 ]

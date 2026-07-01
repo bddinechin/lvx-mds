@@ -1,6 +1,6 @@
 /* DO NOT EDIT!  -*- buffer-read-only: t -*-  vi:set ro: */
 
-/* KVX ELF IDs definitions.
+/* LVX ELF IDs definitions.
 
    Copyright (C) 2009-2023 Free Software Foundation, Inc.
    Contributed by Kalray SA.
@@ -23,8 +23,8 @@
 
 /* This file holds definitions specific to the LVX ELF IDs. */
 
-#ifndef _KVX_ELFIDS_H_
-#define _KVX_ELFIDS_H_
+#ifndef _LVX_ELFIDS_H_
+#define _LVX_ELFIDS_H_
 
 /* 	 16.15 	  8.7  4.3  0 */
 /* +----------------------------+ */
@@ -32,10 +32,10 @@
 /* +----------------------------+ */
 
 
-#define KVX_CUT_MASK 0x00ff0000
-#define KVX_CORE_MASK 0x0000ff00
-#define KVX_ABI_MASK 0x000000ff
-#define KVX_MACH_MASK (KVX_CUT_MASK | KVX_CORE_MASK | KVX_ABI_MASK)
+#define LVX_CUT_MASK 0x00ff0000
+#define LVX_CORE_MASK 0x0000ff00
+#define LVX_ABI_MASK 0x000000ff
+#define LVX_MACH_MASK (LVX_CUT_MASK | LVX_CORE_MASK | LVX_ABI_MASK)
 
 /*
  * Machine private data :
@@ -49,29 +49,29 @@
  */
 
 /* Core */
-#define ELF_KVX_CORE_BIT_SHIFT  (8)
-#define ELF_KVX_CORE_MASK       (0x7f<<ELF_KVX_CORE_BIT_SHIFT)
+#define ELF_LVX_CORE_BIT_SHIFT  (8)
+#define ELF_LVX_CORE_MASK       (0x7f<<ELF_LVX_CORE_BIT_SHIFT)
 
-#define ELF_KVX_CORE_MAJOR_MASK (0x0F << ELF_KVX_CORE_BIT_SHIFT)
-#define ELF_KVX_CORE_MINOR_MASK (0xF0 << ELF_KVX_CORE_BIT_SHIFT)
-#define ELF_KVX_CORE_MAJOR_SHIFT (0 + ELF_KVX_CORE_BIT_SHIFT)
-#define ELF_KVX_CORE_MINOR_SHIFT (4 + ELF_KVX_CORE_BIT_SHIFT)
+#define ELF_LVX_CORE_MAJOR_MASK (0x0F << ELF_LVX_CORE_BIT_SHIFT)
+#define ELF_LVX_CORE_MINOR_MASK (0xF0 << ELF_LVX_CORE_BIT_SHIFT)
+#define ELF_LVX_CORE_MAJOR_SHIFT (0 + ELF_LVX_CORE_BIT_SHIFT)
+#define ELF_LVX_CORE_MINOR_SHIFT (4 + ELF_LVX_CORE_BIT_SHIFT)
 
-#define ELF_KVX_CORE_KV4         (0x04 << ELF_KVX_CORE_BIT_SHIFT)
+#define ELF_LVX_CORE_KV4         (0x04 << ELF_LVX_CORE_BIT_SHIFT)
 
-#define ELF_KVX_CORE_KV4_1      (ELF_KVX_CORE_KV4 | (1 << (ELF_KVX_CORE_MINOR_SHIFT)))
+#define ELF_LVX_CORE_KV4_1      (ELF_LVX_CORE_KV4 | (1 << (ELF_LVX_CORE_MINOR_SHIFT)))
 
-#define ELF_KVX_IS_KV4(flags)   (((flags) & ELF_KVX_CORE_MAJOR_MASK) == (ELF_KVX_CORE_KV4))
-#define ELF_KVX_CHECK_CORE(flags,m) (((flags) & ELF_KVX_CORE_MASK)==(m))
+#define ELF_LVX_IS_KV4(flags)   (((flags) & ELF_LVX_CORE_MAJOR_MASK) == (ELF_LVX_CORE_KV4))
+#define ELF_LVX_CHECK_CORE(flags,m) (((flags) & ELF_LVX_CORE_MASK)==(m))
 
-#define ELF_KVX_ABI_MASK         (0xFF)
+#define ELF_LVX_ABI_MASK         (0xFF)
 
-#define ELF_KVX_ABI_IDENT_MASK   (0x7)
-#define ELF_KVX_ABI_REGULAR      (0x1)
-#define ELF_KVX_ABI_UNDEF        (0x0)
+#define ELF_LVX_ABI_IDENT_MASK   (0x7)
+#define ELF_LVX_ABI_REGULAR      (0x1)
+#define ELF_LVX_ABI_UNDEF        (0x0)
 
-#define ELF_KVX_ABI_64B_ADDR_BIT (0x08)
+#define ELF_LVX_ABI_64B_ADDR_BIT (0x08)
 
-#define ELF_KVX_ABI_PIC_BIT      (0x10)
+#define ELF_LVX_ABI_PIC_BIT      (0x10)
 
-#endif /* _KVX_ELFIDS_H_ */
+#endif /* _LVX_ELFIDS_H_ */

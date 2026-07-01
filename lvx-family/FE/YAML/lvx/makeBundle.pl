@@ -4,7 +4,7 @@ use strict;
 use Data::Dumper;
 
 my $CORE = uc($ENV{CORE});
-(my $KVX = $CORE) =~ s/(KV\d+).*/$1/;
+(my $LVX = $CORE) =~ s/(KV\d+).*/$1/;
 
 my %Extension = ( ALU0=>'00', ALU1=>'01', MAU=>'10', LSU=>'11' );
 
@@ -35,7 +35,7 @@ my %Bundling = ();
 'TINY.Y'=>  { ORDERING=>19, BASEWORDS=>1, IMMXWORDS=>2, EXTENSIONS=>'ALU0 ALU0' },
     'EXT'=>     { ORDERING=>20, BASEWORDS=>1, IMMXWORDS=>0 },
     'NOP'=>     { ORDERING=>21, BASEWORDS=>1, IMMXWORDS=>0 },
-  ) if $KVX eq 'KV4';
+  ) if $LVX eq 'KV4';
 
 # Bundle enumeration space: ARRAY means AND and HASH means OR (keys used to order the alternatives).
 # Enumerated as ALL | (BCU? (FULL | FULL.X | ... | TINY.Y)? (ALU1 | ...)? ... (LSU | ...))
@@ -52,7 +52,7 @@ my @Bundle = ();
             { 0=>'EXT', 1=>'' },
           ]
     }
-  ) if $KVX eq 'KV4';
+  ) if $LVX eq 'KV4';
 
 my $WordMaxcount = 18; # FIXME for KV4.
 my $WordWidth = 32;

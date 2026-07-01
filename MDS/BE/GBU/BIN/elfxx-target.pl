@@ -37,7 +37,7 @@ my @Cores = split ' ', $ENV{CORES};
 
 my %relocs;
 
-## HACK: the kvx asm/linker handles relocation
+## HACK: the lvx asm/linker handles relocation
 ## syllabe by syllabe, which are always 32bits.
 ## Generating "64bits"-aware HOWTO contradicts asm/linker handling
 ## Easiest solution is to still handle relocation 32bits-word by 32bits-word.
@@ -156,7 +156,7 @@ sub print_reloc_type {
     #   print $file $copyrights;
 
     print $file <<EOT;
-/* KVX-specific relocations table.
+/* LVX-specific relocations table.
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
    Contributed by Kalray SA.
 

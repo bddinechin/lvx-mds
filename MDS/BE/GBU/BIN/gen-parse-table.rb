@@ -512,7 +512,7 @@ def compute_parse_table(nullable, rules)
 end
 
 $header_common = <<-EOT
-/* kvx-parse.h -- Recursive decent parser tables for the KVX ISA
+/* lvx-parse.h -- Recursive decent parser tables for the LVX ISA
 
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
    Contributed by Kalray SA.
@@ -533,8 +533,8 @@ $header_common = <<-EOT
    along with this program; see the file COPYING3. If not,
    see <http://www.gnu.org/licenses/>.  */
 
-#ifndef __H_KVX_PARSER__
-#define __H_KVX_PARSER__
+#ifndef __H_LVX_PARSER__
+#define __H_LVX_PARSER__
 
 struct token_list* parse (struct token_s tok);
 void free_token_list (struct token_list* tok_list);
@@ -560,7 +560,7 @@ def gen_c_structs(arch, parse_table, terminals, maps)
 
   puts "/* #{arch.upcase} BEGIN {{{ */\n"
   if false
-    puts "enum kvx_tokens_#{arch} {"
+    puts "enum lvx_tokens_#{arch} {"
     terminals.each.with_index do |cat, k|
       if cat =~ /^[a-z]/ then
         puts "  Instruction_#{arch}_#{cat.gsub(/\./, '_').gsub(/@/, 'abase')} = #{k + 1},"
@@ -722,8 +722,8 @@ struct token_classes token_classes_#{arch} = {
   imm_promote_map = Hash[[maps[:imm].inject([[],[]]) { |acc,(x,y)| acc = [acc[0] + [x], acc[1] + [y]] }[0]]
     .map { |x| x[0..-1].zip [x[1..-1],x[-1]].flatten }[0]]
   puts <<-EOT
-static inline /* enum kvx_tokens_#{arch} */ int
-promote_immediate_#{arch} (/* enum kvx_tokens_#{arch} */ int tok)
+static inline /* enum lvx_tokens_#{arch} */ int
+promote_immediate_#{arch} (/* enum lvx_tokens_#{arch} */ int tok)
 {
   switch (tok)
     {
@@ -933,7 +933,7 @@ def main
 
     gen_header(target_mds, arch)
   end
-  puts "#endif /* __H_KVX_PARSER__ */"
+  puts "#endif /* __H_LVX_PARSER__ */"
 end
 
 main()

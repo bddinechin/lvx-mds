@@ -3,7 +3,7 @@ Builtin:
 
 ## State for Builtins
 
-  - ID: kvx__cs
+  - ID: lvx__cs
     declaration: |
       typedef struct {
         unsigned ic: 1;  /* Integer Carry */
@@ -18,16 +18,16 @@ Builtin:
         unsigned ne: 4;  /* Neighbor Enable */
         unsigned wu: 1;  /* Wake Up */
         unsigned cc: 16; /* Carry Counter */
-      } __builtin_kvx_cs_t;
-      extern __builtin_kvx_cs_t *__builtin_kvx__cs;
+      } __builtin_lvx_cs_t;
+      extern __builtin_lvx_cs_t *__builtin_lvx__cs;
     definition: |
-      __builtin_kvx_cs_t *__builtin_kvx__cs = 0;
+      __builtin_lvx_cs_t *__builtin_lvx__cs = 0;
 
 ## ALU Builtins
 
-  - ID: kvx_insf
+  - ID: lvx_insf
     prototype: >
-      uint64_t __builtin_kvx_insf(uint64_t operand2, unsigned operand3, unsigned operand4);
+      uint64_t __builtin_lvx_insf(uint64_t operand2, unsigned operand3, unsigned operand4);
     instruction: ALU:INSF
     operands: [ operand1, operand2, operand3, operand4 ]
     emulation: |
@@ -36,9 +36,9 @@ Builtin:
       uint64_t operand1 = ((operand2 << startbit) & mask) | (operand1 & ~mask);
       return operand1;
 
-  - ID: kvx_extfz
+  - ID: lvx_extfz
     prototype: >
-      uint64_t __builtin_kvx_extfz(uint64_t operand2, unsigned operand3, unsigned operand4);
+      uint64_t __builtin_lvx_extfz(uint64_t operand2, unsigned operand3, unsigned operand4);
     instruction: ALU:EXTFZ
     operands: [ operand1, operand2, operand3, operand4 ]
     emulation: |
@@ -48,9 +48,9 @@ Builtin:
       uint64_t operand1 = masked >> startbit;
       return operand1;
 
-  - ID: kvx_extfs
+  - ID: lvx_extfs
     prototype: >
-      int64_t __builtin_kvx_extfs(uint64_t operand2, unsigned operand3, unsigned operand4);
+      int64_t __builtin_lvx_extfs(uint64_t operand2, unsigned operand3, unsigned operand4);
     instruction: ALU:EXTFS
     operands: [ operand1, operand2, operand3, operand4 ]
     emulation: |

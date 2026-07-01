@@ -20,14 +20,14 @@ function mds_error {
 
 $with_mds/configure --help > /dev/null 2>&1 || mds_error
 
-# Set default target to kvx (if not set)
+# Set default target to lvx (if not set)
 if test -z "$target_alias"; then
-  target_alias=kvx
+  target_alias=lvx
 fi
 
 case $target_alias in
-  kvx )
-    family="kvx"
+  lvx )
+    family="lvx"
     target="^target^"
     with_cores="kv4_v1"
     enable_tools="TEX GBU GDB GCC LAO"
@@ -167,7 +167,7 @@ AC_SUBST(HWTESTDIR)
 AC_SUBST(FAMDIR)
 AC_SUBST(TOPDIR)
 
-AC_CONFIG_FILES([FE/YAML/kvx/Makefile
+AC_CONFIG_FILES([FE/YAML/lvx/Makefile
 ])
 AC_OUTPUT
 

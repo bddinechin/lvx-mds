@@ -4,7 +4,7 @@ use Switch;
 use warnings;
 
 my $target = shift;
-$target =~ s@kvx/@@g;
+$target =~ s@lvx/@@g;
 
 my $file = shift;
 

@@ -1,6 +1,6 @@
 Platform:
 
-  - ID: kvx_64
+  - ID: lvx_64
     charWidth: 8
     addrWidth: 32
     endian: Little

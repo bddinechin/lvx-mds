@@ -110,7 +110,7 @@ OPERATOR_LOOP: foreach my $operator (@Operator::table) {
 }
 
 my @Kinds;
-if ($CORE =~ /kvx/i) {
+if ($CORE =~ /lvx/i) {
     @Kinds = ('ALU', 'EXT', 'LSU', 'BCU');
 }
 

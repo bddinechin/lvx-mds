@@ -1804,14 +1804,14 @@ function mds_error {
 
 $with_mds/configure --help > /dev/null 2>&1 || mds_error
 
-# Set default target to kvx (if not set)
+# Set default target to lvx (if not set)
 if test -z "$target_alias"; then
-  target_alias=kvx
+  target_alias=lvx
 fi
 
 case $target_alias in
-  kvx )
-    family="kvx"
+  lvx )
+    family="lvx"
     target="^target^"
     with_cores="kv4_v1"
     enable_tools="TEX GBU GDB GCC LAO"
@@ -2035,7 +2035,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files FE/YAML/kvx/Makefile"
+ac_config_files="$ac_config_files FE/YAML/lvx/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -2737,7 +2737,7 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
 for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
-    "FE/YAML/kvx/Makefile") CONFIG_FILES="$CONFIG_FILES FE/YAML/kvx/Makefile" ;;
+    "FE/YAML/lvx/Makefile") CONFIG_FILES="$CONFIG_FILES FE/YAML/lvx/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

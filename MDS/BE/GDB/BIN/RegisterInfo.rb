@@ -123,9 +123,9 @@ $processors.each do |processor_id, processor|
         type = "int"
       elsif reg.id == stack
         type = "int"
-      elsif $target =~ /^kvx/ && (reg_name == "sps" || reg_name == "ssps" || reg_name == "sssps")
+      elsif $target =~ /^lvx/ && (reg_name == "sps" || reg_name == "ssps" || reg_name == "sssps")
         type = "ps_type"
-      elsif $target =~ /^kvx/ && (reg_name == "spc" || reg_name == "sspc" || reg_name == "ssspc")
+      elsif $target =~ /^lvx/ && (reg_name == "spc" || reg_name == "sspc" || reg_name == "ssspc")
         type = "int"
       end
 

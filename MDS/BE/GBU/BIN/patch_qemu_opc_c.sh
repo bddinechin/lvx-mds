@@ -13,7 +13,7 @@ line=$(($line + 1))
 # put the qemu header
 cat <<EOF
 /*
- * KVX opcode support
+ * LVX opcode support
  *
  * Copyright (c) 2021 Kalray SA
  *
@@ -22,8 +22,8 @@ cat <<EOF
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-#include "kvx-compat.h"
-#include "kvx.h"
+#include "lvx-compat.h"
+#include "lvx.h"
 
 /* The core of the file is extracted from binutils libopcodes. */
 EOF

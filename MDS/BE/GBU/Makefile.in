@@ -5,8 +5,8 @@ include	../../Makerules
 include	../Makerules
 PERLBIN:=	$(MDSDIR)/BE/GBU/BIN
 
-ifeq ($(FAMILY), kvx)
-  GBU_TESTS:=KVX_OPCODE_FLAG_MODE32 KVX_OPCODE_FLAG_MODE64
+ifeq ($(FAMILY), lvx)
+  GBU_TESTS:=LVX_OPCODE_FLAG_MODE32 LVX_OPCODE_FLAG_MODE64
 endif
 ASM_TESTS:=$(addsuffix .s, $(GBU_TESTS))
 BIN_TESTS:=$(addsuffix .bin, $(GBU_TESTS))
@@ -117,7 +117,7 @@ endef
 
 $(foreach CORE,$(CORES),$(foreach GBU_TEST,$(GBU_TESTS),$(eval $(call generateTest,$(CORE),$(GBU_TEST)))))
 
-$(FAMILY)/gas/config/kvx-parse.h: $(MDSDIR)/BE/GBU/BIN/gen-parse-table.rb $(foreach CORE,$(CORES),$(FAMILY)/$(CORE)/TESTS.xml)
+$(FAMILY)/gas/config/lvx-parse.h: $(MDSDIR)/BE/GBU/BIN/gen-parse-table.rb $(foreach CORE,$(CORES),$(FAMILY)/$(CORE)/TESTS.xml)
 	FAMILY=$(FAMILY) CORES="$(CORES)" $(RUBY) $(RUBYINC) $^ > $@ || $(ABORT)
 
 diff: $(mach_gbuinfo_diffs) $(mach_tests_diffs) diff_gbu

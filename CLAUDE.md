@@ -4,40 +4,40 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-This is the **kvx-mds** repo — the Machine Description System (MDS) for the KVX processor family (Kalray). It contains:
+This is the **lvx-mds** repo — the Machine Description System (MDS) for the LVX processor family (Kalray). It contains:
 
 - **`MDS/`** — the MDS toolchain itself: Perl scripts and Makefiles that parse YAML architecture descriptions and generate binary `.table` files used by compilers, assemblers, debuggers, etc. This is meant to be reusable across processor families.
-- **`kvx-family/`** — the architecture description for the KVX family: YAML source files, per-core entry points, and family-specific back-end overrides (TEX docs, GBU header).
+- **`lvx-family/`** — the architecture description for the LVX family: YAML source files, per-core entry points, and family-specific back-end overrides (TEX docs, GBU header).
 
-There is no build logic at the repo root — `MDS/` and `kvx-family/` are separate autoconf packages, and `kvx-family/configure` is the one you invoke (it locates and drives `MDS/configure` under the hood).
+There is no build logic at the repo root — `MDS/` and `lvx-family/` are separate autoconf packages, and `lvx-family/configure` is the one you invoke (it locates and drives `MDS/configure` under the hood).
 
 ## Build
 
 ### Configure (run once from an out-of-tree build dir)
 
 ```sh
-mkdir -p build && cd build && ../kvx-family/configure --enable-mdf --target=kvx
+mkdir -p build && cd build && ../lvx-family/configure --enable-mdf --target=lvx
 ```
 
-(also documented in the top-level `HOWTO` file). Notable options, defined in `kvx-family/configure.ac`:
+(also documented in the top-level `HOWTO` file). Notable options, defined in `lvx-family/configure.ac`:
 
 | Option | Effect |
 |---|---|
-| `--target=kvx` | Only supported target; selects `FAMILY=kvx`, `CORES=kv4_v1`, and the default back-end list. Defaults to `kvx` if omitted. |
-| `--with-mds=<path>` | Path to the `MDS/` tree to build against; defaults to `<kvx-family>/../MDS`, i.e. the sibling `MDS/` in this repo. |
+| `--target=lvx` | Only supported target; selects `FAMILY=lvx`, `CORES=kv4_v1`, and the default back-end list. Defaults to `lvx` if omitted. |
+| `--with-mds=<path>` | Path to the `MDS/` tree to build against; defaults to `<lvx-family>/../MDS`, i.e. the sibling `MDS/` in this repo. |
 | `--enable-mdf` | Enables the `MDD/MDF` merged-table step (tables merged across cores) after `MDD/MDE`. |
 | `--enable-avp` | Adds `AVP` to the enabled back-ends (auto-tests). |
-| `--with-arch-path` | Overrides `ARCHDIR` (defaults to the `kvx-family` checkout itself). |
+| `--with-arch-path` | Overrides `ARCHDIR` (defaults to the `lvx-family` checkout itself). |
 
-For `--target=kvx`, the default enabled back-ends (`TOOLS`) are **`TEX GBU GDB GCC LAO`**. Others (`ISS`, `MPPADL`, `TDH`, `AVP`) require editing the `enable_tools` value in `kvx-family/configure.ac` (per-target case statement) — `--enable-avp` is the only one exposed as a flag.
+For `--target=lvx`, the default enabled back-ends (`TOOLS`) are **`TEX GBU GDB GCC LAO`**. Others (`ISS`, `MPPADL`, `TDH`, `AVP`) require editing the `enable_tools` value in `lvx-family/configure.ac` (per-target case statement) — `--enable-avp` is the only one exposed as a flag.
 
 ### Build targets (run inside `build/`)
 
 | Command | Effect |
 |---|---|
 | `make all` | Full build: `DOC` → `FE/YAML` → `MDD/MDE` (→ `MDD/MDF` if `--enable-mdf`) → enabled back-ends |
-| `make refs` | Copy generated `Opcode.txt` / `Description.yml` back into `kvx-family/` as reference snapshots |
-| `make diff` | Diff current build output against the committed reference files in `kvx-family/` |
+| `make refs` | Copy generated `Opcode.txt` / `Description.yml` back into `lvx-family/` as reference snapshots |
+| `make diff` | Diff current build output against the committed reference files in `lvx-family/` |
 | `make check` | Validate generated XML against the MDS DTD (needs `osx`/OpenSP — `configure` fails outright if `osx` isn't on `PATH`) |
 | `make clean` | Remove generated files |
 | `make doc` | Build the LaTeX documentation under `MDS/DOC` |
@@ -53,33 +53,33 @@ As of the current `main`, a from-scratch `make all` with the default back-end se
 Bad ElfID 7 at MDS/BE/GBU/BIN/reloc.pl line 87.
 ```
 
-This is a gap in the relocation ELF-ID numbering in the architecture description (likely left over from the KV3 removal), not something introduced by unrelated edits — `DOC`, `FE/YAML`, `MDD/MDE`, `MDD/MDF`, and `BE/TEX` all build cleanly before it. If you hit this, don't assume your change caused it; check `git blame`/`kvx-family/FE/YAML/kvx/Relocation.yml` before spending time chasing it.
+This is a gap in the relocation ELF-ID numbering in the architecture description (likely left over from the KV3 removal), not something introduced by unrelated edits — `DOC`, `FE/YAML`, `MDD/MDE`, `MDD/MDF`, and `BE/TEX` all build cleanly before it. If you hit this, don't assume your change caused it; check `git blame`/`lvx-family/FE/YAML/lvx/Relocation.yml` before spending time chasing it.
 
 ### Regenerate `configure` after editing `configure.ac`
 
-`configure.ac` lives separately in `MDS/` and `kvx-family/` (there is no root-level one). Run `autoconf` inside whichever directory you edited:
+`configure.ac` lives separately in `MDS/` and `lvx-family/` (there is no root-level one). Run `autoconf` inside whichever directory you edited:
 
 ```sh
-cd kvx-family && autoconf   # or: cd MDS && autoconf
+cd lvx-family && autoconf   # or: cd MDS && autoconf
 ```
 
 ## Architecture: how data flows
 
 ```
-kvx-family/FE/YAML/kvx/
+lvx-family/FE/YAML/lvx/
   *.yml                        ← shared arch YAML (all cores)
   kv4_v1/Description.yml.in    ← per-core entry point (#define/#include guards)
 
-        ↓  kvx-family/FE/YAML/kvx/Makefile (generated by kvx-family/configure)
+        ↓  lvx-family/FE/YAML/lvx/Makefile (generated by lvx-family/configure)
         ↓  cpp -D_<CORE>_RV_ expands #includes + #ifdefs → per-core Description.yml
 
-build/FE/YAML/kvx/<core>/Description.yml
-        + build/FE/YAML/kvx/<core>/Bundle.yml   (generated by kvx-family/FE/YAML/kvx/makeBundle.pl)
+build/FE/YAML/lvx/<core>/Description.yml
+        + build/FE/YAML/lvx/<core>/Bundle.yml   (generated by lvx-family/FE/YAML/lvx/makeBundle.pl)
 
         ↓  MDS/FE/YAML/BIN/Description2MDS.pl  (reads Description.yml + Bundle.yml)
 
-build/FE/YAML/kvx/<core>/*.yml  (Format.yml, Instruction.yml, Synthetic.yml, …)
-build/FE/YAML/kvx/<core>/Opcode.txt   (via MDS/FE/YAML/BIN/Opcode2txt.pl)
+build/FE/YAML/lvx/<core>/*.yml  (Format.yml, Instruction.yml, Synthetic.yml, …)
+build/FE/YAML/lvx/<core>/Opcode.txt   (via MDS/FE/YAML/BIN/Opcode2txt.pl)
 
         ↓  MDS/FE/YAML/BIN/yml2pl.pl  →  *.pl
         ↓  *.pl executed               →  *.table   (MDD base tables)
@@ -97,37 +97,37 @@ build/MDD/<family>/<core>/*.X.table, Opcode.table, Decoding.table, Bundle.table,
 generated headers / scripts installed into tool build trees
 ```
 
-Key variables threaded through the whole build (set by `kvx-family/configure`, visible in generated `Makerules`):
+Key variables threaded through the whole build (set by `lvx-family/configure`, visible in generated `Makerules`):
 
 | Variable | Meaning |
 |---|---|
 | `TOPDIR` | Absolute path to the build directory |
-| `FAMDIR` | Absolute path to `kvx-family/` |
+| `FAMDIR` | Absolute path to `lvx-family/` |
 | `ARCHDIR` | Architecture description root (defaults to `FAMDIR`) |
 | `MDSDIR` | Absolute path to `MDS/` (from `--with-mds`) |
-| `FAMILY` | `kvx` |
+| `FAMILY` | `lvx` |
 | `CORES` | Space-separated list, e.g. `kv4_v1` |
 | `TOOLS` | Uppercase list of enabled back-ends |
 
 ## Key source files
 
 - **`HOWTO`** — the canonical one-shot build recipe.
-- **`kvx-family/configure.ac`** — defines the `--target` → `FAMILY`/`CORES`/`TOOLS` mapping and all `--with-*`/`--enable-*` options; calls into `MDS/configure`.
-- **`kvx-family/FE/YAML/kvx/Makefile.in`** — preprocesses per-core `Description.yml.in` via `cpp`.
-- **`kvx-family/FE/YAML/kvx/*.yml`** — the actual architecture description (instructions, formats, registers, scheduling…).
-- **`kvx-family/FE/YAML/kvx/kv*/Description.yml.in`** — per-core entry point; uses `#define`/`#ifdef` guards to select core-specific behaviour from the shared YMLs.
+- **`lvx-family/configure.ac`** — defines the `--target` → `FAMILY`/`CORES`/`TOOLS` mapping and all `--with-*`/`--enable-*` options; calls into `MDS/configure`.
+- **`lvx-family/FE/YAML/lvx/Makefile.in`** — preprocesses per-core `Description.yml.in` via `cpp`.
+- **`lvx-family/FE/YAML/lvx/*.yml`** — the actual architecture description (instructions, formats, registers, scheduling…).
+- **`lvx-family/FE/YAML/lvx/kv*/Description.yml.in`** — per-core entry point; uses `#define`/`#ifdef` guards to select core-specific behaviour from the shared YMLs.
 - **`MDS/FE/YAML/BIN/Description2MDS.pl`** — main parser: reads `Description.yml` + `Bundle.yml`, produces all per-category `.yml` outputs.
 - **`MDS/MDD/MDE/BIN/*.pl`** — expanders that derive Opcode, Decoding, Bundle, Operator tables from the base MDD tables.
-- **`kvx-family/BE/GBU/kvx_elfids.h`** — ELF ID constants for KVX, consumed by binutils/GDB back-ends.
+- **`lvx-family/BE/GBU/lvx_elfids.h`** — ELF ID constants for LVX, consumed by binutils/GDB back-ends.
 
 ## Reference workflow
 
-After editing YAML source in `kvx-family/FE/YAML/kvx/`, rebuild and update the committed reference outputs:
+After editing YAML source in `lvx-family/FE/YAML/lvx/`, rebuild and update the committed reference outputs:
 
 ```sh
 cd build
 make all
-make refs   # copies Opcode.txt and Description.yml back to kvx-family/FE/YAML/kvx/<core>/
+make refs   # copies Opcode.txt and Description.yml back to lvx-family/FE/YAML/lvx/<core>/
 ```
 
-Committed reference files (`kvx-family/FE/YAML/kvx/kv*/Opcode.txt`, `Description.yml`) serve as the known-good snapshot; `make diff` compares the current build's output against them.
+Committed reference files (`lvx-family/FE/YAML/lvx/kv*/Opcode.txt`, `Description.yml`) serve as the known-good snapshot; `make diff` compares the current build's output against them.

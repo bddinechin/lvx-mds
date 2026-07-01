@@ -1,6 +1,6 @@
-AS:=$(KALRAY_TOOLCHAIN_DIR)/bin/kvx-elf-as
-LD:=$(KALRAY_TOOLCHAIN_DIR)/bin/kvx-elf-ld
-CLUSTER:=$(KALRAY_TOOLCHAIN_DIR)/bin/kvx-cluster
+AS:=$(KALRAY_TOOLCHAIN_DIR)/bin/lvx-elf-as
+LD:=$(KALRAY_TOOLCHAIN_DIR)/bin/lvx-elf-ld
+CLUSTER:=$(KALRAY_TOOLCHAIN_DIR)/bin/lvx-cluster
 
 AVP_DIR   ?= $(abspath .)
 BUILD_DIR ?= $(AVP_DIR)/build

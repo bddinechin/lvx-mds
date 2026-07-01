@@ -21,7 +21,7 @@ use strict;
 
 # gdb needs SFR first
 my %Families_regfiles = (
-    KVX => [ 'SFR', 'GPR' ],
+    LVX => [ 'SFR', 'GPR' ],
   );
 
 sub get_family_regfilenames {

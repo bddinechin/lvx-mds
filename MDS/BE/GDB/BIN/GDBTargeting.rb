@@ -40,7 +40,7 @@ puts <<EOS
 #include \"reggroups.h\"
 #include \"user-regs.h\"
 #include \"target-descriptions.h\"
-#include \"kvx-common-tdep.h\"
+#include \"lvx-common-tdep.h\"
 
 struct pseudo_desc {
 \tconst char *name;
@@ -329,13 +329,13 @@ struct type *#{$family}_pseudo_register_type (struct gdbarch *gdbarch,
 \t\tpseudo_regs[pseudo_num].type = builtin_type (gdbarch)->builtin_int128;
 \telse if (pseudo_regs[pseudo_num].size == 256)
 \t\tpseudo_regs[pseudo_num].type =
-\t\t\tgdbarch_tdep<kvx_gdbarch_tdep> (gdbarch)->uint256;
+\t\t\tgdbarch_tdep<lvx_gdbarch_tdep> (gdbarch)->uint256;
 \telse if (pseudo_regs[pseudo_num].size == 512)
 \t\tpseudo_regs[pseudo_num].type =
-\t\t\tgdbarch_tdep<kvx_gdbarch_tdep> (gdbarch)->uint512;
+\t\t\tgdbarch_tdep<lvx_gdbarch_tdep> (gdbarch)->uint512;
 \telse if (pseudo_regs[pseudo_num].size == 1024)
 \t\tpseudo_regs[pseudo_num].type =
-\t\t\tgdbarch_tdep<kvx_gdbarch_tdep> (gdbarch)->uint1024;
+\t\t\tgdbarch_tdep<lvx_gdbarch_tdep> (gdbarch)->uint1024;
 \telse {
 \t\twarning (_(\"Register \\\"%s\\\" has an unsupported size (%d bits)\"),
 \t\tpseudo_regs[pseudo_num].name, pseudo_regs[pseudo_num].size);

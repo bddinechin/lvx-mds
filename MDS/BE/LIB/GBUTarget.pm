@@ -62,7 +62,7 @@ sub synthesizeOperands {
     }
     if ($mnemonic =~ /fmm4ahw\d/i) {
         if ($synthesizeOperands{$mnemonic}) {
-            $operands[0] = "Operand-kvx-registerAp";
+            $operands[0] = "Operand-lvx-registerAp";
         }
         $synthesizeOperands{$mnemonic}++;
         #print STDERR "$mnemonic @operands\n";
@@ -102,7 +102,7 @@ sub elfCoreInfo {
     my $core = shift;
     my $type = "UNDEF";
     $type = "KV4_1" if $core =~ /kv4_v1/;
-    return ("ELF_KVX_CORE_$type");
+    return ("ELF_LVX_CORE_$type");
 }
 
 sub CoreNames {
@@ -134,28 +134,28 @@ my $BCU_STEERING_OPCODE=oct(0x0);
 my $BCU_STEERING_MASK=oct(0x60000000);
 
 my %opcode_flags = (
-    KVX_OPCODE_FLAG_IMMX=>  1,
-    KVX_OPCODE_FLAG_COND=>  2,
-    KVX_OPCODE_FLAG_CALL=>  4,
-    KVX_OPCODE_FLAG_LOAD=>  8,
-    KVX_OPCODE_FLAG_STORE=> 16,
-    KVX_OPCODE_FLAG_MODE32=>32,
-    KVX_OPCODE_FLAG_MODE64=>64,
-    KVX_OPCODE_FLAG_RISCV=> 128,
+    LVX_OPCODE_FLAG_IMMX=>  1,
+    LVX_OPCODE_FLAG_COND=>  2,
+    LVX_OPCODE_FLAG_CALL=>  4,
+    LVX_OPCODE_FLAG_LOAD=>  8,
+    LVX_OPCODE_FLAG_STORE=> 16,
+    LVX_OPCODE_FLAG_MODE32=>32,
+    LVX_OPCODE_FLAG_MODE64=>64,
+    LVX_OPCODE_FLAG_RISCV=> 128,
   );
 
 
 my %encoding_flags = (
-    simple => [ 'KVX_OPCODE_FLAG_MODE64', 'KVX_OPCODE_FLAG_MODE32' ],
-    double => [ 'KVX_OPCODE_FLAG_MODE64', 'KVX_OPCODE_FLAG_MODE32' ],
-    triple => [ 'KVX_OPCODE_FLAG_MODE64', 'KVX_OPCODE_FLAG_MODE32' ],
-    riscv  => [ 'KVX_OPCODE_FLAG_MODE64', 'KVX_OPCODE_FLAG_RISCV' ],
+    simple => [ 'LVX_OPCODE_FLAG_MODE64', 'LVX_OPCODE_FLAG_MODE32' ],
+    double => [ 'LVX_OPCODE_FLAG_MODE64', 'LVX_OPCODE_FLAG_MODE32' ],
+    triple => [ 'LVX_OPCODE_FLAG_MODE64', 'LVX_OPCODE_FLAG_MODE32' ],
+    riscv  => [ 'LVX_OPCODE_FLAG_MODE64', 'LVX_OPCODE_FLAG_RISCV' ],
   );
 
 
 my %gas_define_options = (
-    "KVX_OPCODE_FLAG_MODE32" => "-m32",
-    "KVX_OPCODE_FLAG_MODE64" => "",
+    "LVX_OPCODE_FLAG_MODE32" => "-m32",
+    "LVX_OPCODE_FLAG_MODE64" => "",
   );
 
 # Returns GAS option to pass depending on the used define.
@@ -168,11 +168,11 @@ sub getOpcodeDefine {
     my ($opcode) = @_;
 
     my @flags = getEncodingFlags($opcode);
-    if(grep {/KVX_OPCODE_FLAG_MODE32/} @flags) {
-        return "KVX_OPCODE_FLAG_MODE32";
+    if(grep {/LVX_OPCODE_FLAG_MODE32/} @flags) {
+        return "LVX_OPCODE_FLAG_MODE32";
     }
-    elsif(grep {/KVX_OPCODE_FLAG_MODE64/} @flags) {
-        return "KVX_OPCODE_FLAG_MODE64";
+    elsif(grep {/LVX_OPCODE_FLAG_MODE64/} @flags) {
+        return "LVX_OPCODE_FLAG_MODE64";
     }
     else { croak "Do not know which gas option to pass."; }
 }
@@ -210,15 +210,15 @@ sub getOpcodeFlags {
     if($codeword_idx > 0) {
         my ($format) = $opcode->access("format");
         if ($format->name() =~ /\.[GB]$/) {
-            push @flags, "KVX_OPCODE_FLAG_COND";
+            push @flags, "LVX_OPCODE_FLAG_COND";
         } else {
-            push @flags, "KVX_OPCODE_FLAG_IMMX";
+            push @flags, "LVX_OPCODE_FLAG_IMMX";
         }
     } else {
-        push @flags, "KVX_OPCODE_FLAG_COND" if $mnemonic =~ /^(guard|blend)\b/;
-        push @flags, "KVX_OPCODE_FLAG_CALL" if $mnemonic =~ /^call\b/;
-        push @flags, "KVX_OPCODE_FLAG_LOAD" if $mnemonic =~ /^x?l[bhwdqo][sz]?\b/;
-        push @flags, "KVX_OPCODE_FLAG_STORE" if $mnemonic =~ /^x?s[bhwdqo]\b/;
+        push @flags, "LVX_OPCODE_FLAG_COND" if $mnemonic =~ /^(guard|blend)\b/;
+        push @flags, "LVX_OPCODE_FLAG_CALL" if $mnemonic =~ /^call\b/;
+        push @flags, "LVX_OPCODE_FLAG_LOAD" if $mnemonic =~ /^x?l[bhwdqo][sz]?\b/;
+        push @flags, "LVX_OPCODE_FLAG_STORE" if $mnemonic =~ /^x?s[bhwdqo]\b/;
     }
 
     return join('|', @flags);
@@ -347,7 +347,7 @@ sub PCRelativeOperand {
     my ($method) = $operand->access("method");
     if(defined $method and $method->type() eq "Immediate") {
         my $methodID = $method->attribute("ID");
-        # From gbu: opcodes/kvx-dis.c where print_address_func is used...
+        # From gbu: opcodes/lvx-dis.c where print_address_func is used...
         if($methodID =~ /pcrel/) {
             return 1;
         }

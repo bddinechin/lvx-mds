@@ -1,4 +1,4 @@
-TODO KVX ISA
+TODO LVX ISA
 Leverage ternary ALUs for BMM8XORD, BWLUD (Bitwise Lookup)
 Update SYNCGROUP
 Read CS at E3, write at E4.
@@ -42,7 +42,7 @@ MDS
 
 (CONST.CS.CC) (CONST.GRF.R2) table can be multi-level
 
-## TODO KVX Description
+## TODO LVX Description
 # Parse Execution into Behavior
 # Probe if address is cached or not.
 # See SHASX SASX QSAX RBIT REV PREV SXTAB, SXTAH, PSXAB from ARM

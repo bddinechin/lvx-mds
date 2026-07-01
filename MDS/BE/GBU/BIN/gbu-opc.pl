@@ -64,7 +64,7 @@ sub printHeader {
     #  my $copyrights = &MDS::get_copyrights("*** ","\n");
 
     print $file <<"EOT";
-/* kvx-opc.c -- KVX opcode support.
+/* lvx-opc.c -- LVX opcode support.
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
    Contributed by Kalray SA.
 
@@ -1034,8 +1034,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 32,
       .reloc_type = S32_LO5_UP27,
-      .reloc_lo5 = BFD_RELOC_KVX_S32_LO5,
-      .reloc_up27 = BFD_RELOC_KVX_S32_UP27,
+      .reloc_lo5 = BFD_RELOC_LVX_S32_LO5,
+      .reloc_up27 = BFD_RELOC_LVX_S32_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_signed32_reloc,
     }
@@ -1046,8 +1046,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 37,
       .reloc_type = S37_LO10_UP27,
-      .reloc_lo10 = BFD_RELOC_KVX_S37_GOTOFF_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S37_GOTOFF_UP27,
+      .reloc_lo10 = BFD_RELOC_LVX_S37_GOTOFF_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S37_GOTOFF_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_gotoff_signed37_reloc,
     }
@@ -1058,7 +1058,7 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_32_ONLY,
       .bitsize = 32,
       .reloc_type = S32,
-      .single = BFD_RELOC_KVX_32_GOTOFF,
+      .single = BFD_RELOC_LVX_32_GOTOFF,
       .kreloc = & ${core}_gotoff_32_reloc,
     }
   },
@@ -1068,8 +1068,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 37,
       .reloc_type = S37_LO10_UP27,
-      .reloc_lo10 = BFD_RELOC_KVX_S37_GOT_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S37_GOT_UP27,
+      .reloc_lo10 = BFD_RELOC_LVX_S37_GOT_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S37_GOT_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_got_signed37_reloc,
     }
@@ -1080,7 +1080,7 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_32_ONLY,
       .bitsize = 32,
       .reloc_type = S32,
-      .single = BFD_RELOC_KVX_32_GOT,
+      .single = BFD_RELOC_LVX_32_GOT,
       .kreloc = & ${core}_got_32_reloc,
     }
   },
@@ -1090,8 +1090,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 37,
       .reloc_type = S37_LO10_UP27,
-      .reloc_lo10 = BFD_RELOC_KVX_S37_TLS_GD_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S37_TLS_GD_UP27,
+      .reloc_lo10 = BFD_RELOC_LVX_S37_TLS_GD_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S37_TLS_GD_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_tlsgd_signed37_reloc,
     }
@@ -1102,9 +1102,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 43,
       .reloc_type = S43_LO10_UP27_EX6,
-      .reloc_lo10 = BFD_RELOC_KVX_S43_TLS_GD_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S43_TLS_GD_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S43_TLS_GD_EX6,
+      .reloc_lo10 = BFD_RELOC_LVX_S43_TLS_GD_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S43_TLS_GD_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S43_TLS_GD_EX6,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_tlsgd_signed43_reloc,
     }
@@ -1115,8 +1115,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 37,
       .reloc_type = S37_LO10_UP27,
-      .reloc_lo10 = BFD_RELOC_KVX_S37_TLS_LE_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S37_TLS_LE_UP27,
+      .reloc_lo10 = BFD_RELOC_LVX_S37_TLS_LE_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S37_TLS_LE_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_tlsle_signed37_reloc,
     }
@@ -1127,9 +1127,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 43,
       .reloc_type = S43_LO10_UP27_EX6,
-      .reloc_lo10 = BFD_RELOC_KVX_S43_TLS_LE_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S43_TLS_LE_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S43_TLS_LE_EX6,
+      .reloc_lo10 = BFD_RELOC_LVX_S43_TLS_LE_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S43_TLS_LE_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S43_TLS_LE_EX6,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_tlsle_signed43_reloc,
     }
@@ -1140,8 +1140,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 37,
       .reloc_type = S37_LO10_UP27,
-      .reloc_lo10 = BFD_RELOC_KVX_S37_TLS_LD_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S37_TLS_LD_UP27,
+      .reloc_lo10 = BFD_RELOC_LVX_S37_TLS_LD_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S37_TLS_LD_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_tlsld_signed37_reloc,
     }
@@ -1152,9 +1152,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 43,
       .reloc_type = S43_LO10_UP27_EX6,
-      .reloc_lo10 = BFD_RELOC_KVX_S43_TLS_LD_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S43_TLS_LD_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S43_TLS_LD_EX6,
+      .reloc_lo10 = BFD_RELOC_LVX_S43_TLS_LD_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S43_TLS_LD_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S43_TLS_LD_EX6,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_tlsld_signed43_reloc,
     }
@@ -1165,8 +1165,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 37,
       .reloc_type = S37_LO10_UP27,
-      .reloc_lo10 = BFD_RELOC_KVX_S37_TLS_DTPOFF_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S37_TLS_DTPOFF_UP27,
+      .reloc_lo10 = BFD_RELOC_LVX_S37_TLS_DTPOFF_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S37_TLS_DTPOFF_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_dtpoff_signed37_reloc,
     }
@@ -1177,9 +1177,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 43,
       .reloc_type = S43_LO10_UP27_EX6,
-      .reloc_lo10 = BFD_RELOC_KVX_S43_TLS_DTPOFF_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S43_TLS_DTPOFF_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S43_TLS_DTPOFF_EX6,
+      .reloc_lo10 = BFD_RELOC_LVX_S43_TLS_DTPOFF_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S43_TLS_DTPOFF_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S43_TLS_DTPOFF_EX6,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_dtpoff_signed43_reloc,
     }
@@ -1190,8 +1190,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 37,
       .reloc_type = S37_LO10_UP27,
-      .reloc_lo10 = BFD_RELOC_KVX_S37_TLS_IE_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S37_TLS_IE_UP27,
+      .reloc_lo10 = BFD_RELOC_LVX_S37_TLS_IE_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S37_TLS_IE_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_tlsie_signed37_reloc,
     }
@@ -1202,9 +1202,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 43,
       .reloc_type = S43_LO10_UP27_EX6,
-      .reloc_lo10 = BFD_RELOC_KVX_S43_TLS_IE_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S43_TLS_IE_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S43_TLS_IE_EX6,
+      .reloc_lo10 = BFD_RELOC_LVX_S43_TLS_IE_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S43_TLS_IE_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S43_TLS_IE_EX6,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_tlsie_signed43_reloc,
     }
@@ -1215,9 +1215,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 43,
       .reloc_type = S43_LO10_UP27_EX6,
-      .reloc_lo10 = BFD_RELOC_KVX_S43_GOTOFF_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S43_GOTOFF_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S43_GOTOFF_EX6,
+      .reloc_lo10 = BFD_RELOC_LVX_S43_GOTOFF_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S43_GOTOFF_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S43_GOTOFF_EX6,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_gotoff_signed43_reloc,
     }
@@ -1228,7 +1228,7 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_64_ONLY,
       .bitsize = 64,
       .reloc_type = S64,
-      .single = BFD_RELOC_KVX_64_GOTOFF,
+      .single = BFD_RELOC_LVX_64_GOTOFF,
       .kreloc = & ${core}_gotoff_64_reloc,
     }
   },
@@ -1238,9 +1238,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 43,
       .reloc_type = S43_LO10_UP27_EX6,
-      .reloc_lo10 = BFD_RELOC_KVX_S43_GOT_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S43_GOT_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S43_GOT_EX6,
+      .reloc_lo10 = BFD_RELOC_LVX_S43_GOT_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S43_GOT_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S43_GOT_EX6,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_got_signed43_reloc,
     }
@@ -1251,7 +1251,7 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_64_ONLY,
       .bitsize = 64,
       .reloc_type = S64,
-      .single = BFD_RELOC_KVX_64_GOT,
+      .single = BFD_RELOC_LVX_64_GOT,
       .kreloc = & ${core}_got_64_reloc,
     }
   },
@@ -1262,8 +1262,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .bitsize = 37,
       .has_no_arg = 1,
       .reloc_type = S37_LO10_UP27,
-      .reloc_lo10 = BFD_RELOC_KVX_S37_GOTADDR_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S37_GOTADDR_UP27,
+      .reloc_lo10 = BFD_RELOC_LVX_S37_GOTADDR_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S37_GOTADDR_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_gotaddr_signed37_reloc,
     }
@@ -1275,9 +1275,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .bitsize = 43,
       .has_no_arg = 1,
       .reloc_type = S43_LO10_UP27_EX6,
-      .reloc_lo10 = BFD_RELOC_KVX_S43_GOTADDR_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S43_GOTADDR_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S43_GOTADDR_EX6,
+      .reloc_lo10 = BFD_RELOC_LVX_S43_GOTADDR_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S43_GOTADDR_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S43_GOTADDR_EX6,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_gotaddr_signed43_reloc,
     }
@@ -1289,9 +1289,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .bitsize = 64,
       .has_no_arg = 1,
       .reloc_type = S64_LO10_UP27_EX27,
-      .reloc_lo10 = BFD_RELOC_KVX_S64_GOTADDR_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S64_GOTADDR_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S64_GOTADDR_EX27,
+      .reloc_lo10 = BFD_RELOC_LVX_S64_GOTADDR_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S64_GOTADDR_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S64_GOTADDR_EX27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_gotaddr_signed64_reloc,
     }
@@ -1304,7 +1304,7 @@ struct pseudo_func ${core}_pseudo_func[] = {
     .pseudo_relocs = {
       .avail_modes = PSEUDO_ALL,
       .bitsize = 16,
-      .single = BFD_RELOC_KVX_S16_PCREL,
+      .single = BFD_RELOC_LVX_S16_PCREL,
       .reloc_type = S16,
       .kreloc = & ${core}_pcrel_signed16_reloc,
     }
@@ -1315,8 +1315,8 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_32_ONLY,
       .bitsize = 37,
       .reloc_type = S37_LO10_UP27,
-      .reloc_lo10 = BFD_RELOC_KVX_S37_PCREL_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S37_PCREL_UP27,
+      .reloc_lo10 = BFD_RELOC_LVX_S37_PCREL_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S37_PCREL_UP27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_pcrel_signed37_reloc,
     }
@@ -1327,9 +1327,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_32_ONLY,
       .bitsize = 43,
       .reloc_type = S43_LO10_UP27_EX6,
-      .reloc_lo10 = BFD_RELOC_KVX_S43_PCREL_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S43_PCREL_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S43_PCREL_EX6,
+      .reloc_lo10 = BFD_RELOC_LVX_S43_PCREL_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S43_PCREL_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S43_PCREL_EX6,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_pcrel_signed43_reloc,
     }
@@ -1340,9 +1340,9 @@ struct pseudo_func ${core}_pseudo_func[] = {
       .avail_modes = PSEUDO_64_ONLY,
       .bitsize = 64,
       .reloc_type = S64_LO10_UP27_EX27,
-      .reloc_lo10 = BFD_RELOC_KVX_S64_PCREL_LO10,
-      .reloc_up27 = BFD_RELOC_KVX_S64_PCREL_UP27,
-      .reloc_ex = BFD_RELOC_KVX_S64_PCREL_EX27,
+      .reloc_lo10 = BFD_RELOC_LVX_S64_PCREL_LO10,
+      .reloc_up27 = BFD_RELOC_LVX_S64_PCREL_UP27,
+      .reloc_ex = BFD_RELOC_LVX_S64_PCREL_EX27,
       .single = BFD_RELOC_UNUSED,
       .kreloc = & ${core}_pcrel_signed64_reloc,
     }
