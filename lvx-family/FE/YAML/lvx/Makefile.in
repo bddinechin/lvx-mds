@@ -4,12 +4,12 @@ TOPDIR:= @TOPDIR@
 INPUTDIR:= $(FAMDIR)/FE/YAML/lvx
 OUTPUTDIR:= $(TOPDIR)/FE/YAML/lvx
 
-CORES:= kv4_v1
+CORES:= lvx_v1
 
 DIRS:=$(addprefix $(OUTPUTDIR)/,$(CORES))
 DESCS:=$(addsuffix /Description.yml,$(DIRS))
 
-core_gen_uc=$(shell echo '$1' | tr 'a-z' 'A-Z' | sed -e 's/^KV\([0-9]\)_V.*/KV\1/')
+core_gen_uc=$(shell echo '$1' | tr 'a-z' 'A-Z' | sed -e 's/_V[0-9].*//')
 
 all: ${CORES}
 

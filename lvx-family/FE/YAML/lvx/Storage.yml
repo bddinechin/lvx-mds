@@ -348,7 +348,7 @@ Storage:
     width: 64
     count: 64
 
-#ifdef _KV4_RV_
+#ifdef _LVX_RV_
   - ID: ZERO
     what: RiscV x0 Register Storage
     kind: Register
@@ -518,11 +518,11 @@ Storage:
     width: 1
     count: 64
 
-#ifdef _KV4_RV_
+#ifdef _LVX_RV_
   - ID: CSRS
     what: Control and System Registers Storage
     kind: Special
     width: 64
     count: 4096
-#endif //_KV4_RV_
+#endif //_LVX_RV_
 

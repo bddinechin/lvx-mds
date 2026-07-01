@@ -20715,7 +20715,7 @@ Format:
 
 #endif//_KV4_
 
-#ifdef _KV4_RV_
+#ifdef _LVX_RV_
 
   - ID: RV32I_UType
     what: RV32I U-Type
@@ -23260,5 +23260,5 @@ Format:
       )
 
 
-#endif//_KV4_RV_
+#endif//_LVX_RV_
 

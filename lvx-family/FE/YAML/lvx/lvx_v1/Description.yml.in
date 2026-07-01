@@ -1,7 +1,7 @@
 ## Description.yml
 
 #define _KV4_
-#define _KV4_V1_
+#define _LVX_V1_
 
 #include "../Builtin.yml"
 #include "../Convention.yml"

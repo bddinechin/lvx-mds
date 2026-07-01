@@ -93,7 +93,7 @@ Immediate:
     execution: "_WX_64(%0)"
 
 
-#ifdef _KV4_RV_
+#ifdef _LVX_RV_
 
   - ID: unsigned5
     what: Zero Extended Immediate 5 bits
@@ -132,5 +132,5 @@ Immediate:
     relative: PC
     execution: "(_SX_20(%0)<<1)"
 
-#endif//_KV4_RV_
+#endif//_LVX_RV_
 

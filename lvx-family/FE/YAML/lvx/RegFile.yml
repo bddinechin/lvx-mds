@@ -909,7 +909,7 @@ RegFile:
     shortName: l
     execution: "X64R[%0]"
 
-#ifdef _KV4_RV_
+#ifdef _LVX_RV_
 
   - ID: RV_BIR
     what: RISC-V Base Integer Registers
@@ -5125,5 +5125,5 @@ RegFile:
     regClass: csReg
     execution: "CSR[%0]"
 
-#endif //_KV4_RV_
+#endif //_LVX_RV_
 

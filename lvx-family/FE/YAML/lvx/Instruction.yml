@@ -21336,7 +21336,7 @@ Instruction:
 
 #endif//_KV4_
 
-#ifdef _KV4_RV_
+#ifdef _LVX_RV_
 
   - ID: LUI
     what: Load Upper Immediate
@@ -26215,5 +26215,5 @@ Instruction:
         (WRITE.rd (ZX.64 (CONST.0)))
         (WRITE.rd (ZX.64 (READ.rs1)))
       )
-#endif//_KV4_RV_
+#endif//_LVX_RV_
 

@@ -1813,7 +1813,7 @@ case $target_alias in
   lvx )
     family="lvx"
     target="^target^"
-    with_cores="kv4_v1"
+    with_cores="lvx_v1"
     enable_tools="TEX GBU GDB GCC LAO"
     ;;
   *)

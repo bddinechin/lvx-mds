@@ -101,13 +101,13 @@ sub methodCanExtend {
 sub elfCoreInfo {
     my $core = shift;
     my $type = "UNDEF";
-    $type = "KV4_1" if $core =~ /kv4_v1/;
+    $type = "KV4_1" if $core =~ /lvx_v1/;
     return ("ELF_LVX_CORE_$type");
 }
 
 sub CoreNames {
     my $core = shift;
-    $core =~ s/^(kv[0-9]+)_v([0-9]+)/$1-$2/g;
+    $core =~ s/^([a-z0-9]+)_v([0-9]+)/$1-$2/g;
     return ($core);
 }
 
@@ -310,7 +310,7 @@ sub ObjdumpPrint {
                 if($format_name =~ /^ALU/) {
                     $exunum = 0;
                 }
-                elsif ($CORE =~ /KV4/i) {
+                elsif ($CORE =~ /LVX/i) {
                     if ($format_name =~ /^LSU/) {
                         $exunum = 2;
                     }

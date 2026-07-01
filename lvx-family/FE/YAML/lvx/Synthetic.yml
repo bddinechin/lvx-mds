@@ -224,7 +224,7 @@ Synthetic:
 
 #endif//_KV4_
 
-#ifdef _KV4_RV_
+#ifdef _LVX_RV_
 
   - ID: NOP
     what: Pseudoinstruction.
@@ -334,5 +334,5 @@ Synthetic:
         (READ.rs1)
       )
 
-#endif//_KV4_RV_
+#endif//_LVX_RV_
 

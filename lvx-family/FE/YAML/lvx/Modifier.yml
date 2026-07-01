@@ -342,7 +342,7 @@ Modifier:
 
 #endif//_KV4_
 
-#ifdef _KV4_RV_
+#ifdef _LVX_RV_
 
   - ID: ordering
     what: Fence predecessor and successor ordering
@@ -390,5 +390,5 @@ Modifier:
       - Dynamic rounding mode
     execution: "_ZX_3(%0)"
 
-#endif//_KV4_RV_
+#endif//_LVX_RV_
 
