@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -51,81 +51,81 @@ EOT
 my @processorNames;
 my %processorNames;
 foreach my $processor (@Processor::table) {
-  my $processorName = $processor->fullName('_');
-  my $processorCore = $processor->core();
-  push @processorNames, $processorName;
-  $processorNames{$processorCore} = $processorName;
+    my $processorName = $processor->fullName('_');
+    my $processorCore = $processor->core();
+    push @processorNames, $processorName;
+    $processorNames{$processorCore} = $processorName;
 }
 
 my %minReadStage;
 foreach my $operator (@Operator::table) {
-  my @origins = $operator->access("origins");
-  next if grep {$_->type() eq 'Generic'} @origins;
-  my @parameters = $operator->children("Parameter");
-  foreach my $parameter (@parameters) {
-    my $action = $parameter->attribute("action");
-    next unless $action eq 'Read';
-    my ($method) = $parameter->access("method");
-    next unless $method->type() eq 'RegClass';
-    my $regClassName = $method->fullName('_');
-    my @stages = split ' ', $parameter->attribute("stages");
-    while (@origins && @stages) {
-      my $origin = shift @origins;
-      my $stage = shift @stages;
-      my $originCore = $origin->core();
-      my $processorName = $processorNames{$originCore};
-      if (defined $minReadStage{$regClassName}{$processorName}) {
-        my $minReadStage = $minReadStage{$regClassName}{$processorName};
-        $minReadStage{$regClassName}{$processorName} = $stage if $stage < $minReadStage;
-      } else {
-        $minReadStage{$regClassName}{$processorName} = $stage;
-      }
+    my @origins = $operator->access("origins");
+    next if grep {$_->type() eq 'Generic'} @origins;
+    my @parameters = $operator->children("Parameter");
+    foreach my $parameter (@parameters) {
+        my $action = $parameter->attribute("action");
+        next unless $action eq 'Read';
+        my ($method) = $parameter->access("method");
+        next unless $method->type() eq 'RegClass';
+        my $regClassName = $method->fullName('_');
+        my @stages = split ' ', $parameter->attribute("stages");
+        while (@origins && @stages) {
+            my $origin = shift @origins;
+            my $stage = shift @stages;
+            my $originCore = $origin->core();
+            my $processorName = $processorNames{$originCore};
+            if (defined $minReadStage{$regClassName}{$processorName}) {
+                my $minReadStage = $minReadStage{$regClassName}{$processorName};
+                $minReadStage{$regClassName}{$processorName} = $stage if $stage < $minReadStage;
+            } else {
+                $minReadStage{$regClassName}{$processorName} = $stage;
+            }
+        }
     }
-  }
 }
 
 my $registerNumber = 0;
 foreach my $register (@Register::table) {
-  $$register{NUMBER} = $registerNumber++;
+    $$register{NUMBER} = $registerNumber++;
 }
 $registerNumber = undef;
 
 my %regFileIDs;
 foreach my $regFile (@RegFile::table) {
-  my $regFileID = $regFile->attribute("ID");
-  my @registers = $regFile->access("registers");
-  $$regFile{LOWNUMBER} = $registers[0]{NUMBER};
+    my $regFileID = $regFile->attribute("ID");
+    my @registers = $regFile->access("registers");
+    $$regFile{LOWNUMBER} = $registers[0]{NUMBER};
 }
 
 foreach my $regClass (@RegClass::table) {
-  my ($regFile) = $regClass->access("regFile");
-  my @registers = $regClass->access("registers");
-  my $lowNumber = $$regFile{LOWNUMBER};
-  my $shift = $regClass->attribute("shift") || 0;
-  my $bias = $regClass->attribute("bias") || 0;
-  my $ID = $regClass->fullName('_');
-  my $regFileName = $regFile->fullName('_');
-  my $REGFILE = "REGFILE($regFileName)";
-  my @registerNames = map {$_->fullName('_')} @registers;
-  my $registerNames = join ' ', map {"REGISTER($_)"} @registerNames;
-  my $REGISTERS = "REGISTERS(". @registerNames. ", $registerNames)";
-  my $adjust = $lowNumber + $bias;
-  my (@encode, @decode);
-  push @encode, "VALUE -= $adjust" if $adjust;
-  push @encode, "VALUE >>= $shift" if $shift;
-  my $ENCODE = "ENCODE(". (@encode? (join '; ', @encode): "/**/"). ")";
-  push @decode, "VALUE <<= $shift" if $shift;
-  push @decode, "VALUE += $adjust" if $adjust;
-  my $DECODE = "DECODE(". (@decode? (join '; ', @decode): "/**/"). ")";
-  my @minReadStages;
-  foreach $processorName (@processorNames) {
-    my $minReadStage = $minReadStage{$ID}{$processorName};
-    $minReadStage = "(unsigned)-1" unless defined $minReadStage;
-    push @minReadStages, "MINREADSTAGE(PROCESSOR($processorName),$minReadStage)";
-  }
-  my $minReadStages = join ' ', @minReadStages;
-  my $MINREADSTAGES = "MINREADSTAGES($minReadStages)";
-  print<<"EOT";
+    my ($regFile) = $regClass->access("regFile");
+    my @registers = $regClass->access("registers");
+    my $lowNumber = $$regFile{LOWNUMBER};
+    my $shift = $regClass->attribute("shift") || 0;
+    my $bias = $regClass->attribute("bias") || 0;
+    my $ID = $regClass->fullName('_');
+    my $regFileName = $regFile->fullName('_');
+    my $REGFILE = "REGFILE($regFileName)";
+    my @registerNames = map {$_->fullName('_')} @registers;
+    my $registerNames = join ' ', map {"REGISTER($_)"} @registerNames;
+    my $REGISTERS = "REGISTERS(". @registerNames. ", $registerNames)";
+    my $adjust = $lowNumber + $bias;
+    my (@encode, @decode);
+    push @encode, "VALUE -= $adjust" if $adjust;
+    push @encode, "VALUE >>= $shift" if $shift;
+    my $ENCODE = "ENCODE(". (@encode? (join '; ', @encode): "/**/"). ")";
+    push @decode, "VALUE <<= $shift" if $shift;
+    push @decode, "VALUE += $adjust" if $adjust;
+    my $DECODE = "DECODE(". (@decode? (join '; ', @decode): "/**/"). ")";
+    my @minReadStages;
+    foreach $processorName (@processorNames) {
+        my $minReadStage = $minReadStage{$ID}{$processorName};
+        $minReadStage = "(unsigned)-1" unless defined $minReadStage;
+        push @minReadStages, "MINREADSTAGE(PROCESSOR($processorName),$minReadStage)";
+    }
+    my $minReadStages = join ' ', @minReadStages;
+    my $MINREADSTAGES = "MINREADSTAGES($minReadStages)";
+    print<<"EOT";
 RegClass($ID,
          $REGFILE,
          $REGISTERS,
@@ -140,3 +140,4 @@ print<<"EOT";
 #undef RegClass\n
 EOT
 
+# vim: set ts=4 sw=4 et:

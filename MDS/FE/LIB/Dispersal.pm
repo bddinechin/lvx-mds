@@ -22,11 +22,12 @@
 use MDS;
 
 print MDS::make("Dispersal", {
-  ID=>	&Dispersal::ID(""),
-  fromFields=>	&BitField::ID(""),
-  toFields=>	&BitField::ID(""),
-  distance=>	0,
-})->emit();
+        ID=>	&Dispersal::ID(""),
+        fromFields=>	&BitField::ID(""),
+        toFields=>	&BitField::ID(""),
+        distance=>	0,
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

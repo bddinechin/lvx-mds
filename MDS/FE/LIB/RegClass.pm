@@ -22,10 +22,11 @@
 use MDS;
 
 print MDS::make("RegClass", {
-  ID=>	&RegClass::ID(""),
-  regFile=>	&RegFile::ID(""),
-  registers=>	&Register::ID(""),
-})->emit();
+        ID=>	&RegClass::ID(""),
+        regFile=>	&RegFile::ID(""),
+        registers=>	&Register::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

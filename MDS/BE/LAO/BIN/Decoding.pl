@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -50,26 +50,26 @@ EOT
 
 my %processorName;
 foreach my $processor (@Processor::table) {
-  my $core = $processor->core();
-  $processorName{$core} = $processor->fullName('_');
+    my $core = $processor->core();
+    $processorName{$core} = $processor->fullName('_');
 }
 
 my $Decoding_SIZE_MAX = 0;
 foreach my $decoding (@Decoding::table) {
-  my ($encoding) = $decoding->access("encoding");
-  my $ID = $decoding->fullName('_');
-  my $processorName = $processorName{$decoding->core()};
-  my $PROCESSOR  = "PROCESSOR($processorName)";
-  my $wordWidth = $encoding->attribute("wordWidth");
-  my $wordType = "uint${wordWidth}_t";
-  my $WORDTYPE = "WORDTYPE($wordType)";
-  my $wordCount = $encoding->attribute("wordCount");
-  my $WORDCOUNT = "WORDCOUNT($wordCount)";
-  print <<"EOT";
+    my ($encoding) = $decoding->access("encoding");
+    my $ID = $decoding->fullName('_');
+    my $processorName = $processorName{$decoding->core()};
+    my $PROCESSOR  = "PROCESSOR($processorName)";
+    my $wordWidth = $encoding->attribute("wordWidth");
+    my $wordType = "uint${wordWidth}_t";
+    my $WORDTYPE = "WORDTYPE($wordType)";
+    my $wordCount = $encoding->attribute("wordCount");
+    my $WORDCOUNT = "WORDCOUNT($wordCount)";
+    print <<"EOT";
 Decoding($ID, $PROCESSOR, $WORDTYPE, $WORDCOUNT)
 EOT
-  my $size = ($wordWidth*$wordCount + 7)/8;
-  $Decoding_SIZE_MAX = $size if $Decoding_SIZE_MAX < $size;
+    my $size = ($wordWidth*$wordCount + 7)/8;
+    $Decoding_SIZE_MAX = $size if $Decoding_SIZE_MAX < $size;
 }
 
 print<<"EOT";
@@ -83,3 +83,4 @@ print<<"EOT";
 #endif/*Decoding_SIZE_MAX*/\n
 EOT
 
+# vim: set ts=4 sw=4 et:

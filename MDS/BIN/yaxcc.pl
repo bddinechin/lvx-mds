@@ -31,7 +31,7 @@ delete $option{s} if $option{a};
 my $infile = $ARGV[0] or &usage;
 
 sub usage {
-  print <<'EOT';
+    print <<'EOT';
 
   yaxcc -- Bison-like tool for Perl adapted from M-J. Dominus py code.
 
@@ -71,11 +71,11 @@ LICENSE
   GNU GPL 2 or higher.
 
 EOT
-  exit 1;
+    exit 1;
 }
 
 unless (open(Y , "< $infile")) {
-  die "Couldn\'t open input file $infile for reading: $!";
+    die "Couldn\'t open input file $infile for reading: $!";
 }
 *P = *STDOUT;
 
@@ -83,73 +83,73 @@ $rule[0] = $rhs[0] = "";		# BD3: old bison rules numbers start at 1.
 my ($grammar, $oldrhs, $state);
 local $; = " ";
 while (<Y>) {
-  chomp;
-  /^\s*$/ and next;
-  /^Grammar$/ and $grammar = 1, next;
-  /^Terminals,/ and $grammar = 0, next;
-  /^[Ss]tate (\d+)$/ and $state = $1, next;
-  if ($grammar) {
-    # We are reading the grammar rules.
-    s/\/\*\s*empty\s*\*\//\$empty/;		# Normalize /* empty */ annotation.
-    my ($ruleno, $rhs, $lhs);
-    # Rules and reductions are converses, so the
-    # rule's left side is the reduction's result.
-    # if the rule says
-    #  exp -> exp '+' exp
-    # that means that 
-    #  exp '+' exp
-    # can be reduced to exp.  So the RHS of the reduction
-    # is on the left here.
-    if (/^rule (\d+)\s+(\$?\w+)\s+\-\>\s+(.*)$/) {
-      # Old-style Bison grammar rule.
-      ($ruleno, $rhs, $lhs) = ($1, $2, $3);
-      print "#rule $rhs -> $lhs\n\n" if $option{s};
-    } elsif (/^\s+(\d+)\s+(\$?\w+):\s+(.*)$/) {
-      # New-style Bison grammar rule.
-      ($ruleno, $rhs, $lhs) = ($1, $2, $3);
-      print "#rule $rhs -> $lhs\n\n" if $option{s};
-    } elsif (/^\s+(\d+)\s+\|\s+(.*)$/) {
-      ($ruleno, $rhs, $lhs) = ($1, $oldrhs, $2);
-      print "#rule $rhs -> $lhs\n\n" if $option{s};
-    } else {
-      warn "could not parse $_";
+    chomp;
+    /^\s*$/ and next;
+    /^Grammar$/ and $grammar = 1, next;
+    /^Terminals,/ and $grammar = 0, next;
+    /^[Ss]tate (\d+)$/ and $state = $1, next;
+    if ($grammar) {
+        # We are reading the grammar rules.
+        s/\/\*\s*empty\s*\*\//\$empty/;		# Normalize /* empty */ annotation.
+        my ($ruleno, $rhs, $lhs);
+        # Rules and reductions are converses, so the
+        # rule's left side is the reduction's result.
+        # if the rule says
+        #  exp -> exp '+' exp
+        # that means that 
+        #  exp '+' exp
+        # can be reduced to exp.  So the RHS of the reduction
+        # is on the left here.
+        if (/^rule (\d+)\s+(\$?\w+)\s+\-\>\s+(.*)$/) {
+            # Old-style Bison grammar rule.
+            ($ruleno, $rhs, $lhs) = ($1, $2, $3);
+            print "#rule $rhs -> $lhs\n\n" if $option{s};
+        } elsif (/^\s+(\d+)\s+(\$?\w+):\s+(.*)$/) {
+            # New-style Bison grammar rule.
+            ($ruleno, $rhs, $lhs) = ($1, $2, $3);
+            print "#rule $rhs -> $lhs\n\n" if $option{s};
+        } elsif (/^\s+(\d+)\s+\|\s+(.*)$/) {
+            ($ruleno, $rhs, $lhs) = ($1, $oldrhs, $2);
+            print "#rule $rhs -> $lhs\n\n" if $option{s};
+        } else {
+            warn "could not parse $_";
+        }
+        if (defined $ruleno) {
+            my @lhs = grep {!/\$empty/} split ' ', $lhs;
+            $rule[$ruleno] = "$rhs -> $lhs";
+            $length[$ruleno] = scalar @lhs;
+            $rhs[$ruleno] = $oldrhs = $rhs;
+        }
+        next;
     }
-    if (defined $ruleno) {
-      my @lhs = grep {!/\$empty/} split ' ', $lhs;
-      $rule[$ruleno] = "$rhs -> $lhs";
-      $length[$ruleno] = scalar @lhs;
-      $rhs[$ruleno] = $oldrhs = $rhs;
+    if (defined $state) {
+        # Skip the lines with the location of state in grammar rule.
+        next if /^\s+\$?\w+\s+\-\>\s+/;		# Skip lines with ' lhs -> '
+        next if /^\s+\d+\s+\$?\w+:\s+/;		# Skip lines with ' n lhs: '
+        next if /^\s+\d+\s+\|\s+/;			# Skip lines with ' n    | '
+        # We are reading the list of actions for $state.
+        # Actions come in two kinds: lookahead actions, 
+        # which you perform after reading a token and which say
+        # whether to shift the token or reduce according to a rule, 
+        # and reduce jumps, which say what state to go into
+        # following a reduce.
+        my ($lhs, $rhs) = /\s*(\S+)\s+(.*)$/;
+        $lhs =~ s/^\'(\\?.)\'$/$1/ ||
+          $lhs =~ s/^\"([^"]+)\"$/$1/;		# CG: handling of "..." tokens
+        $lhs =~ s/\$défaut/\$default/;
+        if ($rhs =~ /^shift, and go to state (\d+)$/) {
+            $act{$state,$lhs} = "shift $1";
+        } elsif ($rhs =~ /^reduce using rule (\d+)/) {
+            $act{$state,$lhs} = "reduce $1";
+        } elsif ($rhs =~ /^go to state (\d+)/) {
+            $act{$state,$lhs} = "goto $1";
+        } elsif ($rhs =~ /^accept$/) {
+            $act{$state,$lhs} = "accept";
+        } elsif ($rhs =~ /^\[(shift|reduce)/) {
+        } else {
+            warn "Unrecognized RHS in state $state: $rhs\n$_\n";
+        }
     }
-    next;
-  }
-  if (defined $state) {
-    # Skip the lines with the location of state in grammar rule.
-    next if /^\s+\$?\w+\s+\-\>\s+/;		# Skip lines with ' lhs -> '
-    next if /^\s+\d+\s+\$?\w+:\s+/;		# Skip lines with ' n lhs: '
-    next if /^\s+\d+\s+\|\s+/;			# Skip lines with ' n    | '
-    # We are reading the list of actions for $state.
-    # Actions come in two kinds: lookahead actions, 
-    # which you perform after reading a token and which say
-    # whether to shift the token or reduce according to a rule, 
-    # and reduce jumps, which say what state to go into
-    # following a reduce.
-    my ($lhs, $rhs) = /\s*(\S+)\s+(.*)$/;
-    $lhs =~ s/^\'(\\?.)\'$/$1/ ||
-        $lhs =~ s/^\"([^"]+)\"$/$1/;		# CG: handling of "..." tokens
-    $lhs =~ s/\$défaut/\$default/;
-    if ($rhs =~ /^shift, and go to state (\d+)$/) {
-      $act{$state,$lhs} = "shift $1";
-    } elsif ($rhs =~ /^reduce using rule (\d+)/) {
-      $act{$state,$lhs} = "reduce $1";
-    } elsif ($rhs =~ /^go to state (\d+)/) {
-      $act{$state,$lhs} = "goto $1";
-    } elsif ($rhs =~ /^accept$/) {
-      $act{$state,$lhs} = "accept";
-    } elsif ($rhs =~ /^\[(shift|reduce)/) {
-    } else {
-      warn "Unrecognized RHS in state $state: $rhs\n$_\n";
-    }
-  }
 }
 close Y;
 
@@ -163,53 +163,53 @@ print P <<"EOT";
 EOT
 
 if (defined($option{a})) {
-  $actfile = $option{a};
-  open (A , "< $actfile") or
-    die "Couldn\'t open semantic action file $actfile for reading: $!";
-  my %sem = ();
-  print P <<"EOT";
+    $actfile = $option{a};
+    open (A , "< $actfile") or
+      die "Couldn\'t open semantic action file $actfile for reading: $!";
+    my %sem = ();
+    print P <<"EOT";
 # code included from $actbase
 EOT
-  local $/ = "";
-  while (<A>) {
-    chomp;
-    my ($rule, $code) = split "\n", $_, 2;
-    if ($rule =~ /^#rule\s+(.*\s+->\s+.*)/) {
-      my $tag = $1;
-      $tag =~ s/\s+\/\*\s+empty\s+\*\// \$empty/;
-      $sem{$tag} = $code;
-    } else {
-      print P $_, "\n\n";
+    local $/ = "";
+    while (<A>) {
+        chomp;
+        my ($rule, $code) = split "\n", $_, 2;
+        if ($rule =~ /^#rule\s+(.*\s+->\s+.*)/) {
+            my $tag = $1;
+            $tag =~ s/\s+\/\*\s+empty\s+\*\// \$empty/;
+            $sem{$tag} = $code;
+        } else {
+            print P $_, "\n\n";
+        }
     }
-  }
-  print P <<"EOT";
+    print P <<"EOT";
 # generating or using semantic actions from $actbase
 our \@sem = (
 # rule 0
 sub { },
 EOT
-  for (my $r=1; $r <= $#rule; $r++) {
-    my $rule = $rule[$r];
-    my $code = "  undef;";
-    if (defined $sem{$rule}) {
-      $code = $sem{$rule};
-      $sem{$rule} = undef;
-    }
-    print P <<"EOT";
+    for (my $r=1; $r <= $#rule; $r++) {
+        my $rule = $rule[$r];
+        my $code = "  undef;";
+        if (defined $sem{$rule}) {
+            $code = $sem{$rule};
+            $sem{$rule} = undef;
+        }
+        print P <<"EOT";
 # rule $r
 # $rule
 sub {
 $code
 },
 EOT
-  }
-  print P <<"EOT";
+    }
+    print P <<"EOT";
 );
 EOT
-  while (my ($rule, $code) = each %sem) {
-    print STDERR "leftover semantic action $rule\n" if defined $code;
-  }
-  close (A);
+    while (my ($rule, $code) = each %sem) {
+        print STDERR "leftover semantic action $rule\n" if defined $code;
+    }
+    close (A);
 }
 
 print P <<'EOT';
@@ -219,15 +219,15 @@ EOT
 
 my $state = -1;
 foreach my $k (sort { my ($A, $B) = map {/^(\d+)/} ($a, $b); $A <=> $B } (keys %act)) {
-  my ($s, $r) = split(' ', $k);
-  my ($a, $d) = (split(' ', $act{$k}), 'undef');
-  if ($state != $s) {
-    die "non-contiguous state numbering\n" if $state+1 != $s;
-    print P "},\n" unless $state < 0;
-    ++$state;
-    print P "{# state $state\n";
-  }
-  print P "  '$r'=>['$a','$d'],\n";
+    my ($s, $r) = split(' ', $k);
+    my ($a, $d) = (split(' ', $act{$k}), 'undef');
+    if ($state != $s) {
+        die "non-contiguous state numbering\n" if $state+1 != $s;
+        print P "},\n" unless $state < 0;
+        ++$state;
+        print P "{# state $state\n";
+    }
+    print P "  '$r'=>['$a','$d'],\n";
 }
 
 print P "},\n" if keys %act;
@@ -238,32 +238,32 @@ our @length = (
 EOT
 
 foreach my $l (@length) {
-  print P ($l||0), ', ';
+    print P ($l||0), ', ';
 }
 
 print P ");\n\nour \@rhs = (";
 foreach my $rhs (@rhs) {
-  $rhs =~ s/\'/\\\'/g;
-  print P "\'$rhs\', ";
+    $rhs =~ s/\'/\\\'/g;
+    print P "\'$rhs\', ";
 }
 print P ");\n\n";
 
 if ($option{d}) {
-  print P "our \@rule = (\n";
-  for (my $r=0; $r <= $#rule; $r++) {
-    my $rule = $rule[$r];
-    $rule =~ s/\\/\\\\/g;
-    $rule =~ s/\'/\\\'/g;
-    print P "  \'$rule\',\n";
-  }
-  print P ");\n\n";
+    print P "our \@rule = (\n";
+    for (my $r=0; $r <= $#rule; $r++) {
+        my $rule = $rule[$r];
+        $rule =~ s/\\/\\\\/g;
+        $rule =~ s/\'/\\\'/g;
+        print P "  \'$rule\',\n";
+    }
+    print P ");\n\n";
 }
 
 {
-  local $/ = "\n";
-  while (<DATA>) {
-    print P if !/\$yydebug\b/ || $option{d};
-  }
+    local $/ = "\n";
+    while (<DATA>) {
+        print P if !/\$yydebug\b/ || $option{d};
+    }
 }
 
 print P "\n1;\n";
@@ -354,3 +354,4 @@ sub yyparse {
   }
 }
 #    END py-skel.pl
+# vim: set ts=4 sw=4 et:

@@ -81,7 +81,7 @@ sub init_bundlings {
     # Find the set of bundlings that are odd/even aligned.
     foreach my $template (@Template::table) {
         my ($bias, $base) = ($template->attribute("alignBias"),
-                             $template->attribute("alignBase"));
+            $template->attribute("alignBase"));
         my $address = $bias*8;
         foreach my $dispersalID (split ' ', $template->attribute("dispersals")) {
             my $dispersal = &MDS::fetch($dispersalID);
@@ -105,7 +105,7 @@ sub isLeadingBundling {
 
     init_bundlings;
     return (exists $leading_bundlings{$bundlingID}
-            && ! exists $non_leading_bundlings{$bundlingID});
+          && ! exists $non_leading_bundlings{$bundlingID});
 }
 
 sub isOddBundling {
@@ -114,7 +114,7 @@ sub isOddBundling {
 
     init_bundlings;
     return (exists $odd_bundlings{$bundlingID}
-            && ! exists $even_bundlings{$bundlingID});
+          && ! exists $even_bundlings{$bundlingID});
 }
 
 sub isEvenBundling {
@@ -123,15 +123,15 @@ sub isEvenBundling {
 
     init_bundlings;
     return (exists $even_bundlings{$bundlingID}
-            && ! exists $odd_bundlings{$bundlingID});
+          && ! exists $odd_bundlings{$bundlingID});
 }
 
 
 sub validFormatID {
-# Is this a format the assembler is interested in?
-# No for extended formats.
-# Yes for all other formats.
-# Issue 2: There should be a better way of finding extended formats.
+    # Is this a format the assembler is interested in?
+    # No for extended formats.
+    # Yes for all other formats.
+    # Issue 2: There should be a better way of finding extended formats.
     my ($CORE, $formatID) = @_;
     my $f = &MDS::fetch($formatID);
     my $fname = $f->name();
@@ -184,7 +184,7 @@ sub expandSyntax {
                 $opd_string = -1;
                 $opd_value = ((1 << $width) - 1);
             } else {
-              die "unknown Immediate extension $extend";
+                die "unknown Immediate extension $extend";
             }
             if (defined $relative) {
                 $opd_value = ((1 << $width-1) - 1) >> 2;
@@ -237,3 +237,4 @@ sub makeInstructionList {
 }
 
 1;
+# vim: set ts=4 sw=4 et:

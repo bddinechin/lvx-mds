@@ -22,14 +22,15 @@
 use MDS;
 
 print MDS::make("Platform", {
-  ID=>	&Platform::ID(""),
-  charWidth=>	0,
-  addrWidth=>	0,
-  nativeInt=>	&NativeType::ID(""),
-  nativeUInt=>	&NativeType::ID(""),
-  nativeFloat=>	&NativeType::ID(""),
-  nativePtr=>	&NativeType::ID(""),
-})->emit();
+        ID=>	&Platform::ID(""),
+        charWidth=>	0,
+        addrWidth=>	0,
+        nativeInt=>	&NativeType::ID(""),
+        nativeUInt=>	&NativeType::ID(""),
+        nativeFloat=>	&NativeType::ID(""),
+        nativePtr=>	&NativeType::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

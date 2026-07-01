@@ -22,9 +22,10 @@
 use MDS;
 
 print MDS::make("Bundling", {
-  ID=>	&Bundling::ID(""),
-  dispersals=>	&Dispersal::ID(""),
-})->emit();
+        ID=>	&Bundling::ID(""),
+        dispersals=>	&Dispersal::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

@@ -27,7 +27,8 @@ use MDS;
 &MDS::parse(*ARGV);
 
 foreach my $operator (@Operator::table) {
-  print $operator->emit();
+    print $operator->emit();
 }
 
 
+# vim: set ts=4 sw=4 et:

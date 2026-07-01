@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -50,55 +50,55 @@ EOT
 
 my @resourceNames;
 foreach my $resource (@Resource::table) {
-  push @resourceNames, $resource->fullName('_');
+    push @resourceNames, $resource->fullName('_');
 }
 
 my %reservationTable;
 my @reservationTableColumns;
 my $Reservation_COLUMNS_MAX = 0;
 foreach my $reservation (@Reservation::table) {
-  my $reservationName = $reservation->fullName('_');
-  my $ID = $reservationName;
-  my @resources = $reservation->access("resources");
-  my @requirements = split ' ', $reservation->attribute("requirements");
-  my @resourceTable = ();
-  my $cycleCount = 0;
-  while (@resourceTable < @requirements) {
-    push @resourceTable, map {[ $cycleCount, $_->fullName('_') ]} @resources;
-    $cycleCount++;
-  }
-  my %reservationEntry;
-  while (@requirements) {
-    my $resourceEntry = shift @resourceTable;
-    my $cycle = $resourceEntry->[0];
-    my $resourceName = $resourceEntry->[1];
-    my $required = shift @requirements;
-    $reservationEntry{$cycle}{$resourceName} = $required;
-  }
-  my @reservationRequirements;
-  for (my $cycle = 0; $cycle < $cycleCount; $cycle++) {
-    my @reservationRequired;
-    foreach my $resourceName (@resourceNames) {
-      my $required = $reservationEntry{$cycle}{$resourceName} || 0;
-      push @reservationRequired, "REQUIRED(RESOURCE($resourceName),$required)";
+    my $reservationName = $reservation->fullName('_');
+    my $ID = $reservationName;
+    my @resources = $reservation->access("resources");
+    my @requirements = split ' ', $reservation->attribute("requirements");
+    my @resourceTable = ();
+    my $cycleCount = 0;
+    while (@resourceTable < @requirements) {
+        push @resourceTable, map {[ $cycleCount, $_->fullName('_') ]} @resources;
+        $cycleCount++;
     }
-    my $reservationRequired = join ' ', @reservationRequired;
-    push @reservationRequirements, $reservationRequired;
-  }
-  my $reservationRequirements = join ' ', @reservationRequirements;
-  unless (defined $reservationTable{$reservationRequirements}) {
-    my $columnIndex = @reservationTableColumns;
-    $reservationTable{$reservationRequirements} = $columnIndex;
-    push @reservationTableColumns, @reservationRequirements;
-  }
-  my $columnIndex = $reservationTable{$reservationRequirements};
-  my $TABLE = "TABLE(COLUMNCOUNT($cycleCount), COLUMNINDEX($columnIndex))";
-  print<<"EOT";
+    my %reservationEntry;
+    while (@requirements) {
+        my $resourceEntry = shift @resourceTable;
+        my $cycle = $resourceEntry->[0];
+        my $resourceName = $resourceEntry->[1];
+        my $required = shift @requirements;
+        $reservationEntry{$cycle}{$resourceName} = $required;
+    }
+    my @reservationRequirements;
+    for (my $cycle = 0; $cycle < $cycleCount; $cycle++) {
+        my @reservationRequired;
+        foreach my $resourceName (@resourceNames) {
+            my $required = $reservationEntry{$cycle}{$resourceName} || 0;
+            push @reservationRequired, "REQUIRED(RESOURCE($resourceName),$required)";
+        }
+        my $reservationRequired = join ' ', @reservationRequired;
+        push @reservationRequirements, $reservationRequired;
+    }
+    my $reservationRequirements = join ' ', @reservationRequirements;
+    unless (defined $reservationTable{$reservationRequirements}) {
+        my $columnIndex = @reservationTableColumns;
+        $reservationTable{$reservationRequirements} = $columnIndex;
+        push @reservationTableColumns, @reservationRequirements;
+    }
+    my $columnIndex = $reservationTable{$reservationRequirements};
+    my $TABLE = "TABLE(COLUMNCOUNT($cycleCount), COLUMNINDEX($columnIndex))";
+    print<<"EOT";
 Reservation($ID, $TABLE)
 EOT
-  if ($Reservation_COLUMNS_MAX < $cycleCount) {
-    $Reservation_COLUMNS_MAX = $cycleCount;
-  }
+    if ($Reservation_COLUMNS_MAX < $cycleCount) {
+        $Reservation_COLUMNS_MAX = $cycleCount;
+    }
 }
 
 print<<"EOT";
@@ -114,10 +114,10 @@ EOT
 
 my $columnIndex = 0;
 foreach my $reservationTableColumn (@reservationTableColumns) {
-  print<<"EOT";
+    print<<"EOT";
 ReservationColumn(COLUMNINDEX($columnIndex), REQUIREMENTS($reservationTableColumn))
 EOT
-  $columnIndex++;
+    $columnIndex++;
 }
 
 print<<"EOT";
@@ -131,3 +131,4 @@ print<<"EOT";
 #endif/*Reservation_COLUMNS_MAX*/\n
 EOT
 
+# vim: set ts=4 sw=4 et:

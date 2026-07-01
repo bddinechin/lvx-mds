@@ -69,29 +69,29 @@ sub printAssemblyHeader {
     my $copyrights = &MDS::get_copyrights("	## ","\n");
 
     print $file "".
-"	##-----------------------------------------------------------\n".
-"	## Generating test.s from MDS\n".
-"$copyrights".
-"	##-----------------------------------------------------------\n".
-"\n".
-"#	Option: '$option'\n".
-"\n".
-"##	target-core:	$core_names[0]\n".
-"\n".
-"	.section .text\n".
-"\n".
-"	.align 8\n".
-"	.proc	main\n".
-"	.global	main\n".
-"main:\n";
+      "	##-----------------------------------------------------------\n".
+      "	## Generating test.s from MDS\n".
+      "$copyrights".
+      "	##-----------------------------------------------------------\n".
+      "\n".
+      "#	Option: '$option'\n".
+      "\n".
+      "##	target-core:	$core_names[0]\n".
+      "\n".
+      "	.section .text\n".
+      "\n".
+      "	.align 8\n".
+      "	.proc	main\n".
+      "	.global	main\n".
+      "main:\n";
 }
 
 sub printAssemblyFooter {
     my ($file) = @_;
 
     print $file "".
-"	.endp	main\n".
-"	.section .text\n";
+      "	.endp	main\n".
+      "	.section .text\n";
 }
 
 ################################################################################
@@ -120,3 +120,4 @@ printInstructions($FILE, $define);
 printAssemblyFooter($FILE);
 close($FILE);
 
+# vim: set ts=4 sw=4 et:

@@ -9,34 +9,34 @@ use base 'Exporter';
 $YAML::Any::VERSION = '0.67';
 
 my @dump_options = qw(
-    UseCode
-    DumpCode
-    SpecVersion
-    Indent
-    UseHeader
-    UseVersion
-    SortKeys
-    AnchorPrefix
-    UseBlock
-    UseFold
-    CompressSeries
-    InlineSeries
-    UseAliases
-    Purity
-    Stringify
-);
+  UseCode
+  DumpCode
+  SpecVersion
+  Indent
+  UseHeader
+  UseVersion
+  SortKeys
+  AnchorPrefix
+  UseBlock
+  UseFold
+  CompressSeries
+  InlineSeries
+  UseAliases
+  Purity
+  Stringify
+  );
 my @load_options = qw(
-    UseCode
-    LoadCode
-);
+  UseCode
+  LoadCode
+  );
 
 my @implementations = qw(
-    YAML::XS
-    YAML::Syck
-    YAML::Old
-    YAML
-    YAML::Tiny
-);
+  YAML::XS
+  YAML::Syck
+  YAML::Old
+  YAML
+  YAML::Tiny
+  );
 
 sub import {
     __PACKAGE__->implementation;
@@ -93,7 +93,7 @@ sub LoadFile {
 
 sub order {
     return @YAML::Any::_TEST_ORDER
-        if defined @YAML::Any::_TEST_ORDER;
+      if defined @YAML::Any::_TEST_ORDER;
     return @implementations;
 }
 
@@ -198,3 +198,4 @@ under the same terms as Perl itself.
 See L<http://www.perl.com/perl/misc/Artistic.html>
 
 =cut
+# vim: set ts=4 sw=4 et:

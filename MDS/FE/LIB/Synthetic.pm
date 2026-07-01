@@ -22,11 +22,12 @@
 use MDS;
 
 print MDS::make("Synthetic", {
-  ID=>	&Synthetic::ID(""),
-  mnemonic=>	"#UNDEF",
-  instruction=>	&Instruction::ID(""),
-  formats=>	&Format::ID(""),
-})->emit();
+        ID=>	&Synthetic::ID(""),
+        mnemonic=>	"#UNDEF",
+        instruction=>	&Instruction::ID(""),
+        formats=>	&Format::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

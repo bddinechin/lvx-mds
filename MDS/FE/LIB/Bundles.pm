@@ -42,16 +42,16 @@ my $MEMX = 256;
 
 # Map from bundling name to the integer that represents it.
 my %bundling_bit = (
-                ALONE=>    $ALONE,
-                ALONEX=>   $ALONEX,
-                FIRST=>    $FIRST,
-                ODD=>      $ODD,
-                EVEN=>     $EVEN,
-                MEM=>      $MEM,
-                ANY=>      $ANY,
-                ANYX=>     $ANYX,
-                MEMX=>     $MEMX,
-                );
+    ALONE=>    $ALONE,
+    ALONEX=>   $ALONEX,
+    FIRST=>    $FIRST,
+    ODD=>      $ODD,
+    EVEN=>     $EVEN,
+    MEM=>      $MEM,
+    ANY=>      $ANY,
+    ANYX=>     $ANYX,
+    MEMX=>     $MEMX,
+  );
 
 my %bundling_name = reverse %bundling_bit;
 
@@ -87,7 +87,7 @@ sub stepped_list {
     my $count = int (($end - $start) / $step);
     return map {
         $start + $_ * $step;
-    } (0..$count);
+      } (0..$count);
 }
 
 sub log2 {
@@ -128,8 +128,8 @@ sub legalBundleP {
         return 0 if ($bundling & ($ALONE|$ALONEX)) && ($n_bundlings > 1);
         if ($bundling & ($MEM|$MEMX)) {
             my $mem_lane = ((($bundling & $MEMX) && ! &oddP($lane))
-                             ? (($lane + 1) % $max_lanes)
-                             : $lane);
+                ? (($lane + 1) % $max_lanes)
+                : $lane);
             # operation in mem_lane will be swapped with operation in lane 0,
             # so ensure that mem_lane is legal for the operation in lane 0.
             my $other_lane = $bundle_lane;
@@ -139,7 +139,7 @@ sub legalBundleP {
                     return 0 if (($other_bundling & $EVEN) && &oddP($mem_lane));
                 }
                 $other_lane = ($other_lane
-                               + &dispersals($other_bundling)) % $max_lanes;
+                      + &dispersals($other_bundling)) % $max_lanes;
             }
         }
         foreach my $bit (values %bundling_bit) {
@@ -194,9 +194,9 @@ sub newDispersal {
     $dispersal_offset{$name} = $offset;
     $dispersal_bundling{$name} = $bundling;
     $dispersal_align{$name} = $align;
-#    print STDERR "newDispersal $name offset $offset align $align ";
-#    &printBundlings (*STDERR, $bundling);
-#    print STDERR "\n";
+    #    print STDERR "newDispersal $name offset $offset align $align ";
+    #    &printBundlings (*STDERR, $bundling);
+    #    print STDERR "\n";
     die if &dispersals($bundling) == 2 && $align eq "any";
     return $name;
 }
@@ -225,12 +225,12 @@ sub cmpTemplateBundling {
     my $sig1 = &signature($a);
     my $sig2 = &signature($b);
     return $sig1 cmp $sig2 if $sig1 ne $sig2;
-    
+
     my @bundlings1 = @{$template_bundlings{$a}};
     my @bundlings2 = @{$template_bundlings{$b}};
     # Bundling counts should match, otherwise signatures differ above.
     die "Bundling counts mismatch" if scalar @bundlings1 != scalar @bundlings2;
-    
+
     foreach my $bundling1 (@bundlings1) {
         my $bundling2 = shift @bundlings2;
         my $s_bundling1 = &dispersals($bundling1);
@@ -250,14 +250,14 @@ sub canMergeP {
     my $t2 = shift;
     my $bundlingnum_to_check = shift;
 
-#    print STDOUT "canMergeP (bundling $bundlingnum_to_check):\n";
-#    printTemplates (*STDOUT, $t1, $t2);
+    #    print STDOUT "canMergeP (bundling $bundlingnum_to_check):\n";
+    #    printTemplates (*STDOUT, $t1, $t2);
 
     my @t1_bundlings = @{$template_bundlings{$t1}};
     my @t2_bundlings = @{$template_bundlings{$t2}};
     die "Laning mistmatch" if ($template_lane{$t1} != $template_lane{$t2});
     die "Bundling count mismatch" if (scalar @t1_bundlings
-                                      != scalar @t2_bundlings);
+        != scalar @t2_bundlings);
     my $n_diffs = 0;
     my $t1_subset = 1;
     my $t2_subset = 1;
@@ -278,8 +278,8 @@ sub canMergeP {
     }
 #    print STDOUT "  n_diffs = $n_diffs t1_subset = $t1_subset t2_subset = $t2_subset\n";
     return ($t1_subset || $t2_subset
-            || (($n_diffs == 1) &&
-                ($diff_bundlingnum == $bundlingnum_to_check)));
+          || (($n_diffs == 1) &&
+            ($diff_bundlingnum == $bundlingnum_to_check)));
 }
 
 sub doMerge {
@@ -288,20 +288,20 @@ sub doMerge {
 
     foreach my $t2 (@_) {
 
-#    print STDERR "Merging templates:\n";
-#    printTemplates (*STDERR, $t1, $t2);
+        #    print STDERR "Merging templates:\n";
+        #    printTemplates (*STDERR, $t1, $t2);
 
         $template_lane{$t1} |= $template_lane{$t2};
         my @t1_bundlings = @{$template_bundlings{$t1}};
         my @t2_bundlings = @{$template_bundlings{$t2}};
         @{$template_bundlings{$t1}} = map {
             $_ | shift @t2_bundlings;
-        } @t1_bundlings;
+          } @t1_bundlings;
         delete $template_bundlings{$t2};
         delete $template_lane{$t2};
 
-#    print STDERR "into:\n";
-#    printTemplates (*STDERR, $t1);
+        #    print STDERR "into:\n";
+        #    printTemplates (*STDERR, $t1);
     }
 
     return $t1;
@@ -318,7 +318,7 @@ sub signature {
     push @s, "-";
     push @s, map {
         &dispersals($_);
-    } @{$template_bundlings{$template}};
+      } @{$template_bundlings{$template}};
     return join "", @s;
 }
 
@@ -348,14 +348,14 @@ sub mergeTemplatesByBundling {
             ++$pass;
 #            print STDOUT "Template merging, partition $partition pass $pass\n";
 
-#            print STDOUT "Templates contains:\n";
-#            printTemplates (*STDOUT, keys %templates);
+            #            print STDOUT "Templates contains:\n";
+            #            printTemplates (*STDOUT, keys %templates);
             foreach my $bundlingnum (0..$max_lanes-1) {
                 my @templates_to_do = sort cmpTemplateBundling keys %templates;
                 while (@templates_to_do) {
                     my $t1 = shift @templates_to_do;
                     my @t2_done;
-                     while (@templates_to_do) {
+                    while (@templates_to_do) {
                         my $t2 = shift @templates_to_do;
                         # Can t1 and t2 be merged?
                         if (&canMergeP($t1, $t2, $bundlingnum)) {
@@ -381,8 +381,8 @@ sub buildTemplateHash {
     my %template_hash;
 
     foreach my $template (keys %template_lane) {
-#        print STDERR "buildTemplateHash: ";
-#        printTemplates (*STDERR, $template);
+        #        print STDERR "buildTemplateHash: ";
+        #        printTemplates (*STDERR, $template);
         my $lanes = $template_lane{$template};
         my $b = join ',', @{$template_bundlings{$template}};
         foreach my $ln (0..$max_lanes-1) {
@@ -403,25 +403,25 @@ sub mergeTemplatesByLane {
         my $lane_diff = $lanes[$i+1] - $lanes[$i];
         $align = $lane_diff if !defined $align || ($lane_diff < $align);
     }
-#    print STDERR "Merge templates by lane (@lanes):\n";
+    #    print STDERR "Merge templates by lane (@lanes):\n";
     my $first_lane = shift @lanes;
-template:
+    template:
     foreach my $t (keys %{$template_hash{$first_lane}}) {
         my @bundlings = split ',', $t;
 #        print STDERR "Trying $t ";
 #        printBundlings (*STDERR, @{$template_bundlings{$template_hash{$first_lane}{$t}}});
 #        print STDERR ":\n";
-        # Multi-dispersal attrs cannot be given a different alignment
-        # because the position of the extension words may change
-        # depending on the alignment, and the template encodes the position
-        # of the extension words in the patterns field.
+# Multi-dispersal attrs cannot be given a different alignment
+# because the position of the extension words may change
+# depending on the alignment, and the template encodes the position
+# of the extension words in the patterns field.
         foreach my $bundling (@bundlings) {
             next template if &dispersals($bundling) > $align;
         }
         foreach my $lane (@lanes) {
             next template if (!exists $template_hash{$lane}{$t});
         }
-        
+
         # Merge all templates on the different lanes
         # into a single template that is allowed on the union
         # of the lanes.
@@ -438,7 +438,7 @@ template:
         }
     }
 }
-            
+
 sub cmpTemplate {
     # Used for sorting templates.
     my $lane1 = $template_lane{$a};
@@ -460,7 +460,7 @@ sub cmpDispersal {
     my $syl1 = $a;
     my $syl2 = $b;
 
-#    print STDOUT "cmpDispersal $syl1 $syl2";
+    #    print STDOUT "cmpDispersal $syl1 $syl2";
     my $off1 = $dispersal_offset{$syl1};
     my $off2 = $dispersal_offset{$syl2};
 
@@ -501,16 +501,16 @@ sub makeTemplates {
     # dispersal. (Note alignment affects the contents of a dispersal
     # when it affects the coding: e.g. on st200, immediate extensions
     # are coded differently for odd and even alignment.)
-    
+
     foreach my $bundle (@all_bundles) {
         &newTemplate ($bundle);
     }
 
-#    printf STDERR "Templates before merging (%d off):\n",
-#                  scalar keys %template_lane;
-#    &printTemplates (*STDERR, sort cmpTemplate keys %template_lane);
+    #    printf STDERR "Templates before merging (%d off):\n",
+    #                  scalar keys %template_lane;
+    #    &printTemplates (*STDERR, sort cmpTemplate keys %template_lane);
 
-#    print STDERR "Merge templates by lane\n";
+    #    print STDERR "Merge templates by lane\n";
     # The idea here is to merge the strictest laning requirements first,
     # then the next most strict etc.
     # so that we gradually relax the laning requirements.
@@ -522,20 +522,20 @@ sub makeTemplates {
         foreach my $bias (0..$step-1) {
             my @lanes = map {
                 $_+$bias;
-            } (&stepped_list(0, $max_lanes-1, $step));
+              } (&stepped_list(0, $max_lanes-1, $step));
             &mergeTemplatesByLane (@lanes);
         }
     }
 
-#    printf STDERR "Templates after lane merging (%d off):\n",
-#                  scalar keys %template_lane;
-#    &printTemplates (*STDERR, sort cmpTemplateBundling keys %template_lane);
+   #    printf STDERR "Templates after lane merging (%d off):\n",
+   #                  scalar keys %template_lane;
+   #    &printTemplates (*STDERR, sort cmpTemplateBundling keys %template_lane);
 
-#    print STDERR "Merge templates by bundlings\n";
+    #    print STDERR "Merge templates by bundlings\n";
     &mergeTemplatesByBundling;
-#    printf STDERR "Templates after merging bundlings (%d off):\n",
-#                  scalar keys %template_lane;
-#    &printTemplates (*STDERR, sort cmpTemplate keys %template_lane);
+    #    printf STDERR "Templates after merging bundlings (%d off):\n",
+    #                  scalar keys %template_lane;
+    #    &printTemplates (*STDERR, sort cmpTemplate keys %template_lane);
 
     @all_templates = sort cmpTemplateBundling keys %template_lane;
 }
@@ -559,23 +559,23 @@ sub makeDispersals {
         foreach my $bundling (@bundlings) {
             my $size = &dispersals($bundling);
             my $align = ($size > 1) ? ("even", "odd")[&oddP($offset+$lane)]
-                                    : "any";
-#            print STDERR "makeDispersals $size $align \n";
-#            printBundlings(*STDERR, $bundling);
-#            print STDERR "\n";
+              : "any";
+            #            print STDERR "makeDispersals $size $align \n";
+            #            printBundlings(*STDERR, $bundling);
+            #            print STDERR "\n";
             if (!exists $dispersal_hash{$offset}{$bundling}{$align}) {
                 my $name = &newDispersal ($offset, $bundling, $align);
                 $dispersal_hash{$offset}{$bundling}{$align} = $name;
                 push @all_dispersals, $name;
             }
             push @{$template_dispersals{$template}},
-            $dispersal_hash{$offset}{$bundling}{$align};
+              $dispersal_hash{$offset}{$bundling}{$align};
             $offset += &dispersals($bundling);
         }
     }
     @all_dispersals = sort cmpDispersal @all_dispersals;
 }
-    
+
 my %template_name;
 sub nameTemplates {
     my $num = 0;
@@ -596,7 +596,7 @@ sub nameDispersals {
 
 our @MDSBundlings;
 sub makeMDSBundlings {
-    
+
     my %bundle_dispersals;
     foreach my $dispersal (@all_dispersals) {
         my $dispersal_bundling = $dispersal_bundling{$dispersal};
@@ -609,13 +609,13 @@ sub makeMDSBundlings {
 
     foreach my $bundling (@all_bundlings) {
         my $ID = $bundling_name{$bundling};
-        my $dispersals = join " ", (map { $dispersal_name{$_}; } 
-                                   @{$bundle_dispersals{$bundling}});
+        my $dispersals = join " ", (map { $dispersal_name{$_}; }
+              @{$bundle_dispersals{$bundling}});
         push @MDSBundlings, &MDS::make("Bundling", {
-            ID=>     &Bundling::ID($ID),
-            what=>   $bundling_desc{$bundling},
-            dispersals=> &Dispersal::IDs($dispersals),
-        });
+                ID=>     &Bundling::ID($ID),
+                what=>   $bundling_desc{$bundling},
+                dispersals=> &Dispersal::IDs($dispersals),
+            });
     }
 }
 
@@ -638,7 +638,7 @@ sub makeMDSDispersals {
             fromFields=> &BitField::IDs($fromFields),
             toFields=>   &BitField::IDs($toFields),
             distance=>   $byte_offset,
-        };
+          };
         $$attributes{nopValues} = "0x00000000" if ($size == 1);
         push @MDSDispersals, &MDS::make("Dispersal", $attributes);
     }
@@ -651,17 +651,17 @@ sub makeMDSTemplates {
         my @bundlings = @{$template_bundlings{$template}};
         my $size_in_words = &dispersals(@bundlings);
         my %alignBaseBias = (
-                             0xf => [ 4,  0],
-                             0x5 => [ 8,  0],
-                             0xa => [ 8,  4],
-                             0x1 => [16,  0],
-                             0x2 => [16,  4],
-                             0x4 => [16,  8],
-                             0x8 => [16, 12], );
+            0xf => [ 4,  0],
+            0x5 => [ 8,  0],
+            0xa => [ 8,  4],
+            0x1 => [16,  0],
+            0x2 => [16,  4],
+            0x4 => [16,  8],
+            0x8 => [16, 12], );
         my ($alignBase, $alignBias) = @{$alignBaseBias{$template_lane{$template}}} or die "Unexpected lanes in printTemplateTable";
         my $increment = $size_in_words * 4;
         my $dispersals = join ' ', (map { $dispersal_name{$_}; }
-                                   @{$template_dispersals{$template}});
+              @{$template_dispersals{$template}});
         my @imms;
         my $offset = 0;
         my $odd_aligned = ($alignBias != 0);
@@ -671,10 +671,10 @@ sub makeMDSTemplates {
             if ($dispersals == 2) {
                 # Immediate extension on the even lane.
                 my $imm_extn = (oddP($offset + $odd_aligned)
-                                ? "IMML" : "IMMR");
+                    ? "IMML" : "IMMR");
                 my $imm_extn_offset = (($imm_extn eq "IMMR")
-                                       ? $offset
-                                       : ($offset + 1));
+                    ? $offset
+                    : ($offset + 1));
                 push @imms, "$imm_extn.32.$imm_extn_offset";
             }
             $offset += $dispersals;
@@ -684,15 +684,15 @@ sub makeMDSTemplates {
         my $nopallow = int (scalar @bundlings / 2);
         $nopallow = 1 if $nopallow == 0;
         push @MDSTemplates, &MDS::make("Template", {
-            ID=>      &Template::ID($ID),
-            wordWidth=> 32,
-            alignBase=> $alignBase,
-            alignBias=> $alignBias,
-            dispersals=> &Dispersal::IDs($dispersals),
-            patterns=>  &Pattern::IDs($patterns),
-            increment=> $increment,
-            nopAllow=>  $nopallow,
-        });
+                ID=>      &Template::ID($ID),
+                wordWidth=> 32,
+                alignBase=> $alignBase,
+                alignBias=> $alignBias,
+                dispersals=> &Dispersal::IDs($dispersals),
+                patterns=>  &Pattern::IDs($patterns),
+                increment=> $increment,
+                nopAllow=>  $nopallow,
+            });
     }
 }
 
@@ -709,7 +709,7 @@ my %rename = (
     ODD=>        "ODD",
     ALL=>        "ALONE",
     PSW=>        "FIRST",
-);
+  );
 
 sub makeMDSBundleInformation {
     my $records = shift;
@@ -745,7 +745,7 @@ sub makeMDSBundleInformation {
                     }
                 }
             }
-#            print STDERR "name = $name \n";
+            #            print STDERR "name = $name \n";
             if ($name =~ /^(ALL|ALU|MEM)$/) {
                 my $mdsnameX = $mdsname."X";
                 my $bundlingX = $bundling_bit{$mdsnameX};
@@ -759,15 +759,15 @@ sub makeMDSBundleInformation {
         }
     }
 
-#    print STDERR "max_lanes = $max_lanes\n";
+    #    print STDERR "max_lanes = $max_lanes\n";
     &makeBundles;
     &makeTemplates;
-#    &printTemplates (*STDERR, @all_templates);
+    #    &printTemplates (*STDERR, @all_templates);
     &makeDispersals;
     &nameTemplates;
     &nameDispersals;
-#    &printDispersals(*STDERR, @all_dispersals);
-#    &printTemplates (*STDERR, @all_templates);
+    #    &printDispersals(*STDERR, @all_dispersals);
+    #    &printTemplates (*STDERR, @all_templates);
     &makeMDSBundlings;
     &makeMDSDispersals;
     &makeMDSTemplates;
@@ -785,7 +785,7 @@ sub printBundlings {
             $bundling -= $highbit;
         }
         join "+", @names;
-    } @_;
+      } @_;
     print $file (join ",", @strings);
 }
 
@@ -815,8 +815,8 @@ sub printDispersals {
     foreach my $dispersal (@dispersals) {
         my $bundling = $dispersal_bundling{$dispersal};
         printf $file "%4s %4s offs %d align %-4s: ", $dispersal,
-                $dispersal_name{$dispersal} || "",
-               $dispersal_offset{$dispersal}, $dispersal_align{$dispersal};
+          $dispersal_name{$dispersal} || "",
+          $dispersal_offset{$dispersal}, $dispersal_align{$dispersal};
         printBundlings ($file, $bundling);
         print $file "\n";
     }
@@ -843,3 +843,4 @@ sub printTemplates {
 
 1;
 
+# vim: set ts=4 sw=4 et:

@@ -43,7 +43,7 @@ sub initRegFile {
             my $ID = $_->attribute("ID");
             die "Index already defined as $registerIndex{$ID} for $ID" if defined $registerIndex{$ID};
             $registerIndex{$ID} = $index++;
-        } @registers;
+          } @registers;
     }
 }
 
@@ -72,9 +72,9 @@ sub initRegClass {
                 push @{$operandSelect{$regClassID}{names}}, $_;
                 $operandSelect{$regClassID}{last}++;
                 $getFirstRegisterName{$regClassID}{$_} = $regnames[0];
-            }@regnames;
-            
-        } @registers;
+              }@regnames;
+
+          } @registers;
     }
 }
 
@@ -89,11 +89,11 @@ sub initModifier {
         $operandSelect{$modifierID}{last} = 0;
         map {
             push @{$operandSelect{$modifierID}{names}}, lc($_);
-        }@names;
+          }@names;
         map {
             push @{$operandSelect{$modifierID}{values}}, $_;
             $operandSelect{$modifierID}{last}++;
-        }@values;
+          }@values;
     }
 }
 
@@ -105,15 +105,15 @@ sub initImmediate {
 
         my $shiftValue = 0;
         $shiftValue = $immediate->attribute("shift")
-            if defined $immediate->attribute("shift") and &GBUTarget::ConsiderScaling();
+          if defined $immediate->attribute("shift") and &GBUTarget::ConsiderScaling();
 
         my @bitmask = $immediate->access("bitmask") if defined $immediate->attribute("bitmask");
 
         my $width = $immediate->attribute("width");
 
         croak "Bitmask cannot have shift attribute"
-            if(defined $immediate->attribute("shift") and
-               defined $immediate->attribute("bitmask"));
+          if(defined $immediate->attribute("shift") and
+            defined $immediate->attribute("bitmask"));
 
         if(scalar @bitmask) {
             # Try to get value that cannot match other immediate variant ...
@@ -133,7 +133,7 @@ sub initImmediate {
             my $removeShiftLowBits = ~0;
             $removeShiftLowBits = ~((1 << $shiftValue) -1) if($shiftValue != 0);
             if($immediate->attribute("extend") eq "Signed") {
-                # Use ~$removeShiftLowBits because we do ~$maxValue to get $minValue ...
+        # Use ~$removeShiftLowBits because we do ~$maxValue to get $minValue ...
                 $maxValue = int(((1<<($width+$shiftValue-1)) - 1)>>3) | ~$removeShiftLowBits;
                 $minValue = ~$maxValue;
                 $operandSelect{$immediateID}{value} = $minValue;
@@ -150,7 +150,7 @@ sub initImmediate {
 
 sub getSyntax {
     my ($opcode,$mnemonic,$syntax,$pc_relative,$objdump) = @_;
-    
+
     # Flag is set when have to generate syntax corresponding to objdump output:
     # - Choose the first variant of register names.
     $objdump = 0 if(not defined $objdump);
@@ -161,9 +161,9 @@ sub getSyntax {
 
     my $encoding = &MDS::fetch($opcode->attribute("encoding"));
     my $mnemo = lc($mnemonic);
-    my $isa=$encoding->attribute("wordWidth") * $encoding->attribute("wordCount") * 
-        $syntax =~ s|%0|$mnemo|g;
-    
+    my $isa=$encoding->attribute("wordWidth") * $encoding->attribute("wordCount") *
+      $syntax =~ s|%0|$mnemo|g;
+
     my $opnd_id = 1;
     foreach my $operand ( $opcode->access('operands') ) {
         my $proxy = "%".$opnd_id++;
@@ -174,7 +174,7 @@ sub getSyntax {
             my $name = $names[$operandSelect{Syntax}{$method}{current}++];
             if($objdump and $method =~ /^RegClass/) {
                 croak "Unable to get first register name for $method::$name"
-                    if(not defined $getFirstRegisterName{$method});
+                  if(not defined $getFirstRegisterName{$method});
                 $name = $getFirstRegisterName{$method}{$name};
             }
             if($operandSelect{Syntax}{$method}{current} == $operandSelect{$method}{last}) {
@@ -195,7 +195,7 @@ sub getSyntax {
                 if(@relocations) {
                     foreach my $relocation (@relocations) {
                         if(defined $relocation->attribute("relative") &&
-                           $relocation->attribute("relative") eq "PC") {
+                            $relocation->attribute("relative") eq "PC") {
                             $$pc_relative = &GBUTarget::PCRelativeOperand($operand);
                         }
                     }
@@ -206,7 +206,7 @@ sub getSyntax {
             $syntax =~ s/$proxy/[ERROR][$opnd_id=$method]/g;
         }
     }
-    
+
     return $syntax;
 }
 
@@ -232,7 +232,7 @@ sub getCoding {
 
         my @bitfields = $operand->access("fields");
         if ( $methodID =~ /^Modifier/ or
-             $methodID =~ /^RegClass/) {
+            $methodID =~ /^RegClass/) {
             my @values = @{$operandSelect{$methodID}{values}};
             my $value = $values[$operandSelect{Coding}{$methodID}{current}++];
             if($operandSelect{Coding}{$methodID}{current} == $operandSelect{$methodID}{last}) {
@@ -244,8 +244,8 @@ sub getCoding {
             my $value = $operandSelect{$methodID}{encoded_value};
             my $method = &MDS::fetch($methodID);
             if(defined $method->attribute("shift") and &GBUTarget::ConsiderScaling()) {
-            $value >>= $method->attribute("shift");
-        }
+                $value >>= $method->attribute("shift");
+            }
             insert_value($encoded,$value,@bitfields);
         }
         else {
@@ -259,3 +259,4 @@ sub getCoding {
 1;
 
 
+# vim: set ts=4 sw=4 et:

@@ -34,11 +34,11 @@ use MDS;
 # List of Register(s) in canonical GCC order (DWARF order).
 my %Register;
 foreach my $register (@Register::table) {
-  my $dwarfId = $register->attribute("dwarfId");
-  next unless defined $dwarfId;
-  my ($regFile) = $register->access("regFile");
-  next if $regFile->name() =~ /RV_/;
-  $Register{$dwarfId} = $register;
+    my $dwarfId = $register->attribute("dwarfId");
+    next unless defined $dwarfId;
+    my ($regFile) = $register->access("regFile");
+    next if $regFile->name() =~ /RV_/;
+    $Register{$dwarfId} = $register;
 }
 my @Registers = map {$Register{$_}} sort { $a <=> $b } keys %Register;
 
@@ -48,14 +48,15 @@ print << "EOT";
 EOT
 my $regno = 0;
 foreach my $register (@Registers) {
-  my $name = $register->name();
-  my $NAME = uc($name);
-  print << "EOT";
+    my $name = $register->name();
+    my $NAME = uc($name);
+    print << "EOT";
   (${FAMILY}_${NAME}_REGNO $regno)
 EOT
-  $regno++;
+    $regno++;
 }
 print << "EOT";
 ])
 EOT
 
+# vim: set ts=4 sw=4 et:

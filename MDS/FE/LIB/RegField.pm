@@ -22,11 +22,12 @@
 use MDS;
 
 print MDS::make("RegField", {
-  ID=>	&RegField::ID(""),
-  register=>	&Register::ID(""),
-  width=>	"0",
-  offset=>	"0",
-})->emit();
+        ID=>	&RegField::ID(""),
+        register=>	&Register::ID(""),
+        width=>	"0",
+        offset=>	"0",
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

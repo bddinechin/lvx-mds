@@ -22,7 +22,7 @@ use strict;
 # gdb needs SFR first
 my %Families_regfiles = (
     KVX => [ 'SFR', 'GPR' ],
-);
+  );
 
 sub get_family_regfilenames {
     my $family = shift;
@@ -48,10 +48,10 @@ sub get_sorted_regfiles {
     # it will break later (files will not be coherents)
     my %regfiles = map { uc($_->name()) => $_ } @regfiles;
     foreach my $regfile_name (@family_regfilenames) {
-      if (! exists $regfiles{$regfile_name}) {
-        die "Fatal error: Family regfiles '$regfile_name' is missing";
-      }
-      push (@sorted_regfiles, $regfiles{$regfile_name});
+        if (! exists $regfiles{$regfile_name}) {
+            die "Fatal error: Family regfiles '$regfile_name' is missing";
+        }
+        push (@sorted_regfiles, $regfiles{$regfile_name});
     }
 
     # add remaining regfiles from the description
@@ -64,7 +64,7 @@ sub get_sorted_regfiles {
     }
 
     foreach my $regfile_name (sort @regfilenames_core) {
-      push (@sorted_regfiles, $regfiles{$regfile_name});
+        push (@sorted_regfiles, $regfiles{$regfile_name});
     }
 
     return @sorted_regfiles;
@@ -80,3 +80,4 @@ sub get_sorted_regfilenames {
 }
 
 1;
+# vim: set ts=4 sw=4 et:

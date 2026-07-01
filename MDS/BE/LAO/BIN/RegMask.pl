@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -50,18 +50,18 @@ EOT
 
 my $Register__ = 0;
 foreach my $register (@Register::table) {
-  $$register{NUMBER} = $Register__++;
+    $$register{NUMBER} = $Register__++;
 }
 
 foreach my $regFile (@RegFile::table) {
-  my @registers = $regFile->access("registers");
-  foreach my $register (@registers) {
-    my $registerNumber = $$register{NUMBER};
-    my $lowNumber = $$regFile{LOWNUMBER};
-    if (!defined $lowNumber || $lowNumber > $registerNumber) {
-      $$regFile{LOWNUMBER} = $registerNumber;
+    my @registers = $regFile->access("registers");
+    foreach my $register (@registers) {
+        my $registerNumber = $$register{NUMBER};
+        my $lowNumber = $$regFile{LOWNUMBER};
+        if (!defined $lowNumber || $lowNumber > $registerNumber) {
+            $$regFile{LOWNUMBER} = $registerNumber;
+        }
     }
-  }
 }
 
 # FIXME: The following details about the RegisterSet implementation are
@@ -72,37 +72,37 @@ sub RegisterSet_MINOR     { return $_[0] & (&RegisterSet_WORDBITS() - 1); }
 sub RegisterSet_WORDCOUNT { return &RegisterSet_MAJOR($Register__) + 1; }
 
 foreach my $regMask (@RegMask::table) {
-  my ($regFile) = $regMask->access("regFile");
-  my $first = $regMask->attribute("first");
-  my $count = $regMask->attribute("count");
-  my $ID = $regMask->fullName('_');
-  my $regFileName = $regFile->fullName('_');
-  my @regFileRegisters = $regFile->access("registers");
-  die "Illegal first $first for $ID" if $first >= @regFileRegisters;
-  die "Illegal count $count for $ID" if $first+$count > @regFileRegisters;
-  my @registers = splice @regFileRegisters, $first, $count;
-  my @registerNames = map { $_->fullName('_') } @registers;
-  my $registerNames = join ' ', map { "REGISTER($_)" } @registerNames;
-  my $REGISTERS = "REGISTERS(". @registerNames. ", $registerNames)";
-  my $REGFILE = "REGFILE($regFileName)";
-  my $mask = ~(~0 << $count);
-  my $registerLow = $$regFile{LOWNUMBER} + $first;
-  my $registerHigh = $$regFile{LOWNUMBER} + $first + $count - 1;
-  my $major = &RegisterSet_MAJOR($registerLow);
-  my $minor = &RegisterSet_MINOR($registerLow);
-  die "not implemented: RegMask spans several words in RegisterSet."
+    my ($regFile) = $regMask->access("regFile");
+    my $first = $regMask->attribute("first");
+    my $count = $regMask->attribute("count");
+    my $ID = $regMask->fullName('_');
+    my $regFileName = $regFile->fullName('_');
+    my @regFileRegisters = $regFile->access("registers");
+    die "Illegal first $first for $ID" if $first >= @regFileRegisters;
+    die "Illegal count $count for $ID" if $first+$count > @regFileRegisters;
+    my @registers = splice @regFileRegisters, $first, $count;
+    my @registerNames = map { $_->fullName('_') } @registers;
+    my $registerNames = join ' ', map { "REGISTER($_)" } @registerNames;
+    my $REGISTERS = "REGISTERS(". @registerNames. ", $registerNames)";
+    my $REGFILE = "REGFILE($regFileName)";
+    my $mask = ~(~0 << $count);
+    my $registerLow = $$regFile{LOWNUMBER} + $first;
+    my $registerHigh = $$regFile{LOWNUMBER} + $first + $count - 1;
+    my $major = &RegisterSet_MAJOR($registerLow);
+    my $minor = &RegisterSet_MINOR($registerLow);
+    die "not implemented: RegMask spans several words in RegisterSet."
       unless $major == &RegisterSet_MAJOR($registerHigh);
-  die "internal error: Register outside RegisterSet."
+    die "internal error: Register outside RegisterSet."
       unless $major < &RegisterSet_WORDCOUNT();
-  my @encode = (
-    "WORD = (WORDS[$major]>>$minor)&$mask",
-  );
-  my $ENCODE = "ENCODE(". (@encode? (join '; ', @encode): "/**/"). ")";
-  my @decode = (
-    "WORDS[$major] = WORD<<$minor",
-  );
-  my $DECODE = "DECODE(". (@decode? (join '; ', @decode): "/**/"). ")";
-  print<<"EOT";
+    my @encode = (
+        "WORD = (WORDS[$major]>>$minor)&$mask",
+      );
+    my $ENCODE = "ENCODE(". (@encode? (join '; ', @encode): "/**/"). ")";
+    my @decode = (
+        "WORDS[$major] = WORD<<$minor",
+      );
+    my $DECODE = "DECODE(". (@decode? (join '; ', @decode): "/**/"). ")";
+    print<<"EOT";
 RegMask($ID,
         $REGISTERS,
         $REGFILE,
@@ -116,3 +116,4 @@ print<<"EOT";
 #undef RegMask\n
 EOT
 
+# vim: set ts=4 sw=4 et:

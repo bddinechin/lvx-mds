@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -37,20 +37,20 @@ use integer;
 my %availability;
 my @resourceNames;
 foreach my $resource (@Resource::table) {
-  my $resourceName = $resource->fullName('_');
-  push @resourceNames, $resourceName;
-  if ($MDS_SPLIT_MODE) {
-    $availability{$resourceName} = $resource->attribute("availability");
-  } else {
-    my @processors = $resource->access("processors");
-    my @availability = split ' ', $resource->attribute("availability");
-    while (@processors) {
-      my $processor = shift @processors;
-      my $availability = (shift @availability) || 0;
-      my $processorName = $processor->fullName('_');
-      $availability{$processorName}{$resourceName} = $availability;
+    my $resourceName = $resource->fullName('_');
+    push @resourceNames, $resourceName;
+    if ($MDS_SPLIT_MODE) {
+        $availability{$resourceName} = $resource->attribute("availability");
+    } else {
+        my @processors = $resource->access("processors");
+        my @availability = split ' ', $resource->attribute("availability");
+        while (@processors) {
+            my $processor = shift @processors;
+            my $availability = (shift @availability) || 0;
+            my $processorName = $processor->fullName('_');
+            $availability{$processorName}{$resourceName} = $availability;
+        }
     }
-  }
 }
 
 my $copyrights = &MDS::get_copyrights(" *  ","");
@@ -69,24 +69,24 @@ EOT
 
 my @bool = ("false", "true");
 foreach my $processor (@Processor::table) {
-  my $ID = $processor->fullName('_');
-  my $minTaken = $processor->attribute("minTaken");
-  my $MINTAKEN = "MINTAKEN($minTaken)" if defined $minTaken;
-  my $interlocks = $processor->attribute("interlocks") || 0;
-  my $INTERLOCKS = "INTERLOCKS($bool[$interlocks])";
-  my @availability;
-  foreach my $resourceName (@resourceNames) {
-    my $available;
-    if ($MDS_SPLIT_MODE) {
-      $available = $availability{$resourceName};
-    } else {
-      $available = $availability{$ID}{$resourceName};
+    my $ID = $processor->fullName('_');
+    my $minTaken = $processor->attribute("minTaken");
+    my $MINTAKEN = "MINTAKEN($minTaken)" if defined $minTaken;
+    my $interlocks = $processor->attribute("interlocks") || 0;
+    my $INTERLOCKS = "INTERLOCKS($bool[$interlocks])";
+    my @availability;
+    foreach my $resourceName (@resourceNames) {
+        my $available;
+        if ($MDS_SPLIT_MODE) {
+            $available = $availability{$resourceName};
+        } else {
+            $available = $availability{$ID}{$resourceName};
+        }
+        push @availability, "AVAILABLE(RESOURCE($resourceName),$available)";
     }
-    push @availability, "AVAILABLE(RESOURCE($resourceName),$available)";
-  }
-  my $availability = join ' ', @availability;
-  my $AVAILABILITY = "AVAILABILITY($availability)";
-  print<<"EOT";
+    my $availability = join ' ', @availability;
+    my $AVAILABILITY = "AVAILABILITY($availability)";
+    print<<"EOT";
 Processor($ID, $MINTAKEN, $INTERLOCKS,
           $AVAILABILITY)
 EOT
@@ -97,3 +97,4 @@ print<<"EOT";
 #undef Processor\n
 EOT
 
+# vim: set ts=4 sw=4 et:

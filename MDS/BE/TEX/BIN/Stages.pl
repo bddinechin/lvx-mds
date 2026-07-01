@@ -53,65 +53,65 @@ OPERATOR_LOOP: foreach my $operator (@Operator::table) {
     my @cur_opcodes = $operator->access('origins');
     my $operator_name = $operator->name();
     my $i= 0;
-  CORES_LOOP: foreach my $core (@cores) {
-      next CORES_LOOP if $cur_opcodes[$i]->type() ne 'Opcode';
-      my $opcode = $cur_opcodes[$i]->name();
-      my $mnemonic = $cur_opcodes[$i]->attribute('mnemonic');
-      next CORES_LOOP if $mnemonic =~ /_$/;
-      my $kind = (($cur_opcodes[$i]->access('scheduling'))[0]->access('reservation'))[0]->name();
-      ## Sort the opcodes in 4 "kinds", using their reservation classes:
-      #  - KV4: ALU, BCU, LSU, EXT (TINY is ALU, default is BCU (e.g. for reservation classes like k1-ALL))
-      my $reservation = $kind;
-      $kind =~ s/^TINY/ALU/;
-      $kind = 'BCU' unless ($kind =~ s/^(ALU|MAU|LSU|EXT).*/$1/);
-      $reservation =~ s/\..*//;
-      if (exists $opcodes{$core}{$kind}{$mnemonic}{$opcode}) {
-          ## we already encountered the opcode of this operator => just add the operator's name in the list of the opcode
-          push @{$opcodes{$core}{$kind}{$mnemonic}{$opcode}{'operators_list'}}, $operator_name;
-          next CORES_LOOP;
-      } else {
-          push @{$opcodes{$core}{$kind}{$mnemonic}{$opcode}{'operators_list'}}, $operator_name;
-      }
-      $mnemonics{$core}{$mnemonic}{'exu'} = $kind;
-      $mnemonics{$core}{$mnemonic}{'reservation'} = $reservation;
-      $opcodes{$core}{$kind}{$mnemonic}{$opcode}{'syntax'} = $cur_opcodes[$i]->attribute('syntax');
-      my @operands = map($_->name(), $cur_opcodes[$i]->access('operands'));
-      $opcodes{$core}{$kind}{$mnemonic}{$opcode}{'operands'} = \@operands;
+    CORES_LOOP: foreach my $core (@cores) {
+        next CORES_LOOP if $cur_opcodes[$i]->type() ne 'Opcode';
+        my $opcode = $cur_opcodes[$i]->name();
+        my $mnemonic = $cur_opcodes[$i]->attribute('mnemonic');
+        next CORES_LOOP if $mnemonic =~ /_$/;
+        my $kind = (($cur_opcodes[$i]->access('scheduling'))[0]->access('reservation'))[0]->name();
+        ## Sort the opcodes in 4 "kinds", using their reservation classes:
+#  - KV4: ALU, BCU, LSU, EXT (TINY is ALU, default is BCU (e.g. for reservation classes like k1-ALL))
+        my $reservation = $kind;
+        $kind =~ s/^TINY/ALU/;
+        $kind = 'BCU' unless ($kind =~ s/^(ALU|MAU|LSU|EXT).*/$1/);
+        $reservation =~ s/\..*//;
+        if (exists $opcodes{$core}{$kind}{$mnemonic}{$opcode}) {
+            ## we already encountered the opcode of this operator => just add the operator's name in the list of the opcode
+            push @{$opcodes{$core}{$kind}{$mnemonic}{$opcode}{'operators_list'}}, $operator_name;
+            next CORES_LOOP;
+        } else {
+            push @{$opcodes{$core}{$kind}{$mnemonic}{$opcode}{'operators_list'}}, $operator_name;
+        }
+        $mnemonics{$core}{$mnemonic}{'exu'} = $kind;
+        $mnemonics{$core}{$mnemonic}{'reservation'} = $reservation;
+        $opcodes{$core}{$kind}{$mnemonic}{$opcode}{'syntax'} = $cur_opcodes[$i]->attribute('syntax');
+        my @operands = map($_->name(), $cur_opcodes[$i]->access('operands'));
+        $opcodes{$core}{$kind}{$mnemonic}{$opcode}{'operands'} = \@operands;
 
-      my @parameters;
-      foreach my $parameter ($operator->children('Parameter')) {
-          my %param;
-          ## we are only interested in reg parameters as there are no dependancies on immediates
-          my $method_type = ($parameter->access('method'))[0]->type();
-          next unless (grep(/$method_type/, ("RegClass", "Register")));
-          $param{'double'} = (($parameter->access('method'))[0]->name() eq "pairedReg") ? "d" : "";
-          ## also filter out "Partial" usage parameters as they are not "real" accesses
-          next if (defined($parameter->attribute('usage')) and $parameter->attribute('usage') eq "Partial");
-          ## (dirty, temporary): filter out reads of $CS at E4 since they are not regularly/correctly described in mds for now
-          next if (defined(($parameter->access('method'))[0]) and ($parameter->access('method'))[0]->name() eq "CS" and $parameter->attribute('action') eq "Read" and (split(' ', $parameter->attribute('stages')))[$i] == 5);
-          ## (dirty, temporary): filter out reads of $CS at RR for MAUs as they represent FPU reads of $CS.RM that should not be exposed as it is pseudo-static
-          next if (defined(($parameter->access('method'))[0]) and ($parameter->access('method'))[0]->name() eq "CS" and $parameter->attribute('action') eq "Read" and (split(' ', $parameter->attribute('stages')))[$i] == 1 and $kind eq "MAU");
+        my @parameters;
+        foreach my $parameter ($operator->children('Parameter')) {
+            my %param;
+            ## we are only interested in reg parameters as there are no dependancies on immediates
+            my $method_type = ($parameter->access('method'))[0]->type();
+            next unless (grep(/$method_type/, ("RegClass", "Register")));
+            $param{'double'} = (($parameter->access('method'))[0]->name() eq "pairedReg") ? "d" : "";
+            ## also filter out "Partial" usage parameters as they are not "real" accesses
+            next if (defined($parameter->attribute('usage')) and $parameter->attribute('usage') eq "Partial");
+            ## (dirty, temporary): filter out reads of $CS at E4 since they are not regularly/correctly described in mds for now
+            next if (defined(($parameter->access('method'))[0]) and ($parameter->access('method'))[0]->name() eq "CS" and $parameter->attribute('action') eq "Read" and (split(' ', $parameter->attribute('stages')))[$i] == 5);
+            ## (dirty, temporary): filter out reads of $CS at RR for MAUs as they represent FPU reads of $CS.RM that should not be exposed as it is pseudo-static
+            next if (defined(($parameter->access('method'))[0]) and ($parameter->access('method'))[0]->name() eq "CS" and $parameter->attribute('action') eq "Read" and (split(' ', $parameter->attribute('stages')))[$i] == 1 and $kind eq "MAU");
 
 
-          $param{'type'} = $parameter->attribute('action');
-          $param{'stage'} = (split(' ', $parameter->attribute('stages')))[$i];
+            $param{'type'} = $parameter->attribute('action');
+            $param{'stage'} = (split(' ', $parameter->attribute('stages')))[$i];
 
-          ## if the parameter has a proxy, we will name it after its operand, otherwise we will name it after its method name
-          if (defined($parameter->attribute('proxy'))) {
-              $param{'proxy'} = $parameter->attribute('proxy');
-          } else {
-              $param{'method'} = ($parameter->access('method'))[0]->name();
-          }
-          push @parameters, \%param;
-      }            
-      $opcodes{$core}{$kind}{$mnemonic}{$opcode}{'parameters'} = \@parameters;
-      $i++;
-  }
+            ## if the parameter has a proxy, we will name it after its operand, otherwise we will name it after its method name
+            if (defined($parameter->attribute('proxy'))) {
+                $param{'proxy'} = $parameter->attribute('proxy');
+            } else {
+                $param{'method'} = ($parameter->access('method'))[0]->name();
+            }
+            push @parameters, \%param;
+        }
+        $opcodes{$core}{$kind}{$mnemonic}{$opcode}{'parameters'} = \@parameters;
+        $i++;
+    }
 }
 
 my @Kinds;
 if ($CORE =~ /kvx/i) {
-  @Kinds = ('ALU', 'EXT', 'LSU', 'BCU');
+    @Kinds = ('ALU', 'EXT', 'LSU', 'BCU');
 }
 
 print "\\newpage\\section{Detailed operands read/write stages tables for instructions}\n";
@@ -275,7 +275,7 @@ sub print_tex_table_header {
 
 
 sub print_tex_table_footer {
- print <<'EOT';
+    print <<'EOT';
 \end{longtable}
 EOT
 }
@@ -311,7 +311,7 @@ sub stringtolatex {
 }
 
 BEGIN {
-$text_instruction_tables=<<'EOT';
+    $text_instruction_tables=<<'EOT';
 The tables of this section show at which stage the (register) read operands of an instruction are read and at which stage its results are ready.
 The immediate operands, having no effect whatsoever on the pipeline flow (except taking the place of a register operand that could have stalled), are only mentionned in the syntax of the instruction but not in the pipeline part of the tables.
 The color code used respects the syntax conventions defined in section \ref{sec:syntax}. In particular: \\\\
@@ -332,12 +332,12 @@ Compared to the architecture manual, some names have been shortened (e.g. regist
 
 EOT
 
-$text_LSU_table=<<'EOT';
+    $text_LSU_table=<<'EOT';
 In the table below, an "E11" column has been added to show when the results of uncached loads are available for the typical case if streaming is activated. If streaming is not activated, then uncached loads are blocking and will stall at E3 (and the upstream stages of the pipeline with them) for 7 cycles (typical), see section \ref{sec:uncached_loads} for more details.
 
 EOT
 
-$text_instruction_index=<<'EOT';
+    $text_instruction_index=<<'EOT';
 This section is an alphabetical index of all the instructions, giving, for each of them, its associated EXU (i.e. the EXU on which this instruction executes), the (simplified) reservation class it belongs to and linking to its operands'stages description in the relevant table of section \ref{sec:instructions_tables}.
 
 The reservation classes that are used here are the real ones (as defined in the Instruction Reservation Tables of the architecture manual) except that the last part of the names (like ".X")  have been trimmed as it relates solely to the presence or the absence of immediate extensions, whereas our table only deals with mnemonics, not complete formats, so it would not make sense.
@@ -403,3 +403,4 @@ EOT
 #                                                                                                                  ]
 #                                                                                            }
 #                                          },
+# vim: set ts=4 sw=4 et:

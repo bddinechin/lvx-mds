@@ -22,8 +22,9 @@
 use MDS;
 
 print MDS::make("Convention", {
-  ID=>	&Convention::ID(""),
-})->emit();
+        ID=>	&Convention::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

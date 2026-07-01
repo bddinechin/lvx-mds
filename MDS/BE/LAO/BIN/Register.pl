@@ -26,8 +26,8 @@ use strict;
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -53,69 +53,69 @@ my @processorNames;
 my @processorCores;
 my %processorNames;
 foreach my $processor (@Processor::table) {
-  my $processorName = $processor->fullName('_');
-  my $processorCore = $processor->core();
-  push @processorCores, $processorCore;
-  push @processorNames, $processorName;
-  $processorNames{$processorCore} = $processorName;
+    my $processorName = $processor->fullName('_');
+    my $processorCore = $processor->core();
+    push @processorCores, $processorCore;
+    push @processorNames, $processorName;
+    $processorNames{$processorCore} = $processorName;
 }
 
 # Compute minReadStage of each RegClass or Register methods for each Processor.
 my %minReadStage;
 foreach my $operator (@Operator::table) {
-  my @origins = $operator->access("origins");
-  next if grep {$_->type() eq 'Generic'} @origins;
-  my @parameters = $operator->children("Parameter");
-  foreach my $parameter (@parameters) {
-    my $action = $parameter->attribute("action");
-    next unless $action eq 'Read';
-    my ($method) = $parameter->access("method");
-    my @stages = split ' ', $parameter->attribute("stages");
-    my $methodName = $method->type(). "_". $method->fullName('_');
-    if ($method->type() =~ /^RegClass|Register$/) {
-      while (@origins && @stages) {
-        my $origin = shift @origins;
-        my $stage = shift @stages;
-        my $originCore = $origin->core();
-        my $processorName = $processorNames{$originCore};
-        if (defined $minReadStage{$methodName}{$processorName}) {
-          my $minReadStage = $minReadStage{$methodName}{$processorName};
-          $minReadStage{$methodName}{$processorName} = $stage if $stage < $minReadStage;
-        } else {
-          $minReadStage{$methodName}{$processorName} = $stage;
+    my @origins = $operator->access("origins");
+    next if grep {$_->type() eq 'Generic'} @origins;
+    my @parameters = $operator->children("Parameter");
+    foreach my $parameter (@parameters) {
+        my $action = $parameter->attribute("action");
+        next unless $action eq 'Read';
+        my ($method) = $parameter->access("method");
+        my @stages = split ' ', $parameter->attribute("stages");
+        my $methodName = $method->type(). "_". $method->fullName('_');
+        if ($method->type() =~ /^RegClass|Register$/) {
+            while (@origins && @stages) {
+                my $origin = shift @origins;
+                my $stage = shift @stages;
+                my $originCore = $origin->core();
+                my $processorName = $processorNames{$originCore};
+                if (defined $minReadStage{$methodName}{$processorName}) {
+                    my $minReadStage = $minReadStage{$methodName}{$processorName};
+                    $minReadStage{$methodName}{$processorName} = $stage if $stage < $minReadStage;
+                } else {
+                    $minReadStage{$methodName}{$processorName} = $stage;
+                }
+            }
         }
-      }
     }
-  }
 }
 # Refine minReadStage of Register using minReadStage of RegClass(es).
 foreach my $regClass (@RegClass::table) {
-  my $regClassName = $regClass->fullName('_');
-  my @registers = $regClass->access("registers");
-  foreach my $register (@registers) {
-    my $registerName = $register->fullName('_');
-    foreach my $processorName (@processorNames) {
-      my $registerMinReadStage = $minReadStage{"Register_$registerName"}{$processorName};
-      my $regClassMinReadStage = $minReadStage{"RegClass_$regClassName"}{$processorName};
-      my $stage;
-      if (defined $registerMinReadStage && defined $regClassMinReadStage) {
-        $stage = $registerMinReadStage < $regClassMinReadStage?
-                 $registerMinReadStage: $regClassMinReadStage;
-      } elsif (defined $registerMinReadStage) {
-        $stage = $registerMinReadStage;
-      } else {
-        $stage = $regClassMinReadStage;
-      }
-      if (defined $stage) {
-        if (defined $minReadStage{$registerName}{$processorName}) {
-          my $minReadStage = $minReadStage{$registerName}{$processorName};
-          $minReadStage{$registerName}{$processorName} = $stage if $stage < $minReadStage;
-        } else {
-          $minReadStage{$registerName}{$processorName} = $stage;
+    my $regClassName = $regClass->fullName('_');
+    my @registers = $regClass->access("registers");
+    foreach my $register (@registers) {
+        my $registerName = $register->fullName('_');
+        foreach my $processorName (@processorNames) {
+            my $registerMinReadStage = $minReadStage{"Register_$registerName"}{$processorName};
+            my $regClassMinReadStage = $minReadStage{"RegClass_$regClassName"}{$processorName};
+            my $stage;
+            if (defined $registerMinReadStage && defined $regClassMinReadStage) {
+                $stage = $registerMinReadStage < $regClassMinReadStage?
+                  $registerMinReadStage: $regClassMinReadStage;
+            } elsif (defined $registerMinReadStage) {
+                $stage = $registerMinReadStage;
+            } else {
+                $stage = $regClassMinReadStage;
+            }
+            if (defined $stage) {
+                if (defined $minReadStage{$registerName}{$processorName}) {
+                    my $minReadStage = $minReadStage{$registerName}{$processorName};
+                    $minReadStage{$registerName}{$processorName} = $stage if $stage < $minReadStage;
+                } else {
+                    $minReadStage{$registerName}{$processorName} = $stage;
+                }
+            }
         }
-      }
     }
-  }
 }
 
 # Compute the mapping from Register to RegFile.
@@ -124,26 +124,26 @@ my %regFileIDs;
 my %registerNumber;
 my $registerNumber = 0;
 foreach my $regFile (@RegFile::table) {
-  my $regFileID = $regFile->attribute("ID");
-  my @registers = $regFile->access("registers");
-  my @cores;
-  if ($MDS_SPLIT_MODE) {
-    @cores =  @processorCores; #only 1 item in split mode
-  } else {
-    foreach my $processor ($regFile->access("processors")) {
-      push @cores, $processor->core();
+    my $regFileID = $regFile->attribute("ID");
+    my @registers = $regFile->access("registers");
+    my @cores;
+    if ($MDS_SPLIT_MODE) {
+        @cores =  @processorCores; #only 1 item in split mode
+    } else {
+        foreach my $processor ($regFile->access("processors")) {
+            push @cores, $processor->core();
+        }
     }
-  }
-  my @registerIDs = map {$_->attribute("ID")} @registers;
-  foreach my $registerID (@registerIDs) {
-    foreach my $core (@cores) {
-      my $processorName = $processorNames{$core};
-      die "$registerID in $regFileIDs{$registerID}{$core} and $regFileID"
-          if(defined $regFileIDs{$registerID}{$processorName});
-      $regFileIDs{$registerID}{$processorName} = $regFile->fullName('_');
-      $registerNumber{$registerID}{$processorName} = $registerNumber++;
+    my @registerIDs = map {$_->attribute("ID")} @registers;
+    foreach my $registerID (@registerIDs) {
+        foreach my $core (@cores) {
+            my $processorName = $processorNames{$core};
+            die "$registerID in $regFileIDs{$registerID}{$core} and $regFileID"
+              if(defined $regFileIDs{$registerID}{$processorName});
+            $regFileIDs{$registerID}{$processorName} = $regFile->fullName('_');
+            $registerNumber{$registerID}{$processorName} = $registerNumber++;
+        }
     }
-  }
 }
 # Complete the Register numbering for those not in a RegFile.
 # Also, identify the wired Register(s) or the Storage cells.
@@ -151,95 +151,95 @@ my %registerWired;
 my %storageCells;
 my %RegisterNames;
 foreach my $register (@Register::table) {
-  my $registerID = $register->attribute("ID");
-  unless (defined $registerNumber{$registerID}) {
-    $registerNumber{$registerID} = $registerNumber++;
-  }
-  my $storageID = $register->attribute("storage");
-  my @RegisterProcNames;
-  my @names = split ' ', $register->attribute("names") || '';
-  my @cores;
-  if ($MDS_SPLIT_MODE) {
-    @cores =  @processorCores; #only 1 item in split mode
-  } else {
-    foreach my $processor ($register->access("processors")) {
-      push @cores, $processor->core();
+    my $registerID = $register->attribute("ID");
+    unless (defined $registerNumber{$registerID}) {
+        $registerNumber{$registerID} = $registerNumber++;
     }
-  }
-  foreach my $core (@cores) {
-    foreach my $name (@names) {
-      push @{$RegisterNames{$storageID}{$register->name()}{$processorNames{$core}}}, $name;
+    my $storageID = $register->attribute("storage");
+    my @RegisterProcNames;
+    my @names = split ' ', $register->attribute("names") || '';
+    my @cores;
+    if ($MDS_SPLIT_MODE) {
+        @cores =  @processorCores; #only 1 item in split mode
+    } else {
+        foreach my $processor ($register->access("processors")) {
+            push @cores, $processor->core();
+        }
     }
-  }
+    foreach my $core (@cores) {
+        foreach my $name (@names) {
+            push @{$RegisterNames{$storageID}{$register->name()}{$processorNames{$core}}}, $name;
+        }
+    }
 
-  my @addresses = split(' ',$register->attribute("addresses"));
-  my $storage = &MDS::fetch($storageID);
-  my $kind = $storage->attribute("kind");
-  if ($kind eq 'Constant') {
-    $registerWired{$registerID}++;
-    $storageCells{$registerID} = [ ];
-  } elsif ($kind eq 'Control') {
-    my $storageName = $storage->fullName('_');
-    push @{$storageCells{$registerID}}, $storageName;
-  } elsif ($kind eq 'Register' ||
-           $kind eq 'Special'  ||
-           $kind eq 'Neighbor' ) {
-    my $storageName = $storage->fullName('_');
-    foreach my $cell (@addresses) {
-      push @{$storageCells{$registerID}}, "$storageName$cell";
+    my @addresses = split(' ',$register->attribute("addresses"));
+    my $storage = &MDS::fetch($storageID);
+    my $kind = $storage->attribute("kind");
+    if ($kind eq 'Constant') {
+        $registerWired{$registerID}++;
+        $storageCells{$registerID} = [ ];
+    } elsif ($kind eq 'Control') {
+        my $storageName = $storage->fullName('_');
+        push @{$storageCells{$registerID}}, $storageName;
+    } elsif ($kind eq 'Register' ||
+        $kind eq 'Special'  ||
+        $kind eq 'Neighbor' ) {
+        my $storageName = $storage->fullName('_');
+        foreach my $cell (@addresses) {
+            push @{$storageCells{$registerID}}, "$storageName$cell";
+        }
+    } else {
+        die "Improper Storage $kind for $registerID";
     }
-  } else {
-    die "Improper Storage $kind for $registerID";
-  }
 }
 $registerNumber = undef;
 
 my $RegisterStorageCells_MAXCOUNT = 0;
 #my @Register_Table = sort {
-  #sort {$registerNumber{$a} <=> $registerNumber{$b}
+#sort {$registerNumber{$a} <=> $registerNumber{$b}
 #} @Register::table;
 foreach my $register (@Register::table) {
-  my $ID = $register->fullName('_');
-  my $storageID = $register->attribute("storage");
-  my $registerID = $register->attribute("ID");
-  my $regFileIDs = $regFileIDs{$registerID};
-  my @regFileNames;
-  my @procRegNames;
-  foreach my $processorName (@processorNames) {
-    my $regfileName = "_UNDEF";
-    my @regNames;
-    if(defined $regFileIDs and $$regFileIDs{$processorName}) {
-      $regfileName = $$regFileIDs{$processorName};
-      foreach my $regName (@{$RegisterNames{$storageID}{$register->name()}{$processorName}}) {
-	push @regNames, "NAME($regName)";
-      }
+    my $ID = $register->fullName('_');
+    my $storageID = $register->attribute("storage");
+    my $registerID = $register->attribute("ID");
+    my $regFileIDs = $regFileIDs{$registerID};
+    my @regFileNames;
+    my @procRegNames;
+    foreach my $processorName (@processorNames) {
+        my $regfileName = "_UNDEF";
+        my @regNames;
+        if(defined $regFileIDs and $$regFileIDs{$processorName}) {
+            $regfileName = $$regFileIDs{$processorName};
+            foreach my $regName (@{$RegisterNames{$storageID}{$register->name()}{$processorName}}) {
+                push @regNames, "NAME($regName)";
+            }
+        }
+        if (@regNames == 0) {
+            push @regNames, "NAME(_UNDEF)";
+        }
+        push @procRegNames, "PNAMES(PROCESSOR($processorName), " . @regNames . ", " . (join ' ', @regNames) . ")";
+        push @regFileNames, "REGFILE(PROCESSOR($processorName),$regfileName)";
     }
-    if (@regNames == 0) {
-	push @regNames, "NAME(_UNDEF)";
+    my $NAMES = "NAMES(". @procRegNames. ", ". (join ' ', @procRegNames). ")";
+    my $regfiles = join(' ',@regFileNames);
+    my $REGFILES = "REGFILES($regfiles)";
+    my $wired = $registerWired{$registerID};
+    my $WIRED = $wired? "WIRED(true)": "WIRED(false)";
+    my @storageCells = map {"STORAGECELL($_)"} @{$storageCells{$registerID}};
+    my $storageCells = @storageCells? (join ' ', @storageCells): "/**/";
+    my $STORAGECELLS = "STORAGECELLS(". @storageCells. ", $storageCells)";
+    if ($RegisterStorageCells_MAXCOUNT < @storageCells) {
+        $RegisterStorageCells_MAXCOUNT = @storageCells;
     }
-    push @procRegNames, "PNAMES(PROCESSOR($processorName), " . @regNames . ", " . (join ' ', @regNames) . ")";
-    push @regFileNames, "REGFILE(PROCESSOR($processorName),$regfileName)";
-  }
-  my $NAMES = "NAMES(". @procRegNames. ", ". (join ' ', @procRegNames). ")";
-  my $regfiles = join(' ',@regFileNames);
-  my $REGFILES = "REGFILES($regfiles)";
-  my $wired = $registerWired{$registerID};
-  my $WIRED = $wired? "WIRED(true)": "WIRED(false)";
-  my @storageCells = map {"STORAGECELL($_)"} @{$storageCells{$registerID}};
-  my $storageCells = @storageCells? (join ' ', @storageCells): "/**/";
-  my $STORAGECELLS = "STORAGECELLS(". @storageCells. ", $storageCells)";
-  if ($RegisterStorageCells_MAXCOUNT < @storageCells) {
-    $RegisterStorageCells_MAXCOUNT = @storageCells;
-  }
-  my @minReadStages;
-  foreach my $processorName (@processorNames) {
-    my $minReadStage = $minReadStage{$ID}{$processorName};
-    $minReadStage = "(unsigned)-1" unless defined $minReadStage;
-    push @minReadStages, "MINREADSTAGE(PROCESSOR($processorName),$minReadStage)";
-  }
-  my $minReadStages = join ' ', @minReadStages;
-  my $MINREADSTAGES = "MINREADSTAGES($minReadStages)";
-  print <<"EOT";
+    my @minReadStages;
+    foreach my $processorName (@processorNames) {
+        my $minReadStage = $minReadStage{$ID}{$processorName};
+        $minReadStage = "(unsigned)-1" unless defined $minReadStage;
+        push @minReadStages, "MINREADSTAGE(PROCESSOR($processorName),$minReadStage)";
+    }
+    my $minReadStages = join ' ', @minReadStages;
+    my $MINREADSTAGES = "MINREADSTAGES($minReadStages)";
+    print <<"EOT";
 Register($ID, $NAMES, $REGFILES,
          $WIRED, $STORAGECELLS,
          $MINREADSTAGES)
@@ -255,12 +255,12 @@ my $Register__ = 0;
 my $RegisterList_MAXCOUNT = 0;
 my $Register_NAMES_MAX = 0;
 foreach my $register (@Register::table) {
-  ++$Register__;
-  ++$RegisterList_MAXCOUNT;
-  my @names = split  ' ', $register->attribute("names");
-  if ($Register_NAMES_MAX < @names) {
-    $Register_NAMES_MAX = @names;
-  }
+    ++$Register__;
+    ++$RegisterList_MAXCOUNT;
+    my @names = split  ' ', $register->attribute("names");
+    if ($Register_NAMES_MAX < @names) {
+        $Register_NAMES_MAX = @names;
+    }
 }
 
 print<<"EOT";
@@ -287,3 +287,4 @@ print<<"EOT";
 #endif/*Register_NAMES_MAX*/\n
 EOT
 
+# vim: set ts=4 sw=4 et:

@@ -34,19 +34,19 @@ my @Relocation = sort { $$a{number} <=> $$b{number} } values %{$Relocation};
 # Map Format ID to Instruction(s).
 my %instructions;
 while (my ($instruction_ID, $instruction) = each %{$Instruction}) {
-  foreach my $format_ID (@{$$instruction{formats}}) {
-    my ($class, $name) = split /:/, $instruction_ID;
-    $instructions{$format_ID}{$name} = 1;
-  }
+    foreach my $format_ID (@{$$instruction{formats}}) {
+        my ($class, $name) = split /:/, $instruction_ID;
+        $instructions{$format_ID}{$name} = 1;
+    }
 }
 #print STDERR Dumper(\%instructions);
 
 # Map Relocation ID to Operend(s)
 my %operands;
 while (my ($operandID, $operand) = each %{$Operand}) {
-  foreach my $relocationID (@{$$operand{relocations}}) {
-      $operands{$relocationID}{$operandID} = 1;
-  }
+    foreach my $relocationID (@{$$operand{relocations}}) {
+        $operands{$relocationID}{$operandID} = 1;
+    }
 }
 
 my %relocations;
@@ -54,23 +54,23 @@ foreach my $format (@Format) {
     my $operands = $$format{operands};
     my $formatID = $$format{ID};
     foreach my $operand (@{$operands}) {
-	while (my ($relocationID, $reloc_operands) = each %operands) {
-	    foreach my $reloc_operand (keys %{$reloc_operands}) {
-		if($reloc_operand eq $operand) {
-		    my $format_instructions = $instructions{$formatID};
-		    foreach my $format_instruction (keys %{$format_instructions}) {
-			$relocations{$relocationID}{$format_instruction} = 1;
-		    }
-		}
-	    }
-	}
+        while (my ($relocationID, $reloc_operands) = each %operands) {
+            foreach my $reloc_operand (keys %{$reloc_operands}) {
+                if($reloc_operand eq $operand) {
+                    my $format_instructions = $instructions{$formatID};
+                    foreach my $format_instruction (keys %{$format_instructions}) {
+                        $relocations{$relocationID}{$format_instruction} = 1;
+                    }
+                }
+            }
+        }
     }
 }
 
 # Emit the LaTeX code on STDOUT.
 my $maxRows = 80;
 my $numRows = 0;
- 
+
 # Change
 #   - vertical and horizontal badness reports
 print PHABRICATOR "== Relocations for $dirname ==\n";
@@ -112,23 +112,23 @@ foreach my $relocation (@Relocation) {
     my $instructions = "";
 
     if ($numRows > $maxRows) {
-	print "\\hline";
-	print "\\end{tabular}\n}\n";
-	print "\\smallskip\n\n";
-	print "{\\tiny\n\\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \\hline\n";
-	print "$header\n";
-	print "\\hline\n";
-	$numRows = 0;
+        print "\\hline";
+        print "\\end{tabular}\n}\n";
+        print "\\smallskip\n\n";
+        print "{\\tiny\n\\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \\hline\n";
+        print "$header\n";
+        print "\\hline\n";
+        $numRows = 0;
     }
 
     my $instruction_list_str = "";
     if(@instructions) {
-	my $instruction_key = join(" ",@instructions);
-	if(not defined $instruction_lists{$instruction_key}) {
-	    $instruction_lists{$instruction_key} = $instruction_list_id;
-	    $instruction_list_id++;
-	}
-	$instruction_list_str = "List $instruction_lists{$instruction_key}";
+        my $instruction_key = join(" ",@instructions);
+        if(not defined $instruction_lists{$instruction_key}) {
+            $instruction_lists{$instruction_key} = $instruction_list_id;
+            $instruction_list_id++;
+        }
+        $instruction_list_str = "List $instruction_lists{$instruction_key}";
     }
     print PHABRICATOR "| $relocationID | " . join(" ",@linker_relocs) . " | `$syntax` | $symbol | $symbol_addend | $pc | $gp | $tp | $got | $base_load_addr | $instruction_list_str |\n";
 
@@ -143,33 +143,33 @@ foreach my $relocation (@Relocation) {
 
     my $index = 1;
     while(defined $linker_relocs[$index] or defined $instructions[$index]) {
-	my $newline = " &";
-	# Repeat relocation name
-	if ($numRows > $maxRows) {
-	    $newline = "\\textsf{$relocationID} &";
-	}
-	if(defined $linker_relocs[$index]) {
-	    $newline = $newline . " \\textsf{$linker_relocs[$index]}";
-	}
-	$newline = $newline . " & & & & & & & & &";
-	if(defined $instructions[$index]) {
-	    $newline = $newline . " \\textsf{$instructions[$index]}";
-	}
-	$newline = $newline . " \\\\\n";
+        my $newline = " &";
+        # Repeat relocation name
+        if ($numRows > $maxRows) {
+            $newline = "\\textsf{$relocationID} &";
+        }
+        if(defined $linker_relocs[$index]) {
+            $newline = $newline . " \\textsf{$linker_relocs[$index]}";
+        }
+        $newline = $newline . " & & & & & & & & &";
+        if(defined $instructions[$index]) {
+            $newline = $newline . " \\textsf{$instructions[$index]}";
+        }
+        $newline = $newline . " \\\\\n";
 
-	if ($numRows > $maxRows) {
-	    print "\\hline";
-	    print "\\end{tabular}\n}\n";
-	    print "\\smallskip\n\n";
-	    print "{\\tiny\n\\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \\hline\n";
-	    print "$header\n";
-	    print "\\hline\n";
-	    $numRows++;
-	    $numRows = 0;
-	}
-	print $newline;
-	$index = $index + 1;
-	$numRows++;
+        if ($numRows > $maxRows) {
+            print "\\hline";
+            print "\\end{tabular}\n}\n";
+            print "\\smallskip\n\n";
+            print "{\\tiny\n\\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \\hline\n";
+            print "$header\n";
+            print "\\hline\n";
+            $numRows++;
+            $numRows = 0;
+        }
+        print $newline;
+        $index = $index + 1;
+        $numRows++;
     }
     print "\\hline\n";
 }
@@ -181,3 +181,4 @@ foreach my $instruction_list (sort { $instruction_lists{$a} <=> $instruction_lis
 }
 
 (close(INPUT) && close(PHABRICATOR)) || die $!;
+# vim: set ts=4 sw=4 et:

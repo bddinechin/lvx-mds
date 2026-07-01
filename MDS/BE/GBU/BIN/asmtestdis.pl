@@ -27,25 +27,25 @@ use BitString;
 use AsmTestLib;
 
 sub printObjDumpLine {
-    
+
     my $file = shift;
     my $address = shift;
     my $syntax = shift;
     my $code = shift;
     my $stopbit = shift;
 
-#    print STDERR "printObjDumpLine: syntax: ", $syntax, " code: ",
-#    $code, "\n";
+    #    print STDERR "printObjDumpLine: syntax: ", $syntax, " code: ",
+    #    $code, "\n";
 
     if ($stopbit) {
-	my $stopbitstring = BitString->new(32);
-	$stopbitstring->insert(&MDS::fetch("BitField-$MDD::CORE-STOPBIT"), 1);
-	$code |= $stopbitstring->value(32)[0];
+        my $stopbitstring = BitString->new(32);
+        $stopbitstring->insert(&MDS::fetch("BitField-$MDD::CORE-STOPBIT"), 1);
+        $code |= $stopbitstring->value(32)[0];
     }
 
     printf $file "%4x:\t%02x %02x %02x %02x \tc0 ", $address,
-           $code & 0xff, ($code >> 8) & 0xff, ($code >> 16) & 0xff,
-           ($code >> 24) & 0xff;
+      $code & 0xff, ($code >> 8) & 0xff, ($code >> 16) & 0xff,
+      ($code >> 24) & 0xff;
 
     print $file $syntax;
 
@@ -75,20 +75,21 @@ EOT
     my $bitstring = BitString->new(0, $encoded);
     my $nop_encoding = $bitstring->value(32)[0];
     while (@instruction_list) {
-	my $syntax = shift @instruction_list;
-	my $encoding = shift @instruction_list;
-	my $bundlingID = shift @instruction_list;
+        my $syntax = shift @instruction_list;
+        my $encoding = shift @instruction_list;
+        my $bundlingID = shift @instruction_list;
 
-	if ((($address & 4) && AsmTestLib::isEvenBundling ($bundlingID))
-	    || (! ($address & 4) && AsmTestLib::isOddBundling ($bundlingID))) {
-	    printObjDumpLine ($file, $address, "nop",  $nop_encoding, 0);
-	    $address += 4;
-	}
-	printObjDumpLine ($file, $address, $syntax, $encoding, 1);
-	$address += 4;
+        if ((($address & 4) && AsmTestLib::isEvenBundling ($bundlingID))
+            || (! ($address & 4) && AsmTestLib::isOddBundling ($bundlingID))) {
+            printObjDumpLine ($file, $address, "nop",  $nop_encoding, 0);
+            $address += 4;
+        }
+        printObjDumpLine ($file, $address, $syntax, $encoding, 1);
+        $address += 4;
     }
 }
 
 &MDS::parse(*ARGV);
 
 printObjDumpOutput(*STDOUT);
+# vim: set ts=4 sw=4 et:

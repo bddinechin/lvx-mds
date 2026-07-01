@@ -48,26 +48,26 @@ sub printRelocations {
     my %bfd_relocs;
     $bfd_relocs{0} = "R_KVX_NONE";
     foreach my  $reloc (@Relocation::table) {
-	my @linker_reloc = split(/\s+/,$reloc->attribute("linker"));
-	my @linker_elf_ids = split(/\s+/,$reloc->attribute("elfIds"));
-	croak "Bad arrays: @linker_elf_ids <-> @linker_reloc" if(@linker_reloc != @linker_elf_ids);
-	for my $i (0 .. $#linker_reloc) {
-	    croak "Already defined relocation with elf ID: $linker_elf_ids[$i] ($linker_reloc[$i]) / $bfd_relocs{$linker_elf_ids[$i]}" if(defined $bfd_relocs{$linker_elf_ids[$i]});
-	    $bfd_relocs{$linker_elf_ids[$i]} = $linker_reloc[$i];
-	}
+        my @linker_reloc = split(/\s+/,$reloc->attribute("linker"));
+        my @linker_elf_ids = split(/\s+/,$reloc->attribute("elfIds"));
+        croak "Bad arrays: @linker_elf_ids <-> @linker_reloc" if(@linker_reloc != @linker_elf_ids);
+        for my $i (0 .. $#linker_reloc) {
+            croak "Already defined relocation with elf ID: $linker_elf_ids[$i] ($linker_reloc[$i]) / $bfd_relocs{$linker_elf_ids[$i]}" if(defined $bfd_relocs{$linker_elf_ids[$i]});
+            $bfd_relocs{$linker_elf_ids[$i]} = $linker_reloc[$i];
+        }
     }
 
     my $elfID_check = 0;
     foreach my $elfID (sort { $a <=> $b } keys %bfd_relocs) {
-	croak "Bad ElfID $elfID" if($elfID_check != $elfID);
-	$elfID_check++;
-	my $reloc = $bfd_relocs{$elfID};
-format =
+        croak "Bad ElfID $elfID" if($elfID_check != $elfID);
+        $elfID_check++;
+        my $reloc = $bfd_relocs{$elfID};
+        format =
     RELOC_NUMBER (@<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< @#)
                   $reloc.",",                                 $elfID
 .
 
-	write $file;
+        write $file;
     }
     print $file "END_RELOC_NUMBERS (R_${FAMILY}_end)\n";
 }
@@ -75,3 +75,4 @@ format =
 printRelocations(*STDOUT);
 
 
+# vim: set ts=4 sw=4 et:

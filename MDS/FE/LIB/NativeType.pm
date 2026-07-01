@@ -22,12 +22,13 @@
 use MDS;
 
 print MDS::make("NativeType", {
-  ID=>	&NativeType::ID(""),
-  width=>	0,
-  sizeof=>	0,
-  align=>	0,
-  printf=>	"",
-})->emit();
+        ID=>	&NativeType::ID(""),
+        width=>	0,
+        sizeof=>	0,
+        align=>	0,
+        printf=>	"",
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

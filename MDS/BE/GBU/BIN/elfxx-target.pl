@@ -97,14 +97,14 @@ sub get_elf_reloc {
     croak "Bit field width not defined for elf id $elf_id" if(not defined $bf_width);
     croak "Bit field offset not defined for elf id $elf_id" if(not defined $bf_offset);
     return ( linker=>$linker_name,
-             field_offset=>$bf_offset,
-             field_width=>$bf_width,
-             overflow=>$overflow,
-             underflow=>$underflow,
-             scaling=>$scaling,
-             type=>$reloc->attribute("type"),
-             relative=>$reloc->attribute("relative"),
-        );
+        field_offset=>$bf_offset,
+        field_width=>$bf_width,
+        overflow=>$overflow,
+        underflow=>$underflow,
+        scaling=>$scaling,
+        type=>$reloc->attribute("type"),
+        relative=>$reloc->attribute("relative"),
+      );
 }
 
 sub elf_reloc_diff {
@@ -152,8 +152,8 @@ sub init {
 sub print_reloc_type {
     my ($file) = @_;
 
-#   my $copyrights = &MDS::get_copyrights("/* "," */\n");
-#   print $file $copyrights;
+    #   my $copyrights = &MDS::get_copyrights("/* "," */\n");
+    #   print $file $copyrights;
 
     print $file <<EOT;
 /* KVX-specific relocations table.
@@ -179,7 +179,7 @@ sub print_reloc_type {
 EOT
 
     foreach my $processors_key (sort keys %relocs) {
-	my $reloc_define = $FAMILY."_".uc($processors_key);
+        my $reloc_define = $FAMILY."_".uc($processors_key);
 
         print $file "#ifdef ".$reloc_define."\n";
         print $file "static reloc_howto_type elf_${Family}_howto_table[] =\n{\n";
@@ -240,3 +240,4 @@ init();
 
 print_reloc_type(*STDOUT);
 
+# vim: set ts=4 sw=4 et:

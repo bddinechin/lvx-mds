@@ -22,12 +22,13 @@
 use MDS;
 
 print MDS::make("RegFile", {
-  ID=>	&RegFile::ID(""),
-  width=>	0,
-  regClass=>	&RegClass::ID(""),
-  registers=>	&Register::ID(""),
-  nativeTypes=>	&NativeType::ID(""),
-})->emit();
+        ID=>	&RegFile::ID(""),
+        width=>	0,
+        regClass=>	&RegClass::ID(""),
+        registers=>	&Register::ID(""),
+        nativeTypes=>	&NativeType::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

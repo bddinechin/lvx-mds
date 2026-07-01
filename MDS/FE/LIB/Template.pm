@@ -22,13 +22,14 @@
 use MDS;
 
 print MDS::make("Template", {
-  ID=>	&Template::ID(""),
-  wordWidth=>	0,
-  alignBase=>	0,
-  alignBias=>	0,
-  patterns=>	&Pattern::ID(""),
-  increment=>	0,
-})->emit();
+        ID=>	&Template::ID(""),
+        wordWidth=>	0,
+        alignBase=>	0,
+        alignBias=>	0,
+        patterns=>	&Pattern::ID(""),
+        increment=>	0,
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

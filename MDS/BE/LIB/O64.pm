@@ -33,27 +33,27 @@ my $Cores  = uc $ENV{CORES};
 my $cores  = lc $Cores;
 
 my %translate_mnemonic = (
-                          'ADJUST'    => 'spadjust',
-                          'BEGIN_PREGTN' => 'begin_pregtn',
-                          'BWDBAR'    => 'bwd.bar',
-                          'COMPOSEP'  => 'composep',
-                          'END_PREGTN' => 'end_pregtn',
-                          'EXTRACTP'  => 'extractp',
-                          'FWDBAR'    => 'fwd.bar',
-                          'GETPC'     => 'getpc',
-                          'GNUASM'    => 'asm',
-                          'IFIXUP'    => 'ifixup',
-                          'APPLY'     => 'intrncall',
-                          'LABEL'     => 'label',
-                          'MOVC'      => 'movc',
-                          'MOVCF'     => 'movcf',
-                          'MOVP'      => 'movp',
-                          'SKIP'      => 'noop',
-                          'PHI'       => 'phi',
-                          'PSI'       => 'psi',
-                          'PCOPY'     => 'PCOPY',
-                          'PUSHREGS'  => 'pushregs',
-                        );
+    'ADJUST'    => 'spadjust',
+    'BEGIN_PREGTN' => 'begin_pregtn',
+    'BWDBAR'    => 'bwd.bar',
+    'COMPOSEP'  => 'composep',
+    'END_PREGTN' => 'end_pregtn',
+    'EXTRACTP'  => 'extractp',
+    'FWDBAR'    => 'fwd.bar',
+    'GETPC'     => 'getpc',
+    'GNUASM'    => 'asm',
+    'IFIXUP'    => 'ifixup',
+    'APPLY'     => 'intrncall',
+    'LABEL'     => 'label',
+    'MOVC'      => 'movc',
+    'MOVCF'     => 'movcf',
+    'MOVP'      => 'movp',
+    'SKIP'      => 'noop',
+    'PHI'       => 'phi',
+    'PSI'       => 'psi',
+    'PCOPY'     => 'PCOPY',
+    'PUSHREGS'  => 'pushregs',
+  );
 
 sub translate_mnemonic {
     # Translate some generic MDS mnemonics into generic targinfo ones.
@@ -92,16 +92,16 @@ sub translate_name {
     my %proxy2method; my @methods;
     my @parameters = &TargInfo::operator_parameters ($operator);
     foreach my $i (0 .. @parameters-1) {
-      my $parameter = $parameters[$i];
-      my ($method) = $parameter->access("method");
-      my $proxy = $parameter->attribute("proxy");
-      if(defined $proxy) {
-        $proxy2method{$proxy} = $method;
-      }
-      push @methods, $method;
-#$proxy = $proxy || 'undef';
-#$method = $method || 'undef';
-#print STDERR "PROXY=$proxy METHOD=$method\n";
+        my $parameter = $parameters[$i];
+        my ($method) = $parameter->access("method");
+        my $proxy = $parameter->attribute("proxy");
+        if(defined $proxy) {
+            $proxy2method{$proxy} = $method;
+        }
+        push @methods, $method;
+        #$proxy = $proxy || 'undef';
+        #$method = $method || 'undef';
+        #print STDERR "PROXY=$proxy METHOD=$method\n";
     }
 
     my $operator_target = $operator->core();
@@ -119,58 +119,58 @@ sub translate_name {
     my ($origin) = $operator->access("origins");
     my $sy_tmp = $operator->attribute("syntax");
     if(defined $sy_tmp) {
-      $sy_tmp =~ s|(%\d+)| $1 |g;
-      $sy_tmp =~ s|\s+| |g;
-      foreach my $sy_item (split /[%\s]/, $sy_tmp) {
-        if($sy_item =~ /^\d+/) { $sy_item = "%".$sy_item; }
-        push @syntax_items, split /\s+/, $sy_item;
-      }
+        $sy_tmp =~ s|(%\d+)| $1 |g;
+        $sy_tmp =~ s|\s+| |g;
+        foreach my $sy_item (split /[%\s]/, $sy_tmp) {
+            if($sy_item =~ /^\d+/) { $sy_item = "%".$sy_item; }
+            push @syntax_items, split /\s+/, $sy_item;
+        }
 
-      foreach my $sy_item ( @syntax_items ) {
-        if($sy_item =~ /^%(\d+)$/) {
-          my $method_idx = $1;
-          if($method_idx != 0) {
-            if(@methods) {
-              # Found an operand
-              if(not defined $proxy2method{$sy_item}) {
-                die "Cannot find parameter for proxy $sy_item at ".$operator->attribute("ID")."\n";
-              }
-              else {
-                my $method = $proxy2method{$sy_item};
-                my $mtype = ref($method);
-                my $suffix = "";
-                if ($mtype =~ /RegClass/ && defined $method->name()) {
-                  # Open64 suffix is lower case of first alphabetic character
-                  $suffix = Target::instructionRegisterSuffix($method,$sy_item,$origin);
-#print STDERR "Register suffix $suffix for method:".$method->name()."\n";
-                } elsif ($mtype =~ /Immediate/) {
-                  # Open64 suffix is ii for an extended immediate, i for a
-                  # non-extended immediate.
-#print STDERR "attribute ID = ", $method->attribute("ID"), "\n";
-                  $suffix = Target::instructionImmediateSuffix($method,$sy_item,$origin);
-                } elsif ($mtype =~ /Modifier/ && defined $method->name()) {
-                  $suffix = Target::instructionModifierSuffix($method,$sy_item,$origin);
-#print STDERR "Modifier suffix = $suffix\n";
-                } elsif ($mtype =~ /RegMask/ && defined $method->name()) {
-                  $suffix = Target::instructionRegMaskSuffix($method,$sy_item,$origin);
-#print STDERR "RegMask suffix = $suffix\n";
-                } # Other operand types do not get a suffix.
-                if ($suffix ne "") {
-                  unshift @open64_suffix, $suffix;
+        foreach my $sy_item ( @syntax_items ) {
+            if($sy_item =~ /^%(\d+)$/) {
+                my $method_idx = $1;
+                if($method_idx != 0) {
+                    if(@methods) {
+                        # Found an operand
+                        if(not defined $proxy2method{$sy_item}) {
+                            die "Cannot find parameter for proxy $sy_item at ".$operator->attribute("ID")."\n";
+                        }
+                        else {
+                            my $method = $proxy2method{$sy_item};
+                            my $mtype = ref($method);
+                            my $suffix = "";
+                            if ($mtype =~ /RegClass/ && defined $method->name()) {
+                     # Open64 suffix is lower case of first alphabetic character
+                                $suffix = Target::instructionRegisterSuffix($method,$sy_item,$origin);
+       #print STDERR "Register suffix $suffix for method:".$method->name()."\n";
+                            } elsif ($mtype =~ /Immediate/) {
+                # Open64 suffix is ii for an extended immediate, i for a
+                # non-extended immediate.
+                #print STDERR "attribute ID = ", $method->attribute("ID"), "\n";
+                                $suffix = Target::instructionImmediateSuffix($method,$sy_item,$origin);
+                            } elsif ($mtype =~ /Modifier/ && defined $method->name()) {
+                                $suffix = Target::instructionModifierSuffix($method,$sy_item,$origin);
+                                #print STDERR "Modifier suffix = $suffix\n";
+                            } elsif ($mtype =~ /RegMask/ && defined $method->name()) {
+                                $suffix = Target::instructionRegMaskSuffix($method,$sy_item,$origin);
+                                #print STDERR "RegMask suffix = $suffix\n";
+                            } # Other operand types do not get a suffix.
+                            if ($suffix ne "") {
+                                unshift @open64_suffix, $suffix;
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
+            else {
+                # Syntaxic element that do not correspond to parameter proxy
+                my $suffix = Target::instructionSyntaxicSuffix($sy_item);
+                die "Unexpected syntax item '$sy_item' for operator ".$operator->attribute("ID") if(not defined $suffix);
+                if ($suffix ne "") {
+                    unshift @open64_suffix, $suffix;
+                }
+            }
         }
-        else {
-          # Syntaxic element that do not correspond to parameter proxy
-          my $suffix = Target::instructionSyntaxicSuffix($sy_item);
-          die "Unexpected syntax item '$sy_item' for operator ".$operator->attribute("ID") if(not defined $suffix);
-          if ($suffix ne "") {
-            unshift @open64_suffix, $suffix;
-          }
-        }
-      }
     }
 
 #print STDERR "open64 name is ", $open64_name .'+'. (join '+', @open64_suffix), "\n";
@@ -179,21 +179,21 @@ sub translate_name {
 
 sub common_suffix {
     my @suffix_list = @_;
-#print STDERR "common_suffix: @suffix_list \n";
+    #print STDERR "common_suffix: @suffix_list \n";
     my @leading_suffix = split /\+/, shift @suffix_list;
     my $leading_suffix = shift @leading_suffix;
     foreach my $suffix (@suffix_list) {
         my @suffixes = split /\+/, $suffix;
         if (!exists $suffixes[0]) {
-#print STDERR "NO common suffix: suffixes[0] does not exist\n";
+            #print STDERR "NO common suffix: suffixes[0] does not exist\n";
             return 0;
         }
         if ($suffixes[0] ne $leading_suffix) {
-#print STDERR "NO common suffix: $suffixes[0] and $leading_suffix\n";
+           #print STDERR "NO common suffix: $suffixes[0] and $leading_suffix\n";
             return 0;
         }
     }
-#    print STDERR "Common suffix: $leading_suffix\n";
+    #    print STDERR "Common suffix: $leading_suffix\n";
     return 1;
 }
 
@@ -222,7 +222,7 @@ sub prune_suffixes {
                 push @names, $1;
             }
         }
-    }    
+    }
 
     my %pruned_name_mapping;
     while (@names) {
@@ -232,20 +232,20 @@ sub prune_suffixes {
         my @pruned_insts;
         my @unpruned_insts;
 
-#print STDERR "menmonic is ", $mnemonic, "\n";
-#print STDERR "inst is $names[0]\n";
+        #print STDERR "menmonic is ", $mnemonic, "\n";
+        #print STDERR "inst is $names[0]\n";
         do {
             shift @split_inst;
             push @unpruned_insts, $names[0];
             push @pruned_insts, $mnemonic;
-#print STDERR "push suffix ", (join "+", @split_inst), "\n";
+            #print STDERR "push suffix ", (join "+", @split_inst), "\n";
             push @suffixes, (join '+', @split_inst);
             shift @names;
             if (@names) {
                 @split_inst = split /\+/, $names[0];
-#print STDERR "inst is $names[0]\n";
+                #print STDERR "inst is $names[0]\n";
             }
-        } while (@names && $split_inst[0] eq $mnemonic);
+          } while (@names && $split_inst[0] eq $mnemonic);
         # Now we have the base instruction in pruned_insts.
         # To each of these we append the suffices that differ
         # for some members of the group.
@@ -259,7 +259,7 @@ sub prune_suffixes {
                 if (defined $suffix && ! $remove_suffix) {
                     $pruned_insts[$i] .= '+' . $suffix;
                 }
-#print STDERR "pruned_insts[$i] = $pruned_insts[$i]\n";
+                #print STDERR "pruned_insts[$i] = $pruned_insts[$i]\n";
                 $suffixes[$i] = (join '+', @new_suffixes);
             }
         }
@@ -287,9 +287,9 @@ sub prune_suffixes {
 }
 
 sub make_instruction_names {
-# For each instruction, derive the name of the instruction as used in the
-# open64 compiler, based on the MDS name of the instruction.
-# Save the open64 name in $operator->{O64}{NAME}.
+    # For each instruction, derive the name of the instruction as used in the
+    # open64 compiler, based on the MDS name of the instruction.
+    # Save the open64 name in $operator->{O64}{NAME}.
 
     foreach my $operator (@Operator::table) {
         $operator->{O64}{NAME} = &translate_name ($operator);
@@ -326,13 +326,13 @@ sub make_instruction_names {
             # This is intended to ensure that when new cores are
             # added, the existing instruction names do not change.
             @operators = sort { $core_rank{$operator_primary_core{$a}} <=>
-                                $core_rank{$operator_primary_core{$b}}; } @operators if $cores;
+                  $core_rank{$operator_primary_core{$b}}; } @operators if $cores;
             # First entry gets the default name
             # Subsequent entries have the earliest core name prepended
             foreach my $operator (pop @operators) {
                 my $core = $operator_primary_core{$operator};
                 $operator->{O64}{NAME} = "$core!". $operator->{O64}{NAME};
-#print STDERR "Prefixing operator: ", $operator->{O64}{NAME}, "\n";
+             #print STDERR "Prefixing operator: ", $operator->{O64}{NAME}, "\n";
             }
         }
     }
@@ -344,9 +344,9 @@ sub make_instruction_names {
 }
 
 sub make_operand_names {
-# For each operand type, derive the name of the operand type, as used in the
-# open64 compiler, based on the MDS name of the instruction.
-# Save the open64 name in $operand->{O64}{NAME};
+    # For each operand type, derive the name of the operand type, as used in the
+    # open64 compiler, based on the MDS name of the instruction.
+    # Save the open64 name in $operand->{O64}{NAME};
 
 # When manipulating operators the parameters specify directly methods.
 # So the targinfo operand use must be derived directly from methods.
@@ -377,7 +377,7 @@ sub reg_class_contains {
     my $rc1_regshash = $rc1->{RegsHash};
     my $rc2_regshash = $rc2->{RegsHash};
     foreach my $reg (keys %$rc2_regshash) {
-        return 0 if (! exists $$rc1_regshash{$reg}) 
+        return 0 if (! exists $$rc1_regshash{$reg})
     }
     return 1;
 }
@@ -388,9 +388,9 @@ my %regclass_names;
 sub make_register_classes {
     # for each register class, set $rc->{O64}{NAME}.
     foreach my $rc (sort {
-        my $ida = $a->attribute("ID");
-        my $idb = $b->attribute("ID");
-        $ida cmp $idb;
+            my $ida = $a->attribute("ID");
+            my $idb = $b->attribute("ID");
+            $ida cmp $idb;
         } @RegClass::table) {
         next unless defined $rc->name();
         my $name = $rc->attribute("ID");
@@ -469,101 +469,101 @@ sub make_register_classes {
 }
 
 sub set_rc_name {
-  my ($method) = @_;
-  return if(defined $method->{O64}{NAME});
-  my $name = $method->attribute("ID");
-  $name =~ s/Reg[^\-]+\-(\w+)\-(.*)/$2/;
-  my $core = $1;
-  $name = lc $name;
-  # open64 target-independent code assumes that the general purpose
-  # register class is called "integer", so fix that here.
-  $name = "integer" if $name eq "general";
-  $name = $core."_".$name if exists $regclass_names{$name};
-  $regclass_names{$name} = 1;
-  $method->{O64}{NAME} = $name;
+    my ($method) = @_;
+    return if(defined $method->{O64}{NAME});
+    my $name = $method->attribute("ID");
+    $name =~ s/Reg[^\-]+\-(\w+)\-(.*)/$2/;
+    my $core = $1;
+    $name = lc $name;
+    # open64 target-independent code assumes that the general purpose
+    # register class is called "integer", so fix that here.
+    $name = "integer" if $name eq "general";
+    $name = $core."_".$name if exists $regclass_names{$name};
+    $regclass_names{$name} = 1;
+    $method->{O64}{NAME} = $name;
 
 }
 
 sub make_register_classes_from_registers {
-  # Now Registers, RegFiles can get {O64}{NAME} as we enable 
-  # singleton register to be present in a parameter of Operators.
+    # Now Registers, RegFiles can get {O64}{NAME} as we enable 
+    # singleton register to be present in a parameter of Operators.
 
-  # for each register class, set $rc->{O64}{NAME}.
-  my %reg2rc;
-  # This hash must point to SUPERSETS regclass
-  my %regfile2rc;
-  foreach my $rc (@RegClass::table) {
-    next unless defined $rc->name();
-    map { $reg2rc{$_} = $rc; } split(' ',$rc->attribute("registers"));
-    if(defined $regfile2rc{$rc->attribute("regFile")}) {
-        my $rc2 = $regfile2rc{$rc->attribute("regFile")};
-        if($rc2 != $rc) {
-            if(reg_class_contains ($rc, $rc2)) {
-                $regfile2rc{$rc->attribute("regFile")} = $rc;
+    # for each register class, set $rc->{O64}{NAME}.
+    my %reg2rc;
+    # This hash must point to SUPERSETS regclass
+    my %regfile2rc;
+    foreach my $rc (@RegClass::table) {
+        next unless defined $rc->name();
+        map { $reg2rc{$_} = $rc; } split(' ',$rc->attribute("registers"));
+        if(defined $regfile2rc{$rc->attribute("regFile")}) {
+            my $rc2 = $regfile2rc{$rc->attribute("regFile")};
+            if($rc2 != $rc) {
+                if(reg_class_contains ($rc, $rc2)) {
+                    $regfile2rc{$rc->attribute("regFile")} = $rc;
+                }
+                elsif(reg_class_contains ($rc2, $rc)) {
+                    $regfile2rc{$rc->attribute("regFile")} = $rc2;
+                }
+                else {
+                    $regfile2rc{$rc->attribute("regFile")} = $rc;
+                    warn "Bug: Don't know which register class (".$rc->name()." or ".$rc2->name().") to associate to register file ".$rc->attribute("regFile")."\n";
+                }
             }
-            elsif(reg_class_contains ($rc2, $rc)) {
-                $regfile2rc{$rc->attribute("regFile")} = $rc2;
+        }
+        else {
+            $regfile2rc{$rc->attribute("regFile")} = $rc;
+        }
+    }
+
+    my %abs_orpheline_regs;
+    my %storage2regs;
+    foreach my $reg (@Register::table) {
+        next unless defined $reg->name();
+        $abs_orpheline_regs{$reg->attribute("ID")} = 1 if(not defined $reg2rc{$reg->attribute("ID")});
+        push @{$storage2regs{$reg->attribute("storage")}}, $reg;
+    }
+
+    my %used_orpheline_regs;
+    foreach my $operator (@Operator::table) {
+        my @parameters = &TargInfo::operator_parameters ($operator);
+        my @methods = grep {defined $_} map {$_->attribute("method")} @parameters;
+        map {
+            # Force orpheline regs to create subclass for dedicated.
+            if(defined $abs_orpheline_regs{$_} or $_ =~ /^Register/) {
+                $used_orpheline_regs{$_} = 1
+            }
+          } @methods;
+    }
+
+    my @orpheline_regs;
+    foreach my $orpheline_reg (keys %used_orpheline_regs) {
+        push @orpheline_regs,&MDS::fetch($orpheline_reg);
+    }
+
+    my %reg2regfile;
+    foreach my $regfile (@RegFile::table) {
+        map { $reg2regfile{$_} = $regfile; } split(' ',$regfile->attribute("registers"));
+    }
+
+    my @open64_regclasses;
+    foreach my $reg (@orpheline_regs) {
+        #   print STDERR "Find orpheline reg: ",$reg->attribute("ID"),"\n";
+        if(defined $reg2regfile{$reg->attribute("ID")}) {
+            my $regfile = $reg2regfile{$reg->attribute("ID")};
+     #     print STDERR "Get superset RegFile: ",$regfile->attribute("ID"),"\n";
+            if(defined $regfile2rc{$regfile->attribute("ID")}) {
+                my $rc = $regfile2rc{$regfile->attribute("ID")};
+#print STDERR "Get a superset RegClass: ",$rc->attribute("ID")," attached to RegFile: ",$regfile->attribute("ID"),"\n";
+# A regfile refers to this register and a regclass is associated with this regfile. We will create a singleton register subclass.
+                $reg->{O64}{SUPERSETS} .= " ".$rc->attribute("ID");
             }
             else {
-                $regfile2rc{$rc->attribute("regFile")} = $rc;
-                warn "Bug: Don't know which register class (".$rc->name()." or ".$rc2->name().") to associate to register file ".$rc->attribute("regFile")."\n";
+                set_rc_name($regfile);
+#print STDERR "Get a superset RegClass: ",$regfile->{O64}{NAME}," build from RegFile: ",$regfile->attribute("ID"),"\n";
+                $reg->{O64}{SUPERSETS} .= " ".$regfile->attribute("ID");
+                push @open64_regclasses, $regfile;
             }
         }
-    }
-    else {
-        $regfile2rc{$rc->attribute("regFile")} = $rc;
-    }
-  }
-
-  my %abs_orpheline_regs;
-  my %storage2regs;
-  foreach my $reg (@Register::table) {
-    next unless defined $reg->name();
-    $abs_orpheline_regs{$reg->attribute("ID")} = 1 if(not defined $reg2rc{$reg->attribute("ID")});
-    push @{$storage2regs{$reg->attribute("storage")}}, $reg;
-  }
-
-  my %used_orpheline_regs;
-  foreach my $operator (@Operator::table) {
-    my @parameters = &TargInfo::operator_parameters ($operator);
-    my @methods = grep {defined $_} map {$_->attribute("method")} @parameters;
-    map {
-        # Force orpheline regs to create subclass for dedicated.
-        if(defined $abs_orpheline_regs{$_} or $_ =~ /^Register/) {
-            $used_orpheline_regs{$_} = 1
-        }
-    } @methods;
-  }
-
-  my @orpheline_regs;
-  foreach my $orpheline_reg (keys %used_orpheline_regs) {
-    push @orpheline_regs,&MDS::fetch($orpheline_reg);
-  }
-
-  my %reg2regfile;
-  foreach my $regfile (@RegFile::table) {
-    map { $reg2regfile{$_} = $regfile; } split(' ',$regfile->attribute("registers"));
-  }
-
-  my @open64_regclasses;
-  foreach my $reg (@orpheline_regs) {
-#   print STDERR "Find orpheline reg: ",$reg->attribute("ID"),"\n";
-    if(defined $reg2regfile{$reg->attribute("ID")}) {
-        my $regfile = $reg2regfile{$reg->attribute("ID")};
-#     print STDERR "Get superset RegFile: ",$regfile->attribute("ID"),"\n";
-      if(defined $regfile2rc{$regfile->attribute("ID")}) {
-          my $rc = $regfile2rc{$regfile->attribute("ID")};
-#print STDERR "Get a superset RegClass: ",$rc->attribute("ID")," attached to RegFile: ",$regfile->attribute("ID"),"\n";
-          # A regfile refers to this register and a regclass is associated with this regfile. We will create a singleton register subclass.
-          $reg->{O64}{SUPERSETS} .= " ".$rc->attribute("ID");
-      }
-      else {
-        set_rc_name($regfile);
-#print STDERR "Get a superset RegClass: ",$regfile->{O64}{NAME}," build from RegFile: ",$regfile->attribute("ID"),"\n";
-        $reg->{O64}{SUPERSETS} .= " ".$regfile->attribute("ID");
-        push @open64_regclasses, $regfile;
-      }
-    }
 #    else {
 #      my $storage = &MDS::fetch($reg->attribute("storage"));
 #      my @cells = split(' ',$reg->attribute("addresses"));
@@ -582,50 +582,50 @@ sub make_register_classes_from_registers {
 #        }
 #      }
 #    }
-    set_rc_name($reg);
-    push @open64_regclasses, $reg;
-  }
-
-  # Now in open64 terms, a Register Class has no supersets.
-  # A Register SubClass has supersets.
-  # For each SubClass, we need to find which of its supersets is
-  # a register class - there should be only one.
-  foreach my $rc (@open64_regclasses) {
-    next unless defined $rc->name();
-    if (exists $rc->{O64}{SUPERSETS}) {
-      # This is a register subclass.
-      foreach my $supersetID (split ' ', $rc->{O64}{SUPERSETS}) {
-        my $superset = &MDS::fetch($supersetID);
-        if (!exists $superset->{O64}{SUPERSETS}) {
-          $rc->{O64}{SUPERSETS} = $supersetID;
-          last;
-        }
-      }
-      $rc->{O64}{NAME} = "ISA_REGISTER_SUBCLASS_" . $rc->{O64}{NAME} if($rc->{O64}{NAME} !~ /^ISA_REGISTER_(SUB)??CLASS_/);
-    } else {
-      $rc->{O64}{NAME} = "ISA_REGISTER_CLASS_" . $rc->{O64}{NAME} if($rc->{O64}{NAME} !~ /^ISA_REGISTER_(SUB)??CLASS_/);
+        set_rc_name($reg);
+        push @open64_regclasses, $reg;
     }
-  }
 
-  # Label each register with its register class.
-  foreach my $rc (@open64_regclasses) {
-    next unless defined $rc->name();
-    my $rcID = $rc->attribute("ID");
-    unless (exists $rc->{O64}{SUPERSETS}) {
-      my $count = 0;
-      if($rc->attribute("ID") !~ /^Register/) {
-        my @registers = $rc->access("registers");
-        foreach my $register (@registers) {
-          $register->{O64}{REGCLASS} = $rcID;
-          $register->{O64}{REGNUM} = $count++;
+    # Now in open64 terms, a Register Class has no supersets.
+    # A Register SubClass has supersets.
+    # For each SubClass, we need to find which of its supersets is
+    # a register class - there should be only one.
+    foreach my $rc (@open64_regclasses) {
+        next unless defined $rc->name();
+        if (exists $rc->{O64}{SUPERSETS}) {
+            # This is a register subclass.
+            foreach my $supersetID (split ' ', $rc->{O64}{SUPERSETS}) {
+                my $superset = &MDS::fetch($supersetID);
+                if (!exists $superset->{O64}{SUPERSETS}) {
+                    $rc->{O64}{SUPERSETS} = $supersetID;
+                    last;
+                }
+            }
+            $rc->{O64}{NAME} = "ISA_REGISTER_SUBCLASS_" . $rc->{O64}{NAME} if($rc->{O64}{NAME} !~ /^ISA_REGISTER_(SUB)??CLASS_/);
+        } else {
+            $rc->{O64}{NAME} = "ISA_REGISTER_CLASS_" . $rc->{O64}{NAME} if($rc->{O64}{NAME} !~ /^ISA_REGISTER_(SUB)??CLASS_/);
         }
-      }
-      else {
-        $rc->{O64}{REGCLASS} = $rcID;
-        $rc->{O64}{REGNUM} = $count;
-      }
     }
-  }
+
+    # Label each register with its register class.
+    foreach my $rc (@open64_regclasses) {
+        next unless defined $rc->name();
+        my $rcID = $rc->attribute("ID");
+        unless (exists $rc->{O64}{SUPERSETS}) {
+            my $count = 0;
+            if($rc->attribute("ID") !~ /^Register/) {
+                my @registers = $rc->access("registers");
+                foreach my $register (@registers) {
+                    $register->{O64}{REGCLASS} = $rcID;
+                    $register->{O64}{REGNUM} = $count++;
+                }
+            }
+            else {
+                $rc->{O64}{REGCLASS} = $rcID;
+                $rc->{O64}{REGNUM} = $count;
+            }
+        }
+    }
 }
 
 sub make_resource_names {
@@ -640,7 +640,7 @@ sub make_convention_names {
     foreach my $convention (@Convention::table) {
         my $name = &Target::getConventionName($convention,$Family);
         croak "Undefined convention name for ".$convention->attribute("ID")
-            if(not defined $name);
+          if(not defined $name);
         $convention->{O64}{NAME} = $name;
     }
 }
@@ -655,3 +655,4 @@ sub makeNames {
 }
 
 1;
+# vim: set ts=4 sw=4 et:

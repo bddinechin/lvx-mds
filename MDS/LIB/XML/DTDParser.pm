@@ -23,316 +23,316 @@ my $AttDef = '('.$name.') ('.$AttType.')(?: ('.$DefaultDecl.'))?';
 
 
 sub ParseDTDFile {
-	my $file = shift;
-	open my $IN, "< $file"
-		or die "Cannot open the $file : $!\n";
-	my $xml = do {local $/; <$IN>};
-	close $IN;
-	my ($vol,$dir,$filename) = File::Spec->splitpath( $file);
-	if ($filename eq $file) {
-		return ParseDTD($xml);
-	} else {
-		# in case there are any includes, they should be relative to the DTD file, not to current dir
-		my $cwd = cwd();
-		chdir(File::Spec->catdir($vol,$dir));
-		my $DTD = ParseDTD($xml);
-		chdir($cwd);
-		return $DTD;
-	}
+    my $file = shift;
+    open my $IN, "< $file"
+      or die "Cannot open the $file : $!\n";
+    my $xml = do {local $/; <$IN>};
+    close $IN;
+    my ($vol,$dir,$filename) = File::Spec->splitpath( $file);
+    if ($filename eq $file) {
+        return ParseDTD($xml);
+    } else {
+# in case there are any includes, they should be relative to the DTD file, not to current dir
+        my $cwd = cwd();
+        chdir(File::Spec->catdir($vol,$dir));
+        my $DTD = ParseDTD($xml);
+        chdir($cwd);
+        return $DTD;
+    }
 }
 
 sub ParseDTD {
-	my $xml = shift;
-	my (%elements, %definitions);
+    my $xml = shift;
+    my (%elements, %definitions);
 
-	$xml =~ s/\s\s*/ /gs;
+    $xml =~ s/\s\s*/ /gs;
 
-	while ($xml =~ s{<!ENTITY\s+(?:(%)\s*)?($name)\s+SYSTEM\s*"(.*?)"\s*>}{}io) {
-		my ($percent, $entity, $include) = ($1,$2,$3);
-		$percent = '&' unless $percent;
-		my $definition;
-		{
-			# the $include may be a URL, use LWP::Simple to fetch it if it is.
-			my $IN;
-			open $IN, "<$include" or die "Cannot open include file $include : $!\n";
-			$definition = do {local $/; <$IN>};
-			close $IN;
-		}
-		$definition =~ s/\s\s*/ /gs;
-		$xml =~ s{\Q$percent$entity;\E}{$definition}g;
-	}
+    while ($xml =~ s{<!ENTITY\s+(?:(%)\s*)?($name)\s+SYSTEM\s*"(.*?)"\s*>}{}io) {
+        my ($percent, $entity, $include) = ($1,$2,$3);
+        $percent = '&' unless $percent;
+        my $definition;
+        {
+            # the $include may be a URL, use LWP::Simple to fetch it if it is.
+            my $IN;
+            open $IN, "<$include" or die "Cannot open include file $include : $!\n";
+            $definition = do {local $/; <$IN>};
+            close $IN;
+        }
+        $definition =~ s/\s\s*/ /gs;
+        $xml =~ s{\Q$percent$entity;\E}{$definition}g;
+    }
 
-	my (%elementinfo, %attribinfo);
-	while ($xml =~ s{<!--#info\s+(.*?)-->}{}s) {
-		my $info = $1;$info =~ s/\s+$//s;
-		my %info;
-		while ($info =~ s{^([\w-]+)\s*=\s*((?:'[^']*')+|(?:"[^"]*")+|[^\s'"]\S*)\s*}{}s) {
-			my ($name, $value) = ($1, $2);
-			if ($value =~ /^'/) {
-				($value = substr $value, 1, length($value)-2) =~ s/''/'/g;
-			} elsif ($value =~ /^"/) {
-				($value = substr $value, 1, length($value)-2) =~ s/""/"/g;
-			}
-			$info{$name} = $value;
-		}
-		die "Malformed <!--#info ...--> section!\n\t<!--#info $info -->\n"
-			if ($info ne '');
-		die "The <!--#info $info --> section doesn't contain the 'element' parameter!\n"
-			unless exists $info{'element'};
-		my $element = $info{'element'};
-		delete $info{'element'};
-		if (exists $info{'attribute'}) {
-			my $attribute = $info{'attribute'};
-			delete $info{'attribute'};
-			$attribinfo{$element}->{$attribute} = \%info;
-		} else {
-			$elementinfo{$element} = \%info;
-		}
-	}
+    my (%elementinfo, %attribinfo);
+    while ($xml =~ s{<!--#info\s+(.*?)-->}{}s) {
+        my $info = $1;$info =~ s/\s+$//s;
+        my %info;
+        while ($info =~ s{^([\w-]+)\s*=\s*((?:'[^']*')+|(?:"[^"]*")+|[^\s'"]\S*)\s*}{}s) {
+            my ($name, $value) = ($1, $2);
+            if ($value =~ /^'/) {
+                ($value = substr $value, 1, length($value)-2) =~ s/''/'/g;
+            } elsif ($value =~ /^"/) {
+                ($value = substr $value, 1, length($value)-2) =~ s/""/"/g;
+            }
+            $info{$name} = $value;
+        }
+        die "Malformed <!--#info ...--> section!\n\t<!--#info $info -->\n"
+          if ($info ne '');
+        die "The <!--#info $info --> section doesn't contain the 'element' parameter!\n"
+          unless exists $info{'element'};
+        my $element = $info{'element'};
+        delete $info{'element'};
+        if (exists $info{'attribute'}) {
+            my $attribute = $info{'attribute'};
+            delete $info{'attribute'};
+            $attribinfo{$element}->{$attribute} = \%info;
+        } else {
+            $elementinfo{$element} = \%info;
+        }
+    }
 
-	$xml =~ s{<!--.*?-->}{}gs;
-	$xml =~ s{<\?.*?\?>}{}gs;
+    $xml =~ s{<!--.*?-->}{}gs;
+    $xml =~ s{<\?.*?\?>}{}gs;
 
-	while ($xml =~ s{<!ENTITY\s+(?:(%)\s*)?($name)\s*"(.*?)"\s*>}{}io) {
-		my ($percent, $entity, $definition) = ($1,$2,$3);
-		$percent = '&' unless $percent;
-		$definitions{"$percent$entity"} = $definition;
-	}
+    while ($xml =~ s{<!ENTITY\s+(?:(%)\s*)?($name)\s*"(.*?)"\s*>}{}io) {
+        my ($percent, $entity, $definition) = ($1,$2,$3);
+        $percent = '&' unless $percent;
+        $definitions{"$percent$entity"} = $definition;
+    }
 
-	{
-		my $replacements = 0;
-		1 while $replacements++ < 1000 and $xml =~ s{([&%]$name);}{(exists $definitions{$1} ? $definitions{$1} : "$1\x01;")}geo;
-		die <<'*END*' if $xml =~ m{([&%]$name);}o;
+    {
+        my $replacements = 0;
+        1 while $replacements++ < 1000 and $xml =~ s{([&%]$name);}{(exists $definitions{$1} ? $definitions{$1} : "$1\x01;")}geo;
+        die <<'*END*' if $xml =~ m{([&%]$name);}o;
 Recursive <!ENTITY ...> definitions or too many entities! Only up to 1000 entity replacements allowed.
 (An entity is something like &foo; or %foo;. They are defined by <!ENTITY ...> tag.)
 *END*
-	}
-	undef %definitions;
-	$xml =~ tr/\x01//d;
+    }
+    undef %definitions;
+    $xml =~ tr/\x01//d;
 
-	while ($xml =~ s{<!ELEMENT\s+($name)\s*(\(.*?\))([?*+]?)\s*>}{}io) {
-		my ($element, $children, $option) = ($1,$2,$3);
-		$elements{$element}->{childrenSTR} = $children . $option;
-		$children =~ s/\s//g;
-		if ($children eq '(#PCDATA)') {
-			$children = '#PCDATA';
-		} elsif ($children =~ s/^\((#PCDATA(?:\|$name)+)\)$/$1/o and $option eq '*') {
-			$children =~ s/\|/*,/g;
-			$children .= '*';
-		} else {
-			$children = simplify_children( $children, $option);
-		}
+    while ($xml =~ s{<!ELEMENT\s+($name)\s*(\(.*?\))([?*+]?)\s*>}{}io) {
+        my ($element, $children, $option) = ($1,$2,$3);
+        $elements{$element}->{childrenSTR} = $children . $option;
+        $children =~ s/\s//g;
+        if ($children eq '(#PCDATA)') {
+            $children = '#PCDATA';
+        } elsif ($children =~ s/^\((#PCDATA(?:\|$name)+)\)$/$1/o and $option eq '*') {
+            $children =~ s/\|/*,/g;
+            $children .= '*';
+        } else {
+            $children = simplify_children( $children, $option);
+        }
 
-		die "<!ELEMENT $element (...)> is not valid!\n"
-			unless $children =~ m{^#?$nameX(?:,$nameX)*$}o;
+        die "<!ELEMENT $element (...)> is not valid!\n"
+          unless $children =~ m{^#?$nameX(?:,$nameX)*$}o;
 
 
-		$elements{$element}->{childrenARR} = [];
-		foreach my $child (split ',', $children) {
-			$child =~ s/([?*+])$//
-				and $option = $1
-				or $option = '!';
-			if (exists $elements{$element}->{children}->{$child}) {
-				$elements{$element}->{children}->{$child} = _merge_options( $elements{$element}->{children}->{$child}, $option);
-				$elements{$element}->{childrenX}->{$child} = _merge_counts( $elements{$element}->{childrenX}->{$child}, _char2count($option))
-					unless $child eq '#PCDATA';
-			} else {
-				$elements{$element}->{children}->{$child} = $option;
-				$elements{$element}->{childrenX}->{$child} = _char2count($option)
-					unless $child eq '#PCDATA';
-			}
-			push @{$elements{$element}->{childrenARR}}, $child
-				unless $child eq '#PCDATA';
-		}
-		delete $elements{$element}->{childrenARR}
-			if @{$elements{$element}->{childrenARR}} == 0
-	}
+        $elements{$element}->{childrenARR} = [];
+        foreach my $child (split ',', $children) {
+            $child =~ s/([?*+])$//
+              and $option = $1
+              or $option = '!';
+            if (exists $elements{$element}->{children}->{$child}) {
+                $elements{$element}->{children}->{$child} = _merge_options( $elements{$element}->{children}->{$child}, $option);
+                $elements{$element}->{childrenX}->{$child} = _merge_counts( $elements{$element}->{childrenX}->{$child}, _char2count($option))
+                  unless $child eq '#PCDATA';
+            } else {
+                $elements{$element}->{children}->{$child} = $option;
+                $elements{$element}->{childrenX}->{$child} = _char2count($option)
+                  unless $child eq '#PCDATA';
+            }
+            push @{$elements{$element}->{childrenARR}}, $child
+              unless $child eq '#PCDATA';
+        }
+        delete $elements{$element}->{childrenARR}
+          if @{$elements{$element}->{childrenARR}} == 0
+    }
 
-	while ($xml =~ s{<!ELEMENT\s+($name)\s*(EMPTY|ANY)\s*>}{}io) {
-		my ($element, $param) = ($1,$2);
-		if (uc $param eq 'ANY') {
-			$elements{$element}->{any} = 1;
-		} else {
-			$elements{$element} = {};
-		}
-	}
-#=for comment
-	while ($xml =~ s{<!ATTLIST(?:\s+($name)\s+(.*?))?\s*>}{}io) {
-		my ($element, $attributes) = ($1,$2);
-		die "<!ELEMENT $element ...> referenced by an <!ATTLIST ...> not found!\n"
-			unless exists $elements{$element};
-		while ($attributes =~ s/^\s*$AttDef//io) {
-			my ($name,$type,$option,$default) = ($1,$2,$3);
-			if ($option =~ /^#FIXED\s+["'](.*)["']$/i){
-				$option = '#FIXED';
-				$default = $1;
-			} elsif ($option =~ /^["'](.*)["']$/i){
-				$option = '';
-				$default = $1;
-			}
-			$elements{$element}->{attributes}->{$name} = [$type,$option,$default,undef];
-			if ($type =~ /^(?:NOTATION\s*)?\(\s*(.*?)\)$/) {
-				$elements{$element}->{attributes}->{$name}->[3] = parse_enum($1);
-			}
-		}
-	}
-#=cut
-#$xml = '';
+    while ($xml =~ s{<!ELEMENT\s+($name)\s*(EMPTY|ANY)\s*>}{}io) {
+        my ($element, $param) = ($1,$2);
+        if (uc $param eq 'ANY') {
+            $elements{$element}->{any} = 1;
+        } else {
+            $elements{$element} = {};
+        }
+    }
+    #=for comment
+    while ($xml =~ s{<!ATTLIST(?:\s+($name)\s+(.*?))?\s*>}{}io) {
+        my ($element, $attributes) = ($1,$2);
+        die "<!ELEMENT $element ...> referenced by an <!ATTLIST ...> not found!\n"
+          unless exists $elements{$element};
+        while ($attributes =~ s/^\s*$AttDef//io) {
+            my ($name,$type,$option,$default) = ($1,$2,$3);
+            if ($option =~ /^#FIXED\s+["'](.*)["']$/i){
+                $option = '#FIXED';
+                $default = $1;
+            } elsif ($option =~ /^["'](.*)["']$/i){
+                $option = '';
+                $default = $1;
+            }
+            $elements{$element}->{attributes}->{$name} = [$type,$option,$default,undef];
+            if ($type =~ /^(?:NOTATION\s*)?\(\s*(.*?)\)$/) {
+                $elements{$element}->{attributes}->{$name}->[3] = parse_enum($1);
+            }
+        }
+    }
+    #=cut
+    #$xml = '';
 
-	$xml =~ s/\s\s*/ /g;
+    $xml =~ s/\s\s*/ /g;
 
-	die "UNPARSED DATA:\n$xml\n\n"
-		if $xml =~ /\S/;
+    die "UNPARSED DATA:\n$xml\n\n"
+      if $xml =~ /\S/;
 
-	foreach my $element (keys %elements) {
-		foreach my $child (keys %{$elements{$element}->{children}}) {
-			if ($child eq '#PCDATA') {
-				delete $elements{$element}->{children}->{'#PCDATA'};
-				$elements{$element}->{content} = 1;
-			} else {
-				die "Element $child referenced by $element was not found!\n"
-					unless exists $elements{$child};
-				if (exists $elements{$child}->{parent}) {
-					push @{$elements{$child}->{parent}}, $element;
-				} else {
-					$elements{$child}->{parent} = [$element];
-				}
-				$elements{$child}->{option} = $elements{$element}->{children}->{$child};
-			}
-		}
-		if (scalar(keys %{$elements{$element}->{children}}) == 0) {
-			delete $elements{$element}->{children};
-		}
-		if (exists $elementinfo{$element}) {
-			foreach my $info (keys %{$elementinfo{$element}}) {
-				$elements{$element}->{$info} = $elementinfo{$element}->{$info};
-			}
-		}
-		if (exists $attribinfo{$element}) {
-			foreach my $attribute (keys %{$attribinfo{$element}}) {
-				$elements{$element}->{'attributes'}->{$attribute}->[4] = $attribinfo{$element}->{$attribute};
-			}
-		}
-	}
+    foreach my $element (keys %elements) {
+        foreach my $child (keys %{$elements{$element}->{children}}) {
+            if ($child eq '#PCDATA') {
+                delete $elements{$element}->{children}->{'#PCDATA'};
+                $elements{$element}->{content} = 1;
+            } else {
+                die "Element $child referenced by $element was not found!\n"
+                  unless exists $elements{$child};
+                if (exists $elements{$child}->{parent}) {
+                    push @{$elements{$child}->{parent}}, $element;
+                } else {
+                    $elements{$child}->{parent} = [$element];
+                }
+                $elements{$child}->{option} = $elements{$element}->{children}->{$child};
+            }
+        }
+        if (scalar(keys %{$elements{$element}->{children}}) == 0) {
+            delete $elements{$element}->{children};
+        }
+        if (exists $elementinfo{$element}) {
+            foreach my $info (keys %{$elementinfo{$element}}) {
+                $elements{$element}->{$info} = $elementinfo{$element}->{$info};
+            }
+        }
+        if (exists $attribinfo{$element}) {
+            foreach my $attribute (keys %{$attribinfo{$element}}) {
+                $elements{$element}->{'attributes'}->{$attribute}->[4] = $attribinfo{$element}->{$attribute};
+            }
+        }
+    }
 
-	return \%elements;
+    return \%elements;
 }
 
 sub flatten_children {
-	my ( $children, $option ) = @_;
+    my ( $children, $option ) = @_;
 
-	if ($children =~ /\|/) {
-		$children =~ s{[|,]}{?,}g;
-		$children .= '?'
-	}
+    if ($children =~ /\|/) {
+        $children =~ s{[|,]}{?,}g;
+        $children .= '?'
+    }
 
-	if ($option) {
-		$children =~ s/,/$option,/g;
-		$children .= $option;
-	}
+    if ($option) {
+        $children =~ s/,/$option,/g;
+        $children .= $option;
+    }
 
-	return $children;
+    return $children;
 }
 
 sub simplify_children {
-	my ( $children, $option ) = @_;
+    my ( $children, $option ) = @_;
 
-	1 while $children =~ s{\(($nameX(?:[,|]$nameX)*)\)([?*+]*)}{flatten_children($1, $2)}geo;
+    1 while $children =~ s{\(($nameX(?:[,|]$nameX)*)\)([?*+]*)}{flatten_children($1, $2)}geo;
 
-	if ($option) {
-		$children =~ s/,/$option,/g;
-		$children .= $option;
-	}
+    if ($option) {
+        $children =~ s/,/$option,/g;
+        $children .= $option;
+    }
 
-	foreach ($children) {
-		s{\?\?}{?}g;
-		s{\?\+}{*}g;
-		s{\?\*}{*}g;
-		s{\+\?}{*}g;
-		s{\+\+}{+}g;
-		s{\+\*}{*}g;
-		s{\*\?}{*}g;
-		s{\*\+}{*}g;
-		s{\*\*}{*}g;
-	}
+    foreach ($children) {
+        s{\?\?}{?}g;
+        s{\?\+}{*}g;
+        s{\?\*}{*}g;
+        s{\+\?}{*}g;
+        s{\+\+}{+}g;
+        s{\+\*}{*}g;
+        s{\*\?}{*}g;
+        s{\*\+}{*}g;
+        s{\*\*}{*}g;
+    }
 
-	return $children;
+    return $children;
 }
 
 sub parse_enum {
-	my $enum = shift;
-	$enum =~ tr/\x20\x09\x0D\x0A//d; # get rid of whitespace
-	return [split /\|/, $enum];
+    my $enum = shift;
+    $enum =~ tr/\x20\x09\x0D\x0A//d; # get rid of whitespace
+    return [split /\|/, $enum];
 }
 
 my %merge_options = (
-	'!!' => '+',
-	'!*' => '+' ,
-	'!+' => '+',
-	'!?' => '+',
-	'**' => '*',
-	'*+' => '+',
-	'*?' => '*',
-	'++' => '+',
-	'+?' => '+',
-	'??' => '?',
-);
+    '!!' => '+',
+    '!*' => '+' ,
+    '!+' => '+',
+    '!?' => '+',
+    '**' => '*',
+    '*+' => '+',
+    '*?' => '*',
+    '++' => '+',
+    '+?' => '+',
+    '??' => '?',
+  );
 sub _merge_options {
-	my ($o1, $o2) = sort @_;
-	return $merge_options{$o1.$o2};
+    my ($o1, $o2) = sort @_;
+    return $merge_options{$o1.$o2};
 }
 
 my %char2count = (
-	'!' => '1',
-	'?' => '0..1',
-	'+' => '1..',
-	'*' => '0..',
-);
+    '!' => '1',
+    '?' => '0..1',
+    '+' => '1..',
+    '*' => '0..',
+  );
 sub _char2count{
-	return $char2count{$_[0]}
+    return $char2count{$_[0]}
 }
 
 sub _merge_counts {
-	my ($c1, $c2) = @_;
-	if ($c1 =~ /^\d+$/) {
-		if ($c2 =~ /^\d+$/) {
-			return $c1+$c2
-		} elsif ($c2 =~ /^(\d+)..(\d+)$/) {
-			return ($c1+$1) . ".." . ($c1+$2);
-		} elsif ($c2 =~ /^(\d+)..$/) {
-			return ($c1+$1) . "..";
-		}
-	} elsif ($c1 =~ /^(\d+)..(\d+)$/) {
-		my ($c1l,$c1u) = ($1,$2);
-		if ($c2 =~ /^\d+$/) {
-			return ($c1l+$c2) . ".." . ($c1u+$c2);
-		} elsif ($c2 =~ /^(\d+)..(\d+)$/) {
-			return ($c1l+$1) . ".." . ($c1u+$2);
-		} elsif ($c2 =~ /^(\d+)..$/) {
-			return ($c1l+$1) . "..";
-		}
-	} elsif ($c1 =~ /^(\d+)..$/) {
-		$c1=$1;
-		if ($c2 =~ /^\d+$/) {
-			return ($c1+$c2) . "..";
-		} elsif ($c2 =~ /^(\d+)..(\d+)$/) {
-			return ($c1+$1) . "..";
-		} elsif ($c2 =~ /^(\d+)..$/) {
-			return ($c1+$1) . "..";
-		}
-	}
+    my ($c1, $c2) = @_;
+    if ($c1 =~ /^\d+$/) {
+        if ($c2 =~ /^\d+$/) {
+            return $c1+$c2
+        } elsif ($c2 =~ /^(\d+)..(\d+)$/) {
+            return ($c1+$1) . ".." . ($c1+$2);
+        } elsif ($c2 =~ /^(\d+)..$/) {
+            return ($c1+$1) . "..";
+        }
+    } elsif ($c1 =~ /^(\d+)..(\d+)$/) {
+        my ($c1l,$c1u) = ($1,$2);
+        if ($c2 =~ /^\d+$/) {
+            return ($c1l+$c2) . ".." . ($c1u+$c2);
+        } elsif ($c2 =~ /^(\d+)..(\d+)$/) {
+            return ($c1l+$1) . ".." . ($c1u+$2);
+        } elsif ($c2 =~ /^(\d+)..$/) {
+            return ($c1l+$1) . "..";
+        }
+    } elsif ($c1 =~ /^(\d+)..$/) {
+        $c1=$1;
+        if ($c2 =~ /^\d+$/) {
+            return ($c1+$c2) . "..";
+        } elsif ($c2 =~ /^(\d+)..(\d+)$/) {
+            return ($c1+$1) . "..";
+        } elsif ($c2 =~ /^(\d+)..$/) {
+            return ($c1+$1) . "..";
+        }
+    }
 }
 
 sub FindDTDRoot {
-	my $elements = shift;
-	my @roots;
-	foreach my $element (keys %$elements) {
-		if (!exists $elements->{$element}->{parent}) {
-			push @roots, $element;
-			$elements->{$element}->{option} = '!';
-		}
-	}
-	return @roots;
+    my $elements = shift;
+    my @roots;
+    foreach my $element (keys %$elements) {
+        if (!exists $elements->{$element}->{parent}) {
+            push @roots, $element;
+            $elements->{$element}->{option} = '!';
+        }
+    }
+    return @roots;
 }
 
 =head1 NAME
@@ -450,3 +450,4 @@ modify it under the same terms as Perl itself.
 
 =cut
 
+# vim: set ts=4 sw=4 et:

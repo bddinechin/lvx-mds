@@ -22,11 +22,12 @@
 use MDS;
 
 print MDS::make("Simulated", {
-  ID=>	&Simulated::ID(""),
-  scheduling=>	&Scheduling::ID(""),
-  mnemonic=>	"#UNDEF",
-  syntax=>	"#UNDEF",
-})->emit();
+        ID=>	&Simulated::ID(""),
+        scheduling=>	&Scheduling::ID(""),
+        mnemonic=>	"#UNDEF",
+        syntax=>	"#UNDEF",
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

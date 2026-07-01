@@ -22,10 +22,11 @@
 use MDS;
 
 print MDS::make("BitField", {
-  ID=>	&BitField::ID(""),
-  width=>	0,
-  offset=>	0,
-})->emit();
+        ID=>	&BitField::ID(""),
+        width=>	0,
+        offset=>	0,
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

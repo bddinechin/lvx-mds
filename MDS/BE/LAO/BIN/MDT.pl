@@ -25,8 +25,8 @@ my $CORES = $ENV{CORES};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -55,7 +55,7 @@ EOT
 
 my $target = $FAMILY;
 if ($MDS_SPLIT_MODE) {
-  $target = $CORES;
+    $target = $CORES;
 }
 print<<"EOT";
 #define MDT_TARGET_RAW $target
@@ -64,12 +64,13 @@ print<<"EOT";
 EOT
 
 map {
-  print<<"EOT";
+    print<<"EOT";
 #define MDT_CORE_$_
 EOT
-} split ' ', $CORES;
+  } split ' ', $CORES;
 
 print<<"EOT";
 #endif//\$XCC_h
 EOT
 
+# vim: set ts=4 sw=4 et:

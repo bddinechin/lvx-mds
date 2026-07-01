@@ -22,12 +22,13 @@
 use MDS;
 
 print MDS::make("Register", {
-  ID=>	&Register::ID(""),
-  storage=>	&Storage::ID(""),
-  addresses=>	"0",
-  names=>	"#UNDEF",
-  width=>	"0",
-})->emit();
+        ID=>	&Register::ID(""),
+        storage=>	&Storage::ID(""),
+        addresses=>	"0",
+        names=>	"#UNDEF",
+        width=>	"0",
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

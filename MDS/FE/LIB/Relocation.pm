@@ -23,11 +23,12 @@
 use MDS;
 
 print &MDS::make("Relocation", {
-  ID=>		&Relocation::ID(""),
-  linker=>	0,
-  elfIds=>	0,
-  fields=>	&BitField::ID(""),
-})->emit();
+        ID=>		&Relocation::ID(""),
+        linker=>	0,
+        elfIds=>	0,
+        fields=>	&BitField::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

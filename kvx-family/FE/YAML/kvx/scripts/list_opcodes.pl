@@ -19,3 +19,4 @@ foreach my $mnemonic (sort keys %opcode) {
     print "$mnemonic\n";
 }
 
+# vim: set ts=4 sw=4 et:

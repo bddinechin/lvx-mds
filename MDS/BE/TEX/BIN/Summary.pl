@@ -25,37 +25,37 @@ my $Processor = $$Load{Processor};
 
 my $order = 0;
 my %Order = (
-  BCU=>$order++,
-  LSU=>$order++,
-  ALU=>$order++,
-  MAU=>$order++,
-  FPU=>$order++,
-  TCA=>$order++,
-  EXT=>$order++,
-  #
-  RV32A=>$order++,
-  RV32B=>$order++,
-  RV32D=>$order++,
-  RV32F=>$order++,
-  RV32H=>$order++,
-  RV32I=>$order++,
-  RV32M=>$order++,
-  RV64A=>$order++,
-  RV64B=>$order++,
-  RV64D=>$order++,
-  RV64F=>$order++,
-  RV64H=>$order++,
-  RV64I=>$order++,
-  RV64M=>$order++,
-  RVZI=>$order++,
-  RV64KV=>$order++,
-);
+    BCU=>$order++,
+    LSU=>$order++,
+    ALU=>$order++,
+    MAU=>$order++,
+    FPU=>$order++,
+    TCA=>$order++,
+    EXT=>$order++,
+    #
+    RV32A=>$order++,
+    RV32B=>$order++,
+    RV32D=>$order++,
+    RV32F=>$order++,
+    RV32H=>$order++,
+    RV32I=>$order++,
+    RV32M=>$order++,
+    RV64A=>$order++,
+    RV64B=>$order++,
+    RV64D=>$order++,
+    RV64F=>$order++,
+    RV64H=>$order++,
+    RV64I=>$order++,
+    RV64M=>$order++,
+    RVZI=>$order++,
+    RV64KV=>$order++,
+  );
 
 # Get Processor pipeline
 my @pipeline = @{$$Processor{cpu}{pipeline}};
 my %pipeline;
 for (my $stage = 0; $stage < @pipeline; $stage++) {
-  $pipeline{$pipeline[$stage]} = $stage;
+    $pipeline{$pipeline[$stage]} = $stage;
 }
 #print STDERR Dumper(%pipeline);
 
@@ -72,14 +72,14 @@ my %Nums = (
     "0" => "Zero", "1" => "One", "2" => "Two", "3" => "Three",
     "4" => "Four", "5" => "Five", "6" => "Six", "7" => "Seven",
     "8" => "Eight", "9" => "Nine",
-);
+  );
 
 sub latex_syntax {
-  my ($syntax,@operands) = @_;
+    my ($syntax,@operands) = @_;
 
-  $syntax =~ s/(?<!\%)\%([1-9]\d*)/\\emph{$operands[$1]}/g;
-  $syntax =~ s/:\\emph/:$latex_allow_break\\emph/g;
-  return $syntax;
+    $syntax =~ s/(?<!\%)\%([1-9]\d*)/\\emph{$operands[$1]}/g;
+    $syntax =~ s/:\\emph/:$latex_allow_break\\emph/g;
+    return $syntax;
 }
 
 sub latex_description {
@@ -94,21 +94,22 @@ sub latex_description {
 }
 
 foreach my $instruction (@Instruction) {
-  #print STDERR Dumper($instruction);
-  my $what = $$instruction{what};
-  my $ID = $$instruction{ID};
-  my $class = $$instruction{class};
-  die "Unknown class '$class' for instrution $ID" unless defined $class && defined $Order{$class};
-  next if $ID =~ /_$/;	# Assume trailing _ means dummy Instruction.
-  if ($prev_class ne $class) {
-    $prev_class = $class;
-    print "\\sect{$class}\n";
-  }
-  my ($class, $name) =  split /:/, $ID;
-  $name =~ s/_/\\_/g;
-  my $loc_what = $what;
-  $loc_what =~ s/\$\\times\$/\\texorpdfstring{\$\\times\$}{x}/;
-  print "\\cm{$name}{$what}\n";
+    #print STDERR Dumper($instruction);
+    my $what = $$instruction{what};
+    my $ID = $$instruction{ID};
+    my $class = $$instruction{class};
+    die "Unknown class '$class' for instrution $ID" unless defined $class && defined $Order{$class};
+    next if $ID =~ /_$/;	# Assume trailing _ means dummy Instruction.
+    if ($prev_class ne $class) {
+        $prev_class = $class;
+        print "\\sect{$class}\n";
+    }
+    my ($class, $name) =  split /:/, $ID;
+    $name =~ s/_/\\_/g;
+    my $loc_what = $what;
+    $loc_what =~ s/\$\\times\$/\\texorpdfstring{\$\\times\$}{x}/;
+    print "\\cm{$name}{$what}\n";
 }
 
 close(INPUT) || die $!;
+# vim: set ts=4 sw=4 et:

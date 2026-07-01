@@ -34,13 +34,14 @@ my %types;
 foreach my $ID (keys %$elements) {
     my $type = $$elements{$ID}->type();
     if(not defined $types{$type}) {
-	$types{$type} = 1;
-	if($ID !~ /^$TABLE/) {
-	    my $table = \@{"${type}::table"};
-	    my $noname = \@{"${type}::noname"};
-	    foreach my $element (@$noname, @$table) {
-		print $element->emit();
-	    }
-	}
+        $types{$type} = 1;
+        if($ID !~ /^$TABLE/) {
+            my $table = \@{"${type}::table"};
+            my $noname = \@{"${type}::noname"};
+            foreach my $element (@$noname, @$table) {
+                print $element->emit();
+            }
+        }
     }
-} 
+}
+# vim: set ts=4 sw=4 et:

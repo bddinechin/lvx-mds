@@ -22,9 +22,10 @@
 use MDS;
 
 print MDS::make("Format", {
-  ID=>	&Format::ID(""),
-  encoding=>	&Encoding::ID(""),
-})->emit();
+        ID=>	&Format::ID(""),
+        encoding=>	&Encoding::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

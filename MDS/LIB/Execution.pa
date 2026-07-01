@@ -32,82 +32,82 @@ $yylval = undef;
 @yylval = ();
 $yylkeep = 8;
 sub yylval {
-  $yylkeep =  shift;
-  if (defined $yylkeep) {
-    shift @yylval while @yylval > $yylkeep;
-  }
-  map { "'$_' " } @yylval;
+    $yylkeep =  shift;
+    if (defined $yylkeep) {
+        shift @yylval while @yylval > $yylkeep;
+    }
+    map { "'$_' " } @yylval;
 }
 
 @yyin = ();
 sub yyin {
-  while (@_) {
-    my $buffer = shift;
-    push @yyin, grep {length($_)} split ' ', $buffer;
-  }
+    while (@_) {
+        my $buffer = shift;
+        push @yyin, grep {length($_)} split ' ', $buffer;
+    }
 }
 
 sub yyflush {
-  @yyin = ();
-  @yylval = ();
+    @yyin = ();
+    @yylval = ();
 }
 
 my $yytree;
 sub yytree {
-  return $yytree;
+    return $yytree;
 }
 
 sub yylex {
-  my $token;
-  return '' unless (@yyin);
-  my $value = shift @yyin;
-  # %token IDENTIFIER CONSTANT SECTION
-  # %token NEW STAGE PROXY METHOD
-  # %token IF ELSE FOR RANGE
-  # %token "<<=" ">>=" "&=" "^=" "|="
-  # %token "->" "++" "--" "<<" ">>" "<=" ">=" "==" "!="
-  # %token "&&" "||" "*=" "/=" "%=" "+=" "-="
-  if ($value =~ s/^(\d+\[\d+(:\d+)?\])//) {
-    ($token, $yylval) = ('SECTION', $1);
-  } elsif ($value =~ s/^(\d+\[[a-zA-Z_]\w*\])//) {
-    ($token, $yylval) = ('SECTION', $1);
-  } elsif ($value =~ s/^(0[xX][0-9a-fA-F]+)//) {
-    ($token, $yylval) = ('CONSTANT', $1);
-    $yylval = oct($yylval) if $yylval =~ /^0/;
-  } elsif ($value =~ s/^(0\d+)//) {
-    ($token, $yylval) = ('CONSTANT', $1);
-    $yylval = oct($yylval) if $yylval =~ /^0/;
-  } elsif ($value =~ s/^(0[bB][01]+)//) {
-    ($token, $yylval) = ('CONSTANT', $1);
-    $yylval = oct($yylval) if $yylval =~ /^0/;
-  } elsif ($value =~ s/^(\d+)//) {
-    ($token, $yylval) = ('CONSTANT', $1);
-  } elsif ($value =~ s/^(new|stage|if|else|for|range)\b//) {
-    ($token, $yylval) = (uc($1), $1);
-  } elsif ($value =~ s/^([a-zA-Z_]\w*)//) {
-    ($token, $yylval) = ('IDENTIFIER', $1);
-    #$token = 'CONSTANT' if defined &Constant($yylval);
-  } elsif ($value =~ s/^(\%(\d+(:\d+)?))//) {
-    ($token, $yylval) = ('PROXY', $2);
-  } elsif ($value =~ s/^(\@(\d+))//) {
-    ($token, $yylval) = ('METHOD', $2);
-  } elsif ($value =~ s/^((\<\<\=)|(\>\>\=)|(\&\=)|(\^\=)|(\|\=))//) {
-    ($token, $yylval) = ($1, $1);
-  } elsif ($value =~ s/^((\+\+)|(\-\-)|(\<\<)|(\>\>)|(\<\=)|(\>\=)|(\=\=)|(\!\=))//) {
-    ($token, $yylval) = ($1, $1);
-  } elsif ($value =~ s/^((\&\&)|(\|\|)|(\*\=)|(\/\=)|(\%\=)|(\+\=)|(\-\=))//) {
-    ($token, $yylval) = ($1, $1);
-  } elsif ($value =~ s/^(\W)//) {
-    ($token, $yylval) = ($1, $1);
-  } else {
-    croak "unrecognized token: '$value'";
-  }
-  unshift @yyin, $value if length($value);
-  if (defined $yylkeep) {
-    push @yylval, $yylval;
-    shift @yylval if @yylval > $yylkeep;
-  }
-  $token;
+    my $token;
+    return '' unless (@yyin);
+    my $value = shift @yyin;
+    # %token IDENTIFIER CONSTANT SECTION
+    # %token NEW STAGE PROXY METHOD
+    # %token IF ELSE FOR RANGE
+    # %token "<<=" ">>=" "&=" "^=" "|="
+    # %token "->" "++" "--" "<<" ">>" "<=" ">=" "==" "!="
+    # %token "&&" "||" "*=" "/=" "%=" "+=" "-="
+    if ($value =~ s/^(\d+\[\d+(:\d+)?\])//) {
+        ($token, $yylval) = ('SECTION', $1);
+    } elsif ($value =~ s/^(\d+\[[a-zA-Z_]\w*\])//) {
+        ($token, $yylval) = ('SECTION', $1);
+    } elsif ($value =~ s/^(0[xX][0-9a-fA-F]+)//) {
+        ($token, $yylval) = ('CONSTANT', $1);
+        $yylval = oct($yylval) if $yylval =~ /^0/;
+    } elsif ($value =~ s/^(0\d+)//) {
+        ($token, $yylval) = ('CONSTANT', $1);
+        $yylval = oct($yylval) if $yylval =~ /^0/;
+    } elsif ($value =~ s/^(0[bB][01]+)//) {
+        ($token, $yylval) = ('CONSTANT', $1);
+        $yylval = oct($yylval) if $yylval =~ /^0/;
+    } elsif ($value =~ s/^(\d+)//) {
+        ($token, $yylval) = ('CONSTANT', $1);
+    } elsif ($value =~ s/^(new|stage|if|else|for|range)\b//) {
+        ($token, $yylval) = (uc($1), $1);
+    } elsif ($value =~ s/^([a-zA-Z_]\w*)//) {
+        ($token, $yylval) = ('IDENTIFIER', $1);
+        #$token = 'CONSTANT' if defined &Constant($yylval);
+    } elsif ($value =~ s/^(\%(\d+(:\d+)?))//) {
+        ($token, $yylval) = ('PROXY', $2);
+    } elsif ($value =~ s/^(\@(\d+))//) {
+        ($token, $yylval) = ('METHOD', $2);
+    } elsif ($value =~ s/^((\<\<\=)|(\>\>\=)|(\&\=)|(\^\=)|(\|\=))//) {
+        ($token, $yylval) = ($1, $1);
+    } elsif ($value =~ s/^((\+\+)|(\-\-)|(\<\<)|(\>\>)|(\<\=)|(\>\=)|(\=\=)|(\!\=))//) {
+        ($token, $yylval) = ($1, $1);
+    } elsif ($value =~ s/^((\&\&)|(\|\|)|(\*\=)|(\/\=)|(\%\=)|(\+\=)|(\-\=))//) {
+        ($token, $yylval) = ($1, $1);
+    } elsif ($value =~ s/^(\W)//) {
+        ($token, $yylval) = ($1, $1);
+    } else {
+        croak "unrecognized token: '$value'";
+    }
+    unshift @yyin, $value if length($value);
+    if (defined $yylkeep) {
+        push @yylval, $yylval;
+        shift @yylval if @yylval > $yylkeep;
+    }
+    $token;
 }
 
 #rule $accept -> execution_definition $end
@@ -314,3 +314,4 @@ sub yylex {
 
 #rule iteration_statement -> FOR '(' IDENTIFIER RANGE CONSTANT ',' CONSTANT ')' statement
 
+# vim: set ts=4 sw=4 et:

@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -52,32 +52,32 @@ EOT
 my %order;
 my $order = 0;
 foreach my $bundling (@Bundling::table) {
-  my $bundlingID = $bundling->attribute("ID");
-  $order{$bundlingID} = $order++;
+    my $bundlingID = $bundling->attribute("ID");
+    $order{$bundlingID} = $order++;
 }
 
 my $Bundle_INSTRUCTIONS_MAX = 0;
 foreach my $bundle (@Bundle::table) {
-  my $ID = $bundle->fullName('_');
-  my $alignBias = $bundle->attribute("alignBias");
-  my $alignBase = $bundle->attribute("alignBase");
-  my $ALIGNMENT = "ALIGNMENT(BIAS($alignBias),BASE($alignBase))";
-  my @contents = $bundle->access("contents");
-  my @contentsList = map {"BUNDLING(" .$_->fullName('_'). ")"} @contents;
-  my $contentsList = @contentsList? (join ' ', @contentsList): "/**/";
-  my $CONTENTS = "CONTENTS(". @contentsList. ", $contentsList)";
-  my $inverse = $bundle->attribute("inverse");
-  my @inverse = split ' ', (defined $inverse? $inverse: '');
-  my @inverseList = map {"INDEX($_)"} @inverse;
-  my $inverseList = @inverseList? (join ' ', @inverseList): "/**/";
-  my $INVERSE = "INVERSE($inverseList)";
-  my ($template) = $bundle->access("template");
-  my $templateName = $template->fullName('_');
-  my $TEMPLATE = "TEMPLATE($templateName)";
-  print <<"EOT";
+    my $ID = $bundle->fullName('_');
+    my $alignBias = $bundle->attribute("alignBias");
+    my $alignBase = $bundle->attribute("alignBase");
+    my $ALIGNMENT = "ALIGNMENT(BIAS($alignBias),BASE($alignBase))";
+    my @contents = $bundle->access("contents");
+    my @contentsList = map {"BUNDLING(" .$_->fullName('_'). ")"} @contents;
+    my $contentsList = @contentsList? (join ' ', @contentsList): "/**/";
+    my $CONTENTS = "CONTENTS(". @contentsList. ", $contentsList)";
+    my $inverse = $bundle->attribute("inverse");
+    my @inverse = split ' ', (defined $inverse? $inverse: '');
+    my @inverseList = map {"INDEX($_)"} @inverse;
+    my $inverseList = @inverseList? (join ' ', @inverseList): "/**/";
+    my $INVERSE = "INVERSE($inverseList)";
+    my ($template) = $bundle->access("template");
+    my $templateName = $template->fullName('_');
+    my $TEMPLATE = "TEMPLATE($templateName)";
+    print <<"EOT";
 Bundle($ID, $ALIGNMENT, $CONTENTS, $INVERSE, $TEMPLATE)
 EOT
-  $Bundle_INSTRUCTIONS_MAX = @contents if $Bundle_INSTRUCTIONS_MAX < @contents;
+    $Bundle_INSTRUCTIONS_MAX = @contents if $Bundle_INSTRUCTIONS_MAX < @contents;
 }
 
 print<<"EOT";
@@ -93,24 +93,24 @@ EOT
 
 my %mapping;
 foreach my $bundle (@Bundle::table) {
-  my @canonic = $bundle->access("canonic");
-  my @canonicNames = map {$_->fullName('_')} @canonic;
-  my $canonic = join ' ', map {"BUNDLING($_)"} @canonicNames;
-  my $mappingKey = $bundle->attribute("canonic") || '';
-  my $hash = -1;
-  map {
+    my @canonic = $bundle->access("canonic");
+    my @canonicNames = map {$_->fullName('_')} @canonic;
+    my $canonic = join ' ', map {"BUNDLING($_)"} @canonicNames;
+    my $mappingKey = $bundle->attribute("canonic") || '';
+    my $hash = -1;
+    map {
+        ++$hash;
+        $hash *= $order;
+        $hash += $_;
+      } map {$order{$_}} split ' ', $mappingKey;
     ++$hash;
-    $hash *= $order;
-    $hash += $_;
-  } map {$order{$_}} split ' ', $mappingKey;
-  ++$hash;
-  my $mapping = $mapping{$mappingKey};
-  unless (defined $mapping) {
-    $mapping = { CANONIC=>$canonic, HASH=>$hash, BUNDLES=>[], };
-  }
-  push @{$mapping->{BUNDLES}}, $bundle;
-  die "Mismatch $canonic" unless $mapping->{CANONIC} eq $canonic;
-  $mapping{$mappingKey} = $mapping;
+    my $mapping = $mapping{$mappingKey};
+    unless (defined $mapping) {
+        $mapping = { CANONIC=>$canonic, HASH=>$hash, BUNDLES=>[], };
+    }
+    push @{$mapping->{BUNDLES}}, $bundle;
+    die "Mismatch $canonic" unless $mapping->{CANONIC} eq $canonic;
+    $mapping{$mappingKey} = $mapping;
 }
 
 print<<"EOT";
@@ -122,19 +122,19 @@ EOT
 my $BundleMatch_HASH_MAX = 0;
 my $BundleMatch_MAXCOUNT = 0;
 foreach my $mapping (sort {$a->{HASH}<=>$b->{HASH}} values %mapping) {
-  my $hash = $mapping->{HASH};
-  my $HASH = "HASH($hash)";
-  my $canonic = $mapping->{CANONIC};
-  my @canonic = split ' ', $canonic;
-  my $CANONIC = "CANONIC(". @canonic. ", $canonic)";
-  my @bundles = @{$mapping->{BUNDLES}};
-  my $bundleNames = join ' ', map {"BUNDLE(". $_->fullName('_'). ")"} @bundles;
-  my $BUNDLES = "BUNDLES(". @bundles. ", $bundleNames)";
-  print << "EOT";
+    my $hash = $mapping->{HASH};
+    my $HASH = "HASH($hash)";
+    my $canonic = $mapping->{CANONIC};
+    my @canonic = split ' ', $canonic;
+    my $CANONIC = "CANONIC(". @canonic. ", $canonic)";
+    my @bundles = @{$mapping->{BUNDLES}};
+    my $bundleNames = join ' ', map {"BUNDLE(". $_->fullName('_'). ")"} @bundles;
+    my $BUNDLES = "BUNDLES(". @bundles. ", $bundleNames)";
+    print << "EOT";
 BundleMatch($HASH, $CANONIC, $BUNDLES)
 EOT
-  $BundleMatch_HASH_MAX = $hash if $BundleMatch_HASH_MAX < $hash;
-  $BundleMatch_MAXCOUNT = @bundles if $BundleMatch_MAXCOUNT < @bundles;
+    $BundleMatch_HASH_MAX = $hash if $BundleMatch_HASH_MAX < $hash;
+    $BundleMatch_MAXCOUNT = @bundles if $BundleMatch_MAXCOUNT < @bundles;
 }
 
 print<<"EOT";
@@ -154,3 +154,4 @@ print<<"EOT";
 #endif/*BundleMatch_MAXCOUNT*/\n
 EOT
 
+# vim: set ts=4 sw=4 et:

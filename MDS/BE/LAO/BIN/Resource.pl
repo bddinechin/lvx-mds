@@ -41,8 +41,8 @@ EOT
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -51,31 +51,31 @@ use Behavior;
 
 my %available;
 foreach my $resource (@Resource::table) {
-  my $ID = $resource->fullName('_');
-  unless ($MDS_SPLIT_MODE) {
-    my @processors = $resource->access("processors");
-    my @availability = split ' ', $resource->attribute("availability");
-    while (@processors) {
-      my $processor = shift @processors;
-      my $available = (shift @availability) || 0;
-      my $processorName = $processor->fullName('_');
-      $available{$processorName} = $available;
+    my $ID = $resource->fullName('_');
+    unless ($MDS_SPLIT_MODE) {
+        my @processors = $resource->access("processors");
+        my @availability = split ' ', $resource->attribute("availability");
+        while (@processors) {
+            my $processor = shift @processors;
+            my $available = (shift @availability) || 0;
+            my $processorName = $processor->fullName('_');
+            $available{$processorName} = $available;
+        }
     }
-  }
-  @availability = ();
-  foreach my $processor (@Processor::table) {
-    my $processorName = $processor->fullName('_');
-    my $available;
-    if ($MDS_SPLIT_MODE) {
-      $available = $resource->attribute("availability");
-    } else {
-      $available = $available{$processorName}
+    @availability = ();
+    foreach my $processor (@Processor::table) {
+        my $processorName = $processor->fullName('_');
+        my $available;
+        if ($MDS_SPLIT_MODE) {
+            $available = $resource->attribute("availability");
+        } else {
+            $available = $available{$processorName}
+        }
+        push @availability, "AVAILABLE(PROCESSOR($processorName),$available)";
     }
-    push @availability, "AVAILABLE(PROCESSOR($processorName),$available)";
-  }
-  my $availability = join ' ', @availability;
-  my $AVAILABILITY = "AVAILABILITY($availability)";
-  print<<"EOT";
+    my $availability = join ' ', @availability;
+    my $AVAILABILITY = "AVAILABILITY($availability)";
+    print<<"EOT";
 Resource($ID,
          $AVAILABILITY)
 EOT
@@ -86,3 +86,4 @@ print<<"EOT";
 #undef Resource\n
 EOT
 
+# vim: set ts=4 sw=4 et:

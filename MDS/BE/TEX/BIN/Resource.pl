@@ -21,9 +21,9 @@ print "\\begin{tabular}{|l|r|} \\hline\n";
 print "Resource\t& Availability ";
 print "\\\\ \\hline\n";
 foreach my $resource (@Resources) {
-  my $resourceID = $$resource{ID};
-  my $availability = $$resource{availability};
-  print "$resourceID\t& $availability\t\\\\\n";
+    my $resourceID = $$resource{ID};
+    my $availability = $$resource{availability};
+    print "$resourceID\t& $availability\t\\\\\n";
 }
 print "\\hline \\end{tabular}\n";
 print "\\end{center}\n";
@@ -33,3 +33,4 @@ print "\\end{table}\n";
 
 close(INPUT) || die $!;
 
+# vim: set ts=4 sw=4 et:

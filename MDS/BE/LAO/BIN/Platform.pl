@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -52,35 +52,35 @@ EOT
 
 my $IntWidth;
 foreach my $platform (@Platform::table) {
-  my $ID = $platform->fullName('_');
-  my $charWidth = $platform->attribute("charWidth");
-  my $CHARWIDTH = "CHARWIDTH($charWidth)";
-  my $addrWidth = $platform->attribute("addrWidth");
-  my $ADDRWIDTH = "ADDRWIDTH($addrWidth)";
-  my $endian = $platform->attribute("endian") || '_UNDEF';
-  my $ENDIAN = "ENDIAN($endian)";
-  my $alignText = $platform->attribute("alignText") || "/**/";
-  my $ALIGNTEXT = "ALIGNTEXT($alignText)";
-  my $alignData = $platform->attribute("alignData") || "/**/";
-  my $ALIGNDATA = "ALIGNDATA($alignData)";
-  my $alignHeap = $platform->attribute("alignHeap") || "/**/";
-  my $ALIGNHEAP = "ALIGNHEAP($alignHeap)";
-  my $alignStack = $platform->attribute("alignStack") || "/**/";
-  my $ALIGNSTACK = "ALIGNSTACK($alignStack)";
-  my @nativeInt = $platform->access("nativeInt");
-  my $NATIVEINT = "NATIVEINT(".$nativeInt[0]->fullName('_').")";
-  my @nativeUInt = $platform->access("nativeUInt");
-  my $NATIVEUINT = "NATIVEUINT(".$nativeUInt[0]->fullName('_').")";
-  my @nativeFloat = $platform->access("nativeFloat");
-  my $NATIVEFLOAT = "NATIVEFLOAT(".$nativeFloat[0]->fullName('_').")";
-  my @nativePtr = $platform->access("nativePtr");
-  my $NATIVEPTR = "NATIVEPTR(".$nativePtr[0]->fullName('_').")";
-  print<<"EOT";
+    my $ID = $platform->fullName('_');
+    my $charWidth = $platform->attribute("charWidth");
+    my $CHARWIDTH = "CHARWIDTH($charWidth)";
+    my $addrWidth = $platform->attribute("addrWidth");
+    my $ADDRWIDTH = "ADDRWIDTH($addrWidth)";
+    my $endian = $platform->attribute("endian") || '_UNDEF';
+    my $ENDIAN = "ENDIAN($endian)";
+    my $alignText = $platform->attribute("alignText") || "/**/";
+    my $ALIGNTEXT = "ALIGNTEXT($alignText)";
+    my $alignData = $platform->attribute("alignData") || "/**/";
+    my $ALIGNDATA = "ALIGNDATA($alignData)";
+    my $alignHeap = $platform->attribute("alignHeap") || "/**/";
+    my $ALIGNHEAP = "ALIGNHEAP($alignHeap)";
+    my $alignStack = $platform->attribute("alignStack") || "/**/";
+    my $ALIGNSTACK = "ALIGNSTACK($alignStack)";
+    my @nativeInt = $platform->access("nativeInt");
+    my $NATIVEINT = "NATIVEINT(".$nativeInt[0]->fullName('_').")";
+    my @nativeUInt = $platform->access("nativeUInt");
+    my $NATIVEUINT = "NATIVEUINT(".$nativeUInt[0]->fullName('_').")";
+    my @nativeFloat = $platform->access("nativeFloat");
+    my $NATIVEFLOAT = "NATIVEFLOAT(".$nativeFloat[0]->fullName('_').")";
+    my @nativePtr = $platform->access("nativePtr");
+    my $NATIVEPTR = "NATIVEPTR(".$nativePtr[0]->fullName('_').")";
+    print<<"EOT";
 Platform($ID, $CHARWIDTH, $ADDRWIDTH, $ENDIAN,
          $ALIGNTEXT, $ALIGNDATA, $ALIGNHEAP, $ALIGNSTACK,
          $NATIVEINT, $NATIVEUINT, $NATIVEFLOAT, $NATIVEPTR)
 EOT
-  $IntWidth = $addrWidth;
+    $IntWidth = $addrWidth;
 }
 
 print<<"EOT";
@@ -97,3 +97,4 @@ print<<"EOT";
 #endif/*PlatformUInt_TYPEDEF*/\n
 EOT
 
+# vim: set ts=4 sw=4 et:

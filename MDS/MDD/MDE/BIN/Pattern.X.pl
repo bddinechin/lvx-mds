@@ -26,25 +26,26 @@ use PatternX;
 
 my %pattern;
 foreach my $template (@Template::table) {
-  my @dispersals = $template->access("dispersals");
-  foreach my $dispersal (@dispersals) {
-    my $nopValues = $dispersal->attribute("nopValues");
-    if (defined $nopValues) {
-      my $dispersalName = $dispersal->name();
-      my $toFields = $dispersal->attribute("toFields");
-      my $ID = &Pattern::ID("NOP.$dispersalName");
-      print MDS::make("Pattern", {
-        ID=>	$ID,
-        fields=>	$toFields,
-        values=>	$nopValues,
-      })->emit() unless $pattern{$ID}++;
+    my @dispersals = $template->access("dispersals");
+    foreach my $dispersal (@dispersals) {
+        my $nopValues = $dispersal->attribute("nopValues");
+        if (defined $nopValues) {
+            my $dispersalName = $dispersal->name();
+            my $toFields = $dispersal->attribute("toFields");
+            my $ID = &Pattern::ID("NOP.$dispersalName");
+            print MDS::make("Pattern", {
+                    ID=>	$ID,
+                    fields=>	$toFields,
+                    values=>	$nopValues,
+                })->emit() unless $pattern{$ID}++;
+        }
     }
-  }
 }
 
 foreach my $synthetic (@Synthetic::table) {
-  my @formats = $synthetic->access("formats");
-  foreach my $format (@formats) {
-    map { print $_->emit(); } &get_synthetic_patterns($synthetic, $format);
-  }
+    my @formats = $synthetic->access("formats");
+    foreach my $format (@formats) {
+        map { print $_->emit(); } &get_synthetic_patterns($synthetic, $format);
+    }
 }
+# vim: set ts=4 sw=4 et:

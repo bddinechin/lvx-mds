@@ -78,23 +78,23 @@ sub printHeader {
 
 EOT
 
-  print $file "#ifndef OPCODE_${FAMILY}_H\n";
-  print $file "#define OPCODE_${FAMILY}_H\n\n";
+    print $file "#ifndef OPCODE_${FAMILY}_H\n";
+    print $file "#define OPCODE_${FAMILY}_H\n\n";
 }
 
 sub printFamilyRegisters {
-  my @regfiles_family = get_family_regfilenames($FAMILY);
+    my @regfiles_family = get_family_regfilenames($FAMILY);
 
-  my $regfile_idx = 0;
-  foreach my $regfile_name (@regfiles_family) {
-      print "#define ${FAMILY}_REGFILE_FIRST_${regfile_name} $regfile_idx\n";
-      $regfile_idx++;
-      print "#define ${FAMILY}_REGFILE_LAST_${regfile_name} $regfile_idx\n";
-      $regfile_idx++;
-      print "#define ${FAMILY}_REGFILE_DEC_${regfile_name} $regfile_idx\n";
-      $regfile_idx++;
-  }
-  print "\n\n";
+    my $regfile_idx = 0;
+    foreach my $regfile_name (@regfiles_family) {
+        print "#define ${FAMILY}_REGFILE_FIRST_${regfile_name} $regfile_idx\n";
+        $regfile_idx++;
+        print "#define ${FAMILY}_REGFILE_LAST_${regfile_name} $regfile_idx\n";
+        $regfile_idx++;
+        print "#define ${FAMILY}_REGFILE_DEC_${regfile_name} $regfile_idx\n";
+        $regfile_idx++;
+    }
+    print "\n\n";
 }
 
 sub printRegisters {
@@ -132,76 +132,76 @@ sub printRegisters {
 }
 
 sub printTrailer {
-  my $file = shift;
+    my $file = shift;
 
-  print $file "\n#endif /* OPCODE_${FAMILY}_H */\n";
+    print $file "\n#endif /* OPCODE_${FAMILY}_H */\n";
 }
 
 sub calcMaxOperands {
-  my $maxoperands = 0;
-  foreach my $opcode (@Opcode::table) {
-    my $operands = $opcode->attribute("operands") || "";
-    my @operands = (split ' ', $operands);
-    my $ocnt = scalar @operands;
-    my $syntax = $opcode->attribute("syntax") || "";
-    $ocnt += &GBUTarget::additionalOperands($syntax);
-    $maxoperands = $ocnt if $ocnt > $maxoperands;
-  }
-  return $maxoperands;
+    my $maxoperands = 0;
+    foreach my $opcode (@Opcode::table) {
+        my $operands = $opcode->attribute("operands") || "";
+        my @operands = (split ' ', $operands);
+        my $ocnt = scalar @operands;
+        my $syntax = $opcode->attribute("syntax") || "";
+        $ocnt += &GBUTarget::additionalOperands($syntax);
+        $maxoperands = $ocnt if $ocnt > $maxoperands;
+    }
+    return $maxoperands;
 }
 
 sub calcMaxSyllables {
-  use integer;
-  my $maxsyllables = 0;
-  foreach my $encoding (@Encoding::table) {
-    my $wordCount = $encoding->attribute("wordCount");
-    $maxsyllables = $wordCount if $maxsyllables < $wordCount;
-  }
-  return $maxsyllables;
+    use integer;
+    my $maxsyllables = 0;
+    foreach my $encoding (@Encoding::table) {
+        my $wordCount = $encoding->attribute("wordCount");
+        $maxsyllables = $wordCount if $maxsyllables < $wordCount;
+    }
+    return $maxsyllables;
 }
 
 sub calcMaxBundleIssue {
-  use integer;
-  my $maxbundleissue = 0;
-  foreach my $bundle (@Bundle::table) {
-    my ($template) = $bundle->access("template");
-    next if defined $template->attribute("nopified");
-    my @bundlings = split ' ', $bundle->attribute("contents");
-    my $count = scalar @bundlings;
-    $maxbundleissue = $count if $count > $maxbundleissue;
-  }
-  return $maxbundleissue;
+    use integer;
+    my $maxbundleissue = 0;
+    foreach my $bundle (@Bundle::table) {
+        my ($template) = $bundle->access("template");
+        next if defined $template->attribute("nopified");
+        my @bundlings = split ' ', $bundle->attribute("contents");
+        my $count = scalar @bundlings;
+        $maxbundleissue = $count if $count > $maxbundleissue;
+    }
+    return $maxbundleissue;
 }
 
 sub calcMaxBundleWords {
-  use integer;
-  my $maxbundlewords = 0;
-  foreach my $bundle (@Bundle::table) {
-    my ($template) = $bundle->access("template");
-    next if defined $template->attribute("nopified");
-    my $increment = $template->attribute("increment");
-    my $wordWidth = $template->attribute("wordWidth");
-    my $count = ($increment*8)/$wordWidth;
-    $maxbundlewords = $count if $count > $maxbundlewords;
-  }
-  return $maxbundlewords;
+    use integer;
+    my $maxbundlewords = 0;
+    foreach my $bundle (@Bundle::table) {
+        my ($template) = $bundle->access("template");
+        next if defined $template->attribute("nopified");
+        my $increment = $template->attribute("increment");
+        my $wordWidth = $template->attribute("wordWidth");
+        my $count = ($increment*8)/$wordWidth;
+        $maxbundlewords = $count if $count > $maxbundlewords;
+    }
+    return $maxbundlewords;
 }
 
 sub printMacros {
-  my $file = shift;
-  my $numcores = (scalar @Cores);
-  print $file "#define ${FAMILY}_NUMCORES $numcores\n";
-  my $maxsyllables = 3; #FIXME: &calcMaxSyllables;
-  print $file "#define ${FAMILY}_MAXSYLLABLES $maxsyllables\n";
-  my $maxoperands = 7; #FIXME: &calcMaxOperands;
-  print $file "#define ${FAMILY}_MAXOPERANDS $maxoperands\n";
-  my $maxbundleissue = 10; #FIXME: &calcMaxBundleIssue;
-  print $file "#define ${FAMILY}_MAXBUNDLEISSUE $maxbundleissue\n";
-  my $maxbundlewords = 18; #FIXME: &calcMaxBundleWords;
-  print $file "#define ${FAMILY}_MAXBUNDLEWORDS $maxbundlewords\n";
-  print $file "\n";
+    my $file = shift;
+    my $numcores = (scalar @Cores);
+    print $file "#define ${FAMILY}_NUMCORES $numcores\n";
+    my $maxsyllables = 3; #FIXME: &calcMaxSyllables;
+    print $file "#define ${FAMILY}_MAXSYLLABLES $maxsyllables\n";
+    my $maxoperands = 7; #FIXME: &calcMaxOperands;
+    print $file "#define ${FAMILY}_MAXOPERANDS $maxoperands\n";
+    my $maxbundleissue = 10; #FIXME: &calcMaxBundleIssue;
+    print $file "#define ${FAMILY}_MAXBUNDLEISSUE $maxbundleissue\n";
+    my $maxbundlewords = 18; #FIXME: &calcMaxBundleWords;
+    print $file "#define ${FAMILY}_MAXBUNDLEWORDS $maxbundlewords\n";
+    print $file "\n";
 
-  print $file <<'EOT';
+    print $file <<'EOT';
 
 /*
  * The following macros are provided for compatibility with old
@@ -210,83 +210,83 @@ sub printMacros {
 
 EOT
 
-  &GBUTarget::addMacros($file);
+    &GBUTarget::addMacros($file);
 }
 
 sub printMethodEnum {
-  my $file = shift;
-  my $core = shift;
+    my $file = shift;
+    my $core = shift;
 
-  my @method_names;
-  foreach my $method (@Modifier::table, @Immediate::table,
-                      @RegClass::table, @RegMask::table) {
-    next unless defined $method->name();
-    my $name = $method->attribute("ID");
-    $name =~ s/\W/_/g;
-    next if ($name =~ /_\d+$/); # Skip multi-RegClass
-    push @method_names, $name;
-  }
-  @method_names = sort @method_names;
+    my @method_names;
+    foreach my $method (@Modifier::table, @Immediate::table,
+        @RegClass::table, @RegMask::table) {
+        next unless defined $method->name();
+        my $name = $method->attribute("ID");
+        $name =~ s/\W/_/g;
+        next if ($name =~ /_\d+$/); # Skip multi-RegClass
+        push @method_names, $name;
+    }
+    @method_names = sort @method_names;
 
-  my %insn_names;
-  foreach my $insn (@Instruction::table) {
-    my $insn_name = $insn->attribute("ID");
-    #print STDERR $insn_name, "\t";
-    $insn_name =~ s/[^-:]+\://;
-    #print STDERR $insn_name, "\n";
-    $insn_name =~ s/([^-]*)-([^-]*)-([^-]*)/$1_$2_\L$3/;
-    $insn_name =~ s/\W/_/g;
-    $insn_names{$insn_name}++;
-  }
-  my @insn_names = sort keys %insn_names;
-  push @method_names, @insn_names;
+    my %insn_names;
+    foreach my $insn (@Instruction::table) {
+        my $insn_name = $insn->attribute("ID");
+        #print STDERR $insn_name, "\t";
+        $insn_name =~ s/[^-:]+\://;
+        #print STDERR $insn_name, "\n";
+        $insn_name =~ s/([^-]*)-([^-]*)-([^-]*)/$1_$2_\L$3/;
+        $insn_name =~ s/\W/_/g;
+        $insn_names{$insn_name}++;
+    }
+    my @insn_names = sort keys %insn_names;
+    push @method_names, @insn_names;
 
-  push @method_names, "Separator_${core}_comma";
-  push @method_names, "Separator_${core}_equal";
-  push @method_names, "Separator_${core}_qmark";
-  #push @method_names, "Separator_${core}_rbracket";
-  #push @method_names, "Separator_${core}_lbracket";
-  push @method_names, "Separator_${core}_rsbracket";
-  push @method_names, "Separator_${core}_lsbracket";
+    push @method_names, "Separator_${core}_comma";
+    push @method_names, "Separator_${core}_equal";
+    push @method_names, "Separator_${core}_qmark";
+    #push @method_names, "Separator_${core}_rbracket";
+    #push @method_names, "Separator_${core}_lbracket";
+    push @method_names, "Separator_${core}_rsbracket";
+    push @method_names, "Separator_${core}_lsbracket";
 
-  my $iter = 1;
-  foreach my $method (@method_names) {
-    $method .= " = $iter";
-    $iter += 1;
-  }
+    my $iter = 1;
+    foreach my $method (@method_names) {
+        $method .= " = $iter";
+        $iter += 1;
+    }
 
-  #unshift @method_names, "_${Family}_ERROR";
-  #print $file "enum Method_${Family}_enum {\n  ", (join ",\n  ", map { "Method".$_ } @method_names), "\n};\n";
-  # unshift @method_names, "Method_${core}_ERROR";
-  print $file "enum Method_${core}_enum {\n  ", (join ",\n  ", @method_names), "\n};\n";
+#unshift @method_names, "_${Family}_ERROR";
+#print $file "enum Method_${Family}_enum {\n  ", (join ",\n  ", map { "Method".$_ } @method_names), "\n};\n";
+# unshift @method_names, "Method_${core}_ERROR";
+    print $file "enum Method_${core}_enum {\n  ", (join ",\n  ", @method_names), "\n};\n";
 }
 
 sub printModifierEnum {
-  my $file = shift;
-  my $core = shift;
+    my $file = shift;
+    my $core = shift;
 
-  foreach my $modifier (@Modifier::table) {
-    next unless defined $modifier->name();
-    my $name = $modifier->attribute("ID");
-    next unless $name =~ /exunum/;
-    $name =~ s/\W/_/g;
-    print $file "\ntypedef enum {\n";
-    my @names = map {s/\W/_/g;s/^_//;$_} split ' ', $modifier->attribute("members");
-    my @values = split(' ',$modifier->attribute("values"));
-    for(my $i=0; $i<@names; $i++) {
-        print $file "  ${name}_$names[$i]=$values[$i],\n";
+    foreach my $modifier (@Modifier::table) {
+        next unless defined $modifier->name();
+        my $name = $modifier->attribute("ID");
+        next unless $name =~ /exunum/;
+        $name =~ s/\W/_/g;
+        print $file "\ntypedef enum {\n";
+        my @names = map {s/\W/_/g;s/^_//;$_} split ' ', $modifier->attribute("members");
+        my @values = split(' ',$modifier->attribute("values"));
+        for(my $i=0; $i<@names; $i++) {
+            print $file "  ${name}_$names[$i]=$values[$i],\n";
+        }
+        print $file "} ${name}_values;\n\n";
     }
-    print $file "} ${name}_values;\n\n";
-  }
 
-  foreach my $modifier (@Modifier::table) {
-    next unless defined $modifier->name();
-    my $name = $modifier->attribute("ID");
-    $name =~ s/\W/_/g;
-    $name =~ s/Modifier/mod/;
-    print $file "\nextern const char *${name}[];";
-  }
-  print $file "\n\n";
+    foreach my $modifier (@Modifier::table) {
+        next unless defined $modifier->name();
+        my $name = $modifier->attribute("ID");
+        $name =~ s/\W/_/g;
+        $name =~ s/Modifier/mod/;
+        print $file "\nextern const char *${name}[];";
+    }
+    print $file "\n\n";
 }
 
 sub printBundlingEnum {
@@ -362,19 +362,19 @@ sub printReservationEnum {
 }
 
 sub printTypes {
-  my $file = shift;
+    my $file = shift;
 
-  my $maxentries;
+    my $maxentries;
 
-  my %canonical;
-  foreach my $bundle (@Bundle::table) {
-      my ($template) = $bundle->access("template");
-      next if defined $template->attribute("nopified");
-      $canonical{$bundle->attribute("canonic")}++;
-  }
-  $maxentries = (sort { $b <=> $a } values %canonical)[0];
+    my %canonical;
+    foreach my $bundle (@Bundle::table) {
+        my ($template) = $bundle->access("template");
+        next if defined $template->attribute("nopified");
+        $canonical{$bundle->attribute("canonic")}++;
+    }
+    $maxentries = (sort { $b <=> $a } values %canonical)[0];
 
-  print $file <<'EOT';
+    print $file <<'EOT';
 
 /***********************************************/
 /*       DATA TYPES                            */
@@ -385,7 +385,7 @@ sub printTypes {
 
 EOT
 
-  print $file <<"EOT";
+    print $file <<"EOT";
 enum ${Family}_rel {
   /* Absolute relocation. */
   ${FAMILY}_REL_ABS,
@@ -501,12 +501,12 @@ struct pseudo_func
 #define ${FAMILY}_OPCODE_FLAG_UNDEF 0
 EOT
 
-  my $other_flags = &GBUTarget::getOpcodeFlagsList();
-  foreach my $flag (sort { $$other_flags{$a} <=> $$other_flags{$b} } keys %$other_flags) {
-      print $file "#define $flag $$other_flags{$flag}\n";
-  }
+    my $other_flags = &GBUTarget::getOpcodeFlagsList();
+    foreach my $flag (sort { $$other_flags{$a} <=> $$other_flags{$b} } keys %$other_flags) {
+        print $file "#define $flag $$other_flags{$flag}\n";
+    }
 
-  print $file <<"EOT";
+    print $file <<"EOT";
 
 /* Opcode definition.  */
 
@@ -558,18 +558,18 @@ EOT
 }
 
 sub printDeclarations {
-  my $file = shift;
+    my $file = shift;
 
-  foreach my $core (@Cores) {
-    print $file "extern const int ${core}_reservation_table_cycles;\n";
-    print $file "extern const int *${core}_reservation_tables[];\n";
-    print $file "extern const char *${core}_resource_names[];\n\n";
+    foreach my $core (@Cores) {
+        print $file "extern const int ${core}_reservation_table_cycles;\n";
+        print $file "extern const int *${core}_reservation_tables[];\n";
+        print $file "extern const char *${core}_resource_names[];\n\n";
 
-    print $file "extern const int ${core}_resources[];\n";
-    print $file "extern struct ${Family}_opc ${core}_optab[];\n";
-    print $file "extern const struct ",${Family},"_core_info ${core}_core_info;\n";
-    &GBUTarget::addCoreInfo($file);
-  }
+        print $file "extern const int ${core}_resources[];\n";
+        print $file "extern struct ${Family}_opc ${core}_optab[];\n";
+        print $file "extern const struct ",${Family},"_core_info ${core}_core_info;\n";
+        &GBUTarget::addCoreInfo($file);
+    }
     print $file "extern const struct ",${Family},"_core_info *${Family}_core_info_table[];\n";
     print $file "extern const char ***${Family}_modifiers_table[];\n";
     print $file "extern const struct ",${Family},"_register *${Family}_registers_table[];\n";
@@ -578,59 +578,60 @@ sub printDeclarations {
 }
 
 sub printRelocations {
-  my $file = shift;
+    my $file = shift;
 
-  foreach my  $reloc (@Relocation::table) {
-      my $reloc_name = $reloc->core()."_".$reloc->name()."_reloc";
-      print $file "extern struct ${Family}_reloc $reloc_name;\n";
-  }
-  print $file "\n";
+    foreach my  $reloc (@Relocation::table) {
+        my $reloc_name = $reloc->core()."_".$reloc->name()."_reloc";
+        print $file "extern struct ${Family}_reloc $reloc_name;\n";
+    }
+    print $file "\n";
 }
 
 sub clearMDSTables {
-  @Bundle::table = ();
-  @Bundling::table = ();
-  @Decoding::table = ();
-  @Encoding::table = ();
-  @Immediate::table = ();
-  @Instruction::table = ();
-  @Modifier::table = ();
-  @Opcode::table = ();
-  @Operand::table = ();
-  @Processor::table = ();
-  @RegClass::table = ();
-  @RegFile::table = ();
-  @Register::table = ();
-  @RegMask::table = ();
-  @Relocation::table = ();
-  @Reservation::table = ();
-  @Resource::table = ();
+    @Bundle::table = ();
+    @Bundling::table = ();
+    @Decoding::table = ();
+    @Encoding::table = ();
+    @Immediate::table = ();
+    @Instruction::table = ();
+    @Modifier::table = ();
+    @Opcode::table = ();
+    @Operand::table = ();
+    @Processor::table = ();
+    @RegClass::table = ();
+    @RegFile::table = ();
+    @Register::table = ();
+    @RegMask::table = ();
+    @Relocation::table = ();
+    @Reservation::table = ();
+    @Resource::table = ();
 }
 
 sub main {
-  printHeader(*STDOUT);
-  printMacros(*STDOUT);
-  printTypes(*STDOUT);
-  printDeclarations(*STDOUT);
+    printHeader(*STDOUT);
+    printMacros(*STDOUT);
+    printTypes(*STDOUT);
+    printDeclarations(*STDOUT);
 
-  printFamilyRegisters(*STDOUT);
+    printFamilyRegisters(*STDOUT);
 
-  for my $i (0 .. (scalar @Cores)-1) {
-    my $core = $Cores[$i];
-    open (mds_file, '<', $ARGV[$i]);
-    clearMDSTables();
-    &MDS::parse(*mds_file);
+    for my $i (0 .. (scalar @Cores)-1) {
+        my $core = $Cores[$i];
+        open (mds_file, '<', $ARGV[$i]);
+        clearMDSTables();
+        &MDS::parse(*mds_file);
 
-    printRegisters(*STDOUT, $core);
-    printMethodEnum(*STDOUT, $core);
-    printModifierEnum(*STDOUT, $core);
-    printBundlingEnum(*STDOUT, $core);
-    printResourceEnum(*STDOUT, $core);
-    printReservationEnum(*STDOUT, $core);
-    printRelocations(*STDOUT);
-  }
+        printRegisters(*STDOUT, $core);
+        printMethodEnum(*STDOUT, $core);
+        printModifierEnum(*STDOUT, $core);
+        printBundlingEnum(*STDOUT, $core);
+        printResourceEnum(*STDOUT, $core);
+        printReservationEnum(*STDOUT, $core);
+        printRelocations(*STDOUT);
+    }
 
-  printTrailer(*STDOUT);
+    printTrailer(*STDOUT);
 }
 
 main();
+# vim: set ts=4 sw=4 et:

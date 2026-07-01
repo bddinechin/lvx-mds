@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -51,39 +51,39 @@ EOT
 my $adjust = 1;	# Adjust for ModifierMember_.
 my @tuples;
 foreach my $modifier (@Modifier::table) {
-  my $ID = $modifier->fullName('_');
-  my @members = split ' ', $modifier->attribute("members");
-  my @values = split ' ', $modifier->attribute("values");
-  my $index = 0;
-  my @MEMBERS = ();
-  foreach my $member (@members) {
-    my $name = $member;
-    $name =~ s/^\.$//;
-    my $lcname = lc($name);
-    my $id_name = $member;
-    $id_name =~ s/\W/_/g;
-    $id_name =~ s/^_//;
-    my $id = "${ID}_$id_name";
-    my $value = $values[$index];
-    $value = $index unless defined $value;
-    $value = oct($value) if $value =~ /^0/;
-    push @MEMBERS, "MEMBER($id, NAME($name), LCNAME($lcname), VALUE($value))";
-    push @tuples, [ $ID, $id_name, $value ];
-    $index++;
-  }
-  my $MEMBERS = "MEMBERS(" . @MEMBERS . ",". (join "\n                 ", '', @MEMBERS) . ")";
-  my (@encode, @decode);
-  push @encode, "VALUE -= $adjust" if $adjust;
-  my $ENCODE = "ENCODE(". (@encode? (join '; ', @encode): "/**/"). ")";
-  push @decode, "VALUE += $adjust" if $adjust;
-  my $DECODE = "DECODE(". (@decode? (join '; ', @decode): "/**/"). ")";
-  print <<"EOT";
+    my $ID = $modifier->fullName('_');
+    my @members = split ' ', $modifier->attribute("members");
+    my @values = split ' ', $modifier->attribute("values");
+    my $index = 0;
+    my @MEMBERS = ();
+    foreach my $member (@members) {
+        my $name = $member;
+        $name =~ s/^\.$//;
+        my $lcname = lc($name);
+        my $id_name = $member;
+        $id_name =~ s/\W/_/g;
+        $id_name =~ s/^_//;
+        my $id = "${ID}_$id_name";
+        my $value = $values[$index];
+        $value = $index unless defined $value;
+        $value = oct($value) if $value =~ /^0/;
+        push @MEMBERS, "MEMBER($id, NAME($name), LCNAME($lcname), VALUE($value))";
+        push @tuples, [ $ID, $id_name, $value ];
+        $index++;
+    }
+    my $MEMBERS = "MEMBERS(" . @MEMBERS . ",". (join "\n                 ", '', @MEMBERS) . ")";
+    my (@encode, @decode);
+    push @encode, "VALUE -= $adjust" if $adjust;
+    my $ENCODE = "ENCODE(". (@encode? (join '; ', @encode): "/**/"). ")";
+    push @decode, "VALUE += $adjust" if $adjust;
+    my $DECODE = "DECODE(". (@decode? (join '; ', @decode): "/**/"). ")";
+    print <<"EOT";
 Modifier($ID,
          $MEMBERS,
          $ENCODE,
          $DECODE)
 EOT
-  $adjust += @members;
+    $adjust += @members;
 }
 
 print<<"EOT";
@@ -94,11 +94,12 @@ print<<"EOT";
 EOT
 
 foreach my $tuple (@tuples) {
-  my ($ID, $name, $value) = @$tuple;
-  print "#define ModifierMemberValue_${ID}_${name}\t$value\n";
+    my ($ID, $name, $value) = @$tuple;
+    print "#define ModifierMemberValue_${ID}_${name}\t$value\n";
 }
 
 print<<"EOT";
 #endif/*ModifierMemberValue*/\n
 EOT
 
+# vim: set ts=4 sw=4 et:

@@ -22,9 +22,10 @@
 use MDS;
 
 print MDS::make("Resource", {
-  ID=>	&Resource::ID(""),
-  availability=>	0,
-})->emit();
+        ID=>	&Resource::ID(""),
+        availability=>	0,
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

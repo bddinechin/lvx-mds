@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use Carp;
@@ -79,12 +79,12 @@ my %enums;
 
 my %operator;
 foreach my $operator (@Operator::table) {
-  my @origins = $operator->access("origins");
-  my @opcodes = grep {$_->type() =~ /^(Opcode|Simulated)/} @origins;
-  my @opcodeNames = map {$_->fullName('_')} @opcodes;
-  foreach my $opcodeName (@opcodeNames) {
-    $operator{$opcodeName} = $operator;
- }
+    my @origins = $operator->access("origins");
+    my @opcodes = grep {$_->type() =~ /^(Opcode|Simulated)/} @origins;
+    my @opcodeNames = map {$_->fullName('_')} @opcodes;
+    foreach my $opcodeName (@opcodeNames) {
+        $operator{$opcodeName} = $operator;
+    }
 }
 
 my %fetch_body;
@@ -273,7 +273,7 @@ foreach my $opcode (@Opcode::table) {
         $fetch_body .= "  HELPER(operandFromValue)(this, $rank, $index, 0, $constant_operands{$proxy});\n";
     }
 
-my $FETCH_ROUTINE = "#ifdef Behavior_FETCH\n";
+    my $FETCH_ROUTINE = "#ifdef Behavior_FETCH\n";
     if ($decoded_used eq 1) {
         $FETCH_ROUTINE .= "static void\nfetch_$ID(void *this, OperandDecoded *decoded, __attribute__((unused)) Processor processor)\n{\n";
     } else {
@@ -308,7 +308,7 @@ my $FETCH_ROUTINE = "#ifdef Behavior_FETCH\n";
 
     my $COMMIT_ROUTINE = "#ifdef Behavior_COMMIT\n";
 
-     if ($decoded_used eq 1) {
+    if ($decoded_used eq 1) {
         $COMMIT_ROUTINE .= "static void\ncommit_$ID(void *this, OperandDecoded *decoded, __attribute__((unused)) Processor processor)\n{\n";
     } elsif ($decoded_used eq 2) {
         $COMMIT_ROUTINE .= "static void\ncommit_$ID(void *this, __attribute__((unused)) OperandDecoded *decoded, __attribute__((unused)) Processor processor)\n{\n";
@@ -320,10 +320,10 @@ my $FETCH_ROUTINE = "#ifdef Behavior_FETCH\n";
 
     my $enums =$operands{ENUM};
     map { my $values = $$enums{$_};
-          foreach my $value (sort keys %$values) {
-              $enums{$_}{$value}++;
-          }
-    } sort keys %$enums;
+        foreach my $value (sort keys %$values) {
+            $enums{$_}{$value}++;
+        }
+      } sort keys %$enums;
 
     my @statics;
     foreach my $static_name (sort keys %statics) {
@@ -358,7 +358,7 @@ my $FETCH_ROUTINE = "#ifdef Behavior_FETCH\n";
     $opcode_commit{$ID} = $commit_body{$commit_body};
 }
 
-    print <<"EOT";
+print <<"EOT";
 #ifndef Behavior
 #define Behavior(OPCODE,FETCH,EXECUTE,COMMIT)
 #else
@@ -375,11 +375,11 @@ foreach my $opcode (@Opcode::table) {
     croak "Opcode execute undefined $ID" unless defined $opcode_execute{$BNAME};
     croak "Opcode commit undefined $ID" unless defined $opcode_commit{$BNAME};
     print "Behavior($ID,FETCH($opcode_fetch{$BNAME}),",
-                       "EXECUTE($opcode_execute{$BNAME}),",
-                       "COMMIT($opcode_commit{$BNAME}))\n";
+      "EXECUTE($opcode_execute{$BNAME}),",
+      "COMMIT($opcode_commit{$BNAME}))\n";
 }
 
-    print <<"EOT";
+print <<"EOT";
 #endif
 #undef Behavior
 
@@ -415,3 +415,4 @@ print <<"EOT";
 
 EOT
 
+# vim: set ts=4 sw=4 et:

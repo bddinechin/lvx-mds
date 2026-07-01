@@ -76,8 +76,8 @@ EOT
             my $mnemonic = $opcode->attribute("mnemonic");
             my $syntax = $opcode->attribute("syntax");
 
-            # Pure asm alias -> assembled instruction will not be the same as desassembled one
-            # Origin instruction is given. So just get original mnemonic
+# Pure asm alias -> assembled instruction will not be the same as desassembled one
+# Origin instruction is given. So just get original mnemonic
             my ($instruction) = $opcode->access("instruction");
             my $syntheticID = $instruction->attribute("synthetic");
             if(defined $syntheticID) {
@@ -172,3 +172,4 @@ my $option = $options{$define};
 open my $FILE, ">", $ARGV[1];
 printInstructions($FILE,$define);
 close $FILE;
+# vim: set ts=4 sw=4 et:

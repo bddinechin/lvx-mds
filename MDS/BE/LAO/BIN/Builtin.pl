@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -48,19 +48,20 @@ ${copyrights}
 EOT
 
 foreach my $builtin (@Builtin::table) {
-  my $prototype = $builtin->attribute("prototype");
-  print << "EOT" if defined $prototype;
+    my $prototype = $builtin->attribute("prototype");
+    print << "EOT" if defined $prototype;
 \n#ifdef \$XCC_h
 extern $prototype
 #endif//\$XCC_h
 EOT
-  my ($declaration) = $builtin->children('Declaration');
-  if (ref $declaration) {
-    print @{$declaration->contents()};
-  }
-  my ($definition) = $builtin->children('Definition');
-  if (ref $definition) {
-    print @{$definition->contents()};
-  }
+    my ($declaration) = $builtin->children('Declaration');
+    if (ref $declaration) {
+        print @{$declaration->contents()};
+    }
+    my ($definition) = $builtin->children('Definition');
+    if (ref $definition) {
+        print @{$definition->contents()};
+    }
 }
 
+# vim: set ts=4 sw=4 et:

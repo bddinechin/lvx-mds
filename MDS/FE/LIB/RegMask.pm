@@ -22,11 +22,12 @@
 use MDS;
 
 print MDS::make("RegMask", {
-  ID=>	&RegMask::ID(""),
-  regFile=>	&RegFile::ID(""),
-  first=>	0,
-  count=>	0,
-})->emit();
+        ID=>	&RegMask::ID(""),
+        regFile=>	&RegFile::ID(""),
+        first=>	0,
+        count=>	0,
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

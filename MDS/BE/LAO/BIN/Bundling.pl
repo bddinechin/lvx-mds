@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -50,11 +50,11 @@ EOT
 
 my $Bundling_COUNT = 0;
 foreach my $bundling (@Bundling::table) {
-  my $ID = $bundling->fullName('_');
-  print <<"EOT";
+    my $ID = $bundling->fullName('_');
+    print <<"EOT";
 Bundling($ID)
 EOT
-  $Bundling_COUNT++;
+    $Bundling_COUNT++;
 }
 
 print<<"EOT";
@@ -71,3 +71,4 @@ print<<"EOT";
 #endif/*Bundling_LOG2_MAX*/\n
 EOT
 
+# vim: set ts=4 sw=4 et:

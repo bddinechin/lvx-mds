@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -49,14 +49,14 @@ ${copyrights}
 EOT
 
 foreach my $relocation (@Relocation::table) {
-  my $ID = $relocation->fullName('_');
-  my $relative = $relocation->attribute("relative") || '';
-  my $RELATIVE = $relative? "RELATIVE($relative)": "RELATIVE(_UNDEF)";
-  my $ENCODE = "ENCODE(/**/)";
-  my $DECODE = "DECODE(/**/)";
-  my $linker = $relocation->attribute("linker") || '';
-  my $LINKER = $linker? "LINKER($linker)": "LINKER(/**/)";
-  print <<"EOT";
+    my $ID = $relocation->fullName('_');
+    my $relative = $relocation->attribute("relative") || '';
+    my $RELATIVE = $relative? "RELATIVE($relative)": "RELATIVE(_UNDEF)";
+    my $ENCODE = "ENCODE(/**/)";
+    my $DECODE = "DECODE(/**/)";
+    my $linker = $relocation->attribute("linker") || '';
+    my $LINKER = $linker? "LINKER($linker)": "LINKER(/**/)";
+    print <<"EOT";
 Relocation($ID, $RELATIVE,
            $ENCODE,
            $DECODE,
@@ -69,3 +69,4 @@ print<<"EOT";
 #undef Relocation\n
 EOT
 
+# vim: set ts=4 sw=4 et:

@@ -22,10 +22,11 @@
 use MDS;
 
 print MDS::make("Pattern", {
-  ID=>	&Pattern::ID(""),
-  fields=> &BitField::ID(""),
-  values=> "0",
-})->emit();
+        ID=>	&Pattern::ID(""),
+        fields=> &BitField::ID(""),
+        values=> "0",
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

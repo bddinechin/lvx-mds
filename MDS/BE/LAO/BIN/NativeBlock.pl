@@ -27,8 +27,8 @@ use strict;
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -53,56 +53,56 @@ EOT
 my %relocations;
 # Init relocations from Operands.
 foreach my $operand (@Operand::table) {
-  my ($method) = $operand->access("method");
-  if(defined $method->name()) {
-    if(defined $operand->attribute("relocations")) {
-      my $methodID = $method->attribute("ID");
-      my @relocations = $operand->access("relocations");
-      $relocations{$methodID}{OPERAND} = $operand->name();
-      $relocations{$methodID}{RELOCS} = \@relocations;
-      $relocations{$methodID}{DEFAULT} = $operand->attribute("default");
+    my ($method) = $operand->access("method");
+    if(defined $method->name()) {
+        if(defined $operand->attribute("relocations")) {
+            my $methodID = $method->attribute("ID");
+            my @relocations = $operand->access("relocations");
+            $relocations{$methodID}{OPERAND} = $operand->name();
+            $relocations{$methodID}{RELOCS} = \@relocations;
+            $relocations{$methodID}{DEFAULT} = $operand->attribute("default");
+        }
     }
-  }
 }
 
 my %seen;
 foreach my $opcode (@Opcode::table) {
-  my @operands = $opcode->access("operands");
-  my @operandNames = map {$_->name()} @operands;
-  my $operands = "";
-  if (@operands) {
-    my $core = $operands[0]->core();
-    $operands = join '_', ($core, @operandNames);
-  }
-  unless ($seen{$operands}++) {
-    (my $NAME = $operands) =~ s/\W/_/g;
-    my @arglist = ( "NativeBlock this", "Opcode opcode" );
-    my @relocations = ( );
-    my @decmove = ( );
-    my $index = 0;
-    my @methods = map {$_->access("method")} @operands;
-    foreach my $method (@methods) {
-      my $type = $method->type();
-      my $actual = $operandNames[$index];
-      if ($type eq 'RegClass') {
-        push @arglist, "Register $actual";
-        push @decmove, "decoded\[$index\] = (OperandDecoded)$actual";
-      } elsif ($type eq 'Immediate') {
-        push @arglist, "ImmediateValue $actual";
-        push @decmove, "decoded\[$index\] = (OperandDecoded)$actual";
-        push @relocations, @{$relocations{$method->attribute("ID")}{RELOCS}}
-            if (defined $relocations{$method->attribute("ID")});
-      } elsif ($type eq 'Modifier') {
-        push @arglist, "ModifierMember $actual";
-        push @decmove, "decoded\[$index\] = (OperandDecoded)$actual";
-      } elsif ($type eq 'RegMask') {
-        print STDERR "WARNING: RegMask not supported\n";
-      }
-      $index++;
+    my @operands = $opcode->access("operands");
+    my @operandNames = map {$_->name()} @operands;
+    my $operands = "";
+    if (@operands) {
+        my $core = $operands[0]->core();
+        $operands = join '_', ($core, @operandNames);
     }
-    my $ARGLIST = join ', ', @arglist;
-    my $ARGMOVE = join ";\n  ", @decmove;
-    print<<"EOT";
+    unless ($seen{$operands}++) {
+        (my $NAME = $operands) =~ s/\W/_/g;
+        my @arglist = ( "NativeBlock this", "Opcode opcode" );
+        my @relocations = ( );
+        my @decmove = ( );
+        my $index = 0;
+        my @methods = map {$_->access("method")} @operands;
+        foreach my $method (@methods) {
+            my $type = $method->type();
+            my $actual = $operandNames[$index];
+            if ($type eq 'RegClass') {
+                push @arglist, "Register $actual";
+                push @decmove, "decoded\[$index\] = (OperandDecoded)$actual";
+            } elsif ($type eq 'Immediate') {
+                push @arglist, "ImmediateValue $actual";
+                push @decmove, "decoded\[$index\] = (OperandDecoded)$actual";
+                push @relocations, @{$relocations{$method->attribute("ID")}{RELOCS}}
+                  if (defined $relocations{$method->attribute("ID")});
+            } elsif ($type eq 'Modifier') {
+                push @arglist, "ModifierMember $actual";
+                push @decmove, "decoded\[$index\] = (OperandDecoded)$actual";
+            } elsif ($type eq 'RegMask') {
+                print STDERR "WARNING: RegMask not supported\n";
+            }
+            $index++;
+        }
+        my $ARGLIST = join ', ', @arglist;
+        my $ARGMOVE = join ";\n  ", @decmove;
+        print<<"EOT";
 #ifdef \$XCC__h
 extern Instruction
 NativeBlock_makeInstruction_$NAME($ARGLIST);
@@ -120,6 +120,7 @@ NativeBlock_makeInstruction_$NAME($ARGLIST)
   return instruction;
 }\n
 EOT
-  }
+    }
 }
 
+# vim: set ts=4 sw=4 et:

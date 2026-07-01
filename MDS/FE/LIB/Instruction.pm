@@ -22,11 +22,12 @@
 use MDS;
 
 print MDS::make("Instruction", {
-  ID=>	&Instruction::ID(""),
-  mnemonic=>	"#UNDEF",
-  formats=>	&Format::ID(""),
-  schedulings=>	&Scheduling::ID(""),
-})->emit();
+        ID=>	&Instruction::ID(""),
+        mnemonic=>	"#UNDEF",
+        formats=>	&Format::ID(""),
+        schedulings=>	&Scheduling::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

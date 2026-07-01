@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -51,34 +51,34 @@ EOT
 # Find the Storage(s) used by Register(s).
 my %registerStorage;
 foreach my $register (@Register::table) {
-  my $storageID = $register->attribute("storage");
-  $registerStorage{$storageID}++;
+    my $storageID = $register->attribute("storage");
+    $registerStorage{$storageID}++;
 }
 
 my $StorageCell_Control;
 my $StorageCell_Memory;
 
 foreach my $storage (@Storage::table) {
-  my $ID = $storage->attribute("ID");
-  my $NAME = $storage->fullName('_');
-  my $kind = $storage->attribute("kind");
-  my $KIND = "KIND($kind)";
-  my $width = $storage->attribute("width");
-  my $WIDTH = "WIDTH($width)";
-  if ($kind eq 'Control' || $kind eq 'Memory') {
-    print<<"EOT";
+    my $ID = $storage->attribute("ID");
+    my $NAME = $storage->fullName('_');
+    my $kind = $storage->attribute("kind");
+    my $KIND = "KIND($kind)";
+    my $width = $storage->attribute("width");
+    my $WIDTH = "WIDTH($width)";
+    if ($kind eq 'Control' || $kind eq 'Memory') {
+        print<<"EOT";
 StorageCell($NAME, $KIND, $WIDTH)
 EOT
-    $StorageCell_Control = "StorageCell_$NAME" if $kind eq 'Control';
-    $StorageCell_Memory = "StorageCell_$NAME" if $kind eq 'Memory';
-  } elsif ($kind ne 'Constant' && $registerStorage{$ID}) {
-    my $count = $storage->attribute("count");
-    for (my $i = 0; $i < $count; $i++) {
-      print<<"EOT";
+        $StorageCell_Control = "StorageCell_$NAME" if $kind eq 'Control';
+        $StorageCell_Memory = "StorageCell_$NAME" if $kind eq 'Memory';
+    } elsif ($kind ne 'Constant' && $registerStorage{$ID}) {
+        my $count = $storage->attribute("count");
+        for (my $i = 0; $i < $count; $i++) {
+            print<<"EOT";
 StorageCell($NAME$i, $KIND, $WIDTH)
 EOT
+        }
     }
-  }
 }
 print<<"EOT";
 StorageCell(Volatile, Volatile, WIDTH(0))
@@ -98,3 +98,4 @@ print<<"EOT";
 #endif/*StorageCell_Memory*/\n
 EOT
 
+# vim: set ts=4 sw=4 et:

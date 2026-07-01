@@ -15,21 +15,21 @@ use constant VALUE => "\x07YAML\x07VALUE\x07";
 field dumper_class => 'YAML::Dumper';
 field loader_class => 'YAML::Loader';
 field dumper_object =>
-    -init => '$self->init_action_object("dumper")';
+  -init => '$self->init_action_object("dumper")';
 field loader_object =>
-    -init => '$self->init_action_object("loader")';
+  -init => '$self->init_action_object("loader")';
 
 sub Dump {
     my $yaml = YAML->new;
     $yaml->dumper_class($YAML::DumperClass)
-        if $YAML::DumperClass;
+      if $YAML::DumperClass;
     return $yaml->dumper_object->dump(@_);
 }
 
 sub Load {
     my $yaml = YAML->new;
     $yaml->loader_class($YAML::LoaderClass)
-        if $YAML::LoaderClass;
+      if $YAML::LoaderClass;
     return $yaml->loader_object->load(@_);
 }
 
@@ -54,7 +54,7 @@ sub DumpFile {
         }
         open $OUT, $mode, $filename
           or YAML::Base->die('YAML_DUMP_ERR_FILE_OUTPUT', $filename, $!);
-    }  
+    }
     local $/ = "\n"; # reset special to "sane"
     print $OUT Dump(@_);
 }
@@ -78,7 +78,7 @@ sub init_action_object {
     my $module_name = $self->$object_class;
     eval "require $module_name";
     $self->die("Error in require $module_name - $@")
-        if $@ and "$@" !~ /Can't locate/;
+      if $@ and "$@" !~ /Can't locate/;
     my $object = $self->$object_class->new;
     $object->set_global_options;
     return $object;
@@ -808,3 +808,4 @@ under the same terms as Perl itself.
 See L<http://www.perl.com/perl/misc/Artistic.html>
 
 =cut
+# vim: set ts=4 sw=4 et:

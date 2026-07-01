@@ -44,14 +44,14 @@ sub printRelocations {
 
     my %bfd_relocs;
     foreach my  $reloc (@Relocation::table) {
-	my @linker_reloc = split(/\s+/,$reloc->attribute("linker"));
-	my @linker_elf_ids = split(/\s+/,$reloc->attribute("elfIds"));
-	croak "Bad arrays: @linker_elf_ids <-> @linker_reloc" if(@linker_reloc != @linker_elf_ids);
-	for my $i (0 .. $#linker_reloc) {
-	    $linker_reloc[$i] =~ s/^R_/BFD_RELOC_/;
-	    croak "Already defined relocation with elf ID: $linker_elf_ids[$i] ($linker_reloc[$i])" if(defined $bfd_relocs{$linker_elf_ids[$i]});
-	    $bfd_relocs{$linker_elf_ids[$i]} = $linker_reloc[$i];
-	}
+        my @linker_reloc = split(/\s+/,$reloc->attribute("linker"));
+        my @linker_elf_ids = split(/\s+/,$reloc->attribute("elfIds"));
+        croak "Bad arrays: @linker_elf_ids <-> @linker_reloc" if(@linker_reloc != @linker_elf_ids);
+        for my $i (0 .. $#linker_reloc) {
+            $linker_reloc[$i] =~ s/^R_/BFD_RELOC_/;
+            croak "Already defined relocation with elf ID: $linker_elf_ids[$i] ($linker_reloc[$i])" if(defined $bfd_relocs{$linker_elf_ids[$i]});
+            $bfd_relocs{$linker_elf_ids[$i]} = $linker_reloc[$i];
+        }
     }
     my $elfID_check = 1;
     my $enum = "ENUM";
@@ -84,12 +84,12 @@ END
     print $file "$start_relocs";
 
     foreach my $elfID (sort { $a <=> $b } keys %bfd_relocs) {
-	croak "Bad ElfID $elfID" if($elfID_check != $elfID);
-	$elfID_check++;
-	my $reloc = $bfd_relocs{$elfID};
-	print $file "$enum\n";
-	$enum = "ENUMX";
-	print $file "$reloc\n";
+        croak "Bad ElfID $elfID" if($elfID_check != $elfID);
+        $elfID_check++;
+        my $reloc = $bfd_relocs{$elfID};
+        print $file "$enum\n";
+        $enum = "ENUMX";
+        print $file "$reloc\n";
     }
 
     print $file "$end_reloc";
@@ -98,3 +98,4 @@ END
 printRelocations(*STDOUT);
 
 
+# vim: set ts=4 sw=4 et:

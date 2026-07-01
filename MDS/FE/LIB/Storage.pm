@@ -22,10 +22,11 @@
 use MDS;
 
 print MDS::make("Storage", {
-  ID=>	&Storage::ID(""),
-  kind=>        "Memory",
-  width=>	0,
-})->emit();
+        ID=>	&Storage::ID(""),
+        kind=>        "Memory",
+        width=>	0,
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

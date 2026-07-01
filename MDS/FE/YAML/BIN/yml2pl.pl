@@ -41,157 +41,157 @@ my $Load = Load(<>);
 my $Table = $$Load{$TableName};
 my @Table = sort { $$a{number} <=> $$b{number} } values %{$Table};
 foreach my $entry (@Table) {
-  #print STDERR "reading $TableName...\n";
-  eval "$TableName(\$entry)";
+    #print STDERR "reading $TableName...\n";
+    eval "$TableName(\$entry)";
 }
 
 sub attribute {
-  my ($entry, $key) = @_;
-  my $value = $$entry{$key};
-  if (defined $value && length($value)) {
-    if (ref $value eq 'ARRAY') {
-      return 'undef' unless @{$value};
-      $value = join ' ', @{$value};
-      return "'$value'";
-    } elsif (ref $value eq 'HASH') {
-      my @values;
-      while (my ($type, $name) = each %{$value}) {
-        push @values, "&". $type. "::ID('$name')";
-      }
-      if (@values > 1) {
-        return '[ '. (join ', ', @values). ' ]';
-      }
-      return $values[0];
-    } else {
-      return "'$value'";
+    my ($entry, $key) = @_;
+    my $value = $$entry{$key};
+    if (defined $value && length($value)) {
+        if (ref $value eq 'ARRAY') {
+            return 'undef' unless @{$value};
+            $value = join ' ', @{$value};
+            return "'$value'";
+        } elsif (ref $value eq 'HASH') {
+            my @values;
+            while (my ($type, $name) = each %{$value}) {
+                push @values, "&". $type. "::ID('$name')";
+            }
+            if (@values > 1) {
+                return '[ '. (join ', ', @values). ' ]';
+            }
+            return $values[0];
+        } else {
+            return "'$value'";
+        }
     }
-  }
-  return 'undef';
+    return 'undef';
 }
 
 sub properties {
-  my ($entry, $key) = @_;
-  my $value = $$entry{$key};
-  if (defined $value) {
-    if (ref $value eq 'HASH') {
-      my @properties; map {
-        my ($proxy, $sequence) = ($_, $$value{$_});
-        push @properties, "'$proxy: $sequence'";
-      } sort { substr($a,1) cmp substr($b,1) } keys %{$value};
-      if (@properties > 1) {
-        return '[ '. (join ', ', @properties). ' ]';
-      }
-      return $properties[0];
-    } else {
-      die "expecting a YAML map in 'properties' attribute";
+    my ($entry, $key) = @_;
+    my $value = $$entry{$key};
+    if (defined $value) {
+        if (ref $value eq 'HASH') {
+            my @properties; map {
+                my ($proxy, $sequence) = ($_, $$value{$_});
+                push @properties, "'$proxy: $sequence'";
+              } sort { substr($a,1) cmp substr($b,1) } keys %{$value};
+            if (@properties > 1) {
+                return '[ '. (join ', ', @properties). ' ]';
+            }
+            return $properties[0];
+        } else {
+            die "expecting a YAML map in 'properties' attribute";
+        }
     }
-  }
-  return 'undef';
+    return 'undef';
 }
 
 sub execution {
-  my ($entry) = @_;
-  return 'undef' unless defined $entry;
-  my $execution = $$entry{execution};
-  return undef unless $execution =~ /\S/;
-  $execution =~ s/\&/&amp;/g;
-  $execution =~ s/\</&lt;/g;
-  $execution =~ s/\>/&gt;/g;
-  return <<"EOT";
+    my ($entry) = @_;
+    return 'undef' unless defined $entry;
+    my $execution = $$entry{execution};
+    return undef unless $execution =~ /\S/;
+    $execution =~ s/\&/&amp;/g;
+    $execution =~ s/\</&lt;/g;
+    $execution =~ s/\>/&gt;/g;
+    return <<"EOT";
 MDS::make("Execution", { }, ['
 $execution'])
 EOT
 }
 
 sub behavior {
-  my ($entry) = @_;
-  return 'undef' unless defined $entry;
-  my $behavior = $$entry{behavior};
-  return undef unless $behavior =~ /\S/;
-  return <<"EOT";
+    my ($entry) = @_;
+    return 'undef' unless defined $entry;
+    my $behavior = $$entry{behavior};
+    return undef unless $behavior =~ /\S/;
+    return <<"EOT";
 MDS::make("Behavior", { }, ['
 $behavior'])
 EOT
 }
 
 sub declaration {
-  my ($entry) = @_;
-  return 'undef' unless defined $entry;
-  my $declaration = $$entry{declaration};
-  return undef unless $declaration =~ /\S/;
-  return <<"EOT";
+    my ($entry) = @_;
+    return 'undef' unless defined $entry;
+    my $declaration = $$entry{declaration};
+    return undef unless $declaration =~ /\S/;
+    return <<"EOT";
 MDS::make("Declaration", { }, ['
 $declaration'])
 EOT
 }
 
 sub definition {
-  my ($entry) = @_;
-  return 'undef' unless defined $entry;
-  my $definition = $$entry{definition};
-  return undef unless $definition =~ /\S/;
-  return <<"EOT";
+    my ($entry) = @_;
+    return 'undef' unless defined $entry;
+    my $definition = $$entry{definition};
+    return undef unless $definition =~ /\S/;
+    return <<"EOT";
 MDS::make("Definition", { }, ['
 $definition'])
 EOT
 }
 
 sub method {
-  my ($method) = @_;
-  my %method = %{$method};
-SWITCH: {
-  defined $method{RegClass} and do {
-    return "&RegClass::ID(\"$method{RegClass}\")";
-    last SWITCH;
-  };
-  defined $method{Register} and do {
-    return "&Register::ID(\"$method{Register}\")";
-    last SWITCH;
-  };
-  defined $method{RegFile} and do {
-    return "&RegFile::ID(\"$method{RegFile}\")";
-    last SWITCH;
-  };
-  defined $method{RegMask} and do {
-    return "&RegMask::ID(\"$method{RegMask}\")";
-    last SWITCH;
-  };
-  defined $method{Immediate} and do {
-    return "&Immediate::ID(\"$method{Immediate}\")";
-    last SWITCH;
-  };
-  defined $method{Modifier} and do {
-    return "&Modifier::ID(\"$method{Modifier}\")";
-    last SWITCH;
-  };
-  croak "Unknown method: ", keys %method, "\n";
- }
+    my ($method) = @_;
+    my %method = %{$method};
+    SWITCH: {
+        defined $method{RegClass} and do {
+            return "&RegClass::ID(\"$method{RegClass}\")";
+            last SWITCH;
+          };
+        defined $method{Register} and do {
+            return "&Register::ID(\"$method{Register}\")";
+            last SWITCH;
+          };
+        defined $method{RegFile} and do {
+            return "&RegFile::ID(\"$method{RegFile}\")";
+            last SWITCH;
+          };
+        defined $method{RegMask} and do {
+            return "&RegMask::ID(\"$method{RegMask}\")";
+            last SWITCH;
+          };
+        defined $method{Immediate} and do {
+            return "&Immediate::ID(\"$method{Immediate}\")";
+            last SWITCH;
+          };
+        defined $method{Modifier} and do {
+            return "&Modifier::ID(\"$method{Modifier}\")";
+            last SWITCH;
+          };
+        croak "Unknown method: ", keys %method, "\n";
+    }
 }
 
 sub Parameter {
-  my ($entry) = @_;
-  return 'undef' unless defined $entry;
-  my $parameters = $$entry{parameters};
-  my @parameters;
-  foreach my $parameter (@$parameters) {
-    my $action = &attribute($parameter,"action");
-    my $usage = &attribute($parameter,"usage");
-    my $proxy = &attribute($parameter,"proxy");
-    my $method = &method($$parameter{method});
-    my $stages = &attribute($parameter,"stages");
-    push @parameters, "MDS::make(\"Parameter\", { action=>$action, usage=>$usage, proxy=>$proxy, method=>$method, stages=>$stages }),\n";
-  }
-  return "[ ".join(' ',@parameters)." ]";
+    my ($entry) = @_;
+    return 'undef' unless defined $entry;
+    my $parameters = $$entry{parameters};
+    my @parameters;
+    foreach my $parameter (@$parameters) {
+        my $action = &attribute($parameter,"action");
+        my $usage = &attribute($parameter,"usage");
+        my $proxy = &attribute($parameter,"proxy");
+        my $method = &method($$parameter{method});
+        my $stages = &attribute($parameter,"stages");
+        push @parameters, "MDS::make(\"Parameter\", { action=>$action, usage=>$usage, proxy=>$proxy, method=>$method, stages=>$stages }),\n";
+    }
+    return "[ ".join(' ',@parameters)." ]";
 }
 
 
 sub BitField {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $width = &attribute($entry, "width");
-  my $offset = &attribute($entry, "offset");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $width = &attribute($entry, "width");
+    my $offset = &attribute($entry, "offset");
+    print <<"EOT";
 print MDS::make("BitField", {
   ID=>          &BitField::ID($ID),
   what=>        $what,
@@ -203,11 +203,11 @@ EOT
 
 
 sub Bundling {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $dispersals = &attribute($entry, "dispersals");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $dispersals = &attribute($entry, "dispersals");
+    print <<"EOT";
 print MDS::make("Bundling", {
   ID=>          &Bundling::ID($ID),
   what=>        $what,
@@ -218,30 +218,30 @@ EOT
 
 
 sub Convention {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $reserved = &attribute($entry, "reserved");
-  my $argument = &attribute($entry, "argument");
-  my $result = &attribute($entry, "result");
-  my $struct = &attribute($entry, "struct");
-  my $caller = &attribute($entry, "caller");
-  my $callee = &attribute($entry, "callee");
-  my $program = &attribute($entry, "program");
-  my $handler = &attribute($entry, "handler");
-  my $veneer = &attribute($entry, "veneer");
-  my $return = &attribute($entry, "return");
-  my $stack = &attribute($entry, "stack");
-  my $static = &attribute($entry, "static");
-  my $frame = &attribute($entry, "frame");
-  my $global = &attribute($entry, "global");
-  my $local = &attribute($entry, "local");
-  my $wired = &attribute($entry, "wired");
-  my $zero = &attribute($entry, "zero");
-  my $fzero = &attribute($entry, "fzero");
-  my $one = &attribute($entry, "one");
-  my $true = &attribute($entry, "true");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $reserved = &attribute($entry, "reserved");
+    my $argument = &attribute($entry, "argument");
+    my $result = &attribute($entry, "result");
+    my $struct = &attribute($entry, "struct");
+    my $caller = &attribute($entry, "caller");
+    my $callee = &attribute($entry, "callee");
+    my $program = &attribute($entry, "program");
+    my $handler = &attribute($entry, "handler");
+    my $veneer = &attribute($entry, "veneer");
+    my $return = &attribute($entry, "return");
+    my $stack = &attribute($entry, "stack");
+    my $static = &attribute($entry, "static");
+    my $frame = &attribute($entry, "frame");
+    my $global = &attribute($entry, "global");
+    my $local = &attribute($entry, "local");
+    my $wired = &attribute($entry, "wired");
+    my $zero = &attribute($entry, "zero");
+    my $fzero = &attribute($entry, "fzero");
+    my $one = &attribute($entry, "one");
+    my $true = &attribute($entry, "true");
+    print <<"EOT";
 print MDS::make("Convention", {
   ID=>          &Convention::ID($ID),
   what=>        $what,
@@ -271,12 +271,12 @@ EOT
 
 
 sub Encoding {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $wordWidth = &attribute($entry, "wordWidth");
-  my $wordCount = &attribute($entry, "wordCount");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $wordWidth = &attribute($entry, "wordWidth");
+    my $wordCount = &attribute($entry, "wordCount");
+    print <<"EOT";
 print MDS::make("Encoding", {
   ID=>          &Encoding::ID($ID),
   what=>        $what,
@@ -288,21 +288,21 @@ EOT
 
 
 sub Format {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $patterns = &attribute($entry, "patterns");
-  my $encoding = &attribute($entry, "encoding");
-  my $operands = &attribute($entry, "operands");
-  my $syntax = &attribute($entry, "syntax");
-  my $traps = &attribute($entry, "traps");
-  my $increment = &attribute($entry, "increment");
-  my $properties = &properties($entry, "properties");
-  my $execution = &execution($entry);
-  my $behavior = &behavior($entry);
-  my @children = grep {defined} ($execution, $behavior);
-  my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $patterns = &attribute($entry, "patterns");
+    my $encoding = &attribute($entry, "encoding");
+    my $operands = &attribute($entry, "operands");
+    my $syntax = &attribute($entry, "syntax");
+    my $traps = &attribute($entry, "traps");
+    my $increment = &attribute($entry, "increment");
+    my $properties = &properties($entry, "properties");
+    my $execution = &execution($entry);
+    my $behavior = &behavior($entry);
+    my @children = grep {defined} ($execution, $behavior);
+    my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
+    print <<"EOT";
 print MDS::make("Format", {
   ID=>          &Format::ID($ID),
   what=>        $what,
@@ -319,14 +319,14 @@ EOT
 
 
 sub Generic {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $attributes = &attribute($entry, "attributes");
-  my $mnemonic = &attribute($entry, "mnemonic");
-  my $syntax = &attribute($entry, "syntax");
-  my $parameters = &Parameter($entry);
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $attributes = &attribute($entry, "attributes");
+    my $mnemonic = &attribute($entry, "mnemonic");
+    my $syntax = &attribute($entry, "syntax");
+    my $parameters = &Parameter($entry);
+    print <<"EOT";
 print MDS::make("Generic", {
   ID=>          &Generic::ID($ID),
   what=>        $what,
@@ -338,18 +338,18 @@ EOT
 }
 
 sub Immediate {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $width = &attribute($entry, "width");
-  my $shift = &attribute($entry, "shift");
-  my $range = &attribute($entry, "range");
-  my $rotate = &attribute($entry, "rotate");
-  my $bitmask = &attribute($entry, "bitmask");
-  my $bias = &attribute($entry, "bias");
-  my $extend = &attribute($entry, "extend");
-  my $canExtend = &attribute($entry, "canExtend");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $width = &attribute($entry, "width");
+    my $shift = &attribute($entry, "shift");
+    my $range = &attribute($entry, "range");
+    my $rotate = &attribute($entry, "rotate");
+    my $bitmask = &attribute($entry, "bitmask");
+    my $bias = &attribute($entry, "bias");
+    my $extend = &attribute($entry, "extend");
+    my $canExtend = &attribute($entry, "canExtend");
+    print <<"EOT";
 print MDS::make("Immediate", {
   ID=>          &Immediate::ID($ID),
   what=>        $what,
@@ -367,24 +367,24 @@ EOT
 
 
 sub Instruction {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $mnemonic = &attribute($entry, "mnemonic");
-  my $formats = &attribute($entry, "formats");
-  my $schedulings = &attribute($entry, "schedulings");
-  my $patterns = &attribute($entry, "patterns");
-  my $syntax = &attribute($entry, "syntax");
-  my $traps = &attribute($entry, "traps");
-  my $specialize = &attribute($entry, "specialize");
-  my $replacement = &attribute($entry, "replacement");
-  my $synthetic = &attribute($entry, "synthetic");
-  my $properties = &properties($entry, "properties");
-  my $execution = &execution($entry);
-  my $behavior = &behavior($entry);
-  my @children = grep {defined} ($execution, $behavior);
-  my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $mnemonic = &attribute($entry, "mnemonic");
+    my $formats = &attribute($entry, "formats");
+    my $schedulings = &attribute($entry, "schedulings");
+    my $patterns = &attribute($entry, "patterns");
+    my $syntax = &attribute($entry, "syntax");
+    my $traps = &attribute($entry, "traps");
+    my $specialize = &attribute($entry, "specialize");
+    my $replacement = &attribute($entry, "replacement");
+    my $synthetic = &attribute($entry, "synthetic");
+    my $properties = &properties($entry, "properties");
+    my $execution = &execution($entry);
+    my $behavior = &behavior($entry);
+    my @children = grep {defined} ($execution, $behavior);
+    my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
+    print <<"EOT";
 print MDS::make("Instruction", {
   ID=>          &Instruction::ID($ID),
   what=>        $what,
@@ -403,18 +403,18 @@ EOT
 }
 
 sub Builtin {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $prototype = &attribute($entry, "prototype");
-  my $instruction = &attribute($entry, "instruction");
-  my $operands = &attribute($entry, "operands");
-  my $formats = &attribute($entry, "formats");
-  my $declaration = &declaration($entry);
-  my $definition = &definition($entry);
-  my @children = grep {defined} ($declaration, $definition);
-  my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $prototype = &attribute($entry, "prototype");
+    my $instruction = &attribute($entry, "instruction");
+    my $operands = &attribute($entry, "operands");
+    my $formats = &attribute($entry, "formats");
+    my $declaration = &declaration($entry);
+    my $definition = &definition($entry);
+    my @children = grep {defined} ($declaration, $definition);
+    my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
+    print <<"EOT";
 print MDS::make("Builtin", {
   ID=>          &Builtin::ID($ID),
   what=>        $what,
@@ -427,14 +427,14 @@ EOT
 }
 
 sub Modifier {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $members = &attribute($entry, "members");
-  my $values = &attribute($entry, "values");
-  my $width = &attribute($entry, "width");
-  my $properties = &properties($entry, "properties");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $members = &attribute($entry, "members");
+    my $values = &attribute($entry, "values");
+    my $width = &attribute($entry, "width");
+    my $properties = &properties($entry, "properties");
+    print <<"EOT";
 print MDS::make("Modifier", {
   ID=>          &Modifier::ID($ID),
   what=>        $what,
@@ -448,16 +448,16 @@ EOT
 
 
 sub NativeType {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $width = &attribute($entry, "width");
-  my $sizeof = &attribute($entry, "sizeof");
-  my $align = &attribute($entry, "align");
-  my $printf = &attribute($entry, "printf");
-  my $slice = &attribute($entry, "slice");
-  my $type = &attribute($entry, "type");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $width = &attribute($entry, "width");
+    my $sizeof = &attribute($entry, "sizeof");
+    my $align = &attribute($entry, "align");
+    my $printf = &attribute($entry, "printf");
+    my $slice = &attribute($entry, "slice");
+    my $type = &attribute($entry, "type");
+    print <<"EOT";
 print MDS::make("NativeType", {
   ID=>          &NativeType::ID($ID),
   what=>        $what,
@@ -473,15 +473,15 @@ EOT
 
 
 sub Operand {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $fields = &attribute($entry, "fields");
-  my $method = &attribute($entry, "method");
-  my $relocations = &attribute($entry, "relocations");
-  my $default = &attribute($entry, "default");
-  my $shortName = &attribute($entry, "shortName");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $fields = &attribute($entry, "fields");
+    my $method = &attribute($entry, "method");
+    my $relocations = &attribute($entry, "relocations");
+    my $default = &attribute($entry, "default");
+    my $shortName = &attribute($entry, "shortName");
+    print <<"EOT";
 print MDS::make("Operand", {
   ID=>          &Operand::ID($ID),
   what=>        $what,
@@ -496,12 +496,12 @@ EOT
 
 
 sub Pattern {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $fields = &attribute($entry, "fields");
-  my $values = &attribute($entry, "values");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $fields = &attribute($entry, "fields");
+    my $values = &attribute($entry, "values");
+    print <<"EOT";
 print MDS::make("Pattern", {
   ID=>          &Pattern::ID($ID),
   what=>        $what,
@@ -513,21 +513,21 @@ EOT
 
 
 sub Platform {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $charWidth = &attribute($entry, "charWidth");
-  my $addrWidth = &attribute($entry, "addrWidth");
-  my $endian = &attribute($entry, "endian");
-  my $alignText = &attribute($entry, "alignText");
-  my $alignData = &attribute($entry, "alignData");
-  my $alignHeap = &attribute($entry, "alignHeap");
-  my $alignStack = &attribute($entry, "alignStack");
-  my $nativeInt = &attribute($entry, "nativeInt");
-  my $nativeUInt = &attribute($entry, "nativeUInt");
-  my $nativeFloat = &attribute($entry, "nativeFloat");
-  my $nativePtr = &attribute($entry, "nativePtr");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $charWidth = &attribute($entry, "charWidth");
+    my $addrWidth = &attribute($entry, "addrWidth");
+    my $endian = &attribute($entry, "endian");
+    my $alignText = &attribute($entry, "alignText");
+    my $alignData = &attribute($entry, "alignData");
+    my $alignHeap = &attribute($entry, "alignHeap");
+    my $alignStack = &attribute($entry, "alignStack");
+    my $nativeInt = &attribute($entry, "nativeInt");
+    my $nativeUInt = &attribute($entry, "nativeUInt");
+    my $nativeFloat = &attribute($entry, "nativeFloat");
+    my $nativePtr = &attribute($entry, "nativePtr");
+    print <<"EOT";
 print MDS::make("Platform", {
   ID=>          &Platform::ID($ID),
   what=>        $what,
@@ -548,14 +548,14 @@ EOT
 
 
 sub Processor {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $minTaken = &attribute($entry, "minTaken");
-  my $interlocks = &attribute($entry, "interlocks");
-  my $pipeline = &attribute($entry, "pipeline");
-  my $stages = &attribute($entry, "stages");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $minTaken = &attribute($entry, "minTaken");
+    my $interlocks = &attribute($entry, "interlocks");
+    my $pipeline = &attribute($entry, "pipeline");
+    my $stages = &attribute($entry, "stages");
+    print <<"EOT";
 print MDS::make("Processor", {
   ID=>          &Processor::ID($ID),
   what=>        $what,
@@ -569,16 +569,16 @@ EOT
 
 
 sub RegClass {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $regFile = &attribute($entry, "regFile");
-  my $registers = &attribute($entry, "registers");
-  my $multi = &attribute($entry, "multi");
-  my $names = &attribute($entry, "names");
-  my $shift = &attribute($entry, "shift");
-  my $bias = &attribute($entry, "bias");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $regFile = &attribute($entry, "regFile");
+    my $registers = &attribute($entry, "registers");
+    my $multi = &attribute($entry, "multi");
+    my $names = &attribute($entry, "names");
+    my $shift = &attribute($entry, "shift");
+    my $bias = &attribute($entry, "bias");
+    print <<"EOT";
 print MDS::make("RegClass", {
   ID=>          &RegClass::ID($ID),
   what=>        $what,
@@ -594,15 +594,15 @@ EOT
 
 
 sub RegFile {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $width = &attribute($entry, "width");
-  my $regClass = &attribute($entry, "regClass");
-  my $registers = &attribute($entry, "registers");
-  my $multi = &attribute($entry, "multi"); # TODO: remove this.
-  my $nativeTypes = &attribute($entry, "nativeTypes");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $width = &attribute($entry, "width");
+    my $regClass = &attribute($entry, "regClass");
+    my $registers = &attribute($entry, "registers");
+    my $multi = &attribute($entry, "multi"); # TODO: remove this.
+    my $nativeTypes = &attribute($entry, "nativeTypes");
+    print <<"EOT";
 print MDS::make("RegFile", {
   ID=>          &RegFile::ID($ID),
   what=>        $what,
@@ -617,17 +617,17 @@ EOT
 
 
 sub RegField {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $register = &attribute($entry, "register");
-  my $offset = &attribute($entry, "offset");
-  my $width = &attribute($entry, "width");
-  my $owners = &attribute($entry, "owners");
-  my $reset = &attribute($entry, "reset") || 0;
-  my $rerrors = &attribute($entry, "rerrors") || [ "TRAP_PRIVILEGE" ];
-  my $werrors = &attribute($entry, "werrors") || [ "TRAP_PRIVILEGE" ];
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $register = &attribute($entry, "register");
+    my $offset = &attribute($entry, "offset");
+    my $width = &attribute($entry, "width");
+    my $owners = &attribute($entry, "owners");
+    my $reset = &attribute($entry, "reset") || 0;
+    my $rerrors = &attribute($entry, "rerrors") || [ "TRAP_PRIVILEGE" ];
+    my $werrors = &attribute($entry, "werrors") || [ "TRAP_PRIVILEGE" ];
+    print <<"EOT";
 print MDS::make("RegField", {
   ID=>          &RegField::ID($ID),
   what=>        $what,
@@ -643,21 +643,21 @@ EOT
 }
 
 sub Register {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $storage = &attribute($entry, "storage");
-  my $regfile = &attribute($entry, "regFile");
-  my $addresses = &attribute($entry, "addresses");
-  my $fields = &attribute($entry, "fields");
-  my $owners = &attribute($entry, "owners");
-  my $names = &attribute($entry, "names");
-  my $raccess = &attribute($entry, "raccess");
-  my $waccess = &attribute($entry, "waccess");
-  my $width = &attribute($entry, "width");
-  my $reset = &attribute($entry, "reset") || 0;
-  my $dwarfId = &attribute($entry, "dwarfId");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $storage = &attribute($entry, "storage");
+    my $regfile = &attribute($entry, "regFile");
+    my $addresses = &attribute($entry, "addresses");
+    my $fields = &attribute($entry, "fields");
+    my $owners = &attribute($entry, "owners");
+    my $names = &attribute($entry, "names");
+    my $raccess = &attribute($entry, "raccess");
+    my $waccess = &attribute($entry, "waccess");
+    my $width = &attribute($entry, "width");
+    my $reset = &attribute($entry, "reset") || 0;
+    my $dwarfId = &attribute($entry, "dwarfId");
+    print <<"EOT";
 print MDS::make("Register", {
   ID=>          &Register::ID($ID),
   what=>        $what,
@@ -677,13 +677,13 @@ EOT
 }
 
 sub RegMask {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $regFile = &attribute($entry, "regFile");
-  my $first = &attribute($entry, "first");
-  my $count = &attribute($entry, "count");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $regFile = &attribute($entry, "regFile");
+    my $first = &attribute($entry, "first");
+    my $count = &attribute($entry, "count");
+    print <<"EOT";
 print MDS::make("RegMask", {
   ID=>          &RegMask::ID($ID),
   what=>        $what,
@@ -696,19 +696,19 @@ EOT
 
 
 sub Relocation {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $relative = &attribute($entry, "relative");
-  my $linker = &attribute($entry, "linker");
-  my $type = &attribute($entry, "type");
-  my $overflow = &attribute($entry, "overflow");
-  my $underflow = &attribute($entry, "underflow");
-  my $scaling = &attribute($entry, "scaling");
-  my $syntax = &attribute($entry, "syntax");
-  my $elfIds = &attribute($entry, "elfIds");
-  my $fields = &attribute($entry, "fields");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $relative = &attribute($entry, "relative");
+    my $linker = &attribute($entry, "linker");
+    my $type = &attribute($entry, "type");
+    my $overflow = &attribute($entry, "overflow");
+    my $underflow = &attribute($entry, "underflow");
+    my $scaling = &attribute($entry, "scaling");
+    my $syntax = &attribute($entry, "syntax");
+    my $elfIds = &attribute($entry, "elfIds");
+    my $fields = &attribute($entry, "fields");
+    print <<"EOT";
 print MDS::make("Relocation", {
   ID=>          &Relocation::ID($ID),
   what=>        $what,
@@ -727,13 +727,13 @@ EOT
 
 
 sub Reservation {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $resources = &attribute($entry, "resources");
-  my $requirements = &attribute($entry, "requirements");
-  my $stalls = &attribute($entry, "stalls");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $resources = &attribute($entry, "resources");
+    my $requirements = &attribute($entry, "requirements");
+    my $stalls = &attribute($entry, "stalls");
+    print <<"EOT";
 print MDS::make("Reservation", {
   ID=>          &Reservation::ID($ID),
   what=>        $what,
@@ -746,11 +746,11 @@ EOT
 
 
 sub Resource {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $availability = &attribute($entry, "availability");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $availability = &attribute($entry, "availability");
+    print <<"EOT";
 print MDS::make("Resource", {
   ID=>          &Resource::ID($ID),
   what=>        $what,
@@ -761,12 +761,12 @@ EOT
 
 
 sub Scheduling {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $bundling = &attribute($entry, "bundling");
-  my $reservation = &attribute($entry, "reservation");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $bundling = &attribute($entry, "bundling");
+    my $reservation = &attribute($entry, "reservation");
+    print <<"EOT";
 print MDS::make("Scheduling", {
   ID=>          &Scheduling::ID($ID),
   what=>        $what,
@@ -778,15 +778,15 @@ EOT
 
 
 sub Simulated {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $attributes = &attribute($entry, "attributes");
-  my $scheduling = &attribute($entry, "scheduling");
-  my $mnemonic = &attribute($entry, "mnemonic");
-  my $syntax = &attribute($entry, "syntax");
-  my $parameters = &Parameter($entry);
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $attributes = &attribute($entry, "attributes");
+    my $scheduling = &attribute($entry, "scheduling");
+    my $mnemonic = &attribute($entry, "mnemonic");
+    my $syntax = &attribute($entry, "syntax");
+    my $parameters = &Parameter($entry);
+    print <<"EOT";
 print MDS::make("Simulated", {
   ID=>          &Simulated::ID($ID),
   what=>        $what,
@@ -800,13 +800,13 @@ EOT
 
 
 sub Storage {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $kind = &attribute($entry, "kind");
-  my $width = &attribute($entry, "width");
-  my $count = &attribute($entry, "count");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $kind = &attribute($entry, "kind");
+    my $width = &attribute($entry, "width");
+    my $count = &attribute($entry, "count");
+    print <<"EOT";
 print MDS::make("Storage", {
   ID=>          &Storage::ID($ID),
   what=>        $what,
@@ -819,14 +819,14 @@ EOT
 
 
 sub Dispersal {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $fromFields = &attribute($entry, "fromFields");
-  my $toFields = &attribute($entry, "toFields");
-  my $nopValues = &attribute($entry, "nopValues");
-  my $distance = &attribute($entry, "distance");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $fromFields = &attribute($entry, "fromFields");
+    my $toFields = &attribute($entry, "toFields");
+    my $nopValues = &attribute($entry, "nopValues");
+    my $distance = &attribute($entry, "distance");
+    print <<"EOT";
 print MDS::make("Dispersal", {
   ID=>          &Dispersal::ID($ID),
   what=>        $what,
@@ -840,22 +840,22 @@ EOT
 
 
 sub Synthetic {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $mnemonic = &attribute($entry, "mnemonic");
-  my $instruction = &attribute($entry, "instruction");
-  my $properties = &properties($entry, "properties");
-  my $formats = &attribute($entry, "formats");
-  my $schedulings = &attribute($entry, "schedulings");
-  my $syntax = &attribute($entry, "syntax");
-  my $forced = &attribute($entry, "forced");
-  my $values = &attribute($entry, "values");
-  my $execution = &execution($entry);
-  my $behavior = &behavior($entry);
-  my @children = grep {defined} ($execution, $behavior);
-  my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $mnemonic = &attribute($entry, "mnemonic");
+    my $instruction = &attribute($entry, "instruction");
+    my $properties = &properties($entry, "properties");
+    my $formats = &attribute($entry, "formats");
+    my $schedulings = &attribute($entry, "schedulings");
+    my $syntax = &attribute($entry, "syntax");
+    my $forced = &attribute($entry, "forced");
+    my $values = &attribute($entry, "values");
+    my $execution = &execution($entry);
+    my $behavior = &behavior($entry);
+    my @children = grep {defined} ($execution, $behavior);
+    my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
+    print <<"EOT";
 print MDS::make("Synthetic", {
   ID=>          &Synthetic::ID($ID),
   what=>        $what,
@@ -873,19 +873,19 @@ EOT
 
 
 sub Template {
-  my ($entry) = @_;
-  my $ID = &attribute($entry, "ID");
-  my $what = &attribute($entry, "what");
-  my $wordWidth = &attribute($entry, "wordWidth");
-  my $alignBase = &attribute($entry, "alignBase");
-  my $alignBias = &attribute($entry, "alignBias");
-  my $dispersals = &attribute($entry, "dispersals");
-  my $patterns = &attribute($entry, "patterns");
-  my $increment = &attribute($entry, "increment");
-  my $nopAllow = &attribute($entry, "nopAllow");
-  my $nopified = &attribute($entry, "nopified");
-  my $original = &attribute($entry, "original");
-  print <<"EOT";
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $wordWidth = &attribute($entry, "wordWidth");
+    my $alignBase = &attribute($entry, "alignBase");
+    my $alignBias = &attribute($entry, "alignBias");
+    my $dispersals = &attribute($entry, "dispersals");
+    my $patterns = &attribute($entry, "patterns");
+    my $increment = &attribute($entry, "increment");
+    my $nopAllow = &attribute($entry, "nopAllow");
+    my $nopified = &attribute($entry, "nopified");
+    my $original = &attribute($entry, "original");
+    print <<"EOT";
 print MDS::make("Template", {
   ID=>          &Template::ID($ID),
   what=>        $what,
@@ -902,3 +902,4 @@ print MDS::make("Template", {
 EOT
 }
 
+# vim: set ts=4 sw=4 et:

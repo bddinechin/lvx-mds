@@ -22,11 +22,12 @@
 use MDS;
 
 print MDS::make("Modifier", {
-  ID=>	&Modifier::ID(""),
-  members=>	"#UNDEF",
-  values=>	0,
-  width=>	0,
-})->emit();
+        ID=>	&Modifier::ID(""),
+        members=>	"#UNDEF",
+        values=>	0,
+        width=>	0,
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

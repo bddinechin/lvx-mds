@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -49,18 +49,18 @@ ${copyrights}
 EOT
 
 foreach my $nativeType (@NativeType::table) {
-  my $ID = $nativeType->fullName('_');
-  my $width = $nativeType->attribute("width");
-  my $WIDTH = "WIDTH($width)";
-  my $sizeof = $nativeType->attribute("sizeof");
-  my $SIZEOF = "SIZEOF($sizeof)";
-  my $align = $nativeType->attribute("align");
-  my $ALIGN = "ALIGN($align)";
-  my $printf = $nativeType->attribute("printf");
-  my $FORMAT = "PRINTF(\"$printf\")";
-  my $slice = $nativeType->attribute("slice") || $width;
-  my $SLICE = "SLICE($slice)";
-  print "NativeType($ID, $WIDTH, $SIZEOF, $ALIGN, $FORMAT, $SLICE)\n"
+    my $ID = $nativeType->fullName('_');
+    my $width = $nativeType->attribute("width");
+    my $WIDTH = "WIDTH($width)";
+    my $sizeof = $nativeType->attribute("sizeof");
+    my $SIZEOF = "SIZEOF($sizeof)";
+    my $align = $nativeType->attribute("align");
+    my $ALIGN = "ALIGN($align)";
+    my $printf = $nativeType->attribute("printf");
+    my $FORMAT = "PRINTF(\"$printf\")";
+    my $slice = $nativeType->attribute("slice") || $width;
+    my $SLICE = "SLICE($slice)";
+    print "NativeType($ID, $WIDTH, $SIZEOF, $ALIGN, $FORMAT, $SLICE)\n"
 }
 
 print<<"EOT";
@@ -68,3 +68,4 @@ print<<"EOT";
 #undef NativeType\n
 EOT
 
+# vim: set ts=4 sw=4 et:

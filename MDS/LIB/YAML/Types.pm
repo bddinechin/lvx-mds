@@ -15,11 +15,11 @@ sub yaml_dump {
     no strict 'refs';
     my $kind = lc($type) . ':';
     my $tag = ${$class . '::ClassTag'} ||
-              "!perl/$kind$class";
+      "!perl/$kind$class";
     if ($type eq 'REF') {
         YAML::Node->new(
             {(&YAML::VALUE, ${$_[0]})}, $tag
-        );
+          );
     }
     elsif ($type eq 'SCALAR') {
         $_[1] = $$value;
@@ -50,7 +50,7 @@ sub yaml_dump {
         if (defined $value) {
             if ($type eq 'IO') {
                 my @stats = qw(device inode mode links uid gid rdev size
-                               atime mtime ctime blksize blocks);
+                  atime mtime ctime blksize blocks);
                 undef $value;
                 $value->{stat} = YAML::Node->new({});
                 map {$value->{stat}{shift @stats} = $_} stat(*{$_[0]});
@@ -60,7 +60,7 @@ sub yaml_dump {
                     $value->{tell} = tell(*{$_[0]});
                 }
             }
-            $ynode->{$type} = $value; 
+            $ynode->{$type} = $value;
         }
     }
     return $ynode;
@@ -109,7 +109,7 @@ sub yaml_load {
 
 #-------------------------------------------------------------------------------
 package YAML::Type::code;
-my $dummy_warned = 0; 
+my $dummy_warned = 0;
 my $default = '{ "DUMMY" }';
 sub yaml_dump {
     my $self = shift;
@@ -129,7 +129,7 @@ sub yaml_dump {
         eval {
             local $^W = 0;
             $code = $deparse->coderef2text($value);
-        };
+          };
         if ($@) {
             warn YAML::YAML_DUMP_WARN_DEPARSE_FAILED() if $^W;
             $code = $default;
@@ -140,7 +140,7 @@ sub yaml_dump {
     }
     $_[2] = $code;
     YAML::Node->new($_[2], $tag);
-}    
+}
 
 sub yaml_load {
     my $self = shift;
@@ -201,7 +201,7 @@ use constant _QR_TYPES => {
     msx => sub { qr{$_[0]}msx },
     msi => sub { qr{$_[0]}msi },
     msix => sub { qr{$_[0]}msix },
-};
+  };
 sub yaml_load {
     my $self = shift;
     my ($node, $class) = @_;
@@ -249,3 +249,4 @@ under the same terms as Perl itself.
 See L<http://www.perl.com/perl/misc/Artistic.html>
 
 =cut
+# vim: set ts=4 sw=4 et:

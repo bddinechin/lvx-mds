@@ -13,8 +13,8 @@ use constant COMMENT => "\x07YAML\x07COMMENT\x07";
 # Common YAML character sets
 my $ESCAPE_CHAR = '[\\x00-\\x08\\x0b-\\x0d\\x0e-\\x1f]';
 my $FOLD_CHAR = '>';
-my $LIT_CHAR = '|';    
-my $LIT_CHAR_RX = "\\$LIT_CHAR";    
+my $LIT_CHAR = '|';
+my $LIT_CHAR_RX = "\\$LIT_CHAR";
 
 sub load {
     my $self = shift;
@@ -30,11 +30,11 @@ sub _parse {
     $self->{stream} =~ s|\015\012|\012|g;
     $self->{stream} =~ s|\015|\012|g;
     $self->line(0);
-    $self->die('YAML_PARSE_ERR_BAD_CHARS') 
+    $self->die('YAML_PARSE_ERR_BAD_CHARS')
       if $self->stream =~ /$ESCAPE_CHAR/;
-    $self->die('YAML_PARSE_ERR_NO_FINAL_NEWLINE') 
-      if length($self->stream) and 
-         $self->{stream} !~ s/(.)\n\Z/$1/s;
+    $self->die('YAML_PARSE_ERR_NO_FINAL_NEWLINE')
+      if length($self->stream) and
+      $self->{stream} !~ s/(.)\n\Z/$1/s;
     $self->lines([split /\x0a/, $self->stream, -1]);
     $self->line(1);
     # Throw away any comments or blanks before the header (or start of
@@ -67,7 +67,7 @@ sub _parse {
                 shift(@words);
                 if (defined $directives{$key}) {
                     $self->warn('YAML_PARSE_WARN_MULTIPLE_DIRECTIVES',
-                      $key, $self->document);
+                        $key, $self->document);
                     next;
                 }
                 $directives{$key} = $value;
@@ -88,7 +88,7 @@ sub _parse {
 
         $directives{YAML} ||= '1.0';
         $directives{TAB} ||= 'NONE';
-        ($self->{major_version}, $self->{minor_version}) = 
+        ($self->{major_version}, $self->{minor_version}) =
           split /\./, $directives{YAML}, 2;
         $self->die('YAML_PARSE_ERR_BAD_MAJOR_VERSION', $directives{YAML})
           if $self->major_version ne '1';
@@ -111,7 +111,7 @@ sub _parse_node {
     $self->preface('');
     my ($node, $type, $indicator, $escape, $chomp) = ('') x 5;
     my ($anchor, $alias, $explicit, $implicit, $class) = ('') x 5;
-    ($anchor, $alias, $explicit, $implicit, $preface) = 
+    ($anchor, $alias, $explicit, $implicit, $preface) =
       $self->_parse_qualifiers($preface);
     if ($anchor) {
         $self->anchor2node->{$anchor} = CORE::bless [], 'YAML-anchor2node';
@@ -119,7 +119,7 @@ sub _parse_node {
     $self->inline('');
     while (length $preface) {
         my $line = $self->line - 1;
-        if ($preface =~ s/^($FOLD_CHAR|$LIT_CHAR_RX)(-|\+)?\d*\s*//) { 
+        if ($preface =~ s/^($FOLD_CHAR|$LIT_CHAR_RX)(-|\+)?\d*\s*//) {
             $indicator = $1;
             $chomp = $2 if defined($2);
         }
@@ -137,20 +137,20 @@ sub _parse_node {
         }
         else {
             $node = do {my $sv = "*$alias"};
-            push @{$self->anchor2node->{$alias}}, [\$node, $self->line]; 
+            push @{$self->anchor2node->{$alias}}, [\$node, $self->line];
         }
     }
     elsif (length $self->inline) {
         $node = $self->_parse_inline(1, $implicit, $explicit);
         if (length $self->inline) {
-            $self->die('YAML_PARSE_ERR_SINGLE_LINE'); 
+            $self->die('YAML_PARSE_ERR_SINGLE_LINE');
         }
     }
     elsif ($indicator eq $LIT_CHAR) {
         $self->{level}++;
         $node = $self->_parse_block($chomp);
         $node = $self->_parse_implicit($node) if $implicit;
-        $self->{level}--; 
+        $self->{level}--;
     }
     elsif ($indicator eq $FOLD_CHAR) {
         $self->{level}++;
@@ -227,7 +227,7 @@ sub _parse_qualifiers {
         }
         elsif ($preface =~ s/^\&([^ ,:]+)\s*//) {
             $token = $1;
-            $self->die('YAML_PARSE_ERR_BAD_ANCHOR') 
+            $self->die('YAML_PARSE_ERR_BAD_ANCHOR')
               unless $token =~ /^[a-zA-Z0-9]+$/;
             $self->die('YAML_PARSE_ERR_MANY_ANCHOR') if $anchor;
             $self->die('YAML_PARSE_ERR_ANCHOR_ALIAS') if $alias;
@@ -242,7 +242,7 @@ sub _parse_qualifiers {
             $alias = $token;
         }
     }
-    return ($anchor, $alias, $explicit, $implicit, $preface); 
+    return ($anchor, $alias, $explicit, $implicit, $preface);
 }
 
 # Morph a node to it's explicit type  
@@ -257,12 +257,12 @@ sub _parse_explicit {
 
         if ( $type eq "ref" ) {
             $self->die('YAML_LOAD_ERR_NO_DEFAULT_VALUE', 'XXX', $explicit)
-            unless exists $node->{VALUE()} and scalar(keys %$node) == 1;
+              unless exists $node->{VALUE()} and scalar(keys %$node) == 1;
 
             my $value = $node->{VALUE()};
             $node = \$value;
         }
-        
+
         if ( $type eq "scalar" and length($class) and !ref($node) ) {
             my $value = $node;
             $node = \$value;
@@ -287,8 +287,8 @@ sub _parse_explicit {
     }
     # This !perl/@Foo and !perl/$Foo are deprecated but still parsed
     elsif ($YAML::TagClass->{$explicit} ||
-           $explicit =~ m{^perl/(\@|\$)?([a-zA-Z](\w|::)+)$}
-          ) {
+        $explicit =~ m{^perl/(\@|\$)?([a-zA-Z](\w|::)+)$}
+      ) {
         $class = $YAML::TagClass->{$explicit} || $2;
         if ($class->can('yaml_load')) {
             require YAML::Node;
@@ -345,7 +345,7 @@ sub _parse_mapping {
             $self->content($self->inline);
             $self->inline('');
         }
-            
+
         unless ($self->{content} =~ s/^:\s*//) {
             $self->die('YAML_LOAD_ERR_BAD_MAP_ELEMENT');
         }
@@ -401,7 +401,7 @@ sub _parse_inline {
     my ($top, $top_implicit, $top_explicit) = (@_, '', '', '');
     $self->{inline} =~ s/^\s*(.*)\s*$/$1/; # OUCH - mugwump
     my ($node, $anchor, $alias, $explicit, $implicit) = ('') x 5;
-    ($anchor, $alias, $explicit, $implicit, $self->{inline}) = 
+    ($anchor, $alias, $explicit, $implicit, $self->{inline}) =
       $self->_parse_qualifiers($self->inline);
     if ($anchor) {
         $self->anchor2node->{$anchor} = CORE::bless [], 'YAML-anchor2node';
@@ -417,7 +417,7 @@ sub _parse_inline {
         }
         else {
             $node = do {my $sv = "*$alias"};
-            push @{$self->anchor2node->{$alias}}, [\$node, $self->line]; 
+            push @{$self->anchor2node->{$alias}}, [\$node, $self->line];
         }
     }
     elsif ($self->inline =~ /^\{/) {
@@ -501,7 +501,7 @@ sub _parse_inline_seq {
         my $value = $self->_parse_inline();
         push @$node, $value;
         next if $self->inline =~ /^\s*\]/;
-        $self->die('YAML_PARSE_ERR_INLINE_SEQUENCE') 
+        $self->die('YAML_PARSE_ERR_INLINE_SEQUENCE')
           unless $self->{inline} =~ s/^\,\s*//;
     }
     return $node;
@@ -560,7 +560,7 @@ sub _parse_implicit {
     return undef if $value =~ /^~$/;
     return $value
       unless $value =~ /^[\@\`\^]/ or
-             $value =~ /^[\-\?]\s/;
+      $value =~ /^[\-\?]\s/;
     $self->die('YAML_PARSE_ERR_BAD_IMPLICIT', $value);
 }
 
@@ -601,8 +601,8 @@ sub _parse_block {
 sub _parse_throwaway_comments {
     my $self = shift;
     while (@{$self->lines} and
-           $self->lines->[0] =~ m{^\s*(\#|$)}
-          ) {
+        $self->lines->[0] =~ m{^\s*(\#|$)}
+      ) {
         shift @{$self->lines};
         $self->{line}++;
     }
@@ -633,7 +633,7 @@ sub _parse_next_line {
     # Determine the offset for a new leaf node
     if ($self->preface =~
         qr/(?:^|\s)(?:$FOLD_CHAR|$LIT_CHAR_RX)(?:-|\+)?(\d*)\s*$/
-       ) {
+      ) {
         $self->die('YAML_PARSE_ERR_ZERO_INDENT')
           if length($1) and $1 == 0;
         $type = LEAF;
@@ -660,8 +660,8 @@ sub _parse_next_line {
         $offset = $self->offset->[++$level];
     }
     # Determine the offset for a new collection level
-    elsif ($type == COLLECTION and 
-           $self->preface =~ /^(\s*(\!\S*|\&\S+))*\s*$/) {
+    elsif ($type == COLLECTION and
+        $self->preface =~ /^(\s*(\!\S*|\&\S+))*\s*$/) {
         $self->_parse_throwaway_comments();
         if ($self->eos) {
             $self->offset->[$level+1] = $offset + 1;
@@ -678,12 +678,12 @@ sub _parse_next_line {
         }
         $offset = $self->offset->[++$level];
     }
-        
+
     if ($type == LEAF) {
         while (@{$self->lines} and
-               $self->lines->[0] =~ m{^( *)(\#)} and
-               length($1) < $offset
-              ) {
+            $self->lines->[0] =~ m{^( *)(\#)} and
+            length($1) < $offset
+          ) {
             shift @{$self->lines};
             $self->{line}++;
         }
@@ -692,15 +692,15 @@ sub _parse_next_line {
     else {
         $self->_parse_throwaway_comments();
     }
-    return if $self->eos; 
-    
+    return if $self->eos;
+
     if ($self->lines->[0] =~ /^---(\s|$)/) {
         $self->done(1);
         return;
     }
-    if ($type == LEAF and 
+    if ($type == LEAF and
         $self->lines->[0] =~ /^ {$offset}(.*)$/
-       ) {
+      ) {
         $self->indent($offset);
         $self->content($1);
     }
@@ -713,7 +713,7 @@ sub _parse_next_line {
         while ($self->offset->[$level] > length($1)) {
             $level--;
         }
-        $self->die('YAML_PARSE_ERR_INCONSISTENT_INDENTATION') 
+        $self->die('YAML_PARSE_ERR_INCONSISTENT_INDENTATION')
           if $self->offset->[$level] != length($1);
         $self->indent(length($1));
         $self->content($2);
@@ -727,13 +727,13 @@ sub _parse_next_line {
 #==============================================================================
 
 # Printable characters for escapes
-my %unescapes = 
+my %unescapes =
   (
-   0 => "\x00", a => "\x07", t => "\x09",
-   n => "\x0a", v => "\x0b", f => "\x0c",
-   r => "\x0d", e => "\x1b", '\\' => '\\',
+    0 => "\x00", a => "\x07", t => "\x09",
+    n => "\x0a", v => "\x0b", f => "\x0c",
+    r => "\x0d", e => "\x1b", '\\' => '\\',
   );
-   
+
 # Transform all the backslash style escape characters to their literal meaning
 sub _unescape {
     my $self = shift;
@@ -778,3 +778,4 @@ under the same terms as Perl itself.
 See L<http://www.perl.com/perl/misc/Artistic.html>
 
 =cut
+# vim: set ts=4 sw=4 et:

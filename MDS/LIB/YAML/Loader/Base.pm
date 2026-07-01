@@ -62,3 +62,4 @@ under the same terms as Perl itself.
 See L<http://www.perl.com/perl/misc/Artistic.html>
 
 =cut
+# vim: set ts=4 sw=4 et:

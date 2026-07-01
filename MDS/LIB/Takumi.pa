@@ -85,15 +85,15 @@ Christophe Guillon
 my $Stage;
 my $Substage;
 sub stage {
-  my ($stage_substage) = @_;
-  $stage_substage =~ /^((\d+))?(_(\d+))?/;
-  ($Stage, $Substage) = ($2, $4);
+    my ($stage_substage) = @_;
+    $stage_substage =~ /^((\d+))?(_(\d+))?/;
+    ($Stage, $Substage) = ($2, $4);
 }
 
 my %names_to_ignore = ( LOCK_ADDRESS => 1 );
 sub ignore_name {
-  my $name = shift;
-  return exists $names_to_ignore{$name};
+    my $name = shift;
+    return exists $names_to_ignore{$name};
 }
 
 #
@@ -104,128 +104,128 @@ our $yylval = undef;
 our @yylval = ();
 our $yylkeep = 8;
 sub yylval {
-  $yylkeep =  shift;
-  if (defined $yylkeep) {
-    shift @yylval while @yylval > $yylkeep;
-  }
-  map { "'$_' " } @yylval;
+    $yylkeep =  shift;
+    if (defined $yylkeep) {
+        shift @yylval while @yylval > $yylkeep;
+    }
+    map { "'$_' " } @yylval;
 }
 
 our @yyin = ();
 sub yyin {
-  while (@_) {
-    my $buffer = shift;
-    push @yyin, grep {length($_)} split ' ', $buffer;
-  }
+    while (@_) {
+        my $buffer = shift;
+        push @yyin, grep {length($_)} split ' ', $buffer;
+    }
 }
 
 sub yyflush {
-  @yyin = ();
-  @yylval = ();
+    @yyin = ();
+    @yylval = ();
 }
 
 my $yytree;
 sub yytree {
-  return $yytree;
+    return $yytree;
 }
 
 sub yylex {
-  my $token;
-  return '' unless (@yyin);
-  my $value = shift @yyin;
-  #%token BINNUM HEXNUM DECNUM SYMNUM IDENT
-  #%token IF ELSE THROW DbgThrow REPEAT FROM FOR
-  #%token NOT INT OR XOR AND
-  if ($value =~ s/^(0x[0-9a-fA-F]+)//) {
-    ($token, $yylval) = ('HEXNUM', $1);
-    $yylval = oct($yylval) if $yylval =~ /^0/;
-  } elsif ($value =~ s/^(0b[01]+)//) {
-    ($token, $yylval) = ('BINNUM', $1);
-    $yylval = oct($yylval) if $yylval =~ /^0/;
-  } elsif ($value =~ s/^(\-?\d+)//) {
-    ($token, $yylval) = ('DECNUM', $1);
-  } elsif ($value =~ s/^(IF|ELSE|THROW|DbgThrow|REPEAT|FROM|FOR|NOT|INT|OR|XOR|AND)\b//) {
-    ($token, $yylval) = ($1, $1);
-  } elsif ($value =~ s/^stage_((\d+)?_(\d+))?\b//) {
-    ($token, $yylval) = ('STAGE', $1);
-  } elsif ($value =~ s/^([a-zA-Z_]\w*)//) {
-    ($token, $yylval) = ('IDENT', $1);
-    $token = 'SYMNUM' if defined &Constant($yylval);
-  } elsif ($value =~ s/^((\>\>)|(\<\<)|([<>=!]=)|(\W))//) {
-    ($token, $yylval) = ($1, $1);
-  } else {
-    croak "unrecognized token: $value";
-  }
-  unshift @yyin, $value if length($value);
-  if (defined $yylkeep) {
-    push @yylval, $yylval;
-    shift @yylval if @yylval > $yylkeep;
-  }
-  $token;
+    my $token;
+    return '' unless (@yyin);
+    my $value = shift @yyin;
+    #%token BINNUM HEXNUM DECNUM SYMNUM IDENT
+    #%token IF ELSE THROW DbgThrow REPEAT FROM FOR
+    #%token NOT INT OR XOR AND
+    if ($value =~ s/^(0x[0-9a-fA-F]+)//) {
+        ($token, $yylval) = ('HEXNUM', $1);
+        $yylval = oct($yylval) if $yylval =~ /^0/;
+    } elsif ($value =~ s/^(0b[01]+)//) {
+        ($token, $yylval) = ('BINNUM', $1);
+        $yylval = oct($yylval) if $yylval =~ /^0/;
+    } elsif ($value =~ s/^(\-?\d+)//) {
+        ($token, $yylval) = ('DECNUM', $1);
+    } elsif ($value =~ s/^(IF|ELSE|THROW|DbgThrow|REPEAT|FROM|FOR|NOT|INT|OR|XOR|AND)\b//) {
+        ($token, $yylval) = ($1, $1);
+    } elsif ($value =~ s/^stage_((\d+)?_(\d+))?\b//) {
+        ($token, $yylval) = ('STAGE', $1);
+    } elsif ($value =~ s/^([a-zA-Z_]\w*)//) {
+        ($token, $yylval) = ('IDENT', $1);
+        $token = 'SYMNUM' if defined &Constant($yylval);
+    } elsif ($value =~ s/^((\>\>)|(\<\<)|([<>=!]=)|(\W))//) {
+        ($token, $yylval) = ($1, $1);
+    } else {
+        croak "unrecognized token: $value";
+    }
+    unshift @yyin, $value if length($value);
+    if (defined $yylkeep) {
+        push @yylval, $yylval;
+        shift @yylval if @yylval > $yylkeep;
+    }
+    $token;
 }
 
 # Map Takumi function names.
 my %yyfunc = (
-  CountLeadingZeros=> [ 'CLZ', 32, { TYPE=>'Integer'} ],
-  #IDivIeee=> [ 'DIVI' ],
-  #UIDivIeee=> [ 'DIVU' ],
-  #IRemIeee=> [ 'REMI' ],
-  #UIRemIeee=> [ 'REMU' ],
-  IsCRegSpace=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDBreakHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDBreakLoadHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDBreakStoreHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDBreakPrefetchHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDebugDBreakLoadHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDebugDBreakStoreHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDebugDBreakPrefetchHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  ReadCheckMemory=> [ 'SKIP', { } ],
-  ReadCheckLockMemory=> [ 'SKIP', { } ],
-  DisReadCheckMemory=> [ 'SKIP', { } ],
-  WriteCheckMemory=> [ 'SKIP', { } ],
-  WriteCheckLockMemory=> [ 'SKIP', { } ],
-  PrefetchCheckMemory=> [ 'SKIP', { } ],
-  PurgeAddressCheckMemory=> [ 'SKIP', { } ],
-  PurgeInvalidateAddressCheckMemory=> [ 'SKIP', { } ],
-  AbortWriteMemory_=> [ 'SKIP', { } ],
-);
+    CountLeadingZeros=> [ 'CLZ', 32, { TYPE=>'Integer'} ],
+    #IDivIeee=> [ 'DIVI' ],
+    #UIDivIeee=> [ 'DIVU' ],
+    #IRemIeee=> [ 'REMI' ],
+    #UIRemIeee=> [ 'REMU' ],
+    IsCRegSpace=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDBreakHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDBreakLoadHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDBreakStoreHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDBreakPrefetchHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDebugDBreakLoadHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDebugDBreakStoreHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDebugDBreakPrefetchHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    ReadCheckMemory=> [ 'SKIP', { } ],
+    ReadCheckLockMemory=> [ 'SKIP', { } ],
+    DisReadCheckMemory=> [ 'SKIP', { } ],
+    WriteCheckMemory=> [ 'SKIP', { } ],
+    WriteCheckLockMemory=> [ 'SKIP', { } ],
+    PrefetchCheckMemory=> [ 'SKIP', { } ],
+    PurgeAddressCheckMemory=> [ 'SKIP', { } ],
+    PurgeInvalidateAddressCheckMemory=> [ 'SKIP', { } ],
+    AbortWriteMemory_=> [ 'SKIP', { } ],
+  );
 sub yyfunc {
-  my ($name, @arguments) = @_;
-  my $yyfunc = $yyfunc{$name};
-  if (defined $yyfunc) {
-    my @yyfunc = @{$yyfunc};
-    splice @yyfunc, -1, 0, @arguments;
-    $yyfunc = \@yyfunc;
-  }
-  return $yyfunc;
+    my ($name, @arguments) = @_;
+    my $yyfunc = $yyfunc{$name};
+    if (defined $yyfunc) {
+        my @yyfunc = @{$yyfunc};
+        splice @yyfunc, -1, 0, @arguments;
+        $yyfunc = \@yyfunc;
+    }
+    return $yyfunc;
 }
 
 sub substitute_repeat_var {
-  my ($this, $name, $value) = @_;
-  if (ref $this eq 'ARRAY') {
-    if ($this->[0] eq 'READ') {
-      if ($this->[1] eq $name) {
-        return &CONST($value);
-      }
+    my ($this, $name, $value) = @_;
+    if (ref $this eq 'ARRAY') {
+        if ($this->[0] eq 'READ') {
+            if ($this->[1] eq $name) {
+                return &CONST($value);
+            }
+        }
+        my @that; map {
+            push @that, &substitute_repeat_var($_, $name, $value);
+          } @{$this};
+        return \@that;
+    } elsif (ref $this eq 'HASH') {
+        my %that = %{$this};
+        return \%that;
+    } elsif (!ref $this) {
+        return $this;
     }
-    my @that; map {
-      push @that, &substitute_repeat_var($_, $name, $value);
-    } @{$this};
-    return \@that;
-  } elsif (ref $this eq 'HASH') {
-    my %that = %{$this};
-    return \%that;
-  } elsif (!ref $this) {
-    return $this;
-  }
-  return undef;
+    return undef;
 }
 
 sub do_repeat {
-  my ($name, $from, $count, $step, $body) = @_;
-  my @values = map { $from + ($step * $_); } (0..$count-1);
-  my @body = map { &substitute_repeat_var ($body, $name, $_) ; } @values;
-  return &SEQ(@body);
+    my ($name, $from, $count, $step, $body) = @_;
+    my @values = map { $from + ($step * $_); } (0..$count-1);
+    my @body = map { &substitute_repeat_var ($body, $name, $_) ; } @values;
+    return &SEQ(@body);
 }
 
 my @Accesses;
@@ -266,88 +266,88 @@ my ($name, $start, $count) = @{$_[0]};
 my $symbol = &Behavior::Symbol($name);
 my $storage = &Behavior::Storage($name);
 if (&ignore_name ($name)) {
-  return &SKIP();
+    return &SKIP();
 } elsif (defined $symbol) {
-  my $stage = defined $symbol->{STAGES}? $symbol->{STAGES}->[-1]: $Stage;
-  if (defined $start && defined $count) {
-    return &STORE($stage, &AGGL($name, $start, $count), $_[2]);
-  } elsif (defined $symbol->{KIND} && $symbol->{KIND} eq 'Register') {
-    my ($storage, $address, $extent) = ($symbol->{STORAGE}, $symbol->{ADDRESS}, $symbol->{EXTENT});
-    return &STORE($stage, &AGGL($storage, &CONST($address), &CONST($extent)), $_[2]);
-  }
-  my $proxy = $symbol->{PROXY};
-  if (defined $proxy) {
-    die "Multiple commits to proxy $proxy" if defined $proxy->{COMMITS};
-    &Symbol($proxy, { EXTEND=>$extend, WIDTH=>$symbol->{WIDTH}, COMMITS=>1 });
-    return &SEQ(&WRITE($name, $_[2]), &COMMIT($stage, $proxy, &READ($name)));
-  }
-  &WRITE($name, $_[2]);
+    my $stage = defined $symbol->{STAGES}? $symbol->{STAGES}->[-1]: $Stage;
+    if (defined $start && defined $count) {
+        return &STORE($stage, &AGGL($name, $start, $count), $_[2]);
+    } elsif (defined $symbol->{KIND} && $symbol->{KIND} eq 'Register') {
+        my ($storage, $address, $extent) = ($symbol->{STORAGE}, $symbol->{ADDRESS}, $symbol->{EXTENT});
+        return &STORE($stage, &AGGL($storage, &CONST($address), &CONST($extent)), $_[2]);
+    }
+    my $proxy = $symbol->{PROXY};
+    if (defined $proxy) {
+        die "Multiple commits to proxy $proxy" if defined $proxy->{COMMITS};
+        &Symbol($proxy, { EXTEND=>$extend, WIDTH=>$symbol->{WIDTH}, COMMITS=>1 });
+        return &SEQ(&WRITE($name, $_[2]), &COMMIT($stage, $proxy, &READ($name)));
+    }
+    &WRITE($name, $_[2]);
 } elsif (defined $storage) {
-  my $stage = defined $storage->{STAGES}? $storage->{STAGES}->[-1]: $Stage;
-  $start = &CONST(0) unless defined $start;
-  $count = &CONST(1) unless defined $count;
-  return &STORE($stage, &AGGL($name, $start, $count), $_[2]);
+    my $stage = defined $storage->{STAGES}? $storage->{STAGES}->[-1]: $Stage;
+    $start = &CONST(0) unless defined $start;
+    $count = &CONST(1) unless defined $count;
+    return &STORE($stage, &AGGL($name, $start, $count), $_[2]);
 } else { croak "Write unknown variable $name"; }
 
 #rule statement -> IDENT '(' opt_arguments ')' ';'
 my ($name, @arguments) = ($_[0], @{$_[2]});
 my $mem_stage = $Stage;
 if ($name =~ /^ReadMemory_(\d+)_$/) {
-  my ($width, $address) = ($1, @arguments);
-  &Symbol('mem_response', { WIDTH=>$width });
-  my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
-  return &WRITE('mem_response', $load);
+    my ($width, $address) = ($1, @arguments);
+    &Symbol('mem_response', { WIDTH=>$width });
+    my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
+    return &WRITE('mem_response', $load);
 } elsif ($name =~ /^DisReadMemory_(\d+)_$/) {
-  my ($width, $address) = ($1, @arguments);
-  &Symbol('mem_response', { WIDTH=>$width });
-  my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
-  my $probe = &PROBE($mem_stage, &AGGL('MEM', &Clone($address), &CONST($width/8)));
-  my $writeOK = &WRITE('mem_response', $load);
-  my $writeKO = &WRITE('mem_response', &CONST(0));
-  return &IF($probe, $writeOK, $writeKO);
+    my ($width, $address) = ($1, @arguments);
+    &Symbol('mem_response', { WIDTH=>$width });
+    my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
+    my $probe = &PROBE($mem_stage, &AGGL('MEM', &Clone($address), &CONST($width/8)));
+    my $writeOK = &WRITE('mem_response', $load);
+    my $writeKO = &WRITE('mem_response', &CONST(0));
+    return &IF($probe, $writeOK, $writeKO);
 } elsif ($name =~ /^ReadLockMemory_(\d+)_$/) {
-  my ($width, $address) = ($1, @arguments);
-  &Symbol('mem_response', { WIDTH=>$width });
-  my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
+    my ($width, $address) = ($1, @arguments);
+    &Symbol('mem_response', { WIDTH=>$width });
+    my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
 #  my $lock_value = &IOR(&Clone($address), &CONST(1));
 #  my $lock = &STORE($mem_stage, &AGGL('LOCK_ADDRESS', &CONST('LOCKED'), &CONST(32)), &I2F(&CONST(32), $lock_value));
-  my $write = &WRITE('mem_response', $load);
-#  return &SEQ($write, $lock);
-  return $write;
+    my $write = &WRITE('mem_response', $load);
+    #  return &SEQ($write, $lock);
+    return $write;
 } elsif ($name  =~ /^ReadMemMultiple_(\d+)_$/) {
-  my ($width, $address, $count) = ($1, @arguments);
-  &Symbol('mem_read_queue', { TYPE=>'Integer' });
-  my $extent = &MUL($count, &CONST($width/8));
-  my $load = &LOAD($mem_stage, &AGGL('MEM', $address, $extent));
-  my $field = &F2I(&MUL(&Clone($count), &CONST($width)), $load);
-  return &WRITE('mem_read_queue', $field);
+    my ($width, $address, $count) = ($1, @arguments);
+    &Symbol('mem_read_queue', { TYPE=>'Integer' });
+    my $extent = &MUL($count, &CONST($width/8));
+    my $load = &LOAD($mem_stage, &AGGL('MEM', $address, $extent));
+    my $field = &F2I(&MUL(&Clone($count), &CONST($width)), $load);
+    return &WRITE('mem_read_queue', $field);
 } elsif ($name =~ /^ReadMemResponseMultiple_(\d+)_$/) {
-  my $width = $1;
-  &Symbol('mem_read_queue', { TYPE=>'Integer' });
-  my $read = &READ('mem_read_queue');
-  return &EFFECT($mem_stage, 'ReadMultiple', &CONST($width), $read, @arguments);
+    my $width = $1;
+    &Symbol('mem_read_queue', { TYPE=>'Integer' });
+    my $read = &READ('mem_read_queue');
+    return &EFFECT($mem_stage, 'ReadMultiple', &CONST($width), $read, @arguments);
 } elsif ($name =~ /^WriteMemory_(\d+)_$/) {
-  my ($width, $address, $value) = ($1, @arguments);
-  return &STORE($mem_stage, &AGGL('MEM', $address, &CONST($width/8)), $value);
+    my ($width, $address, $value) = ($1, @arguments);
+    return &STORE($mem_stage, &AGGL('MEM', $address, &CONST($width/8)), $value);
 } elsif ($name =~ /^WriteLockMemory_(\d+)_$/) {
-  my ($width, $address, $value) = ($1, @arguments);
-  my $store = &STORE($mem_stage, 'MEM', &AGGL($address, &CONST($width/8)), $value);
+    my ($width, $address, $value) = ($1, @arguments);
+    my $store = &STORE($mem_stage, 'MEM', &AGGL($address, &CONST($width/8)), $value);
 #  my $unlock = &STORE($mem_stage, &AGGL('LOCK_ADDRESS', &CONST('LOCKED'), &CONST(1)), &I2F(&CONST(1), &CONST(0)));
 #  return &SEQ($store, $unlock);
-  return $store;
+    return $store;
 } elsif ($name =~ /^WriteMemMultiple_(\d+)_$/) {
-  my ($width, $address, $count, @value) = ($1, @arguments);
-  my $value = &APPLY('WriteMultiple', &CONST($width), $count, @value);
-  my $extent = &MUL(&Clone($count), &CONST($width/8));
-  my $field = &I2F(&MUL(&Clone($count), &CONST($width)), $value);
-  return &STORE($mem_stage, &AGGL('MEM', $address, $extent), $field);
+    my ($width, $address, $count, @value) = ($1, @arguments);
+    my $value = &APPLY('WriteMultiple', &CONST($width), $count, @value);
+    my $extent = &MUL(&Clone($count), &CONST($width/8));
+    my $field = &I2F(&MUL(&Clone($count), &CONST($width)), $value);
+    return &STORE($mem_stage, &AGGL('MEM', $address, $extent), $field);
 } else {
-  my $yyfunc;
-  if ($name =~ /^(\w+)_(\d+)_$/ &&
-      defined ($yyfunc = &yyfunc($1, $2, @arguments)) ||
-      defined ($yyfunc = &yyfunc($name, @arguments))) {
-    return $yyfunc;
-  }
+    my $yyfunc;
+    if ($name =~ /^(\w+)_(\d+)_$/ &&
+        defined ($yyfunc = &yyfunc($1, $2, @arguments)) ||
+        defined ($yyfunc = &yyfunc($name, @arguments))) {
+        return $yyfunc;
+    }
 }
 &EFFECT($Stage, $name, @arguments);
 
@@ -392,92 +392,92 @@ my ($name, $start, $count) = @{$_[0]};
 my $symbol = &Behavior::Symbol($name);
 my $storage = &Behavior::Storage($name);
 if (defined $symbol) {
-  my ($extend, $width) = ($symbol->{EXTEND}, $symbol->{WIDTH});
-  my $stage = defined $symbol->{STAGES}? $symbol->{STAGES}->[0]: $Stage;
-  if (defined $start && defined $count) {
-    die "FIXME! Likely broken, never used code!";
-  } elsif (defined $symbol->{KIND} && $symbol->{KIND} eq 'Register') {
-    my ($storage, $address, $extent) = ($symbol->{STORAGE}, $symbol->{ADDRESS}, $symbol->{EXTENT});
-    my $load = &LOAD($stage, &AGGL($storage, &CONST($address), &CONST($extent)));
-    my $f2i = &F2I(&CONST($width), $load);
-    return &ZX($width, $f2i) if $extend eq 'ZX';
-    return &SX($width, $f2i) if $extend eq 'SX';
-    croak "Invalid EXTEND $extend for $name";
-  } else {
-    my $proxy = $symbol->{PROXY};
-    if (defined $proxy) {
-      die "Multiple accesses to proxy $proxy" if defined $proxy->{ACCESSES};
-      &Symbol($proxy, { EXTEND=>$extend, WIDTH=>$width, ACCESSES=>1 });
-      push @Accesses, &WRITE($name, &{"Behavior::$extend"}($width, &ACCESS($stage, $proxy)));
+    my ($extend, $width) = ($symbol->{EXTEND}, $symbol->{WIDTH});
+    my $stage = defined $symbol->{STAGES}? $symbol->{STAGES}->[0]: $Stage;
+    if (defined $start && defined $count) {
+        die "FIXME! Likely broken, never used code!";
+    } elsif (defined $symbol->{KIND} && $symbol->{KIND} eq 'Register') {
+        my ($storage, $address, $extent) = ($symbol->{STORAGE}, $symbol->{ADDRESS}, $symbol->{EXTENT});
+        my $load = &LOAD($stage, &AGGL($storage, &CONST($address), &CONST($extent)));
+        my $f2i = &F2I(&CONST($width), $load);
+        return &ZX($width, $f2i) if $extend eq 'ZX';
+        return &SX($width, $f2i) if $extend eq 'SX';
+        croak "Invalid EXTEND $extend for $name";
+    } else {
+        my $proxy = $symbol->{PROXY};
+        if (defined $proxy) {
+            die "Multiple accesses to proxy $proxy" if defined $proxy->{ACCESSES};
+            &Symbol($proxy, { EXTEND=>$extend, WIDTH=>$width, ACCESSES=>1 });
+            push @Accesses, &WRITE($name, &{"Behavior::$extend"}($width, &ACCESS($stage, $proxy)));
+        }
+        return &READ($name);
     }
-    return &READ($name);
-  }
 } elsif (defined $storage) {
-#  if ($name eq 'PSW'
-#      && defined $start
-#      && defined &Behavior::Storage("DEBUG_MODE")
-#      && $start == &Behavior::Storage("DEBUG_MODE")) {
-  if ($name eq 'PSW'
-      && $start->[0] eq 'CONST'
-      && $start->[1] eq 'DEBUG_MODE') {
-    return &CONST(0);
-  }
-  my $stage = defined $storage->{STAGES}? $storage->{STAGES}->[0]: $Stage;
-  $start = &CONST(0) unless defined $start;
-  $count = &CONST(1) unless defined $count;
-  return &LOAD($stage, &AGGL($name, $start, $count));
+    #  if ($name eq 'PSW'
+    #      && defined $start
+    #      && defined &Behavior::Storage("DEBUG_MODE")
+    #      && $start == &Behavior::Storage("DEBUG_MODE")) {
+    if ($name eq 'PSW'
+        && $start->[0] eq 'CONST'
+        && $start->[1] eq 'DEBUG_MODE') {
+        return &CONST(0);
+    }
+    my $stage = defined $storage->{STAGES}? $storage->{STAGES}->[0]: $Stage;
+    $start = &CONST(0) unless defined $start;
+    $count = &CONST(1) unless defined $count;
+    return &LOAD($stage, &AGGL($name, $start, $count));
 } else { croak "Read unknown variable $name"; }
 
 #rule nested_expression -> IDENT '(' opt_arguments ')'
 my ($name, @arguments) = ($_[0], @{$_[2]});
 if ($name eq 'Bit') {
-  my $start = $arguments[1];
-  my $shr = &SHR($arguments[0], $start);
-  return &ZX(1, $shr);
+    my $start = $arguments[1];
+    my $shr = &SHR($arguments[0], $start);
+    return &ZX(1, $shr);
 } elsif ($name eq 'BitsOf') {
-  my $start = $arguments[1];
-  my $width = $arguments[2]->[1];
-  my $shr = &SHR($arguments[0], $start);
-  return &ZX($width, $shr);
+    my $start = $arguments[1];
+    my $width = $arguments[2]->[1];
+    my $shr = &SHR($arguments[0], $start);
+    return &ZX($width, $shr);
 } elsif ($name eq 'Register') {
-  return &ZX(32, $arguments[0]);
+    return &ZX(32, $arguments[0]);
 } elsif ($name =~ /^ZeroExtend_(\d+)_$/) {
-  return &ZX($1, $arguments[0]);
+    return &ZX($1, $arguments[0]);
 } elsif ($name =~ /^SignExtend_(\d+)_$/) {
-  return &SX($1, $arguments[0]);
+    return &SX($1, $arguments[0]);
 } elsif ($name =~ /^Saturate_(\d+)_$/) {
-  return &SAT($1, $arguments[0]);
+    return &SAT($1, $arguments[0]);
 } elsif ($name =~ /^Overflow_(\d+)_$/) {
-  return &NE(&SAT($1, $arguments[0]), $arguments[0]);
+    return &NE(&SAT($1, $arguments[0]), $arguments[0]);
 } elsif ($name =~ /^UnsignedExtract_(\d+)_$/) {
-  my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
-  return &ZX($width, &SHR($value, &MUL($idx, &CONST($width))));
+    my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
+    return &ZX($width, &SHR($value, &MUL($idx, &CONST($width))));
 } elsif ($name =~ /^SignedExtract_(\d+)_$/) {
-  my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
-  return &SX($width, &SHR($value, &MUL($idx, &CONST($width))));
+    my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
+    return &SX($width, &SHR($value, &MUL($idx, &CONST($width))));
 } elsif ($name =~ /^MaskAndShift_(\d+)_$/) {
-  my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
-  return &SHL(&ZX($width, $value), &MUL($idx, &CONST($width)));
+    my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
+    return &SHL(&ZX($width, $value), &MUL($idx, &CONST($width)));
 } elsif ($name =~ /^RotateRight_(\d+)_$/) {
-  my $width = $1;
-  my $value = $arguments[0];
-  my $count = $arguments[1];
-  return &ROR($width, $value, $count);
+    my $width = $1;
+    my $value = $arguments[0];
+    my $count = $arguments[1];
+    return &ROR($width, $value, $count);
 } elsif ($name =~ /^ReadMemResponse(_(\d+)_)?$/) {
-  &Symbol('mem_response', { WIDTH=>$1 });
-  return &READ('mem_response');
+    &Symbol('mem_response', { WIDTH=>$1 });
+    return &READ('mem_response');
 } elsif ($name =~ /^ReadMemResponseMultiple_(\d+)_$/) {
-  my $width = $1;
-  &Symbol('mem_read_queue', { TYPE=>'Integer' });
-  my $read = &READ('mem_read_queue');
-  return &APPLY('ReadMultiple', &CONST($width), $read, @arguments);
+    my $width = $1;
+    &Symbol('mem_read_queue', { TYPE=>'Integer' });
+    my $read = &READ('mem_read_queue');
+    return &APPLY('ReadMultiple', &CONST($width), $read, @arguments);
 } else {
-  my $yyfunc;
-  if ($name =~ /^(\w+)_(\d+)_$/ &&
-      defined ($yyfunc = &yyfunc($1, $2, @arguments)) ||
-      defined ($yyfunc = &yyfunc($name, @arguments))) {
-    return $yyfunc;
-  }
+    my $yyfunc;
+    if ($name =~ /^(\w+)_(\d+)_$/ &&
+        defined ($yyfunc = &yyfunc($1, $2, @arguments)) ||
+        defined ($yyfunc = &yyfunc($name, @arguments))) {
+        return $yyfunc;
+    }
 }
 &APPLY($name, @arguments);
 
@@ -574,3 +574,4 @@ $_[0];
 #rule operator2 -> '>'
 'GT';
 
+# vim: set ts=4 sw=4 et:

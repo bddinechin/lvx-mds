@@ -22,8 +22,9 @@
 
 use MDS;
 print MDS::make("Builtin", {
-  ID=>          &Builtin::ID(""),
-})->emit();
+        ID=>          &Builtin::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

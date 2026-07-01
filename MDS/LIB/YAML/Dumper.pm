@@ -14,7 +14,7 @@ use constant VALUE => "\x07YAML\x07VALUE\x07";
 
 # Common YAML character sets
 my $ESCAPE_CHAR = '[\\x00-\\x08\\x0b-\\x0d\\x0e-\\x1f]';
-my $LIT_CHAR = '|';    
+my $LIT_CHAR = '|';
 
 #==============================================================================
 # OO version of Dump. YAML->new->dump($foo); 
@@ -42,9 +42,9 @@ sub dump {
 sub _emit_header {
     my $self = shift;
     my ($node) = @_;
-    if (not $self->use_header and 
+    if (not $self->use_header and
         $self->document == 1
-       ) {
+      ) {
         $self->die('YAML_DUMP_ERR_NO_HEADER')
           unless ref($node) =~ /^(HASH|ARRAY)$/;
         $self->die('YAML_DUMP_ERR_NO_HEADER')
@@ -56,9 +56,9 @@ sub _emit_header {
         return;
     }
     $self->{stream} .= '---';
-# XXX Consider switching to 1.1 style
+    # XXX Consider switching to 1.1 style
     if ($self->use_version) {
-#         $self->{stream} .= " #YAML:1.0";
+        #         $self->{stream} .= " #YAML:1.0";
     }
 }
 
@@ -79,7 +79,7 @@ sub _prewalk {
     }
 
     # Handle regexps
-    if (ref($_[0]) eq 'Regexp') {  
+    if (ref($_[0]) eq 'Regexp') {
         return;
     }
 
@@ -111,10 +111,10 @@ sub _prewalk {
         $self->transferred->{$node_id} = 'placeholder';
         YAML::Type::code->yaml_dump(
             $self->dump_code,
-            $_[0], 
+            $_[0],
             $self->transferred->{$node_id}
-        );
-        ($class, $type, $node_id) = 
+          );
+        ($class, $type, $node_id) =
           $self->node_info(\ $self->transferred->{$node_id}, $stringify);
         $self->{id_refcnt}{$node_id}++;
         return;
@@ -162,7 +162,7 @@ sub _prewalk {
         my $ref_ynode = $self->transferred->{$node_id} =
           YAML::Type::ref->yaml_dump($value);
 
-        my $glob_ynode = $ref_ynode->{&VALUE} = 
+        my $glob_ynode = $ref_ynode->{&VALUE} =
           YAML::Type::glob->yaml_dump($$value);
 
         (undef, undef, $node_id) = $self->node_info($glob_ynode, $stringify);
@@ -177,12 +177,12 @@ sub _prewalk {
     # Keep on walking
     if ($type eq 'HASH') {
         $self->_prewalk($value->{$_})
-            for keys %{$value};
+          for keys %{$value};
         return;
     }
     elsif ($type eq 'ARRAY') {
         $self->_prewalk($_)
-            for @{$value};
+          for @{$value};
         return;
     }
 
@@ -235,10 +235,10 @@ sub _emit_node {
             $ynode = ynode($self->transferred->{$node_id});
             $tag = defined $ynode ? $ynode->tag->short : '';
             $type = 'SCALAR';
-            (undef, undef, $node_id) = 
+            (undef, undef, $node_id) =
               $self->node_info(
-                  \ $self->transferred->{$node_id},
-                  $self->stringify
+                \ $self->transferred->{$node_id},
+                $self->stringify
               );
         }
     }
@@ -289,7 +289,7 @@ sub _emit_mapping {
     if ($context == FROMARRAY and
         $self->compress_series and
         not (defined $self->{id_anchor}{$node_id} or $tag or $empty_hash)
-       ) {
+      ) {
         $self->{stream} .= ' ';
         $self->offset->[$self->level+1] = $self->offset->[$self->level] + 2;
     }
@@ -322,7 +322,7 @@ sub _emit_mapping {
             (defined $order{$a} and defined $order{$b})
               ? ($order{$a} <=> $order{$b})
               : ($a cmp $b);
-        } keys %$value;
+          } keys %$value;
     }
     else {
         @keys = keys %$value;
@@ -354,7 +354,7 @@ sub _emit_sequence {
     $self->{stream} .= " !$tag" if $tag;
 
     return ($self->{stream} .= " []\n") if @$value == 0;
-        
+
     $self->{stream} .= "\n"
       unless $self->headless && not($self->headless(0));
 
@@ -362,7 +362,7 @@ sub _emit_sequence {
     if ($self->inline_series and
         @$value <= $self->inline_series and
         not (scalar grep {ref or /\n/} @$value)
-       ) {
+      ) {
         $self->{stream} =~ s/\n\Z/ /;
         $self->{stream} .= '[';
         for (my $i = 0; $i < @$value; $i++) {
@@ -425,45 +425,45 @@ sub _emit_str {
 
     while (1) {
         $self->_emit($sf),
-        $self->_emit_plain($_[0]),
-        $self->_emit($ef), last 
+          $self->_emit_plain($_[0]),
+          $self->_emit($ef), last
           if not defined $_[0];
         $self->_emit($sf, '=', $ef), last
           if $_[0] eq VALUE;
         $self->_emit($sf),
-        $self->_emit_double($_[0]),
-        $self->_emit($ef), last
+          $self->_emit_double($_[0]),
+          $self->_emit($ef), last
           if $_[0] =~ /$ESCAPE_CHAR/;
         if ($_[0] =~ /\n/) {
             $self->_emit($sb),
-            $self->_emit_block($LIT_CHAR, $_[0]),
-            $self->_emit($eb), last
+              $self->_emit_block($LIT_CHAR, $_[0]),
+              $self->_emit($eb), last
               if $self->use_block;
-              Carp::cluck "[YAML] \$UseFold is no longer supported"
+            Carp::cluck "[YAML] \$UseFold is no longer supported"
               if $self->use_fold;
             $self->_emit($sf),
-            $self->_emit_double($_[0]),
-            $self->_emit($ef), last
+              $self->_emit_double($_[0]),
+              $self->_emit($ef), last
               if length $_[0] <= 30;
             $self->_emit($sf),
-            $self->_emit_double($_[0]),
-            $self->_emit($ef), last
+              $self->_emit_double($_[0]),
+              $self->_emit($ef), last
               if $_[0] !~ /\n\s*\S/;
             $self->_emit($sb),
-            $self->_emit_block($LIT_CHAR, $_[0]),
-            $self->_emit($eb), last;
+              $self->_emit_block($LIT_CHAR, $_[0]),
+              $self->_emit($eb), last;
         }
         $self->_emit($sf),
-        $self->_emit_plain($_[0]),
-        $self->_emit($ef), last
+          $self->_emit_plain($_[0]),
+          $self->_emit($ef), last
           if $self->is_valid_plain($_[0]);
         $self->_emit($sf),
-        $self->_emit_double($_[0]),
-        $self->_emit($ef), last
+          $self->_emit_double($_[0]),
+          $self->_emit($ef), last
           if $_[0] =~ /'/;
         $self->_emit($sf),
-        $self->_emit_single($_[0]),
-        $self->_emit($ef);
+          $self->_emit_single($_[0]),
+          $self->_emit($ef);
         last;
     }
 
@@ -537,10 +537,10 @@ sub indent {
 
 # Escapes for unprintable characters
 my @escapes = qw(\0   \x01 \x02 \x03 \x04 \x05 \x06 \a
-                 \x08 \t   \n   \v   \f   \r   \x0e \x0f
-                 \x10 \x11 \x12 \x13 \x14 \x15 \x16 \x17
-                 \x18 \x19 \x1a \e   \x1c \x1d \x1e \x1f
-                );
+  \x08 \t   \n   \v   \f   \r   \x0e \x0f
+  \x10 \x11 \x12 \x13 \x14 \x15 \x16 \x17
+  \x18 \x19 \x1a \e   \x1c \x1d \x1e \x1f
+  );
 
 # Escape the unprintable characters
 sub escape {
@@ -585,3 +585,4 @@ under the same terms as Perl itself.
 See L<http://www.perl.com/perl/misc/Artistic.html>
 
 =cut
+# vim: set ts=4 sw=4 et:

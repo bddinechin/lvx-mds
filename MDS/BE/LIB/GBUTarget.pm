@@ -12,81 +12,81 @@ sub getInstructionSeparator {
 }
 
 sub getAdditionalOpndType {
-  my $opdtypes = { };
-  return $opdtypes;
+    my $opdtypes = { };
+    return $opdtypes;
 }
 
 sub getAdditionalCores {
-  my $add_cores;
-  return $add_cores;
+    my $add_cores;
+    return $add_cores;
 }
 
 sub wordWidth {
-  return 32;
+    return 32;
 }
 
 sub additionalOperands {
-  my ($syntax) = @_;
-  return 0
+    my ($syntax) = @_;
+    return 0
 }
 
 sub synthesizeMnemonics {
-  # Synthetize the mnemonic with its adjacent modifiers.
-  # Also enable the assembler to recognize obsolete mnemonics.
-  my ($mnemonic, $syntax) = @_;
-  my (@mnemonics) = ($mnemonic);
+    # Synthetize the mnemonic with its adjacent modifiers.
+    # Also enable the assembler to recognize obsolete mnemonics.
+    my ($mnemonic, $syntax) = @_;
+    my (@mnemonics) = ($mnemonic);
 
-  # Expand the mnemonic with its instanced modifiers from syntax
-  my (@results); map {
-    (my $substitute = $syntax) =~ s/\%0/$_/;
-    my ($result) = (split ' ', $substitute);
-    push @results, $result;
-    #print STDERR "\tRESULT($result)\n";
-  } @mnemonics;
-  return @results;
+    # Expand the mnemonic with its instanced modifiers from syntax
+    my (@results); map {
+        (my $substitute = $syntax) =~ s/\%0/$_/;
+        my ($result) = (split ' ', $substitute);
+        push @results, $result;
+        #print STDERR "\tRESULT($result)\n";
+      } @mnemonics;
+    return @results;
 }
 
 my %synthesizeOperands;
 sub synthesizeOperands {
-  # We want the operands expected by the assembler.
-  my ($mnemonic, $syntax, $operands) = @_;
-  my @operands = ();
-  my @pieces = ($syntax =~ /(\%\d+|\=)/g);
-  #    print STDERR "$mnemonic @pieces\n";
-  foreach my $piece (reverse @pieces) {
-    my $opdID;
-    if ($piece =~ /^\%([1-9]\d*)$/) {
-      $opdID = @$operands[$1-1];
+    # We want the operands expected by the assembler.
+    my ($mnemonic, $syntax, $operands) = @_;
+    my @operands = ();
+    my @pieces = ($syntax =~ /(\%\d+|\=)/g);
+    #    print STDERR "$mnemonic @pieces\n";
+    foreach my $piece (reverse @pieces) {
+        my $opdID;
+        if ($piece =~ /^\%([1-9]\d*)$/) {
+            $opdID = @$operands[$1-1];
+        }
+        unshift @operands, $opdID if ($opdID);
     }
-    unshift @operands, $opdID if ($opdID);
-  }
-  if ($mnemonic =~ /fmm4ahw\d/i) {
-    if ($synthesizeOperands{$mnemonic}) {
-      $operands[0] = "Operand-kvx-registerAp";
+    if ($mnemonic =~ /fmm4ahw\d/i) {
+        if ($synthesizeOperands{$mnemonic}) {
+            $operands[0] = "Operand-kvx-registerAp";
+        }
+        $synthesizeOperands{$mnemonic}++;
+        #print STDERR "$mnemonic @operands\n";
     }
-    $synthesizeOperands{$mnemonic}++;
-    #print STDERR "$mnemonic @operands\n";
-  }
-  #print STDERR "@operands\n";
-  return @operands;
+    #print STDERR "@operands\n";
+    return @operands;
 }
 
 sub fixSyntax {
-  my ($mnemonic, $syntax) = @_;
-  # Insert the mnemonic into the syntax
-  $syntax =~ s/\%0/$mnemonic/g;
-  # Remove the mnemonic but its adjacent modifiers
-  $syntax =~ s/^[^\s%]+//;
-  #print STDERR "\tSYNTAX($mnemonic $syntax)\n";
-  # Replace %<operand number> with %s.
-  $syntax =~ s/\%\d/\%s/g;
-  return $syntax;
+    my ($mnemonic, $syntax) = @_;
+    # Insert the mnemonic into the syntax
+    $syntax =~ s/\%0/$mnemonic/g;
+    # Remove the mnemonic but its adjacent modifiers
+    $syntax =~ s/^[^\s%]+//;
+    #print STDERR "\tSYNTAX($mnemonic $syntax)\n";
+    # Replace %<operand number> with %s.
+    $syntax =~ s/\%\d/\%s/g;
+    return $syntax;
 }
 
 sub isExtended {
     my $opcode = shift;
     my $formatID = $opcode->attribute("format");
-#    return $formatID =~ /\.X$/;
+    #    return $formatID =~ /\.X$/;
     return 0;
 }
 
@@ -142,7 +142,7 @@ my %opcode_flags = (
     KVX_OPCODE_FLAG_MODE32=>32,
     KVX_OPCODE_FLAG_MODE64=>64,
     KVX_OPCODE_FLAG_RISCV=> 128,
-);
+  );
 
 
 my %encoding_flags = (
@@ -150,13 +150,13 @@ my %encoding_flags = (
     double => [ 'KVX_OPCODE_FLAG_MODE64', 'KVX_OPCODE_FLAG_MODE32' ],
     triple => [ 'KVX_OPCODE_FLAG_MODE64', 'KVX_OPCODE_FLAG_MODE32' ],
     riscv  => [ 'KVX_OPCODE_FLAG_MODE64', 'KVX_OPCODE_FLAG_RISCV' ],
-);
+  );
 
 
 my %gas_define_options = (
     "KVX_OPCODE_FLAG_MODE32" => "-m32",
     "KVX_OPCODE_FLAG_MODE64" => "",
-);
+  );
 
 # Returns GAS option to pass depending on the used define.
 sub getGasDefineOptions {
@@ -190,7 +190,7 @@ sub getEncodingFlags {
     my ($encoding) = $opcode->access("encoding");
 
     croak "ENCODING not defined: " . $encoding->name()
-        if (not defined $encoding_flags{$encoding->name()});
+      if (not defined $encoding_flags{$encoding->name()});
     return @{$encoding_flags{$encoding->name()}};
 }
 
@@ -215,10 +215,10 @@ sub getOpcodeFlags {
             push @flags, "KVX_OPCODE_FLAG_IMMX";
         }
     } else {
-      push @flags, "KVX_OPCODE_FLAG_COND" if $mnemonic =~ /^(guard|blend)\b/;
-      push @flags, "KVX_OPCODE_FLAG_CALL" if $mnemonic =~ /^call\b/;
-      push @flags, "KVX_OPCODE_FLAG_LOAD" if $mnemonic =~ /^x?l[bhwdqo][sz]?\b/;
-      push @flags, "KVX_OPCODE_FLAG_STORE" if $mnemonic =~ /^x?s[bhwdqo]\b/;
+        push @flags, "KVX_OPCODE_FLAG_COND" if $mnemonic =~ /^(guard|blend)\b/;
+        push @flags, "KVX_OPCODE_FLAG_CALL" if $mnemonic =~ /^call\b/;
+        push @flags, "KVX_OPCODE_FLAG_LOAD" if $mnemonic =~ /^x?l[bhwdqo][sz]?\b/;
+        push @flags, "KVX_OPCODE_FLAG_STORE" if $mnemonic =~ /^x?s[bhwdqo]\b/;
     }
 
     return join('|', @flags);
@@ -279,11 +279,11 @@ sub ObjdumpPrint {
             }
         }
         push @new_tokens, $_;
-    } @tokens;
+      } @tokens;
 
     $syntax = join(' ', @new_tokens);
 
-    # main+offset in 64 bits printed on 64 bits: fffeb80c <main+0xfffeb80c> => fffffffffffeb80c <main+0xfffffffffffeb80c>
+# main+offset in 64 bits printed on 64 bits: fffeb80c <main+0xfffeb80c> => fffffffffffeb80c <main+0xfffffffffffeb80c>
     if($pc_relative and $coding_size <= 4 and $elf_type eq "elf64") {
         $syntax =~ s/([0-9a-f]{8})/ffffffff$1/g;
     }
@@ -319,7 +319,7 @@ sub ObjdumpPrint {
                     }
                 }
                 confess "Undefined exu number for format: $format_name"
-                    if(not defined $exunum);
+                  if(not defined $exunum);
 
                 $exu |= ($exunum << 3);
                 $$codings[$i] = sprintf("%02x",$exu);
@@ -328,13 +328,13 @@ sub ObjdumpPrint {
             }
         }
         print $file sprintf("%8x:\t%s %s $spaces\t%s%s\n\n",
-                            $pc,join(' ',splice(@$codings,0,4)),
-                            join(' ',@$codings),$syntax,$instrSeparator);
+            $pc,join(' ',splice(@$codings,0,4)),
+            join(' ',@$codings),$syntax,$instrSeparator);
 
     }
     else {
         print $file sprintf("%8x:\t%s $spaces\t%s%s\n\n",
-                            $pc,join(' ',@$codings),$syntax,$instrSeparator);
+            $pc,join(' ',@$codings),$syntax,$instrSeparator);
     }
 }
 
@@ -356,3 +356,4 @@ sub PCRelativeOperand {
 }
 
 1;
+# vim: set ts=4 sw=4 et:

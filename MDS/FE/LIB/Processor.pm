@@ -22,12 +22,13 @@
 use MDS;
 
 print MDS::make("Processor", {
-  ID=>	&Processor::ID(""),
-  minTaken=>	0,
-  interlocks=>	0,
-  pipeline=>	0,
-  stages=>	0,
-})->emit();
+        ID=>	&Processor::ID(""),
+        minTaken=>	0,
+        interlocks=>	0,
+        pipeline=>	0,
+        stages=>	0,
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

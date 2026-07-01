@@ -8,7 +8,7 @@ use Carp;
 our %order;
 
 sub Init {
-# Create %order for BundlingIDs.
+    # Create %order for BundlingIDs.
     my $nBundlings = 1;
     foreach my $bundling (@Bundling::table) {
         my $bundlingID = $bundling->attribute("ID");
@@ -34,15 +34,15 @@ sub getModifierCombinatory {
     my $operand_name = $operand->name();
     my $new_bitstring =     $modifiers_bitstring->clone();
     my @bitfields = $operand->access("fields");
-    
+
     foreach my $field (sort { $a->attribute("offset") <=> $b->attribute("offset") } @bitfields) {
         $new_bitstring->insert($field,$value);
         $value = $value >> $field->attribute("width");
     }
 
     &getModifierCombinatory($modifiers, $modifiers_proxies, $modifiers_key."_$names[$name_ids[$proxy_id]]",
-                            $operand_names." $operand_name",$modifiers_names." $names[$name_ids[$proxy_id]]",
-                            $new_bitstring, $proxies, $proxy_id+1 , @name_ids);
+        $operand_names." $operand_name",$modifiers_names." $names[$name_ids[$proxy_id]]",
+        $new_bitstring, $proxies, $proxy_id+1 , @name_ids);
 
     if($name_ids[$proxy_id] + 1 == scalar(@names)) {
         return;
@@ -78,7 +78,7 @@ sub getModifiers {
         for(my $i=0; $i < scalar(keys %modifier_proxies); $i++) {
             $name_ids[$i] = 0;
         }
-    
+
         &getModifierCombinatory(\%modifiers, \%modifier_proxies, "", "", "", $bitstring, [ sort keys %modifier_proxies ], 0 , @name_ids);
     }
 
@@ -86,3 +86,4 @@ sub getModifiers {
 }
 
 1;
+# vim: set ts=4 sw=4 et:

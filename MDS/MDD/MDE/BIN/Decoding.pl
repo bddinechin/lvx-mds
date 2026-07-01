@@ -31,80 +31,81 @@ use MDS;
 my %opcodes;
 my %encodingID;
 foreach my $opcode (@Opcode::table) {
-  my ($encoding) = $opcode->access("encoding");
-  my $decodingID = &Decoding::ID($encoding->name());
-  $encodingID{$decodingID} = $encoding->attribute("ID");
-  push @{$opcodes{$decodingID}}, $opcode;
+    my ($encoding) = $opcode->access("encoding");
+    my $decodingID = &Decoding::ID($encoding->name());
+    $encodingID{$decodingID} = $encoding->attribute("ID");
+    push @{$opcodes{$decodingID}}, $opcode;
 }
 
 foreach my $decodingID (sort keys %opcodes) {
-  my $opcodes = $opcodes{$decodingID};
-  my $encoding = MDS::fetch($encodingID{$decodingID});
-  my $coding_size = $encoding->attribute("wordWidth") * $encoding->attribute("wordCount");
-  if($coding_size % 8) {
-    $coding_size -= ($coding_size % 8);
-    $coding_size += 8;
-  }
-  &process($decodingID, Decode::makeDecodeTree($coding_size, @{$opcodes}));
+    my $opcodes = $opcodes{$decodingID};
+    my $encoding = MDS::fetch($encodingID{$decodingID});
+    my $coding_size = $encoding->attribute("wordWidth") * $encoding->attribute("wordCount");
+    if($coding_size % 8) {
+        $coding_size -= ($coding_size % 8);
+        $coding_size += 8;
+    }
+    &process($decodingID, Decode::makeDecodeTree($coding_size, @{$opcodes}));
 }
 
 sub process {
-  my ($decodingID, $tree) = @_;
-  print "<Decoding ID=\t\"$decodingID\"\n";
-  print "  encoding=\t\"$encodingID{$decodingID}\">\n";
-  &processNode($tree, undef, 1);
-  print "</Decoding>\n\n";
-  #print "<!--\n";
-  #Decode::printDecodeTree(*STDOUT, $tree);
-  #print "-->\n";
+    my ($decodingID, $tree) = @_;
+    print "<Decoding ID=\t\"$decodingID\"\n";
+    print "  encoding=\t\"$encodingID{$decodingID}\">\n";
+    &processNode($tree, undef, 1);
+    print "</Decoding>\n\n";
+    #print "<!--\n";
+    #Decode::printDecodeTree(*STDOUT, $tree);
+    #print "-->\n";
 }
 
 sub processNode {
-  my ($node, $case, $level) = @_;
-  my $indent = "  " x $level;
-  print $indent, "<Decode";
-  print " case=\"$case\"" if defined $case;
-  if (exists ${$node}{children}) {
-    my $test = ${$node}{test};
-    die "null mask" unless $test;
-    my $shift = &tzc($test);
-    my $mask = Decode::printHex($test >> $shift);
-    print " shift=\"$shift\"" if $shift;
-    print " mask=\"$mask\"";
-    print ">\n";
-    my $children = ${$node}{children};
-    foreach my $key (sort { $a <=> $b } keys %{$children}) {
-      my $value = $key >> $shift;
-      my $case = Decode::printHex($value);
-      &processNode(${$children}{$key}, $case, $level + 1);
+    my ($node, $case, $level) = @_;
+    my $indent = "  " x $level;
+    print $indent, "<Decode";
+    print " case=\"$case\"" if defined $case;
+    if (exists ${$node}{children}) {
+        my $test = ${$node}{test};
+        die "null mask" unless $test;
+        my $shift = &tzc($test);
+        my $mask = Decode::printHex($test >> $shift);
+        print " shift=\"$shift\"" if $shift;
+        print " mask=\"$mask\"";
+        print ">\n";
+        my $children = ${$node}{children};
+        foreach my $key (sort { $a <=> $b } keys %{$children}) {
+            my $value = $key >> $shift;
+            my $case = Decode::printHex($value);
+            &processNode(${$children}{$key}, $case, $level + 1);
+        }
+        if (exists ${$node}{default}) {
+            &processNode(${$node}{default}, "default", $level + 1);
+        }
+        print $indent, "</Decode>\n";
+    } else {
+        my $opcodes = ${$node}{opcode};
+        print " opcodes=\"$opcodes\"" if $opcodes;
+        print "/>\n";
     }
-    if (exists ${$node}{default}) {
-      &processNode(${$node}{default}, "default", $level + 1);
-    }
-    print $indent, "</Decode>\n";
-  } else {
-    my $opcodes = ${$node}{opcode};
-    print " opcodes=\"$opcodes\"" if $opcodes;
-    print "/>\n";
-  }
 }
 
 sub tzc {
-  my $count = 0;
-  my $value = shift;
-  return undef unless $value;
-  until ($value & 0x1) {
-    $value >>= 1;
-    ++$count;
-  }
-  return $count;
+    my $count = 0;
+    my $value = shift;
+    return undef unless $value;
+    until ($value & 0x1) {
+        $value >>= 1;
+        ++$count;
+    }
+    return $count;
 }
 
 if ($debug) {
-  for my $i (0..31) {
-    my $n = 1<<$i;
-    print STDERR "TZC($n = 1<<$i) = ", tzc($n), "\n";
-  }
-  print STDERR "TZC(0) = ", tzc(0), "\n";
+    for my $i (0..31) {
+        my $n = 1<<$i;
+        print STDERR "TZC($n = 1<<$i) = ", tzc($n), "\n";
+    }
+    print STDERR "TZC(0) = ", tzc(0), "\n";
 }
 
+# vim: set ts=4 sw=4 et:

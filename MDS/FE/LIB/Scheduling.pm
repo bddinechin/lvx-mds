@@ -23,9 +23,10 @@
 use MDS;
 
 print MDS::make("Scheduling", {
-  ID=>          &Scheduling::ID(""),
-  reservation=> &Reservation::ID(""),
-})->emit();
+        ID=>          &Scheduling::ID(""),
+        reservation=> &Reservation::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

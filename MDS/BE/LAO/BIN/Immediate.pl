@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -49,82 +49,82 @@ ${copyrights}
 EOT
 
 sub buildRelocations {
-  my %relocations;
-  # Init relocations from Operands.
-  foreach my $operand (@Operand::table) {
-    my ($method) = $operand->access("method");
-    if(defined $method->name()) {
-      if(defined $operand->attribute("relocations")) {
-        my $methodID = $method->attribute("ID");
-        my @relocations = $operand->access("relocations");
-        $relocations{$methodID}{OPERAND} = $operand->name();
-        $relocations{$methodID}{RELOCS} = \@relocations;
-        $relocations{$methodID}{DEFAULT} = $operand->attribute("default");
-      }
+    my %relocations;
+    # Init relocations from Operands.
+    foreach my $operand (@Operand::table) {
+        my ($method) = $operand->access("method");
+        if(defined $method->name()) {
+            if(defined $operand->attribute("relocations")) {
+                my $methodID = $method->attribute("ID");
+                my @relocations = $operand->access("relocations");
+                $relocations{$methodID}{OPERAND} = $operand->name();
+                $relocations{$methodID}{RELOCS} = \@relocations;
+                $relocations{$methodID}{DEFAULT} = $operand->attribute("default");
+            }
+        }
     }
-  }
-  return %relocations;
+    return %relocations;
 }
 
 my %relocations = &buildRelocations();
 my $ImmediateRelocations_MAXCOUNT = 0;
 foreach my $immediate (@Immediate::table) {
-  my $ID = $immediate->fullName('_');
-  my $shift = $immediate->attribute("shift") || 0;
-  my $bias = $immediate->attribute("bias") || 0;
-  my $width = $immediate->attribute("width");
-  my $extend = $immediate->attribute("extend");
-  my $maxValue = (1 << ($width - 1)) - 1;
-  my $minValue = -(1 << ($width - 1));
-  my $signed = $extend eq 'Signed';
-  my $wrap = $extend eq 'Wrap';
-  unless ($signed) {
-    $maxValue = (1 << $width) - 1;
-    unless ($wrap) {
-      $minValue = 0;
+    my $ID = $immediate->fullName('_');
+    my $shift = $immediate->attribute("shift") || 0;
+    my $bias = $immediate->attribute("bias") || 0;
+    my $width = $immediate->attribute("width");
+    my $extend = $immediate->attribute("extend");
+    my $maxValue = (1 << ($width - 1)) - 1;
+    my $minValue = -(1 << ($width - 1));
+    my $signed = $extend eq 'Signed';
+    my $wrap = $extend eq 'Wrap';
+    unless ($signed) {
+        $maxValue = (1 << $width) - 1;
+        unless ($wrap) {
+            $minValue = 0;
+        }
     }
-  }
-  $minValue <<= $shift;
-  $minValue += $bias;
-  $maxValue <<= $shift;
-  $maxValue += $bias;
-  my $MINVALUE = "MINVALUE($minValue)";
-  my $MAXVALUE = "MAXVALUE($maxValue)";
-  my @relocations = @{$relocations{$immediate->attribute("ID")}{RELOCS}}
-  if(defined $relocations{$immediate->attribute("ID")});
-  my @relocationItems = map {"RELOCATION(". $_->fullName('_'). ")"} @relocations;
-  push @relocationItems, "RELOCATION(_UNDEF)" unless @relocationItems;
-  my $relocationItems = @relocationItems? (join ' ', @relocationItems): "/**/";
-  my $RELOCATIONS = "RELOCATIONS(". @relocationItems. ", $relocationItems)";
-  my $EXTEND = "EXTEND($extend)";
-  my $valueWidth = $shift + $width > 32? 64: 32;
-  my $valueType = $signed? "int${valueWidth}_t": "uint${valueWidth}_t";
-  my $mask = $width >= $valueWidth? "($valueType)-1": "(($valueType)1<<$width)-1";
-  my (@encode, @decode);
-  push @encode, "$valueType __value = VALUE";
-  push @encode, "__value -= $bias" if $bias;
-  push @encode, "__value >>= $shift" if $shift;
-  push @encode, "__value &= $mask" unless $signed;
-  push @encode, "VALUE = __value";
-  my $ENCODE = "ENCODE(". (@encode? (join '; ', @encode): "/**/"). ")";
-  push @decode, "$valueType __value = VALUE";
-  if ($signed) {
-    push @decode, "__value <<= (sizeof(__value)*8-$width)";
-    push @decode, "__value >>= (sizeof(__value)*8-$width)";
-  }
-  push @decode, "__value <<= $shift" if $shift;
-  push @decode, "__value += $bias" if $bias;
-  push @decode, "VALUE = __value";
-  my $DECODE = "DECODE(". (@decode? (join '; ', @decode): "/**/"). ")";
-  print <<"EOT";
+    $minValue <<= $shift;
+    $minValue += $bias;
+    $maxValue <<= $shift;
+    $maxValue += $bias;
+    my $MINVALUE = "MINVALUE($minValue)";
+    my $MAXVALUE = "MAXVALUE($maxValue)";
+    my @relocations = @{$relocations{$immediate->attribute("ID")}{RELOCS}}
+      if(defined $relocations{$immediate->attribute("ID")});
+    my @relocationItems = map {"RELOCATION(". $_->fullName('_'). ")"} @relocations;
+    push @relocationItems, "RELOCATION(_UNDEF)" unless @relocationItems;
+    my $relocationItems = @relocationItems? (join ' ', @relocationItems): "/**/";
+    my $RELOCATIONS = "RELOCATIONS(". @relocationItems. ", $relocationItems)";
+    my $EXTEND = "EXTEND($extend)";
+    my $valueWidth = $shift + $width > 32? 64: 32;
+    my $valueType = $signed? "int${valueWidth}_t": "uint${valueWidth}_t";
+    my $mask = $width >= $valueWidth? "($valueType)-1": "(($valueType)1<<$width)-1";
+    my (@encode, @decode);
+    push @encode, "$valueType __value = VALUE";
+    push @encode, "__value -= $bias" if $bias;
+    push @encode, "__value >>= $shift" if $shift;
+    push @encode, "__value &= $mask" unless $signed;
+    push @encode, "VALUE = __value";
+    my $ENCODE = "ENCODE(". (@encode? (join '; ', @encode): "/**/"). ")";
+    push @decode, "$valueType __value = VALUE";
+    if ($signed) {
+        push @decode, "__value <<= (sizeof(__value)*8-$width)";
+        push @decode, "__value >>= (sizeof(__value)*8-$width)";
+    }
+    push @decode, "__value <<= $shift" if $shift;
+    push @decode, "__value += $bias" if $bias;
+    push @decode, "VALUE = __value";
+    my $DECODE = "DECODE(". (@decode? (join '; ', @decode): "/**/"). ")";
+    print <<"EOT";
 Immediate($ID, $MINVALUE, $MAXVALUE, $EXTEND,
           $RELOCATIONS,
           $ENCODE,
           $DECODE)
 EOT
-  if ($ImmediateRelocations_MAXCOUNT < @relocations) {
-    $ImmediateRelocations_MAXCOUNT = @relocations;
-  }
+    if ($ImmediateRelocations_MAXCOUNT < @relocations) {
+        $ImmediateRelocations_MAXCOUNT = @relocations;
+    }
 }
 
 print<<"EOT";
@@ -138,3 +138,4 @@ print<<"EOT";
 #endif/*ImmediateRelocations_MAXCOUNT*/\n
 EOT
 
+# vim: set ts=4 sw=4 et:

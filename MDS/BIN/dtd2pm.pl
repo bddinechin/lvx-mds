@@ -25,8 +25,8 @@ sub IDs {
 
 EOT
 foreach my $element (sort keys %{$DTD}) {
-  my $attributes = $DTD->{$element}->{attributes};
-  &process($element, $attributes);
+    my $attributes = $DTD->{$element}->{attributes};
+    &process($element, $attributes);
 }
 print << 'EOT';
 
@@ -34,24 +34,24 @@ print << 'EOT';
 EOT
 
 sub process {
-  my ($element, $attributes) = @_;
-  print "package $element;\n";
-  print '@ISA = ( "MDS" );', "\n";
-  print << "EOT";
+    my ($element, $attributes) = @_;
+    print "package $element;\n";
+    print '@ISA = ( "MDS" );', "\n";
+    print << "EOT";
 sub ID { &MDD::ID("$element", \$_[0]) }
 sub IDs { &MDD::IDs("$element", \$_[0]) }
 EOT
-  print "%ATTLIST = (\n";
-  foreach my $attribute (sort keys %{$attributes}) {
-    my $type = $attributes->{$attribute}->[0];
-    my $option = $attributes->{$attribute}->[1];
-    my $default = $attributes->{$attribute}->[2] || 'undef';
-#print STDERR "ATTRIBUTE $attribute:\t$type\t$option\n";
-#print STDERR Dumper($$attributes{$attribute});
-    print "  $attribute=>\t[ '$type', '$option', '$default' ],\n";
-  }
-  print ");\n";
-  print << 'EOT';
+    print "%ATTLIST = (\n";
+    foreach my $attribute (sort keys %{$attributes}) {
+        my $type = $attributes->{$attribute}->[0];
+        my $option = $attributes->{$attribute}->[1];
+        my $default = $attributes->{$attribute}->[2] || 'undef';
+        #print STDERR "ATTRIBUTE $attribute:\t$type\t$option\n";
+        #print STDERR Dumper($$attributes{$attribute});
+        print "  $attribute=>\t[ '$type', '$option', '$default' ],\n";
+    }
+    print ");\n";
+    print << 'EOT';
 sub attlist { return \%ATTLIST; }
 @table = ();
 @noname = ();
@@ -71,3 +71,4 @@ sub enter {
 EOT
 }
 
+# vim: set ts=4 sw=4 et:

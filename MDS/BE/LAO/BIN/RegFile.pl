@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -49,20 +49,20 @@ ${copyrights}
 EOT
 
 foreach my $regFile (@RegFile::table) {
-  my $ID = $regFile->fullName('_');
-  my $width = $regFile->attribute("width");
-  my $WIDTH = "WIDTH($width)";
-  my @registers = $regFile->access("registers");
-  my $lowRegister = $registers[0];
-  my $lowRegisterName = $lowRegister->fullName('_');
-  my $LOWREGISTER = "LOWREGISTER($lowRegisterName)";
-  my $highRegister = $registers[-1];
-  my $highRegisterName = $highRegister->fullName('_');
-  my $HIGHREGISTER = "HIGHREGISTER($highRegisterName)";
-  my @names = map {$_->fullName('_')} $regFile->access("nativeTypes");
-  my $nativeTypes = @names? (join ' ', map { "NATIVETYPE($_)" } @names): "/**/";
-  my $NATIVETYPES = "NATIVETYPES(". @names. ", $nativeTypes)";
-  print<<"EOT";
+    my $ID = $regFile->fullName('_');
+    my $width = $regFile->attribute("width");
+    my $WIDTH = "WIDTH($width)";
+    my @registers = $regFile->access("registers");
+    my $lowRegister = $registers[0];
+    my $lowRegisterName = $lowRegister->fullName('_');
+    my $LOWREGISTER = "LOWREGISTER($lowRegisterName)";
+    my $highRegister = $registers[-1];
+    my $highRegisterName = $highRegister->fullName('_');
+    my $HIGHREGISTER = "HIGHREGISTER($highRegisterName)";
+    my @names = map {$_->fullName('_')} $regFile->access("nativeTypes");
+    my $nativeTypes = @names? (join ' ', map { "NATIVETYPE($_)" } @names): "/**/";
+    my $NATIVETYPES = "NATIVETYPES(". @names. ", $nativeTypes)";
+    print<<"EOT";
 RegFile($ID, $WIDTH, $LOWREGISTER, $HIGHREGISTER,
         $NATIVETYPES)
 EOT
@@ -73,3 +73,4 @@ print<<"EOT";
 #undef RegFile\n
 EOT
 
+# vim: set ts=4 sw=4 et:

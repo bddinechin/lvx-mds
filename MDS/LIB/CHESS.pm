@@ -27,57 +27,58 @@ use integer;
 # Each record is a HASH of $field => $value. The special values
 # KEY and FIELDS are the record key and its list of fields.
 sub parse {
-  my $handle = shift;
-  my @records = ();
-  my $record = { };
-  my $field;
-  my @comments = ();
-  while (<$handle>) {
-    my $line = join ' ', (split ' ', $_);
-    if ($line =~ s/^\+\s+//) {
-      push @comments, $line;
-    } elsif ($line =~ /^\+\=([\w\.]+)/) {
-      if ($$record{KEY}) {
-        push @records, $record;
-      }
-      $record = {};
-      $$record{KEY} = $1;
-      $$record{FIELDS} = [];
-      push @{$$record{COMMENT}}, @comments;
-      $field = {};
-      @comments = ();
-    } elsif ($line =~ s/^\+(\w+)\s*//) {
-      $field = $1;
-      $$record{$field} = $line;
-      push @{$$record{FIELDS}}, $field;
-    } elsif (defined $field) {
-      if ($line =~ /\S/) {
-        $$record{$field} .= "\n$line";
-      }
-    } elsif ($line =~ /\S/) {
-      croak "leftover input:\t$line\n";
+    my $handle = shift;
+    my @records = ();
+    my $record = { };
+    my $field;
+    my @comments = ();
+    while (<$handle>) {
+        my $line = join ' ', (split ' ', $_);
+        if ($line =~ s/^\+\s+//) {
+            push @comments, $line;
+        } elsif ($line =~ /^\+\=([\w\.]+)/) {
+            if ($$record{KEY}) {
+                push @records, $record;
+            }
+            $record = {};
+            $$record{KEY} = $1;
+            $$record{FIELDS} = [];
+            push @{$$record{COMMENT}}, @comments;
+            $field = {};
+            @comments = ();
+        } elsif ($line =~ s/^\+(\w+)\s*//) {
+            $field = $1;
+            $$record{$field} = $line;
+            push @{$$record{FIELDS}}, $field;
+        } elsif (defined $field) {
+            if ($line =~ /\S/) {
+                $$record{$field} .= "\n$line";
+            }
+        } elsif ($line =~ /\S/) {
+            croak "leftover input:\t$line\n";
+        }
     }
-  }
-  if ($$record{KEY}) {
-    push @records, $record;
-  }
-  return \@records;
+    if ($$record{KEY}) {
+        push @records, $record;
+    }
+    return \@records;
 }
 
 # Clone a CHESS record.
 sub clone {
-  my $record = shift;
-  my $clone = { };
-  foreach my $key (keys %{$record}) {
-    my $value = $$record{$key};
-    if (ref($value) =~ /^ARRAY/) {
-      my @value = @{$value};
-      $value = \@value;
+    my $record = shift;
+    my $clone = { };
+    foreach my $key (keys %{$record}) {
+        my $value = $$record{$key};
+        if (ref($value) =~ /^ARRAY/) {
+            my @value = @{$value};
+            $value = \@value;
+        }
+        $$clone{$key} = $value;
     }
-    $$clone{$key} = $value;
-  }
-  return $clone;
+    return $clone;
 }
 
 1
 
+# vim: set ts=4 sw=4 et:

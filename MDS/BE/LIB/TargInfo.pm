@@ -41,9 +41,9 @@ sub operator_parameters {
     my $operator = shift;
     # Filter out Partial parameters that are not used by Open64
     return grep {
-      my $usage = $_->attribute('usage');
-      !defined $usage || $usage !~ /Partial/
-    } $operator->children('Parameter');
+        my $usage = $_->attribute('usage');
+        !defined $usage || $usage !~ /Partial/
+      } $operator->children('Parameter');
 }
 
 sub isExtended {
@@ -103,15 +103,15 @@ sub makeOpen64ISAProperties {
     # call a target-specific function to synthesize the
     # rest.
     my %attribute_properties = (
-	 'ReadList'  => 'var_opnds',
-	 'WriteList' => 'var_opnds',
-    );
+        'ReadList'  => 'var_opnds',
+        'WriteList' => 'var_opnds',
+      );
     foreach my $operator (@Operator::table) {
-	my @properties = split ' ', ($operator->{O64}{PROPERTIES} || "");
-	my @attributes = split ' ', ($operator->attribute("attributes") || "");
-	push @properties, (map $attribute_properties{$_},
-			   grep $attribute_properties{$_}, @attributes);
-	$operator->{O64}{PROPERTIES} = join ' ', @properties;
+        my @properties = split ' ', ($operator->{O64}{PROPERTIES} || "");
+        my @attributes = split ' ', ($operator->attribute("attributes") || "");
+        push @properties, (map $attribute_properties{$_},
+            grep $attribute_properties{$_}, @attributes);
+        $operator->{O64}{PROPERTIES} = join ' ', @properties;
     }
     Target::makeTargetISAProperties();
     Target::makeTargetOperandProperties();
@@ -121,20 +121,20 @@ sub sort_operators {
     # [SC] Operator sorting has become very complicated, in an
     # attempt to preserve the ordering compared to old code
     # which used the opcode table.
-    @Operator::table = sort { 
-	my $name1 = uc($a->name());
-	my $name2 = uc($b->name());
+    @Operator::table = sort {
+        my $name1 = uc($a->name());
+        my $name2 = uc($b->name());
         $name1 =~ s/\W/_/g;
         $name2 =~ s/\W/_/g;
-	# [SC] ST200 hack, to ensure that the immediate operand is
-	# last in opds, so it is least significant in comparison, so
-	# that operations with extended immediates end up adjacent to their
-	# unextended equivalents, as required by verify_operators.
-	# [BD3] The new Operator names yields an order good enough so keep it.
-#	print STDERR "sort_operators $name1 $name2\n";
+        # [SC] ST200 hack, to ensure that the immediate operand is
+        # last in opds, so it is least significant in comparison, so
+        # that operations with extended immediates end up adjacent to their
+        # unextended equivalents, as required by verify_operators.
+        # [BD3] The new Operator names yields an order good enough so keep it.
+        #	print STDERR "sort_operators $name1 $name2\n";
         ($name1 cmp $name2) ||
-	($a->attribute("ID") cmp $b->attribute("ID"));
-    } @Operator::table;
+          ($a->attribute("ID") cmp $b->attribute("ID"));
+      } @Operator::table;
 }
 
 sub verify_operators {
@@ -152,36 +152,36 @@ sub annotateMDS {
 }
 
 my %usefulGeneric = (
-  LABEL=>	1,
-  PHI=>	        1,
-  PSI=>	        1,
-  PCOPY=>	1,
-  SIGMA=>	1,
-  KILL=>	1,
-  SKIP=>	1,
-  COPY=>	1,
-  TEST=>	1,
-  APPLY=>	1,
-  FWDBAR=>	1,
-  BWDBAR=>	1,
-  IFIXUP=>	1,
-  BEGIN_PREGTN=>	1,
-  END_PREGTN=>	1,
-);
+    LABEL=>	1,
+    PHI=>	        1,
+    PSI=>	        1,
+    PCOPY=>	1,
+    SIGMA=>	1,
+    KILL=>	1,
+    SKIP=>	1,
+    COPY=>	1,
+    TEST=>	1,
+    APPLY=>	1,
+    FWDBAR=>	1,
+    BWDBAR=>	1,
+    IFIXUP=>	1,
+    BEGIN_PREGTN=>	1,
+    END_PREGTN=>	1,
+  );
 
 sub readMDS {
     foreach my $filename (@_) {
-	my $fh;
-	open $fh, $filename;
-	&MDS::parse($fh);
+        my $fh;
+        open $fh, $filename;
+        &MDS::parse($fh);
     }
     # Remove some Operator(s) from MDS processing.
     my @operators = grep {
-      my ($origins) = $_->access("origins");
-      my $mnemonic = $_->attribute("mnemonic");
-      my $type = $origins->type();
-      $type ne 'Generic' or $usefulGeneric{$mnemonic} or Target::usefulGeneric($mnemonic);
-    } @Operator::table;
+        my ($origins) = $_->access("origins");
+        my $mnemonic = $_->attribute("mnemonic");
+        my $type = $origins->type();
+        $type ne 'Generic' or $usefulGeneric{$mnemonic} or Target::usefulGeneric($mnemonic);
+      } @Operator::table;
     @Operator::table = @operators;
 }
 
@@ -189,24 +189,24 @@ sub write_annotation {
     my ($file, $key, $id, $element, $ancestry) = @_;
     my $annots = $element->{$key};
     if (keys %$annots) {
-	print $file "<$key\n  AnnotID=  \"$id\"\n";
-	if (scalar @$ancestry) {
-	    print $file "  AnnotANCESTRY=  \"", join ' ', @$ancestry, "\"\n";
-	}
-	foreach my $key2 (sort keys %$annots) {
-	    my $value = join ' ', (split ' ', $$annots{$key2});
-	    print $file "  $key2=\t\"$value\"\n";
-	}
-	print $file "/>";
+        print $file "<$key\n  AnnotID=  \"$id\"\n";
+        if (scalar @$ancestry) {
+            print $file "  AnnotANCESTRY=  \"", join ' ', @$ancestry, "\"\n";
+        }
+        foreach my $key2 (sort keys %$annots) {
+            my $value = join ' ', (split ' ', $$annots{$key2});
+            print $file "  $key2=\t\"$value\"\n";
+        }
+        print $file "/>";
     }
     my $children = &MDS::contents($element);
     foreach my $i (0..(scalar @$children)-1) {
-	my $child = $$children[$i];
-	if (ref $child) {
-	    push @$ancestry, $i;
-	    &write_annotation ($file, $key, $id, $child, $ancestry);
-	    pop @$ancestry;
-	}
+        my $child = $$children[$i];
+        if (ref $child) {
+            push @$ancestry, $i;
+            &write_annotation ($file, $key, $id, $child, $ancestry);
+            pop @$ancestry;
+        }
     }
 }
 
@@ -214,47 +214,48 @@ sub writeAnnotations {
     my ($file, $key) = @_;
 
     foreach my $name (sort keys %MDS::table) {
-	&write_annotation ($file, $key, $name, $MDS::table{$name}, []);
+        &write_annotation ($file, $key, $name, $MDS::table{$name}, []);
     }
     print $file "\n";
 }
 
 sub parse {
-  my $handle = shift;
-  my $p1 = new XML::Parser::Expat;
-  $p1->setHandlers(
-    Start => sub {
-      shift;
-      my $element = shift;
-      my %attributes = @_;
-      if (exists $attributes{"AnnotID"}) {
-	  my $mds_element = &MDS::fetch ($attributes{"AnnotID"});
-	  delete $attributes{"AnnotID"};
-	  my $ancestry = $attributes{"AnnotANCESTRY"} || "";
-	  my @ancestry = split ' ', $ancestry;
-	  delete $attributes{"AnnotANCESTRY"};
-	  while (@ancestry) {
-	      my $c = shift @ancestry;
-	      $mds_element = ${&MDS::contents($mds_element)}[$c];
-	  }
-	  $mds_element->{$element} = \%attributes;
-      }
-    },
-  );
-  local $/ = undef;
-  $p1->parse(<$handle>);
+    my $handle = shift;
+    my $p1 = new XML::Parser::Expat;
+    $p1->setHandlers(
+        Start => sub {
+            shift;
+            my $element = shift;
+            my %attributes = @_;
+            if (exists $attributes{"AnnotID"}) {
+                my $mds_element = &MDS::fetch ($attributes{"AnnotID"});
+                delete $attributes{"AnnotID"};
+                my $ancestry = $attributes{"AnnotANCESTRY"} || "";
+                my @ancestry = split ' ', $ancestry;
+                delete $attributes{"AnnotANCESTRY"};
+                while (@ancestry) {
+                    my $c = shift @ancestry;
+                    $mds_element = ${&MDS::contents($mds_element)}[$c];
+                }
+                $mds_element->{$element} = \%attributes;
+            }
+          },
+      );
+    local $/ = undef;
+    $p1->parse(<$handle>);
 }
 
 sub readAnnotations {
     my ($filenames) = @_;
     my @annotations = split ' ', $filenames;
     foreach my $filename (@annotations) {
-	my $file;
-	open ($file, $filename) || die "Cannot open annotations file $filename\n";
-	&parse ($file);
+        my $file;
+        open ($file, $filename) || die "Cannot open annotations file $filename\n";
+        &parse ($file);
     }
     sort_operators;
     verify_operators;
 }
-    
+
 1;
+# vim: set ts=4 sw=4 et:

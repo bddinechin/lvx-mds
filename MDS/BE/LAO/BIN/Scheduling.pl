@@ -25,8 +25,8 @@ my $FAMILY = $ENV{FAMILY};
 
 my $MDS_SPLIT_MODE = 0;
 if ($ARGV[0] eq "--split") {
-  $MDS_SPLIT_MODE = 1;
-  shift @ARGV;
+    $MDS_SPLIT_MODE = 1;
+    shift @ARGV;
 }
 
 use MDS;
@@ -50,47 +50,47 @@ EOT
 
 my %processorName;
 foreach my $processor (@Processor::table) {
-  my $core = $processor->core();
-  $processorName{$core} = $processor->fullName('_');
+    my $core = $processor->core();
+    $processorName{$core} = $processor->fullName('_');
 }
 
 my $CORE;
 if ($MDS_SPLIT_MODE) {
-  my $size = scalar %processorName;
-  if ($size != 1) {
-    die "Expected a single processor not $size";
-  }
-  $CORE = (keys %processorName)[0];
+    my $size = scalar %processorName;
+    if ($size != 1) {
+        die "Expected a single processor not $size";
+    }
+    $CORE = (keys %processorName)[0];
 }
 
 my %Scheduling;
 foreach my $scheduling (@Scheduling::table) {
-  if ($MDS_SPLIT_MODE) {
-    push @{$Scheduling{$CORE}}, $scheduling
-  } else {
-    my @processors = $scheduling->access("processors");
-    foreach my $processor (@processors) {
-        push @{$Scheduling{$processor->core()}}, $scheduling;
+    if ($MDS_SPLIT_MODE) {
+        push @{$Scheduling{$CORE}}, $scheduling
+    } else {
+        my @processors = $scheduling->access("processors");
+        foreach my $processor (@processors) {
+            push @{$Scheduling{$processor->core()}}, $scheduling;
+        }
     }
-  }
 }
 
 foreach my $core (sort keys %Scheduling) {
-  my @schedulings = @{$Scheduling{$core}};
-  foreach my $scheduling (@schedulings) {
-  my $name = $scheduling->name("_");
-  my $ID = $core."_".$name;
-  my $processorName = $processorName{$core};
-  my $PROCESSOR = "PROCESSOR($processorName)";
-  my ($bundling) = $scheduling->access("bundling");
-  my $bundlingName = defined $bundling?
-    $bundling->fullName('_'):
-    "_UNDEF";
-  my $BUNDLING = "BUNDLING($bundlingName)";
-  my ($reservation) = $scheduling->access("reservation");
-  my $reservationName = $reservation->fullName('_');
-  my $RESERVATION = "RESERVATION($reservationName)";
-  print<<"EOT";
+    my @schedulings = @{$Scheduling{$core}};
+    foreach my $scheduling (@schedulings) {
+        my $name = $scheduling->name("_");
+        my $ID = $core."_".$name;
+        my $processorName = $processorName{$core};
+        my $PROCESSOR = "PROCESSOR($processorName)";
+        my ($bundling) = $scheduling->access("bundling");
+        my $bundlingName = defined $bundling?
+          $bundling->fullName('_'):
+          "_UNDEF";
+        my $BUNDLING = "BUNDLING($bundlingName)";
+        my ($reservation) = $scheduling->access("reservation");
+        my $reservationName = $reservation->fullName('_');
+        my $RESERVATION = "RESERVATION($reservationName)";
+        print<<"EOT";
 Scheduling($ID, $PROCESSOR, $BUNDLING, $RESERVATION)
 EOT
     }
@@ -101,3 +101,4 @@ print<<"EOT";
 #undef Scheduling\n
 EOT
 
+# vim: set ts=4 sw=4 et:

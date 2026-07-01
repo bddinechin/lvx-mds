@@ -23,11 +23,12 @@
 use MDS;
 
 print MDS::make("Immediate", {
-  ID=>          &Immediate::ID(""),
-  width=>       "0",
-  extend=>      "Unsigned",
-  what=>        "Generic immediate",
-})->emit();
+        ID=>          &Immediate::ID(""),
+        width=>       "0",
+        extend=>      "Unsigned",
+        what=>        "Generic immediate",
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

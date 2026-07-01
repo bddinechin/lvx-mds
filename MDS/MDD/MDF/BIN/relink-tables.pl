@@ -35,28 +35,29 @@ my $noname = \@{"${TABLE}::noname"};
 
 my %table = ();
 foreach my $element (@{$noname}, @{$table}) {
-  &fixElement($element);
-  my $elementID = $$element{ATTRIBUTES}{ID};
-  print $element->emit() unless $table{$elementID}++;
+    &fixElement($element);
+    my $elementID = $$element{ATTRIBUTES}{ID};
+    print $element->emit() unless $table{$elementID}++;
 }
 
 sub fixElement {
-  my $element = shift;
-  my $attlist = $element->attlist();
-  # Fix the ID names in the $element attributes.
-  my $attributes = $$element{ATTRIBUTES};
-  while (my ($name, $value) = each %{$attributes}) {
-    if ($$attlist{$name}->[0] =~ /^ID(REF|REFS)?\b/) {
-      if ($value =~ s/\-[^\-]+\-$/\-$FAMILY\-/) {
-        # Special case the 'undefined' elements (whose ID is Element-$core-).
-        $$attributes{$name} = $value;
-      } else {
-        # Special case the 'undefined' elements (whose ID is Element-$core-).
-        $$attributes{$name} = &fixIDs($name,$value);
-      }
+    my $element = shift;
+    my $attlist = $element->attlist();
+    # Fix the ID names in the $element attributes.
+    my $attributes = $$element{ATTRIBUTES};
+    while (my ($name, $value) = each %{$attributes}) {
+        if ($$attlist{$name}->[0] =~ /^ID(REF|REFS)?\b/) {
+            if ($value =~ s/\-[^\-]+\-$/\-$FAMILY\-/) {
+           # Special case the 'undefined' elements (whose ID is Element-$core-).
+                $$attributes{$name} = $value;
+            } else {
+           # Special case the 'undefined' elements (whose ID is Element-$core-).
+                $$attributes{$name} = &fixIDs($name,$value);
+            }
+        }
     }
-  }
-  my $contents = $$element{CONTENTS};
-  map { &fixElement($_) if ref $_; } @{$contents}
+    my $contents = $$element{CONTENTS};
+    map { &fixElement($_) if ref $_; } @{$contents}
 }
 
+# vim: set ts=4 sw=4 et:

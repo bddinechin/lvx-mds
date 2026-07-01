@@ -23,512 +23,512 @@
 use MDS;
 
 sub makeGeneric_0_0 {
-  my ($name, $attributes) = @_;
-  MDS::make("Generic", {
-    ID=>	&Generic::ID($name),
-    mnemonic=>	$name,
-    attributes=>	$attributes,
-    syntax=>	"%0",
-  })->emit();
+    my ($name, $attributes) = @_;
+    MDS::make("Generic", {
+            ID=>	&Generic::ID($name),
+            mnemonic=>	$name,
+            attributes=>	$attributes,
+            syntax=>	"%0",
+        })->emit();
 }
 
 sub makeGeneric_1_0 {
-  my ($name, $attributes) = @_;
-  MDS::make("Generic", {
-    ID=>	&Generic::ID($name),
-    mnemonic=>	$name,
-    attributes=>	$attributes,
-    syntax=>	"%0 %1",
-  }, [
-    MDS::make("Parameter", {
-      action=>	"Write",
-      method=>	&RegClass::ID(""),
-      proxy=>	"%1",
-    }),
-  ])->emit();
+    my ($name, $attributes) = @_;
+    MDS::make("Generic", {
+            ID=>	&Generic::ID($name),
+            mnemonic=>	$name,
+            attributes=>	$attributes,
+            syntax=>	"%0 %1",
+        }, [
+            MDS::make("Parameter", {
+                    action=>	"Write",
+                    method=>	&RegClass::ID(""),
+                    proxy=>	"%1",
+                }),
+        ])->emit();
 }
 
 sub makeGeneric_1_1 {
-  my ($name, $attributes) = @_;
-  MDS::make("Generic", {
-    ID=>	&Generic::ID($name),
-    mnemonic=>	$name,
-    attributes=>	$attributes,
-    syntax=>	"%0 %1 = %2",
-  }, [
-    MDS::make("Parameter", {
-      action=>	"Write",
-      method=>	&RegClass::ID(""),
-      proxy=>	"%1",
-    }),
-    MDS::make("Parameter", {
-      action=>	"Read",
-      method=>	&RegClass::ID(""),
-      proxy=>	"%2",
-    }),
-  ])->emit();
+    my ($name, $attributes) = @_;
+    MDS::make("Generic", {
+            ID=>	&Generic::ID($name),
+            mnemonic=>	$name,
+            attributes=>	$attributes,
+            syntax=>	"%0 %1 = %2",
+        }, [
+            MDS::make("Parameter", {
+                    action=>	"Write",
+                    method=>	&RegClass::ID(""),
+                    proxy=>	"%1",
+                }),
+            MDS::make("Parameter", {
+                    action=>	"Read",
+                    method=>	&RegClass::ID(""),
+                    proxy=>	"%2",
+                }),
+        ])->emit();
 }
 
 sub makeGeneric_1_2 {
-  my ($name, $attributes) = @_;
-  MDS::make("Generic", {
-    ID=>	&Generic::ID($name),
-    attributes=>	$attributes,
-    mnemonic=>	$name,
-    syntax=>	"%0 %1 = %2, %3",
-  }, [
-    MDS::make("Parameter", {
-      action=>	"Write",
-      method=>	&RegClass::ID(""),
-      proxy=>	"%1",
-    }),
-    MDS::make("Parameter", {
-      action=>	"Read",
-      method=>	&RegClass::ID(""),
-      proxy=>	"%2",
-    }),
-    MDS::make("Parameter", {
-      action=>	"Read",
-      method=>	&RegClass::ID(""),
-      proxy=>	"%3",
-    }),
-  ])->emit();
+    my ($name, $attributes) = @_;
+    MDS::make("Generic", {
+            ID=>	&Generic::ID($name),
+            attributes=>	$attributes,
+            mnemonic=>	$name,
+            syntax=>	"%0 %1 = %2, %3",
+        }, [
+            MDS::make("Parameter", {
+                    action=>	"Write",
+                    method=>	&RegClass::ID(""),
+                    proxy=>	"%1",
+                }),
+            MDS::make("Parameter", {
+                    action=>	"Read",
+                    method=>	&RegClass::ID(""),
+                    proxy=>	"%2",
+                }),
+            MDS::make("Parameter", {
+                    action=>	"Read",
+                    method=>	&RegClass::ID(""),
+                    proxy=>	"%3",
+                }),
+        ])->emit();
 }
 
 sub makeGeneric_1_m {
-  my ($name, $attributes) = @_;
-  MDS::make("Generic", {
-    ID=>	&Generic::ID($name),
-    mnemonic=>	$name,
-    attributes=>	$attributes,
-    syntax=>	"%0",
-  }, [
-    MDS::make("Parameter", {
-      action=>	"Write",
-      method=>	&RegClass::ID(""),
-    }),
-    MDS::make("Parameter", {
-      action=>	"ReadList",
-      method=>	&RegClass::ID(""),
-    }),
-  ])->emit();
+    my ($name, $attributes) = @_;
+    MDS::make("Generic", {
+            ID=>	&Generic::ID($name),
+            mnemonic=>	$name,
+            attributes=>	$attributes,
+            syntax=>	"%0",
+        }, [
+            MDS::make("Parameter", {
+                    action=>	"Write",
+                    method=>	&RegClass::ID(""),
+                }),
+            MDS::make("Parameter", {
+                    action=>	"ReadList",
+                    method=>	&RegClass::ID(""),
+                }),
+        ])->emit();
 }
 
 sub makeGeneric_n_0 {
-  my ($name, $attributes) = @_;
-  MDS::make("Generic", {
-    ID=>	&Generic::ID($name),
-    mnemonic=>	$name,
-    attributes=>	$attributes,
-    syntax=>	"%0",
-  }, [
-    MDS::make("Parameter", {
-      action=>	"WriteList",
-      method=>	&RegClass::ID(""),
-    }),
-  ])->emit();
+    my ($name, $attributes) = @_;
+    MDS::make("Generic", {
+            ID=>	&Generic::ID($name),
+            mnemonic=>	$name,
+            attributes=>	$attributes,
+            syntax=>	"%0",
+        }, [
+            MDS::make("Parameter", {
+                    action=>	"WriteList",
+                    method=>	&RegClass::ID(""),
+                }),
+        ])->emit();
 }
 
 sub makeGeneric_n_1 {
-  my ($name, $attributes) = @_;
-  MDS::make("Generic", {
-    ID=>	&Generic::ID($name),
-    mnemonic=>	$name,
-    attributes=>	$attributes,
-    syntax=>	"%0",
-  }, [
-    MDS::make("Parameter", {
-      action=>	"WriteList",
-      method=>	&RegClass::ID(""),
-    }),
-    MDS::make("Parameter", {
-      action=>	"Read",
-      method=>	&RegClass::ID(""),
-    }),
-  ])->emit();
+    my ($name, $attributes) = @_;
+    MDS::make("Generic", {
+            ID=>	&Generic::ID($name),
+            mnemonic=>	$name,
+            attributes=>	$attributes,
+            syntax=>	"%0",
+        }, [
+            MDS::make("Parameter", {
+                    action=>	"WriteList",
+                    method=>	&RegClass::ID(""),
+                }),
+            MDS::make("Parameter", {
+                    action=>	"Read",
+                    method=>	&RegClass::ID(""),
+                }),
+        ])->emit();
 }
 
 sub makeGeneric_n_m {
-  my ($name, $attributes) = @_;
-  MDS::make("Generic", {
-    ID=>	&Generic::ID($name),
-    mnemonic=>	$name,
-    attributes=>	$attributes,
-    syntax=>	"%0",
-  }, [
-    MDS::make("Parameter", {
-      action=>	"WriteList",
-      method=>	&RegClass::ID(""),
-    }),
-    MDS::make("Parameter", {
-      action=>	"ReadList",
-      method=>	&RegClass::ID(""),
-    }),
-  ])->emit();
+    my ($name, $attributes) = @_;
+    MDS::make("Generic", {
+            ID=>	&Generic::ID($name),
+            mnemonic=>	$name,
+            attributes=>	$attributes,
+            syntax=>	"%0",
+        }, [
+            MDS::make("Parameter", {
+                    action=>	"WriteList",
+                    method=>	&RegClass::ID(""),
+                }),
+            MDS::make("Parameter", {
+                    action=>	"ReadList",
+                    method=>	&RegClass::ID(""),
+                }),
+        ])->emit();
 }
 
 # Control-Flow Generic(s).
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("ENTRY"),
-  mnemonic=>	"ENTRY",
-  attributes=>	"Pseudo",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("ENTRY"),
+        mnemonic=>	"ENTRY",
+        attributes=>	"Pseudo",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("LABEL"),
-  mnemonic=>	"LABEL",
-  attributes=>	"Pseudo",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("LABEL"),
+        mnemonic=>	"LABEL",
+        attributes=>	"Pseudo",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("FALLTO"),
-  mnemonic=>	"FALLTO",
-  attributes=>	"Pseudo Control",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("FALLTO"),
+        mnemonic=>	"FALLTO",
+        attributes=>	"Pseudo Control",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("LOOPTO"),
-  mnemonic=>	"LOOPTO",
-  attributes=>	"Pseudo Control",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    usage=>	"Target",
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("LOOPTO"),
+        mnemonic=>	"LOOPTO",
+        attributes=>	"Pseudo Control",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                usage=>	"Target",
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("HWLOOP"),
-  mnemonic=>	"HWLOOP",
-  attributes=>	"Pseudo Control",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    usage=>	"Target",
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("HWLOOP"),
+        mnemonic=>	"HWLOOP",
+        attributes=>	"Pseudo Control",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                usage=>	"Target",
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("HWLNEZ"),
-  mnemonic=>	"HWLNEZ",
-  attributes=>	"Pseudo Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("HWLNEZ"),
+        mnemonic=>	"HWLNEZ",
+        attributes=>	"Pseudo Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("HWLGTZ"),
-  mnemonic=>	"HWLGTZ",
-  attributes=>	"Pseudo Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("HWLGTZ"),
+        mnemonic=>	"HWLGTZ",
+        attributes=>	"Pseudo Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("GOTO"),
-  mnemonic=>	"GOTO",
-  attributes=>	"Control",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("GOTO"),
+        mnemonic=>	"GOTO",
+        attributes=>	"Control",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFTRUE"),
-  mnemonic=>	"IFTRUE",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFTRUE"),
+        mnemonic=>	"IFTRUE",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFFALSE"),
-  mnemonic=>	"IFFALSE",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFFALSE"),
+        mnemonic=>	"IFFALSE",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFNEZ"),
-  mnemonic=>	"IFNEZ",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFNEZ"),
+        mnemonic=>	"IFNEZ",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFEQZ"),
-  mnemonic=>	"IFEQZ",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFEQZ"),
+        mnemonic=>	"IFEQZ",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFLTZ"),
-  mnemonic=>	"IFLTZ",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFLTZ"),
+        mnemonic=>	"IFLTZ",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFGEZ"),
-  mnemonic=>	"IFGEZ",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFGEZ"),
+        mnemonic=>	"IFGEZ",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFLEZ"),
-  mnemonic=>	"IFLEZ",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFLEZ"),
+        mnemonic=>	"IFLEZ",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFGTZ"),
-  mnemonic=>	"IFGTZ",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFGTZ"),
+        mnemonic=>	"IFGTZ",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFODD"),
-  mnemonic=>	"IFODD",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFODD"),
+        mnemonic=>	"IFODD",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFEVEN"),
-  mnemonic=>	"IFEVEN",
-  attributes=>	"Control Conditional",
-  syntax=>	"%0 %1 %2",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%2",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFEVEN"),
+        mnemonic=>	"IFEVEN",
+        attributes=>	"Control Conditional",
+        syntax=>	"%0 %1 %2",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%2",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("JUMP"),
-  mnemonic=>	"JUMP",
-  attributes=>	"Control",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    usage=>	"Target",
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("JUMP"),
+        mnemonic=>	"JUMP",
+        attributes=>	"Control",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                usage=>	"Target",
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("CALL"),
-  mnemonic=>	"CALL",
-  attributes=>	"Control",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&Immediate::ID(""),
-    usage=>	"Target",
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("CALL"),
+        mnemonic=>	"CALL",
+        attributes=>	"Control",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&Immediate::ID(""),
+                usage=>	"Target",
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("LINK"),
-  mnemonic=>	"LINK",
-  attributes=>	"Control",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    usage=>	"Target",
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("LINK"),
+        mnemonic=>	"LINK",
+        attributes=>	"Control",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                usage=>	"Target",
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("RETURN"),
-  mnemonic=>	"RETURN",
-  attributes=>	"Control",
-  syntax=>	"%0",
-})->emit();
+        ID=>	&Generic::ID("RETURN"),
+        mnemonic=>	"RETURN",
+        attributes=>	"Control",
+        syntax=>	"%0",
+    })->emit();
 
 # SSA-Form Generic(s).
 
@@ -570,57 +570,58 @@ print &makeGeneric_1_m("TEST");
 # Open64 Generic(s).
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("FWDBAR"),
-  mnemonic=>	"FWDBAR",
-  attributes=>	"Pseudo",
-  syntax=>	"%0",
-})->emit();
+        ID=>	&Generic::ID("FWDBAR"),
+        mnemonic=>	"FWDBAR",
+        attributes=>	"Pseudo",
+        syntax=>	"%0",
+    })->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("BWDBAR"),
-  mnemonic=>	"BWDBAR",
-  attributes=>	"Pseudo",
-  syntax=>	"%0",
-})->emit();
+        ID=>	&Generic::ID("BWDBAR"),
+        mnemonic=>	"BWDBAR",
+        attributes=>	"Pseudo",
+        syntax=>	"%0",
+    })->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("IFIXUP"),
-  mnemonic=>	"IFIXUP",
-  attributes=>	"Pseudo",
-  syntax=>	"%0 %1 =",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Write",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("IFIXUP"),
+        mnemonic=>	"IFIXUP",
+        attributes=>	"Pseudo",
+        syntax=>	"%0 %1 =",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Write",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("BEGIN_PREGTN"),
-  attributes=>	"Pseudo",
-  mnemonic=>	"BEGIN_PREGTN",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("BEGIN_PREGTN"),
+        attributes=>	"Pseudo",
+        mnemonic=>	"BEGIN_PREGTN",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 print MDS::make("Generic", {
-  ID=>	&Generic::ID("END_PREGTN"),
-  attributes=>	"Pseudo",
-  mnemonic=>	"END_PREGTN",
-  syntax=>	"%0 %1",
-}, [
-  MDS::make("Parameter", {
-    action=>	"Read",
-    method=>	&RegClass::ID(""),
-    proxy=>	"%1",
-  }),
-])->emit();
+        ID=>	&Generic::ID("END_PREGTN"),
+        attributes=>	"Pseudo",
+        mnemonic=>	"END_PREGTN",
+        syntax=>	"%0 %1",
+    }, [
+        MDS::make("Parameter", {
+                action=>	"Read",
+                method=>	&RegClass::ID(""),
+                proxy=>	"%1",
+            }),
+    ])->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

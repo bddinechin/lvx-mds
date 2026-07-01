@@ -22,9 +22,10 @@
 use MDS;
 
 print MDS::make("Operand", {
-  ID=>	&Operand::ID(""),
-  method=>	&Immediate::ID(""),
-})->emit();
+        ID=>	&Operand::ID(""),
+        method=>	&Immediate::ID(""),
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:

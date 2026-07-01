@@ -39,17 +39,17 @@ EOT
 
     my @instruction_list = AsmTestLib::makeInstructionList ($MDD::CORE);
     while (@instruction_list) {
-	my $syntax = shift @instruction_list;
-	my $encoding = shift @instruction_list;
-	my $bundlingID = shift @instruction_list;
+        my $syntax = shift @instruction_list;
+        my $encoding = shift @instruction_list;
+        my $bundlingID = shift @instruction_list;
 
-	printf $file "\t%s # %08x\n\t;;\n", $syntax, $encoding;
+        printf $file "\t%s # %08x\n\t;;\n", $syntax, $encoding;
     }
 
     print $file <<'EOT';
 	.endp asmtest
 EOT
-	
+
 }
 
 print STDERR "starts\n";
@@ -59,3 +59,4 @@ print STDERR "starts\n";
 printAsmTest(*STDOUT);
 
 print STDERR "ends\n";
+# vim: set ts=4 sw=4 et:

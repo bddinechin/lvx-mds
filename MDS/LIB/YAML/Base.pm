@@ -35,25 +35,25 @@ my %code = (
       "  return \$_[0]->{%s} unless \$#_ > 0;\n",
     set =>
       "  \$_[0]->{%s} = \$_[1];\n",
-    sub_end => 
+    sub_end =>
       "  return \$_[0]->{%s};\n}\n",
-);
+  );
 
 sub field {
     my $package = caller;
     my ($args, @values) = &$parse_arguments(
         [ qw(-package -init) ],
         @_,
-    );
+      );
     my ($field, $default) = @values;
     $package = $args->{-package} if defined $args->{-package};
     return if defined &{"${package}::$field"};
     my $default_string =
-        ( ref($default) eq 'ARRAY' and not @$default )
-        ? '[]'
-        : (ref($default) eq 'HASH' and not keys %$default )
-          ? '{}'
-          : &$default_as_code($default);
+      ( ref($default) eq 'ARRAY' and not @$default )
+      ? '[]'
+      : (ref($default) eq 'HASH' and not keys %$default )
+      ? '{}'
+      : &$default_as_code($default);
 
     my $code = $code{sub_start};
     if ($args->{-init}) {
@@ -97,10 +97,10 @@ sub node_info {
     my $self = shift;
     my $stringify = $_[1] || 0;
     my ($class, $type, $id) =
-        ref($_[0])
-        ? $stringify
+      ref($_[0])
+      ? $stringify
           ? &$_info("$_[0]")
-          : do {
+        : do {
               require overload;
               my @info = &$_info(overload::StrVal($_[0]));
               if (ref($_[0]) eq 'Regexp') {
@@ -108,16 +108,16 @@ sub node_info {
               }
               @info;
           }
-        : &$_scalar_info($_[0]);
+      : &$_scalar_info($_[0]);
     ($class, $type, $id) = &$_scalar_info("$_[0]")
-        unless $id;
+      unless $id;
     return wantarray ? ($class, $type, $id) : $id;
 }
 
 #-------------------------------------------------------------------------------
 $_info = sub {
     return (($_[0]) =~ qr{^(?:(.*)\=)?([^=]*)\(([^\(]*)\)$}o);
-};
+  };
 
 $_scalar_info = sub {
     my $id = 'undef';
@@ -126,7 +126,7 @@ $_scalar_info = sub {
         $id = "$1-S";
     }
     return (undef, undef, $id);
-};
+  };
 
 $_new_error = sub {
     require Carp;
@@ -139,10 +139,10 @@ $_new_error = sub {
     $error->document($self->document) if $self->can('document');
     $error->arguments([@_]);
     return $error;
-};
-    
+  };
+
 $parse_arguments = sub {
-    my $paired_arguments = shift || []; 
+    my $paired_arguments = shift || [];
     my ($args, @values) = ({}, ());
     my %pairs = map { ($_, 1) } @$paired_arguments;
     while (@_) {
@@ -154,8 +154,8 @@ $parse_arguments = sub {
             push @values, $elem;
         }
     }
-    return wantarray ? ($args, @values) : $args;        
-};
+    return wantarray ? ($args, @values) : $args;
+  };
 
 $default_as_code = sub {
     no warnings 'once';
@@ -165,7 +165,7 @@ $default_as_code = sub {
     $code =~ s/^\$VAR1 = //;
     $code =~ s/;$//;
     return $code;
-};
+  };
 
 1;
 
@@ -198,3 +198,4 @@ under the same terms as Perl itself.
 See L<http://www.perl.com/perl/misc/Artistic.html>
 
 =cut
+# vim: set ts=4 sw=4 et:

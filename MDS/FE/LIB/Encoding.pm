@@ -22,10 +22,11 @@
 use MDS;
 
 print MDS::make("Encoding", {
-  ID=>	&Encoding::ID(""),
-  wordWidth=>	0,
-  wordCount=>	0,
-})->emit();
+        ID=>	&Encoding::ID(""),
+        wordWidth=>	0,
+        wordCount=>	0,
+    })->emit();
 
 1;
 
+# vim: set ts=4 sw=4 et:
