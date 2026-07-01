@@ -6,41 +6,61 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **kvx-mds** repo — the Machine Description System (MDS) for the KVX processor family (Kalray). It contains:
 
-- **`MDS/`** — the MDS toolchain itself: Perl scripts and Makefiles that parse YAML architecture descriptions and generate binary `.table` files used by compilers, assemblers, debuggers, etc.
-- **`kvx-family/`** — the architecture description for the KVX family: YAML source files, and family-specific back-end overrides (TEX docs, GBU header).
+- **`MDS/`** — the MDS toolchain itself: Perl scripts and Makefiles that parse YAML architecture descriptions and generate binary `.table` files used by compilers, assemblers, debuggers, etc. This is meant to be reusable across processor families.
+- **`kvx-family/`** — the architecture description for the KVX family: YAML source files, per-core entry points, and family-specific back-end overrides (TEX docs, GBU header).
+
+There is no build logic at the repo root — `MDS/` and `kvx-family/` are separate autoconf packages, and `kvx-family/configure` is the one you invoke (it locates and drives `MDS/configure` under the hood).
 
 ## Build
 
 ### Configure (run once from an out-of-tree build dir)
 
 ```sh
-mkdir -p build && cd build && ../configure --target=kvx --with-mds=../MDS
+mkdir -p build && cd build && ../kvx-family/configure --enable-mdf --target=kvx
 ```
 
-`--with-mds` points to the `MDS/` subdirectory inside this repo (or an external MDS clone).  
-`--target` currently only accepts `kvx`.
+(also documented in the top-level `HOWTO` file). Notable options, defined in `kvx-family/configure.ac`:
 
-The top-level `configure` delegates to `MDS/configure` (which it calls with all resolved paths as env vars), which then generates Makefiles under `build/`.
+| Option | Effect |
+|---|---|
+| `--target=kvx` | Only supported target; selects `FAMILY=kvx`, `CORES=kv4_v1`, and the default back-end list. Defaults to `kvx` if omitted. |
+| `--with-mds=<path>` | Path to the `MDS/` tree to build against; defaults to `<kvx-family>/../MDS`, i.e. the sibling `MDS/` in this repo. |
+| `--enable-mdf` | Enables the `MDD/MDF` merged-table step (tables merged across cores) after `MDD/MDE`. |
+| `--enable-avp` | Adds `AVP` to the enabled back-ends (auto-tests). |
+| `--with-arch-path` | Overrides `ARCHDIR` (defaults to the `kvx-family` checkout itself). |
+
+For `--target=kvx`, the default enabled back-ends (`TOOLS`) are **`TEX GBU GDB GCC LAO`**. Others (`ISS`, `MPPADL`, `TDH`, `AVP`) require editing the `enable_tools` value in `kvx-family/configure.ac` (per-target case statement) — `--enable-avp` is the only one exposed as a flag.
 
 ### Build targets (run inside `build/`)
 
 | Command | Effect |
 |---|---|
-| `make all` | Full build: FE → MDD/MDE → enabled back-ends |
-| `make refs` | Copy generated outputs back to `kvx-family/` as reference files |
-| `make check` | Validate XML against MDS DTD (requires `osx`/OpenSP) |
+| `make all` | Full build: `DOC` → `FE/YAML` → `MDD/MDE` (→ `MDD/MDF` if `--enable-mdf`) → enabled back-ends |
+| `make refs` | Copy generated `Opcode.txt` / `Description.yml` back into `kvx-family/` as reference snapshots |
+| `make diff` | Diff current build output against the committed reference files in `kvx-family/` |
+| `make check` | Validate generated XML against the MDS DTD (needs `osx`/OpenSP — `configure` fails outright if `osx` isn't on `PATH`) |
 | `make clean` | Remove generated files |
-| `make doc` | Build LaTeX documentation |
+| `make doc` | Build the LaTeX documentation under `MDS/DOC` |
+| `make install` | Install generated back-end artifacts to their configured prefixes (`--with-*-prefix`) |
 
-The build order is enforced: `DOC` → `FE/YAML` → `MDD/MDE` (→ `MDD/MDF` if `--enable-mdf`) → back-ends in parallel.  
-Each MDS sub-step is forced single-threaded (`make -j1`) because the Perl generators are not parallel-safe.
+Build order between `DOC`/`FE/YAML`/`MDD/MDE`/`MDD/MDF` is a strict chain (each depends on the previous); back-ends depend on the last MDD step and can run in parallel with `-j`. Each MDS sub-step itself is forced single-threaded (`make -j1` inside that subdir) because the Perl generators are not parallel-safe. Individual back-ends can be skipped with `MDS_SKIP_BE="GDB GCC" make all`.
 
-Enabled back-ends default to `GBU GCC GDB`; others (`LAO ISS TEX MPPADL TDH AVP`) can be added via `--enable-tools` or by editing `configure.ac`.
+### Known issue
+
+As of the current `main`, a from-scratch `make all` with the default back-end set fails inside `BE/GBU`:
+
+```
+Bad ElfID 7 at MDS/BE/GBU/BIN/reloc.pl line 87.
+```
+
+This is a gap in the relocation ELF-ID numbering in the architecture description (likely left over from the KV3 removal), not something introduced by unrelated edits — `DOC`, `FE/YAML`, `MDD/MDE`, `MDD/MDF`, and `BE/TEX` all build cleanly before it. If you hit this, don't assume your change caused it; check `git blame`/`kvx-family/FE/YAML/kvx/Relocation.yml` before spending time chasing it.
 
 ### Regenerate `configure` after editing `configure.ac`
 
+`configure.ac` lives separately in `MDS/` and `kvx-family/` (there is no root-level one). Run `autoconf` inside whichever directory you edited:
+
 ```sh
-autoconf   # run in the repo root
+cd kvx-family && autoconf   # or: cd MDS && autoconf
 ```
 
 ## Architecture: how data flows
@@ -48,50 +68,55 @@ autoconf   # run in the repo root
 ```
 kvx-family/FE/YAML/kvx/
   *.yml                        ← shared arch YAML (all cores)
-  kv4_v1/Description.yml.in
+  kv4_v1/Description.yml.in    ← per-core entry point (#define/#include guards)
 
-        ↓  (kvx-family/FE/YAML/kvx/Makefile generated by configure)
-        ↓  cpp expands #includes + #ifdefs → Description.yml per core
+        ↓  kvx-family/FE/YAML/kvx/Makefile (generated by kvx-family/configure)
+        ↓  cpp -D_<CORE>_RV_ expands #includes + #ifdefs → per-core Description.yml
 
 build/FE/YAML/kvx/<core>/Description.yml
+        + build/FE/YAML/kvx/<core>/Bundle.yml   (generated by kvx-family/FE/YAML/kvx/makeBundle.pl)
 
-        ↓  MDS/FE/YAML/BIN/Description2MDS.pl
+        ↓  MDS/FE/YAML/BIN/Description2MDS.pl  (reads Description.yml + Bundle.yml)
 
-build/FE/YAML/kvx/<core>/*.yml  (Format.yml, Instruction.yml, …)
+build/FE/YAML/kvx/<core>/*.yml  (Format.yml, Instruction.yml, Synthetic.yml, …)
+build/FE/YAML/kvx/<core>/Opcode.txt   (via MDS/FE/YAML/BIN/Opcode2txt.pl)
 
         ↓  MDS/FE/YAML/BIN/yml2pl.pl  →  *.pl
-        ↓  *.pl executed               →  *.table   (MDD tables)
+        ↓  *.pl executed               →  *.table   (MDD base tables)
 
 build/MDD/<family>/<core>/*.table
 
-        ↓  MDS/MDD/MDE/BIN/*.pl  (expand tables → MDE tables)
+        ↓  MDS/MDD/MDE/BIN/*.pl  (expand tables → MDE tables: Opcode, Decoding, Bundle, Operator, …)
 
-build/MDD/<family>/<core>/*.X.table  (Opcode.table, Decoding.table, …)
+build/MDD/<family>/<core>/*.X.table, Opcode.table, Decoding.table, Bundle.table, …
 
-        ↓  back-end Makefiles (BE/GBU, BE/GCC, BE/GDB, …)
+        ↓  (if --enable-mdf) MDS/MDD/MDF  merges tables across cores
+
+        ↓  back-end Makefiles (BE/GBU, BE/GCC, BE/GDB, BE/TEX, BE/LAO, …)
 
 generated headers / scripts installed into tool build trees
 ```
 
-Key variables threaded through the whole build (set by `configure`, visible in `Makerules`):
+Key variables threaded through the whole build (set by `kvx-family/configure`, visible in generated `Makerules`):
 
 | Variable | Meaning |
 |---|---|
 | `TOPDIR` | Absolute path to the build directory |
 | `FAMDIR` | Absolute path to `kvx-family/` |
 | `ARCHDIR` | Architecture description root (defaults to `FAMDIR`) |
-| `MDSDIR` | Absolute path to `MDS/` |
+| `MDSDIR` | Absolute path to `MDS/` (from `--with-mds`) |
 | `FAMILY` | `kvx` |
 | `CORES` | Space-separated list, e.g. `kv4_v1` |
 | `TOOLS` | Uppercase list of enabled back-ends |
 
 ## Key source files
 
-- **`configure.ac`** — top-level autoconf script; resolves paths and calls `MDS/configure`.
+- **`HOWTO`** — the canonical one-shot build recipe.
+- **`kvx-family/configure.ac`** — defines the `--target` → `FAMILY`/`CORES`/`TOOLS` mapping and all `--with-*`/`--enable-*` options; calls into `MDS/configure`.
 - **`kvx-family/FE/YAML/kvx/Makefile.in`** — preprocesses per-core `Description.yml.in` via `cpp`.
 - **`kvx-family/FE/YAML/kvx/*.yml`** — the actual architecture description (instructions, formats, registers, scheduling…).
 - **`kvx-family/FE/YAML/kvx/kv*/Description.yml.in`** — per-core entry point; uses `#define`/`#ifdef` guards to select core-specific behaviour from the shared YMLs.
-- **`MDS/FE/YAML/BIN/Description2MDS.pl`** — main parser: reads `Description.yml`, produces all per-category `.yml` outputs.
+- **`MDS/FE/YAML/BIN/Description2MDS.pl`** — main parser: reads `Description.yml` + `Bundle.yml`, produces all per-category `.yml` outputs.
 - **`MDS/MDD/MDE/BIN/*.pl`** — expanders that derive Opcode, Decoding, Bundle, Operator tables from the base MDD tables.
 - **`kvx-family/BE/GBU/kvx_elfids.h`** — ELF ID constants for KVX, consumed by binutils/GDB back-ends.
 
@@ -102,7 +127,7 @@ After editing YAML source in `kvx-family/FE/YAML/kvx/`, rebuild and update the c
 ```sh
 cd build
 make all
-make refs   # copies Opcode.txt and Description.yml back to kvx-family/
+make refs   # copies Opcode.txt and Description.yml back to kvx-family/FE/YAML/kvx/<core>/
 ```
 
-Committed reference files (`kvx-family/FE/YAML/kvx/kv*/Opcode.txt`, `Description.yml`) serve as the known-good snapshot for `make diff`.
+Committed reference files (`kvx-family/FE/YAML/kvx/kv*/Opcode.txt`, `Description.yml`) serve as the known-good snapshot; `make diff` compares the current build's output against them.
