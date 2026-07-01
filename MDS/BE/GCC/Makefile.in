@@ -17,7 +17,7 @@ GCC_input:=	Operator.table Instruction.table Format.table Operand.table \
 	Builtin.table NativeType.table RegFile.table Processor.table \
 	Storage.table Convention.table Scheduling.table
 
-GCC_files:= $(FAMILY)-registers.h $(FAMILY)-registers.md $(FAMILY)_builtins.h $(FAMILY)_macros.h
+GCC_files:= $(FAMILY)-registers.h $(FAMILY)-registers.md
 GCC_products:= $(addprefix $(FAMILY)/, $(GCC_files))
 GCC_installs:= $(addsuffix .ist, $(GCC_files))
 GCC_install_dir:= $(addprefix $(GCC_prefix)/, $(FAMILY))
