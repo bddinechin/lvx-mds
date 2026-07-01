@@ -1,0 +1,78 @@
+GCC_prefix:=@GCCDIR@
+
+include	../../Makerules
+include	../Makerules
+PERLBIN:=	$(MDSDIR)/BE/GCC/BIN
+RUBYBIN:=	$(MDSDIR)/BE/GCC/BIN
+HEADERDIR:=	$(ARCHDIR)/Compiler
+
+vpath %.pl $(PERLBIN)
+vpath %.rb $(RUBYBIN)
+
+cleanfiles=	$(GCC_products) $(GCC_xml) $(GCC_check) *.xml
+
+GCC_xml:=	$(addsuffix /GCC.xml, $(FAMILY))
+GCC_input:=	Operator.table Instruction.table Format.table Operand.table \
+	Immediate.table RegClass.table Register.table Modifier.table \
+	Builtin.table NativeType.table RegFile.table Processor.table \
+	Storage.table Convention.table Scheduling.table
+
+GCC_files:= $(FAMILY)-registers.h $(FAMILY)-registers.md $(FAMILY)_builtins.h $(FAMILY)_macros.h
+GCC_products:= $(addprefix $(FAMILY)/, $(GCC_files))
+GCC_installs:= $(addsuffix .ist, $(GCC_files))
+GCC_install_dir:= $(addprefix $(GCC_prefix)/, $(FAMILY))
+
+define generateXml
+$(1)/GCC.xml: $(addprefix ../../MDD/$(1)/, $(GCC_input))
+	echo $$^
+	cat Begin.xml $$^ End.xml > $$@	|| $(ABORT2)
+endef
+
+$(eval $(call generateXml,$(FAMILY)))
+
+
+all: Begin.xml End.xml
+	mkdir -p $(FAMILY)
+	$(MAKE) $(GCC_products)
+	rm -f $(GCC_xml)
+
+$(FAMILY)/%.h: $(HEADERDIR)/%.h
+	cp $< $@
+
+$(FAMILY)/$(FAMILY)-registers.md: md-registers.pl $(GCC_xml)
+	FAMILY=$(FAMILY) CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@	|| $(ABORT)
+
+$(FAMILY)/$(FAMILY)-registers.h: gcc-registers.pl $(GCC_xml)
+	FAMILY=$(FAMILY) CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@	|| $(ABORT)
+
+GCC_diff:=	$(addsuffix /GCC.diff, $(FAMILY))
+GCC_refs:=	$(addsuffix /GCC.refs, $(FAMILY))
+
+diff: $(GCC_diff)
+
+%GCC.diff:
+	$(DIFF) $* $(FAMDIR)/BE/GCC/$*
+
+refs: $(GCC_refs)
+
+%GCC.refs:
+	mkdir -p $(FAMDIR)/BE/GCC/$*
+	cp $*/*.h $(FAMDIR)/BE/GCC/$*
+	cp $*/*.md $(FAMDIR)/BE/GCC/$*
+
+install:
+	$(INSTALL) -d $(GCC_install_dir)
+	$(MAKE) all
+	$(MAKE) install_gccinfo
+
+install_gccinfo: $(GCC_installs)
+
+$(FAMILY)-registers.h.ist:
+	$(INSTALL) -m 644 $(FAMILY)/$(subst .ist,,$@) $(GCC_prefix)/$(subst .ist,,$@)
+
+%.h.ist:
+	$(INSTALL) -m 644 $(FAMILY)/$*.h $(GCC_prefix)/$*.h
+
+%.ist:
+	$(INSTALL) -D -m 644 $(FAMILY)/$* $(GCC_prefix)/$*
+

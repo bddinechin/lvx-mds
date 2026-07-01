@@ -1,0 +1,266 @@
+Simulated:
+
+  - ID: ADJUST
+    what: Adjust Stack Pointer
+    scheduling: ALU_LITE
+    syntax: "%0 %1 = %2, %3"
+    parameters:
+      - action: Write
+        method:
+          RegClass: singleReg
+        proxy:  "%1"
+        stages: 2
+      - action: Read
+        method:
+          RegClass: singleReg
+        usage: Left
+        proxy:  "%2"
+        stages: 1
+      - action: "Read"
+        method:
+          Immediate: signed10
+        usage: Right
+        proxy:  "%3"
+        stages: 0
+
+  - ID: GETPC
+    what: Get Program Counter
+    scheduling: BCU
+    syntax: "%0 %1"
+    parameters:
+      - action: Write
+        method:
+          Register: PC
+        proxy:  "%1"
+        stages: 2
+      - action: Read
+        method:
+          Immediate: pcrel27s2
+        proxy:  "%2"
+        stages: 0
+
+  - ID: SET_GOTP
+    what: Get System Register in PIC Mode
+    scheduling: ALL
+    syntax: "unspecified"
+    parameters:
+      - action: Write
+        method:
+          RegClass: singleReg
+        proxy: "%1"
+        stages: 2
+      - action: Write
+        method:
+          RegClass: singleReg
+        proxy: "%3"
+        stages: 2
+      - action: Read
+        method:
+          RegClass: systemReg
+        proxy: "%2"
+        stages: 1
+      - action: Read
+        method:
+          Immediate: wrapped32
+        proxy: "%4"
+        stages: 1
+
+  - ID: GNUASM
+    what: GNU ASM Statement.
+    scheduling: ALL
+    syntax: "%0"
+    parameters:
+      - action: WriteList
+        method:
+          RegClass: ""
+        stages: 2
+      - action: ReadList
+        method:
+          RegClass: ""
+        stages: 1
+
+  - ID: GNUASM_CFG
+    what: GNU ASM Statement.
+    scheduling: ALL
+    syntax: "%0"
+    properties: "Conditional Control"
+    parameters:
+      - action: WriteList
+        method:
+          RegClass: ""
+        stages: 2
+      - action: Read
+        method:
+          Immediate: pcrel27s2
+        usage: Target
+        stages: 1
+      - action: ReadList
+        method:
+          RegClass: ""
+        stages: 1
+
+  - ID: MOVP
+    what: Move of paired registers
+    scheduling: ALU_LITE
+    syntax: "unspecified"
+    parameters:
+      - action: Write
+        method:
+          RegClass: pairedReg
+        proxy:  "%1"
+        stages: 2
+      - action: Read
+        method:
+          RegClass: pairedReg
+        proxy:  "%2"
+        stages: 1
+
+  - ID: COMPOSEP
+    what: Pair register composition
+    scheduling: ALU_FULL
+    syntax: "unspecified"
+    parameters:
+      - action: Write
+        method:
+          RegClass: pairedReg
+        proxy:  "%1"
+        stages: 2
+      - action: Read
+        method:
+          RegClass: singleReg
+        usage: Left
+        proxy:  "%2"
+        stages: 1
+      - action: "Read"
+        method:
+          RegClass: singleReg
+        usage: Right
+        proxy:  "%3"
+        stages: 1
+
+  - ID: EXTRACTP
+    what: Pair register extraction
+    scheduling: ALU_LITE
+    syntax: "unspecified"
+    parameters:
+      - action: Write
+        method:
+          RegClass: singleReg
+        proxy:  "%1"
+        stages: 2
+      - action: Write
+        method:
+          RegClass: singleReg
+        proxy:  "%2"
+        stages: 2
+      - action: Read
+        method:
+          RegClass: pairedReg
+        proxy:  "%3"
+        stages: 1
+
+  - ID: MOVC
+    what: Predicated move on true predicate
+    scheduling: ALU_LITE
+    syntax: "%0 %1 = %2 %3"
+    parameters:
+      - action: Write
+        method:
+          RegClass: singleReg
+        proxy: "%1"
+        stages: 3
+      - action: Read
+        method:
+          RegClass: singleReg
+        proxy: "%2"
+        stages: 2
+        usage: Pred
+      - action: Read
+        method:
+          RegClass: singleReg
+        proxy: "%3"
+        stages: 2
+
+  - ID: MOVPC
+    what: Predicated paired move on true predicate
+    scheduling: ALU_LITE
+    syntax: "%0 %1 = %2 %3"
+    parameters:
+      - action: Write
+        method:
+         RegClass: pairedReg
+        proxy: "%1"
+        stages: 3
+      - action: Read
+        method:
+          RegClass: singleReg
+        proxy: "%2"
+        stages: 2
+        usage: Pred
+      - action: Read
+        method:
+          RegClass: pairedReg
+        proxy: "%3"
+        stages: 2
+
+  - ID: MOVCF
+    what: Predicated move on false predicate
+    scheduling: ALU_LITE
+    syntax: "%0 %1 = %2 %3"
+    parameters:
+      - action: Write
+        method:
+         RegClass: singleReg
+        proxy: "%1"
+        stages: 3
+      - action: Read
+        method:
+          RegClass: singleReg
+        proxy: "%2"
+        stages: 2
+        usage: Pred
+      - action: Read
+        method:
+          RegClass: singleReg
+        proxy: "%3"
+        stages: 2
+
+  - ID: MOVPCF
+    what: Predicated paired move on false predicate
+    scheduling: ALU_LITE
+    syntax: "%0 %1 = %2 %3"
+    parameters:
+      - action: Write
+        method:
+         RegClass: pairedReg
+        proxy: "%1"
+        stages: 3
+      - action: Read
+        method:
+          RegClass: singleReg
+        proxy: "%2"
+        stages: 2
+        usage: Pred
+      - action: Read
+        method:
+          RegClass: pairedReg
+        proxy: "%3"
+        stages: 2
+
+  - ID: SYSCALL
+    what: Simulated System Call with result operand
+    scheduling: ALL
+    syntax: "%0 %1 = %2"
+    parameters:
+      - action: Write
+        method:
+          RegClass: singleReg
+        proxy: "%1"
+        stages: 3
+      - action: Read
+        method:
+          RegClass: singleReg
+        proxy: "%2"
+        stages: 2
+
+

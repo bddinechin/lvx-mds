@@ -1,0 +1,182 @@
+GBU_prefix:=@BINUTILSDIR@
+GDB_prefix:=@GDBDIR@
+QEMU_prefix:=@QEMUDIR@
+include	../../Makerules
+include	../Makerules
+PERLBIN:=	$(MDSDIR)/BE/GBU/BIN
+
+ifeq ($(FAMILY), kvx)
+  GBU_TESTS:=KVX_OPCODE_FLAG_MODE32 KVX_OPCODE_FLAG_MODE64
+endif
+ASM_TESTS:=$(addsuffix .s, $(GBU_TESTS))
+BIN_TESTS:=$(addsuffix .bin, $(GBU_TESTS))
+TARGET_TESTS:=$(foreach CORE,$(CORES), $(addprefix $(CORE)/, $(ASM_TESTS))) \
+              $(foreach CORE,$(CORES), $(addprefix $(CORE)/, $(BIN_TESTS)))
+
+GBU_xml:=	$(FAMILY)/GBU.xml
+GBU_drop:= Operator.table
+GBU_input:=	$(filter-out $(GBU_drop), $(MDS_names))
+
+define generateXml
+# This is the only place where the MDS XML tables are accessed.
+$(1)/GBU.xml: $(addprefix ../../MDD/$(1)/, $(GBU_input))
+	cat Begin.xml $$^ End.xml > $$@	|| $(ABORT)
+endef
+
+$(eval $(call generateXml,$(FAMILY)))
+
+TESTS_xml:=	$(addprefix $(FAMILY)/, $(addsuffix /TESTS.xml, $(CORES)))
+TESTS_drop:= Operator.table
+TESTS_input:=	$(filter-out $(TESTS_drop), $(MDS_names))
+
+define generateTestsXml
+# This is the only place where the MDS XML tables are accessed.
+$(1)/$(2)/TESTS.xml: $(addprefix ../../MDD/$(1)/$(2)/, $(TESTS_input))
+	cat Begin.xml $$^ End.xml > $$@	|| $(ABORT)
+endef
+
+$(foreach CORE,$(CORES),$(eval $(call generateTestsXml,$(FAMILY),$(CORE))))
+
+gbuinfo=                                 \
+  opcodes/$(FAMILY)-opc.c                \
+  include/opcode/$(FAMILY).h             \
+  include/opcode/$(FAMILY)-insn-macros.h \
+  bfd/elfxx-$(FAMILY)-relocs.h           \
+  bfd/reloc.c                            \
+  include/$(FAMILY)/reloc.h              \
+  include/elf/$(FAMILY)_elfids.h         \
+  gas/config/$(FAMILY)-parse.h
+gbuinfo_dirs= $(addprefix $(FAMILY)/, opcodes include include/opcode include/$(FAMILY) bfd gas/config)
+gbuinfo_drop = # include/opcode/$(FAMILY)-insn-macros.h
+mach_gbuinfo = $(addprefix $(FAMILY)/, $(gbuinfo))
+mach_gbuinfo_refs = $(addsuffix .ref, $(mach_gbuinfo))
+mach_gbuinfo_diffs = $(addsuffix .diff, $(mach_gbuinfo))
+GBU_gbu_diffs = $(addsuffix .idf, $(filter-out $(gbuinfo_drop), $(gbuinfo)))
+GBU_gbu_prefix = $(GBU_prefix)
+gbuinfo_installs = $(addsuffix .ist, $(filter-out $(gbuinfo_drop), $(gbuinfo)))
+gbuinfo_installs_qemu = $(addsuffix .ist, qemu/$(FAMILY)-opc.c qemu/$(FAMILY).h)
+
+tests_dirs= $(Family)
+tests= $(FAMILY_TESTS)
+
+mach_tests_dirs= $(addprefix $(FAMILY)/, $(CORES))
+mach_tests= $(addprefix $(FAMILY)/, $(tests))
+mach_tests_refs = $(addsuffix .ref, $(mach_tests))
+mach_tests_diffs = $(addsuffix .diff, $(mach_tests))
+tests_install_dirs = $(addprefix $(GNU_prefix)/, $(tests_dirs))
+tests_installs = $(addsuffix .ist, $(mach_tests))
+
+cleanfiles= $(GBU_xml) $(mach_gbuinfo) $(TESTS_xml) $(mach_tests)
+
+all: Begin.xml End.xml
+	mkdir -p $(mach_tests_dirs)
+	mkdir -p $(gbuinfo_dirs)
+	echo "FAMILY_TESTS: $(FAMILY_TESTS)"
+	$(MAKE) $(GBU_xml)
+	$(MAKE) $(TESTS_xml)
+	$(MAKE) all_gbuinfo
+	$(MAKE) all_tests
+	$(MAKE) $(bin_tests)
+	$(MAKE) $(asm_tests)
+
+bin_tests:= $(foreach CORE,$(CORES),$(foreach GBU_TEST,$(GBU_TESTS),$(FAMILY)/$(CORE)/$(GBU_TEST).bin))
+asm_tests:= $(foreach CORE,$(CORES),$(foreach GBU_TEST,$(GBU_TESTS),$(FAMILY)/$(CORE)/$(GBU_TEST).s))
+
+all_gbuinfo: $(mach_gbuinfo)
+
+all_tests: $(mach_tests)
+
+%/$(FAMILY)-opc.c: $(MDSDIR)/BE/GBU/BIN/gbu-opc.pl $(foreach CORE,$(CORES),$(FAMILY)/$(CORE)/TESTS.xml)
+	FAMILY=${FAMILY} CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@ || $(ABORT)
+
+$(FAMILY)/include/$(FAMILY)/reloc.h: $(MDSDIR)/BE/GBU/BIN/reloc_header.pl $(GBU_xml)
+	FAMILY=${FAMILY} CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@ || $(ABORT)
+
+$(FAMILY)/bfd/reloc.c : $(MDSDIR)/BE/GBU/BIN/reloc.pl $(GBU_xml)
+	FAMILY=${FAMILY} CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@ || $(ABORT)
+
+$(FAMILY)/bfd/elfxx-$(FAMILY)-relocs.h: $(MDSDIR)/BE/GBU/BIN/elfxx-target.pl $(GBU_xml)
+	FAMILY=${FAMILY} CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@ || $(ABORT)
+
+$(FAMILY)/include/opcode/$(FAMILY)-insn-macros.h: $(MDSDIR)/BE/GBU/BIN/gbu-insn-macros.pl $(GBU_xml)
+	FAMILY=${FAMILY} CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@ || $(ABORT)
+
+$(FAMILY)/include/opcode/$(FAMILY).h : $(MDSDIR)/BE/GBU/BIN/gbu.pl $(foreach CORE,$(CORES),$(FAMILY)/$(CORE)/TESTS.xml)
+	FAMILY=${FAMILY} CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@ || $(ABORT)
+
+$(FAMILY)/include/elf/$(FAMILY)_elfids.h:
+	$(INSTALL) -D -m 644 $(ARCHDIR)/BE/GBU/$(FAMILY)_elfids.h $@
+
+define generateTest
+$(FAMILY)/$(1)/$(2).s : $(MDSDIR)/BE/GBU/BIN/testasm.pl $(FAMILY)/$(1)/TESTS.xml
+	FAMILY=$(FAMILY) CORES="$(1)" $(PERL) $(PERLINC) $(MDSDIR)/BE/GBU/BIN/testasm.pl $(FAMILY)/$(1)/TESTS.xml $$@ || $(ABORT2)
+
+$(FAMILY)/$(1)/$(2).bin : $(MDSDIR)/BE/GBU/BIN/testbin.pl $(FAMILY)/$(1)/TESTS.xml
+	FAMILY=$(FAMILY) CORES="$(1)" $(PERL) $(PERLINC) $(MDSDIR)/BE/GBU/BIN/testbin.pl $(FAMILY)/$(1)/TESTS.xml $$@ || $(ABORT2)
+endef
+
+$(foreach CORE,$(CORES),$(foreach GBU_TEST,$(GBU_TESTS),$(eval $(call generateTest,$(CORE),$(GBU_TEST)))))
+
+$(FAMILY)/gas/config/kvx-parse.h: $(MDSDIR)/BE/GBU/BIN/gen-parse-table.rb $(foreach CORE,$(CORES),$(FAMILY)/$(CORE)/TESTS.xml)
+	FAMILY=$(FAMILY) CORES="$(CORES)" $(RUBY) $(RUBYINC) $^ > $@ || $(ABORT)
+
+diff: $(mach_gbuinfo_diffs) $(mach_tests_diffs) diff_gbu
+
+%.diff:
+	$(DIFF) $(FAMDIR)/BE/GBU/$* $*
+
+refs: $(mach_gbuinfo_refs) $(mach_tests_refs) install
+
+%.ref:
+	mkdir -p $(dir $(FAMDIR)/BE/GBU/$*)
+	cp -p $* $(FAMDIR)/BE/GBU/$*
+
+install:
+	$(MAKE) all
+	$(MAKE) install_bin
+	$(MAKE) install_asm
+	$(MAKE) install_gbuinfo
+
+install_bin: $(addsuffix .inst, $(bin_tests))
+install_asm: $(addsuffix .inst, $(asm_tests))
+
+%.inst:
+	$(INSTALL) -D -m 644 $* $(FAMDIR)/BE/GBU/$*
+
+install_gbuinfo: $(gbuinfo_installs)
+
+install_qemu: $(gbuinfo_installs_qemu)
+
+bfd/reloc.c.ist:
+	$(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh PATCH $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GBU_prefix)/bfd/reloc.c
+	$(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh PATCH $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GDB_prefix)/bfd/reloc.c
+
+bfd/reloc.c.idf:
+	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh EXTRACT $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GBU_prefix)/bfd/reloc.c) $(FAMILY)/bfd/reloc.c"
+	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh EXTRACT $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GDB_prefix)/bfd/reloc.c) $(FAMILY)/bfd/reloc.c"
+
+include/$(FAMILY)/reloc.h.ist:
+	$(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh PATCH $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GBU_prefix)/include/elf/$(FAMILY).h
+	$(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh PATCH $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GDB_prefix)/include/elf/$(FAMILY).h
+
+include/$(FAMILY)/reloc.h.idf:
+	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh EXTRACT $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GBU_prefix)/include/elf/$(FAMILY).h) $(FAMILY)/include/$(FAMILY)/reloc.h"
+	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh EXTRACT $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GDB_prefix)/include/elf/$(FAMILY).h) $(FAMILY)/include/$(FAMILY)/reloc.h"
+
+qemu/$(FAMILY)-opc.c.ist:
+	$(MDSDIR)/BE/GBU/BIN/patch_qemu_opc_c.sh $(FAMILY)/opcodes/$(FAMILY)-opc.c > $(QEMU_prefix)/disas/$(FAMILY)-opc.c.swap
+	mv $(QEMU_prefix)/disas/$(FAMILY)-opc.c.swap $(QEMU_prefix)/disas/$(FAMILY)-opc.c
+
+qemu/$(FAMILY).h.ist:
+	$(MDSDIR)/BE/GBU/BIN/patch_qemu_h.sh $(FAMILY)/include/opcode/$(FAMILY).h > $(QEMU_prefix)/disas/$(FAMILY).h.swap
+	mv $(QEMU_prefix)/disas/$(FAMILY).h.swap $(QEMU_prefix)/disas/$(FAMILY).h
+
+%.ist:
+	$(INSTALL) -D -m 644 $(FAMILY)/$* $(GBU_prefix)/$*
+	$(INSTALL) -D -m 644 $(FAMILY)/$* $(GDB_prefix)/$*
+
+diff_gbu: $(GBU_gbu_diffs)
+
+%.idf:
+	$(DIFF) $(FAMDIR)/BE/GBU/$(FAMILY)/$* $(GBU_prefix)/$*
+	$(DIFF) $(FAMDIR)/BE/GBU/$(FAMILY)/$* $(GDB_prefix)/$*

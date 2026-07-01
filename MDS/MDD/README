@@ -1,0 +1,10 @@
+Overview:
+
+- 'make all' in MDD/MDE creates new tables in $(addpprefix $(FAMILY)/, $(CORES)) under $(TOPDIR)/MDD/.
+
+- 'make all' in MDD/MDF crates the merged tables in $(TOPDIR)/MDD/$(FAMILY)/.
+
+- 'make check' in MDD/MDE and MDD/MDF requires 'make all' in DOC, and check againts the MDS DTD.
+
+-- BD3
+

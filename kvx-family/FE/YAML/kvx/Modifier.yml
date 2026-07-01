@@ -1,0 +1,394 @@
+Modifier:
+
+#ifdef _KV4_
+
+  - ID: exunum
+    what: Execution Unit Number in Immediate Extensions
+    members: [ ALU0, ALU1, LSU0, LSU1 ]
+    execution: "_ZX_2(%0)"
+    cases:
+      - ALU 0
+      - ALU 1
+      - LSU 0
+      - LSU 1
+
+  - ID: ccbcomp
+    what: CCB Double Word Compare
+    members: [ .DLT, .DGE, .DLTU, .DGEU, .DEQ, .DNE, .DANY, .DNONE, .WLT, .WGE, .WLTU, .WGEU, .WEQ, .WNE, .WANY, .WNONE ]
+    cases:
+      - Double Word Less Than
+      - Double Word Greater Than or Equal
+      - Double Word Less Than Unsigned
+      - Double Word Greater Than or Equal Unsigned
+      - Double Word Equal
+      - Double Word Not Equal
+      - Double Any bit set after AND-ing
+      - Double No bits set after AND-ing
+      - Word Less Than
+      - Word Greater Than or Equal
+      - Word Less Than Unsigned
+      - Word Greater Than or Equal Unsigned
+      - Word Equal
+      - Word Not Equal
+      - Word Any bit set after AND-ing
+      - Word No bits set after AND-ing
+    execution: "_ZX_4(%0)"
+
+  - ID: bcucond
+    what: CB Condition
+    members: [ .DLTZ, .DGEZ, .DLEZ, .DGTZ, .DEQZ, .DNEZ, .ODD, .EVEN, .WLTZ, .WGEZ, .WLEZ, .WGTZ, .WEQZ, .WNEZ ]
+    cases:
+      - Double Less Than Zero
+      - Double Greater Than or Equal to Zero
+      - Double Less Than or Equal to Zero
+      - Double Greater Than Zero
+      - Double Equal to Zero
+      - Double Not Equal to Zero
+      - Odd (LSB Set)
+      - Even (LSB Clear)
+      - Word Less Than Zero
+      - Word Greater Than or Equal to Zero
+      - Word Less Than or Equal to Zero
+      - Word Greater Than Zero
+      - Word Equal to Zero
+      - Word Not Equal to Zero
+    execution: "_ZX_4(%0)"
+
+  - ID: intcomp
+    what: Integer Comparison
+    members: [ .LT, .GE, .LTU, .GEU, .EQ, .NE, .ANY, .NONE, .LE, .GT, .LEU, .GTU ]
+    cases:
+      - Less Than
+      - Greater Than or Equal
+      - Less Than Unsigned
+      - Greater Than or Equal Unsigned
+      - Equal
+      - Not Equal
+      - Any bits set in after AND-ing
+      - No bits set after AND-ing
+      - Less Than or Equal
+      - Greater Than
+      - Less Than or Equal Unsigned
+      - Greater Than Unsigned
+    execution: "_ZX_4(%0)"
+
+  - ID: lanecond
+    what: Lane Condition
+    members: [ .LTZ, .GEZ, .LEZ, .GTZ, .EQZ, .NEZ, .ODD, .EVEN ]
+    cases:
+      - Less Than Zero
+      - Greater Than or Equal to Zero
+      - Less Than or Equal to Zero
+      - Greater Than Zero
+      - Equal to Zero
+      - Not Equal to Zero
+      - Odd (LSB Set)
+      - Even (LSB Clear)
+    execution: "_ZX_3(%0)"
+
+  - ID: lanetodo
+    what: BLEND Lane To Do
+    members: [ .MT, .MF, .MTC, .MFC ]
+    cases:
+      - Mask True
+      - Mask False
+      - Mask True or Clear
+      - Mask False or Clear
+    execution: "_ZX_2(%0)"
+
+  - ID: lanesize
+    what: BLEND Lane Size
+    members: [ ., .H, .W, .D ]
+    cases:
+      - Byte Size
+      - Half Word Size
+      - Word Size
+      - Double Word Size
+    execution: "_ZX_2(%0)"
+
+  - ID: floatcomp
+    what: Floating-Point Comparison
+    members: [ .ONE, .UEQ, .OEQ, .UNE, .OLT, .UGE, .OGE, .ULT ]
+    cases:
+      - Ordered and Not Equal
+      - Unordered or Equal
+      - Ordered and Equal
+      - Unordered or Not Equal
+      - Ordered and Less Than
+      - Unordered or Greater Than or Equal
+      - Ordered and Greater Than or Equal
+      - Unordered or Less Than
+    execution: "_ZX_3(%0)"
+
+  - ID: floatmode
+    what: Floating-Point Rounding Mode
+    members: [ .RN, .RZ, .RD, .RU, .RM, .R5, .RO, . ]
+    cases:
+      - Round to Nearest, ties to Even
+      - Round toward Zero
+      - Round Downward
+      - Round Upward
+      - Round to Nearest, ties to Max Magnitude
+      - Reserved 5
+      - Round to Odd
+      - Use CS rounding
+    execution: "_ZX_3(%0)"
+
+  - ID: signextw
+    what: Sign Extend Word
+    members: [ ., .SX ]
+    cases:
+      - Zero Extend
+      - Sign Extend
+    execution: "_ZX_1(%0)"
+
+  - ID: highmult
+    what: High Multiply
+    members: [ ., .H, .HU, .HSU ]
+    cases:
+      - Low
+      - High
+      - High Unsigned
+      - High Signed Unsigned
+    execution: "_ZX_2(%0)"
+
+  - ID: widemult
+    what: Wide Multiply
+    members: [ ., .U, .SU ]
+    cases:
+      - Signed
+      - Unsigned
+      - Signed by Unsigned
+    execution: "_ZX_2(%0)"
+
+  - ID: mostsig
+    what: Least or Most Significant Bits
+    members: [ ., .M ]
+    cases:
+      - Least Significant Bits
+      - Most Significant Bits
+    execution: "_ZX_1(%0)"
+
+  - ID: oddlanes
+    what: Even or Odd SIMD Lanes
+    members: [ ., .O ]
+    cases:
+      - Even Lanes
+      - Odd Lanes
+    execution: "_ZX_1(%0)"
+
+  - ID: ziplanes
+    what: Zip SIMD Lanes
+    members: [ ., .Z ]
+    cases:
+      - No zip
+      - Zip lanes
+    execution: "_ZX_1(%0)"
+
+  - ID: fnegate
+    what: Floating-Point Negate
+    members: [ ., .N ]
+    cases:
+      - Default Result
+      - Negate Result
+    execution: "_ZX_1(%0)"
+
+  - ID: variant
+    what: Load Variants
+    members: [ ., .S, .U, .US ]
+    cases:
+      - Cached
+      - Speculative
+      - Uncached
+      - Uncached Speculative
+    execution: "_ZX_2(%0)"
+    properties:
+      '%0.S': Dismissible,
+      '%0.U': MemoryLevel=2
+      '%0.US': MemoryLevel=2;Dismissible
+
+  - ID: speculate
+    what: Speculative Load
+    members: [ .U, .US ]
+    cases:
+      - Uncached
+      - Uncached Speculative
+    execution: "_ZX_1(%0)"
+    properties:
+      '%0.U': MemoryLevel=2
+      '%0.US': MemoryLevel=2;Dismissible
+
+  - ID: doscale
+    what: Enable Scaling for Indexed Addressing
+    members: [ ., .XS ]
+    cases:
+      - Scale by 1
+      - Scale by sizeof
+    execution: "_ZX_1(%0)"
+
+  - ID: qindex
+    what: Quarter Index
+    members: [ .Q0, .Q1, .Q2, .Q3 ]
+    cases:
+      - Quarter 0
+      - Quarter 1
+      - Quarter 2
+      - Quarter 3
+    execution: "_ZX_2(%0)"
+
+  - ID: hindex
+    what: Half Index
+    members: [ .H0, .H1 ]
+    cases:
+      - Half 0
+      - Half 1
+    execution: "_ZX_1(%0)"
+
+  - ID: cachelev
+    what: Cache Level for Set/Way maintenance
+    members: [ .L1, .L2 ]
+    cases:
+      - L1 Cache
+      - L2 Cache
+    execution: "_ZX_2(%0)"
+
+  - ID: coherency
+    what: Coherency Domain for atomics
+    members: [ ., .G, .S ]
+    cases:
+      - Local
+      - Global
+      - Reserved
+    execution: "_ZX_2(%0)"
+
+  - ID: boolcas
+    what: Boolean Compare-and-Swap
+    members: [ .V, . ]
+    cases:
+      - Valued CAS
+      - Boolean CAS
+    execution: "_ZX_1(%0)"
+
+  - ID: accesses
+    what: Fence Access
+    members: [ ., .W, .R, .WA ]
+    cases:
+      - All Accesses
+      - Write Accesses
+      - Read Accesses
+      - Write Accesses (asynchronous)
+    execution: "_ZX_2(%0)"
+
+  - ID: channel
+    what: Coprocessor Channel
+    members: [ .F, .B ]
+    cases:
+      - Forward Channel
+      - Backward Channel
+    execution: "_ZX_1(%0)"
+
+  - ID: conjugate
+    what: Complex Conjugate
+    members: [ ., .C ]
+    cases:
+      - Default
+      - Conjugate
+    execution: "_ZX_1(%0)"
+
+  - ID: imultiply
+    what: Multiply by Imaginary Unit
+    members: [ ., .MI ]
+    cases:
+      - Default
+      - Multiply by I
+    execution: "_ZX_1(%0)"
+
+  - ID: realimag
+    what: Complex Part
+    members: [ .R, .I ]
+    cases:
+      - Real Part
+      - Imaginary Part
+    execution: "_ZX_1(%0)"
+
+  - ID: shuffleV
+    what: Shuffle a Word Vector (1024 bits)
+    members: [ ., .TD ]
+    cases:
+      - No Shuffle
+      - Transpose Double Words 4x4
+    execution: "_ZX_1(%0)"
+
+  - ID: shuffleX
+    what: Shuffle a Word Hexadecuple (512 bits)
+    members: [ ., .ZD, .UD, .TQ, .TW, .ZW, .UW ]
+    cases:
+      - No Shuffle
+      - Zip Double Words
+      - Unzip Double Words
+      - Transpose Quadruple Words 2x2
+      - Transpose Words 4x4
+      - Zip Words
+      - Unzip Words
+    execution: "_ZX_3(%0)"
+
+  - ID: splat32
+    what: Splat 32-bit Immediate
+    members: [ ., ".@" ]
+    cases:
+      - No splat
+      - Splat x2
+    execution: "_ZX_1(%0)"
+
+#endif//_KV4_
+
+#ifdef _KV4_RV_
+
+  - ID: ordering
+    what: Fence predecessor and successor ordering
+    members: [ .NONE, .W, .R, .RW, .O, .OW, .OR, .ORW, .I, .IW, .IR, .IRW, .IO, .IOW, .IOR, .IORW ]
+    cases:
+      - None
+      - Write 
+      - Read 
+      - Read Write 
+      - Out 
+      - Out Write 
+      - Out Read 
+      - Out Read Write 
+      - In 
+      - In Write 
+      - In Read 
+      - In Read Write 
+      - In Out 
+      - In Out Write 
+      - In Out Read 
+      - In Out Read Write 
+    execution: "_ZX_4(%0)"
+
+  - ID: acqrel
+    what: Acquire/Release memory ordering
+    members: [ ., .RL, .AQ, .AQRL ]
+    cases:
+      - None
+      - Release
+      - Acquire
+      - Acquire/Release
+    execution: "_ZX_1(%0)"
+
+  - ID: froundmode
+    what: Floating-point rounding mode
+    members: [ RNE, RTZ, RDN, RUP, RMM, _RES5, _RES6, DYN ]
+    cases:
+      - Round to Nearest, ties to Even
+      - Round Towards Zero
+      - Round Down (towards -Inf)
+      - Round Up (towards +Inf)
+      - Round to Nearest, ties to Max Magnitude
+      - Reserved value
+      - Reserved value
+      - Dynamic rounding mode
+    execution: "_ZX_3(%0)"
+
+#endif//_KV4_RV_
+

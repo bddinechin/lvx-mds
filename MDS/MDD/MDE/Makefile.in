@@ -1,0 +1,123 @@
+include ../../Makerules
+include ../Makerules
+PERLBIN:=	$(MDSDIR)/MDD/MDE/BIN
+
+vpath %.pl	$(PERLBIN)
+
+MDE_tables:=	$(foreach CORE, $(CORES), $(addprefix ../$(FAMILY)/$(CORE)/, $(MDE_names)))
+MDE_xml:=	$(MDE_tables:.table=.core.xml)
+MDE_osx:=	$(addprefix ../$(FAMILY)/, $(addsuffix /MDS.osx, $(CORES)))
+MDE_check:=	$(MDE_osx)
+
+MDS_ndiff_names:=   MDS_ref.ndiff MDS_new.ndiff
+MDS_ndiff_output:= $(foreach CORE, $(CORES), $(addprefix ../$(CORE)/, $(MDS_ndiff_names)))
+
+cleanfiles=	$(MDE_tables) $(MDE_xml) $(MDS_check) *.xml $(MDS_ndiff_output)
+
+Method.input:=	Operand.table Modifier.table Immediate.table RegClass.table RegMask.table Register.table RegField.table
+Encode.input:=	BitField.table Pattern.table Pattern.X.table Format.table Encoding.table
+
+all:	Begin.xml End.xml $(MDE_tables)
+	-
+
+install:
+	-
+
+define generate
+../$(FAMILY)/$(1)/%.table: %.pl ../$(FAMILY)/$(1)/%.core.xml
+	@echo "Building $$@"
+	@FAMILY=$(FAMILY) CORE=$(1) $(PERL) $(PERLINC) $$^ > $$@	|| $(ABORT2)
+endef
+
+$(foreach CORE,$(CORES),$(eval $(call generate,$(CORE))))
+
+Synthetic.X.input:=	Storage.table RegFile.table Format.table Instruction.table Synthetic.table
+%Synthetic.X.core.xml: $(addprefix %, $(Synthetic.X.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Synthetic.X.input)) End.xml > $@	|| $(ABORT)
+
+Instruction.X.input:=	Operand.table Encoding.table Format.table Pattern.table BitField.table Storage.table RegFile.table Instruction.table Synthetic.table Synthetic.X.table
+%Instruction.X.core.xml: $(addprefix %, $(Instruction.X.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Instruction.X.input)) End.xml > $@	|| $(ABORT)
+
+Access.input:=	Storage.table RegFile.table $(Method.input) Scheduling.table Processor.table
+%Access.core.xml: $(addprefix %, $(Access.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Access.input)) End.xml > $@	|| $(ABORT)
+
+Pattern.X.input:=	Template.table Dispersal.table Synthetic.table Synthetic.X.table Operand.table Encoding.table Format.table Pattern.table BitField.table Instruction.table
+%Pattern.X.core.xml: $(addprefix %, $(Pattern.X.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Pattern.X.input)) End.xml > $@	|| $(ABORT)
+
+Opcode.input:=	Storage.table RegFile.table $(Method.input) Access.table $(Encode.input) Instruction.table Instruction.X.table Synthetic.table Synthetic.X.table Scheduling.table Processor.table
+%Opcode.core.xml: $(addprefix %, $(Opcode.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Opcode.input)) End.xml > $@	|| $(ABORT)
+
+%Opcode.X.core.xml:
+	@echo "Building $@"
+	@cat Begin.xml End.xml > $@	|| $(ABORT)
+
+%RegFile.X.core.xml:
+	@echo "Building $@"
+	@cat Begin.xml End.xml > $@	|| $(ABORT)
+
+%Register.X.core.xml:
+	@echo "Building $@"
+	@cat Begin.xml End.xml > $@	|| $(ABORT)
+
+Decoding.input:=	Opcode.table Encoding.table
+%Decoding.core.xml: $(addprefix %, $(Decoding.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Decoding.input)) End.xml > $@	|| $(ABORT)
+
+Template.X.input:=	Pattern.table Pattern.X.table Template.table Dispersal.table
+%Template.X.core.xml: $(addprefix %, $(Template.X.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Template.X.input)) End.xml > $@	|| $(ABORT)
+
+Bundle.input:=	Template.table Template.X.table Dispersal.table Bundling.table
+%Bundle.core.xml: $(addprefix %, $(Bundle.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Bundle.input)) End.xml > $@	|| $(ABORT)
+
+Operator.input:=	Storage.table RegFile.table $(Method.input) Instruction.table Synthetic.table Synthetic.X.table Instruction.X.table Opcode.table Simulated.table Generic.table Scheduling.table Processor.table Encoding.table
+%Operator.core.xml: $(addprefix %, $(Operator.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Operator.input)) End.xml > $@	|| $(ABORT)
+
+Builtin.input:=	Operator.table Instruction.table Synthetic.table Synthetic.X.table Instruction.X.table Opcode.table Simulated.table Generic.table
+%Builtin.core.xml: $(addprefix %, $(Builtin.input))
+	@echo "Building $@"
+	@cat Begin.xml $(addprefix $(dir $*), $(Builtin.input)) End.xml > $@	|| $(ABORT)
+
+check: $(MDE_check)
+	@echo "MDE check successful"
+	rm -f $^
+
+MDS_diff:=	$(addprefix $(FAMILY)/, $(addsuffix /MDS.diff, $(CORES)))
+MDS_ndiff:=	$(addprefix $(FAMILY)/, $(addsuffix /MDS.ndiff, $(CORES)))
+MDS_refs:=	$(addprefix $(FAMILY)/, $(addsuffix /MDS.refs, $(CORES)))
+
+diff: $(MDS_diff)
+
+%MDS.diff:
+	$(DIFF) ../$* $(FAMDIR)/MDD/$*
+
+ndiff: $(MDS_ndiff)
+
+%MDS.ndiff:
+	echo "Building $@"
+	cat Begin.xml $(addprefix ../$(dir $*), $(MDS_names)) End.xml > MDS_new.xml || $(ABORT)
+	cat Begin.xml $(addprefix $(FAMDIR)/$(dir $*), $(MDS_names)) End.xml > MDS_ref.xml || $(ABORT)
+	$(PERL) $(PERLINC) $(MDSDIR)/LIB/MDS-diff.pl $(DIFF_OPTS) MDS_ref.xml MDS_new.xml $(addprefix ../$(dir $*),$(MDS_ndiff_names)) || $(ABORT)
+	rm -f MDS_new.xml MDS_ref.xml
+
+
+refs: $(MDS_refs)
+
+%MDS.refs:
+	mkdir -p $(dir $(FAMDIR)/MDD/$*)
+	cp  ../$**.table $(FAMDIR)/MDD/$*

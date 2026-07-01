@@ -1,0 +1,9 @@
+* bug_found_avp_floating_point.txt contains vectors that found bugs either
+in ISS or in RTL simulation.
+
+* tests_avp_floating_point.txt contains generated vectors from testfloat
+and Flopoco.
+
+Only tests_avp_floating_point.txt is used to generate avps so
+bug_found_avp_floating_point.txt should be appended to the end of
+tests_avp_floating_point.txt when new vectors are generated.

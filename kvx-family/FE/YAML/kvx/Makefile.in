@@ -1,0 +1,32 @@
+FAMDIR:= @FAMDIR@
+TOPDIR:= @TOPDIR@
+
+INPUTDIR:= $(FAMDIR)/FE/YAML/kvx
+OUTPUTDIR:= $(TOPDIR)/FE/YAML/kvx
+
+CORES:= kv4_v1
+
+DIRS:=$(addprefix $(OUTPUTDIR)/,$(CORES))
+DESCS:=$(addsuffix /Description.yml,$(DIRS))
+
+core_gen_uc=$(shell echo '$1' | tr 'a-z' 'A-Z' | sed -e 's/^KV\([0-9]\)_V.*/KV\1/')
+
+all: ${CORES}
+
+${CORES}: %: $(OUTPUTDIR)/%/Description.yml
+
+${DESCS}: $(OUTPUTDIR)/%/Description.yml: $(INPUTDIR)/%/Description.yml.in | $(OUTPUTDIR)/%
+	@echo "Generate description for $*"
+	cpp -E -P -undef -nostdinc -D_$(call core_gen_uc,$*)_RV_ $< -o $@
+
+.PHONY: install all clean ${CORES}
+
+$(OUTPUT_DIR) $(DIRS):
+	mkdir -p $@
+
+install: | ${OUTPUTDIR}
+	cp makeBundle.pl ${OUTPUTDIR}/
+
+clean:
+	rm ${DESCS}
+

@@ -1,0 +1,16 @@
+Platform:
+
+  - ID: kvx_64
+    charWidth: 8
+    addrWidth: 32
+    endian: Little
+    alignText: 8
+    alignData: 8
+    alignHeap: 8
+    alignStack: 8
+    nativeInt: Int32
+    nativeUInt: UInt32
+    nativeFloat: Float64
+    nativePtr: UInt64
+
+

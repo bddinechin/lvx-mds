@@ -1,0 +1,45 @@
+PERL:=		@PERL@
+RUBY:=		@RUBY@
+prefix:=	@prefix@
+INSTALL:=	@INSTALL@
+
+TOPDIR:=	@TOPDIR@
+MDSDIR:=	@MDSDIR@
+FAMDIR:=	@FAMDIR@
+ARCHDIR:=	@ARCHDIR@
+FAMILY:=	@FAMILY@
+CORES:=		@CORES@
+TOOLS:=		@TOOLS@
+FEDIR:=		@FEDIR@
+LAODIR:=	@ISSDIR@
+ISSDIR:=	@ISSDIR@
+
+MDF_ENABLED:=	@MDF_ENABLED@
+
+XMLEXPAND:=	SGML_CATALOG_FILES=@MDSDIR@/XML/xml.soc @OSX@ -wxml -D@MDSDIR@/DOC -D.
+DIFF:=          -diff
+
+ABORT=		(rm -f $@ ; exit -1)
+ABORT2=		(rm -f $$@ ; exit -1)
+
+MDD_names:=	$(strip @MDD_names@)
+MDE_names:=	$(strip @MDE_names@)
+MDS_names:=	$(MDD_names) $(MDE_names)
+MDT_names:=	$(strip @MDT_names@)
+MDC_names:=	$(filter-out $(MDT_names), $(MDS_names))
+
+.PHONY: doc all check clean diff refs echo
+
+Begin.xml:
+	@echo "<?xml version='1.0' encoding='UTF-8'?>" > $@
+	@echo "<MDS>" >> $@
+
+End.xml:
+	@echo "</MDS>" > $@
+
+clean:
+	rm -rf $(cleanfiles)
+
+echo:
+	$(foreach v,$(V), $(warning $v = $($v)))
+

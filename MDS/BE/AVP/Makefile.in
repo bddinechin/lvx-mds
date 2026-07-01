@@ -1,0 +1,50 @@
+AVP_DIR   ?= $(abspath .)
+AVP_prefix:=	@AVPDIR@
+include	../../Makerules
+include	../Makerules
+RUBYBIN:=	$(FAMDIR)/BE/AVP/BIN
+
+cleanfiles=	$(mach_avpinfo) $(avpinfo_dirs)
+
+avpinfo_dirs= $(FAMDIR)
+avpinfo= $(addsuffix /avp.stamp, $(CORES))
+
+mach_avpinfo_dirs = $(addprefix $(avpinfo_dirs)/, $(CORES) )
+mach_avpinfo = $(addprefix $(FAMILY)/, $(avpinfo))
+mach_avpinfo_refs =  $(addprefix $(FAMILY)/, $(addsuffix .ref, $(avpinfo)))
+mach_avpinfo_diffs = $(addprefix $(FAMILY)/, $(addsuffix .diff, $(avpinfo)))
+avpinfo_installs = $(addsuffix .ist, $(avpinfo))
+avp_install_dirs = $(addprefix $(FAMILY)/,  $(CORES))
+
+all:	Begin.xml End.xml
+	mkdir -p $(FAMILY)
+	mkdir -p $(mach_avpinfo_dirs)
+	mkdir -p $(avp_install_dirs)
+	$(MAKE) all_avpinfo
+
+all_avpinfo: $(mach_avpinfo)
+
+%/avp.stamp :
+	( cd `dirname $@` && $(RUBY) $(RUBYINC) $(RUBYBIN)/generate_test.rb ../../../../MDD/`dirname $@` || $(ABORT) )
+#( cd `dirname $@` && $(RUBYBIN)/generate_float_avp.pl $(FAMILY) $(RUBYBIN)/tests_avp_floating_point.txt || $(ABORT) )
+
+diff: $(mach_avpinfo_diffs)
+
+%.diff:
+	echo "Do not diff any AVP with REF (too big)."
+
+refs: $(mach_avpinfo_refs)
+
+%.ref:
+	echo "Do not copy any AVP to REF (too big)."
+
+install:
+	$(INSTALL) -d $(AVP_prefix)
+	$(MAKE) install_avpinfo
+	$(INSTALL) -m 644 $(RUBYBIN)/avp_makefile $(AVP_prefix)/Makefile.runavp
+
+install_avpinfo: $(avpinfo_installs)
+
+%.ist:
+	$(INSTALL) -d $(AVP_prefix)/$(dir $*)
+	$(INSTALL) -m 644 $(FAMILY)/$(dir $*)/*.s $(AVP_prefix)/$(dir $*)

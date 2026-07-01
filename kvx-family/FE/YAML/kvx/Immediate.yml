@@ -1,0 +1,136 @@
+Immediate:
+
+#ifdef _KV4_
+
+  - ID: pcrel11s2
+    what: CCB Offset
+    relative: PC
+    execution: "(_SX_11(%0)<<2)"
+
+  - ID: pcrel17s2
+    what: CB Offset
+    relative: PC
+    execution: "(_SX_17(%0)<<2)"
+
+  - ID: pcrel27s2
+    what: GOTO / CALL Offset
+    relative: PC
+    execution: "(_SX_27(%0)<<2)"
+
+  - ID: pcrel38s2
+    what: CCB Offset Extended
+    relative: PC
+    execution: "(_SX_38(%0)<<2)"
+
+  - ID: pcrel44s2
+    what: CB Offset Extended
+    relative: PC
+    execution: "(_SX_44(%0)<<2)"
+
+  - ID: pcrel54s2
+    what: GOTO Offset Extended
+    relative: PC
+    execution: "(_SX_54(%0)<<2)"
+
+#endif//_KV4_
+
+  - ID: brknumber
+    what: Break Number
+    execution: "_ZX_2(%0)"
+
+  - ID: sysnumber
+    what: System Number
+    execution: "_ZX_12(%0)"
+
+  - ID: unsigned6
+    what: Zero Extended Immediate 6 bits
+    shortName: u6
+    execution: "_ZX_6(%0)"
+
+  - ID: wrapped8
+    what: Wrapped Immediate 8 bits
+    shortName: w8
+    execution: "_WX_8(%0)"
+
+  - ID: signed10
+    what: Sign Extended Immediate 10 bits
+    shortName: s10
+    execution: "_SX_10(%0)"
+
+  - ID: signed16
+    what: Sign Extended Immediate 16 bits
+    shortName: s16
+    execution: "_SX_16(%0)"
+
+  - ID: signed27
+    what: Sign Extended Immediate 27 bits
+    shortName: s27
+    execution: "_SX_27(%0)"
+
+  - ID: wrapped32
+    what: Wrapped Immediate 32 bits
+    shortName: w32
+    execution: "_WX_32(%0)"
+
+  - ID: signed37
+    what: Sign Extended Immediate 37 bits
+    shortName: s37
+    execution: "_SX_37(%0)"
+
+  - ID: signed43
+    what: Sign Extended Immediate 43 bits
+    shortName: s43
+    execution: "_SX_43(%0)"
+
+  - ID: signed54
+    what: Sign Extended Immediate 54 bits
+    shortName: s54
+    execution: "_SX_54(%0)"
+
+  - ID: wrapped64
+    what: Wrapped Immediate 64 bits
+    shortName: w64
+    execution: "_WX_64(%0)"
+
+
+#ifdef _KV4_RV_
+
+  - ID: unsigned5
+    what: Zero Extended Immediate 5 bits
+    shortName: u5
+    execution: "_ZX_5(%0)"
+
+#ifdef _NO_UNSIGNED6_
+  - ID: unsigned6
+    what: Zero Extended Immediate 6 bits
+    shortName: u6
+    execution: "_ZX_6(%0)"
+#endif
+
+  - ID: signed6
+    what: Sign Extended Immediate 6 bits
+    shortName: s6
+    execution: "_SX_6(%0)"
+
+  - ID: signed12
+    what: Sign Extended Immediate 12 bits
+    shortName: s12
+    execution: "_SX_12(%0)"
+
+  - ID: signed20
+    what: Sign Extended Immediate 20 bits
+    shortName: s20
+    execution: "_SX_20(%0)"
+
+  - ID: pcrel12s1
+    what: PC-Relative Immediate 12 bits
+    relative: PC
+    execution: "(_SX_12(%0)<<1)"
+
+  - ID: pcrel20s1
+    what: PC-Relative Immediate 20 bits
+    relative: PC
+    execution: "(_SX_20(%0)<<1)"
+
+#endif//_KV4_RV_
+

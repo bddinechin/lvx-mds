@@ -1,0 +1,316 @@
+# Machine Description System (MDS)
+#
+# Copyright (C) 2009 Kalray
+#
+# Benoit Dupont de Dinechin (Benoit.Dinechin@kalray.eu).
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+package Execution;
+
+use Carp;
+use warnings;
+use Behavior;
+
+#
+# Scanner code: export &yylval, &yyin, &yylex.
+#
+
+$yylval = undef;
+@yylval = ();
+$yylkeep = 8;
+sub yylval {
+  $yylkeep =  shift;
+  if (defined $yylkeep) {
+    shift @yylval while @yylval > $yylkeep;
+  }
+  map { "'$_' " } @yylval;
+}
+
+@yyin = ();
+sub yyin {
+  while (@_) {
+    my $buffer = shift;
+    push @yyin, grep {length($_)} split ' ', $buffer;
+  }
+}
+
+sub yyflush {
+  @yyin = ();
+  @yylval = ();
+}
+
+my $yytree;
+sub yytree {
+  return $yytree;
+}
+
+sub yylex {
+  my $token;
+  return '' unless (@yyin);
+  my $value = shift @yyin;
+  # %token IDENTIFIER CONSTANT SECTION
+  # %token NEW STAGE PROXY METHOD
+  # %token IF ELSE FOR RANGE
+  # %token "<<=" ">>=" "&=" "^=" "|="
+  # %token "->" "++" "--" "<<" ">>" "<=" ">=" "==" "!="
+  # %token "&&" "||" "*=" "/=" "%=" "+=" "-="
+  if ($value =~ s/^(\d+\[\d+(:\d+)?\])//) {
+    ($token, $yylval) = ('SECTION', $1);
+  } elsif ($value =~ s/^(\d+\[[a-zA-Z_]\w*\])//) {
+    ($token, $yylval) = ('SECTION', $1);
+  } elsif ($value =~ s/^(0[xX][0-9a-fA-F]+)//) {
+    ($token, $yylval) = ('CONSTANT', $1);
+    $yylval = oct($yylval) if $yylval =~ /^0/;
+  } elsif ($value =~ s/^(0\d+)//) {
+    ($token, $yylval) = ('CONSTANT', $1);
+    $yylval = oct($yylval) if $yylval =~ /^0/;
+  } elsif ($value =~ s/^(0[bB][01]+)//) {
+    ($token, $yylval) = ('CONSTANT', $1);
+    $yylval = oct($yylval) if $yylval =~ /^0/;
+  } elsif ($value =~ s/^(\d+)//) {
+    ($token, $yylval) = ('CONSTANT', $1);
+  } elsif ($value =~ s/^(new|stage|if|else|for|range)\b//) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ s/^([a-zA-Z_]\w*)//) {
+    ($token, $yylval) = ('IDENTIFIER', $1);
+    #$token = 'CONSTANT' if defined &Constant($yylval);
+  } elsif ($value =~ s/^(\%(\d+(:\d+)?))//) {
+    ($token, $yylval) = ('PROXY', $2);
+  } elsif ($value =~ s/^(\@(\d+))//) {
+    ($token, $yylval) = ('METHOD', $2);
+  } elsif ($value =~ s/^((\<\<\=)|(\>\>\=)|(\&\=)|(\^\=)|(\|\=))//) {
+    ($token, $yylval) = ($1, $1);
+  } elsif ($value =~ s/^((\+\+)|(\-\-)|(\<\<)|(\>\>)|(\<\=)|(\>\=)|(\=\=)|(\!\=))//) {
+    ($token, $yylval) = ($1, $1);
+  } elsif ($value =~ s/^((\&\&)|(\|\|)|(\*\=)|(\/\=)|(\%\=)|(\+\=)|(\-\=))//) {
+    ($token, $yylval) = ($1, $1);
+  } elsif ($value =~ s/^(\W)//) {
+    ($token, $yylval) = ($1, $1);
+  } else {
+    croak "unrecognized token: '$value'";
+  }
+  unshift @yyin, $value if length($value);
+  if (defined $yylkeep) {
+    push @yylval, $yylval;
+    shift @yylval if @yylval > $yylkeep;
+  }
+  $token;
+}
+
+#rule $accept -> execution_definition $end
+
+#rule execution_definition -> block_item_list
+
+#rule primary_expression -> IDENTIFIER
+
+#rule primary_expression -> CONSTANT
+
+#rule primary_expression -> '(' expression ')'
+
+#rule primary_expression -> METHOD
+
+#rule primary_expression -> PROXY
+
+#rule postfix_expression -> primary_expression
+
+#rule postfix_expression -> postfix_expression '[' expression ']'
+
+#rule postfix_expression -> postfix_expression '(' ')'
+
+#rule postfix_expression -> postfix_expression '(' argument_expression_list ')'
+
+#rule postfix_expression -> postfix_expression '.' IDENTIFIER
+
+#rule postfix_expression -> postfix_expression '.' SECTION
+
+#rule postfix_expression -> postfix_expression "++"
+
+#rule postfix_expression -> postfix_expression "--"
+
+#rule argument_expression_list -> assignment_expression
+
+#rule argument_expression_list -> argument_expression_list ',' assignment_expression
+
+#rule unary_expression -> postfix_expression
+
+#rule unary_expression -> "++" unary_expression
+
+#rule unary_expression -> "--" unary_expression
+
+#rule unary_expression -> unary_operator cast_expression
+
+#rule unary_operator -> '+'
+
+#rule unary_operator -> '-'
+
+#rule unary_operator -> '~'
+
+#rule unary_operator -> '!'
+
+#rule cast_expression -> unary_expression
+
+#rule multiplicative_expression -> cast_expression
+
+#rule multiplicative_expression -> multiplicative_expression '*' cast_expression
+
+#rule multiplicative_expression -> multiplicative_expression '/' cast_expression
+
+#rule multiplicative_expression -> multiplicative_expression '%' cast_expression
+
+#rule additive_expression -> multiplicative_expression
+
+#rule additive_expression -> additive_expression '+' multiplicative_expression
+
+#rule additive_expression -> additive_expression '-' multiplicative_expression
+
+#rule shift_expression -> additive_expression
+
+#rule shift_expression -> shift_expression "<<" additive_expression
+
+#rule shift_expression -> shift_expression ">>" additive_expression
+
+#rule relational_expression -> shift_expression
+
+#rule relational_expression -> relational_expression '<' shift_expression
+
+#rule relational_expression -> relational_expression '>' shift_expression
+
+#rule relational_expression -> relational_expression "<=" shift_expression
+
+#rule relational_expression -> relational_expression ">=" shift_expression
+
+#rule equality_expression -> relational_expression
+
+#rule equality_expression -> equality_expression "==" relational_expression
+
+#rule equality_expression -> equality_expression "!=" relational_expression
+
+#rule and_expression -> equality_expression
+
+#rule and_expression -> and_expression '&' equality_expression
+
+#rule exclusive_or_expression -> and_expression
+
+#rule exclusive_or_expression -> exclusive_or_expression '^' and_expression
+
+#rule inclusive_or_expression -> exclusive_or_expression
+
+#rule inclusive_or_expression -> inclusive_or_expression '|' exclusive_or_expression
+
+#rule logical_and_expression -> inclusive_or_expression
+
+#rule logical_and_expression -> logical_and_expression "&&" inclusive_or_expression
+
+#rule logical_or_expression -> logical_and_expression
+
+#rule logical_or_expression -> logical_or_expression "||" logical_and_expression
+
+#rule conditional_expression -> logical_or_expression
+
+#rule conditional_expression -> logical_or_expression '?' expression ':' conditional_expression
+
+#rule assignment_expression -> conditional_expression
+
+#rule assignment_expression -> unary_expression assignment_operator assignment_expression
+
+#rule assignment_operator -> '='
+
+#rule assignment_operator -> "*="
+
+#rule assignment_operator -> "/="
+
+#rule assignment_operator -> "%="
+
+#rule assignment_operator -> "+="
+
+#rule assignment_operator -> "-="
+
+#rule assignment_operator -> "<<="
+
+#rule assignment_operator -> ">>="
+
+#rule assignment_operator -> "&="
+
+#rule assignment_operator -> "^="
+
+#rule assignment_operator -> "|="
+
+#rule expression -> assignment_expression
+
+#rule declaration -> declaration_specifiers ';'
+
+#rule declaration -> declaration_specifiers init_declarator_list ';'
+
+#rule declaration_specifiers -> type_specifier
+
+#rule declaration_specifiers -> type_specifier declaration_specifiers
+
+#rule init_declarator_list -> init_declarator
+
+#rule init_declarator_list -> init_declarator_list ',' init_declarator
+
+#rule init_declarator -> declarator
+
+#rule init_declarator -> declarator '=' initializer
+
+#rule type_specifier -> NEW
+
+#rule declarator -> direct_declarator
+
+#rule direct_declarator -> IDENTIFIER
+
+#rule direct_declarator -> '(' declarator ')'
+
+#rule initializer -> assignment_expression
+
+#rule statement -> labeled_statement
+
+#rule statement -> compound_statement
+
+#rule statement -> expression_statement
+
+#rule statement -> selection_statement
+
+#rule statement -> iteration_statement
+
+#rule labeled_statement -> IDENTIFIER ':' statement
+
+#rule compound_statement -> '{' '}'
+
+#rule compound_statement -> '{' block_item_list '}'
+
+#rule block_item_list -> block_item
+
+#rule block_item_list -> block_item_list block_item
+
+#rule block_item -> declaration
+
+#rule block_item -> statement
+
+#rule block_item -> STAGE CONSTANT ':'
+
+#rule expression_statement -> ';'
+
+#rule expression_statement -> expression ';'
+
+#rule selection_statement -> IF '(' expression ')' statement
+
+#rule selection_statement -> IF '(' expression ')' statement ELSE statement
+
+#rule iteration_statement -> FOR '(' IDENTIFIER RANGE CONSTANT ')' statement
+
+#rule iteration_statement -> FOR '(' IDENTIFIER RANGE CONSTANT ',' CONSTANT ')' statement
+

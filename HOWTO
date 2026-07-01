@@ -1,0 +1,3 @@
+mkdir -p build && cd build && ../kvx-family/configure --enable-mdf --target=kvx
+make all
+make refs

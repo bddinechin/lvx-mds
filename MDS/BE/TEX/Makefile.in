@@ -1,0 +1,102 @@
+include	../../Makerules
+include	../Makerules
+PERLBIN:=	$(MDSDIR)/BE/TEX/BIN
+
+ymlnames:=	$(addsuffix .yml, \
+  RegField \
+  Register \
+  RegFile \
+  RegClass \
+  Immediate \
+  Modifier \
+  Operand \
+  Relocation \
+  Format \
+  Encoding \
+  Instruction \
+  Synthetic \
+  Scheduling \
+  Reservation \
+  Resource \
+  Processor \
+  Convention \
+  Builtin \
+)
+
+xml_texnames:= $(addsuffix .tex, \
+  Stages \
+)
+
+yml_texnames:= $(addsuffix .tex, \
+  DwarfId \
+  Format \
+  RegFile \
+  Register \
+  Instruction \
+  Synthetic \
+  Opcode \
+  Resource \
+  Reservation \
+  Convention \
+  Summary \
+  Relocation \
+)
+
+cleanfiles=	$(TEX_products) $(TEX_xml) $(TEX_yml) $(TEX_check) $(FAMILY)/ *.xml
+TEX_coredirs:= $(addprefix $(FAMILY)/, $(CORES))
+TEX_coredirs_src:= $(addprefix $(ARCHDIR)/BE/TEX/, $(TEX_coredirs))
+TEX_xml_products= $(addprefix $(FAMILY)/$(1)/, $(xml_texnames))
+TEX_yml_products= $(addprefix $(FAMILY)/$(1)/, $(yml_texnames))
+TEX_products:= $(foreach CORE,$(CORES),$(call TEX_xml_products,$(CORE)) $(call TEX_yml_products,$(CORE)))
+TEX_xml:=	$(addsuffix /TEX.xml, $(TEX_coredirs))
+TEX_drop:=	Access.table Instruction.table Instruction.X.table
+TEX_input:=	$(filter-out $(TEX_drop), $(MDS_names))
+TEX_yml:= $(addsuffix /TEX.yml, $(TEX_coredirs))
+
+define generateXml
+$(FAMILY)/$(1)/TEX.xml: Begin.xml $(addprefix ../../MDD/$(FAMILY)/$(1)/, $(TEX_input)) End.xml
+	cat $$^ > $$@ || $(ABORT2)
+endef
+
+$(foreach CORE,$(CORES),$(eval $(call generateXml,$(CORE))))
+
+define generateYml
+$(FAMILY)/$(1)/TEX.yml: $(addprefix ../../FE/YAML/$(FAMILY)/$(1)/, $(ymlnames))
+	cat $$^ | sed -e 's/^---$$$$//' > $$@
+endef
+
+$(foreach CORE,$(CORES),$(eval $(call generateYml,$(CORE))))
+
+
+all: Begin.xml End.xml
+	mkdir -p $(TEX_coredirs)
+	$(MAKE) $(TEX_products)
+	cp -rf $(TEX_coredirs_src) $(FAMILY)/
+
+define generate
+$(call TEX_xml_products,$(1)): $(FAMILY)/$(1)/%.tex: $(FAMILY)/$(1)/TEX.xml
+	FAMILY=$(FAMILY) CORE=$(1) $(PERL) $(PERLINC) $(PERLBIN)/$$*.pl $$^ > $$@ || $(ABORT2)
+$(call TEX_yml_products,$(1)): $(FAMILY)/$(1)/%.tex: $(FAMILY)/$(1)/TEX.yml
+	FAMILY=$(FAMILY) CORE=$(1) $(PERL) $(PERLINC) $(PERLBIN)/$$*.pl $$^ > $$@ || $(ABORT2)
+endef
+
+$(foreach CORE,$(CORES),$(eval $(call generate,$(CORE))))
+
+TEX_extras:= $(filter-out $(TEX_products), $(foreach CORE,$(CORES),$(wildcard $(FAMILY)/$(CORE)/*.tex)))
+TEX_diff:=	$(addsuffix .diff, $(TEX_products) $(TEX_extras))
+TEX_refs:=	$(addsuffix .refs, $(TEX_products) $(TEX_extras))
+
+diff: $(TEX_diff)
+
+%.diff:
+	$(DIFF) $* $(FAMDIR)/BE/TEX/$*
+
+refs: $(TEX_refs)
+
+%.refs:
+	mkdir -p $(dir $(FAMDIR)/BE/TEX/$*)
+	cp  $* $(FAMDIR)/BE/TEX/$*
+
+install:
+	-
+

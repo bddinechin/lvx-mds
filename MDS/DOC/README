@@ -1,0 +1,17 @@
+The main document to author is MDD.dtd, that defines the external subset of the
+MDD.xml DTD.
+
+The MDD.dtd document contains comments whose contents is itself XML. The element
+names for this documentation XML are themselves derived from the TexInfo markup
+tags. Indeed, I wanted to use XML for documentation, but HTML tags do not have
+enough structure for such documentation.
+
+The dtd2latex.pl Perl script converts MDD.dtd to MDD.tex, which is then \input
+by Design.tex. The formatted documentation is obtained by entering the command:
+
+  make doc
+
+This produces the Design.ps document.
+
+-- Benoit Dupont de Dinechin
+

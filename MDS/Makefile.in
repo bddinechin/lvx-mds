@@ -1,0 +1,65 @@
+top_srcdir:=	@top_srcdir@
+srcdir:=	@srcdir@
+
+# this variable can be defined by environment to disable some backends
+MDS_SKIP_BE ?=
+
+BEDIRS:=	$(addprefix BE/, $(filter-out $(MDS_SKIP_BE),@TOOLS@))
+SUBDIRS:=	DOC @FEDIR@ MDD/MDE $(BEDIRS)
+MDF_ENABLED:=	@MDF_ENABLED@
+ifdef MDF_ENABLED
+SUBDIRS+=	MDD/MDF
+BE_DEP:=	MDD/MDF-all
+else
+BE_DEP:=	MDD/MDE-all
+endif
+
+.PHONY: help doc all check install clean diff refs 
+
+#Express dependencies between targets, so that parallel build can 
+#run at least the backends in parallel
+@FEDIR@-all: DOC-all
+	# force non-parallel build, because this module isn't safe
+	$(MAKE) -j1 -C @FEDIR@ all
+
+MDD/MDE-all: @FEDIR@-all
+	# force non-parallel build, because this module isn't safe
+	$(MAKE) -j1 -C MDD/MDE all
+
+MDD/MDF-all: MDD/MDE-all
+	# force non-parallel build, because this module isn't safe
+	$(MAKE) -j1 -C MDD/MDF all
+
+
+$(addsuffix -all, $(BEDIRS)): $(BE_DEP)
+
+help:
+	@cat	$(srcdir)/README
+
+doc:
+	$(MAKE) -C DOC doc
+
+all:	$(addsuffix -all, $(SUBDIRS))
+%-all:
+	$(MAKE) -C $* all
+
+check:	$(addsuffix -check, $(SUBDIRS))
+%-check:
+	$(MAKE) -C $* check
+
+install: $(addsuffix -install, $(SUBDIRS))
+%-install:
+	$(MAKE) -C $* install
+
+clean:	$(addsuffix -clean, $(SUBDIRS))
+%-clean:
+	$(MAKE) -C $* clean
+
+diff:	$(addsuffix -diff, $(SUBDIRS))
+%-diff:
+	$(MAKE) -C $* diff
+
+refs:	$(addsuffix -refs, $(SUBDIRS))
+%-refs:
+	$(MAKE) -C $* refs
+

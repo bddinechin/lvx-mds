@@ -1,0 +1,10 @@
+PERLINC:=	-I$(MDSDIR)/BE/LIB -I$(MDSDIR)/LIB
+RUBYINC:=	-I$(MDSDIR)/BE/LIB -I$(MDSDIR)/LIB
+
+MDS_names:=	$(strip @MDD_names@ @MDE_names@)
+MDS_tables:=	$(foreach dir, $(CORES), $(addprefix $(dir)/, $(MDS_names)))
+MDS_xml:=	$(addsuffix /MDS.xml, $(addprefix ../../MDD/, $(CORES)))
+
+%MDS.xml: Begin.xml End.xml
+	cat Begin.xml $(addprefix $(dir $*), $(MDS_names)) End.xml > $@	||	rm -f $@
+

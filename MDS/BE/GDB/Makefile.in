@@ -1,0 +1,70 @@
+GDB_prefix:=@GDBDIR@
+include	../../Makerules
+include	../Makerules
+
+PERLBIN:=	$(MDSDIR)/BE/GDB/BIN
+RUBYBIN:=	$(MDSDIR)/BE/GDB/BIN
+
+vpath %.pl $(PERLBIN)
+vpath %.rb $(RUBYBIN)
+
+cleanfiles=	$(GDB_products) $(GDB_xml) $(GDB_check) *.xml
+GDB_xml:=	$(addsuffix /GDB.xml, $(FAMILY))
+GDB_input:=	Platform.table NativeType.table Storage.table RegField.table Register.table \
+		RegFile.table RegClass.table Convention.table Processor.table
+
+GDB_products:=	$(addprefix $(FAMILY)/, $(FAMILY)-mds-tdep.c $(FAMILY)-regs.h )
+
+gdbinfo= $(FAMILY)-mds-tdep.c
+gdbinfo_installs = $(addsuffix .ist, $(gdbinfo))
+
+gdbinfo_dirs= $(FAMILY)
+gdbinfo_install_dirs = $(addprefix $(GDB_prefix)/, $(gdbinfo_dirs))
+
+
+define generateXml
+$(1)/GDB.xml: $(addprefix ../../MDD/$(1)/, $(GDB_input))
+	echo $$^
+	cat Begin.xml $$^ End.xml > $$@	|| $(ABORT2)
+endef
+
+$(eval $(call generateXml,$(FAMILY)))
+
+
+all: Begin.xml End.xml
+	mkdir -p $(FAMILY)
+	$(MAKE) $(GDB_products)
+	rm -f $(GDB_xml)
+
+$(FAMILY)/$(FAMILY)-regs.h: target-regs.pl $(GDB_xml)
+	FAMILY=$(FAMILY) CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@  || $(ABORT2)
+
+#$(FAMILY)/$(FAMILY)-regs.h: RegisterInfo.rb $(GDB_xml)
+#	FAMILY=$(FAMILY) CORES="$(CORES)" $(RUBY) $(RUBYINC) $^ > $@  || $(ABORT2)
+
+$(FAMILY)/$(FAMILY)-mds-tdep.c: GDBTargeting.rb $(GDB_xml)
+	FAMILY=$(FAMILY) CORES="$(CORES)" $(RUBY) $(RUBYINC) $^ > $@  || $(ABORT2)
+
+GDB_diff:=	$(addsuffix /GDB.diff, $(FAMILY))
+GDB_refs:=	$(addsuffix /GDB.refs, $(FAMILY))
+
+diff: $(GDB_diff)
+
+%GDB.diff:
+	$(DIFF) $* $(FAMDIR)/BE/GDB/$*
+
+refs: $(GDB_refs)
+
+%GDB.refs:
+	mkdir -p $(FAMDIR)/BE/GDB/$*
+	cp  $*/*.h $*/*.c $(FAMDIR)/BE/GDB/$*
+
+install:
+	$(INSTALL) -d $(gdbinfo_install_dirs)
+	$(MAKE) all
+	$(MAKE) install_gdbinfo
+
+install_gdbinfo: $(gdbinfo_installs)
+
+%.ist:
+	$(INSTALL) -D -m 644 $(FAMILY)/$* $(GDB_prefix)/gdb/$*

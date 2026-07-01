@@ -1,0 +1,65 @@
+MPPADL_prefix:=@MPPADLDIR@
+include	../../Makerules
+include	../Makerules
+PERLBIN:=	$(MDSDIR)/BE/MPPADL/BIN
+
+MPPADL_xml:=	$(FAMILY)/MPPADL.xml
+MPPADL_drop:= Operator.table
+MPPADL_input:=	$(filter-out $(MPPADL_drop), $(MDS_names))
+
+define generateXml
+# This is the only place where the MDS XML tables are accessed.
+$(1)/MPPADL.xml: $(addprefix ../../MDD/$(1)/, $(MPPADL_input))
+	cat Begin.xml $$^ End.xml > $$@	|| $(ABORT)
+endef
+
+$(eval $(call generateXml,$(FAMILY)))
+
+$(mppa_dl_relocs)mppa_dl_relocs = include/arch/mppa_dl_$(FAMILY).h
+mppadlinfo=  $(mppa_dl_relocs)
+mppadlinfo_dirs= $(addprefix $(FAMILY)/, include/arch)
+mach_mppadlinfo = $(addprefix $(FAMILY)/, $(mppadlinfo))
+mach_mppadlinfo_refs = $(addsuffix .ref, $(mach_mppadlinfo))
+mach_mppadlinfo_diffs = $(addsuffix .diff, $(mach_mppadlinfo))
+MPPADL_mppadl_diffs = $(addsuffix .idf, $(mach_mppadlinfo))
+MPPADL_mppadl_prefix = $(MPPADL_prefix)
+mppadlinfo_install_dirs = $(addprefix $(MPPADL_prefix)/, $(mppadlinfo_dirs))
+mppadlinfo_installs = $(addsuffix .ist, $(mppadlinfo))
+
+cleanfiles=	$(MPPADL_xml) $(mach_mppadlinfo)
+
+all:	Begin.xml End.xml
+	mkdir -p $(mppadlinfo_dirs)
+	$(MAKE) $(MPPADL_xml)
+	$(MAKE) all_mppadlinfo
+
+all_mppadlinfo: $(mach_mppadlinfo)
+
+$(FAMILY)/include/arch/mppa_dl_$(FAMILY).h : $(MDSDIR)/BE/MPPADL/BIN/mppa_dl_relocs.pl $(MPPADL_xml)
+	FAMILY=${FAMILY} CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@ || $(ABORT)
+
+diff: $(mach_mppadlinfo_diffs)
+
+%.diff:
+	$(DIFF) $(FAMDIR)/BE/MPPADL/$* $*
+
+refs: $(mach_mppadlinfo_refs)
+
+%.ref:
+	$(INSTALL) -D -m 644 $* $(FAMDIR)/BE/MPPADL/$*
+
+install:
+	$(INSTALL) -d -D -m 644 $(mppadlinfo_install_dirs)
+	$(MAKE) all
+	$(MAKE) install_mppadlinfo
+
+install_mppadlinfo: $(mppadlinfo_installs)
+
+%.ist:
+	$(INSTALL) -D -m 644 $(FAMILY)/$* $(MPPADL_prefix)/$*
+
+diff_mppadl: $(MPPADL_mppadl_diffs)
+
+%.idf:
+	$(DIFF) $(FAMILY)/$* $(MPPADL_mppadl_prefix)/$*
+

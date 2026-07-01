@@ -1,0 +1,54 @@
+AS:=$(KALRAY_TOOLCHAIN_DIR)/bin/kvx-elf-as
+LD:=$(KALRAY_TOOLCHAIN_DIR)/bin/kvx-elf-ld
+CLUSTER:=$(KALRAY_TOOLCHAIN_DIR)/bin/kvx-cluster
+
+AVP_DIR   ?= $(abspath .)
+BUILD_DIR ?= $(AVP_DIR)/build
+
+ASM_FILES := $(shell cd $(AVP_DIR); find  -type f -name '*.s')
+ELF_FILES := $(patsubst %.s, $(BUILD_DIR)/%.elf, $(ASM_FILES))
+LOG_FILES := $(patsubst %.s, $(BUILD_DIR)/%.log, $(ASM_FILES))
+
+.PRECIOUS : $(ELF_FILES)
+
+all-with-status: all
+	@rm -f $(BUILD_DIR)/failures.txt
+	@rm -f $(BUILD_DIR)/successes.txt
+	@cd $(BUILD_DIR) && find -name "*.ok" -exec basename {} ".ok" \; >> successes.txt
+	@cd $(BUILD_DIR) && find -name "*.fail" -exec basename {} ".fail" \; >> failures.txt
+	@echo "SUCCESSES:"
+	@cat $(BUILD_DIR)/successes.txt
+	@echo "FAILURES:"
+	@cat $(BUILD_DIR)/failures.txt
+	@if [ -f failures.txt ]; then exit 255; fi
+
+all: $(LOG_FILES)
+
+.PHONY: all all-with-status clean
+
+.SUFFIXES: .elf
+
+$(BUILD_DIR)/%.out : $(AVP_DIR)/%.s
+	mkdir -p $(dir $@)
+	$(AS) $(patsubst v%, -march=kv3-%, $(notdir $(realpath $(dir $<)))) $< -o $@
+
+$(BUILD_DIR)/%.elf : $(BUILD_DIR)/%.out
+	$(LD) $< -Ttext=0 -nostdlib -o $@
+
+$(BUILD_DIR)/%.log : $(BUILD_DIR)/%.elf
+	rm -f `dirname $<`/`basename $< .elf`.ok
+	rm -f `dirname $<`/`basename $< .elf`.fail
+	if($(CLUSTER) $(patsubst v%, --march=kv3-%, $(notdir $(realpath $(dir $<))))  --no-gdb-attach -- $< > $@ 2>&1) then \
+		echo `basename $<` OK; touch `dirname $<`/`basename $< .elf`.ok; \
+	else \
+		echo `basename $<` FAIL; touch `dirname $<`/`basename $< .elf`.fail; \
+	fi;
+	touch $@
+
+clean:
+	rm -f $(BUILD_DIR)/*/*.out
+	rm -f $(BUILD_DIR)/*/*.elf
+	rm -f $(BUILD_DIR)/*/*.log
+	rm -f $(BUILD_DIR)/*/*.ok
+	rm -f $(BUILD_DIR)/*/*.fail
+

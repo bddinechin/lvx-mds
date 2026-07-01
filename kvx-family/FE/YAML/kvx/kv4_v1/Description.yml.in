@@ -1,0 +1,26 @@
+## Description.yml
+
+#define _KV4_
+#define _KV4_V1_
+
+#include "../Builtin.yml"
+#include "../Convention.yml"
+#include "../Format.yml"
+#include "../Generic.yml"
+#include "../Immediate.yml"
+#include "../Instruction.yml"
+#include "../Modifier.yml"
+#include "../NativeType.yml"
+#include "../Platform.yml"
+#include "../Processor.yml"
+#include "../RegClass.yml"
+#include "../RegField.yml"
+#include "../RegFile.yml"
+#include "../Relocation.yml"
+#include "../Reservation.yml"
+#include "../Resource.yml"
+#include "../Scheduling.yml"
+#include "../Simulated.yml"
+#include "../Storage.yml"
+#include "../Synthetic.yml"
+

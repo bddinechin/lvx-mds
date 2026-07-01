@@ -1,0 +1,56 @@
+include ../Makerules
+
+cleanfiles=	*.hub *.dvi *.log *.ps
+
+vpath %.pl	$(MDSDIR)/BIN
+vpath %.dtd	$(MDSDIR)/DOC
+
+all: MDS.dtd MDD.hub MDS.hub
+	-
+
+refs:
+	-
+
+check:
+	-
+
+install:
+	-
+
+pipe:= |
+comma:= ,
+empty:=
+space:= $(empty) $(empty)
+MDD_bases:=	$(basename $(MDD_names))
+MDS_bases:=	$(basename $(MDS_names))
+MDD_filter:=	$(filter-out %.2 %.3, $(MDD_bases)) $(MDD_extras)
+MDS_filter:=	$(filter-out %.2 %.3, $(MDS_bases)) $(MDS_extras)
+MDD_group:=	$(subst $(space),$(pipe),$(strip $(patsubst %.1, %, $(MDD_filter))))
+MDS_group:=	$(subst $(space),$(pipe),$(strip $(patsubst %.1, %, $(MDS_filter))))
+
+MDS.dtd: MDD.dtd
+	cat $^ > $@
+
+%.hub:
+	@echo "Making $@..."
+	@echo "<?xml version='1.0' encoding='UTF-8'?>" > $@
+	@echo "<!DOCTYPE $* SYSTEM 'MDS.dtd' [" >> $@
+	@echo "  <!ELEMENT $* ($($*_group))+ >" >> $@
+	@for base in $($*_bases); do \
+	  echo "  <!ENTITY $${base}.table SYSTEM '$${base}.table'>" >> $@ \
+	; done
+	@for extra in $($*_extras); do \
+	  echo "  <!ENTITY $${extra}.osx SYSTEM '$${extra}.osx'>" >> $@ \
+	; done
+	@echo "]>" >> $@
+	@echo "<$*>" >> $@
+	@for base in $($*_bases); do \
+	  echo "  &$${base}.table;" >> $@ \
+	; done
+	@for extra in $($*_extras); do \
+	  echo "  &$${extra}.osx;" >> $@ \
+	; done
+	@echo "</$*>" >> $@
+
+%.latex: %.dtd
+	$(PERL) dtd2latex.pl $^ > $@	||	$(ABORT)

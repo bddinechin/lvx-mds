@@ -1,0 +1,9 @@
+PERLINC:=	-I$(MDSDIR)/LIB -I$(MDSDIR)/MDD/LIB
+
+MDD_names:=	$(strip @MDD_names@)
+MDE_names:=	$(strip @MDE_names@)
+MDS_names:=	$(MDD_names) $(MDE_names)
+
+%MDS.osx:
+	$(XMLEXPAND) -D$(dir $*) $(TOPDIR)/DOC/MDS.hub > $@	|| $(ABORT)
+

@@ -1,0 +1,17 @@
+!	Behavior
+
+  *	Unify Storage and Symbol and Constant?
+  *	Use IF ID OF E1 E2 E3 WB as dates in Behavior and instance them in Processor
+  *	Bemove B2I I2B IAND IOR etc. from Behavior.
+  *	Bemove proxies from Behavior.
+
+!	MDD
+
+  *	Replace singleton RegClass by Register in Operand@method.
+  *	Define the processor properties like in lai/cgtarget.h
+  *	Fix COMPOSE, EXTRACT with zero latencies and empty Scheduling resources
+  *	Compute per RegClass max pending latencies in MDS
+  *	Check that RegClass(es) are clused under union and inter.
+  *	Refactor the whole Action mess in Instance and Operator
+  *	Cleanup mess of computing Operator properties.
+

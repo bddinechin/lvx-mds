@@ -1,0 +1,296 @@
+Reservation:
+
+#ifdef _KV4_
+
+  - ID: ALL
+    what: Instruction must be alone in instruction bundle.
+    requirements: [ 8 ]
+    resources: [ ISSUE ]
+
+  - ID: ALU_TINY
+    what: Instruction must issue on one of the four TINY units.
+    requirements: [ 1, 1 ]
+    resources: [ ISSUE, TINY ]
+
+  - ID: ALU_TINY.X
+    what: Instruction with one immediate extension, must issue on one of the four TINY units.
+    requirements: [ 2, 1 ]
+    resources: [ ISSUE, TINY ]
+
+  - ID: ALU_TINY.Y
+    what: Instruction with two immediate extensions, must issue on one of the four TINY units.
+    requirements: [ 3, 1 ]
+    resources: [ ISSUE, TINY ]
+
+  - ID: ALU_TINY_AUXR
+    what: Instruction must issue on one of the four TINY units, and requires an auxiliary read port.
+    requirements: [ 1, 1, 1 ]
+    resources: [ ISSUE, TINY, AUXR ]
+
+  - ID: ALU_LITE
+    what: Instruction must issue on one of the two LITE units.
+    requirements: [ 1, 1, 1 ]
+    resources: [ ISSUE, LITE, TINY ]
+
+  - ID: ALU_LITE.X
+    what: Instruction with one immediate extension, must issue on one of the two LITE units.
+    requirements: [ 2, 1, 1 ]
+    resources: [ ISSUE, LITE, TINY ]
+
+  - ID: ALU_LITE.Y
+    what: Instruction with two immediate extensions, must issue on one of the two LITE units.
+    requirements: [ 3, 1, 1 ]
+    resources: [ ISSUE, LITE, TINY ]
+
+  - ID: ALU_LITE_MISC
+    what: Instruction must issue on one of the two LITE units and used the write port of the MISC unit.
+    requirements: [ 1, 1, 1, 1 ]
+    resources: [ ISSUE, LITE, TINY, SR12 ]
+
+  - ID: ALU_FULL
+    what: Instruction must issue on the ALU0.
+    requirements: [ 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LITE, FULL ]
+
+  - ID: ALU_FULL.X
+    what: Instruction with one immediate extension, must issue on the ALU0.
+    requirements: [ 2, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LITE, FULL ]
+
+  - ID: ALU_FULL.Y
+    what: Instruction with two immediate extensions, must issue on the ALU0.
+    requirements: [ 3, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LITE, FULL ]
+
+  - ID: BCU
+    what: Instruction must issue on the BCU.
+    requirements: [ 1, 1 ]
+    resources: [ ISSUE, BCU ]
+
+  - ID: BCU_BRRP
+    what: Instruction must issue on the BCU and reads a general register.
+    requirements: [ 1, 1, 1 ]
+    resources: [ ISSUE, BCU, SR15 ]
+
+  - ID: BCU_BRRP2
+    what: Instruction uses a BCU and two register read ports.
+    requirements: [ 1, 1, 2 ]
+    resources: [ ISSUE, BCU, SR15 ]
+
+  - ID: BCU2
+    what: Instruction uses the two BCUs and one issue slot.
+    requirements: [ 1, 2 ]
+    resources: [ ISSUE, BCU ]
+
+  - ID: BCU2.X
+    what: Instruction uses the two BCUs and two issue slots.
+    requirements: [ 2, 2 ]
+    resources: [ ISSUE, BCU ]
+
+  - ID: BCU_XFER
+    what: Instruction uses a BCU and unconditionally transfers control.
+    requirements: [ 1, 1, 1 ]
+    resources: [ ISSUE, BCU, XFER ]
+
+  - ID: BCU_XFER_BRRP
+    what: Instruction uses a BCU, reads a general register and unconditionally transfers control.
+    requirements: [ 1, 1, 1, 1 ]
+    resources: [ ISSUE, BCU, XFER, SR15 ]
+
+  - ID: BCU2_TINY_LSU
+    what: Instruction uses the two BCUs and uses the TINY LSU write port.
+    requirements: [ 1, 2, 1, 1 ]
+    resources: [ ISSUE, BCU, TINY, LSU ]
+
+  - ID: LSU
+    what: Instruction must issue on the LSU.
+    requirements: [ 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU ]
+
+  - ID: LSU.X
+    what: Instruction with one immediate extension, must issue on the LSU.
+    requirements: [ 2, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU ]
+
+  - ID: LSU.Y
+    what: Instruction with two immediate extensions, must issue on the LSU.
+    requirements: [ 3, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU ]
+
+  - ID: LSU_MEMW_ACCR
+    what: Instruction must issue on the LSU and writes to memory.
+    requirements: [ 1, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, MEMW, SR13 ]
+
+  - ID: LSU_MEMW_ACCR.X
+    what: Instruction with one immediate extension, must issue on the LSU and writes to memory.
+    requirements: [ 2, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, MEMW, SR13 ]
+
+  - ID: LSU_MEMW_ACCR.Y
+    what: Instruction with two immediate extensions, must issue on the LSU and writes to memory.
+    requirements: [ 3, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, MEMW, SR13 ]
+
+  - ID: LSU2_MEMW
+    what: Instruction must issue on the LSU and no other LSU can issue.
+    requirements: [ 1, 1, 2, 1 ]
+    resources: [ ISSUE, TINY, LSU, MEMW ]
+
+  - ID: LSU2_MEMW.X
+    what: Instruction must issue on the LSU with one immediate extension and no other LSU can issue.
+    requirements: [ 2, 1, 2, 1 ]
+    resources: [ ISSUE, TINY, LSU, MEMW ]
+
+  - ID: LSU2_MEMW.Y
+    what: Instruction must issue on the LSU with two immediate extensions and no other LSU can issue.
+    requirements: [ 3, 1, 2, 1 ]
+    resources: [ ISSUE, TINY, LSU, MEMW ]
+
+  - ID: LSU_AUXR
+    what: Instruction must issue on the LSU, and requires the auxiliary read port.
+    requirements: [ 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR ]
+
+  - ID: LSU_AUXR.X
+    what: Instruction with one immediate extension, must issue on the LSU, and requires the auxiliary read port.
+    requirements: [ 2, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR ]
+
+  - ID: LSU_AUXR.Y
+    what: Instruction with two immediate extensions, must issue on the LSU, and requires the auxiliary read port.
+    requirements: [ 3, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR ]
+
+  - ID: LSU_MEMW_AUXR
+    what: Instruction must issue on the LSU, writes to memory and requires the auxiliary read port.
+    requirements: [ 1, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, MEMW ]
+
+  - ID: LSU_MEMW_AUXR.X
+    what: Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary read port.
+    requirements: [ 2, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, MEMW ]
+
+  - ID: LSU_MEMW_AUXR.Y
+    what: Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary read port.
+    requirements: [ 3, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, MEMW ]
+
+  - ID: LSU2_MEMW_AUXR
+    what: Instruction must issue on the LSU, writes to memory and requires the auxiliary read port. No other LSU can issue.
+    requirements: [ 1, 1, 2, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, MEMW ]
+
+  - ID: LSU2_MEMW_AUXR.X
+    what: Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary read port. No other LSU can issue.
+    requirements: [ 2, 1, 2, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, MEMW ]
+
+  - ID: LSU2_MEMW_AUXR.Y
+    what: Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary read port. No other LSU can issue.
+    requirements: [ 3, 1, 2, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, MEMW ]
+
+  - ID: LSU_MEMW_AUXW
+    what: Instruction must issue on the the LSU, writes to memory and requires the auxiliary write port.
+    requirements: [ 1, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXW, MEMW ]
+
+  - ID: LSU_MEMW_AUXW.X
+    what: Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary write port.
+    requirements: [ 2, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXW, MEMW ]
+
+  - ID: LSU_MEMW_AUXW.Y
+    what: Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary write port.
+    requirements: [ 3, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXW, MEMW ]
+
+  - ID: LSU2_MEMW_AUXW
+    what: Instruction must issue on the the LSU, writes to memory and requires the auxiliary write port. No other LSU can issue.
+    requirements: [ 1, 1, 2, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXW, MEMW ]
+
+  - ID: LSU2_MEMW_AUXW.X
+    what: Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary write port. No other LSU can issue.
+    requirements: [ 2, 1, 2, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXW, MEMW ]
+
+  - ID: LSU2_MEMW_AUXW.Y
+    what: Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary write port. No other LSU can issue.
+    requirements: [ 3, 1, 2, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXW, MEMW ]
+
+  - ID: LSU_AUXW
+    what: Instruction must issue on the LSU, and requires the auxiliary write port.
+    requirements: [ 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXW ]
+
+  - ID: LSU_AUXW.X
+    what: Instruction with one immediate extension, must issue on the LSU, and requires the auxiliary write port.
+    requirements: [ 2, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXW ]
+
+  - ID: LSU_AUXW.Y
+    what: Instruction with two immediate extensions, must issue on the LSU, and requires the auxiliary write port.
+    requirements: [ 3, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXW ]
+
+  - ID: LSU_AUXR_AUXW
+    what: Instruction must issue on the LSU, and requires the auxiliary read and write ports.
+    requirements: [ 1, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, AUXW ]
+
+  - ID: LSU_AUXR_AUXW.X
+    what: Instruction with one immediate extension, must issue on the LSU, and requires the auxiliary read and write ports.
+    requirements: [ 2, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, AUXW ]
+
+  - ID: LSU_AUXR_AUXW.Y
+    what: Instruction with two immediate extensions, must issue on the LSU, and requires the auxiliary read and write ports.
+    requirements: [ 3, 1, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, AUXW ]
+
+  - ID: LSU2_MEMW_AUXR_AUXW
+    what: Instruction must issue on the LSU, writes to memory and requires the auxiliary read and write ports. No other LSU can issue.
+    requirements: [ 1, 1, 2, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, AUXW, MEMW ]
+
+  - ID: LSU2_MEMW_AUXR_AUXW.X
+    what: Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary read and write ports. No other LSU can issue.
+    requirements: [ 2, 1, 2, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, AUXW, MEMW ]
+
+  - ID: LSU2_MEMW_AUXR_AUXW.Y
+    what: Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary read and write ports. No other LSU can issue.
+    requirements: [ 3, 1, 2, 1, 1, 1 ]
+    resources: [ ISSUE, TINY, LSU, AUXR, AUXW, MEMW ]
+
+  - ID: MAU
+    what: Instruction must issue on the MAU.
+    requirements: [ 1, 1 ]
+    resources: [ ISSUE, MAU ]
+
+  - ID: EXT
+    what: Instruction must issue on the EXT.
+    requirements: [ 1, 1 ]
+    resources: [ ISSUE, EXT ]
+
+  - ID: EXT_COMP
+    what: Instruction must issue on the EXT, and requires the main computational unit (COMP).
+    requirements: [ 1, 1, 1 ]
+    resources: [ ISSUE, EXT, MAU ]
+
+  - ID: EXT_MISC
+    what: Instruction must issue on the EXT, and requires data move unit (MISC).
+    requirements: [ 1, 1, 1 ]
+    resources: [ ISSUE, EXT, SR12 ]
+
+  - ID: EXT_MISC_AUXW
+    what: Instruction must issue on the EXT, and requires an auxiliary write port.
+    requirements: [ 1, 1, 1, 1 ]
+    resources: [ ISSUE, EXT, SR12, AUXW ]
+
+#endif//_KV4_
+

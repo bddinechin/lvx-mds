@@ -1,0 +1,177 @@
+NativeType:
+
+  - ID: Void
+    align: 0
+    printf: ".void"
+    sizeof: 0
+    width: 0
+    type: Void
+
+  - ID: Bool
+    align: 1
+    printf: ".byte 0x%x"
+    sizeof: 1
+    width: 1
+    type: Bool
+
+  - ID: Int8
+    align: 1
+    printf: ".byte 0x%x"
+    sizeof: 1
+    width: 8
+    type: Signed
+
+  - ID: Int16
+    align: 2
+    printf: ".hword 0x%x"
+    sizeof: 2
+    width: 16
+    type: Signed
+
+  - ID: Int32
+    align: 4
+    printf: ".word 0x%x"
+    sizeof: 4
+    width: 32
+    type: Signed
+
+  - ID: Int64
+    align: 8
+    printf: ".word 0x%x, 0x%x"
+    sizeof: 8
+    slice: 32
+    width: 64
+    type: Signed
+
+  - ID: Int128
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 16
+    slice: 32
+    width: 128
+    type: Signed
+
+  - ID: Int128x2
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 32
+    slice: 32
+    width: 256
+    type: Signed
+
+  - ID: Int128x4
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 64
+    slice: 32
+    width: 512
+    type: Signed
+
+  - ID: Int128x8
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 128
+    slice: 32
+    width: 1024
+    type: Signed
+
+  - ID: Int128x2
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 32
+    slice: 32
+    width: 256
+    type: Signed
+
+  - ID: UInt8
+    align: 1
+    printf: ".byte 0x%x"
+    sizeof: 1
+    width: 8
+    type: Unsigned
+
+  - ID: UInt16
+    align: 2
+    printf: ".hword 0x%x"
+    sizeof: 2
+    width: 16
+    type: Unsigned
+
+  - ID: UInt32
+    align: 4
+    printf: ".word 0x%x"
+    sizeof: 4
+    width: 32
+    type: Unsigned
+
+  - ID: UInt64
+    align: 8
+    printf: ".word 0x%x, 0x%x"
+    sizeof: 8
+    slice: 32
+    width: 64
+    type: Unsigned
+
+  - ID: UInt128
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 16
+    slice: 32
+    width: 128
+    type: Unsigned
+
+  - ID: UInt128x2
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 32
+    slice: 32
+    width: 256
+    type: Unsigned
+
+  - ID: UInt128x4
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 64
+    slice: 32
+    width: 512
+    type: Unsigned
+
+  - ID: UInt128x8
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 128
+    slice: 32
+    width: 1024
+    type: Unsigned
+
+  - ID: Float16
+    align: 2
+    printf: ".hword 0x%x"
+    sizeof: 2
+    width: 16
+    type: Float
+
+  - ID: Float32
+    align: 4
+    printf: ".word 0x%x"
+    sizeof: 4
+    width: 32
+    type: Float
+
+  - ID: Float64
+    align: 8
+    printf: ".word 0x%x, 0x%x"
+    sizeof: 8
+    slice: 32
+    width: 64
+    type: Float
+
+  - ID: Float128
+    align: 16
+    printf: ".word 0x%x, 0x%x, 0x%x, 0x%x"
+    sizeof: 16
+    slice: 32
+    width: 128
+    type: Float
+
+

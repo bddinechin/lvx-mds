@@ -1,0 +1,161 @@
+include ../../Makerules
+include ../Makerules
+PERLBIN:=	$(MDSDIR)/MDD/MDF/BIN
+
+vpath %.pl	$(PERLBIN)
+
+V=@
+
+MDT_names:=	$(strip @MDT_names@)
+MDC_names:=	$(filter-out $(MDT_names), $(MDS_names))
+MDT_tables:=	$(addprefix ../$(FAMILY)/, $(MDT_names))
+MDC_tables:=	$(addprefix ../$(FAMILY)/, $(MDC_names))
+MDT_xml:=	$(MDT_tables:.table=.target.xml)
+MDT_tmp:=	$(MDT_tables:.table=.MDT.xml)
+MDC_xml:=	$(MDC_tables:.table=.cores.xml)
+MDF_osx:=	../$(FAMILY)/MDS.osx
+MDF_check:=	$(MDF_osx) Instruction.parse
+
+cleanfiles=	$(MDT_tables) $(MDT_xml) $(MDC_tables) $(MDC_xml) $(MDF_check) *.pl *.xml ../$(FAMILY)/MDT.xml $(MDT_tmp) merge.log
+
+MDS_diff:=	$(addsuffix /MDS.diff, $(FAMILY))
+MDS_refs:=	$(addsuffix /MDS.refs, $(FAMILY))
+
+Behavior.input:=	Storage.table RegField.table Register.table RegFile.table Processor.table
+
+all:	Begin.xml End.xml MDT.pl
+	mkdir -p ../$(FAMILY)
+	$(MAKE) $(MDT_xml) $(MDC_xml)
+	rm -f ../$(FAMILY)/MDT.xml
+	rm -f $(MDT_tables) $(MDC_tables)
+	$(MAKE) $(MDT_tables) $(MDC_tables)
+	rm -f $(MDT_xml) $(MDC_xml) $(MDT_tmp)
+	rm -f ../$(FAMILY)/Operator.target-merged.table
+	rm -f ../$(FAMILY)/Operator.target-merged.xml
+	rm -f ../$(FAMILY)/MDT.xml
+
+install:
+	-
+
+MDT.pl:
+	@echo 'my $$FAMILY = $$ENV{FAMILY};' > $@
+	@echo '%MDT = ( $(MDT_names:.table==>1,) );' >> $@
+	@echo 'sub fixIDs {' >> $@
+	@echo '  my ($$name,$$value) = @_;' >> $@
+	@echo '  my @values = split(" ",$$value);' >> $@
+	@echo '  my @fixedIDs;' >> $@
+	@echo '  foreach my $$val (@values) {' >> $@
+	@echo '    if($$name ne "ID" and &MDS::exists($$val)) {' >> $@
+	@echo '      push @fixedIDs, $$val;' >> $@
+	@echo '    } else {' >> $@
+	@printf "%s\n" '      $$val =~ s/\b($(MDT_names:.table=|) MDT)\-[^\-]+/$$1\-$$FAMILY/gx;' >> $@
+	@echo '      push @fixedIDs, $$val;' >> $@
+	@echo '    }' >> $@
+	@echo '  }'>> $@
+	@echo '  return join(" ",@fixedIDs);' >> $@
+	@echo '}' >> $@
+
+../$(FAMILY)/MDT.xml:
+	@echo "Building MDT.xml"
+	$(V)touch ../$(FAMILY)/MDT.xml
+
+%.target.xml: $(foreach CORE, $(CORES), $(addprefix ../$(FAMILY)/$(CORE)/, %.table))
+	@echo "Building $@"
+	$(V)cat $^ > $@
+
+%.cores.xml: $(foreach CORE, $(CORES), $(addprefix ../$(FAMILY)/$(CORE)/, %.table))
+	@echo "Building $@"
+	$(V)cat Begin.xml $^ End.xml > $@
+
+
+../$(FAMILY)/Operator.target-merged.table: merge-tables.pl ../$(FAMILY)/Operator.target.xml
+	@echo "Building $@"
+	$(V)cat Begin.xml ../$(FAMILY)/Operator.target.xml ../$(FAMILY)/MDT.xml End.xml > ../$(FAMILY)/Operator.MDT.xml
+	$(V)FAMILY=$(FAMILY) TABLE=Operator $(PERL) $(PERLINC) $(PERLBIN)/merge-tables.pl ../$(FAMILY)/Operator.MDT.xml > $@	|| $(ABORT)
+
+../$(FAMILY)/Operator.target-merged.xml: ../$(FAMILY)/Operator.target-merged.table
+	@echo "Building $@"
+	$(V)cat Begin.xml $^ End.xml > $@
+
+../$(FAMILY)/Operator.table: prune-shortnames.pl ../$(FAMILY)/Operator.target-merged.xml
+	@echo "Building $@"
+	$(V)FAMILY=$(FAMILY) $(PERL) $(PERLINC) $^ > $@	|| $(ABORT)
+	$(V)cat  ../$(FAMILY)/Operator.table >> ../$(FAMILY)/MDT.xml
+
+define generate
+%$(1).table: merge-tables.pl ../$(FAMILY)/MDT.xml %$(1).target.xml %$(1).X.target.xml
+	@echo "Standard: Merging $$@"
+	$(V)cat Begin.xml $$*$(1).target.xml  $$*$(1).X.target.xml ../$(FAMILY)/MDT.xml End.xml > $$*$(1).MDT.xml
+	$(V)FAMILY=$(FAMILY) TABLE=$(1) $(PERL) $(PERLINC) $(PERLBIN)/merge-tables.pl $$*$(1).MDT.xml > $$@	|| $(ABORT)
+	$(V)cat  $$*$(1).table >> ../$(FAMILY)/MDT.xml
+
+# .X tables are empty after merge
+%$(1).X.table:
+	@echo "Touch $$@"
+	$(V)rm -f $$@
+	$(V)touch $$@
+endef
+
+define generate_for_cyclic_dependencies
+%$(1).table: merge-tables.pl ../$(FAMILY)/MDT.xml %$(1).target.xml %$(1).X.target.xml
+	@echo "Cyclic dependencies: Merging $$@"
+	$(V)cat Begin.xml $$*$(1).target.xml  $$*$(1).X.target.xml ../$(FAMILY)/MDT.xml End.xml > $$*$(1).MDT.xml
+	$(V)FAMILY=$(FAMILY) TABLE=$(1) $(PERL) $(PERLINC) $(PERLBIN)/merge-tables.pl $$*$(1).MDT.xml > $$@	|| $(ABORT)
+	$(V)cat  $$*$(1).table >> ../$(FAMILY)/MDT.xml
+
+# .X tables are empty after merge
+%$(1).X.table:
+	@echo "Remerging $$@"
+	$(V)cat Begin.xml ../$(FAMILY)/MDT.xml End.xml > $$*$(1).MDT.xml
+	$(V)FAMILY=$(FAMILY) TABLE=$(1) $(PERL) $(PERLINC) $(PERLBIN)/merge-tables.pl $$*$(1).MDT.xml > $$*$(1).table	|| $(ABORT)
+	$(V)cat Begin.xml ../$(FAMILY)/MDT.xml End.xml > $$*$(1).X.MDT.xml
+	$(V)rm -f ../$(FAMILY)/MDT.xml
+	$(V)FAMILY=$(FAMILY) TABLE=$(1) $(PERL) $(PERLINC) $(PERLBIN)/remove-table.pl $$*$(1).X.MDT.xml > ../$(FAMILY)/MDT.xml	|| $(ABORT)
+	$(V)cat  $$*$(1).table >> ../$(FAMILY)/MDT.xml
+	@echo "Touch $$@"
+	$(V)rm -f $$@
+	$(V)touch $$@
+endef
+
+# All tables with .X extension
+$(eval $(call generate,Pattern))
+$(eval $(call generate,Template))
+$(eval $(call generate_for_cyclic_dependencies,Register))
+$(eval $(call generate_for_cyclic_dependencies,RegFile))
+$(eval $(call generate_for_cyclic_dependencies,Synthetic))
+$(eval $(call generate_for_cyclic_dependencies,Instruction))
+$(eval $(call generate_for_cyclic_dependencies,Opcode))
+
+%.table: merge-tables.pl ../$(FAMILY)/MDT.xml %.target.xml
+	@echo "Merging $@"
+	$(V)cat Begin.xml $*.target.xml ../$(FAMILY)/MDT.xml End.xml > $*.MDT.xml
+	$(V)FAMILY=$(FAMILY) TABLE=$(basename $(notdir $*)) $(PERL) $(PERLINC) $(PERLBIN)/merge-tables.pl $*.MDT.xml > $@	|| $(ABORT)
+	$(V)cat  $*.table >> ../$(FAMILY)/MDT.xml
+
+%.table: relink-tables.pl %.cores.xml
+	@echo "Relink $@"
+	$(V)FAMILY=$(FAMILY) TABLE=$(basename $(notdir $*)) $(PERL) $(PERLINC) $^ > $@	|| $(ABORT)
+
+#check: $(MDF_check)
+#	@echo "MDF check successful"
+#	rm -f $^
+#	rm -f ../$(FAMILY)/MDT.xml
+check:
+
+%.parse: %.parse.xml
+	$(PERL) $(PERLINC) $(PERLBIN)/check-$(notdir $*).pl $^ > $@	|| $(ABORT)
+
+%.parse.xml: %.table
+	@echo "Building $@"
+	$(V)cat Begin.xml $(addprefix ../$(FAMILY)/, $(Behavior.input)) $^ End.xml > $@	|| $(ABORT)
+
+diff: $(MDS_diff)
+
+%MDS.diff:
+	$(DIFF) -r ../$* $(FAMDIR)/MDD/$*
+
+refs: $(MDS_refs)
+
+%MDS.refs:
+	cp  ../$**.table $(FAMDIR)/MDD/$*
+

@@ -1,0 +1,107 @@
+Resource:
+
+  - ID: ISSUE
+    what: Issue slots counted in 32-bit syllables.
+    availability: 8
+
+  - ID: TINY
+    what: Tiny ALU function units.
+    availability: 4
+
+  - ID: LITE
+    what: Lite ALU function units.
+    availability: 2
+
+  - ID: FULL
+    what: Full ALU function units.
+    availability: 1
+
+  - ID: LSU
+    what: Load/Store function unit.
+#ifdef _KV4_
+    availability: 2
+#else//_KV4_
+    availability: 1
+#endif//_KV4_
+
+  - ID: MAU
+#ifdef _KV4_
+    what: Coprocessor main computational unit (COMP).
+#else//_KV4_
+    what: Multiply and FP function unit (MAU).
+#endif//_KV4_
+    availability: 1
+
+  - ID: BCU
+    what: Branch and control unit.
+#ifdef _KV4_
+    availability: 2
+#else//_KV4_
+    availability: 1
+#endif//_KV4_
+
+  - ID: EXT
+    what: Extension coprocessor units.
+#ifdef _KV4_
+    availability: 4
+#else//_KV4_
+    availability: 1
+#endif//_KV4_
+
+  - ID: AUXR
+    what: Auxiliary core register read port shared with LSU (256 bits).
+#ifdef _KV4_
+    availability: 1
+#else//_KV4_
+    availability: 1
+#endif//_KV4_
+
+  - ID: AUXW
+    what: Auxiliary core register write port shared with LSU (256 bits).
+#ifdef _KV4_
+    availability: 2
+#else//_KV4_
+    availability: 1
+#endif//_KV4_
+
+  - ID: XFER
+    what: Unconditional control-flow transfer (XFER).
+    availability: 1
+
+  - ID: MEMW
+    what: Memory write or memory read-modify-write resource (MEMW).
+    availability: 1
+
+  - ID: SR12
+#ifdef _KV4_
+    what: Coprocessor miscellaneous execution unit (MISC).
+#else//_KV4_
+    what: Coprocessor 256-bit register read pair port (CRRP).
+#endif//_KV4_
+    availability: 1
+
+  - ID: SR13
+#ifdef _KV4_
+    what: Coprocessor compute execution unit addend port (ACCR).
+#else//_KV4_
+    what: Coprocessor 128-bit register write low half port (CRWL).
+#endif//_KV4_
+    availability: 1
+
+  - ID: SR14
+#ifdef _KV4_
+    what: Coprocessor miscellaneous execution unit write port (OUTW)
+#else//_KV4_
+    what: Coprocessor 128-bit register write high half port (CRWH).
+#endif//_KV4_
+    availability: 1
+
+  - ID: SR15
+#ifdef _KV4_
+    what: BCU register read port (BRRP)
+    availability: 2
+#else//_KV4_
+    what: No-operation (NOP).
+    availability: 4
+#endif//_KV4_
+

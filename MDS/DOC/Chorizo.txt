@@ -1,0 +1,1280 @@
+CHORIZO'S USER MANUAL
+
+
+This document describes the use of chorizo from the user perspective. It
+describes the syntac and semantics of the input file that represents both the
+architecture description and the series of actions to be executed with this
+description.
+
+chorizo is run from the command line with only one argument the name of the
+input file that contains all the information about the architecture
+specification and the operations that should be done with it. For example:
+
+prompt:> chorizo I/global_lx
+
+This input file is composed of 5 separate sections that must appear in the
+exact order in which they are introduced here. First the definition of the
+opcode fields, then the storage types are introduced, followed by the Cpu state
+section, the instruction set and finally the command section. 
+
+Before defining any of the sections, we will present an introduction to the
+lexical conventions.
+
+An identifier (denoted identifier in the syntax descriptions used in the rest
+of this document) is a sequence of letters of the alphabet (a-z and A-Z), the
+characters '_', '.' and decimal digits. The only restriction is that it can not
+start with a digit. Notice that we allow '.' in identifiers. This was chosen to
+allow the definition of variables such as struct.field that could match to
+already existing variables in the SH emulator. This feature should be
+eliminated the moment we start producing our own variables.
+
+A integer constant (or simply called a constant) can be represented in many
+ways, just as in C. We allow decimal base constant, octal base constants,
+hexidecimal base constants, char constants and also binary base constants. The
+first four are represented just as in C. The binary base is represented by a
+sequence of binary digits started by '0b'. This new representation is very
+useful for the definition of small opcode fields. 
+
+A floating point constant can be represented in three possible ways. By a
+sequence of decimal digits followed by an exponent, by an optional sequence of
+decimal digits followed by a '.' and a sequence of decimal digits followed by
+an optional exponent or by a sequence of decimal digits followed by a '.' and
+an optional sequence of decimal digits followed by an optional exponent. An
+exponent is the letter 'E' or 'e' followed by an optional sign ('+' or '-') and
+a sequence of decimal digits.
+
+A string constant is a sequence of any characters started and ended with a '"'.
+
+The lexical pass eliminates comments which start with a '//' and end at the end
+of the line.
+
+
+The opcode field section
+------------------------
+
+The syntax of the opcode field section is the following:
+
+opcode_field_section 
+	: 'Opcode' 'Fields' '{' opcode_definition_list '}'
+	;
+
+opcode_definition_list
+	: opcode_definition 
+	| opcode_definition_list opcode_definition
+	;
+
+opcode_definition
+	: identifier constant ';'
+	| identifier constant 'fixed' ';'
+	;
+
+An example of this section is the following:
+
+Opcode Fields
+{
+	opcode       4 fixed;
+	opcodeB      8 fixed;
+	opcodeA     16 fixed;
+	opcode1      1 fixed;
+	register     4;
+	bank         3;
+	literal8     8;
+	literal4     4;
+	literal12   12;
+}
+
+Here we can see that the user has created 9 different opcode fields. The first
+four are fixed, meaning that whenever an actual opcode field is designated of
+these types, it must provide a value. The other 5 are non-fixed, meaning that
+whenever an actual opcode field is of these types, it must provide a name for
+the potential value of the field. Notice that two definitions are equivalent,
+register and literal4, since they have the same length and are of the same type
+(non-fixed). We could have just used one definition, but since semantically
+there are two different behaviours of the fields they represent, we have chosen
+to define two different opcode fields. Another example of this use would be to
+define three different opcode field definitions for registers, one being
+destination, another one being source1 and another one being source2. This
+clasification could help the reader to understand more the instruction,
+although nothing forces us to not use incorrect opcode field definitions and
+remain consistent. For the SH emulator we have not chosen this path since in
+many cases a register is both source as destination.
+
+The Storage section
+-------------------
+
+The syntax of the Storage section is the following:
+
+storage_section
+	: 'Storage' '{' storage_type_definition_list '}'
+	;
+
+storage_type_definition_list
+	: storage_type_or_extern_definition 
+	| opcode_definition_list storage_type_or_extern_definition
+	;
+
+storage_type_or_extern_definition
+	: extern_definition_list
+	| storage_type_definition
+	;
+
+extern_definition_list
+	: 'extern' identifier_list ';'
+	;
+
+identifier_list
+	: identifier
+	| identifier_list ',' identifier
+	;
+
+storage_type_definition
+	: storage_type method_list ';;'
+	| storage_type 'default' method_list ';;'
+	;
+
+storage_type
+	: identifier
+	| identifier '(' '@i' ')'
+	;
+
+method_list
+	: method
+	| method_list method
+	;
+
+method
+	: 'Read' C_expression ';'
+	| 'Write' C_expression ';'
+	| 'Write' 'value' C_expression ';'
+	| 'GenRead' C_expression ';'
+	| 'GenWrite' C_expression ';'
+	;
+
+An example of this section is the following:
+
+Storage 
+{
+	extern _get_lx_reg, _set_lx_reg, reg_idx, bank_idx;
+	extern GET_VAL_FIXED, SET_VAL_FIXED;
+	extern pcodebuf, Make_LXMOV, Make_LXMOVI, GEN_IMMEXT;
+
+	var default 
+		Read @n; 
+		Write value @n=@v;
+	;;
+
+	parameter
+		Read @n;
+		Write value @n=@v;
+		GenRead *(*pcodebuf)++=Make_LXMOVI(@a,@n,@s);
+	;;
+
+	lparameter
+		Read @n;
+		Write value @n=@v;
+		GenRead GEN_IMMEXT(*pcodebuf, Make_LXMOVI(@a,@n,0), @n, @s);
+	;;
+
+	reg(@i) 
+		Read GET_VAL_FIXED(@i); 
+		Write SET_VAL_FIXED(@i,@v);
+		GenRead @i;
+	;;
+	
+	Vreg
+		Read _get_lx_reg(reg_idx[@p]); 
+		Write _set_lx_reg(reg_idx[@p],@v);
+		GenRead *(*pcodebuf)++=Make_LXMOV(@a,reg_idx[@p],@s);
+		GenWrite *(*pcodebuf)++=Make_LXMOV(reg_idx[@p],@a,@s);
+	;;
+
+	Vbank
+		Read _get_lx_reg(bank_idx[@p]); 
+		Write _set_lx_reg(bank_idx[@p],@v);
+		GenRead *(*pcodebuf)++=Make_LXMOV(@a,bank_idx[@p],@s);
+		GenWrite *(*pcodebuf)++=Make_LXMOV(bank_idx[@p],@a,@s);
+	;;
+}
+
+C_expression is a term that will be explained later, when we reach the
+instructions section. The purpose of this section is to define the storage
+types, which are the ways of instruction chorizo of how to treat variables in
+the code. To do this we define a name (storage_type) and assign it 4 potential
+different expressions named Read, Write, GenRead and GenWrite. These
+expressions allow us to understand how to translate an access to a variable of
+this type.
+
+If the variable is being accessed in read mode, we will apply the Read method,
+if it is accessed in write mode the Write method will be applied. Notice that
+we do not allow expressions to be accessed both in read and write modes. A
+valid C expression that has this property is the following:
+
+b=a++;
+
+In this example the a is both being read and written to. chorizo takes care of
+this fact and previously normalises the code to look like this:
+
+b=(c=a,a=a+1,c)
+
+Notice that Write methods can have the attribute 'value'. This is made to help
+the writting of the code by chorizo. Suppose the following code:
+
+a=b;
+
+In this case we might want to translate a, and as we know how to do it, we just
+simply do so. Nevertheless, suppose that the same expression appears inside an
+if statement such as:
+
+if(a=b) ...
+
+In this case we do not only want to translate the assignment into a write into
+a but also return the value for the if to execute correctly. chorizo can handle
+this case without information from the outside world, by changing this into:
+
+if(a=b,b) ...
+
+In this case, no matter how we translate a=b, the if will execute depending on
+the correct value. chorizo can decide when it is necessary to do this kind of
+translation depending on the code written, but not depending on the translation
+method it is given. For example, in the case of Vreg Write method, chorizo has
+no way of detecting if _set_lx_reg function returns the value given or not
+(which it does not in this case) so it would have to revert to the complex and
+ugly way (which is effectively what it does. Nevertheless, suppose that this
+function returns the value assigned. In this case we can be sure that this ugly
+transformation is not necessary. The 'value' attribute allows chorizo to know
+if the method given returns or does not return a value, simplifying the final
+look of the code generated.
+
+The other two methods are GenRead and GenWrite. These methods allow the user to
+specify how the jit should access these variables. GenRead is used to copy
+variables from their location to a register as an input to the template
+functions. GenWrite is used to copy the output register from the template to
+its final location. In some cases, GenRead states the register where the
+variable lives (this happens if the variable belongs to a special type that
+will get explained in the command section).
+
+Some special expressions should be explained here. These are the ones starting
+by @ and are the following:
+
+	@n: represents the name of the variable
+	@v: represents the value being assigned to the variable
+	@p: represents the position in the vector (index) being accessed
+	@i: represents the identifier (constructor value) of the storage type
+	@s: represents the stop bit
+	@a: represents the argument position
+
+Only these identifiers and those appearing in the extern section can be used
+anywhere in this section. In the following section we will define many more.
+The last two are only used by the jit and allow the user to specify where these
+parameters are to be inserted. The other four make more sense in our present
+description of the problem and will be explained shortly. Suppose we want to
+express a storage type that accesses variables in memory. This storage type has
+been called var in our example. Let us remember it here:
+
+	var default 
+		Read @n; 
+		Write value @n=@v;
+	;;
+
+As it can be seen, it carries the 'default' attribute, meaning that in the
+future, when no storage type is specified, this should be taken as the default
+one. The two methods described are enough for our purposes. The Read method
+indicates that whenever a variable of this type is accessed in read mode, it
+should be translated to its name. Suppose variable a is of type var and we want
+to translate it in this expression:
+
+b=a;
+
+The resulting expression would be that of changing a for its name (a again),
+thus no modification happens). The Write method is as simple as the Read, for
+it expresses the fact that a write to a should be translated as the name of a
+(a) assigned the value. These two transformations are trivial ones and are here
+for completeness.
+
+Now let us assume something more complicated. We want to express the fact that
+a particular variable lives in a register (a definite one). We can do this
+using the reg storage type definition:
+
+	reg(@i) 
+		Read GET_VAL_FIXED(@i); 
+		Write SET_VAL_FIXED(@i,@v);
+		GenRead @i;
+	;;
+
+Notice that the name of this storage type carries the '(@i)' description. This
+indicates the fact that whenever a variable of this type is defined, it must be
+'constructed' with a parameter that will be considered its identifier. In the
+Cpu State section we will see how this is accomplished but for now lets us
+assume without discussion that such a variable is defined as follows:
+
+	reg uint a(4);
+
+The identifier of a will be 4 in this case. If some expression contained a in a
+read mode, such as:
+
+b=a;
+
+it will get translated as (not taking into account b at all)
+
+b=GET_VAL_FIXED(4);
+
+since 4 is the identifier and @i is translated for the identifier of this
+particular variable. If some expression contained a in write mode, such as:
+
+a=b;
+
+it will get translated as (not taking into account b at all)
+
+SET_VAL_FIXED(4,b);
+
+Notice that chorizo is smart enough to know that the value of this expression
+is not used at all, therefore it leaves the translation in its simplified state
+even though the Write method of the reg storage type does not contain the
+'value' attribute. In case the expression required a value to be returned, such
+as:
+
+c=a=b;
+
+It will get translated as (not taking into account b or c at all)
+
+c=(tmp=b,SET_VAL_FIXED(4,b),tmp)
+
+chorizo will introduce the tmp definition when needed.
+
+We will postpone the description of why the GenRead method is this way till the
+commands section.
+
+The last thing that must be said from this section is the fact that some of the
+storage types are predefined, such as local, parameter and lparameter. If these
+are not defined in this section, a default definition is supposed. The default
+definition is the following (presented for local in this example):
+
+	local 
+		Read @n;
+		Write value @n=@v;
+		GenRead @n;
+	;;
+
+
+The CPU state section
+---------------------
+
+The syntax of the CPU state section is the following:
+
+cpu_state_section
+	: 'CPU' 'state' '{' variable_definition_list '}'
+	;
+
+variable_definition_list
+	: variable_or_extern_definition 
+	| variable_definition_list variable_or_extern_definition
+	;
+
+variable_or_extern_definition
+	: extern_definition_list
+	| same_type_variable_definition_list
+	;
+
+same_type_variable_definition_list
+	: storage_type type complex_identifier_list ';'
+	| type complex_identifier_list ';'
+	;
+
+type
+	: 'char'
+	| 'uchar'
+	| 'short'
+	| 'ushort'
+	| 'int'
+	| 'uint'
+	| 'float'
+	| 'double'
+	;
+
+complex_identifier_list
+	: complex_identifier
+	| complex_identifier_list ',' complex_identifier
+	;
+
+complex_identifier
+	: identifier
+	| identifier '(' C_expression ')'
+	| identifier '[' C_expression ']'
+	| identifier '[' C_expression ']' '(' C_expression ')'
+	;	
+
+One example of this section would be the following:
+
+CPU state
+{
+	Vbank int BANK[8];
+	Vreg int REG[16];
+
+	reg uint eval_state(48), saved_state.srt(52), pc(45), saved_state.pr(41);
+	reg uint saved_state.nia(40), saved_state.sr(44), saved_state.gbr(42);
+	reg uint saved_state.macl(49), saved_state.vbr(43), exception(47);
+
+	uint saved_state.mach, saved_state.ssr, saved_state.spc;
+
+	//value defined 
+	extern EXC_GENERAL_ILLEGAL_INSTRUCTION;
+}
+
+In this example we have defined 16 symbols which will be the only global
+symbols accessible from the instruction definitions. The first symbol defines a
+vector of 8 integer elements of storage type Vbank. The second definition
+defines an integer vector of 16 entries of storage type Vreg.
+
+The only types allowed in chorizo are very similar to those of C, and have the
+following correspondence
+
+	char           signed char
+	uchar          unsigned char
+	short          signed short
+	ushort         unsigned short
+	int            signed int 
+	uint           unsigned int 
+	float          float
+	double         double
+
+The next set of definitions define a series of variables that live in
+registers, such as eval_state, the pc, saved_state.nia and others. Notice that
+all of them have identifiers. If an identifier was missing chorizo would signal
+it, since they are of type reg and reg needs an identifier in the moment of
+construction. 
+
+The next definitions are supposed of type var, since the type is missing and
+this was defined to be the default type.
+
+The last definition defines an extern element. As of today, chorizo does not
+produce code for any variables so everything is pretty much extern (although in
+some cases type is needed to know how to cast elements). Nevertheless,
+chorizo's aim is to completely substitute the definition of the state and
+therefore all this information should be used to produce C code that defines
+these variables.
+
+The Instructions section
+------------------------
+
+The syntax of the Instructions section is the following:
+
+instructions_section
+	: 'Instructions' '{' instruction_list '}'
+	;
+
+instruction_list
+	: instruction 
+	| instruction_list instruction
+	;
+
+instruction
+	: identifier attribute_list debug_list definition extracodes ';;'
+	;
+
+attribute_list
+	: 'default' simple_attribute_list
+	| simple_attribute_list
+	;
+
+simple_attribute_list
+	: attribute
+	| simple_attribute_list attribute
+	;
+
+attribute
+	: attribute_name constant
+	;
+
+attribute_name
+	: 'jitinfo'
+	| 'pipeinfo'
+	;
+
+debug_list
+	:
+	| 'debug' literal_list ';'
+	;
+
+literal_list
+	: literal_definition
+	| literal_list literal_definition
+	;
+
+literal_definition
+	: string_constant
+	| 'literal' string_constant
+	;
+
+definition
+	: 'coded' 'as' opcode_use_list ';' C_statement
+	;
+
+opcode_use_list
+	: opcode_use
+	| opcode_use_list '+' opcode_use
+	;
+
+opcode_use
+	: identifier '=' constant
+	| identifier '~' identifier
+	;
+
+extracodes
+	: extracode
+	| extracodes extracode
+	;
+
+extracode
+	: 'emulcode' C_statement
+	| 'jitcode' C_statement
+	| 'override' 'jit' C_statement
+	| 'override' 'emulator' C_statement
+	;
+
+An example of this section is the following (with only one supercomplex
+instruction):
+
+Instructions
+{
+	xori jitinfo 2 pipeinfo 1 // 163
+	debug "xor #<imm> %d,R0 0x%08x\n" literal "i,REG[0]";
+	coded as opcodeB = 0b11001010 + literal8 ~ i ;
+		REG[0] ^= i;
+	jitcode 	
+	{
+		target_pc = pc + 4 + (int)(char)i * 2;
+		br_cond_contains_branch_condition = 0;
+	}
+	emulcode
+	{
+		if(saved_state.srt==0)
+		{
+			exmode = 1;
+			iword = rwat_any(pc+2);
+			exmode = 0;
+			is_delay = 1;
+			pc +=2 ;
+			eval_state = 1;
+			return;
+		}
+		else
+		{
+			saved_state.nia = pc+2;
+		}
+	}
+	override jit
+	{
+		int n = (_iword >>8) & 0xf;
+		int i = (_iword & 0xff);
+		if (!Jit_emit_special_mov_body(PC + 4 + (i<<1),n,2)) 
+		{
+			int liveInRegs[5] = {USER38_REG, ((48)), ((47)), USER41_REG, ((45))};
+			int liveOutRegs[2] = {USER38_REG, ((48))};
+			*(*pcodebuf)++ = Make_LXMOV((USER38_REG),reg_idx[(n)],(0));
+			*(*pcodebuf)++ = Make_LXMOVI((USER41_REG),(i),(1));
+			ProduceInstruction(_iword,(uint)&jit_movw09,(uint)&emit_movw09,
+				pcodebuf,1,5,liveInRegs,2,liveOutRegs);
+			(*(*pcodebuf)++ = Make_LXMOV(reg_idx[(n)],(USER38_REG),(1)));
+		}
+	}
+	;;
+}
+
+Lets go little by little. The first line
+
+	xori jitinfo 2 pipeinfo 1 // 163
+
+indicates that the name of the instruction is xori, and that it has the
+following attributes, jitinfo is 2 and pipeinfo is 1 (the rest of the line does
+not arrive to chorizo because the lexer eliminates the comment, nevertheless,
+in the definition of the SH emulator this comment is the opcode that the
+previous definition by gencode gave this particular instruction). We also
+notice the lack of the attribute default, making this a normal instruction.
+The default instruction is the one that will receive all the mappings that are
+not used by other instructions. The second line 
+
+	debug "xor #<imm> %d,R0 0x%08x\n" literal "i,REG[0]";
+
+presents two debug parameters, the first being the string 
+
+"xor #<imm> %d,R0 0x%08x\n" 
+
+and the second being the string "i,REG[0]" with the literal attribute set. We
+will delay the use of these strings until the commands section.
+
+The third line 
+
+	coded as opcodeB = 0b11001010 + literal8 ~ i ;
+
+states the definition of this instruction. In SH all instructions are 16 bits.
+This line tells us that the first 8 bits of the instruction have the definite
+value of 202. Notice that by expressing this constant in binary form we are
+more near most hardware architecture descriptions. The next field is also 8
+bits denoted by the opcode field definition literal8 and are assigned the name
+i. This variable is given the type parameter. The type lparameter is left for
+parameters which come from fields bigger than 9 bits which is the maximum size
+of a short immediate in Lx. These fields not only give information on how to
+extract a particular value from the instruction encoding, but also allow us to
+automatically construct an automata that distinguishes instructions. Therefore
+the order of fields is very important. The automata generated is equivalent to
+the one described in the previous SH emulator although some enhancements have
+been placed. The first one is that we detect if this type of automata is
+possible, if not, we emit an error and leave. The second is that a placeholder
+for future automatas is in place so it should not be difficult to write new
+generation of automatas. The last is that it checks to see if two instructions
+collide in their definition.
+
+		REG[0] ^= i;
+
+The fourth line of code is the statement associated with this instruction.
+Notice that we do not need a compound statement. Any kind of C_statement is
+possible thus simplifying the writting of the emulator. More on C_statements
+later. The code written here is supposed to define the instruction and is used
+at all times to emit code for the emulation of the instruction and for
+generating the template for jitting the instruction. The rest of the
+instruction, the so called extracodes are totally optional and allow more
+freedom in the process of this generation. 
+
+The first one in this example, jitcode, is also followed by a C_statement. This
+piece of code is inserted in the emit function, therefore it is executed
+everytime this instruction is emitted by the jit (not everytime it is executed,
+it does not enter into the template). It allows the jit to get more information
+about what is jitting or not.
+
+The second one, emulcode, has a similar behaviour as jitcode. It is inserted in
+the function that emulates this opcode but only for the emulation part.
+Therefore it is executed everytime this instruction is emulated. The last two
+possibilities, the ones starting with override jit and override emulator are
+pieces of code that will substitute either the emulator function completely or
+the emitting function completely (not the template function). It allows the
+user to specify how the jitting or emulation should take place. They are mainly
+intended for optimisations (up to now only override jit has been used but we
+included the other one just in case someone would need it).
+
+Now just a little note about C_expression and C_statement. These two constructs
+try to be as near as possible to what a C programmer may expect, although they
+do not completely reach the definition and possibilities of both. Nevertheless,
+if we omit those things not allowed by chorizo, the ones allowed are totally
+compatible with C semantically speaking. 
+
+C_expression is much nearer to a expression in C than C_statement to an
+statement in C. We can consider them to be completely equivalent except for
+some details. 
+
+Our casting operators only allow our new types, i.e.  char, uchar, short,
+ushort, int, uint, float and double. 
+
+We do not recognize the sizeof as an operator. 
+
+We allow for a series of new primary elements such as those starting with @.
+
+The C_statement is much more crippled than the C_expression. For instance, we
+do not allow any kind of iterative statements (no need for them for now). It
+would not be difficult to add them, just follow the syntactic definition and
+you will see. 
+
+Now we present both syntactic definitions of these constructs:
+
+C_expression
+	: assignment_expr
+	| C_expression ',' assignment_expr
+	;
+
+assignment_expr
+	: conditional_expr
+	| unary_expr '=' assignment_expr
+	| unary_expr '*=' assignment_expr
+	| unary_expr '/=' assignment_expr
+	| unary_expr '%=' assignment_expr
+	| unary_expr '+=' assignment_expr
+	| unary_expr '-=' assignment_expr
+	| unary_expr '<<=' assignment_expr
+	| unary_expr '>>=' assignment_expr
+	| unary_expr '^=' assignment_expr
+	| unary_expr '|=' assignment_expr
+	| unary_expr '&=' assignment_expr
+	;
+
+conditional_expr
+	: logical_or_expr
+	| logical_or_expr '?' logical_or_expr ':' conditional_expr
+	;
+
+logical_or_expr
+	: logical_and_expr
+	| logical_or_expr '||' logical_and_expr
+	;
+
+logical_and_expr
+	: inclusive_or_expr
+	| logical_and_expr '&&' inclusive_or_expr
+	;
+
+inclusive_or_expr
+	: exclusive_or_expr
+	| inclusive_or_expr '|' exclusive_or_expr
+	;
+
+exclusive_or_expr
+	: and_expr
+	| exclusive_or_expr '^' and_expr
+	;
+
+and_expr
+	: equality_expr
+	| and_expr '&' equality_expr
+	;
+
+equality_expr
+	: relational_expr
+	| equality_expr '==' relational_expr
+	| equality_expr '!=' relational_expr
+	;
+
+relational_expr
+	: shift_expr
+	| relational_expr '<' shift_expr
+	| relational_expr '>' shift_expr
+	| relational_expr '<=' shift_expr
+	| relational_expr '>=' shift_expr
+	;
+
+shift_expr
+	: additive_expr
+	| shift_expr '<<' additive_expr
+	| shift_expr '>>' additive_expr
+	;
+
+additive_expr
+	: multiplicative_expr
+	| additive_expr '+' multiplicative_expr
+	| additive_expr '-' multiplicative_expr
+	;
+
+multiplicative_expr
+	: cast_expr
+	| multiplicative_expr '*' cast_expr
+	| multiplicative_expr '/' cast_expr
+	| multiplicative_expr '%' cast_expr
+	;
+
+cast_expr
+	: unary_expr
+	| '(' 'char' ')' cast_expr
+	| '(' 'uchar' ')' cast_expr
+	| '(' 'short' ')' cast_expr
+	| '(' 'ushort' ')' cast_expr
+	| '(' 'int' ')' cast_expr
+	| '(' 'uint' ')' cast_expr
+	| '(' 'float' ')' cast_expr
+	| '(' 'double' ')' cast_expr
+	;
+
+unary_expr
+	: postfix_expr
+	| '++' unary_expr
+	| '--' unary_expr
+	| '&' cast_expr
+	| '*' cast_expr
+	| '+' cast_expr
+	| '-' cast_expr
+	| '~' cast_expr
+	| '!' cast_expr
+	;
+
+argument_expr_list
+	: assignment_expr
+	| argument_expr_list ',' assignment_expr
+	;
+
+postfix_expr
+	: primary_expr
+	| postfix_expr '[' C_expression ']'
+	| postfix_expr '(' ')'
+	| postfix_expr '(' argument_expr_list ')'
+	| postfix_expr '++'
+	| postfix_expr '--'
+	;
+
+primary_expr
+	: identifier
+	| constant
+	| '@p'
+	| '@n'
+	| '@i'
+	| '@v'
+	| '@a'
+	| '@s'
+	| '(' C_expression ')'
+	;
+
+
+C_statement
+	: compound_statement
+	| expression_statement
+	| selection_statement
+	| jump_statement
+	| labeled_statement 
+	;
+
+labeled_statement
+	: identifier ':' C_statement
+	;
+
+compound_statement
+	: '{' '}'
+	| '{' variable_definition_list '}'
+	| '{' statement_list '}'
+	| '{' variable_definition_list statement_list '}'
+	;
+
+statement_list
+	: C_statement
+	| statement_list C_statement
+	;
+
+expression_statement
+	: ';'
+	| C_expression ';'
+	;
+
+
+selection_statement
+	: 'if' '(' C_expression ')' C_statement
+	| 'if' '(' C_expression ')' C_statement 'else' C_statement
+	;
+
+jump_statement
+	: 'return' ';'
+	| 'return' C_expression ';'
+	| 'goto' identifier ';'
+	;
+
+
+The Commands section
+--------------------
+
+The syntax of the Commands section is the following:
+
+commands_section
+	: 'Commands'  command_list
+	;
+
+command_list
+	: command 
+	| command_list command
+	;
+
+command
+	: return_command
+	| debug_command
+	| printinstructions_command
+	| printjitfunctions_command
+	| printindextable_command
+	| printfunctiontable_command
+	| printjitfunctiontable_command
+	| printstatictables_command
+	| printglobal_command
+	| debugglobal_command
+	;
+
+return_command
+	: 'return'
+	;
+
+debug_command
+	: 'debug' ....
+	;
+
+printinstructions_command
+	: 'PrintInstructions' prologue_epilogue_list file ';'
+	;
+
+prologue_epilogue_list
+	: 
+	| prologue_epilogue
+	| prologue_epilogue_list prologue_epilogue
+	;
+
+prologue_epilogue
+	: 'prologue' C_statement 
+	| 'epilogue' C_statement
+	;
+
+file
+	: string_constant
+	;
+
+printjitfunctions_command
+	: 'PrintJitFunctions' '(' storage_list ';' storage_list ')' 
+			prologue_epilogue_list file ';'
+	;
+
+storage_list
+	:
+	| storage_name
+	| storage_list ',' storage_name 
+	;
+
+printindextable_command
+	: 'PrintIndexTable' file ';'
+	;
+
+printfunctiontable_command
+	: 'PrintFunctionTable' file ';'
+	;
+
+printjitfunctiontable_command
+	: 'PrintJitFunctionTable' file ';'
+	;
+
+printstatictables_command
+	: 'PrintStaticTables' file ';'
+	;
+
+printglobal_command
+	: 'PrintGlobal' file ';'
+	;
+
+debugglobal_command
+	: 'DebugGlobal' file ';'
+	;
+
+Now we will explain all these commands one at a time with examples
+
+return command
+##############
+
+This command is used to stop the execution of chorizo.
+
+
+debug command
+#############
+
+This command is a placeholder for debugging. It should not be used by
+non-research members.
+
+
+PrintInstructions
+#################
+
+An example of this command would be the following:
+
+
+PrintInstructions 
+	prologue { fprintf(stderr,debug1,debug2); fflush(stderr); } 
+	epilogue eval_state = 2 ; 
+	"shx/codef.c" 
+
+This command instructs us to print to the file specified in the last parameter
+the emulator functions of all instructions. Besides, it incorporates definition
+of prologue and epilogue which are optional. Both the prologue and the epilogue
+will be translated according to debug parameters and inserted in their
+appropriate places: the prologue will be the first statement executed and the
+epilogue will be the last statement executed before the fall through of the
+function, i.e. if the instruction finishes through a return, the epilogue is
+not executed.
+
+The translation of debug parameters will allow us to understand the specifics
+of literal debug parameters. The prologue in this example tries to insert
+debuggind information on each opcode executed. To do this it uses two debug
+variables (debug1 and debug2). These variables will be translated for the
+definitions of the first and second debug parameter of the instruction. In the
+instruction example we explained the instruction xori which has the following
+two debug parameters 
+
+	debug "xor #<imm> %d,R0 0x%08x\n" literal "i,REG[0]";
+
+The placeholder debug1 will be translated for the string o "xor #<imm> %d,R0
+0x%08x\n". The placeholder debug2 will be translated for the string  "i,REG[0]"
+without the quotes (that is what literal means), resulting in a prologue such
+as:
+
+	{ 
+		fprintf(stderr,"xor #<imm> %d,R0 0x%08x\n",i,REG[0]); 
+		fflush(stderr); 
+	}
+
+Let us use a simpler instruction:
+
+	xori jitinfo 2 pipeinfo 1 // 163
+	debug "xor #<imm> %d,R0 0x%08x\n" literal "i,REG[0]";
+	coded as opcodeB = 0b11001010 + literal8 ~ i ;
+		REG[0] ^= i;
+	emulcode
+	{
+		if(saved_state.srt==0)
+		{
+			pc +=2 ;
+			eval_state = 1;
+			return;
+		}
+		else
+		{
+			saved_state.nia = pc+2;
+		}
+	}
+	;;
+
+the output of the following command 
+
+PrintInstructions 
+	epilogue eval_state = 2 ; 
+	"stdout" ;
+
+is this:
+
+static void xori(unsigned _iword)
+{
+        signed int i;
+
+        i = _iword&0xff;
+        _set_lx_reg(reg_idx[0],(_get_lx_reg(reg_idx[0])^i));
+{
+        if(GET_VAL_FIXED(52)==0)
+        {
+                SET_VAL_FIXED(45,(GET_VAL_FIXED(45)+2));
+                SET_VAL_FIXED(48,1);
+                goto endf;
+        }
+        else
+        {
+                SET_VAL_FIXED(40,(GET_VAL_FIXED(45)+2));
+        }
+}
+        SET_VAL_FIXED(48,2);
+        endf:
+        {
+                return ;
+        }
+}
+
+Notice that the epilogue is not executed when the emulcode returns (since it
+goes directly to endf). For the process of emulation, the code emulated is the
+addition of the normal code plus the emulcode section.
+
+PrintJitFunctions
+#################
+
+In this command we will omit the use of prologue and epilogue since their use
+has already been explained before. Let us look at the following example:
+
+PrintJitFunctions ( reg ; Vreg, Vbank ) 
+	"shx/codejit.c" ;
+
+Notice that we have two sets (could be void any of them) of storage types. We
+will explain their meaning after we explain the purpose of this command. 
+
+The use of the jit consists on jitting instructions into a code cache for their
+posterior execution. Therefore we jit once but can execute many times, thus
+speeding the process of emulation. The jit must know how to emulate any
+instruction. A simple and naive way of doing this is to emit a call to the
+emulator function. This would be a correct (although inefficient) jitting
+strategy. 
+
+It is inefficient because the emulator functions must load variables to access
+the state of the machine. Even more, if we have supposed that a particular
+piece of state of the machine is maintained in a register, the emulator
+function will be executing a function that reads that particular register so a
+function call is paid for every register read. This is not at all efficient
+(although for the purpose of emulation it does not matter at all).
+Nevertheless, we want the jit to jit efficient code, a piece of code that reads
+register variables from registers directly. 
+
+If we know that a particular value is going to be in a particular register we
+could inform chorizo of it, but this is not true for all potential values that
+live in registers. For example, in the SH emulator, we save the SH registers in
+Lx registers, and unfortunately, we do not know what is the mapping because
+this mapping may change dynamically. 
+
+The solution that chorizo uses is the following. This command will produce two
+functions, a jit function (template of the code to be executed) and a emit
+function (one that is called and that effectively emits the instructions
+provided by the template). 
+
+Besides, we want the template to access certain variables as if they were
+registers. To accomplish this, we promote them to parameters with structure
+passing, therefore these variables will live in registers (maybe not the ones
+that are expected by our method). Then we decide which variables we know where
+they live (to translate their registers accordingly) and which variables we do
+not know where they live until the emit function. The first group of variables
+is denoted by the first set of storage types (reg in our case). This set is the
+one that defines GenRead with an expression that defines the register in which
+they live. The other group of variables is denoted by the second set of storage
+types (the ones following the ';'). In our example these are Vreg and Vbank
+which are two set of variables that live in unknown registers. We will promote
+all of the variables in these sets of sets to parameters to create the template
+function.  The emit function will call a function that grabs the jit function
+(template) from memory, optimises it with the information of the first set of
+storage types (reg in this example), preceeded by a set of movements of the
+unknown registers into definite registers and a move out of the values produced
+after the emission of the template. The analysis of the template is done
+dynamically once per opcode and stored in a library. As the variable part (the
+movement of the particular input registers as REG[n] which depends on n) is
+stored in the prologue movement, this template does not have to be recomputed.
+
+Let us see an example. Let us assume that there exists an instruction that is
+called xor_i and whose definition includes adding a register with the pc and
+xoring with a literal found in the instruction encoding. Let us also suppose
+that the jit needs to know something about this emission, such as that a
+variable called target_pc now is computed as the addition of this particular
+register (input and output) plus the immediate (this is a complex example just
+to show how weird things can get). The chorizo definition for this instruction
+would be the following:
+
+	xor_i jitinfo 2 pipeinfo 1 // 51
+	coded as opcode = 0b0010 + register ~ n + literal8 ~ i ;
+		REG[n] = ( REG[n] + pc  ) ^ i;
+	jitcode
+		target_pc = REG[n] + i;
+	;;
+
+Now we use this command in the commands section:
+
+PrintJitFunctions ( reg ; Vreg, Vbank ) 
+	"shx/codejit.c" ;
+
+First of all, chorizo will give us a template that will allow the compiler to
+generate good and efficient code that accesses our desired variables as
+registers. 
+
+typedef struct
+{
+	signed int chorizo_REG_n;
+	signed int chorizo_i;
+	unsigned int chorizo_pc;
+} ArgumentsIn_xor_i;
+
+typedef struct
+{
+	signed int chorizo_REG_n;
+} ArgumentsOut_xor_i;
+
+static ArgumentsOut_xor_i jit_xor_i(ArgumentsIn_xor_i parmsIn)
+{
+	signed int chorizo_REG_n;
+	signed int chorizo_i;
+	unsigned int chorizo_pc;
+	ArgumentsOut_xor_i parmsOut;
+
+	chorizo_pc = parmsIn.chorizo_pc;
+	chorizo_i = parmsIn.chorizo_i;
+	chorizo_REG_n = parmsIn.chorizo_REG_n;
+	chorizo_REG_n = (chorizo_REG_n+chorizo_pc)^chorizo_i;
+	endf:
+	{
+		parmsOut.chorizo_REG_n = chorizo_REG_n;
+		return parmsOut;
+	}
+}
+
+As you can see, it first defines two structures, one to be used as input
+arguments and the other as output arguments. This will enable our compiler
+(Multiflow) to promote all the fields to arguments in registers, which is what
+we want. The body of the jit function is just a series of movements from
+parameters to variables, the operation of these variables as the instruction
+needs and a movement back of the output variables to the fields of the output
+structure.
+
+When compiled, this code will access the fields of the input and output
+structure as argument registers, thus producing good and efficient code.
+Besides this function, this command produces another function, the emitting
+function, the one that is called by the jit when it wants to emit this
+particular instruction. In our example the output will be the following:
+
+static void emit_xor_i(unsigned int _iword,unsigned int **pcodebuf)
+{
+	int i, n,
+	int liveInRegs[3] = {USER38_REG, USER39_REG, ((45))};
+	int liveOutRegs[1] = {USER38_REG};
+	i = _iword&0xff;
+	n = (_iword >> 8)&0xf;
+	
+	*(*pcodebuf)++ = Make_LXMOV((USER38_REG),reg_idx[(n)],(0));
+	*(*pcodebuf)++ = Make_LXMOVI((USER39_REG),(i),(1));
+	
+	ProduceInstruction(_iword,(unsigned int)&jit_xor_i,
+		(unsigned int)&emit_xor_i,pcodebuf,0,3,liveInRegs,1,liveOutRegs);
+
+	(*(*pcodebuf)++ = Make_LXMOV(reg_idx[(n)],(USER38_REG),(1)));
+
+	(target_pc = (_get_lx_reg(reg_idx[n])+i));
+}
+
+In this function we can notice five distinct things happening. The first thing
+is the definition of vector variables such as liveInRegs and liveOutRegs. These
+two vectors are used to inform ProduceInstruction where it is supposed to find
+the arguments it receives and which arguments should live in definite
+registers. Lets us analyse liveInRegs. It is composed of three values, which
+tell how the parameters are given to the template. Notice that two of the
+values belong to a special zone, the USER??_REG, which we have left to pass
+dynamically known parameters. The third value is 45, a placeholder for the pc.
+ProduceInstruction knows this and will use this information to produce a
+correct template.
+
+The second thing we see is the creation of two mov instructions in that move
+register n and immediate i into the code buffer (notice that only the second
+has a stop bit, thus both movements happen in parallel). Then comes a call to
+ProduceInstruction, with a series of data that this function needs to generate
+a correct and efficient template. The first call to ProduceInstruction from
+this place will result in an analysis of the template function that will try to
+produce the best possible code out of it. The next calls will simply copy this
+produced code into the code buffer thus we consider this generation of the
+template to be static although it happens at run time.
+
+After the call to ProduceInstruction that inserts the template code into the
+code buffer, we introduce a series of movements from the output of the function
+to where the values are supposed to be stored, if necessary
+
+Finally we insert code that computes the jitcode section. Notice that this code
+is translated according to the normal emulation rules.
+
+PrintIndexTable
+###############
+
+This command is very simple to explain. It analyses the encodings found in the
+Instructions section and generates a series of tables necessary for deciding
+which opcode corresponds to an specific instruction. It also generates some
+declarations of some tables that will be needed later. An example of this
+command is the following:
+
+PrintIndexTable "shx/shtable.c" ;
+
+PrintFunctionTable
+##################
+
+This command generates the mapping from opcode value to name of emulator
+function. This file is included by the emulator part to know what function to
+call. An example of its use is 
+
+PrintFunctionTable "shx/initlabf.h" ;
+
+PrintJitFunctionTable
+#####################
+
+This command generates the mapping from opcode value to name of emitting
+function. This file is included by the jit to know what function to call.  An
+example of its use is 
+
+PrintJitFunctionTable "shx/initlabjit.h" ;
+
+PrintStaticTables
+#################
+
+This command generates a series of tables needed by chorizo. They are normally
+initialised to zero, but as they need on the amount of different instructions,
+we leave chorizo to automatically generate them. An example of its use is 
+
+PrintStaticTables "shx/chorizo_static.c" ;
+
+PrintGlobal
+###########
+
+This command produces a printed copy of global definitions in the specified
+file.
+
+DebugGlobal
+###########
+
+This command produces a debugging printed copy of global definitions in the
+specified file.

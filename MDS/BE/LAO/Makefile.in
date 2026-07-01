@@ -1,0 +1,121 @@
+LAO_prefix:=@LAODIR@
+include	../../Makerules
+include	../Makerules
+PERLBIN:=	$(MDSDIR)/BE/LAO/BIN
+
+cleanfiles=	$(LAO_products) $(LAO_split_xmls) $(LAO_check) *.xml
+#ifdef MDF_ENABLED
+cleanfiles+=	$(LAO_merge_xml)
+#endif
+
+LAO_xml=	$(or $(1),$(FAMILY))/LAO.xml
+LAO_merge_xml:=	$(call LAO_xml,)
+LAO_split_xmls:=	$(foreach CORE,$(CORES),$(call LAO_xml,$(CORE)))
+LAO_drop:=	Access.table
+LAO_input:=	$(filter-out $(LAO_drop), $(MDS_names))
+
+vpath %.pl $(PERLBIN)
+
+lao_install_dir = $(addprefix $(LAO_prefix)/LAO/, $(FAMILY))
+
+# $(1): core or empty (for merged generation)
+define generateXml
+$(call LAO_xml,$(1)): $(addprefix ../../MDD/$(FAMILY)/$(1)/, $(LAO_input))
+	cat Begin.xml $$^ End.xml > $$@	|| $(ABORT2)
+endef
+
+$(eval $(call generateXml,))
+$(foreach CORE,$(CORES),$(eval $(call generateXml,$(CORE))))
+
+MDT_tuples:=	\
+		Platform.tuple \
+		NativeType.tuple \
+		Storage.tuple \
+		Register.tuple \
+		RegFile.tuple \
+		RegClass.tuple \
+		RegMask.tuple \
+		Immediate.tuple \
+		Relocation.tuple \
+		Modifier.tuple \
+		Operand.tuple \
+		Format.tuple \
+		Opcode.tuple \
+		Operator.tuple \
+		Decoding.tuple \
+		Bundling.tuple \
+		Template.tuple \
+		Bundle.tuple \
+		Resource.tuple \
+		Reservation.tuple \
+		Scheduling.tuple \
+		Processor.tuple \
+		Convention.tuple \
+		Behavior.tuple
+
+MDT_cfiles:=	\
+		Decode.c \
+		MDT.c
+
+MDT_merge_products:=	$(addprefix $(FAMILY)/, $(MDT_tuples) $(MDT_cfiles))
+MDT_split_products:= $(foreach CORE,$(CORES), \
+                       $(addprefix $(CORE)/, $(MDT_tuples) $(MDT_cfiles)))
+LAO_products:=	$(MDT_split_products)
+ifdef MDF_ENABLED
+LAO_products:= $(LAO_products) $(MDT_merge_products)
+endif
+LAO_installs:=  $(addsuffix .ist, $(LAO_products))
+
+all: Begin.xml End.xml
+	mkdir -p $(FAMILY) $(CORES)
+	$(MAKE) $(LAO_products)
+
+# in the following gen_MDT_tuple/cfile
+# $(1): core or empty (for merged generation)
+# $(2): the output filename
+define gen_MDT_tuple
+$(or $(1),$(FAMILY))/$(2): $(2:%.tuple=%.pl) $(call LAO_xml,$(1))
+	FAMILY=$(FAMILY) CORES="$(or $(1),$(CORES))" $(PERL) $(PERLINC) $$< $(if $(1),--split) $$(wordlist 2, 3, $$^) > $$@	|| $(ABORT2)
+endef
+define gen_MDT_cfile
+$(or $(1),$(FAMILY))/$(2): $(2:%.c=%.pl) $(call LAO_xml,$(1))
+	FAMILY=$(FAMILY) CORES="$(or $(1),$(CORES))" $(PERL) $(PERLINC) $$< $(if $(1),--split) $$(wordlist 2, 3, $$^) > $$@	|| $(ABORT2)
+endef
+
+$(foreach MDT_tuple, $(MDT_tuples), $(eval $(call gen_MDT_tuple,,$(MDT_tuple))))
+$(foreach MDT_cfile, $(MDT_cfiles), $(eval $(call gen_MDT_cfile,,$(MDT_cfile))))
+$(foreach CORE, $(CORES), $(foreach MDT_tuple, $(MDT_tuples), $(eval $(call gen_MDT_tuple,$(CORE),$(MDT_tuple)))))
+$(foreach CORE, $(CORES), $(foreach MDT_cfile, $(MDT_cfiles), $(eval $(call gen_MDT_cfile,$(CORE),$(MDT_cfile)))))
+
+LAO_diff:=	$(addsuffix .diff, $(LAO_products))
+LAO_check:=	$(addsuffix .check, $(LAO_products))
+LAO_refs:=	$(addsuffix .refs, $(LAO_products))
+
+diff: $(LAO_diff)
+
+%.diff:
+	$(DIFF) $* $(FAMDIR)/BE/LAO/$*
+
+refs: $(LAO_refs)
+
+%.refs:
+	mkdir -p $(dir $(FAMDIR)/BE/LAO/$*)
+	cp  $* $(FAMDIR)/BE/LAO/$*
+
+install:
+	$(INSTALL) -d $(lao_install_dir)
+	$(MAKE) all
+	$(MAKE) install_lao
+
+install_lao: $(LAO_installs)
+
+%.ist:
+	$(INSTALL) -D -m 644 $* $(lao_install_dir)/$*
+
+check: $(LAO_check)
+
+%.check:
+	$(DIFF) $* $(lao_install_dir)/$*
+
+diff_lao:
+	-

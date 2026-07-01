@@ -1,0 +1,66 @@
+TODO KVX ISA
+Leverage ternary ALUs for BMM8XORD, BWLUD (Bitwise Lookup)
+Update SYNCGROUP
+Read CS at E3, write at E4.
+FCLASS instructions
+FCONV instructions
+FSCALE by power of two
+FRINTD, FROUNDD, FCEILD, FFLOORD, FTRUNCD
+Alias CMOVED.DNEZ to CMOVED.NEZ etc. to simplify patterns
+Swap quadruple regs to copro reg instruction.
+Change SENDRECVO to RECVSENDO
+Enable dual SENDO
+Enable RECVO with write mask
+Two BCU predicates combined on a LSU.
+Conditional XACCESS (for redundant twiddle)
+CMULI in hardware
+Load with splat
+CB parallel with LOOPDO to skip hw loop.
+Conversions between INT16 and FP16
+
+Missing CLZHQ, CLSHQ, CTZHQ, CBSHQ
+Half-float complex arithmetic support
+Transpose all matrix multiplicand layouts.
+Enable preload on unaligned data.
+
+Shuffle SIMD lanes in Big and Little
+XSPLATDO, XPLSATDX, XSPLATDV for immediates
+XACCESSB, XACCESSH, XACCESSW, XACCESSD, XACCESSQ, XACCESSO
+XALIGNO, XALIGNX
+Splat bit in input operand SIMD instructions in core and copro
+Remove if-conversion compiler patterns for KV4
+
+Register with one bit per data-ready register.
+
+SATWHQ, SATUWHQ, SATDWP, SATUDWP to saturate and narrow
+
+ANDL, IORL in dual-bcu branches
+
+Load modifiers fron .us to .u.s.
+
+MDS
+
+(CONST.CS.CC) (CONST.GRF.R2) table can be multi-level
+
+## TODO KVX Description
+# Parse Execution into Behavior
+# Probe if address is cached or not.
+# See SHASX SASX QSAX RBIT REV PREV SXTAB, SXTAH, PSXAB from ARM
+# PACKBB, PACKBT, PACKTT, SPACK, BLEND, BLENDN
+# BSET BCLR BTST BXOR BMASK from ARC
+# Support OpenCL SIMD atomics
+# Support OpenCL SIMD arithmetic
+#
+# TODO MDS
+# Use mapped values of modifiers instead of decoded values
+# Specialize Opcodes by RegClass(es) of Operands.
+# Add ABI stage allocation automaton.
+# Rework Operand constraints
+# Simulated with a Behavior
+# Synthetic with repeated Operand.
+# Move bias shift etc. to Operand from Immediate
+# PseudoC sub variables like foo.10..0
+# PseudoC fields variables like foo.EF
+# PseudoC list results like (int a, int b) = foobar();
+# Add assembler example to each instruction
+

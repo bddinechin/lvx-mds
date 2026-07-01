@@ -1,0 +1,97 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{palatino,epsfig}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{latexsym}
+\usepackage{pstcol}
+
+%\usepackage{fullpage}
+\topmargin  -0.5in  % distance to headers
+%\headheight 0.2in   % height of header box
+\headsep    0.3in   % distance to top line
+\textheight 9.0in   % height of text
+\footskip   0.3in   % distance from bottom line
+%\footheight 0.2in   % height of footer box
+
+% Horizontal alignment
+
+\oddsidemargin  0.in \evensidemargin 0.in \textwidth  6.5in
+
+\title{Implementation of the Machine Description System}
+\author{Beno\^{\i}t Dupont de Dinechin}
+\date{%
+$Revision: 1.5 $
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+We describe the implementation choices made during the prototyping of the
+Machine Description System.
+
+\end{abstract}
+
+\section{Configuration Management}
+
+Typical steps for extraction and configuration of the MDS are (assuming
+\texttt{bash} shell):
+
+\begin{verbatim}
+  export CVSROOT=/home/tmp/cvsroot
+  export PATH=/home/tmp/local/bin:$PATH
+  cvs co MDS
+  mkdir st230
+  cd st230
+  ../MDS/configure --target=st230
+  make all
+  make doc
+  make check
+  make clean
+\end{verbatim}
+ 
+\section{Processing Overview}
+
+The build process (\texttt{make all}) first goes into \texttt{MDS/FE/CHESS} to
+build the Machine Description Database (MDD) XML files from the CHESS
+\texttt{.db} files and put them under \texttt{MDS/MDD}. Then it goes into
+\texttt{MDS/MDE} and creates the Machine Description Expansion (MDE) XML files
+under \texttt{MDS/MDE}.  Last, it goes into the \texttt{MDS/BE} subdirectories
+and creates the machine description files suited for the different target tools.
+
+\section{Source Code Organization}
+
+\begin{description}
+
+\item[\texttt{MDS/DOC}] Documentation for the MDS, including the XML Document
+Type Definition (DTD) for the MDD and the MDE.
+
+\item[\texttt{MDS/DOC/Mail}] Mail exchanged about the design of the XML MDS.
+
+\item[\texttt{MDS/LIB}] Perl modules used by the Perl scripts of the MDS. This
+includes pure-Perl CPAN modules like XML::Parser::Lite, and MDS specific Perl
+modules.
+
+\item[\texttt{MDS/FE/CHESS}] CHESS front-end of the MDS.
+
+\item[\texttt{MDS/FE/CHESS/st231}] CHESS \texttt{.db} files for the ST231.
+
+\item[\texttt{MDS/FE/CHESS/BIN}] Perl scripts to convert the CHESS \texttt{.db}
+files into the \texttt{MDS/MDD} XML files. There is one Perl script for each
+\texttt{MDS/MDD} XML file.
+
+\item[\texttt{MDS/MDE/BIN}] Perl scripts to expand the \texttt{MDS/MDD} XML
+files into the \texttt{MDS/MDE} XML files. There is one Perl script for each
+\texttt{MDS/MDE} XML file.
+
+\item[\texttt{MDD/BE/DOC/BIN}] Perl scripts to produce the HTML documentation
+derived from the MDD files.
+
+\item[\texttt{MDD/BE/GNU/BIN}] Perl scripts to produce the \texttt{.c} and
+\texttt{.h} files required to target the GNU tools.
+
+\end{description}
+
+\end{document}
+

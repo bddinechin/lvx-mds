@@ -1,0 +1,39 @@
+To Do Next:
+  * Relocations should be on Operand instead of Immediate as relocations 
+    are applied on immediate and its associated bitfield(s).
+
+  * Relocation ELF ids should be specified in MDS (also on sub relocs in case of bitfields).
+    See example of O64's targinfo description on janiny/dev-air2 branch.
+
+  * Reuse the Semantics codes from Christophe Guillon in MDD/MDE
+
+  * Add ISASubset and Processor tables
+
+  * Change Operator@cores to Operator@subsets
+
+  * Move Simulated definitions to LIB/Simulated.pm
+
+Cleanups:
+
+  * Use the MDS::make routines everywhere to create XML tables in the FE
+
+  * Rename Instruction.1.* to Instruction-1.* and Instruction.2.* to * Instruction-2.*
+
+  * Replace $coretable{$CORE}($ID} by $table{$ID} / $table{$CORE}{$ID}
+
+To Do Later:
+
+  * PseudoC language to describe behavior in new processor descriptions
+
+  * Complete the SH4/ST30 port
+
+  * Do the ARM/9E port
+
+ST200 Name hacking:
+
+  * Storage:$CORE:B -> Storage:$CORE:BR
+
+  * Storage:$CORE:R -> Storage:$CORE:GR
+
+  * RegClass:$CORE:Branch -> RegClass:$CORE:Condition
+

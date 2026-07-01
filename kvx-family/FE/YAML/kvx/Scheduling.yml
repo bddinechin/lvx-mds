@@ -1,0 +1,234 @@
+Scheduling:
+
+#ifdef _KV4_
+
+  - ID: ALL
+    bundling: ALL
+    reservation: ALL
+
+  - ID: BCU
+    bundling: BCU
+    reservation: BCU
+
+  - ID: BCU_XFER
+    bundling: BCU
+    reservation: BCU_XFER
+
+  - ID: BCU_XFER_BRRP
+    bundling: BCU
+    reservation: BCU_XFER_BRRP
+
+  - ID: BCU_BRRP
+    bundling: BCU
+    reservation: BCU_BRRP
+
+  - ID: BCU_BRRP2
+    bundling: BCU
+    reservation: BCU_BRRP2
+
+  - ID: BCU2
+    bundling: BCU2
+    reservation: BCU2
+
+  - ID: BCU2.X
+    bundling: BCU2.X
+    reservation: BCU2.X
+
+  - ID: BCU2_TINY_LSU
+    bundling: BCU2
+    reservation: BCU2_TINY_LSU
+
+  - ID: ALU_TINY
+    bundling: TINY
+    reservation: ALU_TINY
+
+  - ID: ALU_TINY.X
+    bundling: TINY.X
+    reservation: ALU_TINY.X
+
+  - ID: ALU_TINY.Y
+    bundling: TINY.Y
+    reservation: ALU_TINY.Y
+
+  - ID: ALU_TINY_AUXR
+    bundling: TINY
+    reservation: ALU_TINY_AUXR
+
+  - ID: ALU_LITE
+    bundling: LITE
+    reservation: ALU_LITE
+
+  - ID: ALU_LITE.X
+    bundling: LITE.X
+    reservation: ALU_LITE.X
+
+  - ID: ALU_LITE.Y
+    bundling: LITE.Y
+    reservation: ALU_LITE.Y
+
+  - ID: ALU_LITE_MISC
+    bundling: LITE
+    reservation: ALU_LITE_MISC
+
+  - ID: ALU_FULL
+    bundling: FULL
+    reservation: ALU_FULL
+
+  - ID: ALU_FULL.X
+    bundling: FULL.X
+    reservation: ALU_FULL.X
+
+  - ID: ALU_FULL.Y
+    bundling: FULL.Y
+    reservation: ALU_FULL.Y
+
+  - ID: LSU
+    bundling: LSU
+    reservation: LSU
+
+  - ID: LSU.X
+    bundling: LSU.X
+    reservation: LSU.X
+
+  - ID: LSU.Y
+    bundling: LSU.Y
+    reservation: LSU.Y
+
+  - ID: LSU_MEMW_ACCR
+    bundling: LSU0
+    reservation: LSU_MEMW_ACCR
+
+  - ID: LSU_MEMW_ACCR.X
+    bundling: LSU0.X
+    reservation: LSU_MEMW_ACCR.X
+
+  - ID: LSU_MEMW_ACCR.Y
+    bundling: LSU0.Y
+    reservation: LSU_MEMW_ACCR.Y
+
+  - ID: LSU2_MEMW
+    bundling: LSU0
+    reservation: LSU2_MEMW
+
+  - ID: LSU2_MEMW.X
+    bundling: LSU0.X
+    reservation: LSU2_MEMW.X
+
+  - ID: LSU2_MEMW.Y
+    bundling: LSU0.Y
+    reservation: LSU2_MEMW.Y
+
+  - ID: LSU_AUXR
+    bundling: LSU
+    reservation: LSU_AUXR
+
+  - ID: LSU_AUXR.X
+    bundling: LSU.X
+    reservation: LSU_AUXR.X
+
+  - ID: LSU_AUXR.Y
+    bundling: LSU.Y
+    reservation: LSU_AUXR.Y
+
+  - ID: LSU_MEMW_AUXR
+    bundling: LSU0
+    reservation: LSU_MEMW_AUXR
+
+  - ID: LSU_MEMW_AUXR.X
+    bundling: LSU0.X
+    reservation: LSU_MEMW_AUXR.X
+
+  - ID: LSU_MEMW_AUXR.Y
+    bundling: LSU0.Y
+    reservation: LSU_MEMW_AUXR.Y
+
+  - ID: LSU2_MEMW_AUXR
+    bundling: LSU0
+    reservation: LSU2_MEMW_AUXR
+
+  - ID: LSU2_MEMW_AUXR.X
+    bundling: LSU0.X
+    reservation: LSU2_MEMW_AUXR.X
+
+  - ID: LSU2_MEMW_AUXR.Y
+    bundling: LSU0.Y
+    reservation: LSU2_MEMW_AUXR.Y
+
+  - ID: LSU_MEMW_AUXW
+    bundling: LSU0
+    reservation: LSU_MEMW_AUXW
+
+  - ID: LSU_MEMW_AUXW.X
+    bundling: LSU0.X
+    reservation: LSU_MEMW_AUXW.X
+
+  - ID: LSU_MEMW_AUXW.Y
+    bundling: LSU0.Y
+    reservation: LSU_MEMW_AUXW.Y
+
+  - ID: LSU2_MEMW_AUXW
+    bundling: LSU0
+    reservation: LSU2_MEMW_AUXW
+
+  - ID: LSU2_MEMW_AUXW.X
+    bundling: LSU0.X
+    reservation: LSU2_MEMW_AUXW.X
+
+  - ID: LSU2_MEMW_AUXW.Y
+    bundling: LSU0.Y
+    reservation: LSU2_MEMW_AUXW.Y
+
+  - ID: LSU_AUXW
+    bundling: LSU
+    reservation: LSU_AUXW
+
+  - ID: LSU_AUXW.X
+    bundling: LSU.X
+    reservation: LSU_AUXW.X
+
+  - ID: LSU_AUXW.Y
+    bundling: LSU.Y
+    reservation: LSU_AUXW.Y
+
+  - ID: LSU_AUXR_AUXW
+    bundling: LSU
+    reservation: LSU_AUXR_AUXW
+
+  - ID: LSU_AUXR_AUXW.X
+    bundling: LSU.X
+    reservation: LSU_AUXR_AUXW.X
+
+  - ID: LSU_AUXR_AUXW.Y
+    bundling: LSU.Y
+    reservation: LSU_AUXR_AUXW.Y
+
+  - ID: LSU2_MEMW_AUXR_AUXW
+    bundling: LSU0
+    reservation: LSU2_MEMW_AUXR_AUXW
+
+  - ID: LSU2_MEMW_AUXR_AUXW.X
+    bundling: LSU0.X
+    reservation: LSU2_MEMW_AUXR_AUXW.X
+
+  - ID: LSU2_MEMW_AUXR_AUXW.Y
+    bundling: LSU0.Y
+    reservation: LSU2_MEMW_AUXR_AUXW.Y
+
+  - ID: EXT
+    bundling: EXT
+    reservation: EXT
+
+  - ID: EXT_COMP
+    bundling: EXT
+    reservation: EXT_COMP
+
+  - ID: EXT_MISC
+    bundling: EXT
+    reservation: EXT_MISC
+
+  - ID: EXT_MISC_AUXW
+    bundling: EXT
+    reservation: EXT_MISC_AUXW
+
+#endif//_KV4_
+

@@ -1,0 +1,12 @@
+Example of YAML input to the MDS
+================================
+
+xpl-family is a YAML example. Input files are:
+
+ - xpl-family/FE/YAML/xpl/xpl1/Description.yml: trimmed down description of a VLIW processor.
+
+ - Opcode.txt: The opcode map, automatically built from Description.yml.
+
+ - xpl-family/FE/YAML/BIN/makeBundle.pl: Perl script used to generate Bundle.yml file.
+
+

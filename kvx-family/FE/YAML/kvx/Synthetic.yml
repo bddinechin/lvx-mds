@@ -1,0 +1,338 @@
+Synthetic:
+
+#ifdef _KV4_
+
+  - ID: SBMM8
+    what: Swapped Bit Matrix Multiplication 8$\times$8
+    formats: [ ALU_DBMWRR, ALU_DBMWRR.M, ALU_DBMWRI, ALU_DBMWRI.X, ALU_DBMWRI.Y ]
+    instruction: SBMM8D
+
+  - ID: SBMMT8
+    what: Swapped Bit Matrix Multiplication Transposed 8$\times$8
+    formats: [ ALU_DBMWRR, ALU_DBMWRR.M, ALU_DBMWRI, ALU_DBMWRI.X, ALU_DBMWRI.Y ]
+    instruction: SBMMT8D
+
+  - ID: COPYQ
+    what: Copy Double Word
+    formats: [ ALU_CATDQ ]
+    instruction: CATDQ
+
+  - ID: COPYD
+    what: Copy Double Word
+    formats: [ ALU_DWRI ]
+    instruction: IORD
+    specialize: { "%3": 0 }
+    syntax: "%0 %1 = %2"
+
+  - ID: ERROP
+    what: Error opcode.
+    formats: [ BCU_CCB ]
+    instruction: CCB
+    specialize: { "%1": "0", "%2": "0", "%3": "0", "%4": "0" }
+    syntax: "%0"
+    execution: |
+      stage RR:
+      _THROW(OPCODE);
+    behavior: |
+      (THROW.ID.OPCODE)
+
+  - ID: ZXBD
+    what: Zero Extend Byte to Double Word
+    formats: [ ALU_BFWR ]
+    instruction: EXTFZ
+    specialize: { "%3": "0b000111", "%4": "0b000000" }
+    syntax: "%0 %1 = %2"
+
+  - ID: SXBD
+    what: Sign Extend Byte to Double Word
+    formats: [ ALU_BFWR ]
+    instruction: EXTFS
+    specialize: { "%3": "0b000111", "%4": "0b000000" }
+    syntax: "%0 %1 = %2"
+
+  - ID: ZXHD
+    what: Zero Extend Half Word to Double Word
+    formats: [ ALU_BFWR ]
+    instruction: EXTFZ
+    specialize: { "%3": "0b001111", "%4": "0b000000" }
+    syntax: "%0 %1 = %2"
+
+  - ID: SXHD
+    what: Sign Extend Half Word to Double Word
+    formats: [ ALU_BFWR ]
+    instruction: EXTFS
+    specialize: { "%3": "0b001111", "%4": "0b000000" }
+    syntax: "%0 %1 = %2"
+
+  - ID: ZXWD
+    what: Zero Extend Word to Double Word
+    formats: [ ALU_BFWR ]
+    instruction: EXTFZ
+    specialize: { "%3": "0b011111", "%4": "0b000000" }
+    syntax: "%0 %1 = %2"
+
+  - ID: SXWD
+    what: Sign Extend Word to Double Word
+    formats: [ ALU_BFWR ]
+    instruction: EXTFS
+    specialize: { "%3": "0b011111", "%4": "0b000000" }
+    syntax: "%0 %1 = %2"
+
+  - ID: COPYW
+    what: Copy Word
+    formats: [ ALU_WSWRI ]
+    instruction: SLLW
+    specialize: { "%3": "0" }
+    syntax: "%0%4 %1 = %2"
+
+#if 0
+  - ID: XMOVETO
+    what: Alias of MOVETO
+    formats: [ ALU_MOVETO ]
+    instruction: MOVETO
+
+  - ID: XMOVETQ
+    what: Alias of MOVETQ
+    formats: [ ALU_MOVETQ0, ALU_MOVETQ1 ]
+    instruction: MOVETQ
+
+  - ID: XMOVETD
+    what: Alias of MOVETD
+    formats: [ ALU_MOVETD0, ALU_MOVETD1, ALU_MOVETD2, ALU_MOVETD3 ]
+    instruction: MOVETD
+
+  - ID: XMOVEFO
+    what: Alias of MOVEFO
+    formats: [ EXT_XMOVEFO ]
+    instruction: MOVEFO
+
+  - ID: XMOVEFQ
+    what: Alias of MOVEFQ
+    formats: [ EXT_XMOVEFQ ]
+    instruction: MOVEFQ
+
+  - ID: XMOVEFD
+    what: Alias of MOVEFD
+    formats: [ EXT_XMOVEFD ]
+    instruction: MOVEFD
+#endif
+
+  - ID: MULDT
+    what: alias of MULDQ
+    formats: [ ALU_QMEWRR ]
+    instruction: MULDQ
+    specialize: { "%4": "0" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MULUDT
+    what: alias of MULDQ.U
+    formats: [ ALU_QMEWRR ]
+    instruction: MULDQ
+    specialize: { "%4": "1" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MULSUDT
+    what: alias of MULDQ.SU
+    formats: [ ALU_QMEWRR ]
+    instruction: MULDQ
+    specialize: { "%4": "2" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MADDDT
+    what: alias of MADDDQ
+    formats: [ ALU_QMEWRRR ]
+    instruction: MADDDQ
+    specialize: { "%4": "0" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MADDUDT
+    what: alias of MADDDQ.U
+    formats: [ ALU_QMEWRRR ]
+    instruction: MADDDQ
+    specialize: { "%4": "1" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MADDSUDT
+    what: alias of MADDDQ.SU
+    formats: [ ALU_QMEWRRR ]
+    instruction: MADDDQ
+    specialize: { "%4": "2" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MSBFDT
+    what: alias of MSBFDQ
+    formats: [ ALU_QMEWRRR ]
+    instruction: MSBFDQ
+    specialize: { "%4": "0" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MSBFUDT
+    what: alias of MSBFDQ.U
+    formats: [ ALU_QMEWRRR ]
+    instruction: MSBFDQ
+    specialize: { "%4": "1" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MSBFSUDT
+    what: alias of MSBFDQ.SU
+    formats: [ ALU_QMEWRRR ]
+    instruction: MSBFDQ
+    specialize: { "%4": "2" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MULUWD
+    what: alias of MULWD.U
+    formats: [ ALU_DMEWRR, ALU_DMEWRR.M ]
+    instruction: MULWD
+    specialize: { "%4": "1", "%5": "0" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MULSUWD
+    what: alias of MULWD.SU
+    formats: [ ALU_DMEWRR, ALU_DMEWRR.M ]
+    instruction: MULWD
+    specialize: { "%4": "2", "%5": "0" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MADDUWD
+    what: alias of MADDWD.U
+    formats: [ ALU_DMEWRRR, ALU_DMEWRRR.M ]
+    instruction: MADDWD
+    specialize: { "%4": "1", "%5": "0" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MADDSUWD
+    what: alias of MADDWD.SU
+    formats: [ ALU_DMEWRRR, ALU_DMEWRRR.M ]
+    instruction: MADDWD
+    specialize: { "%4": "2", "%5": "0" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MSBFUWD
+    what: alias of MSBFWD.U
+    formats: [ ALU_DMEWRRR, ALU_DMEWRRR.M ]
+    instruction: MSBFWD
+    specialize: { "%4": "1", "%5": "0" }
+    syntax: "%0 %1 = %2, %3"
+
+  - ID: MSBFSUWD
+    what: alias of MSBFWD.SU
+    formats: [ ALU_DMEWRRR, ALU_DMEWRRR.M ]
+    instruction: MSBFWD
+    specialize: { "%4": "2", "%5": "0" }
+    syntax: "%0 %1 = %2, %3"
+
+#endif//_KV4_
+
+#ifdef _KV4_RV_
+
+  - ID: NOP
+    what: Pseudoinstruction.
+    formats: [ RV32I_I_ALU ]
+    instruction: ADDI
+    specialize: { "%1": "0", "%2": "0", "%3": "0" }
+    syntax: "%0"
+    execution: |
+      stage RR:
+      ;
+    behavior: |
+      (SKIP)
+
+  - ID: LI
+    what: Pseudoinstruction.
+    formats: [ RV32I_I_ALU ]
+    instruction: ADDI
+    specialize: { "%2": "0" }
+    syntax: "%0 %1, %3"
+
+  - ID: MV
+    what: Pseudoinstruction.
+    formats: [ RV32I_I_ALU ]
+    instruction: ADDI
+    specialize: { "%3": "0" }
+    syntax: "%0 %1, %2"
+
+  - ID: NOT
+    what: Pseudoinstruction.
+    formats: [ RV32I_I_ALU ]
+    instruction: XORI
+    specialize: { "%3": "-1" }
+    syntax: "%0 %1, %2"
+
+  - ID: NEG
+    what: Pseudoinstruction.
+    formats: [ RV32I_RF20 ]
+    instruction: SUB
+    specialize: { "%2": "0" }
+    syntax: "%0 %1, %3"
+
+  - ID: NEGW
+    what: Pseudoinstruction.
+    formats: [ RV64I_RF20 ]
+    instruction: SUBW
+    specialize: { "%2": "0" }
+    syntax: "%0 %1, %3"
+
+  - ID: SEXT.W
+    what: Pseudoinstruction.
+    formats: [ RV64I_I_ALU ]
+    instruction: ADDIW
+    specialize: { "%3": "0" }
+    syntax: "%0 %1, %2"
+
+  - ID: SEQZ
+    what: Pseudoinstruction.
+    formats: [ RV32I_I_ALU ]
+    instruction: SLTIU
+    specialize: { "%3": "1" }
+    syntax: "%0 %1, %2"
+
+  - ID: SNEZ
+    what: Pseudoinstruction.
+    formats: [ RV32I_RF00 ]
+    instruction: SLTU
+    specialize: { "%2": "0" }
+    syntax: "%0 %1, %3"
+
+  - ID: SLTZ
+    what: Pseudoinstruction.
+    formats: [ RV32I_RF00 ]
+    instruction: SLT
+    specialize: { "%3": "0" }
+    syntax: "%0 %1, %2"
+
+  - ID: SGTZ
+    what: Pseudoinstruction.
+    formats: [ RV32I_RF00 ]
+    instruction: SLT
+    specialize: { "%2": "0" }
+    syntax: "%0 %1, %3"
+
+  - ID: CSRR
+    what: Pseudoinstruction.
+    formats: [ RVZI_CSRR ]
+    instruction: CSRRS
+    specialize: { "%2": "0" }
+    syntax: "%0 %1, %3"
+    execution: |
+      rd = csr_read(csr);
+    behavior: |
+      (WRITE.rd
+        (READ.csr)
+      )
+
+  - ID: CSRW
+    what: Pseudoinstruction.
+    formats: [ RVZI_CSRR ]
+    instruction: CSRRW
+    specialize: { "%1": "0" }
+    syntax: "%0 %3, %2"
+    execution: |
+      csr_write(csr, rs1);
+    behavior: |
+      (COMMIT.E1.%3
+        (READ.rs1)
+      )
+
+#endif//_KV4_RV_
+

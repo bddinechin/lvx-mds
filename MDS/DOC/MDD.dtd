@@ -1,0 +1,1181 @@
+<!-- The Machine Description Database DTD -->
+<!-- Copyright (c) 2004, 2005 STMicroelectronics -->
+<!-- Licensed under the GNU Public License, see file COPYING at top level -->
+<!-- Author: Benoit Dupont de Dinechin (benoit.dupont-de-dinechin@st.com) -->
+
+<!--
+  <subsection title="Machine State"/>
+-->
+
+<!--
+ <dfn>Platform</dfn> Platform information.
+-->
+<!ELEMENT Platform EMPTY>
+<!ATTLIST Platform
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  charWidth	NMTOKEN		#REQUIRED
+  addrWidth	NMTOKEN		#REQUIRED
+  endian	( Little	|
+		  Big	)	#IMPLIED
+  alignText	NMTOKEN		#IMPLIED
+  alignData	NMTOKEN		#IMPLIED
+  alignHeap	NMTOKEN		#IMPLIED
+  alignStack	NMTOKEN		#IMPLIED
+  nativeInt	IDREF		#REQUIRED
+  nativeUInt	IDREF		#REQUIRED
+  nativeFloat	IDREF		#REQUIRED
+  nativePtr	IDREF		#REQUIRED
+>
+<!--
+  <description>
+    <term>charWidth</term> The width in bits of the smallest addressable data.
+    <term>addrWidth</term> The width in bits of data addresses.
+    <term>endian</term> Wether this Platform is little or big endian. When
+    unspecified the Platform <code>endian</code> is assumed to be configurable.
+    <term>alignText</term> The minimum required memory alignment if any
+      for text segments. Alignment is given by a base in bytes; the bias is 0.
+    <term>alignData</term> The minimum required memory alignment if any
+      for data segments. Alignment is given by a base in bytes; the bias is 0.
+    <term>alignHeap</term> The minimum required memory alignment if any
+      for heap segments. Alignment is given by a base in bytes; the bias is 0.
+    <term>alignStack</term> The minimum required memory alignment if any
+      for the memory stack. Alignment is given by a base in bytes; the bias is 0.
+    <term>nativeInt</term> The NativeType for native size
+      two's-complement signed value (<code>int</code>).
+    <term>nativeUint</term> The NativeType for native size
+      unsigned binary value (<code>unsigned int</code>).
+    <term>nativeFloat</term> The NativeType for native size
+      floating-point number (<code>double</code>).
+    <term>nativePtr</term> The NativeType for native size
+      pointer (<code>void*</code>).
+  </description>
+-->
+
+<!--
+  <dfn>NativeType</dfn> A NativeType is a data type that is operated by the
+  machine data path and whose instances fit in a machine RegFile.
+-->
+<!ELEMENT NativeType EMPTY>
+<!ATTLIST NativeType
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  width		NMTOKEN		#REQUIRED
+  sizeof	NMTOKEN		#REQUIRED
+  align		NMTOKEN		#REQUIRED
+  printf	CDATA		#REQUIRED
+  slice		NMTOKEN		#IMPLIED
+  type 	        ( Float	|
+		  Signed |
+                  Unsigned |
+                  Bool |
+                  Pointer |
+                  Void )	#IMPLIED
+>
+<!--
+  <description>
+    <term>width</term> The width in bits of this NativeType.
+    <term>sizeof</term> The size in bytes of this NativeType in memory.
+    <term>align</term> The required memory alignment if any for this
+      NativeType. Alignment is given by a base in bytes; the bias is always 0.
+    <term>printf</term> A C format string suitable for <code>printf</code> on a
+      32-bit host to print a value of this NativeType.
+    <term>slice</term> Some values need to print as list using <code>format</code>,
+      such as ".word %x, %x" for 64-bit types on 32-bit machines. In such case the
+      value is transformed into a list by slicing it into chunks of <code>slice</code>
+      bits. Order of the slices in this list depends of the
+      Platform <code>endian</code>ness.
+    <term>type</term> Specify the type floating point or signed/unsigned integer.
+  </description>
+-->
+
+<!--
+  <dfn>Storage</dfn> A Storage is a collection of cells where values can be
+  stored to or retrieved from using an unsigned index. We define Storage in a
+  similar way as in the CSDL system. The Storage specification is used to
+  implement the architectural state in an execution engine such as simulator.
+-->
+<!ELEMENT Storage (#PCDATA)>
+<!ATTLIST Storage
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  kind		( Memory	|
+		  Control	|
+		  Special	|
+		  Register	|
+		  Neighbor      |
+                  Constant )	#REQUIRED
+  width		NMTOKEN		#REQUIRED
+  count		NMTOKEN		#IMPLIED
+>
+<!--
+  <description>
+    <term>kind</term> one of <code>Memory</code>, <code>Control</code>,
+      <code>Special</code>, <code>Register</code>, <code>Constant</code>.
+      A <code>Memory</code> Storage is conventional addressable memory. A
+      <code>Control</code> Storage is such that writing to it changes the
+      program control-flow. A <code>Register</code> Storage provides storage
+      for Register(s). In case of <code>Constant</code>, the Storage
+      element contents is a list of white-separated constant values.
+    <term>width</term> Width in bits of the cells of this Storage.
+    <term>count</term> Count the number of cells. The ISO-C99 symbolic
+      constants such as <code>UINT32_MAX</code> can be used. This Storage
+      <code>count</code> is omitted when this Storage is unbounded.
+  </description>
+-->
+
+<!--
+  <dfn>RegField</dfn> Field of an architectural register.
+  A RegField belongs to exactly one Register. This Register is
+  given by the <code>register</code> attribute, and the Register
+  must list this RegField in its <code>fields</code> attribute.
+-->
+<!ELEMENT RegField EMPTY>
+<!ATTLIST RegField
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  register	IDREF		#REQUIRED
+  offset	NMTOKEN		#REQUIRED
+  width		NMTOKEN		#REQUIRED
+  owners        IDREFS          #IMPLIED
+  reset		NMTOKEN		#IMPLIED
+  rerrors	NMTOKENS	#IMPLIED
+  werrors	NMTOKENS	#IMPLIED
+>
+<!--
+  <description>
+    <term>register</term> The Register this RegField belongs to.
+    <term>offset</term> Bit-offset of the RegField.
+    <term>width</term> Bit-width of the RegField.
+    <term>owners</term> Bit field(s) owner(s) of this bitfield: access rights.
+    <term>reset</term> Reset value if any.
+    <term>rerrors</term> Action list on read when RegField is not owned.
+    <term>werrors</term> Action list on write when RegField is not owned.
+  </description>
+-->
+
+<!--
+  <dfn>Register</dfn> Architectural register. Aliases between Register(s) are
+  detected by overlapping <code>storage</code>.
+  A Register belongs to one RegFile at most. Sharing
+  between RegFile(s) is achieved by defining two Register(s) that alias through
+  the underlying Storage. Register(s) with constant value should be referring
+  to Constant Storage. Register(s) which are not part of a RegFile can only
+  correspond to Register Operand(s), they cannot belong to a RegClass.
+-->
+<!ELEMENT Register EMPTY>
+<!ATTLIST Register
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  storage	IDREF		#REQUIRED
+  regFile	IDREF		#IMPLIED
+  addresses	NMTOKENS	#REQUIRED
+  fields	IDREFS		#IMPLIED
+  owners	IDREFS		#IMPLIED
+  names		CDATA		#REQUIRED
+  raccess	(NONE|GET)	#IMPLIED
+  waccess	(NONE|SET|WFX)	#IMPLIED
+  width		NMTOKEN		#REQUIRED
+  reset		NMTOKEN		#IMPLIED
+  dwarfId	CDATA		#IMPLIED
+  processors	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>storage</term> The underlying Storage for this Register.
+    <term>regFile</term> The RegFile of this Register.
+    <term>addresses</term> The Storage cell addresses for this Register.
+    <term>fields</term> RegField(s) contained in this Register if any.
+    <term>owners</term> Bit field(s) owner(s) of this bitfield: access rights.
+    <term>names</term> White-separated list of valid assembly names.
+    <term>raccess</term> Read support (NONE or GET if present).
+    <term>waccess</term> Write support (NONE or SET or WFX if present).
+    <term>width</term> Bit-width of the Register(s), may override one in RegFile.
+    <term>reset</term> Reset value if any.
+    <term>dwarfId</term> DWARF identity if any.
+    <term>processors</term> Processors that contains this <code>Register</code>.
+  </description>
+-->
+
+<!--
+  <dfn>RegFile</dfn> A RegFile is an ordered set of Register(s) that have the
+  same capabilities for holding NativeType(s) and data transfers. The
+  Register(s) of a RegFile can have different underlying Storage. The main
+  purpose of RegFile is to define a local number of Register(s) starting at
+  zero. This local Register number is the natural value used to represent
+  a Register in a RegClass. Use of single-Register RegClass(es) is deprecated.
+  Instead, a Register method should be used in Operand(s).
+-->
+<!ELEMENT RegFile  EMPTY>
+<!ATTLIST RegFile
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  width		NMTOKEN		#REQUIRED
+  regClass	IDREF		#REQUIRED
+  registers	IDREFS		#REQUIRED
+  multi		IDREFS		#IMPLIED
+  nativeTypes	IDREFS		#REQUIRED
+  processors	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>width</term> Default bit-width of the Register(s) in this RegFile. If zero,
+      indicates the RegFile may be used as buffer so there is no definite access size.
+    <term>regClass</term> The RegClass with same <code>registers</code> as this RegFile.
+    <term>registers</term> The Register(s) of this RegFile.
+    <term>multi</term> FIXME! Attribute moved to RegClass.
+    <term>nativeTypes</term> List of NativeType(s) possibly held by this RegFile.
+    <term>processors</term> Processors that contains this <code>RegFile</code>.
+  </description>
+-->
+
+<!--
+  <subsection title="Encoding and Decoding"/>
+-->
+
+<!--
+  <dfn>BitField</dfn> A BitField is a contiguous range of bits.
+-->
+<!ELEMENT BitField EMPTY>
+<!ATTLIST BitField
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  width		NMTOKEN		#REQUIRED
+  offset	NMTOKEN		#REQUIRED
+>
+<!--
+  <description>
+    <term>width</term> This BitField width in bits (bit position of the most
+      significant bit is <code>offset+width-1</code>.
+    <term>offset</term> This BitField offset in bits (bit position of the least
+      significant bit).
+  </description>
+-->
+
+<!--
+  <dfn>Operand</dfn> An Operand identifies a variant part of an Instruction
+  encoding. For the purposes of Instruction behavior and Operator semantics,
+  each Operand recovers an interpreted value from the encoded values in its
+  BitField(s) by using a method. An Operand method is one of: RegMask, Modifier,
+  Immediate, RegClass, Register.
+-->
+<!ELEMENT Operand EMPTY>
+<!ATTLIST Operand
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  fields	IDREFS		#IMPLIED
+  method	IDREF		#REQUIRED
+  relocations	IDREFS		#IMPLIED
+  default	NMTOKEN		#IMPLIED
+  shortName	NMTOKEN		#IMPLIED
+>
+<!--
+  <description>
+    <term>fields</term> This Operand list of target BitField(s). The encoded
+      value is the concatenation of the <code>fields</code> BitField values from
+      most significant to least significant.
+    <term>method</term> Method used to interpret this Operand encoded value.
+    <term>relocations</term> White-separated list of Relocation(s) that may
+      apply to this Immediate. This attribute must be defined for this Immediate
+      to be part of a relocatable Operand.
+    <term>default</term> Index in <code>relocations</code> of the default Relocation
+      that must be applied if there is no explicit relocation in the assembler source code.
+    <term>shortName</term> Short name for the operand to be used for the 
+    generation of shortName for <code>opcode</code>.
+  </description>
+-->
+
+<!--
+  <dfn>Modifier</dfn> A Modifier is a method that interprets the encoded value
+  in the Operand <code>fields</code> BitField(s) into a modifier value
+  for use by an Operand. This transformation is specified by indexing the
+  Modifier table of <code>values</code> with the encoded value.
+-->
+<!ELEMENT Modifier EMPTY>
+<!ATTLIST Modifier
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  values	NMTOKENS	#REQUIRED
+  members	CDATA		#REQUIRED
+  width		NMTOKEN		#REQUIRED
+  properties	CDATA		#IMPLIED
+>
+<!--
+  <description>
+    <term>values</term> A white-separated list of values.
+    <term>members</term> A white-separated list of member names, one for each
+      value in <code>values</code>.
+    <term>width</term> The width in bits of the encoded value.
+    <term>properties</term> This Modifier properties, given as proxy concatenated
+     with member key to value mapping.
+  </description>
+-->
+
+<!--
+  <dfn>Immediate</dfn> An Immediate is a method that interprets the encoded
+  value in the Operand <code>fields</code> BitField(s) into an interpreted value
+  for use by an Operand. The encoded value is interpreted by applying a signed
+  or unsigned extension of the specified <code>width</code>, by left-shifting the
+  encoded value, and by adding a bias. It can be assumed that there exists at
+  least one Immediate named with empty string for use by pseudo instructions.
+-->
+<!ELEMENT Immediate EMPTY>
+<!ATTLIST Immediate
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  width		NMTOKEN		#REQUIRED
+  range		NMTOKENS	#IMPLIED
+  rotate	IDREF		#IMPLIED
+  bitmask	IDREFS		#IMPLIED
+  shift	NMTOKEN		#IMPLIED
+  bias		NMTOKEN		#IMPLIED
+  extend	( Signed	|
+		  Unsigned	|
+		  Wrap  )	#REQUIRED
+  canExtend	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>width</term> The width in bits of the encoded value.
+    <term>range</term> Range[Min, Max] when less than dynamic exposed by <code>width</code> and <code>extend</code>.
+    <term>rotate</term> Specify a rotate amount. This amount can be scaled (shift).
+    <term>bitmask</term> Reference to Immediate(s) that represent bit mask start and bit mask end [bit mask start, bit mask end].
+    <term>shift</term> Left shift to apply to the encoded value if any.
+    <term>bias</term> Bias to apply to the shifted encoded value if any.
+    <term>extend</term> The type of sign extension to apply.
+    <term>canExtend</term> List of Immediates that can be extended by current one.
+  </description>
+-->
+
+<!--
+  <dfn>Relocation</dfn> A Relocation specifies what additional processing or
+  checking is to be done before encoding an Immediate, whether by the assembler
+  or by the linker. A null Relocation (with null name) is available in case
+  nothing needs to be done. The Relocation defined here differs from ELF-style
+  linker relocations, as the latter combine both the Relocation processing and
+  the Immediate encoding in their specification. Also, GNU linker relocations
+  are usually defined with one per BitField. In the MDS, an Immediate can span
+  several BitField(s) so a Relocation may map to several ELF relocations.
+-->
+<!ELEMENT Relocation EMPTY>
+<!ATTLIST Relocation
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  relative	( PC |
+		  GP |
+		  TP |
+		  BASE |
+		  GOT )		#IMPLIED
+  type	  	( Rel_a |
+		  Rel_s |
+		  Rel_s_a )	#IMPLIED
+  overflow      ( Signed |
+		  Unsigned |
+		  Bitfield )	#IMPLIED
+  underflow	NMTOKEN		#IMPLIED
+  scaling	NMTOKEN		#IMPLIED
+  syntax	CDATA		#IMPLIED
+  linker	NMTOKENS	#REQUIRED
+  elfIds	NMTOKENS	#REQUIRED
+  fields	IDREFS		#REQUIRED
+  processors	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>relative</term> Whether this Relocation value is PC, GP, TP, BASE or GOT relative.
+    <term>type</term> Relocation type:
+                         - Rel_a:   Only addend
+                         - Rel_s:   Symbol
+                         - Rel_s_a: Symbol + addend
+    <term>overflow</term> Check for:
+                         - Signed overflow:   Check for signed value overflow
+                         - Unsigned overflow: Check for unsigned value overflow
+                         - Bitfield overflow: Check for bit field overflow
+    <term>underflow</term> True to check for underflow when scaling is defined.
+    <term>scaling</term> Right shift performed before writing object image.
+    <term>syntax</term> Optional Relocation syntax.
+    <term>linker</term> The ELF linker relocation names for this Relocation.
+    <term>elfIds</term> Corresponding ELF identies for each ELF linker relocation.
+    <term>fields</term> Bit fields for each ELF linker relocation.
+    <term>processors</term> The Processor(s) this Relocation is valid for.
+  </description>
+-->
+
+<!--
+  <dfn>RegClass</dfn> A RegClass is a method that interprets the encoded value
+  in the Operand <code>fields</code> BitField(s) into a register for use by an
+  Operand. The encoded value is interpreted by left-shifting the encoded value,
+  by adding a bias, and by using the result as a zero-based index into the list
+  list of <code>registers</code> of the <code>regFile</code>. Thus, the
+  <code>regFile</code> provides the local numbering of this RegClass
+  <code>registers</code>. Beyond the operand encoding issues, a RegClass is also
+  used to constrain register allocation in compilers.
+-->
+<!ELEMENT RegClass EMPTY>
+<!ATTLIST RegClass
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  regFile	IDREF		#REQUIRED
+  registers	IDREFS		#REQUIRED
+  multi		IDREFS		#IMPLIED
+  names		CDATA		#IMPLIED
+  shift	NMTOKEN		#IMPLIED
+  bias		NMTOKEN		#IMPLIED
+  processors	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>regFile</term> The base RegFile of this RegClass.
+    <term>registers</term> The Register(s) of this RegClass.
+      These registers must belong to the <code>regFile</code>.
+    <term>multi</term> The RegClass(es) used to form the tuples of this RegClass.
+    <term>names</term> The local names for the <code>registers</code> in case
+      those supplied by the Register(s) must be overridden.
+    <term>shift</term> Left shift to apply to the encoded value if any.
+    <term>bias</term> Bias to apply to the shifted encoded value if any.
+    <term>processors</term> Processors that contains this <code>RegClass</code>.
+  </description>
+-->
+
+<!--
+  <dfn>RegMask</dfn> A RegMask is a method that interprets the encoded value
+  in the Operand <code>fields</code> BitField(s) into a register mask for use
+  by an Operand. The encoded value is interpreted as a mask whose i'th bit
+  selects the first plus i'th Storage cell. FIXME! Should give a list of
+  Registers like in RegClass and remove the <code>storage</code> attribute.
+-->
+<!ELEMENT RegMask EMPTY>
+<!ATTLIST RegMask
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  regFile	IDREF		#REQUIRED
+  first		NMTOKEN		#REQUIRED
+  count		NMTOKEN		#REQUIRED
+>
+<!--
+  <description>
+    <term>regFile</term> The underlying RegFile of this RegMask.
+    <term>first</term> The index of the first Register of the underlying
+      RegFile that is a valid Register for this RegMask (zero based).
+    <term>count</term> The number of Registers that are part of this RegMask.
+  </description>
+-->
+
+<!--
+  <dfn>Pattern</dfn> A Pattern is used to specify a bit pattern. Patterns are
+  primarily used to recognize Format(s) and Instruction(s). Patterns(s) also
+  express the requirements that some BitField(s) have mandatory values, such as
+  format selection and reserved BitField(s) in Format(s), or operand BitField(s)
+  in synthetic Instruction(s).
+-->
+<!ELEMENT Pattern EMPTY>
+<!ATTLIST Pattern
+  ID		ID		#IMPLIED
+  what		CDATA		#IMPLIED
+  fields	IDREFS		#REQUIRED
+  values	NMTOKENS	#REQUIRED
+>
+<!--
+  <description>
+    <term>fields</term> List of BitField(s) used to match this Pattern.
+    <term>values</term> List of values to match the BitField(s) against.
+  </description>
+-->
+
+<!--
+  <dfn>Format</dfn> A Format is a specification for encoding Instruction(s) with
+  a particular operand list and provides the corresponding assembler syntax string.
+  The BitField(s) used to hold the Instruction (opcodes) are also supplied.
+-->
+<!ELEMENT Format (Execution?,Behavior?)>
+<!ATTLIST Format
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  patterns	IDREFS		#IMPLIED
+  encoding	IDREF		#REQUIRED
+  operands	IDREFS		#IMPLIED
+  syntax	CDATA		#IMPLIED
+  traps		NMTOKENS	#IMPLIED
+  increment	NMTOKEN		#IMPLIED
+  properties	CDATA		#IMPLIED
+>
+<!--
+  <description>
+    <term>patterns</term> List Patterns whose intersection selects this Format.
+      This includes the format selection bit Pattern(s) and the reserved bit
+      Pattern(s) of this Format.
+    <term>encoding</term> The Encoding class of this Format.
+    <term>operands</term> This Format list of Operand(s).
+    <term>syntax</term> The syntax string for Instruction(s) under this Format.
+    <term>traps</term> List of potential traps for Instruction(s) under this Format.
+    <term>increment</term> PC increment after encoding this Format (if not bundling).
+    <term>properties</term> This Format properties, given as proxy key to value mapping.
+  </description>
+-->
+
+<!--
+  <dfn>Encoding</dfn> Encoding space for instruction Opcode(s). On processors
+  without bundling, Encoding spaces are associated with instruction modes like
+  ARM and THUMB or MIPS and MIPS16.
+-->
+<!ELEMENT Encoding EMPTY>
+<!ATTLIST Encoding
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  wordWidth	NMTOKEN		#REQUIRED
+  wordCount	NMTOKEN		#REQUIRED
+>
+<!--
+  <description>
+    <term>wordWidth</term> The width in bits of word(s) used by this Encoding.
+    <term>wordCount</term> The count of word(s) used by this Encoding.
+  </description>
+-->
+
+<!--
+  <dfn>Builtin</dfn> Builtin specification. Each builtin can select several
+  instruction operands variantes (register, immediates).
+-->
+<!ELEMENT Builtin (Declaration?,Definition?)>
+<!ATTLIST Builtin
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  prototype	CDATA		#IMPLIED
+  instruction	IDREF		#IMPLIED
+  operands	NMTOKENS	#IMPLIED
+  formats	IDREFS		#IMPLIED
+  processors	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>prototype</term> The C prototype of this Builtin.
+    <term>instruction</term> The Instruction that implements the Builtin.
+    <term>operands</term> How the <code>prototype</code> arguments and
+    <term>formats</term> The Format(s) for the Instruction of this Builtin.
+    <term>processors</term> Processor(s) that implement this Builtin.
+  </description>
+-->
+
+<!--
+  <dfn>Declaration</dfn> Declaration for Builtin emulation.
+-->
+<!ELEMENT Declaration (#PCDATA)>
+
+<!--
+  <dfn>Declaration</dfn> Definition for Builtin emulation.
+-->
+<!ELEMENT Definition (#PCDATA)>
+
+<!--
+  <dfn>Instruction</dfn> An Instruction is a member of the instruction set
+  architecture. An instruction may be available under different Format(s), and
+  the exact Format in use is selected independently of the Instruction by the
+  <code>patterns</code> of this Format. A particular Instruction is selected by
+  its own Pattern(s), independently of the Format selection Pattern(s).
+-->
+<!ELEMENT Instruction (Execution?,Behavior?)>
+<!ATTLIST Instruction
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  mnemonic	CDATA		#REQUIRED
+  formats	IDREFS		#REQUIRED
+  schedulings	IDREFS		#REQUIRED
+  patterns	IDREFS		#IMPLIED
+  syntax	CDATA		#IMPLIED
+  traps		NMTOKENS	#IMPLIED
+  specialize	IDREFS		#IMPLIED
+  replacement	IDREFS		#IMPLIED
+  synthetic	IDREF		#IMPLIED
+  properties	CDATA		#IMPLIED
+  processors	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>mnemonic</term> This Instruction mnemonic.
+    <term>formats</term> List of Format(s) used by this Instruction.
+    <term>schedulings</term> List of Scheduling classes for this Instruction.
+      Each scheduling class is selected by a Format. In case the
+      <code>schedulings</code> list is shorter than the <code>formats</code>
+      list, it is automatically extended with copies of its last element.
+    <term>patterns</term> List of patterns whose intersection selects this
+      Instruction. This includes not only the opcode patterns, but also the
+      fixed operand BitField values. In particular the synthetic Instruction(s)
+      appear just like regular Instruction(s) with extra <code>patterns</code>.
+    <term>syntax</term> Optional override of the Format <code>syntax</code>.
+    <term>traps</term> List of potential traps for this Instruction, overrides Format traps.
+    <term>specialize</term> List of Operands(s) to specialize in the
+      list of <code>operands</code> supplied by the Format in use.  This feature
+      is useful when some Instruction(s) have more restricted Operand(s) than
+      those supplied by the <code>formats</code>.
+    <term>replacement</term> The replacement Operands(s) for those in the
+      <code>specialize</code> list.
+    <term>synthetic</term> The Synthetic for this Instruction if any.
+    <term>properties</term> This Instruction properties, given as proxy key to value mapping.
+    <term>processors</term> Processors that contains this <code>Instruction</code>.
+</description>
+-->
+
+<!--
+  <dfn>Execution</dfn> Execution for Instruction(s), expressed as text that can be
+  parsed according to the Execution.y grammar.
+-->
+<!ELEMENT Execution (#PCDATA)>
+
+<!--
+  <dfn>Behavior</dfn> Behavior for Instruction(s), expressed as text that can be
+  parsed according to the Behavior.y grammar.
+-->
+<!ELEMENT Behavior (#PCDATA)>
+<!ATTLIST Behavior
+  proxies	CDATA		#IMPLIED
+  methods	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>proxies</term>  The list of operand proxies, one
+      for each access by this Behavior. A proxy is denoted by the character '%'
+      followed by a number. For any proxy, the corresponding Operand is found by
+      using the number as an index in the Instruction or Opcode
+      <code>operands</code> lists starting at 1.
+    <term>methods</term> For each proxy in <code>proxies</code>, the method used
+      to get the proxy interpreted value. This attribute is defined after the
+      Behavior has been specialized using the operand Access.
+  </description>
+-->
+
+<!--
+  <dfn>Synthetic</dfn> A Synthetic identifies the specialization of an
+  instruction obtained by forcing some of its operands to constant values.
+-->
+<!ELEMENT Synthetic (Execution?,Behavior?)>
+<!ATTLIST Synthetic
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  mnemonic	CDATA		#REQUIRED
+  instruction	IDREF		#REQUIRED
+  properties	CDATA		#IMPLIED
+  formats	IDREFS		#REQUIRED
+  schedulings	IDREFS		#IMPLIED
+  syntax	CDATA		#IMPLIED
+  forced	CDATA		#IMPLIED
+  values	NMTOKENS	#IMPLIED
+  processors	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>mnemonic</term> This Synthetic instruction mnemonic.
+    <term>instruction</term> Instruction specialized by this Synthetic.
+    <term>properties</term> Override the <code>instruction</code> properties.
+    <term>formats</term> List of Format(s) used by this Synthetic.
+      Must be a subset of the <code>formats</code> of <code>instruction</code>.
+    <term>schedulings</term> List of Scheduling classes for this Instruction.
+      Each scheduling class is selected by a Format. In case the
+      <code>schedulings</code> list is shorter than the <code>formats</code>
+      list, it is automatically extended with copies of its last element.
+    <term>syntax</term> This Synthetic instruction syntax string, sould contain the same
+      proxies as its <code>instruction</code> syntax minus those in <code>forced</code>.
+    <term>forced</term> The proxies of the forced operands.
+    <term>values</term> The encoded values of the forced operands.
+    <term>processors</term> Processors that contains this <code>Synthetic</code>.
+  </description>
+-->
+
+<!--
+  <subsection title="Assembling and Bundling"/>
+-->
+
+<!--
+  <dfn>Template</dfn> A Template describes how the Instruction Opcode(s) are
+  encoded into Bundle(s).
+-->
+<!ELEMENT Template EMPTY>
+<!ATTLIST Template
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  wordWidth	NMTOKEN		#REQUIRED
+  alignBase	NMTOKEN		#REQUIRED
+  alignBias	NMTOKEN		#REQUIRED
+  dispersals	IDREFS		#IMPLIED
+  patterns	IDREFS		#REQUIRED
+  increment	NMTOKEN		#REQUIRED
+  nopAllow	NMTOKEN		#IMPLIED
+  nopified	IDREFS		#IMPLIED
+  original	IDREF		#IMPLIED
+>
+<!--
+  <description>
+    <term>wordWidth</term> The bit width of words used for encoding this Template.
+    <term>alignBase</term> The alignment base in bytes required for this Template.
+    <term>alignBias</term> The alignment bias in bytes required for this Template.
+    <term>dispersals</term> The list of Dispersal(s) for this Template.
+    <term>patterns</term> List of Pattern(s) that select this Template.
+    <term>increment</term> PC increment after encoding this Template.
+    <term>nopAllow</term> Maximum number of NOP Dispersals allowed in this Template.
+    <term>nopified</term> List of Dispersals that are actually filled with a NOP.
+    <term>original</term> The original Template in case this Template is nopified.
+  </description>
+-->
+
+<!--
+  <dfn>Dispersal</dfn> A Dispersal is the container used to slot an encoded
+  Opcode into a Template. Precisely, the encoded value of an Opcode is
+  distributed into the bit fields that encode a Bundle according to the Dispersal.
+-->
+<!ELEMENT Dispersal EMPTY>
+<!ATTLIST Dispersal
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  fromFields	IDREFS		#REQUIRED
+  toFields	IDREFS		#REQUIRED
+  nopValues	NMTOKEN		#IMPLIED
+  distance	NMTOKEN		#REQUIRED
+>
+<!--
+  <description>
+    <term>fromFields</term> This Dispersal list of source BitField(s) in the
+      Opcode encoding.
+    <term>toFields</term> This Dispersal list of target BitField(s) in the
+      encoded Bundle.
+    <term>nopValues</term> Values to encode in <code>fields</code> in case of NOP.
+    <term>distance</term> PC distance of this Dispersal from start of Bundle.
+  </description>
+-->
+
+<!--
+  <dfn>Bundling</dfn> Bundling class of an Instruction Opcode. The Bundling
+  class abstracts the instruction as far as instruction bundling is concerned.
+  Precisely, given an instruction group that must issue in parallel, this group
+  can be summarized as a sorted sequence of Bundling classes. Given this sorted
+  sequence and the current instruction alignment, a bundle Template is found.
+  Scheduling classes are not used for bundling because of possible combinatoric
+  explosion of Template(s). The binary tools may however use the scheduling
+  classes to check that a bundle is resource-feasible on a particular core.
+-->
+<!ELEMENT Bundling EMPTY>
+<!ATTLIST Bundling
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  dispersals	IDREFS		#REQUIRED
+>
+<!--
+  <description>
+    <term>dispersals</term> The Dispersal(s) this Bundling class may use.
+  </description>
+-->
+
+<!--
+  <subsection title="Instruction Scheduling"/>
+-->
+
+<!--
+  <dfn>Scheduling</dfn> The Scheduling class summarizes the scheduling
+  constraints of an Opcode. These constraints are specified by a reservation
+  table.
+-->
+<!ELEMENT Scheduling EMPTY>
+<!ATTLIST Scheduling
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  bundling	IDREF		#IMPLIED
+  reservation	IDREF		#REQUIRED
+  processors	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>bundling</term> The Bundling class implied by this Scheduling class.
+    <term>reservation</term> The Reservation table of this Scheduling class.
+    <term>processors</term> Processors that contains this <code>Scheduling</code>.
+  </description>
+-->
+
+<!--
+  <dfn>Reservation</dfn> A reservation table for instruction scheduling.
+-->
+<!ELEMENT Reservation EMPTY>
+<!ATTLIST Reservation
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  resources	IDREFS		#REQUIRED
+  requirements	NMTOKENS	#REQUIRED
+  stalls	NMTOKENS	#IMPLIED
+>
+<!--
+  <description>
+    <term>resources</term> The list of Resource(s) needed by this Reservation.
+    <term>requirements</term> The Resource requirements of each resource in
+      <code>resources</code>. The length of the <code>requirements</code> list
+      must be a multiple of the length of the <code>resources</code> list.
+      This provides the cycle by cycle contents of the reservation table.
+    <term>stalls</term> The number of stalls if any, given as a list of integer
+      values. Each position in the list correspond to the pipeline stage where
+      the stall occurs, and the integer value gives the number of stall cycles
+      at that pipeline stage.
+  </description>
+-->
+
+<!--
+  <dfn>Resource</dfn> Processor resource for instruction scheduling.
+-->
+<!ELEMENT Resource EMPTY>
+<!ATTLIST Resource
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  processors	IDREFS		#IMPLIED
+  availability	NMTOKENS	#REQUIRED
+>
+<!--
+  <description>
+    <term>processors</term> The Processors this Resource belongs to.
+    <term>availability</term> For each Processor in <code>processors</code>,
+      the availability of this Resource.
+  </description>
+-->
+
+<!--
+  <subsection title="Compiler Information"/>
+-->
+
+<!--
+  <dfn>Convention</dfn> Subroutine calling Convention. The register roles in
+  a calling Convention are assigned by listing their name in the corresponding
+  attributes. All the registers are considered allocatable unless declared in
+  the <code>reserved</code> list. The <code>caller</code>-saved (scratch)
+  registers must be explicitely saved by the caller before a function call.
+  The <code>callee</code>-saved (preserved) registers must be saved by the
+  called function and restored before return if it modifies them. The
+  <code>struct</code> return register is an extra argument passed to functions
+  so they may update a returned struct or union directly in the caller's frame.
+-->
+<!ELEMENT Convention EMPTY>
+<!ATTLIST Convention
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  processors	IDREFS		#IMPLIED
+  reserved	IDREFS		#IMPLIED
+  argument	IDREFS		#IMPLIED
+  result	IDREFS		#IMPLIED
+  struct	IDREFS		#IMPLIED
+  caller	IDREFS		#IMPLIED
+  callee	IDREFS		#IMPLIED
+  program	IDREFS		#IMPLIED
+  handler	IDREFS		#IMPLIED
+  veneer	IDREFS		#IMPLIED
+  return	IDREFS		#IMPLIED
+  stack		IDREFS		#IMPLIED
+  static	IDREFS		#IMPLIED
+  frame		IDREFS		#IMPLIED
+  global	IDREFS		#IMPLIED
+  local		IDREFS		#IMPLIED
+  wired		IDREFS		#IMPLIED
+  zero		IDREFS		#IMPLIED
+  fzero		IDREFS		#IMPLIED
+  one		IDREFS		#IMPLIED
+  true		IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>processors</term> The Processors this Convention belongs to.
+    <term>reserved</term> List of reserved registers. All the registers that are
+      not allocatable (such as the stack pointer) must be <code>reserved</code>.
+    <term>argument</term> List of function call argument registers.
+    <term>result</term> List of function call result registers.
+    <term>struct</term> The result pointer for functions return struct or union.
+    <term>caller</term> List of caller-saved or scratch registers.
+    <term>callee</term> List of callee-saved or preserved registers.
+    <term>program</term> The program counter register.
+    <term>handler</term> List of exception handler result registers.
+    <term>veneer</term> List of intra-procedure-call temporary registers.
+    <term>return</term> The return address register.
+    <term>stack</term> The stack pointer register.
+    <term>static</term> The static link pointer register (caller's frame).
+    <term>frame</term> The frame pointer register.
+    <term>global</term> Global data or Global Offset Table (GOT) pointer.
+    <term>local</term> Local data or Thread Local Storage (TLS) pointer.
+    <term>wired</term> Wired register, read and write have no effects.
+    <term>zero</term> Always read as zero or false register.
+    <term>one</term> Always read as one or true register.
+    <term>true</term> Wired register, read and write has no effects.
+      True predicate.
+  </description>
+-->
+
+<!--
+  <dfn>Processor</dfn> High-level scheduling features of a processor. In case of
+  Processor without <code>interlocks</code>, all the registers that may be used
+  by a called function of after a tail call branch must have pending latency no
+  greater that <code>minTaken</code> cycles. Those registers include the
+  <code>argument</code> registers, the <code>struct</code> register if used, and
+  the <code>callee</code>-saved registers. Also in case of Processor without
+  <code>interlocks</code> the <code>callee</code>-saved registers and the
+  possibly used <code>result</code> registers must have pending latency no
+  greater than <code>minTaken</code> cycles.
+-->
+<!ELEMENT Processor EMPTY>
+<!ATTLIST Processor
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  minTaken	NMTOKEN		#REQUIRED
+  interlocks	NMTOKEN		#IMPLIED
+  pipeline	NMTOKENS	#REQUIRED
+  stages	NMTOKENS #REQUIRED
+>
+<!--
+  <description>
+    <term>minTaken</term> Minimum taken branch latency in cycles.
+    <term>interlocks</term> True if registers are interlocked.
+    <term>pipeline</term> A white separated list of symbolic pipeline stages.
+    <term>stages</term> A list that provides numeric values for
+    the <code>pipeline</code> stages.
+  </description>
+-->
+
+<!--
+  <subsection title="Database Expansion"/>
+-->
+
+<!--
+  <dfn>Decoding</dfn> Decoding specification. This associates an Encoding space
+  with a Decode tree.
+-->
+<!ELEMENT Decoding (Decode)>
+<!ATTLIST Decoding
+  ID		ID		#REQUIRED
+  encoding	IDREF		#REQUIRED
+>
+<!--
+  <description>
+    <term>encoding</term> The Encoding space this Decoding applies to.
+  </description>
+-->
+
+<!--
+  <dfn>Decode</dfn> Decode tree node. The decode tree generation algorithm is
+  based on Theiling, LCTES 2001 (Sigplan Notices 36(8)).
+-->
+<!ELEMENT Decode (Decode*)>
+<!ATTLIST Decode
+  case		NMTOKEN		#IMPLIED
+  mask		NMTOKEN		#IMPLIED
+  shift		NMTOKEN		#IMPLIED
+  opcodes	IDREFS		#IMPLIED
+>
+<!--
+  <description>
+    <term>case</term> The enclosing switch case that enables this Decoding.
+    <term>mask</term> The mask to apply to the opcode before switching.
+    <term>shift</term> The right shift to apply to the opcode before masking
+      and switching.
+    <term>opcodes</term> The list of Opcode(s) decoded by this Decoding.
+  </description>
+-->
+
+<!--
+  <dfn>Access</dfn> read and write Access behavior for a proxy. Access Behavior
+  (in the <code>read</code> or <code>write</code> attributes) refers to the
+  interpreted value of the Operand by using <code>(METHOD.proxy)</code>.
+-->
+<!ELEMENT Access EMPTY>
+<!ATTLIST Access
+  ID		ID		#REQUIRED
+  read		CDATA		#IMPLIED
+  write		CDATA		#IMPLIED
+  method	IDREF		#REQUIRED
+>
+<!--
+  <description>
+    <term>read</term> The behavior fragment to expand on a <code>READ</code>.
+    <term>write</term> The behavior fragment to expand on a <code>WRITE</code>.
+    <term>method</term> The method if any associated with this Access.
+  </description>
+-->
+
+<!--
+  <dfn>Opcode</dfn> An Opcode is the specialization of an Instruction for a
+  particular Format. Compared to the corresponding Instruction Behavior, the
+  Opcode Behavior is filled with the behavioral parts that correspond to the
+  proxy Access(es). Also, compared to Instruction(s), the operand proxies are
+  renumbered in <code>syntax</code> order and unused operands are purged from
+  <code>operands</code>.
+-->
+<!ELEMENT Opcode (Execution?,Behavior?)>
+<!ATTLIST Opcode
+  ID		ID		#REQUIRED
+  class		NMTOKEN 	#IMPLIED
+  instruction	IDREF		#REQUIRED
+  mnemonic	CDATA		#REQUIRED
+  operands	IDREFS		#IMPLIED
+  increment	NMTOKEN		#IMPLIED
+  format	IDREF		#REQUIRED
+  syntax	CDATA		#REQUIRED
+  traps		NMTOKENS	#IMPLIED
+  scheduling	IDREF		#REQUIRED
+  encoding	IDREF		#REQUIRED
+  decoding	IDREF		#IMPLIED
+  patterns	IDREFS		#REQUIRED
+  encoded	NMTOKEN		#REQUIRED
+  properties	CDATA		#IMPLIED
+>
+<!--
+  <description>
+    <term>class</term> The Instruction class, an ISA subset suc as FPU.
+    <term>instruction</term> The Instruction that has been instanced.
+    <term>mnemonic</term> This Opcode mnemonic.
+    <term>operands</term> This Opcode list of Operand(s).
+    <term>increment</term> Override of PC increment of Format (if not bundling).
+    <term>format</term> This Opcode Format.
+    <term>syntax</term> This Opcode syntax string.
+    <term>traps</term> List of potential traps for this Opcode.
+    <term>scheduling</term> This Opcode Scheduling class.
+    <term>encoding</term> This Opcode Encoding space.
+    <term>decoding</term> This Opcode Decoding tree.
+    <term>patterns</term> The list of Pattern(s) for this Opcode.
+    <term>encoded</term> The encoded bit string for this Opcode.
+    <term>properties</term> This Format properties, given as proxy key to value mapping.
+  </description>
+-->
+
+<!--
+  <dfn>Simulated</dfn> A Simulated instruction is a higher-level instruction
+  that does not exist in the ISA. The Simulated instructions are compiled like
+  real instructions and are only expanded at encoding time after instruction
+  scheduling. Thus a Simulated instruction requires a Scheduling class.
+-->
+<!ELEMENT Simulated (Parameter*)>
+<!ATTLIST Simulated
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  attributes	CDATA		#IMPLIED
+  scheduling	IDREF		#REQUIRED
+  mnemonic	CDATA		#REQUIRED
+  syntax	CDATA		#REQUIRED
+>
+<!--
+  <description>
+    <term>attributes</term> This Simulated instruction attributes.
+    <term>scheduling</term> Scheduling class of this Simulated instruction.
+    <term>mnemonic</term> This Simulated instruction mnemonic.
+    <term>syntax</term> This Simulated instruction syntax string.
+  </description>
+-->
+
+<!--
+  <dfn>Bundle</dfn> A Bundle is an instance of a Template with regards to
+  Bundling classes.
+-->
+<!ELEMENT Bundle EMPTY>
+<!ATTLIST Bundle
+  ID		ID		#REQUIRED
+  alignBase	NMTOKEN		#REQUIRED
+  alignBias	NMTOKEN		#REQUIRED
+  template	IDREF		#REQUIRED
+  contents	IDREFS		#IMPLIED
+  canonic	IDREFS		#IMPLIED
+  inverse	NMTOKENS	#IMPLIED
+>
+<!--
+  <description>
+    <term>alignBase</term> The alignment base in bytes required for this Bundle.
+    <term>alignBias</term> The alignment bias in bytes required for this Bundle.
+    <term>template</term> The Template for this Bundle.
+    <term>contents</term> The contents of this Bundle as a list of Bundling
+      classes. Should be ordered by issue lane (or execution unit).
+    <term>canonic</term> The <term>contents</term> in canonic order, that is,
+      sorted in non-decreasing Bundling class order.
+    <term>inverse</term> The inverse of the permutation that sorts the
+      <term>contents</term> to <code>canonic</code>. For instance if
+      <code>contents</code> is "C A B" and <code>canonic</code> is
+      "A B C" then <code>inverse</code> is "2 0 1".
+  </description>
+-->
+
+<!--
+  <dfn>Generic</dfn> A Generic operator is a target-independent Operator used
+  by compilers before code selection is complete.
+-->
+<!ELEMENT Generic (Parameter*)>
+<!ATTLIST Generic
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  attributes	CDATA	#IMPLIED
+  mnemonic	CDATA		#REQUIRED
+  syntax	CDATA		#REQUIRED
+>
+<!--
+  <description>
+    <term>attributes</term> This Generic operator compiler attributes.
+    <term>mnemonic</term> This Generic operator mnemonic.
+    <term>syntax</term> This Generic instruction syntax string.
+  </description>
+-->
+
+<!--
+  <dfn>Operator</dfn> An Operator is the compiler abstraction of an instruction
+  Opcode.  In addition to the ISA operators, the Operator set is augmented
+  with compiler pseudo-operators and with data definition directives. The main
+  difference compared to an Opcode is that an Operator has Parameter(s)
+  instead of Operand(s). There is exactly one Parameter per Read or Write action
+  of the Operator (not accounting for side-effects on Control Storage),
+  independently from the Operand encoding issues. Operator Parameter(s) are
+  ordered with write(s) first followed by read(s). Inside the write(s) and
+  read(s) lists, the Parameter(s) are ordered with implicit Parameter(s) first
+  followed by those encoded in an Operand. For the latter order is gived by the
+  proxy number of the Operand.
+-->
+<!ELEMENT Operator (Parameter*)>
+<!ATTLIST Operator
+  ID		ID		#REQUIRED
+  processors	IDREFS		#IMPLIED
+  origins	IDREFS		#REQUIRED
+  syntax	CDATA		#REQUIRED
+  mnemonic	CDATA		#REQUIRED
+  modifiers	IDREFS		#IMPLIED
+  expanded	CDATA		#IMPLIED
+  members	CDATA		#IMPLIED
+  attributes	CDATA	#IMPLIED
+>
+<!--
+  <description>
+    <term>processors</term> The Processor(s) this Operator is valid for.
+    <term>origins</term> For each Processor in the <code>processors</code>
+      list, the Opcode or Simulated or Generic this Operator originates from.
+    <term>syntax</term> This Operator syntax for debug print.
+    <term>expanded</term> The proxies of the expanded modifiers.
+    <term>members</term> The members of the expanded modifiers.
+    <term>attributes</term> This Operator compiler attributes.
+  </description>
+-->
+
+<!--
+  <dfn>Parameter</dfn> Parameter of an Operator.
+-->
+<!ELEMENT Parameter EMPTY>
+<!ATTLIST Parameter
+  action	( Read		|
+		  Write		|
+		  ReadList	|
+		  WriteList )	#REQUIRED
+  usage		NMTOKENS	#IMPLIED
+  proxy		CDATA		#IMPLIED
+  method	IDREF		#REQUIRED
+  stages	NMTOKENS	#IMPLIED
+>
+<!--
+  <description>
+    <term>action</term> Whether this is an Read or Write Parameter.
+    <term>usage</term> Parameter usage summary for compilers: <code>Pred</code>
+      is for predicated instructions; <code>Cond</code> is for conditions used
+      by branches and select instructions and fully predicated instructions;
+      <code>Base</code> and <code>Offset</code> are respectively for the base
+      address and the offset of memory accesses; <code>Stored</code> indicates
+      that the value is stored to memory; <code>Target</code> is for the
+      destination of direct branches; <code>Left</code> and <code>Right</code>
+      are used to recover the canonical argument order of non-commutative
+      arithmetic operations such as DIV, MOD, REM, SUB, SHL, SHR; <code>Multi</code>
+      indicates this Parameter results from multi-register expansion.
+    <term>proxy</term> The proxy associated with this Parameter if any.
+    <term>method</term> The method associated with this Parameter.
+    <term>stages</term> The pipe stages where this Parameter is accessed, one
+      per Processor in the enclosing Operator <code>processors</code> list.
+  </description>
+-->
+

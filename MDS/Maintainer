@@ -1,0 +1,56 @@
+# Mafefile for MDS maintainers.
+#
+# Usage:
+#   make -f Maintainer <target>
+# Where <target> is one of: all check debug
+
+PERL:=		perl -I LIB
+BISON:=		bison
+DTD2PM:=	$(PERL) BIN/dtd2pm.pl
+YAXCC:=		$(PERL) BIN/yaxcc.pl
+AUTOCONF:=	autoconf
+
+vpath %.y	DOC
+vpath %.pa	LIB
+vpath %.dtd	DOC
+
+%.pm: %.dtd
+	$(DTD2PM) $< > $@
+
+%.pm: %.pa %.output
+	$(YAXCC) -a $^ > $@
+
+%.rules: %.output
+	$(YAXCC) -s $^ > $@
+
+%.output: %.y
+	$(BISON) -v $<
+	rm -f $*.tab.c
+
+%: %.ac
+	$(AUTOCONF)
+	rm -rf autom4te.cache/
+
+.PHONY: all all-LIB check debug
+
+all: gnu-versions all-LIB configure
+
+gnu-versions:
+	@$(BISON) --version | sed -n 's/^\(bison\)\([^0-9]\+\)\([0-9]\.[0-9]\+\).*/\1 \3/p' > /tmp/GNU-VERSIONS
+	@$(AUTOCONF) --version | sed -n 's/^\(autoconf\)\([^0-9]\+\)\([0-9]\.[0-9]\+\).*/\1 \3/p' >> /tmp/GNU-VERSIONS
+	@diff GNU-VERSIONS /tmp || (echo "Expecting" `cat GNU-VERSIONS` && false)
+
+all-LIB: MDD.pm Execution.pm Takumi.pm Behavior.pm
+	mv $^ LIB/
+
+check: Execution.chk Takumi.chk Behavior.chk
+
+%.chk: %.rules
+	fgrep '#rule' $^ | sort > $*.rules1
+	fgrep '#rule' LIB/$*.pa | sort > $*.rules2
+	-diff $*.rules1 $*.rules2
+	rm -f $*.rules1 $*.rules2
+
+debug:
+	touch DOC/*.y LIB/*.a
+	$(MAKE) YAXCC='$(YAXCC) -d' -f Maintainer

@@ -1,0 +1,8 @@
+Overview:
+
+- 'make all' builds the $(addpprefix $(FAMILY)/, $(CORES)) under $(TOPDIR)/MDD/.
+
+- 'make check' requires 'make all' in DOC, and check againts the MDS DTD.
+
+-- BD3
+
