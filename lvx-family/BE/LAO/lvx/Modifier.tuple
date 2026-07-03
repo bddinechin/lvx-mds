@@ -1,0 +1,490 @@
+/*
+ * lvx/Modifier.enum
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Modifier
+#define Modifier(ID, MEMBERS, ENCODE, DECODE)
+#else /*Modifier*/
+Modifier(lvx_exunum,
+         MEMBERS(4,
+                 MEMBER(lvx_exunum_ALU0, NAME(ALU0), LCNAME(alu0), VALUE(0))
+                 MEMBER(lvx_exunum_ALU1, NAME(ALU1), LCNAME(alu1), VALUE(1))
+                 MEMBER(lvx_exunum_LSU0, NAME(LSU0), LCNAME(lsu0), VALUE(2))
+                 MEMBER(lvx_exunum_LSU1, NAME(LSU1), LCNAME(lsu1), VALUE(3))),
+         ENCODE(VALUE -= 1),
+         DECODE(VALUE += 1))
+Modifier(lvx_ccbcomp,
+         MEMBERS(16,
+                 MEMBER(lvx_ccbcomp_DLT, NAME(.DLT), LCNAME(.dlt), VALUE(0))
+                 MEMBER(lvx_ccbcomp_DGE, NAME(.DGE), LCNAME(.dge), VALUE(1))
+                 MEMBER(lvx_ccbcomp_DLTU, NAME(.DLTU), LCNAME(.dltu), VALUE(2))
+                 MEMBER(lvx_ccbcomp_DGEU, NAME(.DGEU), LCNAME(.dgeu), VALUE(3))
+                 MEMBER(lvx_ccbcomp_DEQ, NAME(.DEQ), LCNAME(.deq), VALUE(4))
+                 MEMBER(lvx_ccbcomp_DNE, NAME(.DNE), LCNAME(.dne), VALUE(5))
+                 MEMBER(lvx_ccbcomp_DANY, NAME(.DANY), LCNAME(.dany), VALUE(6))
+                 MEMBER(lvx_ccbcomp_DNONE, NAME(.DNONE), LCNAME(.dnone), VALUE(7))
+                 MEMBER(lvx_ccbcomp_WLT, NAME(.WLT), LCNAME(.wlt), VALUE(8))
+                 MEMBER(lvx_ccbcomp_WGE, NAME(.WGE), LCNAME(.wge), VALUE(9))
+                 MEMBER(lvx_ccbcomp_WLTU, NAME(.WLTU), LCNAME(.wltu), VALUE(10))
+                 MEMBER(lvx_ccbcomp_WGEU, NAME(.WGEU), LCNAME(.wgeu), VALUE(11))
+                 MEMBER(lvx_ccbcomp_WEQ, NAME(.WEQ), LCNAME(.weq), VALUE(12))
+                 MEMBER(lvx_ccbcomp_WNE, NAME(.WNE), LCNAME(.wne), VALUE(13))
+                 MEMBER(lvx_ccbcomp_WANY, NAME(.WANY), LCNAME(.wany), VALUE(14))
+                 MEMBER(lvx_ccbcomp_WNONE, NAME(.WNONE), LCNAME(.wnone), VALUE(15))),
+         ENCODE(VALUE -= 5),
+         DECODE(VALUE += 5))
+Modifier(lvx_bcucond,
+         MEMBERS(14,
+                 MEMBER(lvx_bcucond_DLTZ, NAME(.DLTZ), LCNAME(.dltz), VALUE(0))
+                 MEMBER(lvx_bcucond_DGEZ, NAME(.DGEZ), LCNAME(.dgez), VALUE(1))
+                 MEMBER(lvx_bcucond_DLEZ, NAME(.DLEZ), LCNAME(.dlez), VALUE(2))
+                 MEMBER(lvx_bcucond_DGTZ, NAME(.DGTZ), LCNAME(.dgtz), VALUE(3))
+                 MEMBER(lvx_bcucond_DEQZ, NAME(.DEQZ), LCNAME(.deqz), VALUE(4))
+                 MEMBER(lvx_bcucond_DNEZ, NAME(.DNEZ), LCNAME(.dnez), VALUE(5))
+                 MEMBER(lvx_bcucond_ODD, NAME(.ODD), LCNAME(.odd), VALUE(6))
+                 MEMBER(lvx_bcucond_EVEN, NAME(.EVEN), LCNAME(.even), VALUE(7))
+                 MEMBER(lvx_bcucond_WLTZ, NAME(.WLTZ), LCNAME(.wltz), VALUE(8))
+                 MEMBER(lvx_bcucond_WGEZ, NAME(.WGEZ), LCNAME(.wgez), VALUE(9))
+                 MEMBER(lvx_bcucond_WLEZ, NAME(.WLEZ), LCNAME(.wlez), VALUE(10))
+                 MEMBER(lvx_bcucond_WGTZ, NAME(.WGTZ), LCNAME(.wgtz), VALUE(11))
+                 MEMBER(lvx_bcucond_WEQZ, NAME(.WEQZ), LCNAME(.weqz), VALUE(12))
+                 MEMBER(lvx_bcucond_WNEZ, NAME(.WNEZ), LCNAME(.wnez), VALUE(13))),
+         ENCODE(VALUE -= 21),
+         DECODE(VALUE += 21))
+Modifier(lvx_intcomp,
+         MEMBERS(12,
+                 MEMBER(lvx_intcomp_LT, NAME(.LT), LCNAME(.lt), VALUE(0))
+                 MEMBER(lvx_intcomp_GE, NAME(.GE), LCNAME(.ge), VALUE(1))
+                 MEMBER(lvx_intcomp_LTU, NAME(.LTU), LCNAME(.ltu), VALUE(2))
+                 MEMBER(lvx_intcomp_GEU, NAME(.GEU), LCNAME(.geu), VALUE(3))
+                 MEMBER(lvx_intcomp_EQ, NAME(.EQ), LCNAME(.eq), VALUE(4))
+                 MEMBER(lvx_intcomp_NE, NAME(.NE), LCNAME(.ne), VALUE(5))
+                 MEMBER(lvx_intcomp_ANY, NAME(.ANY), LCNAME(.any), VALUE(6))
+                 MEMBER(lvx_intcomp_NONE, NAME(.NONE), LCNAME(.none), VALUE(7))
+                 MEMBER(lvx_intcomp_LE, NAME(.LE), LCNAME(.le), VALUE(8))
+                 MEMBER(lvx_intcomp_GT, NAME(.GT), LCNAME(.gt), VALUE(9))
+                 MEMBER(lvx_intcomp_LEU, NAME(.LEU), LCNAME(.leu), VALUE(10))
+                 MEMBER(lvx_intcomp_GTU, NAME(.GTU), LCNAME(.gtu), VALUE(11))),
+         ENCODE(VALUE -= 35),
+         DECODE(VALUE += 35))
+Modifier(lvx_lanecond,
+         MEMBERS(8,
+                 MEMBER(lvx_lanecond_LTZ, NAME(.LTZ), LCNAME(.ltz), VALUE(0))
+                 MEMBER(lvx_lanecond_GEZ, NAME(.GEZ), LCNAME(.gez), VALUE(1))
+                 MEMBER(lvx_lanecond_LEZ, NAME(.LEZ), LCNAME(.lez), VALUE(2))
+                 MEMBER(lvx_lanecond_GTZ, NAME(.GTZ), LCNAME(.gtz), VALUE(3))
+                 MEMBER(lvx_lanecond_EQZ, NAME(.EQZ), LCNAME(.eqz), VALUE(4))
+                 MEMBER(lvx_lanecond_NEZ, NAME(.NEZ), LCNAME(.nez), VALUE(5))
+                 MEMBER(lvx_lanecond_ODD, NAME(.ODD), LCNAME(.odd), VALUE(6))
+                 MEMBER(lvx_lanecond_EVEN, NAME(.EVEN), LCNAME(.even), VALUE(7))),
+         ENCODE(VALUE -= 47),
+         DECODE(VALUE += 47))
+Modifier(lvx_lanetodo,
+         MEMBERS(4,
+                 MEMBER(lvx_lanetodo_MT, NAME(.MT), LCNAME(.mt), VALUE(0))
+                 MEMBER(lvx_lanetodo_MF, NAME(.MF), LCNAME(.mf), VALUE(1))
+                 MEMBER(lvx_lanetodo_MTC, NAME(.MTC), LCNAME(.mtc), VALUE(2))
+                 MEMBER(lvx_lanetodo_MFC, NAME(.MFC), LCNAME(.mfc), VALUE(3))),
+         ENCODE(VALUE -= 55),
+         DECODE(VALUE += 55))
+Modifier(lvx_lanesize,
+         MEMBERS(4,
+                 MEMBER(lvx_lanesize_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_lanesize_H, NAME(.H), LCNAME(.h), VALUE(1))
+                 MEMBER(lvx_lanesize_W, NAME(.W), LCNAME(.w), VALUE(2))
+                 MEMBER(lvx_lanesize_D, NAME(.D), LCNAME(.d), VALUE(3))),
+         ENCODE(VALUE -= 59),
+         DECODE(VALUE += 59))
+Modifier(lvx_floatcomp,
+         MEMBERS(8,
+                 MEMBER(lvx_floatcomp_ONE, NAME(.ONE), LCNAME(.one), VALUE(0))
+                 MEMBER(lvx_floatcomp_UEQ, NAME(.UEQ), LCNAME(.ueq), VALUE(1))
+                 MEMBER(lvx_floatcomp_OEQ, NAME(.OEQ), LCNAME(.oeq), VALUE(2))
+                 MEMBER(lvx_floatcomp_UNE, NAME(.UNE), LCNAME(.une), VALUE(3))
+                 MEMBER(lvx_floatcomp_OLT, NAME(.OLT), LCNAME(.olt), VALUE(4))
+                 MEMBER(lvx_floatcomp_UGE, NAME(.UGE), LCNAME(.uge), VALUE(5))
+                 MEMBER(lvx_floatcomp_OGE, NAME(.OGE), LCNAME(.oge), VALUE(6))
+                 MEMBER(lvx_floatcomp_ULT, NAME(.ULT), LCNAME(.ult), VALUE(7))),
+         ENCODE(VALUE -= 63),
+         DECODE(VALUE += 63))
+Modifier(lvx_floatmode,
+         MEMBERS(8,
+                 MEMBER(lvx_floatmode_RN, NAME(.RN), LCNAME(.rn), VALUE(0))
+                 MEMBER(lvx_floatmode_RZ, NAME(.RZ), LCNAME(.rz), VALUE(1))
+                 MEMBER(lvx_floatmode_RD, NAME(.RD), LCNAME(.rd), VALUE(2))
+                 MEMBER(lvx_floatmode_RU, NAME(.RU), LCNAME(.ru), VALUE(3))
+                 MEMBER(lvx_floatmode_RM, NAME(.RM), LCNAME(.rm), VALUE(4))
+                 MEMBER(lvx_floatmode_R5, NAME(.R5), LCNAME(.r5), VALUE(5))
+                 MEMBER(lvx_floatmode_RO, NAME(.RO), LCNAME(.ro), VALUE(6))
+                 MEMBER(lvx_floatmode_, NAME(), LCNAME(), VALUE(7))),
+         ENCODE(VALUE -= 71),
+         DECODE(VALUE += 71))
+Modifier(lvx_signextw,
+         MEMBERS(2,
+                 MEMBER(lvx_signextw_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_signextw_SX, NAME(.SX), LCNAME(.sx), VALUE(1))),
+         ENCODE(VALUE -= 79),
+         DECODE(VALUE += 79))
+Modifier(lvx_highmult,
+         MEMBERS(4,
+                 MEMBER(lvx_highmult_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_highmult_H, NAME(.H), LCNAME(.h), VALUE(1))
+                 MEMBER(lvx_highmult_HU, NAME(.HU), LCNAME(.hu), VALUE(2))
+                 MEMBER(lvx_highmult_HSU, NAME(.HSU), LCNAME(.hsu), VALUE(3))),
+         ENCODE(VALUE -= 81),
+         DECODE(VALUE += 81))
+Modifier(lvx_widemult,
+         MEMBERS(3,
+                 MEMBER(lvx_widemult_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_widemult_U, NAME(.U), LCNAME(.u), VALUE(1))
+                 MEMBER(lvx_widemult_SU, NAME(.SU), LCNAME(.su), VALUE(2))),
+         ENCODE(VALUE -= 85),
+         DECODE(VALUE += 85))
+Modifier(lvx_mostsig,
+         MEMBERS(2,
+                 MEMBER(lvx_mostsig_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_mostsig_M, NAME(.M), LCNAME(.m), VALUE(1))),
+         ENCODE(VALUE -= 88),
+         DECODE(VALUE += 88))
+Modifier(lvx_oddlanes,
+         MEMBERS(2,
+                 MEMBER(lvx_oddlanes_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_oddlanes_O, NAME(.O), LCNAME(.o), VALUE(1))),
+         ENCODE(VALUE -= 90),
+         DECODE(VALUE += 90))
+Modifier(lvx_ziplanes,
+         MEMBERS(2,
+                 MEMBER(lvx_ziplanes_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_ziplanes_Z, NAME(.Z), LCNAME(.z), VALUE(1))),
+         ENCODE(VALUE -= 92),
+         DECODE(VALUE += 92))
+Modifier(lvx_fnegate,
+         MEMBERS(2,
+                 MEMBER(lvx_fnegate_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_fnegate_N, NAME(.N), LCNAME(.n), VALUE(1))),
+         ENCODE(VALUE -= 94),
+         DECODE(VALUE += 94))
+Modifier(lvx_variant,
+         MEMBERS(4,
+                 MEMBER(lvx_variant_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_variant_S, NAME(.S), LCNAME(.s), VALUE(1))
+                 MEMBER(lvx_variant_U, NAME(.U), LCNAME(.u), VALUE(2))
+                 MEMBER(lvx_variant_US, NAME(.US), LCNAME(.us), VALUE(3))),
+         ENCODE(VALUE -= 96),
+         DECODE(VALUE += 96))
+Modifier(lvx_speculate,
+         MEMBERS(2,
+                 MEMBER(lvx_speculate_U, NAME(.U), LCNAME(.u), VALUE(0))
+                 MEMBER(lvx_speculate_US, NAME(.US), LCNAME(.us), VALUE(1))),
+         ENCODE(VALUE -= 100),
+         DECODE(VALUE += 100))
+Modifier(lvx_doscale,
+         MEMBERS(2,
+                 MEMBER(lvx_doscale_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_doscale_XS, NAME(.XS), LCNAME(.xs), VALUE(1))),
+         ENCODE(VALUE -= 102),
+         DECODE(VALUE += 102))
+Modifier(lvx_qindex,
+         MEMBERS(4,
+                 MEMBER(lvx_qindex_Q0, NAME(.Q0), LCNAME(.q0), VALUE(0))
+                 MEMBER(lvx_qindex_Q1, NAME(.Q1), LCNAME(.q1), VALUE(1))
+                 MEMBER(lvx_qindex_Q2, NAME(.Q2), LCNAME(.q2), VALUE(2))
+                 MEMBER(lvx_qindex_Q3, NAME(.Q3), LCNAME(.q3), VALUE(3))),
+         ENCODE(VALUE -= 104),
+         DECODE(VALUE += 104))
+Modifier(lvx_hindex,
+         MEMBERS(2,
+                 MEMBER(lvx_hindex_H0, NAME(.H0), LCNAME(.h0), VALUE(0))
+                 MEMBER(lvx_hindex_H1, NAME(.H1), LCNAME(.h1), VALUE(1))),
+         ENCODE(VALUE -= 108),
+         DECODE(VALUE += 108))
+Modifier(lvx_cachelev,
+         MEMBERS(2,
+                 MEMBER(lvx_cachelev_L1, NAME(.L1), LCNAME(.l1), VALUE(0))
+                 MEMBER(lvx_cachelev_L2, NAME(.L2), LCNAME(.l2), VALUE(1))),
+         ENCODE(VALUE -= 110),
+         DECODE(VALUE += 110))
+Modifier(lvx_coherency,
+         MEMBERS(3,
+                 MEMBER(lvx_coherency_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_coherency_G, NAME(.G), LCNAME(.g), VALUE(1))
+                 MEMBER(lvx_coherency_S, NAME(.S), LCNAME(.s), VALUE(2))),
+         ENCODE(VALUE -= 112),
+         DECODE(VALUE += 112))
+Modifier(lvx_boolcas,
+         MEMBERS(2,
+                 MEMBER(lvx_boolcas_V, NAME(.V), LCNAME(.v), VALUE(0))
+                 MEMBER(lvx_boolcas_, NAME(), LCNAME(), VALUE(1))),
+         ENCODE(VALUE -= 115),
+         DECODE(VALUE += 115))
+Modifier(lvx_accesses,
+         MEMBERS(4,
+                 MEMBER(lvx_accesses_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_accesses_W, NAME(.W), LCNAME(.w), VALUE(1))
+                 MEMBER(lvx_accesses_R, NAME(.R), LCNAME(.r), VALUE(2))
+                 MEMBER(lvx_accesses_WA, NAME(.WA), LCNAME(.wa), VALUE(3))),
+         ENCODE(VALUE -= 117),
+         DECODE(VALUE += 117))
+Modifier(lvx_channel,
+         MEMBERS(2,
+                 MEMBER(lvx_channel_F, NAME(.F), LCNAME(.f), VALUE(0))
+                 MEMBER(lvx_channel_B, NAME(.B), LCNAME(.b), VALUE(1))),
+         ENCODE(VALUE -= 121),
+         DECODE(VALUE += 121))
+Modifier(lvx_conjugate,
+         MEMBERS(2,
+                 MEMBER(lvx_conjugate_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_conjugate_C, NAME(.C), LCNAME(.c), VALUE(1))),
+         ENCODE(VALUE -= 123),
+         DECODE(VALUE += 123))
+Modifier(lvx_imultiply,
+         MEMBERS(2,
+                 MEMBER(lvx_imultiply_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_imultiply_MI, NAME(.MI), LCNAME(.mi), VALUE(1))),
+         ENCODE(VALUE -= 125),
+         DECODE(VALUE += 125))
+Modifier(lvx_realimag,
+         MEMBERS(2,
+                 MEMBER(lvx_realimag_R, NAME(.R), LCNAME(.r), VALUE(0))
+                 MEMBER(lvx_realimag_I, NAME(.I), LCNAME(.i), VALUE(1))),
+         ENCODE(VALUE -= 127),
+         DECODE(VALUE += 127))
+Modifier(lvx_shuffleV,
+         MEMBERS(2,
+                 MEMBER(lvx_shuffleV_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_shuffleV_TD, NAME(.TD), LCNAME(.td), VALUE(1))),
+         ENCODE(VALUE -= 129),
+         DECODE(VALUE += 129))
+Modifier(lvx_shuffleX,
+         MEMBERS(7,
+                 MEMBER(lvx_shuffleX_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_shuffleX_ZD, NAME(.ZD), LCNAME(.zd), VALUE(1))
+                 MEMBER(lvx_shuffleX_UD, NAME(.UD), LCNAME(.ud), VALUE(2))
+                 MEMBER(lvx_shuffleX_TQ, NAME(.TQ), LCNAME(.tq), VALUE(3))
+                 MEMBER(lvx_shuffleX_TW, NAME(.TW), LCNAME(.tw), VALUE(4))
+                 MEMBER(lvx_shuffleX_ZW, NAME(.ZW), LCNAME(.zw), VALUE(5))
+                 MEMBER(lvx_shuffleX_UW, NAME(.UW), LCNAME(.uw), VALUE(6))),
+         ENCODE(VALUE -= 131),
+         DECODE(VALUE += 131))
+Modifier(lvx_splat32,
+         MEMBERS(2,
+                 MEMBER(lvx_splat32_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_splat32__, NAME(.@), LCNAME(.@), VALUE(1))),
+         ENCODE(VALUE -= 138),
+         DECODE(VALUE += 138))
+Modifier(lvx_ordering,
+         MEMBERS(16,
+                 MEMBER(lvx_ordering_NONE, NAME(.NONE), LCNAME(.none), VALUE(0))
+                 MEMBER(lvx_ordering_W, NAME(.W), LCNAME(.w), VALUE(1))
+                 MEMBER(lvx_ordering_R, NAME(.R), LCNAME(.r), VALUE(2))
+                 MEMBER(lvx_ordering_RW, NAME(.RW), LCNAME(.rw), VALUE(3))
+                 MEMBER(lvx_ordering_O, NAME(.O), LCNAME(.o), VALUE(4))
+                 MEMBER(lvx_ordering_OW, NAME(.OW), LCNAME(.ow), VALUE(5))
+                 MEMBER(lvx_ordering_OR, NAME(.OR), LCNAME(.or), VALUE(6))
+                 MEMBER(lvx_ordering_ORW, NAME(.ORW), LCNAME(.orw), VALUE(7))
+                 MEMBER(lvx_ordering_I, NAME(.I), LCNAME(.i), VALUE(8))
+                 MEMBER(lvx_ordering_IW, NAME(.IW), LCNAME(.iw), VALUE(9))
+                 MEMBER(lvx_ordering_IR, NAME(.IR), LCNAME(.ir), VALUE(10))
+                 MEMBER(lvx_ordering_IRW, NAME(.IRW), LCNAME(.irw), VALUE(11))
+                 MEMBER(lvx_ordering_IO, NAME(.IO), LCNAME(.io), VALUE(12))
+                 MEMBER(lvx_ordering_IOW, NAME(.IOW), LCNAME(.iow), VALUE(13))
+                 MEMBER(lvx_ordering_IOR, NAME(.IOR), LCNAME(.ior), VALUE(14))
+                 MEMBER(lvx_ordering_IORW, NAME(.IORW), LCNAME(.iorw), VALUE(15))),
+         ENCODE(VALUE -= 140),
+         DECODE(VALUE += 140))
+Modifier(lvx_acqrel,
+         MEMBERS(4,
+                 MEMBER(lvx_acqrel_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(lvx_acqrel_RL, NAME(.RL), LCNAME(.rl), VALUE(1))
+                 MEMBER(lvx_acqrel_AQ, NAME(.AQ), LCNAME(.aq), VALUE(2))
+                 MEMBER(lvx_acqrel_AQRL, NAME(.AQRL), LCNAME(.aqrl), VALUE(3))),
+         ENCODE(VALUE -= 156),
+         DECODE(VALUE += 156))
+Modifier(lvx_froundmode,
+         MEMBERS(8,
+                 MEMBER(lvx_froundmode_RNE, NAME(RNE), LCNAME(rne), VALUE(0))
+                 MEMBER(lvx_froundmode_RTZ, NAME(RTZ), LCNAME(rtz), VALUE(1))
+                 MEMBER(lvx_froundmode_RDN, NAME(RDN), LCNAME(rdn), VALUE(2))
+                 MEMBER(lvx_froundmode_RUP, NAME(RUP), LCNAME(rup), VALUE(3))
+                 MEMBER(lvx_froundmode_RMM, NAME(RMM), LCNAME(rmm), VALUE(4))
+                 MEMBER(lvx_froundmode_RES5, NAME(_RES5), LCNAME(_res5), VALUE(5))
+                 MEMBER(lvx_froundmode_RES6, NAME(_RES6), LCNAME(_res6), VALUE(6))
+                 MEMBER(lvx_froundmode_DYN, NAME(DYN), LCNAME(dyn), VALUE(7))),
+         ENCODE(VALUE -= 160),
+         DECODE(VALUE += 160))
+#endif/*Modifier*/
+#undef Modifier
+
+
+#ifndef ModifierMemberValue
+#define ModifierMemberValue_lvx_exunum_ALU0	0
+#define ModifierMemberValue_lvx_exunum_ALU1	1
+#define ModifierMemberValue_lvx_exunum_LSU0	2
+#define ModifierMemberValue_lvx_exunum_LSU1	3
+#define ModifierMemberValue_lvx_ccbcomp_DLT	0
+#define ModifierMemberValue_lvx_ccbcomp_DGE	1
+#define ModifierMemberValue_lvx_ccbcomp_DLTU	2
+#define ModifierMemberValue_lvx_ccbcomp_DGEU	3
+#define ModifierMemberValue_lvx_ccbcomp_DEQ	4
+#define ModifierMemberValue_lvx_ccbcomp_DNE	5
+#define ModifierMemberValue_lvx_ccbcomp_DANY	6
+#define ModifierMemberValue_lvx_ccbcomp_DNONE	7
+#define ModifierMemberValue_lvx_ccbcomp_WLT	8
+#define ModifierMemberValue_lvx_ccbcomp_WGE	9
+#define ModifierMemberValue_lvx_ccbcomp_WLTU	10
+#define ModifierMemberValue_lvx_ccbcomp_WGEU	11
+#define ModifierMemberValue_lvx_ccbcomp_WEQ	12
+#define ModifierMemberValue_lvx_ccbcomp_WNE	13
+#define ModifierMemberValue_lvx_ccbcomp_WANY	14
+#define ModifierMemberValue_lvx_ccbcomp_WNONE	15
+#define ModifierMemberValue_lvx_bcucond_DLTZ	0
+#define ModifierMemberValue_lvx_bcucond_DGEZ	1
+#define ModifierMemberValue_lvx_bcucond_DLEZ	2
+#define ModifierMemberValue_lvx_bcucond_DGTZ	3
+#define ModifierMemberValue_lvx_bcucond_DEQZ	4
+#define ModifierMemberValue_lvx_bcucond_DNEZ	5
+#define ModifierMemberValue_lvx_bcucond_ODD	6
+#define ModifierMemberValue_lvx_bcucond_EVEN	7
+#define ModifierMemberValue_lvx_bcucond_WLTZ	8
+#define ModifierMemberValue_lvx_bcucond_WGEZ	9
+#define ModifierMemberValue_lvx_bcucond_WLEZ	10
+#define ModifierMemberValue_lvx_bcucond_WGTZ	11
+#define ModifierMemberValue_lvx_bcucond_WEQZ	12
+#define ModifierMemberValue_lvx_bcucond_WNEZ	13
+#define ModifierMemberValue_lvx_intcomp_LT	0
+#define ModifierMemberValue_lvx_intcomp_GE	1
+#define ModifierMemberValue_lvx_intcomp_LTU	2
+#define ModifierMemberValue_lvx_intcomp_GEU	3
+#define ModifierMemberValue_lvx_intcomp_EQ	4
+#define ModifierMemberValue_lvx_intcomp_NE	5
+#define ModifierMemberValue_lvx_intcomp_ANY	6
+#define ModifierMemberValue_lvx_intcomp_NONE	7
+#define ModifierMemberValue_lvx_intcomp_LE	8
+#define ModifierMemberValue_lvx_intcomp_GT	9
+#define ModifierMemberValue_lvx_intcomp_LEU	10
+#define ModifierMemberValue_lvx_intcomp_GTU	11
+#define ModifierMemberValue_lvx_lanecond_LTZ	0
+#define ModifierMemberValue_lvx_lanecond_GEZ	1
+#define ModifierMemberValue_lvx_lanecond_LEZ	2
+#define ModifierMemberValue_lvx_lanecond_GTZ	3
+#define ModifierMemberValue_lvx_lanecond_EQZ	4
+#define ModifierMemberValue_lvx_lanecond_NEZ	5
+#define ModifierMemberValue_lvx_lanecond_ODD	6
+#define ModifierMemberValue_lvx_lanecond_EVEN	7
+#define ModifierMemberValue_lvx_lanetodo_MT	0
+#define ModifierMemberValue_lvx_lanetodo_MF	1
+#define ModifierMemberValue_lvx_lanetodo_MTC	2
+#define ModifierMemberValue_lvx_lanetodo_MFC	3
+#define ModifierMemberValue_lvx_lanesize_	0
+#define ModifierMemberValue_lvx_lanesize_H	1
+#define ModifierMemberValue_lvx_lanesize_W	2
+#define ModifierMemberValue_lvx_lanesize_D	3
+#define ModifierMemberValue_lvx_floatcomp_ONE	0
+#define ModifierMemberValue_lvx_floatcomp_UEQ	1
+#define ModifierMemberValue_lvx_floatcomp_OEQ	2
+#define ModifierMemberValue_lvx_floatcomp_UNE	3
+#define ModifierMemberValue_lvx_floatcomp_OLT	4
+#define ModifierMemberValue_lvx_floatcomp_UGE	5
+#define ModifierMemberValue_lvx_floatcomp_OGE	6
+#define ModifierMemberValue_lvx_floatcomp_ULT	7
+#define ModifierMemberValue_lvx_floatmode_RN	0
+#define ModifierMemberValue_lvx_floatmode_RZ	1
+#define ModifierMemberValue_lvx_floatmode_RD	2
+#define ModifierMemberValue_lvx_floatmode_RU	3
+#define ModifierMemberValue_lvx_floatmode_RM	4
+#define ModifierMemberValue_lvx_floatmode_R5	5
+#define ModifierMemberValue_lvx_floatmode_RO	6
+#define ModifierMemberValue_lvx_floatmode_	7
+#define ModifierMemberValue_lvx_signextw_	0
+#define ModifierMemberValue_lvx_signextw_SX	1
+#define ModifierMemberValue_lvx_highmult_	0
+#define ModifierMemberValue_lvx_highmult_H	1
+#define ModifierMemberValue_lvx_highmult_HU	2
+#define ModifierMemberValue_lvx_highmult_HSU	3
+#define ModifierMemberValue_lvx_widemult_	0
+#define ModifierMemberValue_lvx_widemult_U	1
+#define ModifierMemberValue_lvx_widemult_SU	2
+#define ModifierMemberValue_lvx_mostsig_	0
+#define ModifierMemberValue_lvx_mostsig_M	1
+#define ModifierMemberValue_lvx_oddlanes_	0
+#define ModifierMemberValue_lvx_oddlanes_O	1
+#define ModifierMemberValue_lvx_ziplanes_	0
+#define ModifierMemberValue_lvx_ziplanes_Z	1
+#define ModifierMemberValue_lvx_fnegate_	0
+#define ModifierMemberValue_lvx_fnegate_N	1
+#define ModifierMemberValue_lvx_variant_	0
+#define ModifierMemberValue_lvx_variant_S	1
+#define ModifierMemberValue_lvx_variant_U	2
+#define ModifierMemberValue_lvx_variant_US	3
+#define ModifierMemberValue_lvx_speculate_U	0
+#define ModifierMemberValue_lvx_speculate_US	1
+#define ModifierMemberValue_lvx_doscale_	0
+#define ModifierMemberValue_lvx_doscale_XS	1
+#define ModifierMemberValue_lvx_qindex_Q0	0
+#define ModifierMemberValue_lvx_qindex_Q1	1
+#define ModifierMemberValue_lvx_qindex_Q2	2
+#define ModifierMemberValue_lvx_qindex_Q3	3
+#define ModifierMemberValue_lvx_hindex_H0	0
+#define ModifierMemberValue_lvx_hindex_H1	1
+#define ModifierMemberValue_lvx_cachelev_L1	0
+#define ModifierMemberValue_lvx_cachelev_L2	1
+#define ModifierMemberValue_lvx_coherency_	0
+#define ModifierMemberValue_lvx_coherency_G	1
+#define ModifierMemberValue_lvx_coherency_S	2
+#define ModifierMemberValue_lvx_boolcas_V	0
+#define ModifierMemberValue_lvx_boolcas_	1
+#define ModifierMemberValue_lvx_accesses_	0
+#define ModifierMemberValue_lvx_accesses_W	1
+#define ModifierMemberValue_lvx_accesses_R	2
+#define ModifierMemberValue_lvx_accesses_WA	3
+#define ModifierMemberValue_lvx_channel_F	0
+#define ModifierMemberValue_lvx_channel_B	1
+#define ModifierMemberValue_lvx_conjugate_	0
+#define ModifierMemberValue_lvx_conjugate_C	1
+#define ModifierMemberValue_lvx_imultiply_	0
+#define ModifierMemberValue_lvx_imultiply_MI	1
+#define ModifierMemberValue_lvx_realimag_R	0
+#define ModifierMemberValue_lvx_realimag_I	1
+#define ModifierMemberValue_lvx_shuffleV_	0
+#define ModifierMemberValue_lvx_shuffleV_TD	1
+#define ModifierMemberValue_lvx_shuffleX_	0
+#define ModifierMemberValue_lvx_shuffleX_ZD	1
+#define ModifierMemberValue_lvx_shuffleX_UD	2
+#define ModifierMemberValue_lvx_shuffleX_TQ	3
+#define ModifierMemberValue_lvx_shuffleX_TW	4
+#define ModifierMemberValue_lvx_shuffleX_ZW	5
+#define ModifierMemberValue_lvx_shuffleX_UW	6
+#define ModifierMemberValue_lvx_splat32_	0
+#define ModifierMemberValue_lvx_splat32__	1
+#define ModifierMemberValue_lvx_ordering_NONE	0
+#define ModifierMemberValue_lvx_ordering_W	1
+#define ModifierMemberValue_lvx_ordering_R	2
+#define ModifierMemberValue_lvx_ordering_RW	3
+#define ModifierMemberValue_lvx_ordering_O	4
+#define ModifierMemberValue_lvx_ordering_OW	5
+#define ModifierMemberValue_lvx_ordering_OR	6
+#define ModifierMemberValue_lvx_ordering_ORW	7
+#define ModifierMemberValue_lvx_ordering_I	8
+#define ModifierMemberValue_lvx_ordering_IW	9
+#define ModifierMemberValue_lvx_ordering_IR	10
+#define ModifierMemberValue_lvx_ordering_IRW	11
+#define ModifierMemberValue_lvx_ordering_IO	12
+#define ModifierMemberValue_lvx_ordering_IOW	13
+#define ModifierMemberValue_lvx_ordering_IOR	14
+#define ModifierMemberValue_lvx_ordering_IORW	15
+#define ModifierMemberValue_lvx_acqrel_	0
+#define ModifierMemberValue_lvx_acqrel_RL	1
+#define ModifierMemberValue_lvx_acqrel_AQ	2
+#define ModifierMemberValue_lvx_acqrel_AQRL	3
+#define ModifierMemberValue_lvx_froundmode_RNE	0
+#define ModifierMemberValue_lvx_froundmode_RTZ	1
+#define ModifierMemberValue_lvx_froundmode_RDN	2
+#define ModifierMemberValue_lvx_froundmode_RUP	3
+#define ModifierMemberValue_lvx_froundmode_RMM	4
+#define ModifierMemberValue_lvx_froundmode_RES5	5
+#define ModifierMemberValue_lvx_froundmode_RES6	6
+#define ModifierMemberValue_lvx_froundmode_DYN	7
+#endif/*ModifierMemberValue*/
+

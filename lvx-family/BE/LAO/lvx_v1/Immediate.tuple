@@ -1,0 +1,112 @@
+/*
+ * lvx/Immediate.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Immediate
+#define Immediate(ID, MINVALUE, MAXVALUE, EXTEND, RELOCATIONS, ENCODE, DECODE)
+#else /*Immediate*/
+Immediate(lvx_v1_pcrel11s2, MINVALUE(-4096), MAXVALUE(4092), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(lvx_v1_pcrel11s2)),
+          ENCODE(int32_t __value = VALUE; __value >>= 2; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-11); __value >>= (sizeof(__value)*8-11); __value <<= 2; VALUE = __value))
+Immediate(lvx_v1_pcrel17s2, MINVALUE(-262144), MAXVALUE(262140), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(lvx_v1_pcrel17s2)),
+          ENCODE(int32_t __value = VALUE; __value >>= 2; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-17); __value >>= (sizeof(__value)*8-17); __value <<= 2; VALUE = __value))
+Immediate(lvx_v1_pcrel27s2, MINVALUE(-268435456), MAXVALUE(268435452), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(lvx_v1_pcrel27s2)),
+          ENCODE(int32_t __value = VALUE; __value >>= 2; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-27); __value >>= (sizeof(__value)*8-27); __value <<= 2; VALUE = __value))
+Immediate(lvx_v1_pcrel38s2, MINVALUE(-549755813888), MAXVALUE(549755813884), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(lvx_v1_pcrel38s2)),
+          ENCODE(int64_t __value = VALUE; __value >>= 2; VALUE = __value),
+          DECODE(int64_t __value = VALUE; __value <<= (sizeof(__value)*8-38); __value >>= (sizeof(__value)*8-38); __value <<= 2; VALUE = __value))
+Immediate(lvx_v1_pcrel44s2, MINVALUE(-35184372088832), MAXVALUE(35184372088828), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(lvx_v1_pcrel44s2)),
+          ENCODE(int64_t __value = VALUE; __value >>= 2; VALUE = __value),
+          DECODE(int64_t __value = VALUE; __value <<= (sizeof(__value)*8-44); __value >>= (sizeof(__value)*8-44); __value <<= 2; VALUE = __value))
+Immediate(lvx_v1_pcrel54s2, MINVALUE(-36028797018963968), MAXVALUE(36028797018963964), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(lvx_v1_pcrel54s2)),
+          ENCODE(int64_t __value = VALUE; __value >>= 2; VALUE = __value),
+          DECODE(int64_t __value = VALUE; __value <<= (sizeof(__value)*8-54); __value >>= (sizeof(__value)*8-54); __value <<= 2; VALUE = __value))
+Immediate(lvx_v1_brknumber, MINVALUE(0), MAXVALUE(3), EXTEND(Unsigned),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(uint32_t __value = VALUE; __value &= ((uint32_t)1<<2)-1; VALUE = __value),
+          DECODE(uint32_t __value = VALUE; VALUE = __value))
+Immediate(lvx_v1_sysnumber, MINVALUE(0), MAXVALUE(4095), EXTEND(Unsigned),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(uint32_t __value = VALUE; __value &= ((uint32_t)1<<12)-1; VALUE = __value),
+          DECODE(uint32_t __value = VALUE; VALUE = __value))
+Immediate(lvx_v1_unsigned6, MINVALUE(0), MAXVALUE(63), EXTEND(Unsigned),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(uint32_t __value = VALUE; __value &= ((uint32_t)1<<6)-1; VALUE = __value),
+          DECODE(uint32_t __value = VALUE; VALUE = __value))
+Immediate(lvx_v1_wrapped8, MINVALUE(-128), MAXVALUE(255), EXTEND(Wrap),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(uint32_t __value = VALUE; __value &= ((uint32_t)1<<8)-1; VALUE = __value),
+          DECODE(uint32_t __value = VALUE; VALUE = __value))
+Immediate(lvx_v1_signed10, MINVALUE(-512), MAXVALUE(511), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(int32_t __value = VALUE; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-10); __value >>= (sizeof(__value)*8-10); VALUE = __value))
+Immediate(lvx_v1_signed16, MINVALUE(-32768), MAXVALUE(32767), EXTEND(Signed),
+          RELOCATIONS(2, RELOCATION(lvx_v1_pcrel_signed16) RELOCATION(lvx_v1_signed16)),
+          ENCODE(int32_t __value = VALUE; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-16); __value >>= (sizeof(__value)*8-16); VALUE = __value))
+Immediate(lvx_v1_signed27, MINVALUE(-67108864), MAXVALUE(67108863), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(int32_t __value = VALUE; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-27); __value >>= (sizeof(__value)*8-27); VALUE = __value))
+Immediate(lvx_v1_wrapped32, MINVALUE(-2147483648), MAXVALUE(4294967295), EXTEND(Wrap),
+          RELOCATIONS(1, RELOCATION(lvx_v1_signed32)),
+          ENCODE(uint32_t __value = VALUE; __value &= (uint32_t)-1; VALUE = __value),
+          DECODE(uint32_t __value = VALUE; VALUE = __value))
+Immediate(lvx_v1_signed37, MINVALUE(-68719476736), MAXVALUE(68719476735), EXTEND(Signed),
+          RELOCATIONS(10, RELOCATION(lvx_v1_pcrel_signed37) RELOCATION(lvx_v1_signed37) RELOCATION(lvx_v1_gotoff_signed37) RELOCATION(lvx_v1_got_signed37) RELOCATION(lvx_v1_gotaddr_signed37) RELOCATION(lvx_v1_dtpoff_signed37) RELOCATION(lvx_v1_tlsgd_signed37) RELOCATION(lvx_v1_tlsld_signed37) RELOCATION(lvx_v1_tlsie_signed37) RELOCATION(lvx_v1_tlsle_signed37)),
+          ENCODE(int64_t __value = VALUE; VALUE = __value),
+          DECODE(int64_t __value = VALUE; __value <<= (sizeof(__value)*8-37); __value >>= (sizeof(__value)*8-37); VALUE = __value))
+Immediate(lvx_v1_signed43, MINVALUE(-4398046511104), MAXVALUE(4398046511103), EXTEND(Signed),
+          RELOCATIONS(10, RELOCATION(lvx_v1_pcrel_signed43) RELOCATION(lvx_v1_gotoff_signed43) RELOCATION(lvx_v1_got_signed43) RELOCATION(lvx_v1_signed43) RELOCATION(lvx_v1_gotaddr_signed43) RELOCATION(lvx_v1_dtpoff_signed43) RELOCATION(lvx_v1_tlsgd_signed43) RELOCATION(lvx_v1_tlsld_signed43) RELOCATION(lvx_v1_tlsie_signed43) RELOCATION(lvx_v1_tlsle_signed43)),
+          ENCODE(int64_t __value = VALUE; VALUE = __value),
+          DECODE(int64_t __value = VALUE; __value <<= (sizeof(__value)*8-43); __value >>= (sizeof(__value)*8-43); VALUE = __value))
+Immediate(lvx_v1_signed54, MINVALUE(-9007199254740992), MAXVALUE(9007199254740991), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(int64_t __value = VALUE; VALUE = __value),
+          DECODE(int64_t __value = VALUE; __value <<= (sizeof(__value)*8-54); __value >>= (sizeof(__value)*8-54); VALUE = __value))
+Immediate(lvx_v1_wrapped64, MINVALUE(-9223372036854775808), MAXVALUE(18446744073709551615), EXTEND(Wrap),
+          RELOCATIONS(3, RELOCATION(lvx_v1_pcrel_signed64) RELOCATION(lvx_v1_signed64) RELOCATION(lvx_v1_gotaddr_signed64)),
+          ENCODE(uint64_t __value = VALUE; __value &= (uint64_t)-1; VALUE = __value),
+          DECODE(uint64_t __value = VALUE; VALUE = __value))
+Immediate(lvx_v1_unsigned5, MINVALUE(0), MAXVALUE(31), EXTEND(Unsigned),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(uint32_t __value = VALUE; __value &= ((uint32_t)1<<5)-1; VALUE = __value),
+          DECODE(uint32_t __value = VALUE; VALUE = __value))
+Immediate(lvx_v1_signed6, MINVALUE(-32), MAXVALUE(31), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(int32_t __value = VALUE; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-6); __value >>= (sizeof(__value)*8-6); VALUE = __value))
+Immediate(lvx_v1_signed12, MINVALUE(-2048), MAXVALUE(2047), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(int32_t __value = VALUE; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-12); __value >>= (sizeof(__value)*8-12); VALUE = __value))
+Immediate(lvx_v1_signed20, MINVALUE(-524288), MAXVALUE(524287), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(int32_t __value = VALUE; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-20); __value >>= (sizeof(__value)*8-20); VALUE = __value))
+Immediate(lvx_v1_pcrel12s1, MINVALUE(-4096), MAXVALUE(4094), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(int32_t __value = VALUE; __value >>= 1; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-12); __value >>= (sizeof(__value)*8-12); __value <<= 1; VALUE = __value))
+Immediate(lvx_v1_pcrel20s1, MINVALUE(-1048576), MAXVALUE(1048574), EXTEND(Signed),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(int32_t __value = VALUE; __value >>= 1; VALUE = __value),
+          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-20); __value >>= (sizeof(__value)*8-20); __value <<= 1; VALUE = __value))
+#endif/*Immediate*/
+#undef Immediate
+
+#ifndef ImmediateRelocations_MAXCOUNT
+#define ImmediateRelocations_MAXCOUNT 10
+#endif/*ImmediateRelocations_MAXCOUNT*/
+

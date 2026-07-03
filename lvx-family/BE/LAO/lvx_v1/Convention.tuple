@@ -1,0 +1,32 @@
+/*
+ * lvx/Convention.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Convention
+#define Convention(ID, RESERVED, ARGUMENT, RESULT, STRUCT, CALLER, CALLEE, PROGRAM, HANDLER, \
+                   VENEER, RETURN, STACK, STATIC, FRAME, GLOBAL, LOCAL, WIRED, ZERO, ONE)
+#else /*Convention*/
+Convention(lvx_v1_regular,
+           RESERVED(2, REGISTER(lvx_v1_R12) REGISTER(lvx_v1_R13)),
+           ARGUMENT(12, REGISTER(lvx_v1_R0) REGISTER(lvx_v1_R1) REGISTER(lvx_v1_R2) REGISTER(lvx_v1_R3) REGISTER(lvx_v1_R4) REGISTER(lvx_v1_R5) REGISTER(lvx_v1_R6) REGISTER(lvx_v1_R7) REGISTER(lvx_v1_R8) REGISTER(lvx_v1_R9) REGISTER(lvx_v1_R10) REGISTER(lvx_v1_R11)),
+           RESULT(4, REGISTER(lvx_v1_R0) REGISTER(lvx_v1_R1) REGISTER(lvx_v1_R2) REGISTER(lvx_v1_R3)),
+           STRUCT(1, REGISTER(lvx_v1_R15)),
+           CALLER(47, REGISTER(lvx_v1_R0) REGISTER(lvx_v1_R1) REGISTER(lvx_v1_R2) REGISTER(lvx_v1_R3) REGISTER(lvx_v1_R4) REGISTER(lvx_v1_R5) REGISTER(lvx_v1_R6) REGISTER(lvx_v1_R7) REGISTER(lvx_v1_R8) REGISTER(lvx_v1_R9) REGISTER(lvx_v1_R10) REGISTER(lvx_v1_R11) REGISTER(lvx_v1_R15) REGISTER(lvx_v1_R16) REGISTER(lvx_v1_R17) REGISTER(lvx_v1_R32) REGISTER(lvx_v1_R33) REGISTER(lvx_v1_R34) REGISTER(lvx_v1_R35) REGISTER(lvx_v1_R36) REGISTER(lvx_v1_R37) REGISTER(lvx_v1_R38) REGISTER(lvx_v1_R39) REGISTER(lvx_v1_R40) REGISTER(lvx_v1_R41) REGISTER(lvx_v1_R42) REGISTER(lvx_v1_R43) REGISTER(lvx_v1_R44) REGISTER(lvx_v1_R45) REGISTER(lvx_v1_R46) REGISTER(lvx_v1_R47) REGISTER(lvx_v1_R48) REGISTER(lvx_v1_R49) REGISTER(lvx_v1_R50) REGISTER(lvx_v1_R51) REGISTER(lvx_v1_R52) REGISTER(lvx_v1_R53) REGISTER(lvx_v1_R54) REGISTER(lvx_v1_R55) REGISTER(lvx_v1_R56) REGISTER(lvx_v1_R57) REGISTER(lvx_v1_R58) REGISTER(lvx_v1_R59) REGISTER(lvx_v1_R60) REGISTER(lvx_v1_R61) REGISTER(lvx_v1_R62) REGISTER(lvx_v1_R63)),
+           CALLEE(15, REGISTER(lvx_v1_R14) REGISTER(lvx_v1_R18) REGISTER(lvx_v1_R19) REGISTER(lvx_v1_R20) REGISTER(lvx_v1_R21) REGISTER(lvx_v1_R22) REGISTER(lvx_v1_R23) REGISTER(lvx_v1_R24) REGISTER(lvx_v1_R25) REGISTER(lvx_v1_R26) REGISTER(lvx_v1_R27) REGISTER(lvx_v1_R28) REGISTER(lvx_v1_R29) REGISTER(lvx_v1_R30) REGISTER(lvx_v1_R31)),
+           PROGRAM(1, REGISTER(lvx_v1_PC)),
+           HANDLER(0, /**/),
+           VENEER(2, REGISTER(lvx_v1_R16) REGISTER(lvx_v1_R17)),
+           RETURN(1, REGISTER(lvx_v1_RA)),
+           STACK(1, REGISTER(lvx_v1_R12)),
+           STATIC(0, /**/),
+           FRAME(1, REGISTER(lvx_v1_R14)),
+           GLOBAL(0, /**/),
+           LOCAL(1, REGISTER(lvx_v1_R13)),
+           WIRED(0, /**/),
+           ZERO(0, /**/),
+           ONE(0, /**/))
+#endif/*Convention*/
+#undef Convention
+

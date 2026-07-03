@@ -1,0 +1,20 @@
+/*
+ * lvx/Decoding.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Decoding
+#define Decoding(ID, PROCESSOR, WORDTYPE, WORDCOUNT)
+#else /*Decoding*/
+Decoding(lvx_v1_double, PROCESSOR(lvx_v1_cpu), WORDTYPE(uint32_t), WORDCOUNT(2))
+Decoding(lvx_v1_riscv, PROCESSOR(lvx_v1_cpu), WORDTYPE(uint32_t), WORDCOUNT(1))
+Decoding(lvx_v1_simple, PROCESSOR(lvx_v1_cpu), WORDTYPE(uint32_t), WORDCOUNT(1))
+Decoding(lvx_v1_triple, PROCESSOR(lvx_v1_cpu), WORDTYPE(uint32_t), WORDCOUNT(3))
+#endif/*Decoding*/
+#undef Decoding
+
+#ifndef Decoding_SIZE_MAX
+#define Decoding_SIZE_MAX 12
+#endif/*Decoding_SIZE_MAX*/
+

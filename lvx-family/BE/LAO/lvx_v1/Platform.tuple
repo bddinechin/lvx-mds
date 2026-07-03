@@ -1,0 +1,25 @@
+/*
+ * lvx/Platform.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Platform
+#define Platform(ID, CHARWIDTH, ADDRWIDTH, ENDIAN, \
+                 ALIGNTEXT, ALIGNDATA, ALIGNHEAP, ALIGNSTACK, \
+                 NATIVEINT, NATIVEUINT, NATIVEFLOAT, NATIVEPTR)
+#else /*Platform*/
+Platform(lvx_v1_lvx_64, CHARWIDTH(8), ADDRWIDTH(32), ENDIAN(Little),
+         ALIGNTEXT(8), ALIGNDATA(8), ALIGNHEAP(8), ALIGNSTACK(8),
+         NATIVEINT(lvx_v1_Int32), NATIVEUINT(lvx_v1_UInt32), NATIVEFLOAT(lvx_v1_Float64), NATIVEPTR(lvx_v1_UInt64))
+#endif/*Platform*/
+#undef Platform
+
+#ifndef PlatformInt_TYPEDEF
+#define PlatformInt_TYPEDEF typedef int32_t PlatformInt;
+#endif/*PlatformInt_TYPEDEF*/
+
+#ifndef PlatformUInt_TYPEDEF
+#define PlatformUInt_TYPEDEF typedef uint32_t PlatformUInt;
+#endif/*PlatformUInt_TYPEDEF*/
+

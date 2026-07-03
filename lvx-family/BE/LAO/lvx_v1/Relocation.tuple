@@ -1,0 +1,208 @@
+/*
+ * lvx/Relocation.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Relocation
+#define Relocation(ID, RELATIVE, ENCODE, DECODE, LINKER)
+#else /*Relocation*/
+Relocation(lvx_v1_rel16, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_16))
+Relocation(lvx_v1_rel32, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_32))
+Relocation(lvx_v1_rel64, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_64))
+Relocation(lvx_v1_pcrel_signed16, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S16_PCREL))
+Relocation(lvx_v1_pcrel32, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_32_PCREL))
+Relocation(lvx_v1_pcrel_signed37, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_PCREL_UP27 R_LVX_S37_PCREL_LO10))
+Relocation(lvx_v1_pcrel_signed43, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_PCREL_EX6 R_LVX_S43_PCREL_UP27 R_LVX_S43_PCREL_LO10))
+Relocation(lvx_v1_pcrel_signed64, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S64_PCREL_EX27 R_LVX_S64_PCREL_UP27 R_LVX_S64_PCREL_LO10))
+Relocation(lvx_v1_pcrel64, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_64_PCREL))
+Relocation(lvx_v1_signed16, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S16))
+Relocation(lvx_v1_signed32, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S32_UP27 R_LVX_S32_LO5))
+Relocation(lvx_v1_signed37, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_UP27 R_LVX_S37_LO10))
+Relocation(lvx_v1_gotoff_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_GOTOFF_UP27 R_LVX_S37_GOTOFF_LO10))
+Relocation(lvx_v1_gotoff_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_GOTOFF_EX6 R_LVX_S43_GOTOFF_UP27 R_LVX_S43_GOTOFF_LO10))
+Relocation(lvx_v1_gotoff_32, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_32_GOTOFF))
+Relocation(lvx_v1_gotoff_64, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_64_GOTOFF))
+Relocation(lvx_v1_got_32, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_32_GOT))
+Relocation(lvx_v1_got_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_GOT_UP27 R_LVX_S37_GOT_LO10))
+Relocation(lvx_v1_got_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_GOT_EX6 R_LVX_S43_GOT_UP27 R_LVX_S43_GOT_LO10))
+Relocation(lvx_v1_got_64, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_64_GOT))
+Relocation(lvx_v1_glob_dat, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_GLOB_DAT))
+Relocation(lvx_v1_copy, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_COPY))
+Relocation(lvx_v1_jump_slot, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_JMP_SLOT))
+Relocation(lvx_v1_relative, RELATIVE(BASE),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_RELATIVE))
+Relocation(lvx_v1_signed43, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_EX6 R_LVX_S43_UP27 R_LVX_S43_LO10))
+Relocation(lvx_v1_signed64, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S64_EX27 R_LVX_S64_UP27 R_LVX_S64_LO10))
+Relocation(lvx_v1_gotaddr_signed37, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_GOTADDR_UP27 R_LVX_S37_GOTADDR_LO10))
+Relocation(lvx_v1_gotaddr_signed43, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_GOTADDR_EX6 R_LVX_S43_GOTADDR_UP27 R_LVX_S43_GOTADDR_LO10))
+Relocation(lvx_v1_gotaddr_signed64, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S64_GOTADDR_EX27 R_LVX_S64_GOTADDR_UP27 R_LVX_S64_GOTADDR_LO10))
+Relocation(lvx_v1_dtpmod64, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_64_DTPMOD))
+Relocation(lvx_v1_dtpoff64, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_64_DTPOFF))
+Relocation(lvx_v1_dtpoff_signed37, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_TLS_DTPOFF_UP27 R_LVX_S37_TLS_DTPOFF_LO10))
+Relocation(lvx_v1_dtpoff_signed43, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_TLS_DTPOFF_EX6 R_LVX_S43_TLS_DTPOFF_UP27 R_LVX_S43_TLS_DTPOFF_LO10))
+Relocation(lvx_v1_tlsgd_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_TLS_GD_UP27 R_LVX_S37_TLS_GD_LO10))
+Relocation(lvx_v1_tlsgd_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_TLS_GD_EX6 R_LVX_S43_TLS_GD_UP27 R_LVX_S43_TLS_GD_LO10))
+Relocation(lvx_v1_tlsld_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_TLS_LD_UP27 R_LVX_S37_TLS_LD_LO10))
+Relocation(lvx_v1_tlsld_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_TLS_LD_EX6 R_LVX_S43_TLS_LD_UP27 R_LVX_S43_TLS_LD_LO10))
+Relocation(lvx_v1_tpoff64, RELATIVE(TP),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_64_TPOFF))
+Relocation(lvx_v1_tlsie_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_TLS_IE_UP27 R_LVX_S37_TLS_IE_LO10))
+Relocation(lvx_v1_tlsie_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_TLS_IE_EX6 R_LVX_S43_TLS_IE_UP27 R_LVX_S43_TLS_IE_LO10))
+Relocation(lvx_v1_tlsle_signed37, RELATIVE(TP),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S37_TLS_LE_UP27 R_LVX_S37_TLS_LE_LO10))
+Relocation(lvx_v1_tlsle_signed43, RELATIVE(TP),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S43_TLS_LE_EX6 R_LVX_S43_TLS_LE_UP27 R_LVX_S43_TLS_LE_LO10))
+Relocation(lvx_v1_rel8, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_8))
+Relocation(lvx_v1_pcrel11s2, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S11S2_PCREL))
+Relocation(lvx_v1_pcrel17s2, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S17S2_PCREL))
+Relocation(lvx_v1_pcrel27s2, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S27S2_PCREL))
+Relocation(lvx_v1_pcrel38s2, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S38S2_PCREL_UP27 R_LVX_S38S2_PCREL_LO11))
+Relocation(lvx_v1_pcrel44s2, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S44S2_PCREL_UP27 R_LVX_S44S2_PCREL_LO17))
+Relocation(lvx_v1_pcrel54s2, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_LVX_S54S2_PCREL_UP27 R_LVX_S54S2_PCREL_LO27))
+#endif/*Relocation*/
+#undef Relocation
+
