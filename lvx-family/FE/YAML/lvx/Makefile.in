@@ -1,10 +1,10 @@
 FAMDIR:= @FAMDIR@
 TOPDIR:= @TOPDIR@
 
-INPUTDIR:= $(FAMDIR)/FE/YAML/lvx
-OUTPUTDIR:= $(TOPDIR)/FE/YAML/lvx
+INPUTDIR:= $(FAMDIR)/FE/YAML/@FAMILY@
+OUTPUTDIR:= $(TOPDIR)/FE/YAML/@FAMILY@
 
-CORES:= lvx_v1 lvx_v2
+CORES:= @CORES@
 
 DIRS:=$(addprefix $(OUTPUTDIR)/,$(CORES))
 DESCS:=$(addsuffix /Description.yml,$(DIRS))

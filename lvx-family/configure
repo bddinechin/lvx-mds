@@ -615,6 +615,8 @@ PACKAGE_URL=''
 ac_unique_file="configure.ac"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+CORES
+FAMILY
 TOPDIR
 FAMDIR
 HWTESTDIR
@@ -2029,6 +2031,8 @@ then :
 else $as_nop
   HWTESTDIR="$ABSPATH/BE"
 fi
+
+
 
 
 
