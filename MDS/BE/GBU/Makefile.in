@@ -1,6 +1,5 @@
 GBU_prefix:=@BINUTILSDIR@
 GDB_prefix:=@GDBDIR@
-QEMU_prefix:=@QEMUDIR@
 include	../../Makerules
 include	../Makerules
 PERLBIN:=	$(MDSDIR)/BE/GBU/BIN
@@ -54,7 +53,6 @@ mach_gbuinfo_diffs = $(addsuffix .diff, $(mach_gbuinfo))
 GBU_gbu_diffs = $(addsuffix .idf, $(filter-out $(gbuinfo_drop), $(gbuinfo)))
 GBU_gbu_prefix = $(GBU_prefix)
 gbuinfo_installs = $(addsuffix .ist, $(filter-out $(gbuinfo_drop), $(gbuinfo)))
-gbuinfo_installs_qemu = $(addsuffix .ist, qemu/$(FAMILY)-opc.c qemu/$(FAMILY).h)
 
 tests_dirs= $(Family)
 tests= $(FAMILY_TESTS)
@@ -149,8 +147,6 @@ install_asm: $(addsuffix .inst, $(asm_tests))
 
 install_gbuinfo: $(gbuinfo_installs)
 
-install_qemu: $(gbuinfo_installs_qemu)
-
 bfd/reloc.c.ist:
 	$(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh PATCH $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GBU_prefix)/bfd/reloc.c
 	$(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh PATCH $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GDB_prefix)/bfd/reloc.c
@@ -166,14 +162,6 @@ include/$(FAMILY)/reloc.h.ist:
 include/$(FAMILY)/reloc.h.idf:
 	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh EXTRACT $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GBU_prefix)/include/elf/$(FAMILY).h) $(FAMILY)/include/$(FAMILY)/reloc.h"
 	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh EXTRACT $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GDB_prefix)/include/elf/$(FAMILY).h) $(FAMILY)/include/$(FAMILY)/reloc.h"
-
-qemu/$(FAMILY)-opc.c.ist:
-	$(MDSDIR)/BE/GBU/BIN/patch_qemu_opc_c.sh $(FAMILY)/opcodes/$(FAMILY)-opc.c > $(QEMU_prefix)/disas/$(FAMILY)-opc.c.swap
-	mv $(QEMU_prefix)/disas/$(FAMILY)-opc.c.swap $(QEMU_prefix)/disas/$(FAMILY)-opc.c
-
-qemu/$(FAMILY).h.ist:
-	$(MDSDIR)/BE/GBU/BIN/patch_qemu_h.sh $(FAMILY)/include/opcode/$(FAMILY).h > $(QEMU_prefix)/disas/$(FAMILY).h.swap
-	mv $(QEMU_prefix)/disas/$(FAMILY).h.swap $(QEMU_prefix)/disas/$(FAMILY).h
 
 %.ist:
 	$(INSTALL) -D -m 644 $(FAMILY)/$* $(GBU_prefix)/$*

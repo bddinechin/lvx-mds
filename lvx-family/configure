@@ -621,10 +621,6 @@ TOPDIR
 FAMDIR
 HWTESTDIR
 TEXDIR
-TDHDIR
-VHDDIR
-QEMUVALIDDIR
-QEMUDIR
 AVPDIR
 LLVMDIR
 GCCDIR
@@ -690,10 +686,6 @@ with_o64_prefix
 with_gcc_prefix
 with_llvm_prefix
 with_avp_prefix
-with_qemu_prefix
-with_qemu_valid_prefix
-with_vhd_valid_prefix
-with_tdh_valid_prefix
 with_tex_valid_prefix
 with_hwtest_valid_prefix
 '
@@ -1333,11 +1325,6 @@ Optional Packages:
   --with-gcc-prefix       Set GCC prefix for install
   --with-llvm-prefix      Set LLVM prefix for install
   --with-avp-prefix       Set AVP prefix for install
-  --with-qemu-prefix      Set QEMU prefix for install
-  --with-qemu-valid-prefix
-                          Set QEMU valid prefix for install
-  --with-vhd-valid-prefix Set VHD valid prefix for install
-  --with-tdh-valid-prefix Set TDH valid prefix for install
   --with-tex-valid-prefix Set TEX valid prefix for install
   --with-hwtest-valid-prefix
                           Set HW_TEST valid prefix for install
@@ -1964,50 +1951,6 @@ then :
   withval=$with_avp_prefix; AVPDIR="$with_avp_prefix"
 else $as_nop
   AVPDIR="$ABSPATH/BE"
-fi
-
-
-
-
-# Check whether --with-qemu_prefix was given.
-if test ${with_qemu_prefix+y}
-then :
-  withval=$with_qemu_prefix; QEMUDIR="$with_qemu_prefix"
-else $as_nop
-  QEMUDIR="$ABSPATH/BE"
-fi
-
-
-
-
-# Check whether --with-qemu_valid_prefix was given.
-if test ${with_qemu_valid_prefix+y}
-then :
-  withval=$with_qemu_valid_prefix; QEMUVALIDDIR="$with_qemu_valid_prefix"
-else $as_nop
-  QEMUVALIDDIR="$prefix"
-fi
-
-
-
-
-# Check whether --with-vhd_valid_prefix was given.
-if test ${with_vhd_valid_prefix+y}
-then :
-  withval=$with_vhd_valid_prefix; VHDDIR="$with_vhd_valid_prefix"
-else $as_nop
-  VHDDIR="$ABSPATH/BE"
-fi
-
-
-
-
-# Check whether --with-tdh_valid_prefix was given.
-if test ${with_tdh_valid_prefix+y}
-then :
-  withval=$with_tdh_valid_prefix; TDHDIR="$with_tdh_valid_prefix"
-else $as_nop
-  TDHDIR="$ABSPATH/BE"
 fi
 
 
@@ -3200,8 +3143,7 @@ function run_with_config()
     TOOLS="$TOOLS" FEDIR="$FEDIR" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \
     GCCDIR="$GCCDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
-    QEMUDIR="$QEMUDIR" QEMUVALIDDIR="$QEMUVALIDDIR" VHDDIR="$VHDDIR" \
-    TDHDIR="$TDHDIR" TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"
+    TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"
 }
 run_with_config echo $with_mds/configure
 HWTESTADIR="$HWTESTADIR"

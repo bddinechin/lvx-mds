@@ -128,30 +128,6 @@ AC_ARG_WITH([avp_prefix],
   [AVPDIR="$ABSPATH/BE"])
 AC_SUBST(AVPDIR)
 
-AC_ARG_WITH([qemu_prefix],
-  [AS_HELP_STRING([--with-qemu-prefix],[Set QEMU prefix for install])],
-  [QEMUDIR="$with_qemu_prefix"],
-  [QEMUDIR="$ABSPATH/BE"])
-AC_SUBST(QEMUDIR)
-
-AC_ARG_WITH([qemu_valid_prefix],
-  [AS_HELP_STRING([--with-qemu-valid-prefix],[Set QEMU valid prefix for install])],
-  [QEMUVALIDDIR="$with_qemu_valid_prefix"],
-  [QEMUVALIDDIR="$prefix"])
-AC_SUBST(QEMUVALIDDIR)
-
-AC_ARG_WITH([vhd_valid_prefix],
-  [AS_HELP_STRING([--with-vhd-valid-prefix],[Set VHD valid prefix for install])],
-  [VHDDIR="$with_vhd_valid_prefix"],
-  [VHDDIR="$ABSPATH/BE"])
-AC_SUBST(VHDDIR)
-
-AC_ARG_WITH([tdh_valid_prefix],
-  [AS_HELP_STRING([--with-tdh-valid-prefix],[Set TDH valid prefix for install])],
-  [TDHDIR="$with_tdh_valid_prefix"],
-  [TDHDIR="$ABSPATH/BE"])
-AC_SUBST(TDHDIR)
-
 AC_ARG_WITH([tex_valid_prefix],
   [AS_HELP_STRING([--with-tex-valid-prefix],[Set TEX valid prefix for install])],
   [TEXDIR="$with_tex_valid_prefix"],
@@ -181,8 +157,7 @@ function run_with_config()
     TOOLS="$TOOLS" FEDIR="$FEDIR" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \
     GCCDIR="$GCCDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
-    QEMUDIR="$QEMUDIR" QEMUVALIDDIR="$QEMUVALIDDIR" VHDDIR="$VHDDIR" \
-    TDHDIR="$TDHDIR" TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"
+    TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"
 }
 run_with_config echo $with_mds/configure
 HWTESTADIR="$HWTESTADIR"
