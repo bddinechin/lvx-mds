@@ -53,6 +53,8 @@ diff: $(GCC_diff)
 %GCC.diff:
 	$(DIFF) $* $(FAMDIR)/BE/GCC/$*
 
+check: $(GCC_diff)
+
 refs: $(GCC_refs)
 
 %GCC.refs:

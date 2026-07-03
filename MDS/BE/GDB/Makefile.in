@@ -53,6 +53,8 @@ diff: $(GDB_diff)
 %GDB.diff:
 	$(DIFF) $* $(FAMDIR)/BE/GDB/$*
 
+check: $(GDB_diff)
+
 refs: $(GDB_refs)
 
 %GDB.refs:
