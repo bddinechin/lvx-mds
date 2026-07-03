@@ -91,6 +91,8 @@ diff: $(TEX_diff)
 %.diff:
 	$(DIFF) $* $(FAMDIR)/BE/TEX/$*
 
+check: $(TEX_diff)
+
 refs: $(TEX_refs)
 
 %.refs:

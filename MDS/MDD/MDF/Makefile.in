@@ -136,11 +136,10 @@ $(eval $(call generate_for_cyclic_dependencies,Opcode))
 	@echo "Relink $@"
 	$(V)FAMILY=$(FAMILY) TABLE=$(basename $(notdir $*)) $(PERL) $(PERLINC) $^ > $@	|| $(ABORT)
 
-#check: $(MDF_check)
-#	@echo "MDF check successful"
-#	rm -f $^
-#	rm -f ../$(FAMILY)/MDT.xml
-check:
+check: $(MDF_check)
+	@echo "MDF check successful"
+	rm -f $^
+	rm -f ../$(FAMILY)/MDT.xml
 
 %.parse: %.parse.xml
 	$(PERL) $(PERLINC) $(PERLBIN)/check-$(notdir $*).pl $^ > $@	|| $(ABORT)
@@ -157,5 +156,6 @@ diff: $(MDS_diff)
 refs: $(MDS_refs)
 
 %MDS.refs:
+	mkdir -p $(FAMDIR)/MDD/$*
 	cp  ../$**.table $(FAMDIR)/MDD/$*
 
