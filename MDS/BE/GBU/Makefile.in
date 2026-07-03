@@ -125,6 +125,10 @@ diff: $(mach_gbuinfo_diffs) $(mach_tests_diffs) diff_gbu
 %.diff:
 	$(DIFF) $(FAMDIR)/BE/GBU/$* $*
 
+# Unlike diff, check only validates against the committed FAMDIR/BE/GBU
+# reference tree, not against an external binutils/gdb checkout.
+check: $(mach_gbuinfo_diffs) $(mach_tests_diffs)
+
 refs: $(mach_gbuinfo_refs) $(mach_tests_refs) install
 
 %.ref:
