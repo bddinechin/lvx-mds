@@ -115,7 +115,7 @@ install_lao: $(LAO_installs)
 check: $(LAO_check)
 
 %.check:
-	$(DIFF) $* $(lao_install_dir)/$*
+	$(DIFF) $* $(FAMDIR)/BE/LAO/$*
 
 diff_lao:
 	-
