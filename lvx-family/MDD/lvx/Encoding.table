@@ -1,0 +1,26 @@
+
+<Encoding
+  ID=	"Encoding-lvx-"
+  wordCount=	"0"
+  wordWidth=	"0"
+/>
+<Encoding
+  ID=	"Encoding-lvx-simple"
+  wordCount=	"1"
+  wordWidth=	"32"
+/>
+<Encoding
+  ID=	"Encoding-lvx-double"
+  wordCount=	"2"
+  wordWidth=	"32"
+/>
+<Encoding
+  ID=	"Encoding-lvx-triple"
+  wordCount=	"3"
+  wordWidth=	"32"
+/>
+<Encoding
+  ID=	"Encoding-lvx-riscv"
+  wordCount=	"1"
+  wordWidth=	"32"
+/>

@@ -1,0 +1,87 @@
+
+<Builtin
+  ID=	"Builtin-lvx-"
+/>
+<Builtin
+  ID=	"Builtin-lvx-lvx__cs"
+  processors=	"Processor-lvx_v1-cpu"
+><Declaration>
+typedef struct {
+  unsigned ic: 1;
+  unsigned io: 1;
+  unsigned dz: 1;
+  unsigned ov: 1;
+  unsigned un: 1;
+  unsigned in: 1;
+  unsigned u1: 2;
+  unsigned rm: 2;
+  unsigned fs: 1;
+  unsigned ne: 4;
+  unsigned wu: 1;
+  unsigned cc: 16;
+} __builtin_lvx_cs_t;
+extern __builtin_lvx_cs_t *__builtin_lvx__cs;
+</Declaration><Definition>
+__builtin_lvx_cs_t *__builtin_lvx__cs = 0;
+</Definition></Builtin>
+<Builtin
+  ID=	"Builtin-lvx-lvx_insf"
+  formats=	"Format-lvx-ALU_BFWR"
+  instruction=	"Instruction-lvx-ALU:INSF"
+  operands=	"operand1 operand2 operand3 operand4"
+  processors=	"Processor-lvx_v1-cpu"
+  prototype=	"uint64_t __builtin_lvx_insf(uint64_t operand2, unsigned operand3, unsigned operand4);"
+><Declaration>
+uint64_t __builtin_lvx_insf(uint64_t operand2, unsigned operand3, unsigned operand4);
+</Declaration><Definition>
+uint64_t __builtin_lvx_insf(uint64_t operand2, unsigned operand3, unsigned operand4)
+{
+unsigned startbit = operand4, stopbit = operand3, bias = startbit &lt;= stopbit;
+uint64_t mask = (2&lt;&lt;stopbit) - (2-bias&lt;&lt;startbit) + bias - 1;
+uint64_t operand1 = ((operand2 &lt;&lt; startbit) &amp; mask) | (operand1 &amp; ~mask);
+return operand1;
+}
+</Definition></Builtin>
+<Builtin
+  ID=	"Builtin-lvx-lvx_extfz"
+  formats=	"Format-lvx-ALU_BFWR"
+  instruction=	"Instruction-lvx-ALU:EXTFZ"
+  operands=	"operand1 operand2 operand3 operand4"
+  processors=	"Processor-lvx_v1-cpu"
+  prototype=	"uint64_t __builtin_lvx_extfz(uint64_t operand2, unsigned operand3, unsigned operand4);"
+><Declaration>
+uint64_t __builtin_lvx_extfz(uint64_t operand2, unsigned operand3, unsigned operand4);
+</Declaration><Definition>
+uint64_t __builtin_lvx_extfz(uint64_t operand2, unsigned operand3, unsigned operand4)
+{
+unsigned startbit = operand4, stopbit = operand3, bias = startbit &lt;= stopbit;
+uint64_t mask = (2&lt;&lt;stopbit) - (2-bias&lt;&lt;startbit) + bias - 1;
+uint64_t masked = operand2 &amp; mask;
+uint64_t operand1 = masked &gt;&gt; startbit;
+return operand1;
+}
+</Definition></Builtin>
+<Builtin
+  ID=	"Builtin-lvx-lvx_extfs"
+  formats=	"Format-lvx-ALU_BFWR"
+  instruction=	"Instruction-lvx-ALU:EXTFS"
+  operands=	"operand1 operand2 operand3 operand4"
+  processors=	"Processor-lvx_v1-cpu"
+  prototype=	"int64_t __builtin_lvx_extfs(uint64_t operand2, unsigned operand3, unsigned operand4);"
+><Declaration>
+int64_t __builtin_lvx_extfs(uint64_t operand2, unsigned operand3, unsigned operand4);
+</Declaration><Definition>
+int64_t __builtin_lvx_extfs(uint64_t operand2, unsigned operand3, unsigned operand4)
+{
+unsigned startbit = operand4 &amp; 0x1F;
+unsigned stopbit = operand3 &amp; 0x1F;
+unsigned bias = startbit &lt;= stopbit;
+uint64_t mask = (2&lt;&lt;stopbit) - (2-bias&lt;&lt;startbit) + bias - 1;
+uint64_t masked1 = operand2 &amp; mask;
+uint64_t masked2 = operand2 | ~mask;
+uint64_t condition = (mask &amp; ~(mask&gt;&gt;1)) &amp; operand2;
+uint64_t masked = (condition == 0)? masked1: masked2;
+int64_t operand1 = masked &gt;&gt; startbit;
+return operand1;
+}
+</Definition></Builtin>

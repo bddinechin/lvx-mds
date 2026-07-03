@@ -1,0 +1,489 @@
+
+<Relocation
+  ID=	"Relocation-lvx-"
+  elfIds=	"0"
+  fields=	"BitField-lvx-"
+  linker=	"0"
+/>
+<Relocation
+  ID=	"Relocation-lvx-rel16"
+  elfIds=	"1"
+  fields=	"BitField-lvx-HALF"
+  linker=	"R_LVX_16"
+  overflow=	"Unsigned"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-rel32"
+  elfIds=	"2"
+  fields=	"BitField-lvx-WORD"
+  linker=	"R_LVX_32"
+  overflow=	"Unsigned"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-rel64"
+  elfIds=	"3"
+  fields=	"BitField-lvx-DOUBLE"
+  linker=	"R_LVX_64"
+  overflow=	"Unsigned"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel_signed16"
+  elfIds=	"4"
+  fields=	"BitField-lvx-signed16"
+  linker=	"R_LVX_S16_PCREL"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  syntax=	"@pcrel"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel32"
+  elfIds=	"5"
+  fields=	"BitField-lvx-WORD"
+  linker=	"R_LVX_32_PCREL"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel_signed37"
+  elfIds=	"7 6"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_PCREL_UP27 R_LVX_S37_PCREL_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  syntax=	"@pcrel"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel_signed43"
+  elfIds=	"10 9 8"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_PCREL_EX6 R_LVX_S43_PCREL_UP27 R_LVX_S43_PCREL_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  syntax=	"@pcrel"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel_signed64"
+  elfIds=	"13 12 11"
+  fields=	"BitField-lvx-extend27 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S64_PCREL_EX27 R_LVX_S64_PCREL_UP27 R_LVX_S64_PCREL_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  syntax=	"@pcrel"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel64"
+  elfIds=	"14"
+  fields=	"BitField-lvx-DOUBLE"
+  linker=	"R_LVX_64_PCREL"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx-signed16"
+  elfIds=	"15"
+  fields=	"BitField-lvx-signed16"
+  linker=	"R_LVX_S16"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-signed32"
+  elfIds=	"17 16"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower5"
+  linker=	"R_LVX_S32_UP27 R_LVX_S32_LO5"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"@signed32"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-signed37"
+  elfIds=	"19 18"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_UP27 R_LVX_S37_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-gotoff_signed37"
+  elfIds=	"21 20"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_GOTOFF_UP27 R_LVX_S37_GOTOFF_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@gotoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-gotoff_signed43"
+  elfIds=	"24 23 22"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_GOTOFF_EX6 R_LVX_S43_GOTOFF_UP27 R_LVX_S43_GOTOFF_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@gotoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-gotoff_32"
+  elfIds=	"25"
+  fields=	"BitField-lvx-WORD"
+  linker=	"R_LVX_32_GOTOFF"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@gotoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-gotoff_64"
+  elfIds=	"26"
+  fields=	"BitField-lvx-DOUBLE"
+  linker=	"R_LVX_64_GOTOFF"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@gotoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-got_32"
+  elfIds=	"27"
+  fields=	"BitField-lvx-WORD"
+  linker=	"R_LVX_32_GOT"
+  overflow=	"Unsigned"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@got"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-got_signed37"
+  elfIds=	"29 28"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_GOT_UP27 R_LVX_S37_GOT_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@got"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-got_signed43"
+  elfIds=	"32 31 30"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_GOT_EX6 R_LVX_S43_GOT_UP27 R_LVX_S43_GOT_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@got"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-got_64"
+  elfIds=	"33"
+  fields=	"BitField-lvx-DOUBLE"
+  linker=	"R_LVX_64_GOT"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@got"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-glob_dat"
+  elfIds=	"34"
+  fields=	"BitField-lvx-WORD"
+  linker=	"R_LVX_GLOB_DAT"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  type=	"Rel_s"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx-copy"
+  elfIds=	"35"
+  fields=	"BitField-lvx-WORD"
+  linker=	"R_LVX_COPY"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-jump_slot"
+  elfIds=	"36"
+  fields=	"BitField-lvx-WORD"
+  linker=	"R_LVX_JMP_SLOT"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-relative"
+  elfIds=	"37"
+  fields=	"BitField-lvx-WORD"
+  linker=	"R_LVX_RELATIVE"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"BASE"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-signed43"
+  elfIds=	"40 39 38"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_EX6 R_LVX_S43_UP27 R_LVX_S43_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-signed64"
+  elfIds=	"43 42 41"
+  fields=	"BitField-lvx-extend27 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S64_EX27 R_LVX_S64_UP27 R_LVX_S64_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-gotaddr_signed37"
+  elfIds=	"45 44"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_GOTADDR_UP27 R_LVX_S37_GOTADDR_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  syntax=	"@gotaddr"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-gotaddr_signed43"
+  elfIds=	"48 47 46"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_GOTADDR_EX6 R_LVX_S43_GOTADDR_UP27 R_LVX_S43_GOTADDR_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  syntax=	"@gotaddr"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-gotaddr_signed64"
+  elfIds=	"51 50 49"
+  fields=	"BitField-lvx-extend27 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S64_GOTADDR_EX27 R_LVX_S64_GOTADDR_UP27 R_LVX_S64_GOTADDR_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  syntax=	"@gotaddr"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-dtpmod64"
+  elfIds=	"52"
+  fields=	"BitField-lvx-DOUBLE"
+  linker=	"R_LVX_64_DTPMOD"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-dtpoff64"
+  elfIds=	"53"
+  fields=	"BitField-lvx-DOUBLE"
+  linker=	"R_LVX_64_DTPOFF"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-dtpoff_signed37"
+  elfIds=	"55 54"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_TLS_DTPOFF_UP27 R_LVX_S37_TLS_DTPOFF_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"@dtpoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-dtpoff_signed43"
+  elfIds=	"58 57 56"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_TLS_DTPOFF_EX6 R_LVX_S43_TLS_DTPOFF_UP27 R_LVX_S43_TLS_DTPOFF_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"@tlsgd"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-tlsgd_signed37"
+  elfIds=	"60 59"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_TLS_GD_UP27 R_LVX_S37_TLS_GD_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@tlsgd"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-tlsgd_signed43"
+  elfIds=	"63 62 61"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_TLS_GD_EX6 R_LVX_S43_TLS_GD_UP27 R_LVX_S43_TLS_GD_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@tlsgd"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-tlsld_signed37"
+  elfIds=	"65 64"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_TLS_LD_UP27 R_LVX_S37_TLS_LD_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@tlsld"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-tlsld_signed43"
+  elfIds=	"68 67 66"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_TLS_LD_EX6 R_LVX_S43_TLS_LD_UP27 R_LVX_S43_TLS_LD_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@tlsld"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-tpoff64"
+  elfIds=	"69"
+  fields=	"BitField-lvx-DOUBLE"
+  linker=	"R_LVX_64_TPOFF"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"TP"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-tlsie_signed37"
+  elfIds=	"71 70"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_TLS_IE_UP27 R_LVX_S37_TLS_IE_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@tlsie"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-tlsie_signed43"
+  elfIds=	"74 73 72"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_TLS_IE_EX6 R_LVX_S43_TLS_IE_UP27 R_LVX_S43_TLS_IE_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"GOT"
+  syntax=	"@tlsie"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-tlsle_signed37"
+  elfIds=	"76 75"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S37_TLS_LE_UP27 R_LVX_S37_TLS_LE_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"TP"
+  syntax=	"@tlsle"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-tlsle_signed43"
+  elfIds=	"79 78 77"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  linker=	"R_LVX_S43_TLS_LE_EX6 R_LVX_S43_TLS_LE_UP27 R_LVX_S43_TLS_LE_LO10"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"TP"
+  syntax=	"@tlsle"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-rel8"
+  elfIds=	"80"
+  fields=	"BitField-lvx-BYTE"
+  linker=	"R_LVX_8"
+  overflow=	"Unsigned"
+  processors=	"Processor-lvx_v1-cpu"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel11s2"
+  elfIds=	"81"
+  fields=	"BitField-lvx-pcrel11s2"
+  linker=	"R_LVX_S11S2_PCREL"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel17s2"
+  elfIds=	"82"
+  fields=	"BitField-lvx-pcrel17s2"
+  linker=	"R_LVX_S17S2_PCREL"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel27s2"
+  elfIds=	"83"
+  fields=	"BitField-lvx-pcrel27s2"
+  linker=	"R_LVX_S27S2_PCREL"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel38s2"
+  elfIds=	"85 84"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower11"
+  linker=	"R_LVX_S38S2_PCREL_UP27 R_LVX_S38S2_PCREL_LO11"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel44s2"
+  elfIds=	"87 86"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower17"
+  linker=	"R_LVX_S44S2_PCREL_UP27 R_LVX_S44S2_PCREL_LO17"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx-pcrel54s2"
+  elfIds=	"89 88"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower27"
+  linker=	"R_LVX_S54S2_PCREL_UP27 R_LVX_S54S2_PCREL_LO27"
+  overflow=	"Signed"
+  processors=	"Processor-lvx_v1-cpu"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>

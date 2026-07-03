@@ -1,0 +1,614 @@
+
+<Storage
+  ID=	"Storage-lvx-"
+  kind=	"Memory"
+  width=	"0"
+/>
+<Storage
+  ID=	"Storage-lvx-AESPC"
+  count=	"1"
+  kind=	"Special"
+  what=	"Arithmetic Exception Saved PC"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PM0"
+  count=	"1"
+  kind=	"Special"
+  what=	"Performance Monitor 0"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PM1"
+  count=	"1"
+  kind=	"Special"
+  what=	"Performance Monitor 1"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PM2"
+  count=	"1"
+  kind=	"Special"
+  what=	"Performance Monitor 2"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PM3"
+  count=	"1"
+  kind=	"Special"
+  what=	"Performance Monitor 3"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PM4"
+  count=	"1"
+  kind=	"Special"
+  what=	"Performance Monitor 4"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PM5"
+  count=	"1"
+  kind=	"Special"
+  what=	"Performance Monitor 5"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PM6"
+  count=	"1"
+  kind=	"Special"
+  what=	"Performance Monitor 6"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PM7"
+  count=	"1"
+  kind=	"Special"
+  what=	"Performance Monitor 7"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PMSA"
+  count=	"1"
+  kind=	"Special"
+  what=	"Performance Monitor Saved Address"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-T0V"
+  count=	"1"
+  kind=	"Special"
+  what=	"Timer 0 value"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-T1V"
+  count=	"1"
+  kind=	"Special"
+  what=	"Timer 1 value"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-T0R"
+  count=	"1"
+  kind=	"Special"
+  what=	"Timer 0 reload value"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-T1R"
+  count=	"1"
+  kind=	"Special"
+  what=	"Timer 1 reload value"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-WDV"
+  count=	"1"
+  kind=	"Special"
+  what=	"Watchdog Value"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-WDR"
+  count=	"1"
+  kind=	"Special"
+  what=	"Watchdog Reload Value"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-MEN"
+  count=	"16"
+  kind=	"Special"
+  what=	"Miscellaneous External Notifications"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-PC"
+  count=	"1"
+  kind=	"Control"
+  what=	"Program Counter"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PS"
+  count=	"64"
+  kind=	"Special"
+  what=	"Processing Status"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SPS"
+  count=	"64"
+  kind=	"Special"
+  what=	"Shadow Processing Status"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SPS_PL0"
+  count=	"64"
+  kind=	"Special"
+  what=	"Shadow Processing Status for Privilege Level 0"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SPS_PL1"
+  count=	"64"
+  kind=	"Special"
+  what=	"Shadow Processing Status for Privilege Level 1"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SPS_PL2"
+  count=	"64"
+  kind=	"Special"
+  what=	"Shadow Processing Status for Privilege Level 2"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SPS_PL3"
+  count=	"64"
+  kind=	"Special"
+  what=	"Shadow Processing Status for Privilege Level 3"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-CS"
+  count=	"64"
+  kind=	"Special"
+  what=	"Compute Status"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-DBA0"
+  count=	"1"
+  kind=	"Special"
+  what=	"Debug Breakpoint Address 0"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-DBA1"
+  count=	"1"
+  kind=	"Special"
+  what=	"Debug Breakpoint Address 1"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-DBA2"
+  count=	"1"
+  kind=	"Special"
+  what=	"Debug Breakpoint Address 2"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-DBA3"
+  count=	"1"
+  kind=	"Special"
+  what=	"Debug Breakpoint Address 3"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-DWA0"
+  count=	"1"
+  kind=	"Special"
+  what=	"Debug Watchpoint address 0"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-DWA1"
+  count=	"1"
+  kind=	"Special"
+  what=	"Debug Watchpoint address 1"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-DWA2"
+  count=	"1"
+  kind=	"Special"
+  what=	"Debug Watchpoint address 2"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-DWA3"
+  count=	"1"
+  kind=	"Special"
+  what=	"Debug Watchpoint address 3"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-CSIT"
+  count=	"32"
+  kind=	"Special"
+  what=	"Compute Status arithmetic Interrupt"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-ES"
+  count=	"64"
+  kind=	"Special"
+  what=	"Exception Syndrome"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-ES_PL0"
+  count=	"64"
+  kind=	"Special"
+  what=	"Exception Syndrome for Privilege Level 0"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-ES_PL1"
+  count=	"64"
+  kind=	"Special"
+  what=	"Exception Syndrome for Privilege Level 1"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-ES_PL2"
+  count=	"64"
+  kind=	"Special"
+  what=	"Exception Syndrome for Privilege Level 2"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-ES_PL3"
+  count=	"64"
+  kind=	"Special"
+  what=	"Exception Syndrome for Privilege Level 3"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SID"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Stream ID"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SID_PL0"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Stream ID for Privilege Level 0"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SID_PL1"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Stream ID for Privilege Level 1"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SID_PL2"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Stream ID for Privilege Level 2"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SID_PL3"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Stream ID for Privilege Level 3"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-IXC"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Inter-Extension Communications"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-TEL"
+  count=	"64"
+  kind=	"Special"
+  what=	"TLB Entry Low"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-TEH"
+  count=	"64"
+  kind=	"Special"
+  what=	"TLB Entry High"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-TPCM0"
+  count=	"1"
+  kind=	"Special"
+  what=	"Trace PC Message 0"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-TPCM1"
+  count=	"1"
+  kind=	"Special"
+  what=	"Trace PC Message 1"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-TPCM2"
+  count=	"64"
+  kind=	"Special"
+  what=	"Trace PC Message 2"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-TPCMC"
+  count=	"64"
+  kind=	"Special"
+  what=	"Trace PC Message Control"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-RVC"
+  count=	"64"
+  kind=	"Special"
+  what=	"RISC-V configuration"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-DCV2_0"
+  count=	"64"
+  kind=	"Special"
+  what=	"Debug Control watchpoint/breakpoint 0"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-DCV2_1"
+  count=	"64"
+  kind=	"Special"
+  what=	"Debug Control watchpoint/breakpoint 1"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-DCV2_2"
+  count=	"64"
+  kind=	"Special"
+  what=	"Debug Control watchpoint/breakpoint 2"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-DCV2_3"
+  count=	"64"
+  kind=	"Special"
+  what=	"Debug Control watchpoint/breakpoint 3"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SRS"
+  count=	"512"
+  kind=	"Special"
+  what=	"System Register Storage"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-GRS"
+  count=	"64"
+  kind=	"Register"
+  what=	"General Register Storage"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-ZERO"
+  count=	"2"
+  kind=	"Register"
+  what=	"RiscV x0 Register Storage"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-XRS"
+  count=	"256"
+  kind=	"Register"
+  what=	"Extension Register Storage"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-MEM"
+  kind=	"Memory"
+  what=	"Data Memory"
+  width=	"8"
+/>
+<Storage
+  ID=	"Storage-lvx-NPC"
+  count=	"1"
+  kind=	"Control"
+  what=	"Program Counter of Next Bundle"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-TCR"
+  count=	"64"
+  kind=	"Special"
+  what=	"Timer Control Register"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-PMC"
+  count=	"64"
+  kind=	"Special"
+  what=	"Performance Monitor Control Register"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-PMC_2"
+  count=	"64"
+  kind=	"Special"
+  what=	"Performance Monitor Control Register 2"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SRHPC"
+  count=	"1"
+  kind=	"Special"
+  what=	"Last sequence rupture helper PC when uninferrable"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-FRCC"
+  count=	"1"
+  kind=	"Special"
+  what=	"Free running cycle counter"
+  width=	"64"
+/>
+<Storage
+  ID=	"Storage-lvx-PCR"
+  count=	"64"
+  kind=	"Special"
+  what=	"Processing Identification Register"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-SYO"
+  count=	"32"
+  kind=	"Special"
+  what=	"SYscalls Owners"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-HTO"
+  count=	"32"
+  kind=	"Special"
+  what=	"Hardware Trap Owners"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-ITO"
+  count=	"64"
+  kind=	"Special"
+  what=	"Interrupt Owners"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-ILE"
+  count=	"32"
+  kind=	"Special"
+  what=	"Interrupt Owners"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-ILL"
+  count=	"64"
+  kind=	"Special"
+  what=	"Interrupt Owners"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-ILR"
+  count=	"32"
+  kind=	"Special"
+  what=	"Interrupt Owners"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-IPE"
+  count=	"64"
+  kind=	"Special"
+  what=	"Inter Process Event"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-DO"
+  count=	"32"
+  kind=	"Special"
+  what=	"Debug Owners"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-MO"
+  count=	"64"
+  kind=	"Special"
+  what=	"Miscellaneous Owners"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-PSO"
+  count=	"64"
+  kind=	"Special"
+  what=	"Processor Status register Owners"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-MMC"
+  count=	"64"
+  kind=	"Special"
+  what=	"Memory Management Control"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-MES"
+  count=	"64"
+  kind=	"Special"
+  what=	"Memory Error Status"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-WS"
+  count=	"64"
+  kind=	"Special"
+  what=	"Wake-up Status"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-TPCC"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Trace PC Context"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-TPCC_PL0"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Trace PC Context for Privilege Level 0"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-TPCC_PL1"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Trace PC Context for Privilege Level 1"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-TPCC_PL2"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Trace PC Context for Privilege Level 2"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-TPCC_PL3"
+  count=	"64"
+  kind=	"Special"
+  what=	"Coolidge V2, Trace PC Context for Privilege Level 3"
+  width=	"1"
+/>
+<Storage
+  ID=	"Storage-lvx-CSRS"
+  count=	"4096"
+  kind=	"Special"
+  what=	"Control and System Registers Storage"
+  width=	"64"
+/>

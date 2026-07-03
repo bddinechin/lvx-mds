@@ -1,0 +1,7400 @@
+
+<RegField
+  ID=	"RegField-lvx-"
+  offset=	"0"
+  register=	"Register-lvx-"
+  width=	"0"
+/>
+<RegField
+  ID=	"RegField-lvx-MEN_MEN"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_MEN"
+  register=	"Register-lvx-MEN"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Miscellaneous External Notifications"
+  width=	"16"
+/>
+<RegField
+  ID=	"RegField-lvx-SYO_Q0"
+  offset=	"0"
+  register=	"Register-lvx-SYO"
+  reset=	"0"
+  what=	"Quarter 0 syscalls 0 to 1023 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SYO_Q1"
+  offset=	"2"
+  register=	"Register-lvx-SYO"
+  reset=	"0"
+  what=	"Quarter 1 syscalls 1024 to 2047 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SYO_Q2"
+  offset=	"4"
+  register=	"Register-lvx-SYO"
+  reset=	"0"
+  what=	"Quarter 2 syscalls 2048 to 3071 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SYO_Q3"
+  offset=	"6"
+  register=	"Register-lvx-SYO"
+  reset=	"0"
+  what=	"Quarter 3 syscalls 3072 to 4095 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SYOW_Q0"
+  offset=	"0"
+  owners=	"RegField-lvx-SYO_Q0"
+  register=	"Register-lvx-SYOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Quarter 0 syscalls 0 to 1023 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SYOW_Q1"
+  offset=	"2"
+  owners=	"RegField-lvx-SYO_Q1"
+  register=	"Register-lvx-SYOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Quarter 1 syscalls 1024 to 2047 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SYOW_Q2"
+  offset=	"4"
+  owners=	"RegField-lvx-SYO_Q2"
+  register=	"Register-lvx-SYOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Quarter 2 syscalls 2048 to 3071 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SYOW_Q3"
+  offset=	"6"
+  owners=	"RegField-lvx-SYO_Q3"
+  register=	"Register-lvx-SYOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Quarter 3 syscalls 3072 to 4095 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_OPC"
+  offset=	"0"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"OPCode trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_DMIS"
+  offset=	"2"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Data MISalign access trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_PSYS"
+  offset=	"4"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Program System Error trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_DSYS"
+  offset=	"6"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Data System Error trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_DECCG"
+  offset=	"8"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Double ECC traps group owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_SECCG"
+  offset=	"10"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Single ECC traps group owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_NOMAP"
+  offset=	"12"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"No mapping trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_PROT"
+  offset=	"14"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"PROTection trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_W2CL"
+  offset=	"16"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Write to clean trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_A2CL"
+  offset=	"18"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Atomic to clean trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_DE"
+  offset=	"20"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Double Exception trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_VSFR"
+  offset=	"22"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Virtual SFR trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTO_PLO"
+  offset=	"24"
+  register=	"Register-lvx-HTO"
+  reset=	"0"
+  what=	"Privilege Level Overflow trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_OPC"
+  offset=	"0"
+  owners=	"RegField-lvx-HTO_OPC"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"OPCode trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_DMIS"
+  offset=	"2"
+  owners=	"RegField-lvx-HTO_DMIS"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data MISalign access trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_PSYS"
+  offset=	"4"
+  owners=	"RegField-lvx-HTO_PSYS"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Program System Error trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_DSYS"
+  offset=	"6"
+  owners=	"RegField-lvx-HTO_DSYS"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data System Error trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_DECCG"
+  offset=	"8"
+  owners=	"RegField-lvx-HTO_DECCG"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Double ECC traps group owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_SECCG"
+  offset=	"10"
+  owners=	"RegField-lvx-HTO_SECCG"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Single ECC traps group owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_NOMAP"
+  offset=	"12"
+  owners=	"RegField-lvx-HTO_NOMAP"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"No mapping trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_PROT"
+  offset=	"14"
+  owners=	"RegField-lvx-HTO_PROT"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PROTection trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_W2CL"
+  offset=	"16"
+  owners=	"RegField-lvx-HTO_W2CL"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Write to clean trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_A2CL"
+  offset=	"18"
+  owners=	"RegField-lvx-HTO_A2CL"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Atomic to clean trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_DE"
+  offset=	"20"
+  owners=	"RegField-lvx-HTO_DE"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Double Exception trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_VSFR"
+  offset=	"22"
+  owners=	"RegField-lvx-HTO_VSFR"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual SFR trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-HTOW_PLO"
+  offset=	"24"
+  owners=	"RegField-lvx-HTO_PLO"
+  register=	"Register-lvx-HTOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Privilege Level Overflow trap owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT0"
+  offset=	"0"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT1"
+  offset=	"2"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT2"
+  offset=	"4"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 2 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT3"
+  offset=	"6"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 3 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT4"
+  offset=	"8"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 4 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT5"
+  offset=	"10"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 5 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT6"
+  offset=	"12"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 6 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT7"
+  offset=	"14"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 7 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT8"
+  offset=	"16"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 8 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT9"
+  offset=	"18"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 9 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT10"
+  offset=	"20"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 10 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT11"
+  offset=	"22"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 11 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT12"
+  offset=	"24"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 12 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT13"
+  offset=	"26"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 13 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT14"
+  offset=	"28"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 14 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT15"
+  offset=	"30"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 15 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT16"
+  offset=	"32"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 16 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT17"
+  offset=	"34"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 17 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT18"
+  offset=	"36"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 18 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT19"
+  offset=	"38"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 19 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT20"
+  offset=	"40"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 20 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT21"
+  offset=	"42"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 21 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT22"
+  offset=	"44"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 22 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT23"
+  offset=	"46"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 23 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT24"
+  offset=	"48"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 24 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT25"
+  offset=	"50"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 25 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT26"
+  offset=	"52"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 26 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT27"
+  offset=	"54"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 27 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT28"
+  offset=	"56"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 28 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT29"
+  offset=	"58"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 29 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT30"
+  offset=	"60"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 30 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITO_IT31"
+  offset=	"62"
+  register=	"Register-lvx-ITO"
+  reset=	"0"
+  what=	"Interrupt 31 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT0"
+  offset=	"0"
+  owners=	"RegField-lvx-ITO_IT0"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 0 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT1"
+  offset=	"1"
+  owners=	"RegField-lvx-ITO_IT1"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 1 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT2"
+  offset=	"2"
+  owners=	"RegField-lvx-ITO_IT2"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 2 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT3"
+  offset=	"3"
+  owners=	"RegField-lvx-ITO_IT3"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 3 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT4"
+  offset=	"4"
+  owners=	"RegField-lvx-ITO_IT4"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 4 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT5"
+  offset=	"5"
+  owners=	"RegField-lvx-ITO_IT5"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 5 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT6"
+  offset=	"6"
+  owners=	"RegField-lvx-ITO_IT6"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 6 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT7"
+  offset=	"7"
+  owners=	"RegField-lvx-ITO_IT7"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 7 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT8"
+  offset=	"8"
+  owners=	"RegField-lvx-ITO_IT8"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 8 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT9"
+  offset=	"9"
+  owners=	"RegField-lvx-ITO_IT9"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 9 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT10"
+  offset=	"10"
+  owners=	"RegField-lvx-ITO_IT10"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 10 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT11"
+  offset=	"11"
+  owners=	"RegField-lvx-ITO_IT11"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 11 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT12"
+  offset=	"12"
+  owners=	"RegField-lvx-ITO_IT12"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 12 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT13"
+  offset=	"13"
+  owners=	"RegField-lvx-ITO_IT13"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 13 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT14"
+  offset=	"14"
+  owners=	"RegField-lvx-ITO_IT14"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 14 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT15"
+  offset=	"15"
+  owners=	"RegField-lvx-ITO_IT15"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 15 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT16"
+  offset=	"16"
+  owners=	"RegField-lvx-ITO_IT16"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 16 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT17"
+  offset=	"17"
+  owners=	"RegField-lvx-ITO_IT17"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 17 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT18"
+  offset=	"18"
+  owners=	"RegField-lvx-ITO_IT18"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 18 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT19"
+  offset=	"19"
+  owners=	"RegField-lvx-ITO_IT19"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 19 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT20"
+  offset=	"20"
+  owners=	"RegField-lvx-ITO_IT20"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 20 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT21"
+  offset=	"21"
+  owners=	"RegField-lvx-ITO_IT21"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 21 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT22"
+  offset=	"22"
+  owners=	"RegField-lvx-ITO_IT22"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 22 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT23"
+  offset=	"23"
+  owners=	"RegField-lvx-ITO_IT23"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 23 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT24"
+  offset=	"24"
+  owners=	"RegField-lvx-ITO_IT24"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 24 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT25"
+  offset=	"25"
+  owners=	"RegField-lvx-ITO_IT25"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 25 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT26"
+  offset=	"26"
+  owners=	"RegField-lvx-ITO_IT26"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 26 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT27"
+  offset=	"27"
+  owners=	"RegField-lvx-ITO_IT27"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 27 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT28"
+  offset=	"28"
+  owners=	"RegField-lvx-ITO_IT28"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 28 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT29"
+  offset=	"29"
+  owners=	"RegField-lvx-ITO_IT29"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 29 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT30"
+  offset=	"30"
+  owners=	"RegField-lvx-ITO_IT30"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 30 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILE_IT31"
+  offset=	"31"
+  owners=	"RegField-lvx-ITO_IT31"
+  register=	"Register-lvx-ILE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 31 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT0"
+  offset=	"0"
+  owners=	"RegField-lvx-ITO_IT0"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT1"
+  offset=	"2"
+  owners=	"RegField-lvx-ITO_IT1"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT2"
+  offset=	"4"
+  owners=	"RegField-lvx-ITO_IT2"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 2 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT3"
+  offset=	"6"
+  owners=	"RegField-lvx-ITO_IT3"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 3 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT4"
+  offset=	"8"
+  owners=	"RegField-lvx-ITO_IT4"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 4 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT5"
+  offset=	"10"
+  owners=	"RegField-lvx-ITO_IT5"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 5 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT6"
+  offset=	"12"
+  owners=	"RegField-lvx-ITO_IT6"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 6 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT7"
+  offset=	"14"
+  owners=	"RegField-lvx-ITO_IT7"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 7 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT8"
+  offset=	"16"
+  owners=	"RegField-lvx-ITO_IT8"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 8 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT9"
+  offset=	"18"
+  owners=	"RegField-lvx-ITO_IT9"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 9 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT10"
+  offset=	"20"
+  owners=	"RegField-lvx-ITO_IT10"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 10 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT11"
+  offset=	"22"
+  owners=	"RegField-lvx-ITO_IT11"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 11 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT12"
+  offset=	"24"
+  owners=	"RegField-lvx-ITO_IT12"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 12 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT13"
+  offset=	"26"
+  owners=	"RegField-lvx-ITO_IT13"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 13 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT14"
+  offset=	"28"
+  owners=	"RegField-lvx-ITO_IT14"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 14 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT15"
+  offset=	"30"
+  owners=	"RegField-lvx-ITO_IT15"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 15 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT16"
+  offset=	"32"
+  owners=	"RegField-lvx-ITO_IT16"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 16 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT17"
+  offset=	"34"
+  owners=	"RegField-lvx-ITO_IT17"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 17 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT18"
+  offset=	"36"
+  owners=	"RegField-lvx-ITO_IT18"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 18 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT19"
+  offset=	"38"
+  owners=	"RegField-lvx-ITO_IT19"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 19 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT20"
+  offset=	"40"
+  owners=	"RegField-lvx-ITO_IT20"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 20 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT21"
+  offset=	"42"
+  owners=	"RegField-lvx-ITO_IT21"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 21 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT22"
+  offset=	"44"
+  owners=	"RegField-lvx-ITO_IT22"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 22 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT23"
+  offset=	"46"
+  owners=	"RegField-lvx-ITO_IT23"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 23 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT24"
+  offset=	"48"
+  owners=	"RegField-lvx-ITO_IT24"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 24 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT25"
+  offset=	"50"
+  owners=	"RegField-lvx-ITO_IT25"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 25 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT26"
+  offset=	"52"
+  owners=	"RegField-lvx-ITO_IT26"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 26 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT27"
+  offset=	"54"
+  owners=	"RegField-lvx-ITO_IT27"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 27 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT28"
+  offset=	"56"
+  owners=	"RegField-lvx-ITO_IT28"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 28 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT29"
+  offset=	"58"
+  owners=	"RegField-lvx-ITO_IT29"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 29 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT30"
+  offset=	"60"
+  owners=	"RegField-lvx-ITO_IT30"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 30 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILL_IT31"
+  offset=	"62"
+  owners=	"RegField-lvx-ITO_IT31"
+  register=	"Register-lvx-ILL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 31 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT0"
+  offset=	"0"
+  owners=	"RegField-lvx-ITO_IT0"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 0 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT1"
+  offset=	"1"
+  owners=	"RegField-lvx-ITO_IT1"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 1 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT2"
+  offset=	"2"
+  owners=	"RegField-lvx-ITO_IT2"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 2 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT3"
+  offset=	"3"
+  owners=	"RegField-lvx-ITO_IT3"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 3 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT4"
+  offset=	"4"
+  owners=	"RegField-lvx-ITO_IT4"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 4 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT5"
+  offset=	"5"
+  owners=	"RegField-lvx-ITO_IT5"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 5 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT6"
+  offset=	"6"
+  owners=	"RegField-lvx-ITO_IT6"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 6 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT7"
+  offset=	"7"
+  owners=	"RegField-lvx-ITO_IT7"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 7 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT8"
+  offset=	"8"
+  owners=	"RegField-lvx-ITO_IT8"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 8 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT9"
+  offset=	"9"
+  owners=	"RegField-lvx-ITO_IT9"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 9 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT10"
+  offset=	"10"
+  owners=	"RegField-lvx-ITO_IT10"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 10 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT11"
+  offset=	"11"
+  owners=	"RegField-lvx-ITO_IT11"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 11 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT12"
+  offset=	"12"
+  owners=	"RegField-lvx-ITO_IT12"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 12 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT13"
+  offset=	"13"
+  owners=	"RegField-lvx-ITO_IT13"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 13 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT14"
+  offset=	"14"
+  owners=	"RegField-lvx-ITO_IT14"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 14 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT15"
+  offset=	"15"
+  owners=	"RegField-lvx-ITO_IT15"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 15 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT16"
+  offset=	"16"
+  owners=	"RegField-lvx-ITO_IT16"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 16 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT17"
+  offset=	"17"
+  owners=	"RegField-lvx-ITO_IT17"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 17 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT18"
+  offset=	"18"
+  owners=	"RegField-lvx-ITO_IT18"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 18 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT19"
+  offset=	"19"
+  owners=	"RegField-lvx-ITO_IT19"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 19 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT20"
+  offset=	"20"
+  owners=	"RegField-lvx-ITO_IT20"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 20 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT21"
+  offset=	"21"
+  owners=	"RegField-lvx-ITO_IT21"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 21 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT22"
+  offset=	"22"
+  owners=	"RegField-lvx-ITO_IT22"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 22 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT23"
+  offset=	"23"
+  owners=	"RegField-lvx-ITO_IT23"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 23 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT24"
+  offset=	"24"
+  owners=	"RegField-lvx-ITO_IT24"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 24 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT25"
+  offset=	"25"
+  owners=	"RegField-lvx-ITO_IT25"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 25 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT26"
+  offset=	"26"
+  owners=	"RegField-lvx-ITO_IT26"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 26 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT27"
+  offset=	"27"
+  owners=	"RegField-lvx-ITO_IT27"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 27 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT28"
+  offset=	"28"
+  owners=	"RegField-lvx-ITO_IT28"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 28 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT29"
+  offset=	"29"
+  owners=	"RegField-lvx-ITO_IT29"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 29 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT30"
+  offset=	"30"
+  owners=	"RegField-lvx-ITO_IT30"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 30 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ILR_IT31"
+  offset=	"31"
+  owners=	"RegField-lvx-ITO_IT31"
+  register=	"Register-lvx-ILR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 31 owner"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT0"
+  offset=	"0"
+  owners=	"RegField-lvx-ITO_IT0"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT1"
+  offset=	"2"
+  owners=	"RegField-lvx-ITO_IT1"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT2"
+  offset=	"4"
+  owners=	"RegField-lvx-ITO_IT2"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 2 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT3"
+  offset=	"6"
+  owners=	"RegField-lvx-ITO_IT3"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 3 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT4"
+  offset=	"8"
+  owners=	"RegField-lvx-ITO_IT4"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 4 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT5"
+  offset=	"10"
+  owners=	"RegField-lvx-ITO_IT5"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 5 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT6"
+  offset=	"12"
+  owners=	"RegField-lvx-ITO_IT6"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 6 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT7"
+  offset=	"14"
+  owners=	"RegField-lvx-ITO_IT7"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 7 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT8"
+  offset=	"16"
+  owners=	"RegField-lvx-ITO_IT8"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 8 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT9"
+  offset=	"18"
+  owners=	"RegField-lvx-ITO_IT9"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 9 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT10"
+  offset=	"20"
+  owners=	"RegField-lvx-ITO_IT10"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 10 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT11"
+  offset=	"22"
+  owners=	"RegField-lvx-ITO_IT11"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 11 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT12"
+  offset=	"24"
+  owners=	"RegField-lvx-ITO_IT12"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 12 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT13"
+  offset=	"26"
+  owners=	"RegField-lvx-ITO_IT13"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 13 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT14"
+  offset=	"28"
+  owners=	"RegField-lvx-ITO_IT14"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 14 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT15"
+  offset=	"30"
+  owners=	"RegField-lvx-ITO_IT15"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 15 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT16"
+  offset=	"32"
+  owners=	"RegField-lvx-ITO_IT16"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 16 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT17"
+  offset=	"34"
+  owners=	"RegField-lvx-ITO_IT17"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 17 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT18"
+  offset=	"36"
+  owners=	"RegField-lvx-ITO_IT18"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 18 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT19"
+  offset=	"38"
+  owners=	"RegField-lvx-ITO_IT19"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 19 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT20"
+  offset=	"40"
+  owners=	"RegField-lvx-ITO_IT20"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 20 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT21"
+  offset=	"42"
+  owners=	"RegField-lvx-ITO_IT21"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 21 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT22"
+  offset=	"44"
+  owners=	"RegField-lvx-ITO_IT22"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 22 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT23"
+  offset=	"46"
+  owners=	"RegField-lvx-ITO_IT23"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 23 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT24"
+  offset=	"48"
+  owners=	"RegField-lvx-ITO_IT24"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 24 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT25"
+  offset=	"50"
+  owners=	"RegField-lvx-ITO_IT25"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 25 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT26"
+  offset=	"52"
+  owners=	"RegField-lvx-ITO_IT26"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 26 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT27"
+  offset=	"54"
+  owners=	"RegField-lvx-ITO_IT27"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 27 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT28"
+  offset=	"56"
+  owners=	"RegField-lvx-ITO_IT28"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 28 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT29"
+  offset=	"58"
+  owners=	"RegField-lvx-ITO_IT29"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 29 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT30"
+  offset=	"60"
+  owners=	"RegField-lvx-ITO_IT30"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 30 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ITOW_IT31"
+  offset=	"62"
+  owners=	"RegField-lvx-ITO_IT31"
+  register=	"Register-lvx-ITOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt 31 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_B0"
+  offset=	"0"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Breakpoint 0 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_B1"
+  offset=	"2"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Breakpoint 1 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_W0"
+  offset=	"4"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Watchpoint 0 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_W1"
+  offset=	"6"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Watchpoint 1 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_B2"
+  offset=	"8"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Breakpoint 2 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_B3"
+  offset=	"10"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Breakpoint 3 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_W2"
+  offset=	"12"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Watchpoint 2 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_W3"
+  offset=	"14"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Watchpoint 3 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_BI0"
+  offset=	"16"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Breakpoint instruction 0 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_BI1"
+  offset=	"18"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Breakpoint instruction 1 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_BI2"
+  offset=	"20"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Breakpoint instruction 2 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DO_BI3"
+  offset=	"22"
+  register=	"Register-lvx-DO"
+  reset=	"0"
+  what=	"Breakpoint instruction 3 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DBA0_DBA0"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_B0"
+  register=	"Register-lvx-DBA0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Debug Breakpoint Address 0"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-DBA1_DBA1"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_B1"
+  register=	"Register-lvx-DBA1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Debug Breakpoint Address 1"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-DWA0_DWA0"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_W0"
+  register=	"Register-lvx-DWA0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Debug Breakpoint Address 0"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-DWA1_DWA1"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_W1"
+  register=	"Register-lvx-DWA1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Debug Breakpoint Address 1"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-DBA2_DBA2"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_B2"
+  register=	"Register-lvx-DBA2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Debug Breakpoint Address 2"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-DBA3_DBA3"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_B3"
+  register=	"Register-lvx-DBA3"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Debug Breakpoint Address 3"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-DWA2_DWA2"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_W2"
+  register=	"Register-lvx-DWA2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Debug Breakpoint Address 2"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-DWA3_DWA3"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_W3"
+  register=	"Register-lvx-DWA3"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Debug Breakpoint Address 3"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_B0"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_B0"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint 0 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_B1"
+  offset=	"2"
+  owners=	"RegField-lvx-DO_B1"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint 1 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_W0"
+  offset=	"4"
+  owners=	"RegField-lvx-DO_W0"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 0 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_W1"
+  offset=	"6"
+  owners=	"RegField-lvx-DO_W1"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 1 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_B2"
+  offset=	"8"
+  owners=	"RegField-lvx-DO_B2"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint 2 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_B3"
+  offset=	"10"
+  owners=	"RegField-lvx-DO_B3"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint 3 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_W2"
+  offset=	"12"
+  owners=	"RegField-lvx-DO_W2"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 2 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_W3"
+  offset=	"14"
+  owners=	"RegField-lvx-DO_W3"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 3 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_BI0"
+  offset=	"16"
+  owners=	"RegField-lvx-DO_BI0"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint instruction 0 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_BI1"
+  offset=	"18"
+  owners=	"RegField-lvx-DO_BI1"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint instruction 1 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_BI2"
+  offset=	"20"
+  owners=	"RegField-lvx-DO_BI2"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint instruction 2 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DOW_BI3"
+  offset=	"22"
+  owners=	"RegField-lvx-DO_BI3"
+  register=	"Register-lvx-DOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint instruction 3 owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_MMI"
+  offset=	"0"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Memory Management Instructions owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_RFE"
+  offset=	"2"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"RFE instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_STOP"
+  offset=	"4"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"STOP instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_SYNC"
+  offset=	"6"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"SYNCGROUP instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PCR"
+  offset=	"8"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"PCR register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_MSG"
+  offset=	"10"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"MMU SFR GROUP registers owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_MEN"
+  offset=	"12"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Miscellaneous External Notifications register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_MES"
+  offset=	"14"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Memory Error Status register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_CSIT"
+  offset=	"16"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Compute Status Artithmetic Interrupt register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_T0"
+  offset=	"18"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Timer 0 register group owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_T1"
+  offset=	"20"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Timer 1 register group owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_WD"
+  offset=	"22"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Watch Dog register group owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PM0"
+  offset=	"24"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Performance Monitor 0 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PM1"
+  offset=	"26"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Performance Monitor 1 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PM2"
+  offset=	"28"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Performance Monitor 2 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PM3"
+  offset=	"30"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Performance Monitor 3 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PMIT"
+  offset=	"32"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Performance Monitor Interrupt register group owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_COMM"
+  offset=	"34"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"SENDV and RECVV instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_TPCM"
+  offset=	"36"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"TPCM 0, 1, 2 &amp; control register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_DISW"
+  offset=	"38"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"DINVALSW instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PM4"
+  offset=	"40"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Performance Monitor 4 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PM5"
+  offset=	"42"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Performance Monitor 5 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PM6"
+  offset=	"44"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Performance Monitor 6 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_PM7"
+  offset=	"46"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"Performance Monitor 7 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_SRHPC"
+  offset=	"48"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"SRHPC register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MO_RVC"
+  offset=	"50"
+  register=	"Register-lvx-MO"
+  reset=	"0"
+  what=	"RVC instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_MMI"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_MMI"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Memory Management Instructions owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_RFE"
+  offset=	"2"
+  owners=	"RegField-lvx-MO_RFE"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"RFE instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_STOP"
+  offset=	"4"
+  owners=	"RegField-lvx-MO_STOP"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"STOP instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_SYNC"
+  offset=	"6"
+  owners=	"RegField-lvx-MO_SYNC"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"SYNCGROUP instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PCR"
+  offset=	"8"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PCR register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_MSG"
+  offset=	"10"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"MMU SFR GROUP registers owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_MEN"
+  offset=	"12"
+  owners=	"RegField-lvx-MO_MEN"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Miscellaneous External Notifications register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_MES"
+  offset=	"14"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Memory Error Status register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_CSIT"
+  offset=	"16"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Compute Status Artithmetic Interrupt register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_T0"
+  offset=	"18"
+  owners=	"RegField-lvx-MO_T0"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 0 register group owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_T1"
+  offset=	"20"
+  owners=	"RegField-lvx-MO_T1"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 1 register group owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_WD"
+  offset=	"22"
+  owners=	"RegField-lvx-MO_WD"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watch Dog register group owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PM0"
+  offset=	"24"
+  owners=	"RegField-lvx-MO_PM0"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 0 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PM1"
+  offset=	"26"
+  owners=	"RegField-lvx-MO_PM1"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 1 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PM2"
+  offset=	"28"
+  owners=	"RegField-lvx-MO_PM2"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 2 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PM3"
+  offset=	"30"
+  owners=	"RegField-lvx-MO_PM3"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 3 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PMIT"
+  offset=	"32"
+  owners=	"RegField-lvx-MO_PMIT"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor Interrupt register group owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_COMM"
+  offset=	"34"
+  owners=	"RegField-lvx-MO_COMM"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"SENDV and RECVV instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_TPCM"
+  offset=	"36"
+  owners=	"RegField-lvx-MO_TPCM"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"TPCM 0, 1, 2 &amp; control register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_DISW"
+  offset=	"38"
+  owners=	"RegField-lvx-MO_DISW"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"DINVALSW instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PM4"
+  offset=	"40"
+  owners=	"RegField-lvx-MO_PM4"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 4 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PM5"
+  offset=	"42"
+  owners=	"RegField-lvx-MO_PM5"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 5 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PM6"
+  offset=	"44"
+  owners=	"RegField-lvx-MO_PM6"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 6 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_PM7"
+  offset=	"46"
+  owners=	"RegField-lvx-MO_PM7"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 7 register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_SRHPC"
+  offset=	"48"
+  owners=	"RegField-lvx-MO_SRHPC"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"SRHPC register owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MOW_RVC"
+  offset=	"50"
+  owners=	"RegField-lvx-MO_RVC"
+  register=	"Register-lvx-MOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"RVC instruction owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_PL"
+  offset=	"0"
+  owners=	"RegField-lvx-PSO_PL0 RegField-lvx-PSO_PL1"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Current Privilege Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_ET"
+  offset=	"2"
+  owners=	"RegField-lvx-PSO_ET"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"1"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Exception Taken"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_HTD"
+  offset=	"3"
+  owners=	"RegField-lvx-PSO_HTD"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Trap Disable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_IE"
+  offset=	"4"
+  owners=	"RegField-lvx-PSO_IE"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_HLE"
+  offset=	"5"
+  owners=	"RegField-lvx-PSO_HLE"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Loop Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_SRE"
+  offset=	"6"
+  owners=	"RegField-lvx-PSO_SRE"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Software REserved"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_DAUS"
+  offset=	"7"
+  owners=	"RegField-lvx-PSO_DAUS"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Accesses Use SPS settings"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_ICE"
+  offset=	"8"
+  owners=	"RegField-lvx-PSO_ICE"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Instruction Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_USE"
+  offset=	"9"
+  owners=	"RegField-lvx-PSO_USE"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Uncached Streaming Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_DCE"
+  offset=	"10"
+  owners=	"RegField-lvx-PSO_DCE"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_MME"
+  offset=	"11"
+  owners=	"RegField-lvx-PSO_MME"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Memory Management Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_IL"
+  offset=	"12"
+  owners=	"RegField-lvx-PSO_IL0 RegField-lvx-PSO_IL1"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_VS"
+  offset=	"14"
+  owners=	"RegField-lvx-PSO_VS0 RegField-lvx-PSO_VS1"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual Space"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_V64"
+  offset=	"16"
+  register=	"Register-lvx-PS"
+  reset=	"1"
+  what=	"Reserved. Harcoded to 1. Writes ignored."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_L2E"
+  offset=	"17"
+  owners=	"RegField-lvx-PSO_L2E"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"L2 cache Enable."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_SME"
+  offset=	"18"
+  owners=	"RegField-lvx-PSO_SME"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Enabled"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_SMR"
+  offset=	"19"
+  owners=	"RegField-lvx-PSO_SMR"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Ready"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_PMJ"
+  offset=	"20"
+  owners=	"RegField-lvx-PSO_PMJ0 RegField-lvx-PSO_PMJ1 RegField-lvx-PSO_PMJ2 RegField-lvx-PSO_PMJ3"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB."
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_MMUP"
+  offset=	"24"
+  owners=	"RegField-lvx-PSO_MMUP"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0x1"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Privileged on MMU."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PS_RV"
+  offset=	"25"
+  owners=	"RegField-lvx-PSO_RV"
+  register=	"Register-lvx-PS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"RiscV mode."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL"
+  offset=	"0"
+  owners=	"RegField-lvx-PSO_PL0 RegField-lvx-PSO_PL1"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Current Privilege Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_ET"
+  offset=	"2"
+  owners=	"RegField-lvx-PSO_ET"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Exception Taken"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_HTD"
+  offset=	"3"
+  owners=	"RegField-lvx-PSO_HTD"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Trap Disable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_IE"
+  offset=	"4"
+  owners=	"RegField-lvx-PSO_IE"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_HLE"
+  offset=	"5"
+  owners=	"RegField-lvx-PSO_HLE"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Loop Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_SRE"
+  offset=	"6"
+  owners=	"RegField-lvx-PSO_SRE"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Software REserved"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_DAUS"
+  offset=	"7"
+  owners=	"RegField-lvx-PSO_DAUS"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Accesses Use SPS settings"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_ICE"
+  offset=	"8"
+  owners=	"RegField-lvx-PSO_ICE"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Instruction Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_USE"
+  offset=	"9"
+  owners=	"RegField-lvx-PSO_USE"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Uncached Streaming Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_DCE"
+  offset=	"10"
+  owners=	"RegField-lvx-PSO_DCE"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_MME"
+  offset=	"11"
+  owners=	"RegField-lvx-PSO_MME"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Memory Management Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_IL"
+  offset=	"12"
+  owners=	"RegField-lvx-PSO_IL0 RegField-lvx-PSO_IL1"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_VS"
+  offset=	"14"
+  owners=	"RegField-lvx-PSO_VS0 RegField-lvx-PSO_VS1"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual Space"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_V64"
+  offset=	"16"
+  register=	"Register-lvx-SPS"
+  reset=	"1"
+  what=	"Reserved. Harcoded to 1. Writes ignored."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_L2E"
+  offset=	"17"
+  owners=	"RegField-lvx-PSO_L2E"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"L2 cache Enable."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_SME"
+  offset=	"18"
+  owners=	"RegField-lvx-PSO_SME"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Enabled"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_SMR"
+  offset=	"19"
+  owners=	"RegField-lvx-PSO_SMR"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Ready"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PMJ"
+  offset=	"20"
+  owners=	"RegField-lvx-PSO_PMJ0 RegField-lvx-PSO_PMJ1 RegField-lvx-PSO_PMJ2 RegField-lvx-PSO_PMJ3"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB."
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_MMUP"
+  offset=	"24"
+  owners=	"RegField-lvx-PSO_MMUP"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Privileged on MMU."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_RV"
+  offset=	"25"
+  owners=	"RegField-lvx-PSO_RV"
+  register=	"Register-lvx-SPS"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"RiscV mode."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_PL"
+  offset=	"0"
+  owners=	"RegField-lvx-PSO_PL0 RegField-lvx-PSO_PL1"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Current Privilege Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_ET"
+  offset=	"2"
+  owners=	"RegField-lvx-PSO_ET"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Exception Taken"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_HTD"
+  offset=	"3"
+  owners=	"RegField-lvx-PSO_HTD"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Trap Disable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_IE"
+  offset=	"4"
+  owners=	"RegField-lvx-PSO_IE"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_HLE"
+  offset=	"5"
+  owners=	"RegField-lvx-PSO_HLE"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Loop Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_SRE"
+  offset=	"6"
+  owners=	"RegField-lvx-PSO_SRE"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Software REserved"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_DAUS"
+  offset=	"7"
+  owners=	"RegField-lvx-PSO_DAUS"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Accesses Use SPS settings"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_ICE"
+  offset=	"8"
+  owners=	"RegField-lvx-PSO_ICE"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Instruction Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_USE"
+  offset=	"9"
+  owners=	"RegField-lvx-PSO_USE"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Uncached Streaming Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_DCE"
+  offset=	"10"
+  owners=	"RegField-lvx-PSO_DCE"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_MME"
+  offset=	"11"
+  owners=	"RegField-lvx-PSO_MME"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Memory Management Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_IL"
+  offset=	"12"
+  owners=	"RegField-lvx-PSO_IL0 RegField-lvx-PSO_IL1"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_VS"
+  offset=	"14"
+  owners=	"RegField-lvx-PSO_VS0 RegField-lvx-PSO_VS1"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual Space"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_V64"
+  offset=	"16"
+  register=	"Register-lvx-SPS_PL0"
+  reset=	"1"
+  what=	"Reserved. Harcoded to 1. Writes ignored."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_L2E"
+  offset=	"17"
+  owners=	"RegField-lvx-PSO_L2E"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"L2 cache Enable."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_SME"
+  offset=	"18"
+  owners=	"RegField-lvx-PSO_SME"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Enabled"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_SMR"
+  offset=	"19"
+  owners=	"RegField-lvx-PSO_SMR"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Ready"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_PMJ"
+  offset=	"20"
+  owners=	"RegField-lvx-PSO_PMJ0 RegField-lvx-PSO_PMJ1 RegField-lvx-PSO_PMJ2 RegField-lvx-PSO_PMJ3"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB."
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_MMUP"
+  offset=	"24"
+  owners=	"RegField-lvx-PSO_MMUP"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Privileged on MMU."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL0_RV"
+  offset=	"25"
+  owners=	"RegField-lvx-PSO_RV"
+  register=	"Register-lvx-SPS_PL0"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"RiscV mode."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_PL"
+  offset=	"0"
+  owners=	"RegField-lvx-PSO_PL0 RegField-lvx-PSO_PL1"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Current Privilege Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_ET"
+  offset=	"2"
+  owners=	"RegField-lvx-PSO_ET"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Exception Taken"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_HTD"
+  offset=	"3"
+  owners=	"RegField-lvx-PSO_HTD"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Trap Disable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_IE"
+  offset=	"4"
+  owners=	"RegField-lvx-PSO_IE"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_HLE"
+  offset=	"5"
+  owners=	"RegField-lvx-PSO_HLE"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Loop Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_SRE"
+  offset=	"6"
+  owners=	"RegField-lvx-PSO_SRE"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Software REserved"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_DAUS"
+  offset=	"7"
+  owners=	"RegField-lvx-PSO_DAUS"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Accesses Use SPS settings"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_ICE"
+  offset=	"8"
+  owners=	"RegField-lvx-PSO_ICE"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Instruction Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_USE"
+  offset=	"9"
+  owners=	"RegField-lvx-PSO_USE"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Uncached Streaming Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_DCE"
+  offset=	"10"
+  owners=	"RegField-lvx-PSO_DCE"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_MME"
+  offset=	"11"
+  owners=	"RegField-lvx-PSO_MME"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Memory Management Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_IL"
+  offset=	"12"
+  owners=	"RegField-lvx-PSO_IL0 RegField-lvx-PSO_IL1"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_VS"
+  offset=	"14"
+  owners=	"RegField-lvx-PSO_VS0 RegField-lvx-PSO_VS1"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual Space"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_V64"
+  offset=	"16"
+  register=	"Register-lvx-SPS_PL1"
+  reset=	"1"
+  what=	"Reserved. Harcoded to 1. Writes ignored."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_L2E"
+  offset=	"17"
+  owners=	"RegField-lvx-PSO_L2E"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"L2 cache Enable."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_SME"
+  offset=	"18"
+  owners=	"RegField-lvx-PSO_SME"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Enabled"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_SMR"
+  offset=	"19"
+  owners=	"RegField-lvx-PSO_SMR"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Ready"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_PMJ"
+  offset=	"20"
+  owners=	"RegField-lvx-PSO_PMJ0 RegField-lvx-PSO_PMJ1 RegField-lvx-PSO_PMJ2 RegField-lvx-PSO_PMJ3"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB."
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_MMUP"
+  offset=	"24"
+  owners=	"RegField-lvx-PSO_MMUP"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Privileged on MMU."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL1_RV"
+  offset=	"25"
+  owners=	"RegField-lvx-PSO_RV"
+  register=	"Register-lvx-SPS_PL1"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"RiscV mode."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_PL"
+  offset=	"0"
+  owners=	"RegField-lvx-PSO_PL0 RegField-lvx-PSO_PL1"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Current Privilege Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_ET"
+  offset=	"2"
+  owners=	"RegField-lvx-PSO_ET"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Exception Taken"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_HTD"
+  offset=	"3"
+  owners=	"RegField-lvx-PSO_HTD"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Trap Disable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_IE"
+  offset=	"4"
+  owners=	"RegField-lvx-PSO_IE"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_HLE"
+  offset=	"5"
+  owners=	"RegField-lvx-PSO_HLE"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Loop Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_SRE"
+  offset=	"6"
+  owners=	"RegField-lvx-PSO_SRE"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Software REserved"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_DAUS"
+  offset=	"7"
+  owners=	"RegField-lvx-PSO_DAUS"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Accesses Use SPS settings"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_ICE"
+  offset=	"8"
+  owners=	"RegField-lvx-PSO_ICE"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Instruction Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_USE"
+  offset=	"9"
+  owners=	"RegField-lvx-PSO_USE"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Uncached Streaming Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_DCE"
+  offset=	"10"
+  owners=	"RegField-lvx-PSO_DCE"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_MME"
+  offset=	"11"
+  owners=	"RegField-lvx-PSO_MME"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Memory Management Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_IL"
+  offset=	"12"
+  owners=	"RegField-lvx-PSO_IL0 RegField-lvx-PSO_IL1"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_VS"
+  offset=	"14"
+  owners=	"RegField-lvx-PSO_VS0 RegField-lvx-PSO_VS1"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual Space"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_V64"
+  offset=	"16"
+  register=	"Register-lvx-SPS_PL2"
+  reset=	"1"
+  what=	"Reserved. Harcoded to 1. Writes ignored."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_L2E"
+  offset=	"17"
+  owners=	"RegField-lvx-PSO_L2E"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"L2 cache Enable."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_SME"
+  offset=	"18"
+  owners=	"RegField-lvx-PSO_SME"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Enabled"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_SMR"
+  offset=	"19"
+  owners=	"RegField-lvx-PSO_SMR"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Ready"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_PMJ"
+  offset=	"20"
+  owners=	"RegField-lvx-PSO_PMJ0 RegField-lvx-PSO_PMJ1 RegField-lvx-PSO_PMJ2 RegField-lvx-PSO_PMJ3"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB."
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_MMUP"
+  offset=	"24"
+  owners=	"RegField-lvx-PSO_MMUP"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Privileged on MMU."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL2_RV"
+  offset=	"25"
+  owners=	"RegField-lvx-PSO_RV"
+  register=	"Register-lvx-SPS_PL2"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"RiscV mode."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_PL"
+  offset=	"0"
+  owners=	"RegField-lvx-PSO_PL0 RegField-lvx-PSO_PL1"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Current Privilege Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_ET"
+  offset=	"2"
+  owners=	"RegField-lvx-PSO_ET"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Exception Taken"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_HTD"
+  offset=	"3"
+  owners=	"RegField-lvx-PSO_HTD"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Trap Disable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_IE"
+  offset=	"4"
+  owners=	"RegField-lvx-PSO_IE"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_HLE"
+  offset=	"5"
+  owners=	"RegField-lvx-PSO_HLE"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Loop Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_SRE"
+  offset=	"6"
+  owners=	"RegField-lvx-PSO_SRE"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Software REserved"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_DAUS"
+  offset=	"7"
+  owners=	"RegField-lvx-PSO_DAUS"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Accesses Use SPS settings"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_ICE"
+  offset=	"8"
+  owners=	"RegField-lvx-PSO_ICE"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Instruction Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_USE"
+  offset=	"9"
+  owners=	"RegField-lvx-PSO_USE"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Uncached Streaming Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_DCE"
+  offset=	"10"
+  owners=	"RegField-lvx-PSO_DCE"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Cache Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_MME"
+  offset=	"11"
+  owners=	"RegField-lvx-PSO_MME"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Memory Management Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_IL"
+  offset=	"12"
+  owners=	"RegField-lvx-PSO_IL0 RegField-lvx-PSO_IL1"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_VS"
+  offset=	"14"
+  owners=	"RegField-lvx-PSO_VS0 RegField-lvx-PSO_VS1"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual Space"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_V64"
+  offset=	"16"
+  register=	"Register-lvx-SPS_PL3"
+  reset=	"1"
+  what=	"Reserved. Harcoded to 1. Writes ignored."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_L2E"
+  offset=	"17"
+  owners=	"RegField-lvx-PSO_L2E"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"L2 cache Enable."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_SME"
+  offset=	"18"
+  owners=	"RegField-lvx-PSO_SME"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Enabled"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_SMR"
+  offset=	"19"
+  owners=	"RegField-lvx-PSO_SMR"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Ready"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_PMJ"
+  offset=	"20"
+  owners=	"RegField-lvx-PSO_PMJ0 RegField-lvx-PSO_PMJ1 RegField-lvx-PSO_PMJ2 RegField-lvx-PSO_PMJ3"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB."
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_MMUP"
+  offset=	"24"
+  owners=	"RegField-lvx-PSO_MMUP"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Privileged on MMU."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-SPS_PL3_RV"
+  offset=	"25"
+  owners=	"RegField-lvx-PSO_RV"
+  register=	"Register-lvx-SPS_PL3"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"RiscV mode."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_PL0"
+  offset=	"0"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Current Privilege Level bit 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_PL1"
+  offset=	"2"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Current Privilege Level bit 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_ET"
+  offset=	"4"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Exception Taken owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_HTD"
+  offset=	"6"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Hardware Trap Disable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_IE"
+  offset=	"8"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Interrupt Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_HLE"
+  offset=	"10"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Hardware Loop Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_SRE"
+  offset=	"12"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Software REserved owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_DAUS"
+  offset=	"14"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Data Accesses Use SPS settings owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_ICE"
+  offset=	"16"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Instruction Cache Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_USE"
+  offset=	"18"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Uncached Streaming Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_DCE"
+  offset=	"20"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Data Cache Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_MME"
+  offset=	"22"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Memory Management Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_IL0"
+  offset=	"24"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Interrupt Level bit 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_IL1"
+  offset=	"26"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Interrupt Level bit 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_VS0"
+  offset=	"28"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Virtual Space bit 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_VS1"
+  offset=	"30"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Virtual Space bit 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_L2E"
+  offset=	"34"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"L2 cache Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_SME"
+  offset=	"36"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Step Mode Enabled owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_SMR"
+  offset=	"38"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Step Mode Ready owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_PMJ0"
+  offset=	"40"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Page Mask in JTLB bit 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_PMJ1"
+  offset=	"42"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Page Mask in JTLB bit 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_PMJ2"
+  offset=	"44"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Page Mask in JTLB bit 2 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_PMJ3"
+  offset=	"46"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Page Mask in JTLB bit 3 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_MMUP"
+  offset=	"48"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"Privileged on MMU owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSO_RV"
+  offset=	"50"
+  register=	"Register-lvx-PSO"
+  reset=	"0"
+  what=	"RiscV mode owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_PL0"
+  offset=	"0"
+  owners=	"RegField-lvx-PSO_PL0"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Current Privilege Level bit 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_PL1"
+  offset=	"2"
+  owners=	"RegField-lvx-PSO_PL1"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Current Privilege Level bit 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_ET"
+  offset=	"4"
+  owners=	"RegField-lvx-PSO_ET"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Exception Taken owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_HTD"
+  offset=	"6"
+  owners=	"RegField-lvx-PSO_HTD"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Trap Disable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_IE"
+  offset=	"8"
+  owners=	"RegField-lvx-PSO_IE"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_HLE"
+  offset=	"10"
+  owners=	"RegField-lvx-PSO_HLE"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Hardware Loop Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_SRE"
+  offset=	"12"
+  owners=	"RegField-lvx-PSO_SRE"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Software REserved owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_DAUS"
+  offset=	"14"
+  owners=	"RegField-lvx-PSO_DAUS"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Accesses Use SPS settings owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_ICE"
+  offset=	"16"
+  owners=	"RegField-lvx-PSO_ICE"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Instruction Cache Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_USE"
+  offset=	"18"
+  owners=	"RegField-lvx-PSO_USE"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Uncached Streaming Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_DCE"
+  offset=	"20"
+  owners=	"RegField-lvx-PSO_DCE"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Cache Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_MME"
+  offset=	"22"
+  owners=	"RegField-lvx-PSO_MME"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Memory Management Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_IL0"
+  offset=	"24"
+  owners=	"RegField-lvx-PSO_IL0"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Level bit 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_IL1"
+  offset=	"26"
+  owners=	"RegField-lvx-PSO_IL1"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Interrupt Level bit 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_VS0"
+  offset=	"28"
+  owners=	"RegField-lvx-PSO_VS0"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual Space bit 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_VS1"
+  offset=	"30"
+  owners=	"RegField-lvx-PSO_VS1"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual Space bit 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_L2E"
+  offset=	"34"
+  owners=	"RegField-lvx-PSO_L2E"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"L2 cache Enable owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_SME"
+  offset=	"36"
+  owners=	"RegField-lvx-PSO_SME"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Enabled owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_SMR"
+  offset=	"38"
+  owners=	"RegField-lvx-PSO_SMR"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Step Mode Ready owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_PMJ0"
+  offset=	"40"
+  owners=	"RegField-lvx-PSO_PMJ0"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB bit 0 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_PMJ1"
+  offset=	"42"
+  owners=	"RegField-lvx-PSO_PMJ1"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB bit 1 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_PMJ2"
+  offset=	"44"
+  owners=	"RegField-lvx-PSO_PMJ2"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB bit 2 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_PMJ3"
+  offset=	"46"
+  owners=	"RegField-lvx-PSO_PMJ3"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Mask in JTLB bit 3 owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_MMUP"
+  offset=	"48"
+  owners=	"RegField-lvx-PSO_MMUP"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Privileged on MMU owner."
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PSOW_RV"
+  offset=	"50"
+  owners=	"RegField-lvx-PSO_RV"
+  register=	"Register-lvx-PSOW"
+  rerrors=	"TRAP_PRIVILEGE"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"RiscV mode owner"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_IC"
+  offset=	"0"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"Integer Carry"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_IO"
+  offset=	"1"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"IEEE 754 Invalid Operation"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_DZ"
+  offset=	"2"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"IEEE 754 Divide by Zero"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_OV"
+  offset=	"3"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"IEEE 754 Overflow"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_UN"
+  offset=	"4"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"IEEE 754 Underflow"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_IN"
+  offset=	"5"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"IEEE 754 Inexact"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_XIO"
+  offset=	"9"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"Extension IEEE 754 Invalid Operation"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_XDZ"
+  offset=	"10"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"Extension IEEE 754 Divide by Zero"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_XOV"
+  offset=	"11"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"Extension IEEE 754 Overflow"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_XUN"
+  offset=	"12"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"Extension IEEE 754 Underflow"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_XIN"
+  offset=	"13"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"Extension IEEE 754 Inexact"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_RM"
+  offset=	"16"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"IEEE 754 Rounding Mode"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_XRM"
+  offset=	"20"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"Extension IEEE 754 Rounding Mode"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_XMF"
+  offset=	"24"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"eXtension ModiFied"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CS_CC"
+  offset=	"32"
+  register=	"Register-lvx-CS"
+  reset=	"0"
+  what=	"Carry Counter"
+  width=	"16"
+/>
+<RegField
+  ID=	"RegField-lvx-AESPC_AESPC"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-AESPC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Arithmetic Exception Saved PC"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_ICIE"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Integer Carry Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_IOIE"
+  offset=	"1"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"IEEE 754 Invalid Operation Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_DZIE"
+  offset=	"2"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"IEEE 754 Divide by Zero Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_OVIE"
+  offset=	"3"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"IEEE 754 Overflow Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_UNIE"
+  offset=	"4"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"IEEE 754 Underflow Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_INIE"
+  offset=	"5"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"IEEE 754 Inexact Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_XIOIE"
+  offset=	"9"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Extension IEEE 754 Invalid Operation Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_XDZIE"
+  offset=	"10"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Extension IEEE 754 Divide by Zero Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_XOVIE"
+  offset=	"11"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Extension IEEE 754 Overflow Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_XUNIE"
+  offset=	"12"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Extension IEEE 754 Underflow Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_XINIE"
+  offset=	"13"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Extension IEEE 754 Inexact Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_AEIR"
+  offset=	"16"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Arithmetic Exception Interrupt Raised"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_AEC"
+  offset=	"17"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Arithmetic Exception Code"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-CSIT_SPCV"
+  offset=	"20"
+  owners=	"RegField-lvx-MO_CSIT"
+  register=	"Register-lvx-CSIT"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"SPC Valid"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_EC"
+  offset=	"0"
+  register=	"Register-lvx-ES"
+  reset=	"4"
+  what=	"Exception Class"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_ED"
+  offset=	"4"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Exception Details"
+  width=	"60"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_OAPL"
+  offset=	"4"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Origin Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_ORPL"
+  offset=	"6"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Origin Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PTAPL"
+  offset=	"8"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Primary Target Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PTRPL"
+  offset=	"10"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Primary Target Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_ITN"
+  offset=	"12"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"InTerrupt Number"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_ITL"
+  offset=	"17"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"InTerrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_ITI"
+  offset=	"19"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"InTerrupt Info"
+  width=	"10"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_SN"
+  offset=	"12"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Syscall Number"
+  width=	"12"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_HTC"
+  offset=	"12"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Hardware Trap Cause"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_SFRT"
+  offset=	"17"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"SFR Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_SFRI"
+  offset=	"18"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"SFR Instruction"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_GPRP"
+  offset=	"21"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"GPR Pointer"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_SFRP"
+  offset=	"27"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"SFR Pointer"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_DHT"
+  offset=	"36"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Disabled Hardware Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_DRX"
+  offset=	"37"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Data Register eXtension"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_DAF"
+  offset=	"38"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Data Access Format"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_RWX"
+  offset=	"39"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Read Write Execute"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_NTA"
+  offset=	"42"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Non-Trapping Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_UCA"
+  offset=	"43"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Un-Cached Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_AS"
+  offset=	"44"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Access Size"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_BS"
+  offset=	"50"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Bundle Size"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_DRI"
+  offset=	"54"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Data Register Index"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PIC"
+  offset=	"60"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Privileged Instruction Code"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_DCV2"
+  offset=	"12"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Debug Cause"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_WBN"
+  offset=	"15"
+  register=	"Register-lvx-ES"
+  reset=	"0"
+  what=	"Watchpoint/Breakpoint Number"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_EC"
+  offset=	"0"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"4"
+  what=	"Exception Class"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_ED"
+  offset=	"4"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Exception Details"
+  width=	"60"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_OAPL"
+  offset=	"4"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Origin Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_ORPL"
+  offset=	"6"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Origin Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_PTAPL"
+  offset=	"8"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Target Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_PTRPL"
+  offset=	"10"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Target Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_ITN"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"InTerrupt Number"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_ITL"
+  offset=	"17"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"InTerrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_ITI"
+  offset=	"19"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"InTerrupt Info"
+  width=	"10"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_SN"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Syscall Number"
+  width=	"12"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_HTC"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Hardware Trap Cause"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_SFRT"
+  offset=	"17"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"SFR Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_SFRI"
+  offset=	"18"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"SFR Instruction"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_GPRP"
+  offset=	"21"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"GPR Pointer"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_SFRP"
+  offset=	"27"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"SFR Pointer"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_DHT"
+  offset=	"36"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Disabled Hardware Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_DRX"
+  offset=	"37"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Data Register from eXtension"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_DAF"
+  offset=	"38"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Data Access Format"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_RWX"
+  offset=	"39"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Read Write Execute"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_NTA"
+  offset=	"42"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Non-Trapping Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_UCA"
+  offset=	"43"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Un-Cached Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_AS"
+  offset=	"44"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Access Size"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_BS"
+  offset=	"50"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Bundle Size"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_DRI"
+  offset=	"54"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Data Register Index"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_PIC"
+  offset=	"60"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Privileged Instruction Code"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_DCV2"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Debug Cause"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL0_WBN"
+  offset=	"15"
+  register=	"Register-lvx-ES_PL0"
+  reset=	"0"
+  what=	"Watchpoint/Breakpoint Number"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_EC"
+  offset=	"0"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"4"
+  what=	"Exception Class"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_ED"
+  offset=	"4"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Exception Details"
+  width=	"60"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_OAPL"
+  offset=	"4"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Origin Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_ORPL"
+  offset=	"6"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Origin Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_PTAPL"
+  offset=	"8"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Target Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_PTRPL"
+  offset=	"10"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Target Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_ITN"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"InTerrupt Number"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_ITL"
+  offset=	"17"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"InTerrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_ITI"
+  offset=	"19"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"InTerrupt Info"
+  width=	"10"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_SN"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Syscall Number"
+  width=	"12"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_HTC"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Hardware Trap Cause"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_SFRT"
+  offset=	"17"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"SFR Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_SFRI"
+  offset=	"18"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"SFR Instruction"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_GPRP"
+  offset=	"21"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"GPR Pointer"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_SFRP"
+  offset=	"27"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"SFR Pointer"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_DHT"
+  offset=	"36"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Disabled Hardware Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_DRX"
+  offset=	"37"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Data Register from eXtension"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_DAF"
+  offset=	"38"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Data Access Format"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_RWX"
+  offset=	"39"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Read Write Execute"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_NTA"
+  offset=	"42"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Non-Trapping Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_UCA"
+  offset=	"43"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Un-Cached Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_AS"
+  offset=	"44"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Access Size"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_BS"
+  offset=	"50"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Bundle Size"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_DRI"
+  offset=	"54"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Data Register Index"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_PIC"
+  offset=	"60"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Privileged Instruction Code"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_DCV2"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Debug Cause"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL1_WBN"
+  offset=	"15"
+  register=	"Register-lvx-ES_PL1"
+  reset=	"0"
+  what=	"Watchpoint/Breakpoint Number"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_EC"
+  offset=	"0"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"4"
+  what=	"Exception Class"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_ED"
+  offset=	"4"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Exception Details"
+  width=	"60"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_OAPL"
+  offset=	"4"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Origin Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_ORPL"
+  offset=	"6"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Origin Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_PTAPL"
+  offset=	"8"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Target Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_PTRPL"
+  offset=	"10"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Target Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_ITN"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"InTerrupt Number"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_ITL"
+  offset=	"17"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"InTerrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_ITI"
+  offset=	"19"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"InTerrupt Info"
+  width=	"10"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_SN"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Syscall Number"
+  width=	"12"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_HTC"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Hardware Trap Cause"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_SFRT"
+  offset=	"17"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"SFR Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_SFRI"
+  offset=	"18"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"SFR Instruction"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_GPRP"
+  offset=	"21"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"GPR Pointer"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_SFRP"
+  offset=	"27"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"SFR Pointer"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_DHT"
+  offset=	"36"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Disabled Hardware Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_DRX"
+  offset=	"37"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Data Register from eXtension"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_DAF"
+  offset=	"38"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Data Access Format"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_RWX"
+  offset=	"39"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Read Write Execute"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_NTA"
+  offset=	"42"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Non-Trapping Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_UCA"
+  offset=	"43"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Un-Cached Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_AS"
+  offset=	"44"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Access Size"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_BS"
+  offset=	"50"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Bundle Size"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_DRI"
+  offset=	"54"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Data Register Index"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_PIC"
+  offset=	"60"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Privileged Instruction Code"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_DCV2"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Debug Cause"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL2_WBN"
+  offset=	"15"
+  register=	"Register-lvx-ES_PL2"
+  reset=	"0"
+  what=	"Watchpoint/Breakpoint Number"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_EC"
+  offset=	"0"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"4"
+  what=	"Exception Class"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_ED"
+  offset=	"4"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Exception Details"
+  width=	"60"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_OAPL"
+  offset=	"4"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Origin Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_ORPL"
+  offset=	"6"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Origin Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_PTAPL"
+  offset=	"8"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Target Absolute PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_PTRPL"
+  offset=	"10"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Target Relative PL"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_ITN"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"InTerrupt Number"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_ITL"
+  offset=	"17"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"InTerrupt Level"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_ITI"
+  offset=	"19"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"InTerrupt Info"
+  width=	"10"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_SN"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Syscall Number"
+  width=	"12"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_HTC"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Hardware Trap Cause"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_SFRT"
+  offset=	"17"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"SFR Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_SFRI"
+  offset=	"18"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"SFR Instruction"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_GPRP"
+  offset=	"21"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"GPR Pointer"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_SFRP"
+  offset=	"27"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"SFR Pointer"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_DHT"
+  offset=	"36"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Disabled Hardware Trap"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_DRX"
+  offset=	"37"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Data Register from eXtension"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_DAF"
+  offset=	"38"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Data Access Format"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_RWX"
+  offset=	"39"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Read Write Execute"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_NTA"
+  offset=	"42"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Non-Trapping Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_UCA"
+  offset=	"43"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Un-Cached Access"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_AS"
+  offset=	"44"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Access Size"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_BS"
+  offset=	"50"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Bundle Size"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_DRI"
+  offset=	"54"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Data Register Index"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_PIC"
+  offset=	"60"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Privileged Instruction Code"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_DCV2"
+  offset=	"12"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Debug Cause"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-ES_PL3_WBN"
+  offset=	"15"
+  register=	"Register-lvx-ES_PL3"
+  reset=	"0"
+  what=	"Watchpoint/Breakpoint Number"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-SID_SID"
+  offset=	"0"
+  register=	"Register-lvx-SID"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Stream ID"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-SID_PL0_SID"
+  offset=	"0"
+  register=	"Register-lvx-SID_PL0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Stream ID"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-SID_PL1_SID"
+  offset=	"0"
+  register=	"Register-lvx-SID_PL1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Stream ID"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-SID_PL2_SID"
+  offset=	"0"
+  register=	"Register-lvx-SID_PL2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Stream ID"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-SID_PL3_SID"
+  offset=	"0"
+  register=	"Register-lvx-SID_PL3"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Stream ID"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_T0CE"
+  offset=	"16"
+  owners=	"RegField-lvx-MO_T0"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 0 Count Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_T1CE"
+  offset=	"17"
+  owners=	"RegField-lvx-MO_T1"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 1 Count Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_T0IE"
+  offset=	"18"
+  owners=	"RegField-lvx-MO_T0"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 0 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_T1IE"
+  offset=	"19"
+  owners=	"RegField-lvx-MO_T1"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 1 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_T0ST"
+  offset=	"20"
+  owners=	"RegField-lvx-MO_T0"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 0 Status"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_T1ST"
+  offset=	"21"
+  owners=	"RegField-lvx-MO_T1"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 1 Status"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_T0SI"
+  offset=	"22"
+  owners=	"RegField-lvx-MO_T0"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Stop Timer 0 in Idle"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_T1SI"
+  offset=	"23"
+  owners=	"RegField-lvx-MO_T1"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Stop Timer 1 in Idle"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_WCE"
+  offset=	"24"
+  owners=	"RegField-lvx-MO_WD"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchdog Counting Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_WIE"
+  offset=	"25"
+  owners=	"RegField-lvx-MO_WD"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchdog Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_WUI"
+  offset=	"26"
+  owners=	"RegField-lvx-MO_WD"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchdog Underflow Inform"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_WUS"
+  offset=	"27"
+  owners=	"RegField-lvx-MO_WD"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchdog Underflow Status"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TCR_WSI"
+  offset=	"28"
+  owners=	"RegField-lvx-MO_WD"
+  register=	"Register-lvx-TCR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchdog Stop in Idle"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PM0_PM0"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM0"
+  register=	"Register-lvx-PM0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 0"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-PM1_PM1"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM1"
+  register=	"Register-lvx-PM1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 1"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-PM2_PM2"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM2"
+  register=	"Register-lvx-PM2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 2"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-PM3_PM3"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM3"
+  register=	"Register-lvx-PM3"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 3"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-PM4_PM4"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM4"
+  register=	"Register-lvx-PM4"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 4"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-PM5_PM5"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM5"
+  register=	"Register-lvx-PM5"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 5"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-PM6_PM6"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM6"
+  register=	"Register-lvx-PM6"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 6"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-PM7_PM7"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM7"
+  register=	"Register-lvx-PM7"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor 7"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-SRHPC_SRHPC"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_SRHPC"
+  register=	"Register-lvx-SRHPC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Sequence rupture helper PC"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-RVC_ECRID"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_RVC"
+  register=	"Register-lvx-DC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"The GPR register to be used by the RISC-V ecall for LVX scall"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-PMSA_PMSA"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PMIT"
+  register=	"Register-lvx-PMSA"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Performance Monitor Saved Address"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-T0V_T0V"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_T0"
+  register=	"Register-lvx-T0V"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 0 value"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-T1V_T1V"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_T1"
+  register=	"Register-lvx-T1V"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 1 value"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-T0R_T0R"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_T0"
+  register=	"Register-lvx-T0R"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 0 reload value"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-T1R_T1R"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_T1"
+  register=	"Register-lvx-T1R"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Timer 1 reload value"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-WDV_WDV"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_WD"
+  register=	"Register-lvx-WDV"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchdog Value"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-WDR_WDR"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_WD"
+  register=	"Register-lvx-WDR"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchdog Reload Value"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_PM0C"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM0"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM0 Configuration"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_PM1C"
+  offset=	"7"
+  owners=	"RegField-lvx-MO_PM1"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM1 Configuration"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_PM2C"
+  offset=	"14"
+  owners=	"RegField-lvx-MO_PM2"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0x2"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM2 Configuration"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_PM3C"
+  offset=	"21"
+  owners=	"RegField-lvx-MO_PM3"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0x2"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM3 Configuration"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_SAV"
+  offset=	"30"
+  owners=	"RegField-lvx-MO_PMIT"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Saved Address Valid"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_PM0IE"
+  offset=	"32"
+  owners=	"RegField-lvx-MO_PMIT RegField-lvx-MO_PM0"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM0 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_PM1IE"
+  offset=	"33"
+  owners=	"RegField-lvx-MO_PMIT RegField-lvx-MO_PM1"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM1 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_PM2IE"
+  offset=	"34"
+  owners=	"RegField-lvx-MO_PMIT RegField-lvx-MO_PM2"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM2 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_PM3IE"
+  offset=	"35"
+  owners=	"RegField-lvx-MO_PMIT RegField-lvx-MO_PM3"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM3 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_SAT"
+  offset=	"36"
+  owners=	"RegField-lvx-MO_PMIT"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Saved Address Type"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC_SAF"
+  offset=	"38"
+  owners=	"RegField-lvx-MO_PMIT"
+  register=	"Register-lvx-PMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Saved Address From"
+  width=	"3"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC2_PM4C"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PM4"
+  register=	"Register-lvx-PMC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM4 Configuration"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC2_PM5C"
+  offset=	"7"
+  owners=	"RegField-lvx-MO_PM5"
+  register=	"Register-lvx-PMC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM5 Configuration"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC2_PM6C"
+  offset=	"14"
+  owners=	"RegField-lvx-MO_PM6"
+  register=	"Register-lvx-PMC2"
+  rerrors=	"READ0"
+  reset=	"0x2"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM6 Configuration"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC2_PM7C"
+  offset=	"21"
+  owners=	"RegField-lvx-MO_PM7"
+  register=	"Register-lvx-PMC2"
+  rerrors=	"READ0"
+  reset=	"0x2"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM7 Configuration"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC2_PM4IE"
+  offset=	"32"
+  owners=	"RegField-lvx-MO_PMIT RegField-lvx-MO_PM4"
+  register=	"Register-lvx-PMC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM4 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC2_PM5IE"
+  offset=	"33"
+  owners=	"RegField-lvx-MO_PMIT RegField-lvx-MO_PM5"
+  register=	"Register-lvx-PMC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM5 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC2_PM6IE"
+  offset=	"34"
+  owners=	"RegField-lvx-MO_PMIT RegField-lvx-MO_PM6"
+  register=	"Register-lvx-PMC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM6 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PMC2_PM7IE"
+  offset=	"35"
+  owners=	"RegField-lvx-MO_PMIT RegField-lvx-MO_PM7"
+  register=	"Register-lvx-PMC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PM7 Interrupt Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_PID"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"Hardwired"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Processing Identifier in cluster"
+  width=	"8"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_CID"
+  offset=	"8"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"Hardwired"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Cluster Identifier in system"
+  width=	"8"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_MID"
+  offset=	"16"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"Hardwired"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"MPPA Identifier"
+  width=	"8"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_CAR"
+  offset=	"24"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"0x2"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Core Architecture Revision ID"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_CMA"
+  offset=	"28"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"0x0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Core Micro-Architecture Revision ID"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_SV"
+  offset=	"32"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"Hardwired"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"System-On-Chip Version"
+  width=	"8"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_ST"
+  offset=	"40"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"Hardwired"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"System-On-Chip Type"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_BM"
+  offset=	"44"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"Hardwired"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Boot Mode"
+  width=	"8"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_COE"
+  offset=	"52"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"1"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"COprocessor Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_L1CE"
+  offset=	"53"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"L1 cache Coherency Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_DSEM"
+  offset=	"54"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Simple Ecc exception Mode"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_TPCE"
+  offset=	"55"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_TPCUM"
+  offset=	"56"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC Uninferable Mode"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-PCR_TPCIS"
+  offset=	"57"
+  owners=	"RegField-lvx-MO_PCR"
+  register=	"Register-lvx-PCR"
+  rerrors=	"READ"
+  reset=	"1"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC Ignore Stall"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_ASN"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Address Space Number"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_S"
+  offset=	"9"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Speculative"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_SNE"
+  offset=	"14"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"1"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Speculative NOMAPPING Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_SPE"
+  offset=	"15"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Speculative PROTECTION Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_PTC"
+  offset=	"16"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Protection Trap Cause"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_SW"
+  offset=	"18"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Select Way"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_SS"
+  offset=	"22"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Select Set"
+  width=	"6"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_SB"
+  offset=	"28"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Select Buffer"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_PAR"
+  offset=	"30"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"PARity error flag"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MMC_E"
+  offset=	"31"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-MMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Error Flag"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TEL_ES"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-TEL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Entry Status"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-TEL_CP2"
+  offset=	"2"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-TEL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Cache Policy on V2"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-TEL_PA2"
+  offset=	"6"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-TEL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Protection Attributes on V2"
+  width=	"4"
+/>
+<RegField
+  ID=	"RegField-lvx-TEL_PS"
+  offset=	"10"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-TEL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Size"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-TEL_FN"
+  offset=	"12"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-TEL"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Frame Number"
+  width=	"28"
+/>
+<RegField
+  ID=	"RegField-lvx-TEH_ASN"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-TEH"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Address Space Number"
+  width=	"9"
+/>
+<RegField
+  ID=	"RegField-lvx-TEH_G"
+  offset=	"9"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-TEH"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Global page indicator"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TEH_VS"
+  offset=	"10"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-TEH"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Virtual Space"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-TEH_PN"
+  offset=	"12"
+  owners=	"RegField-lvx-MO_MSG"
+  register=	"Register-lvx-TEH"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Page Number"
+  width=	"29"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCM_0"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_TPCM"
+  register=	"Register-lvx-TPCM0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC message 0"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCM_1"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_TPCM"
+  register=	"Register-lvx-TPCM1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC message 1"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCM_2"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_TPCM"
+  register=	"Register-lvx-TPCM2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC message 2"
+  width=	"64"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCM_PLD"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_TPCM"
+  register=	"Register-lvx-TPCMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC message payload size"
+  width=	"5"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCM_STS"
+  offset=	"5"
+  owners=	"RegField-lvx-MO_TPCM"
+  register=	"Register-lvx-TPCMC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC message status"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DC0_BE"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_B0"
+  register=	"Register-lvx-DC0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint 0 Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-DC0_WE"
+  offset=	"1"
+  owners=	"RegField-lvx-DO_W0"
+  register=	"Register-lvx-DC0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 0 Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-DC0_WTYP"
+  offset=	"2"
+  owners=	"RegField-lvx-DO_W0"
+  register=	"Register-lvx-DC0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 0 Type"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DC0_WSZ"
+  offset=	"4"
+  owners=	"RegField-lvx-DO_W0"
+  register=	"Register-lvx-DC0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 0 Size"
+  width=	"28"
+/>
+<RegField
+  ID=	"RegField-lvx-DC1_BE"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_B1"
+  register=	"Register-lvx-DC1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint 1 Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-DC1_WE"
+  offset=	"1"
+  owners=	"RegField-lvx-DO_W1"
+  register=	"Register-lvx-DC1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 1 Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-DC1_WTYP"
+  offset=	"2"
+  owners=	"RegField-lvx-DO_W1"
+  register=	"Register-lvx-DC1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 1 Type"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DC1_WSZ"
+  offset=	"4"
+  owners=	"RegField-lvx-DO_W1"
+  register=	"Register-lvx-DC1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 1 Size"
+  width=	"28"
+/>
+<RegField
+  ID=	"RegField-lvx-DC2_BE"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_B2"
+  register=	"Register-lvx-DC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint 2 Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-DC2_WE"
+  offset=	"1"
+  owners=	"RegField-lvx-DO_W2"
+  register=	"Register-lvx-DC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 2 Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-DC2_WTYP"
+  offset=	"2"
+  owners=	"RegField-lvx-DO_W2"
+  register=	"Register-lvx-DC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 2 Type"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DC2_WSZ"
+  offset=	"4"
+  owners=	"RegField-lvx-DO_W2"
+  register=	"Register-lvx-DC2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 2 Size"
+  width=	"28"
+/>
+<RegField
+  ID=	"RegField-lvx-DC3_BE"
+  offset=	"0"
+  owners=	"RegField-lvx-DO_B3"
+  register=	"Register-lvx-DC3"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Breakpoint 3 Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-DC3_WE"
+  offset=	"1"
+  owners=	"RegField-lvx-DO_W3"
+  register=	"Register-lvx-DC3"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 3 Enable"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-DC3_WTYP"
+  offset=	"2"
+  owners=	"RegField-lvx-DO_W3"
+  register=	"Register-lvx-DC3"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 3 Type"
+  width=	"2"
+/>
+<RegField
+  ID=	"RegField-lvx-DC3_WSZ"
+  offset=	"4"
+  owners=	"RegField-lvx-DO_W3"
+  register=	"Register-lvx-DC3"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Watchpoint 3 Size"
+  width=	"28"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_PSE"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Program Simple Ecc"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_PILSY"
+  offset=	"1"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Program cache Invalidated Line following pSYs error."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_PILDE"
+  offset=	"2"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Program cache Invalidated Line following pDEcc error."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_PILPA"
+  offset=	"3"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Program cache Invalidated Line following pPArity error."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_DSE"
+  offset=	"4"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data Simple Ecc"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_DILSY"
+  offset=	"5"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data cache Invalidated Line following dSYs error."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_DILDE"
+  offset=	"6"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data cache Invalidated Line following dDEcc error."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_DILPA"
+  offset=	"7"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data cache Invalidated Line following dPArity error."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_DDEE"
+  offset=	"8"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data DEcc Error."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-MES_DSYE"
+  offset=	"9"
+  owners=	"RegField-lvx-MO_MES"
+  register=	"Register-lvx-MES"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Data dSYs Error."
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-WS_WU0"
+  offset=	"0"
+  register=	"Register-lvx-WS"
+  reset=	"1"
+  what=	"Wake-Up 0"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-WS_WU1"
+  offset=	"1"
+  register=	"Register-lvx-WS"
+  reset=	"1"
+  what=	"Wake-Up 1"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-WS_WU2"
+  offset=	"2"
+  register=	"Register-lvx-WS"
+  reset=	"1"
+  what=	"Wake-Up 2"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-IPE_FE"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_SYNC"
+  register=	"Register-lvx-IPE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Forward Events"
+  width=	"16"
+/>
+<RegField
+  ID=	"RegField-lvx-IPE_BE"
+  offset=	"16"
+  owners=	"RegField-lvx-MO_SYNC"
+  register=	"Register-lvx-IPE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Backward Events"
+  width=	"16"
+/>
+<RegField
+  ID=	"RegField-lvx-IPE_FM"
+  offset=	"32"
+  owners=	"RegField-lvx-MO_SYNC"
+  register=	"Register-lvx-IPE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Forward Mode"
+  width=	"16"
+/>
+<RegField
+  ID=	"RegField-lvx-IPE_BM"
+  offset=	"48"
+  owners=	"RegField-lvx-MO_SYNC"
+  register=	"Register-lvx-IPE"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Backward Modes"
+  width=	"16"
+/>
+<RegField
+  ID=	"RegField-lvx-IXC_FCB"
+  offset=	"0"
+  owners=	"RegField-lvx-MO_COMM"
+  register=	"Register-lvx-IXC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Forward Channel Busy"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-IXC_SFB"
+  offset=	"8"
+  owners=	"RegField-lvx-MO_COMM"
+  register=	"Register-lvx-IXC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Swap Forward and Backward"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-IXC_BCB"
+  offset=	"16"
+  owners=	"RegField-lvx-MO_COMM"
+  register=	"Register-lvx-IXC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Backward Channel Busy"
+  width=	"1"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCC_TPCC"
+  offset=	"0"
+  register=	"Register-lvx-TPCC"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC Context"
+  width=	"32"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCC_PL0_TPCC"
+  offset=	"0"
+  register=	"Register-lvx-TPCC_PL0"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC Context"
+  width=	"32"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCC_PL1_TPCC"
+  offset=	"0"
+  register=	"Register-lvx-TPCC_PL1"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC Context"
+  width=	"32"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCC_PL2_TPCC"
+  offset=	"0"
+  register=	"Register-lvx-TPCC_PL2"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC Context"
+  width=	"32"
+/>
+<RegField
+  ID=	"RegField-lvx-TPCC_PL3_TPCC"
+  offset=	"0"
+  register=	"Register-lvx-TPCC_PL3"
+  rerrors=	"READ0"
+  reset=	"0"
+  werrors=	"TRAP_PRIVILEGE"
+  what=	"Trace PC Context"
+  width=	"32"
+/>

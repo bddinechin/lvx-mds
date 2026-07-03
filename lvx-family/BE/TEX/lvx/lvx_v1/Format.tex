@@ -1,0 +1,3340 @@
+
+\subsubsection[{\small BCU Compare Conditional Branches}]{BCU Compare Conditional Branches} \label{sec:format-BCU-CCB}
+
+\bitfields{ 1/P, 2/00, 2/bcu1, 4/ccbcomp, 11/pcrel11s2, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small BCU Compare Conditional Branches Extended}]{BCU Compare Conditional Branches Extended} \label{sec:format-BCU-CCB.X}
+
+\bitfields{ 1/P, 2/00, 2/00, 27/upper27, 1/1, 2/00, 2/bcu1, 4/ccbcomp, 11/lower11, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small BCU Conditional Branches}]{BCU Conditional Branches} \label{sec:format-BCU-CB}
+
+\bitfields{ 1/P, 2/00, 2/bcu1, 4/bcucond, 17/pcrel17s2, 6/registerZ }
+
+
+\subsubsection[{\small BCU Conditional Branches Extended}]{BCU Conditional Branches Extended} \label{sec:format-BCU-CB.X}
+
+\bitfields{ 1/P, 2/00, 2/00, 27/upper27, 1/1, 2/00, 2/bcu1, 4/bcucond, 17/lower17, 6/registerZ }
+
+
+\subsubsection[{\small BCU Hardware Loop Setup}]{BCU Hardware Loop Setup} \label{sec:format-BCU-HLS}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 17/pcrel17s2, 6/registerZ }
+
+
+\subsubsection[{\small BCU Guarded Execution}]{BCU Guarded Execution} \label{sec:format-BCU-GUARD}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 4/execpred, 8/activate, 6/registerZ }
+
+
+\subsubsection[{\small BCU Blended Execution}]{BCU Blended Execution} \label{sec:format-BCU-BLEND}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 2/lanetodo, 2/lanesize, 8/activate, 6/registerZ }
+
+
+\subsubsection[{\small BCU TLB Management}]{BCU TLB Management} \label{sec:format-BCU-TLB}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small BCU Instruction Pipeline Control}]{BCU Instruction Pipeline Control} \label{sec:format-BCU-IPC}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small BCU Processing Group Instructions}]{BCU Processing Group Instructions} \label{sec:format-BCU-PGI}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
+
+
+\subsubsection[{\small BCU Half-Word Effects}]{BCU Half-Word Effects} \label{sec:format-BCU-WFX}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/systemT2, 6/registerZ }
+
+
+\subsubsection[{\small BCU Half-Word Effects Alone}]{BCU Half-Word Effects Alone} \label{sec:format-BCU-WFXA}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/systemAlone, 6/registerZ }
+
+
+\subsubsection[{\small BCU Set System Registers}]{BCU Set System Registers} \label{sec:format-BCU-SET}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/systemT3, 6/registerZ }
+
+
+\subsubsection[{\small BCU Set System Register Alone}]{BCU Set System Register Alone} \label{sec:format-BCU-SETA}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/systemAlone, 6/registerZ }
+
+
+\subsubsection[{\small BCU Set System Register RA}]{BCU Set System Register RA} \label{sec:format-BCU-SETRA}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/systemRA, 6/registerZ }
+
+
+\subsubsection[{\small BCU Get System Registers}]{BCU Get System Registers} \label{sec:format-BCU-GSR}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/systemS2, 6/registerZ }
+
+
+\subsubsection[{\small BCU General and System Register Swap}]{BCU General and System Register Swap} \label{sec:format-BCU-RSWAP}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/systemS4, 6/registerZ }
+
+
+\subsubsection[{\small BCU General and System Register Swap Alone}]{BCU General and System Register Swap Alone} \label{sec:format-BCU-RSWAPA}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/systemAlone, 6/registerZ }
+
+
+\subsubsection[{\small BCU Indirect Get System Registers}]{BCU Indirect Get System Registers} \label{sec:format-BCU-IGSR}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
+
+
+\subsubsection[{\small BCU Return from Call and System Calls}]{BCU Return from Call and System Calls} \label{sec:format-BCU-RTS}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small BCU Indirect Branch and Call from Register}]{BCU Indirect Branch and Call from Register} \label{sec:format-BCU-IBC}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
+
+
+\subsubsection[{\small BCU Supervisor Call Immediate}]{BCU Supervisor Call Immediate} \label{sec:format-BCU-SCI}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 5/11000, 6/-- -- -- -- -- --, 12/sysnumber }
+
+
+\subsubsection[{\small BCU Supervisor Call Register}]{BCU Supervisor Call Register} \label{sec:format-BCU-SCR}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 5/11001, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
+
+
+\subsubsection[{\small BCU Software Break}]{BCU Software Break} \label{sec:format-BCU-BREAK}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 5/11010, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 4/-- -- -- --, 2/brknumber }
+
+
+\subsubsection[{\small BCU Unconditional Branches}]{BCU Unconditional Branches} \label{sec:format-BCU-UB}
+
+\bitfields{ 1/P, 2/00, 2/bcu1, 27/pcrel27s2 }
+
+
+\subsubsection[{\small BCU Unconditional Branches Extended}]{BCU Unconditional Branches Extended} \label{sec:format-BCU-UB.X}
+
+\bitfields{ 1/P, 2/00, 2/00, 27/upper27, 1/1, 2/00, 2/bcu1, 27/lower27 }
+
+
+\subsubsection[{\small LSU Load Scalar Base Offset}]{LSU Load Scalar Base Offset} \label{sec:format-LSU-LSBO}
+
+\bitfields{ 1/P, 2/01, 3/loadcode, 2/variant, 6/registerW, 2/00, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Scalar Base Offset Extended}]{LSU Load Scalar Base Offset Extended} \label{sec:format-LSU-LSBO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 3/loadcode, 2/variant, 6/registerW, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Scalar Base Offset Extended Extended}]{LSU Load Scalar Base Offset Extended Extended} \label{sec:format-LSU-LSBO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 3/loadcode, 2/variant, 6/registerW, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Quadruple Base Offset}]{LSU Load Quadruple Base Offset} \label{sec:format-LSU-LQBO}
+
+\bitfields{ 1/P, 2/01, 3/loadcode, 2/variant, 5/registerM, 1/0, 2/00, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Quadruple Base Offset Extended}]{LSU Load Quadruple Base Offset Extended} \label{sec:format-LSU-LQBO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 3/loadcode, 2/variant, 5/registerM, 1/0, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Quadruple Base Offset Extended Extended}]{LSU Load Quadruple Base Offset Extended Extended} \label{sec:format-LSU-LQBO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 3/loadcode, 2/variant, 5/registerM, 1/0, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Octuple Base Offset}]{LSU Load Octuple Base Offset} \label{sec:format-LSU-LOBO}
+
+\bitfields{ 1/P, 2/01, 3/loadcode, 2/variant, 4/registerN, 1/0, 1/1, 2/00, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Octuple Base Offset Extended}]{LSU Load Octuple Base Offset Extended} \label{sec:format-LSU-LOBO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 3/loadcode, 2/variant, 4/registerN, 1/0, 1/1, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Octuple Base Offset Extended Extended}]{LSU Load Octuple Base Offset Extended Extended} \label{sec:format-LSU-LOBO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 3/loadcode, 2/variant, 4/registerN, 1/0, 1/1, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Memory Effects Base Offset}]{LSU Memory Effects Base Offset} \label{sec:format-LSU-FXBO}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/00, 4/lsucode2, 1/1, 1/1, 2/00, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Memory Effects Base Offset Extended}]{LSU Memory Effects Base Offset Extended} \label{sec:format-LSU-FXBO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 3/111, 2/00, 4/lsucode2, 1/1, 1/1, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Memory Effects Base Offset Extended Extended}]{LSU Memory Effects Base Offset Extended Extended} \label{sec:format-LSU-FXBO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 3/111, 2/00, 4/lsucode2, 1/1, 1/1, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Memory and Cache Control}]{LSU Memory and Cache Control} \label{sec:format-LSU-MCC}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/00, 4/lsucode2, 1/1, 1/1, 2/00, 16/-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- }
+
+
+\subsubsection[{\small LSU Memory Fence}]{LSU Memory Fence} \label{sec:format-LSU-FENCE}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/accesses, 4/lsucode2, 1/1, 1/1, 2/00, 16/-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Base Offset}]{LSU Extension Load Octuple Base Offset} \label{sec:format-LSU-XLOBO}
+
+\bitfields{ 1/P, 2/S, 3/000, 2/variant, 6/registerG, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Base Offset Extended}]{LSU Extension Load Octuple Base Offset Extended} \label{sec:format-LSU-XLOBO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 3/000, 2/variant, 6/registerG, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Base Offset Extended Extended}]{LSU Extension Load Octuple Base Offset Extended Extended} \label{sec:format-LSU-XLOBO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 3/000, 2/variant, 6/registerG, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Cross 2 Base Offset}]{LSU Extension Load Octuple Cross 2 Base Offset} \label{sec:format-LSU-XLOC2BO}
+
+\bitfields{ 1/P, 2/S, 3/001, 2/variant, 5/registerGp, 1/hindex, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Cross 2 Base Offset Extended}]{LSU Extension Load Octuple Cross 2 Base Offset Extended} \label{sec:format-LSU-XLOC2BO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 3/001, 2/variant, 5/registerGp, 1/hindex, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Cross 2 Base Offset Extended Extended}]{LSU Extension Load Octuple Cross 2 Base Offset Extended Extended} \label{sec:format-LSU-XLOC2BO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 3/001, 2/variant, 5/registerGp, 1/hindex, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Cross 4 Base Offset}]{LSU Extension Load Octuple Cross 4 Base Offset} \label{sec:format-LSU-XLOC4BO}
+
+\bitfields{ 1/P, 2/S, 3/010, 2/variant, 4/registerGq, 2/qindex, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Cross 4 Base Offset Extended}]{LSU Extension Load Octuple Cross 4 Base Offset Extended} \label{sec:format-LSU-XLOC4BO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 3/010, 2/variant, 4/registerGq, 2/qindex, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Cross 4 Base Offset Extended Extended}]{LSU Extension Load Octuple Cross 4 Base Offset Extended Extended} \label{sec:format-LSU-XLOC4BO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 3/010, 2/variant, 4/registerGq, 2/qindex, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Scalar Base Offset}]{LSU Store Scalar Base Offset} \label{sec:format-LSU-SSBO}
+
+\bitfields{ 1/P, 2/01, 5/lsucode0, 6/registerT, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Scalar Base Offset Extended}]{LSU Store Scalar Base Offset Extended} \label{sec:format-LSU-SSBO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 5/lsucode0, 6/registerT, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Scalar Base Offset Extended Extended}]{LSU Store Scalar Base Offset Extended Extended} \label{sec:format-LSU-SSBO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 5/lsucode0, 6/registerT, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Quadruple Base Offset}]{LSU Store Quadruple Base Offset} \label{sec:format-LSU-SQBO}
+
+\bitfields{ 1/P, 2/01, 5/lsucode0, 5/registerU, 1/0, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Quadruple Base Offset Extended}]{LSU Store Quadruple Base Offset Extended} \label{sec:format-LSU-SQBO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 5/lsucode0, 5/registerU, 1/0, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Quadruple Base Offset Extended Extended}]{LSU Store Quadruple Base Offset Extended Extended} \label{sec:format-LSU-SQBO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 5/lsucode0, 5/registerU, 1/0, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Octuple Base Offset}]{LSU Store Octuple Base Offset} \label{sec:format-LSU-SOBO}
+
+\bitfields{ 1/P, 2/01, 5/lsucode0, 4/registerV, 1/0, 1/1, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Octuple Base Offset Extended}]{LSU Store Octuple Base Offset Extended} \label{sec:format-LSU-SOBO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 5/lsucode0, 4/registerV, 1/0, 1/1, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Octuple Base Offset Extended Extended}]{LSU Store Octuple Base Offset Extended Extended} \label{sec:format-LSU-SOBO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/01, 5/lsucode0, 4/registerV, 1/0, 1/1, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Copy Octuple Word}]{LSU Copy Octuple Word} \label{sec:format-LSU-COPYO}
+
+\bitfields{ 1/P, 2/01, 5/10100, 4/registerN, 1/1, 1/1, 2/lsucode4, 10/-- -- -- -- -- -- -- -- -- --, 4/registerR, 1/--, 1/-- }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Base Offset}]{LSU Extension Store Octuple Base Offset} \label{sec:format-LSU-XSOBO}
+
+\bitfields{ 1/P, 2/S, 5/10101, 6/registerE, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Base Offset Extended}]{LSU Extension Store Octuple Base Offset Extended} \label{sec:format-LSU-XSOBO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 5/10101, 6/registerE, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Base Offset Extended Extended}]{LSU Extension Store Octuple Base Offset Extended Extended} \label{sec:format-LSU-XSOBO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 5/10101, 6/registerE, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Cross 2 Base Offset}]{LSU Extension Store Octuple Cross 2 Base Offset} \label{sec:format-LSU-XSOC2BO}
+
+\bitfields{ 1/P, 2/S, 5/10110, 5/registerEp, 1/hindex, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Cross 2 Base Offset Extended}]{LSU Extension Store Octuple Cross 2 Base Offset Extended} \label{sec:format-LSU-XSOC2BO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 5/10110, 5/registerEp, 1/hindex, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Cross 2 Base Offset Extended Extended}]{LSU Extension Store Octuple Cross 2 Base Offset Extended Extended} \label{sec:format-LSU-XSOC2BO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 5/10110, 5/registerEp, 1/hindex, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Cross 4 Base Offset}]{LSU Extension Store Octuple Cross 4 Base Offset} \label{sec:format-LSU-XSOC4BO}
+
+\bitfields{ 1/P, 2/S, 5/10111, 4/registerEq, 2/qindex, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Cross 4 Octuple Base Offset Extended}]{LSU Extension Store Cross 4 Octuple Base Offset Extended} \label{sec:format-LSU-XSOC4BO.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 5/10111, 4/registerEq, 2/qindex, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Cross 4 Base Offset Extended Extended}]{LSU Extension Store Octuple Cross 4 Base Offset Extended Extended} \label{sec:format-LSU-XSOC4BO.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 5/10111, 4/registerEq, 2/qindex, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Splat Base}]{LSU Extension Load Splat Base} \label{sec:format-LSU-XLSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/variant, 6/registerG, 2/01, 3/lsucode5, 1/--, 6/-- -- -- -- -- --, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Scalar Base + Index}]{LSU Load Scalar Base + Index} \label{sec:format-LSU-LSBI}
+
+\bitfields{ 1/P, 2/01, 3/loadcode, 2/variant, 6/registerW, 2/10, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Quadruple Base + Index}]{LSU Load Quadruple Base + Index} \label{sec:format-LSU-LQBI}
+
+\bitfields{ 1/P, 2/01, 3/loadcode, 2/variant, 5/registerM, 1/0, 2/10, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Load Octuple Base + Index}]{LSU Load Octuple Base + Index} \label{sec:format-LSU-LOBI}
+
+\bitfields{ 1/P, 2/01, 3/loadcode, 2/variant, 4/registerN, 1/0, 1/1, 2/10, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Memory Effects Base + Index}]{LSU Memory Effects Base + Index} \label{sec:format-LSU-FXBI}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/00, 4/lsucode2, 1/1, 1/1, 2/10, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Memory Effects by Set / Way}]{LSU Memory Effects by Set / Way} \label{sec:format-LSU-FXSW}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/cachelev, 4/lsucode2, 1/1, 1/1, 2/10, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 2-Register Buffer Packed Base}]{LSU Extension Preload 2-Register Buffer Packed Base} \label{sec:format-LSU-XPL2RBB}
+
+\bitfields{ 1/P, 2/01, 3/011, 2/variant, 5/registerGg, 1/0, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 2-Register Buffer Packed Base Offset}]{LSU Extension Preload 2-Register Buffer Packed Base Offset} \label{sec:format-LSU-XPL2RBB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 5/registerGg, 1/0, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 2-Register Buffer Packed Base Double Offset}]{LSU Extension Preload 2-Register Buffer Packed Base Double Offset} \label{sec:format-LSU-XPL2RBB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 5/registerGg, 1/0, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 4-Register Buffer Packed Base}]{LSU Extension Preload 4-Register Buffer Packed Base} \label{sec:format-LSU-XPL4RBB}
+
+\bitfields{ 1/P, 2/01, 3/011, 2/variant, 4/registerGh, 2/01, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 4-Register Buffer Packed Base Offset}]{LSU Extension Preload 4-Register Buffer Packed Base Offset} \label{sec:format-LSU-XPL4RBB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 4/registerGh, 2/01, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 4-Register Buffer Packed Base Double Offset}]{LSU Extension Preload 4-Register Buffer Packed Base Double Offset} \label{sec:format-LSU-XPL4RBB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 4/registerGh, 2/01, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 8-Register Buffer Packed Base}]{LSU Extension Preload 8-Register Buffer Packed Base} \label{sec:format-LSU-XPL8RBB}
+
+\bitfields{ 1/P, 2/01, 3/011, 2/variant, 3/registerGi, 3/011, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 8-Register Buffer Packed Base Offset}]{LSU Extension Preload 8-Register Buffer Packed Base Offset} \label{sec:format-LSU-XPL8RBB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 3/registerGi, 3/011, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 8-Register Buffer Packed Base Double Offset}]{LSU Extension Preload 8-Register Buffer Packed Base Double Offset} \label{sec:format-LSU-XPL8RBB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 3/registerGi, 3/011, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 16-Register Buffer Packed Base}]{LSU Extension Preload 16-Register Buffer Packed Base} \label{sec:format-LSU-XPL16RBB}
+
+\bitfields{ 1/P, 2/01, 3/011, 2/variant, 2/registerGj, 4/0111, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 16-Register Buffer Packed Base Offset}]{LSU Extension Preload 16-Register Buffer Packed Base Offset} \label{sec:format-LSU-XPL16RBB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 2/registerGj, 4/0111, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 16-Register Buffer Packed Base Double Offset}]{LSU Extension Preload 16-Register Buffer Packed Base Double Offset} \label{sec:format-LSU-XPL16RBB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 2/registerGj, 4/0111, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 32-Register Buffer Packed Base}]{LSU Extension Preload 32-Register Buffer Packed Base} \label{sec:format-LSU-XPL32RBB}
+
+\bitfields{ 1/P, 2/01, 3/011, 2/variant, 1/registerGk, 5/01111, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 32-Register Buffer Packed Base Offset}]{LSU Extension Preload 32-Register Buffer Packed Base Offset} \label{sec:format-LSU-XPL32RBB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 1/registerGk, 5/01111, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 32-Register Buffer Packed Base Double Offset}]{LSU Extension Preload 32-Register Buffer Packed Base Double Offset} \label{sec:format-LSU-XPL32RBB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 1/registerGk, 5/01111, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 64-Register Buffer Packed Base}]{LSU Extension Preload 64-Register Buffer Packed Base} \label{sec:format-LSU-XPL64RBB}
+
+\bitfields{ 1/P, 2/01, 3/011, 2/variant, 1/registerGl, 5/11111, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 64-Register Buffer Packed Base Offset}]{LSU Extension Preload 64-Register Buffer Packed Base Offset} \label{sec:format-LSU-XPL64RBB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 1/registerGl, 5/11111, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Preload 64-Register Buffer Packed Base Double Offset}]{LSU Extension Preload 64-Register Buffer Packed Base Double Offset} \label{sec:format-LSU-XPL64RBB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/011, 2/variant, 1/registerGl, 5/11111, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Splat Base + Index}]{LSU Extension Load Splat Base + Index} \label{sec:format-LSU-XLSBI}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/variant, 6/registerG, 2/11, 3/lsucode5, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Base + Index}]{LSU Extension Load Base + Index} \label{sec:format-LSU-XLBI}
+
+\bitfields{ 1/P, 2/S, 3/000, 2/variant, 6/registerG, 2/11, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Cross 2 Base + Index}]{LSU Extension Load Octuple Cross 2 Base + Index} \label{sec:format-LSU-XLOC2BI}
+
+\bitfields{ 1/P, 2/S, 3/001, 2/variant, 5/registerGp, 1/hindex, 2/11, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Load Octuple Cross 4 Base + Index}]{LSU Extension Load Octuple Cross 4 Base + Index} \label{sec:format-LSU-XLOC4BI}
+
+\bitfields{ 1/P, 2/S, 3/010, 2/variant, 4/registerGq, 2/qindex, 2/11, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Scalar Base + Index}]{LSU Store Scalar Base + Index} \label{sec:format-LSU-SSBI}
+
+\bitfields{ 1/P, 2/01, 5/lsucode0, 6/registerT, 2/11, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Quadruple Base + Index}]{LSU Store Quadruple Base + Index} \label{sec:format-LSU-SQBI}
+
+\bitfields{ 1/P, 2/01, 5/lsucode0, 5/registerU, 1/0, 2/11, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Store Octuple Base + Index}]{LSU Store Octuple Base + Index} \label{sec:format-LSU-SOBI}
+
+\bitfields{ 1/P, 2/01, 5/lsucode0, 4/registerV, 1/0, 1/1, 2/11, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Base + Index}]{LSU Extension Store Octuple Base + Index} \label{sec:format-LSU-XSOBI}
+
+\bitfields{ 1/P, 2/S, 5/10101, 6/registerE, 2/11, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Quadruple Cross 2 Base + Index}]{LSU Extension Store Quadruple Cross 2 Base + Index} \label{sec:format-LSU-XSOC2BI}
+
+\bitfields{ 1/P, 2/S, 5/10110, 5/registerEp, 1/hindex, 2/11, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Extension Store Octuple Cross 4 Base + Index}]{LSU Extension Store Octuple Cross 4 Base + Index} \label{sec:format-LSU-XSOC4BI}
+
+\bitfields{ 1/P, 2/S, 5/10111, 4/registerEq, 2/qindex, 2/11, 3/111, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load Scalar Base}]{LSU Atomic Load Scalar Base} \label{sec:format-LSU-ALSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerW, 2/11, 3/lsucode5, 1/--, 5/00000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load Scalar Base Offset}]{LSU Atomic Load Scalar Base Offset} \label{sec:format-LSU-ALSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerW, 2/11, 3/lsucode5, 1/--, 5/00000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load Scalar Base Double Offset}]{LSU Atomic Load Scalar Base Double Offset} \label{sec:format-LSU-ALSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerW, 2/11, 3/lsucode5, 1/--, 5/00000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and Clear Scalar Base}]{LSU Atomic Load and Clear Scalar Base} \label{sec:format-LSU-ALCLRSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerW, 2/11, 3/lsucode5, 1/--, 5/00001, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and Clear Scalar Base Offset}]{LSU Atomic Load and Clear Scalar Base Offset} \label{sec:format-LSU-ALCLRSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerW, 2/11, 3/lsucode5, 1/--, 5/00001, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and Clear Scalar Base Double Offset}]{LSU Atomic Load and Clear Scalar Base Double Offset} \label{sec:format-LSU-ALCLRSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerW, 2/11, 3/lsucode5, 1/--, 5/00001, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Swap Scalar Base}]{LSU Atomic Swap Scalar Base} \label{sec:format-LSU-ASWAPSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00010, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Swap Scalar Base Offset}]{LSU Atomic Swap Scalar Base Offset} \label{sec:format-LSU-ASWAPSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00010, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Swap Scalar Base Double Offset}]{LSU Atomic Swap Scalar Base Double Offset} \label{sec:format-LSU-ASWAPSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00010, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and Add Scalar Base}]{LSU Atomic Load and Add Scalar Base} \label{sec:format-LSU-ALADDSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00100, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and Add Scalar Base Offset}]{LSU Atomic Load and Add Scalar Base Offset} \label{sec:format-LSU-ALADDSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00100, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and Add Scalar Base Double Offset}]{LSU Atomic Load and Add Scalar Base Double Offset} \label{sec:format-LSU-ALADDSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00100, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and AND Scalar Base}]{LSU Atomic Load and AND Scalar Base} \label{sec:format-LSU-ALANDSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00101, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and AND Scalar Base Offset}]{LSU Atomic Load and AND Scalar Base Offset} \label{sec:format-LSU-ALANDSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00101, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and AND Scalar Base Double Offset}]{LSU Atomic Load and AND Scalar Base Double Offset} \label{sec:format-LSU-ALANDSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00101, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and IOR Scalar Base}]{LSU Atomic Load and IOR Scalar Base} \label{sec:format-LSU-ALIORSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and IOR Scalar Base Offset}]{LSU Atomic Load and IOR Scalar Base Offset} \label{sec:format-LSU-ALIORSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and IOR Scalar Base Double Offset}]{LSU Atomic Load and IOR Scalar Base Double Offset} \label{sec:format-LSU-ALIORSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and EOR Scalar Base}]{LSU Atomic Load and EOR Scalar Base} \label{sec:format-LSU-ALEORSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00111, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and EOR Scalar Base Offset}]{LSU Atomic Load and EOR Scalar Base Offset} \label{sec:format-LSU-ALEORSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00111, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and EOR Scalar Base Double Offset}]{LSU Atomic Load and EOR Scalar Base Double Offset} \label{sec:format-LSU-ALEORSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/00111, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MIN Scalar Base}]{LSU Atomic Load and MIN Scalar Base} \label{sec:format-LSU-ALMINSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MIN Scalar Base Offset}]{LSU Atomic Load and MIN Scalar Base Offset} \label{sec:format-LSU-ALMINSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MIN Scalar Base Double Offset}]{LSU Atomic Load and MIN Scalar Base Double Offset} \label{sec:format-LSU-ALMINSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MAX Scalar Base}]{LSU Atomic Load and MAX Scalar Base} \label{sec:format-LSU-ALMAXSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01001, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MAX Scalar Base Offset}]{LSU Atomic Load and MAX Scalar Base Offset} \label{sec:format-LSU-ALMAXSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01001, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MAX Scalar Base Double Offset}]{LSU Atomic Load and MAX Scalar Base Double Offset} \label{sec:format-LSU-ALMAXSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01001, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MIN Unsigned Scalar Base}]{LSU Atomic Load and MIN Unsigned Scalar Base} \label{sec:format-LSU-ALMINUSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01010, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MIN Unsigned Scalar Base Offset}]{LSU Atomic Load and MIN Unsigned Scalar Base Offset} \label{sec:format-LSU-ALMINUSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01010, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MIN Unsigned Scalar Base Double Offset}]{LSU Atomic Load and MIN Unsigned Scalar Base Double Offset} \label{sec:format-LSU-ALMINUSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01010, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MAX Unsigned Scalar Base}]{LSU Atomic Load and MAX Unsigned Scalar Base} \label{sec:format-LSU-ALMAXUSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01011, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MAX Unsigned Scalar Base Offset}]{LSU Atomic Load and MAX Unsigned Scalar Base Offset} \label{sec:format-LSU-ALMAXUSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01011, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and MAX Unsigned Scalar Base Double Offset}]{LSU Atomic Load and MAX Unsigned Scalar Base Double Offset} \label{sec:format-LSU-ALMAXUSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01011, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and Decrement Unsigned Saturating Scalar Base}]{LSU Atomic Load and Decrement Unsigned Saturating Scalar Base} \label{sec:format-LSU-ALDUSSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and Decrement Unsigned Saturating Scalar Base Offset}]{LSU Atomic Load and Decrement Unsigned Saturating Scalar Base Offset} \label{sec:format-LSU-ALDUSSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Load and Decrement Unsigned Saturating Scalar Base Double Offset}]{LSU Atomic Load and Decrement Unsigned Saturating Scalar Base Double Offset} \label{sec:format-LSU-ALDUSSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/01110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic DMA Operation Scalar Base}]{LSU Atomic DMA Operation Scalar Base} \label{sec:format-LSU-ADMAQSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 5/registerU, 1/0, 2/11, 3/lsucode5, 1/--, 5/01111, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic DMA Operation Scalar Base Offset}]{LSU Atomic DMA Operation Scalar Base Offset} \label{sec:format-LSU-ADMAQSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 5/registerU, 1/0, 2/11, 3/lsucode5, 1/--, 5/01111, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic DMA Operation Scalar Base Double Offset}]{LSU Atomic DMA Operation Scalar Base Double Offset} \label{sec:format-LSU-ADMAQSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 5/registerU, 1/0, 2/11, 3/lsucode5, 1/--, 5/01111, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store Scalar Base}]{LSU Atomic Store Scalar Base} \label{sec:format-LSU-ASSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store Scalar Base Offset}]{LSU Atomic Store Scalar Base Offset} \label{sec:format-LSU-ASSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store Scalar Base Double Offset}]{LSU Atomic Store Scalar Base Double Offset} \label{sec:format-LSU-ASSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and Add Scalar Base}]{LSU Atomic Store and Add Scalar Base} \label{sec:format-LSU-ASADDSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10100, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and Add Scalar Base Offset}]{LSU Atomic Store and Add Scalar Base Offset} \label{sec:format-LSU-ASADDSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10100, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and Add Scalar Base Double Offset}]{LSU Atomic Store and Add Scalar Base Double Offset} \label{sec:format-LSU-ASADDSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10100, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and AND Scalar Base}]{LSU Atomic Store and AND Scalar Base} \label{sec:format-LSU-ASANDSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10101, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and AND Scalar Base Offset}]{LSU Atomic Store and AND Scalar Base Offset} \label{sec:format-LSU-ASANDSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10101, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and AND Scalar Base Double Offset}]{LSU Atomic Store and AND Scalar Base Double Offset} \label{sec:format-LSU-ASANDSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10101, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and IOR Scalar Base}]{LSU Atomic Store and IOR Scalar Base} \label{sec:format-LSU-ASIORSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and IOR Scalar Base Offset}]{LSU Atomic Store and IOR Scalar Base Offset} \label{sec:format-LSU-ASIORSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and IOR Scalar Base Double Offset}]{LSU Atomic Store and IOR Scalar Base Double Offset} \label{sec:format-LSU-ASIORSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and EOR Scalar Base}]{LSU Atomic Store and EOR Scalar Base} \label{sec:format-LSU-ASEORSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10111, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and EOR Scalar Base Offset}]{LSU Atomic Store and EOR Scalar Base Offset} \label{sec:format-LSU-ASEORSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10111, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and EOR Scalar Base Double Offset}]{LSU Atomic Store and EOR Scalar Base Double Offset} \label{sec:format-LSU-ASEORSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/10111, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MIN Scalar Base}]{LSU Atomic Store and MIN Scalar Base} \label{sec:format-LSU-ASMINSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MIN Scalar Base Offset}]{LSU Atomic Store and MIN Scalar Base Offset} \label{sec:format-LSU-ASMINSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MIN Scalar Base Double Offset}]{LSU Atomic Store and MIN Scalar Base Double Offset} \label{sec:format-LSU-ASMINSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11000, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MAX Scalar Base}]{LSU Atomic Store and MAX Scalar Base} \label{sec:format-LSU-ASMAXSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11001, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MAX Scalar Base Offset}]{LSU Atomic Store and MAX Scalar Base Offset} \label{sec:format-LSU-ASMAXSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11001, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MAX Scalar Base Double Offset}]{LSU Atomic Store and MAX Scalar Base Double Offset} \label{sec:format-LSU-ASMAXSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11001, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MIN Unsigned Scalar Base}]{LSU Atomic Store and MIN Unsigned Scalar Base} \label{sec:format-LSU-ASMINUSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11010, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MIN Unsigned Scalar Base Offset}]{LSU Atomic Store and MIN Unsigned Scalar Base Offset} \label{sec:format-LSU-ASMINUSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11010, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MIN Unsigned Scalar Base Double Offset}]{LSU Atomic Store and MIN Unsigned Scalar Base Double Offset} \label{sec:format-LSU-ASMINUSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11010, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MAX Unsigned Scalar Base}]{LSU Atomic Store and MAX Unsigned Scalar Base} \label{sec:format-LSU-ASMAXUSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11011, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MAX Unsigned Scalar Base Offset}]{LSU Atomic Store and MAX Unsigned Scalar Base Offset} \label{sec:format-LSU-ASMAXUSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11011, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and MAX Unsigned Scalar Base Double Offset}]{LSU Atomic Store and MAX Unsigned Scalar Base Double Offset} \label{sec:format-LSU-ASMAXUSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11011, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and Decrement Unsigned Saturating Scalar Base}]{LSU Atomic Store and Decrement Unsigned Saturating Scalar Base} \label{sec:format-LSU-ASDUSSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and Decrement Unsigned Saturating Scalar Base Offset}]{LSU Atomic Store and Decrement Unsigned Saturating Scalar Base Offset} \label{sec:format-LSU-ASDUSSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Store and Decrement Unsigned Saturating Scalar Base Double Offset}]{LSU Atomic Store and Decrement Unsigned Saturating Scalar Base Double Offset} \label{sec:format-LSU-ASDUSSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerT, 2/11, 3/lsucode5, 1/--, 5/11110, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Compare and Swap Scalar Base}]{LSU Atomic Compare and Swap Scalar Base} \label{sec:format-LSU-ACSWAPSB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 6/registerW, 2/11, 3/lsucode5, 1/boolcas, 5/registerO, 1/1, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Compare and Swap Scalar Base Offset}]{LSU Atomic Compare and Swap Scalar Base Offset} \label{sec:format-LSU-ACSWAPSB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerW, 2/11, 3/lsucode5, 1/boolcas, 5/registerO, 1/1, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Compare and Swap Scalar Base Double Offset}]{LSU Atomic Compare and Swap Scalar Base Double Offset} \label{sec:format-LSU-ACSWAPSB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 6/registerW, 2/11, 3/lsucode5, 1/boolcas, 5/registerO, 1/1, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Compare and Swap Quadruple Base}]{LSU Atomic Compare and Swap Quadruple Base} \label{sec:format-LSU-ACSWAPQB}
+
+\bitfields{ 1/P, 2/01, 3/111, 2/coherency, 5/registerM, 1/0, 2/11, 3/lsucode5, 1/boolcas, 4/registerQ, 1/--, 1/1, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Compare and Swap Quadruple Base Offset}]{LSU Atomic Compare and Swap Quadruple Base Offset} \label{sec:format-LSU-ACSWAPQB.O}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 5/registerM, 1/0, 2/11, 3/lsucode5, 1/boolcas, 4/registerQ, 1/--, 1/1, 6/registerZ }
+
+
+\subsubsection[{\small LSU Atomic Compare and Swap Quadruple Base Double Offset}]{LSU Atomic Compare and Swap Quadruple Base Double Offset} \label{sec:format-LSU-ACSWAPQB.D}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/offset27, 1/1, 2/01, 3/111, 2/coherency, 5/registerM, 1/0, 2/11, 3/lsucode5, 1/boolcas, 4/registerQ, 1/--, 1/1, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word from Immediate}]{ALU Double Word from Immediate} \label{sec:format-ALU-DWI}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/00, 16/signed16 }
+
+
+\subsubsection[{\small ALU Double Word from Immediate Extended}]{ALU Double Word from Immediate Extended} \label{sec:format-ALU-DWI.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/00, 10/lower10, 6/extend6 }
+
+
+\subsubsection[{\small ALU Double Word from Immediate Extended Extended}]{ALU Double Word from Immediate Extended Extended} \label{sec:format-ALU-DWI.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/00, 10/lower10, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small ALU Double Word Write Read Immediate}]{ALU Double Word Write Read Immediate} \label{sec:format-ALU-DWRI}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/00, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Write Read Immediate Extended}]{ALU Double Word Write Read Immediate Extended} \label{sec:format-ALU-DWRI.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Write Read Immediate Extended Extended}]{ALU Double Word Write Read Immediate Extended Extended} \label{sec:format-ALU-DWRI.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/00, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small ALU Bit Field Write Read}]{ALU Bit Field Write Read} \label{sec:format-ALU-BFWR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/wricode1, 2/stopbit2, 6/registerW, 2/01, 4/stopbit4, 6/startbit, 6/registerZ }
+
+
+\subsubsection[{\small ALU Extension Double Word Splat To Octuple Word Immediate}]{ALU Extension Double Word Splat To Octuple Word Immediate} \label{sec:format-ALU-XSDOI}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerA, 2/01, 16/signed16 }
+
+
+\subsubsection[{\small ALU Extension Double Word Splat To Octuple Word Immediate Extended}]{ALU Extension Double Word Splat To Octuple Word Immediate Extended} \label{sec:format-ALU-XSDOI.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerA, 2/01, 10/lower10, 6/extend6 }
+
+
+\subsubsection[{\small ALU Extension Double Word Splat To Octuple Word Immediate Extended Extended}]{ALU Extension Double Word Splat To Octuple Word Immediate Extended Extended} \label{sec:format-ALU-XSDOI.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerA, 2/01, 10/lower10, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small ALU Extension Double Word Splat To Hexadecuple Word Immediate}]{ALU Extension Double Word Splat To Hexadecuple Word Immediate} \label{sec:format-ALU-XSDXI}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 5/registerAp, 1/0, 2/01, 16/signed16 }
+
+
+\subsubsection[{\small ALU Extension Double Word Splat To Hexadecuple Word Immediate Extended}]{ALU Extension Double Word Splat To Hexadecuple Word Immediate Extended} \label{sec:format-ALU-XSDXI.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 5/registerAp, 1/0, 2/01, 10/lower10, 6/extend6 }
+
+
+\subsubsection[{\small ALU Extension Double Word Splat To Hexadecuple Word Immediate Extended Extended}]{ALU Extension Double Word Splat To Hexadecuple Word Immediate Extended Extended} \label{sec:format-ALU-XSDXI.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 5/registerAp, 1/0, 2/01, 10/lower10, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small ALU Double Word Bit Matrix Multiply Immediate}]{ALU Double Word Bit Matrix Multiply Immediate} \label{sec:format-ALU-DBMWRI}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/01, 10/signed10, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Bit Matrix Multiply Immediate Extended}]{ALU Double Word Bit Matrix Multiply Immediate Extended} \label{sec:format-ALU-DBMWRI.X}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Bit Matrix Multiply Immediate Extended Extended}]{ALU Double Word Bit Matrix Multiply Immediate Extended Extended} \label{sec:format-ALU-DBMWRI.Y}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/01, 10/lower10, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Write Read Read 0}]{ALU Double Write Read Read 0} \label{sec:format-ALU-DWRR0}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/000, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Write Read Read 0 Magic}]{ALU Double Write Read Read 0 Magic} \label{sec:format-ALU-DWRR0.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/000, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Comparison Write Read Read}]{ALU Double Comparison Write Read Read} \label{sec:format-ALU-DCWRR}
+
+\bitfields{ 1/P, 2/S, 1/0, 4/intcomp, 6/registerW, 2/10, 3/001, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Comparison Write Read Read Wrapped}]{ALU Double Comparison Write Read Read Wrapped} \label{sec:format-ALU-DCWRR.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 1/0, 4/intcomp, 6/registerW, 2/10, 3/001, 1/0, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Bit Matrix Multiply EOR Write Read Read}]{ALU Bit Matrix Multiply EOR Write Read Read} \label{sec:format-ALU-DBMWRRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/001, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Bit Matrix Multiply EOR Write Read Read Magic}]{ALU Bit Matrix Multiply EOR Write Read Read Magic} \label{sec:format-ALU-DBMWRRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/001, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Bit Matrix Multiply Write Read Read}]{ALU Bit Matrix Multiply Write Read Read} \label{sec:format-ALU-DBMWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/001, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Bit Matrix Multiply Write Read Read Magic}]{ALU Bit Matrix Multiply Write Read Read Magic} \label{sec:format-ALU-DBMWRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/001, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Write Read Read 2}]{ALU Double Word Write Read Read 2} \label{sec:format-ALU-DWRR2}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/010, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Write Read Read Special}]{ALU Double Word Write Read Read Special} \label{sec:format-ALU-DWRRS}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/010, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Write Read Read Special Magic}]{ALU Double Word Write Read Read Special Magic} \label{sec:format-ALU-DWRRS.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/010, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Conditional Move Write Read Read}]{ALU Double Word Conditional Move Write Read Read} \label{sec:format-ALU-DCMWRR}
+
+\bitfields{ 1/P, 2/S, 1/0, 4/cmovecond, 6/registerW, 2/10, 3/011, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Conditional Move Write Read Read Magic}]{ALU Double Word Conditional Move Write Read Read Magic} \label{sec:format-ALU-DCMWRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 1/0, 4/cmovecond, 6/registerW, 2/10, 3/011, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Shift Rotate Write Read Read}]{ALU Double Shift Rotate Write Read Read} \label{sec:format-ALU-DSWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 1/0, 3/ex1, 6/registerW, 2/10, 3/100, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Shift Rotate Write Read Immediate}]{ALU Double Shift Rotate Write Read Immediate} \label{sec:format-ALU-DSWRI}
+
+\bitfields{ 1/P, 2/11, 1/0, 1/1, 3/ex1, 6/registerW, 2/10, 3/100, 1/0, 6/unsigned6, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Write Read Read 1}]{ALU Double Write Read Read 1} \label{sec:format-ALU-DWRR1}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/101, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Write Read Read 1 Magic}]{ALU Double Write Read Read 1 Magic} \label{sec:format-ALU-DWRR1.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/10, 3/101, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Division Modulus Write Read Read}]{ALU Double Word Division Modulus Write Read Read} \label{sec:format-ALU-DDMWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 5/registerM, 1/--, 2/10, 3/101, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Bit Write Read}]{ALU Double Word Bit Write Read} \label{sec:format-ALU-DBWR}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1111, 6/registerW, 2/10, 3/101, 1/0, 4/alucode8, 1/0, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Multiply Write Read Read}]{ALU Double Word Multiply Write Read Read} \label{sec:format-ALU-DMWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/highmult, 6/registerW, 2/10, 3/110, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Multiply Write Read Read Magic}]{ALU Double Word Multiply Write Read Read Magic} \label{sec:format-ALU-DMWRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/alucode2, 2/highmult, 6/registerW, 2/10, 3/110, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Multiply Write Read Read Read}]{ALU Double Word Multiply Write Read Read Read} \label{sec:format-ALU-DMWRRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/highmult, 6/registerW, 2/10, 3/110, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Multiply Write Read Read Read Magic}]{ALU Double Word Multiply Write Read Read Read Magic} \label{sec:format-ALU-DMWRRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/alucode2, 2/highmult, 6/registerW, 2/10, 3/110, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Multiply Extend Write Read Read}]{ALU Double Word Multiply Extend Write Read Read} \label{sec:format-ALU-DMEWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/widemult, 6/registerW, 2/10, 3/111, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Multiply Extend Write Read Read Magic}]{ALU Double Word Multiply Extend Write Read Read Magic} \label{sec:format-ALU-DMEWRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/alucode2, 2/widemult, 6/registerW, 2/10, 3/111, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Multiply Extend Write Read Read Read}]{ALU Double Word Multiply Extend Write Read Read Read} \label{sec:format-ALU-DMEWRRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/widemult, 6/registerW, 2/10, 3/111, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Multiply Extend Write Read Read Read Magic}]{ALU Double Word Multiply Extend Write Read Read Read Magic} \label{sec:format-ALU-DMEWRRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/alucode2, 2/widemult, 6/registerW, 2/10, 3/111, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Quadruple Write Read Read 0}]{ALU Word Quadruple Write Read Read 0} \label{sec:format-ALU-QWRR0}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 5/registerM, 1/--, 2/10, 3/000, 1/1, 5/registerO, 1/--, 5/registerP, 1/-- }
+
+
+\subsubsection[{\small ALU Word Quadruple Write Read Read 0 Magic}]{ALU Word Quadruple Write Read Read 0 Magic} \label{sec:format-ALU-QWRR0.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 5/registerM, 1/--, 2/10, 3/000, 1/1, 1/splat32, 5/lower5, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Double Word Comparison Write Read Read}]{ALU Double Word Comparison Write Read Read} \label{sec:format-ALU-QCWRR}
+
+\bitfields{ 1/P, 2/S, 1/0, 4/intcomp, 5/registerM, 1/--, 2/10, 3/001, 1/1, 5/registerO, 1/--, 5/registerP, 1/-- }
+
+
+\subsubsection[{\small ALU Double Word Move To Extension 0}]{ALU Double Word Move To Extension 0} \label{sec:format-ALU-XMOVETD0}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/00, 6/registerAx, 2/10, 3/alucode3, 1/1, 6/-- -- -- -- -- --, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Move To Extension 1}]{ALU Double Word Move To Extension 1} \label{sec:format-ALU-XMOVETD1}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/01, 6/registerAy, 2/10, 3/alucode3, 1/1, 6/-- -- -- -- -- --, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Move To Extension 2}]{ALU Double Word Move To Extension 2} \label{sec:format-ALU-XMOVETD2}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/10, 6/registerAz, 2/10, 3/alucode3, 1/1, 6/-- -- -- -- -- --, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Move To Extension 3}]{ALU Double Word Move To Extension 3} \label{sec:format-ALU-XMOVETD3}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/11, 6/registerAt, 2/10, 3/alucode3, 1/1, 6/-- -- -- -- -- --, 6/registerZ }
+
+
+\subsubsection[{\small ALU Quadruple Word Move To Extension 0}]{ALU Quadruple Word Move To Extension 0} \label{sec:format-ALU-XMOVETQ0}
+
+\bitfields{ 1/P, 2/11, 1/0, 3/110, 1/0, 6/registerAE, 2/10, 3/alucode3, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Quadruple Word Move To Extension 1}]{ALU Quadruple Word Move To Extension 1} \label{sec:format-ALU-XMOVETQ1}
+
+\bitfields{ 1/P, 2/11, 1/0, 3/110, 1/1, 6/registerAO, 2/10, 3/alucode3, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Octuple Move To Extension}]{ALU Word Octuple Move To Extension} \label{sec:format-ALU-XMOVETO}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1110, 6/registerA, 2/10, 3/alucode3, 1/1, 5/registerO, 1/--, 5/registerP, 1/-- }
+
+
+\subsubsection[{\small ALU Catenate Double to Quadruple Word}]{ALU Catenate Double to Quadruple Word} \label{sec:format-ALU-CATDQ}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 5/registerM, 1/--, 2/10, 3/010, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Quadruple Word Conditional Move Write Read Read}]{ALU Quadruple Word Conditional Move Write Read Read} \label{sec:format-ALU-QCMWRR}
+
+\bitfields{ 1/P, 2/S, 1/0, 4/cmovecond, 5/registerM, 1/--, 2/10, 3/011, 1/1, 5/registerO, 1/--, 6/registerZ }
+
+
+\subsubsection[{\small ALU Quadruple Word Bit Write Read}]{ALU Quadruple Word Bit Write Read} \label{sec:format-ALU-QBWR}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1111, 5/registerM, 1/--, 2/10, 3/101, 1/1, 4/alucode8, 1/0, 1/0, 5/registerP, 1/-- }
+
+
+\subsubsection[{\small ALU Word Quadruple Multiply Extend Write Read Read}]{ALU Word Quadruple Multiply Extend Write Read Read} \label{sec:format-ALU-QMEWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/widemult, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Quadruple Multiply Extend Write Read Read Read}]{ALU Word Quadruple Multiply Extend Write Read Read Read} \label{sec:format-ALU-QMEWRRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/widemult, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Write Read Read 0}]{ALU Word Write Read Read 0} \label{sec:format-ALU-WWRR0}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/000, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Write Read Read 0 Wrapped}]{ALU Word Write Read Read 0 Wrapped} \label{sec:format-ALU-WWRR0.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/000, 1/signextw, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Comparison Write Read Read}]{ALU Word Comparison Write Read Read} \label{sec:format-ALU-WCWRR}
+
+\bitfields{ 1/P, 2/S, 1/0, 4/intcomp, 6/registerW, 2/11, 3/001, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Comparison Write Read Read Wrapped}]{ALU Word Comparison Write Read Read Wrapped} \label{sec:format-ALU-WCWRR.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/S, 1/0, 4/intcomp, 6/registerW, 2/11, 3/001, 1/signextw, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Average}]{ALU Word Average} \label{sec:format-ALU-WAVG}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/001, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Average Wrapped}]{ALU Word Average Wrapped} \label{sec:format-ALU-WAVG.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/001, 1/signextw, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Write Read Read 2}]{ALU Word Write Read Read 2} \label{sec:format-ALU-WWRR2}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/010, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word CRC Write Read Read Read}]{ALU Word CRC Write Read Read Read} \label{sec:format-ALU-WCWRRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/010, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word CRC Write Read Read Read Wrapped}]{ALU Word CRC Write Read Read Read Wrapped} \label{sec:format-ALU-WCWRRR.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/010, 1/1, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Write Read Read Special}]{ALU Word Write Read Read Special} \label{sec:format-ALU-WWRRS}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/010, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Write Read Read Special Magic}]{ALU Word Write Read Read Special Magic} \label{sec:format-ALU-WWRRS.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/010, 1/signextw, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Conditional Move Write Read Read}]{ALU Word Conditional Move Write Read Read} \label{sec:format-ALU-WCMWRR}
+
+\bitfields{ 1/P, 2/S, 1/0, 4/cmovecond, 6/registerW, 2/11, 3/011, 1/--, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Shift Rotate Write Read Read}]{ALU Word Shift Rotate Write Read Read} \label{sec:format-ALU-WSWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 1/0, 3/ex1, 6/registerW, 2/11, 3/100, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Shift Rotate Write Read Immediate}]{ALU Word Shift Rotate Write Read Immediate} \label{sec:format-ALU-WSWRI}
+
+\bitfields{ 1/P, 2/11, 1/0, 1/1, 3/ex1, 6/registerW, 2/11, 3/100, 1/signextw, 6/unsigned6, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Write Read Read 1}]{ALU Word Write Read Read 1} \label{sec:format-ALU-WWRR1}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/101, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Write Read Read 1 Wrapped}]{ALU Word Write Read Read 1 Wrapped} \label{sec:format-ALU-WWRR1.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/ex2, 6/registerW, 2/11, 3/101, 1/signextw, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Division Modulus Write Read Read}]{ALU Word Division Modulus Write Read Read} \label{sec:format-ALU-WDMWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/ex2, 5/registerM, 1/--, 2/11, 3/101, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Bit Write Read}]{ALU Word Bit Write Read} \label{sec:format-ALU-BWRW}
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1111, 6/registerW, 2/11, 3/101, 1/signextw, 4/alucode8, 1/0, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Multiply Write Read Read}]{ALU Word Multiply Write Read Read} \label{sec:format-ALU-WMWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/highmult, 6/registerW, 2/11, 3/110, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Multiply Write Read Read Wrapped}]{ALU Word Multiply Write Read Read Wrapped} \label{sec:format-ALU-WMWRR.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/alucode2, 2/highmult, 6/registerW, 2/11, 3/110, 1/signextw, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Multiply Write Read Read Read}]{ALU Word Multiply Write Read Read Read} \label{sec:format-ALU-WMWRRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/highmult, 6/registerW, 2/11, 3/110, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Multiply Write Read Read Read Wrapped}]{ALU Word Multiply Write Read Read Read Wrapped} \label{sec:format-ALU-WMWRRR.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/alucode2, 2/highmult, 6/registerW, 2/11, 3/110, 1/signextw, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Multiply Extend Write Read Read}]{ALU Word Multiply Extend Write Read Read} \label{sec:format-ALU-WMEWRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/widemult, 6/registerW, 2/11, 3/111, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Multiply Extend Write Read Read Magic}]{ALU Word Multiply Extend Write Read Read Magic} \label{sec:format-ALU-WMEWRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/alucode2, 2/widemult, 6/registerW, 2/11, 3/111, 1/signextw, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Multiply Extend Write Read Read Read}]{ALU Word Multiply Extend Write Read Read Read} \label{sec:format-ALU-WMEWRRR}
+
+\bitfields{ 1/P, 2/11, 1/0, 2/alucode2, 2/widemult, 6/registerW, 2/11, 3/111, 1/signextw, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Word Multiply Extend Write Read Read Read Magic}]{ALU Word Multiply Extend Write Read Read Read Magic} \label{sec:format-ALU-WMEWRRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/alucode2, 2/widemult, 6/registerW, 2/11, 3/111, 1/signextw, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Add Subtract}]{ALU Floating-Point Double Word Add Subtract} \label{sec:format-ALU-FDADD}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatmode, 6/registerW, 2/00, 3/alucode3, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Comparison Write Read Read}]{ALU Floating-Point Double Word Comparison Write Read Read} \label{sec:format-ALU-FDCWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatcomp, 6/registerW, 2/00, 3/alucode3, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Comparison Write Read Read Wrapped}]{ALU Floating-Point Double Word Comparison Write Read Read Wrapped} \label{sec:format-ALU-FDCWRR.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/0, 3/floatcomp, 6/registerW, 2/00, 3/alucode3, 1/0, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Min/Max Write Read}]{ALU Floating-Point Double Word Min/Max Write Read} \label{sec:format-ALU-FDMMWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/00, 3/000, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Operations 1}]{ALU Floating-Point Double Word Operations 1} \label{sec:format-ALU-FDMO1}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 6/registerW, 2/00, 3/000, 1/0, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Widen from Word}]{ALU Floating-Point Double Word Widen from Word} \label{sec:format-ALU-FDWIDEN}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 6/registerW, 2/00, 3/000, 1/0, 4/fpucode6, 1/mostsig, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Convert to Floating-Point}]{ALU Floating-Point Double Word Convert to Floating-Point} \label{sec:format-ALU-FDFLOAT}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/00, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Convert to Fixed-Point}]{ALU Floating-Point Double Word Convert to Fixed-Point} \label{sec:format-ALU-FDFIXED}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/00, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Monadic 0}]{ALU Floating-Point Double Word Monadic 0} \label{sec:format-ALU-FDMO0}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/00, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Write Read}]{ALU Floating-Point Double Word Write Read} \label{sec:format-ALU-DWWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/00, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 5/registerP, 1/-- }
+
+
+\subsubsection[{\small ALU Floating-Point Word Pair Operations 1}]{ALU Floating-Point Word Pair Operations 1} \label{sec:format-ALU-FWPMO1}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 6/registerW, 2/00, 3/000, 1/0, 4/fpucode6, 1/--, 1/1, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Pair Convert to Floating-Point}]{ALU Floating-Point Word Pair Convert to Floating-Point} \label{sec:format-ALU-FWPFLOAT}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/00, 3/001, 1/0, 4/fpucode6, 1/--, 1/1, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Pair Convert to Fixed-Point}]{ALU Floating-Point Word Pair Convert to Fixed-Point} \label{sec:format-ALU-FWPFIXED}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/00, 3/001, 1/0, 4/fpucode6, 1/--, 1/1, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Fused Multiply Accumulate}]{ALU Floating-Point Double Word Fused Multiply Accumulate} \label{sec:format-ALU-FDFMA}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 6/registerW, 2/00, 3/alucode3, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Multiply}]{ALU Floating-Point Double Word Multiply} \label{sec:format-ALU-FDMUL}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 6/registerW, 2/00, 3/alucode3, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Complex Operations}]{ALU Floating-Point Word Complex Operations} \label{sec:format-ALU-FWCOP}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/imultiply, 3/floatmode, 6/registerW, 2/00, 2/alucode6, 1/conjugate, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Add Subtract}]{ALU Floating-Point Word Add Subtract} \label{sec:format-ALU-FWADD}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatmode, 6/registerW, 2/01, 3/alucode3, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Comparison Write Read Read}]{ALU Floating-Point Word Comparison Write Read Read} \label{sec:format-ALU-FWCWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatcomp, 6/registerW, 2/01, 3/alucode3, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Comparison Write Read Read Wrapped}]{ALU Floating-Point Word Comparison Write Read Read Wrapped} \label{sec:format-ALU-FWCWRR.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/0, 3/floatcomp, 6/registerW, 2/01, 3/alucode3, 1/0, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating Point Word Min/Max Write Read}]{ALU Floating Point Word Min/Max Write Read} \label{sec:format-ALU-FWMMWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/000, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Operations 1}]{ALU Floating-Point Word Operations 1} \label{sec:format-ALU-FWMO1}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 6/registerW, 2/01, 3/000, 1/0, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Widen from Half Word}]{ALU Floating-Point Word Widen from Half Word} \label{sec:format-ALU-FWWIDEN}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 6/registerW, 2/01, 3/000, 1/0, 4/fpucode6, 1/mostsig, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Convert to Floating-Point}]{ALU Floating-Point Word Convert to Floating-Point} \label{sec:format-ALU-FWFLOAT}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Convert to Fixed-Point}]{ALU Floating-Point Word Convert to Fixed-Point} \label{sec:format-ALU-FWFIXED}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Monadic 0}]{ALU Floating-Point Word Monadic 0} \label{sec:format-ALU-FWMO0}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Write Read}]{ALU Floating-Point Word Write Read} \label{sec:format-ALU-FWWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Fused Multiply Accumulate}]{ALU Floating-Point Word Fused Multiply Accumulate} \label{sec:format-ALU-FWFMA}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 6/registerW, 2/01, 3/alucode3, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Multiply}]{ALU Floating-Point Word Multiply} \label{sec:format-ALU-FWMUL}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 6/registerW, 2/01, 3/alucode3, 1/0, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Add Subtract}]{ALU Floating-Point Half Word Add Subtract} \label{sec:format-ALU-FHADD}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatmode, 6/registerW, 2/01, 3/alucode3, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Comparison Write Read Read}]{ALU Floating-Point Half Word Comparison Write Read Read} \label{sec:format-ALU-FHCWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatcomp, 6/registerW, 2/01, 3/alucode3, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Comparison Write Read Read Wrapped}]{ALU Floating-Point Half Word Comparison Write Read Read Wrapped} \label{sec:format-ALU-FHCWRR.W}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/0, 3/floatcomp, 6/registerW, 2/01, 3/alucode3, 1/1, 1/0, 5/lower5, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Min/Max Write Read}]{ALU Floating Point Half Word Min/Max Write Read} \label{sec:format-ALU-FHMMWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/011, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Monadic 1}]{ALU Floating-Point Half Word Monadic 1} \label{sec:format-ALU-FHMO1}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 6/registerW, 2/01, 3/000, 1/1, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Widen from Byte}]{ALU Floating-Point Half Word Widen from Byte} \label{sec:format-ALU-FHWIDEN}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 6/registerW, 2/01, 3/000, 1/1, 4/fpucode6, 1/mostsig, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Convert to Floating-Point}]{ALU Floating-Point Word Convert to Floating-Point} \label{sec:format-ALU-FHFLOAT}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Word Convert to Fixed-Point}]{ALU Floating-Point Word Convert to Fixed-Point} \label{sec:format-ALU-FHFIXED}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Monadic 0}]{ALU Floating-Point Half Word Monadic 0} \label{sec:format-ALU-FHMO0}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Write Read}]{ALU Floating-Point Half Word Write Read} \label{sec:format-ALU-FHWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/01, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Fused Multiply Accumulate}]{ALU Floating-Point Half Word Fused Multiply Accumulate} \label{sec:format-ALU-FHFMA}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 6/registerW, 2/01, 3/alucode3, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Multiply}]{ALU Floating-Point Half Word Multiply} \label{sec:format-ALU-FHMUL}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 6/registerW, 2/01, 3/alucode3, 1/1, 6/registerY, 6/registerZ }
+
+
+\subsubsection[{\small ALU Double Word Pair Write Read Read 0}]{ALU Double Word Pair Write Read Read 0} \label{sec:format-ALU-DPWRR0}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/000, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Write Read Read 0 Magic}]{ALU Double Word Pair Write Read Read 0 Magic} \label{sec:format-ALU-DPWRR0.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/000, 1/0, 1/splat32, 5/lower5, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Comparison Write Read Read}]{ALU Double Word Pair Comparison Write Read Read} \label{sec:format-ALU-DPCWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 6/registerW, 2/10, 3/alucode3, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Comparison Write Read Read Magic}]{ALU Double Word Pair Comparison Write Read Read Magic} \label{sec:format-ALU-DPCWRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 6/registerW, 2/10, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair SBMM EOR}]{ALU Double Word Pair SBMM EOR} \label{sec:format-ALU-DPSBMME}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/001, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair SBMM EOR Magic}]{ALU Double Word Pair SBMM EOR Magic} \label{sec:format-ALU-DPSBMME.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/001, 1/0, 1/splat32, 5/lower5, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair SBMM}]{ALU Double Word Pair SBMM} \label{sec:format-ALU-DPSBMM}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/001, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair SBMM Magic}]{ALU Double Word Pair SBMM Magic} \label{sec:format-ALU-DPSBMM.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/001, 1/0, 1/splat32, 5/lower5, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Comparison Negate Write Read Read Even}]{ALU Double Word Comparison Negate Write Read Read Even} \label{sec:format-ALU-DCNWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/0, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Comparison Negate Write Read Read Odd}]{ALU Double Word Comparison Negate Write Read Read Odd} \label{sec:format-ALU-DCNWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/0, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Comparison Negate Write Read Read Even Magic}]{ALU Double Word Comparison Negate Write Read Read Even Magic} \label{sec:format-ALU-DCNWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Comparison Negate Write Read Read Odd Magic}]{ALU Double Word Comparison Negate Write Read Read Odd Magic} \label{sec:format-ALU-DCNWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Write Read Read Special}]{ALU Double Word Pair Write Read Read Special} \label{sec:format-ALU-DPWRRS}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/010, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Write Read Read Special Magic}]{ALU Double Word Pair Write Read Read Special Magic} \label{sec:format-ALU-DPWRRS.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/010, 1/0, 1/splat32, 5/lower5, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Conditional Move Write Read Read}]{ALU Double Word Pair Conditional Move Write Read Read} \label{sec:format-ALU-DPCMWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerM, 1/--, 2/10, 3/011, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Conditional Move Write Read Read Magic}]{ALU Double Word Pair Conditional Move Write Read Read Magic} \label{sec:format-ALU-DPCMWRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerM, 1/--, 2/10, 3/011, 1/0, 1/splat32, 5/lower5, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Shift Rotate Write Read Read}]{ALU Double Word Pair Shift Rotate Write Read Read} \label{sec:format-ALU-DPSWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/ex1, 5/registerM, 1/--, 2/10, 3/100, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Shift Rotate Write Read Immediate}]{ALU Double Word Pair Shift Rotate Write Read Immediate} \label{sec:format-ALU-DPSWRI}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/ex1, 5/registerM, 1/--, 2/10, 3/100, 1/0, 6/unsigned6, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Write Read Read 1}]{ALU Double Word Pair Write Read Read 1} \label{sec:format-ALU-DPWRR1}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/101, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Write Read Read 1 Magic}]{ALU Double Word Pair Write Read Read 1 Magic} \label{sec:format-ALU-DPWRR1.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerM, 1/--, 2/10, 3/101, 1/0, 1/splat32, 5/lower5, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Bit Write Read}]{ALU Double Word Pair Bit Write Read} \label{sec:format-ALU-DPBWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/--, 2/10, 3/101, 1/0, 4/alucode8, 1/--, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Narrow Write Read Read}]{ALU Double Word Pair Narrow Write Read Read} \label{sec:format-ALU-DPNWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/--, 2/10, 3/101, 1/0, 4/alucode8, 1/ziplanes, 1/0, 4/registerR, 1/--, 1/0 }
+
+
+\subsubsection[{\small ALU Word Pair Widen Lanes Write Read}]{ALU Word Pair Widen Lanes Write Read} \label{sec:format-ALU-DPWIDEWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/--, 2/10, 3/101, 1/0, 4/alucode8, 1/mostsig, 1/1, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Word Pair Extend Lanes Write Read}]{ALU Word Pair Extend Lanes Write Read} \label{sec:format-ALU-DPEXTLWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/oddlanes, 2/10, 3/101, 1/0, 4/alucode8, 1/--, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Multiply Write Read Read}]{ALU Double Word Pair Multiply Write Read Read} \label{sec:format-ALU-DPMWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerM, 1/--, 2/10, 3/110, 1/0, 5/registerO, 1/0, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Multiply Write Read Read Read}]{ALU Double Word Pair Multiply Write Read Read Read} \label{sec:format-ALU-DPMWRRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerM, 1/--, 2/10, 3/110, 1/0, 5/registerO, 1/0, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Multiply Extend Write Read Read Even}]{ALU Double Word Pair Multiply Extend Write Read Read Even} \label{sec:format-ALU-DPMEWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/0, 2/10, 3/110, 1/0, 5/registerYe, 1/1, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Multiply Extend Write Read Read Odd}]{ALU Double Word Pair Multiply Extend Write Read Read Odd} \label{sec:format-ALU-DPMEWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/1, 2/10, 3/110, 1/0, 5/registerYo, 1/1, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Multiply Extend Write Read Read Read Even}]{ALU Double Word Pair Multiply Extend Write Read Read Read Even} \label{sec:format-ALU-DPMEWRRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/0, 2/10, 3/110, 1/0, 5/registerYe, 1/1, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Multiply Extend Write Read Read Read Odd}]{ALU Double Word Pair Multiply Extend Write Read Read Read Odd} \label{sec:format-ALU-DPMEWRRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/1, 2/10, 3/110, 1/0, 5/registerYo, 1/1, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Multiply Extend Write Read Read}]{ALU Double Word Pair Multiply Extend Write Read Read} \label{sec:format-ALU-DPMXWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/oddlanes, 2/10, 3/111, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Double Word Pair Multiply Extend Write Read Read Read}]{ALU Double Word Pair Multiply Extend Write Read Read Read} \label{sec:format-ALU-DPMXWRRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/oddlanes, 2/10, 3/111, 1/0, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read 0 Even}]{ALU Word Pair Write Read Read 0 Even} \label{sec:format-ALU-WPWRR0E}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/000, 1/0, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read 0 Odd}]{ALU Word Pair Write Read Read 0 Odd} \label{sec:format-ALU-WPWRR0O}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/000, 1/0, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read 0 Even Magic}]{ALU Word Pair Write Read Read 0 Even Magic} \label{sec:format-ALU-WPWRR0E.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/000, 1/0, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read 0 Odd Magic}]{ALU Word Pair Write Read Read 0 Odd Magic} \label{sec:format-ALU-WPWRR0O.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/000, 1/0, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Comparison Write Read Read Even}]{ALU Word Pair Comparison Write Read Read Even} \label{sec:format-ALU-WPCWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/0, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Comparison Write Read Read Odd}]{ALU Word Pair Comparison Write Read Read Odd} \label{sec:format-ALU-WPCWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/0, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Comparison Write Read Read Even Magic}]{ALU Word Pair Comparison Write Read Read Even Magic} \label{sec:format-ALU-WPCWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Comparison Write Read Read Odd Magic}]{ALU Word Pair Comparison Write Read Read Odd Magic} \label{sec:format-ALU-WPCWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Average Even}]{ALU Word Pair Average Even} \label{sec:format-ALU-WPAVGE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/001, 1/0, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Average Odd}]{ALU Word Pair Average Odd} \label{sec:format-ALU-WPAVGO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/001, 1/0, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Average Even Magic}]{ALU Word Pair Average Even Magic} \label{sec:format-ALU-WPAVGE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/001, 1/0, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Quadruple Average Odd Magic}]{ALU Word Quadruple Average Odd Magic} \label{sec:format-ALU-WPAVGO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/001, 1/0, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Comparison Negate Write Read Read Even}]{ALU Word Pair Comparison Negate Write Read Read Even} \label{sec:format-ALU-WPCNWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/0, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Comparison Negate Write Read Read Odd}]{ALU Word Pair Comparison Negate Write Read Read Odd} \label{sec:format-ALU-WPCNWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/0, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Comparison Negate Write Read Read Even Magic}]{ALU Word Pair Comparison Negate Write Read Read Even Magic} \label{sec:format-ALU-WPCNWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Comparison Negate Write Read Read Odd Magic}]{ALU Word Pair Comparison Negate Write Read Read Odd Magic} \label{sec:format-ALU-WPCNWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read Special Even}]{ALU Word Pair Write Read Read Special Even} \label{sec:format-ALU-WPWRRSE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/010, 1/0, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read Special Odd}]{ALU Word Pair Write Read Read Special Odd} \label{sec:format-ALU-WPWRRSO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/010, 1/0, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read Special Even Magic}]{ALU Word Pair Write Read Read Special Even Magic} \label{sec:format-ALU-WPWRRSE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/010, 1/0, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read Special Odd Magic}]{ALU Word Pair Write Read Read Special Odd Magic} \label{sec:format-ALU-WPWRRSO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/010, 1/0, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Conditional Move Write Read Read Even}]{ALU Word Pair Conditional Move Write Read Read Even} \label{sec:format-ALU-WPCMWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWe, 1/0, 2/10, 3/011, 1/0, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Conditional Move Write Read Read Odd}]{ALU Word Pair Conditional Move Write Read Read Odd} \label{sec:format-ALU-WPCMWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWo, 1/1, 2/10, 3/011, 1/0, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Conditional Move Write Read Read Even Magic}]{ALU Word Pair Conditional Move Write Read Read Even Magic} \label{sec:format-ALU-WPCMWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWe, 1/0, 2/10, 3/011, 1/0, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Conditional Move Write Read Read Odd Magic}]{ALU Word Pair Conditional Move Write Read Read Odd Magic} \label{sec:format-ALU-WPCMWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWo, 1/1, 2/10, 3/011, 1/0, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Shift Rotate Write Read Read Even}]{ALU Word Pair Shift Rotate Write Read Read Even} \label{sec:format-ALU-WPSWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/ex1, 5/registerWe, 1/0, 2/10, 3/100, 1/0, 6/registerY, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Shift Rotate Write Read Read Odd}]{ALU Word Pair Shift Rotate Write Read Read Odd} \label{sec:format-ALU-WPSWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/ex1, 5/registerWo, 1/1, 2/10, 3/100, 1/0, 6/registerY, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Shift Rotate Write Read Immediate Even}]{ALU Word Pair Shift Rotate Write Read Immediate Even} \label{sec:format-ALU-WPSWRIE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/ex1, 5/registerWe, 1/0, 2/10, 3/100, 1/0, 6/unsigned6, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Shift Rotate Write Read Immediate Odd}]{ALU Word Pair Shift Rotate Write Read Immediate Odd} \label{sec:format-ALU-WPSWRIO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/ex1, 5/registerWo, 1/1, 2/10, 3/100, 1/0, 6/unsigned6, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read 1 Even}]{ALU Word Pair Write Read Read 1 Even} \label{sec:format-ALU-WPWRR1E}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/101, 1/0, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read 1 Odd}]{ALU Word Pair Write Read Read 1 Odd} \label{sec:format-ALU-WPWRR1O}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/101, 1/0, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read 1 Even Magic}]{ALU Word Pair Write Read Read 1 Even Magic} \label{sec:format-ALU-WPWRR1E.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/101, 1/0, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Write Read Read 1 Odd Magic}]{ALU Word Pair Write Read Read 1 Odd Magic} \label{sec:format-ALU-WPWRR1O.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/101, 1/0, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Bit Write Read Even}]{ALU Word Pair Bit Write Read Even} \label{sec:format-ALU-WPBWRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerWe, 1/0, 2/10, 3/101, 1/0, 4/alucode8, 1/--, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Bit Write Read Odd}]{ALU Word Pair Bit Write Read Odd} \label{sec:format-ALU-WPBWRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerWo, 1/1, 2/10, 3/101, 1/0, 4/alucode8, 1/--, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Narrow Write Read Read}]{ALU Word Pair Narrow Write Read Read} \label{sec:format-ALU-WPNWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 6/registerW, 2/10, 3/101, 1/0, 4/alucode8, 1/--, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Word Quadruple Widen Lanes Write Read}]{ALU Word Quadruple Widen Lanes Write Read} \label{sec:format-ALU-WQWIDEWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/--, 2/10, 3/101, 1/0, 4/alucode8, 1/mostsig, 1/1, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Word Quadruple Extend Lanes Write Read}]{ALU Word Quadruple Extend Lanes Write Read} \label{sec:format-ALU-WQEXTLWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/oddlanes, 2/10, 3/101, 1/0, 4/alucode8, 1/--, 1/--, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Multiply Write Read Read Even}]{ALU Word Pair Multiply Write Read Read Even} \label{sec:format-ALU-WPMWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerWe, 1/0, 2/10, 3/110, 1/0, 5/registerYe, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Multiply Write Read Read Odd}]{ALU Word Pair Multiply Write Read Read Odd} \label{sec:format-ALU-WPMWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerWo, 1/1, 2/10, 3/110, 1/0, 5/registerYo, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Multiply Write Read Read Read Even}]{ALU Word Pair Multiply Write Read Read Read Even} \label{sec:format-ALU-WPMWRRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerWe, 1/0, 2/10, 3/110, 1/0, 5/registerYe, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Pair Multiply Write Read Read Read Odd}]{ALU Word Pair Multiply Write Read Read Read Odd} \label{sec:format-ALU-WPMWRRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerWo, 1/1, 2/10, 3/110, 1/0, 5/registerYo, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Quadruple Multiply Extend Write Read Read Even}]{ALU Word Quadruple Multiply Extend Write Read Read Even} \label{sec:format-ALU-WQMEWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/0, 2/10, 3/110, 1/0, 5/registerYe, 1/1, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Quadruple Multiply Extend Write Read Read Odd}]{ALU Word Quadruple Multiply Extend Write Read Read Odd} \label{sec:format-ALU-WQMEWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/1, 2/10, 3/110, 1/0, 5/registerYo, 1/1, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Quadruple Multiply Extend Write Read Read Read Even}]{ALU Word Quadruple Multiply Extend Write Read Read Read Even} \label{sec:format-ALU-WQMEWRRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/0, 2/10, 3/110, 1/0, 5/registerYe, 1/1, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Word Quadruple Multiply Extend Write Read Read Read Odd}]{ALU Word Quadruple Multiply Extend Write Read Read Read Odd} \label{sec:format-ALU-WQMEWRRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/1, 2/10, 3/110, 1/0, 5/registerYo, 1/1, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Word Quadruple Multiply Extend Write Read Read}]{ALU Word Quadruple Multiply Extend Write Read Read} \label{sec:format-ALU-WQMXWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/oddlanes, 2/10, 3/111, 1/0, 5/registerO, 1/--, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Word Quadruple Multiply Extend Write Read Read Read}]{ALU Word Quadruple Multiply Extend Write Read Read Read} \label{sec:format-ALU-WQMXWRRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/oddlanes, 2/10, 3/111, 1/0, 5/registerO, 1/--, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read 0 Even}]{ALU Half Word Quadruple Write Read Read 0 Even} \label{sec:format-ALU-HQWRR0E}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/000, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read 0 Odd}]{ALU Half Word Quadruple Write Read Read 0 Odd} \label{sec:format-ALU-HQWRR0O}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/000, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read 0 Even Magic}]{ALU Half Word Quadruple Write Read Read 0 Even Magic} \label{sec:format-ALU-HQWRR0E.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/000, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read 0 Odd Magic}]{ALU Half Word Quadruple Write Read Read 0 Odd Magic} \label{sec:format-ALU-HQWRR0O.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/000, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Comparison Write Read Read Even}]{ALU Half Word Quadruple Comparison Write Read Read Even} \label{sec:format-ALU-HQCWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Comparison Write Read Read Odd}]{ALU Half Word Quadruple Comparison Write Read Read Odd} \label{sec:format-ALU-HQCWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Comparison Write Read Read Even Magic}]{ALU Half Word Quadruple Comparison Write Read Read Even Magic} \label{sec:format-ALU-HQCWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Comparison Write Read Read Odd Magic}]{ALU Half Word Quadruple Comparison Write Read Read Odd Magic} \label{sec:format-ALU-HQCWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Average Even}]{ALU Half Word Quadruple Average Even} \label{sec:format-ALU-HQAVGE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/001, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Average Odd}]{ALU Half Word Quadruple Average Odd} \label{sec:format-ALU-HQAVGO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/001, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Average Even Magic}]{ALU Half Word Quadruple Average Even Magic} \label{sec:format-ALU-HQAVGE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/001, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Average Odd Magic}]{ALU Half Word Quadruple Average Odd Magic} \label{sec:format-ALU-HQAVGO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/001, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Comparison Negate Write Read Read Even}]{ALU Half Word Quadruple Comparison Negate Write Read Read Even} \label{sec:format-ALU-HQCNWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Comparison Negate Write Read Read Odd}]{ALU Half Word Quadruple Comparison Negate Write Read Read Odd} \label{sec:format-ALU-HQCNWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Comparison Negate Write Read Read Even Magic}]{ALU Half Word Quadruple Comparison Negate Write Read Read Even Magic} \label{sec:format-ALU-HQCNWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Comparison Negate Write Read Read Odd Magic}]{ALU Half Word Quadruple Comparison Negate Write Read Read Odd Magic} \label{sec:format-ALU-HQCNWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read Special Even}]{ALU Half Word Quadruple Write Read Read Special Even} \label{sec:format-ALU-HQWRRSE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/010, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read Special Odd}]{ALU Half Word Quadruple Write Read Read Special Odd} \label{sec:format-ALU-HQWRRSO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/010, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Write Read Read Special Even Magic}]{ALU Half Word Octuple Write Read Read Special Even Magic} \label{sec:format-ALU-HQWRRSE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/010, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Write Read Read Special Odd Magic}]{ALU Half Word Octuple Write Read Read Special Odd Magic} \label{sec:format-ALU-HQWRRSO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/010, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Conditional Move Write Read Read Even}]{ALU Half Word Quadruple Conditional Move Write Read Read Even} \label{sec:format-ALU-HQCMWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWe, 1/0, 2/10, 3/011, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Conditional Move Write Read Read Odd}]{ALU Half Word Quadruple Conditional Move Write Read Read Odd} \label{sec:format-ALU-HQCMWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWo, 1/1, 2/10, 3/011, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Conditional Move Write Read Read Even Magic}]{ALU Half Word Quadruple Conditional Move Write Read Read Even Magic} \label{sec:format-ALU-HQCMWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWe, 1/0, 2/10, 3/011, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Conditional Move Write Read Read Odd Magic}]{ALU Half Word Quadruple Conditional Move Write Read Read Odd Magic} \label{sec:format-ALU-HQCMWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWo, 1/1, 2/10, 3/011, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Shift Rotate Write Read Read Even}]{ALU Half Word Quadruple Shift Rotate Write Read Read Even} \label{sec:format-ALU-HQSWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/ex1, 5/registerWe, 1/0, 2/10, 3/100, 1/1, 6/registerY, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Shift Rotate Write Read Read Odd}]{ALU Half Word Quadruple Shift Rotate Write Read Read Odd} \label{sec:format-ALU-HQSWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/ex1, 5/registerWo, 1/1, 2/10, 3/100, 1/1, 6/registerY, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Shift Rotate Write Read Immediate Even}]{ALU Half Word Quadruple Shift Rotate Write Read Immediate Even} \label{sec:format-ALU-HQSWRIE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/ex1, 5/registerWe, 1/0, 2/10, 3/100, 1/1, 6/unsigned6, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Shift Rotate Write Read Immediate Odd}]{ALU Half Word Quadruple Shift Rotate Write Read Immediate Odd} \label{sec:format-ALU-HQSWRIO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/ex1, 5/registerWo, 1/1, 2/10, 3/100, 1/1, 6/unsigned6, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read 1 Even}]{ALU Half Word Quadruple Write Read Read 1 Even} \label{sec:format-ALU-HQWRR1E}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/101, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read 1 Odd}]{ALU Half Word Quadruple Write Read Read 1 Odd} \label{sec:format-ALU-HQWRR1O}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/101, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read 1 Even Magic}]{ALU Half Word Quadruple Write Read Read 1 Even Magic} \label{sec:format-ALU-HQWRR1E.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/101, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Write Read Read 1 Odd Magic}]{ALU Half Word Quadruple Write Read Read 1 Odd Magic} \label{sec:format-ALU-HQWRR1O.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/101, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Bit Write Read Even}]{ALU Half Word Quadruple Bit Write Read Even} \label{sec:format-ALU-HQBWRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerWe, 1/0, 2/10, 3/101, 1/1, 4/alucode8, 1/--, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Bit Write Read Odd}]{ALU Half Word Quadruple Bit Write Read Odd} \label{sec:format-ALU-HQBWRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerWo, 1/1, 2/10, 3/101, 1/1, 4/alucode8, 1/--, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Narrow Write Read Read}]{ALU Half Word Quadruple Narrow Write Read Read} \label{sec:format-ALU-HQNWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 6/registerW, 2/10, 3/101, 1/1, 4/alucode8, 1/ziplanes, 1/0, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Widen Lanes Write Read}]{ALU Half Word Octuple Widen Lanes Write Read} \label{sec:format-ALU-HOWIDEWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/--, 2/10, 3/101, 1/1, 4/alucode8, 1/mostsig, 1/1, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Extend Lanes Write Read}]{ALU Half Word Octuple Extend Lanes Write Read} \label{sec:format-ALU-HOEXTLWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/oddlanes, 2/10, 3/101, 1/1, 4/alucode8, 1/--, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Multiply Write Read Read Even}]{ALU Half Word Quadruple Multiply Write Read Read Even} \label{sec:format-ALU-HQMWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerWe, 1/0, 2/10, 3/110, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Multiply Write Read Read Odd}]{ALU Half Word Quadruple Multiply Write Read Read Odd} \label{sec:format-ALU-HQMWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerWo, 1/1, 2/10, 3/110, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Multiply Write Read Read Read Even}]{ALU Half Word Quadruple Multiply Write Read Read Read Even} \label{sec:format-ALU-HQMWRRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerWe, 1/0, 2/10, 3/110, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Quadruple Multiply Write Read Read Read Odd}]{ALU Half Word Quadruple Multiply Write Read Read Read Odd} \label{sec:format-ALU-HQMWRRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/highmult, 5/registerWo, 1/1, 2/10, 3/110, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Multiply Extend Write Read Read Even}]{ALU Half Word Octuple Multiply Extend Write Read Read Even} \label{sec:format-ALU-HOMEWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/0, 2/10, 3/110, 1/1, 5/registerYe, 1/1, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Multiply Extend Write Read Read Odd}]{ALU Half Word Octuple Multiply Extend Write Read Read Odd} \label{sec:format-ALU-HOMEWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/1, 2/10, 3/110, 1/1, 5/registerYo, 1/1, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Multiply Extend Write Read Read Read Even}]{ALU Half Word Octuple Multiply Extend Write Read Read Read Even} \label{sec:format-ALU-HOMEWRRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/0, 2/10, 3/110, 1/1, 5/registerYe, 1/1, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Multiply Extend Write Read Read Read Odd}]{ALU Half Word Octuple Multiply Extend Write Read Read Read Odd} \label{sec:format-ALU-HOMEWRRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/1, 2/10, 3/110, 1/1, 5/registerYo, 1/1, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Multiply Extend Write Read Read}]{ALU Half Word Octuple Multiply Extend Write Read Read} \label{sec:format-ALU-HOMXWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/oddlanes, 2/10, 3/111, 1/1, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Half Word Octuple Multiply Extend Write Read Read Read}]{ALU Half Word Octuple Multiply Extend Write Read Read Read} \label{sec:format-ALU-HOMXWRRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 2/alucode2, 2/widemult, 5/registerM, 1/oddlanes, 2/10, 3/111, 1/1, 5/registerO, 1/--, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read 0 Even}]{ALU Byte Octuple Write Read Read 0 Even} \label{sec:format-ALU-BOWRR0E}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/000, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read 0 Odd}]{ALU Byte Octuple Write Read Read 0 Odd} \label{sec:format-ALU-BOWRR0O}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/000, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read 0 Even Magic}]{ALU Byte Octuple Write Read Read 0 Even Magic} \label{sec:format-ALU-BOWRR0E.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/000, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read 0 Odd Magic}]{ALU Byte Octuple Write Read Read 0 Odd Magic} \label{sec:format-ALU-BOWRR0O.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/000, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Comparison Write Read Read Even}]{ALU Byte Octuple Comparison Write Read Read Even} \label{sec:format-ALU-BOCWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Comparison Write Read Read Odd}]{ALU Byte Octuple Comparison Write Read Read Odd} \label{sec:format-ALU-BOCWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Comparison Write Read Read Even Magic}]{ALU Byte Octuple Comparison Write Read Read Even Magic} \label{sec:format-ALU-BOCWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Comparison Write Read Read Odd Magic}]{ALU Byte Octuple Comparison Write Read Read Odd Magic} \label{sec:format-ALU-BOCWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Average Even}]{ALU Byte Octuple Average Even} \label{sec:format-ALU-BOAVGE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/001, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Average Odd}]{ALU Byte Octuple Average Odd} \label{sec:format-ALU-BOAVGO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/001, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Average Even Magic}]{ALU Byte Octuple Average Even Magic} \label{sec:format-ALU-BOAVGE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/001, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Average Odd Magic}]{ALU Byte Octuple Average Odd Magic} \label{sec:format-ALU-BOAVGO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/001, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Comparison Negate Write Read Read Even}]{ALU Byte Octuple Comparison Negate Write Read Read Even} \label{sec:format-ALU-BOCNWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Comparison Negate Write Read Read Odd}]{ALU Byte Octuple Comparison Negate Write Read Read Odd} \label{sec:format-ALU-BOCNWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Comparison Negate Write Read Read Even Magic}]{ALU Byte Octuple Comparison Negate Write Read Read Even Magic} \label{sec:format-ALU-BOCNWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWe, 1/0, 2/10, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Comparison Negate Write Read Read Odd Magic}]{ALU Byte Octuple Comparison Negate Write Read Read Odd Magic} \label{sec:format-ALU-BOCNWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/intcomp, 5/registerWo, 1/1, 2/10, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read Special Even}]{ALU Byte Octuple Write Read Read Special Even} \label{sec:format-ALU-BOWRRSE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/010, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read Special Odd}]{ALU Byte Octuple Write Read Read Special Odd} \label{sec:format-ALU-BOWRRSO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/010, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read Special Even Magic}]{ALU Byte Octuple Write Read Read Special Even Magic} \label{sec:format-ALU-BOWRRSE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/010, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read Special Odd Magic}]{ALU Byte Octuple Write Read Read Special Odd Magic} \label{sec:format-ALU-BOWRRSO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/010, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Conditional Move Write Read Read Even}]{ALU Byte Octuple Conditional Move Write Read Read Even} \label{sec:format-ALU-BOCMWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWe, 1/0, 2/10, 3/011, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Conditional Move Write Read Read Odd}]{ALU Byte Octuple Conditional Move Write Read Read Odd} \label{sec:format-ALU-BOCMWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWo, 1/1, 2/10, 3/011, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Conditional Move Write Read Read Even Magic}]{ALU Byte Octuple Conditional Move Write Read Read Even Magic} \label{sec:format-ALU-BOCMWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWe, 1/0, 2/10, 3/011, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Conditional Move Write Read Read Odd Magic}]{ALU Byte Octuple Conditional Move Write Read Read Odd Magic} \label{sec:format-ALU-BOCMWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 3/lanecond, 1/b24, 5/registerWo, 1/1, 2/10, 3/011, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Shift Rotate Write Read Read Even}]{ALU Byte Octuple Shift Rotate Write Read Read Even} \label{sec:format-ALU-BOSWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/ex1, 5/registerWe, 1/0, 2/10, 3/100, 1/1, 6/registerY, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Shift Rotate Write Read Read Odd}]{ALU Byte Octuple Shift Rotate Write Read Read Odd} \label{sec:format-ALU-BOSWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/ex1, 5/registerWo, 1/1, 2/10, 3/100, 1/1, 6/registerY, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Shift Rotate Write Read Immediate Even}]{ALU Byte Octuple Shift Rotate Write Read Immediate Even} \label{sec:format-ALU-BOSWRIE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/ex1, 5/registerWe, 1/0, 2/10, 3/100, 1/1, 6/unsigned6, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Shift Rotate Write Read Immediate Odd}]{ALU Byte Octuple Shift Rotate Write Read Immediate Odd} \label{sec:format-ALU-BOSWRIO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/ex1, 5/registerWo, 1/1, 2/10, 3/100, 1/1, 6/unsigned6, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read 1 Even}]{ALU Byte Octuple Write Read Read 1 Even} \label{sec:format-ALU-BOWRR1E}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/101, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read 1 Odd}]{ALU Byte Octuple Write Read Read 1 Odd} \label{sec:format-ALU-BOWRR1O}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/101, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read 1 Even Magic}]{ALU Byte Octuple Write Read Read 1 Even Magic} \label{sec:format-ALU-BOWRR1E.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWe, 1/0, 2/10, 3/101, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Write Read Read 1 Odd Magic}]{ALU Byte Octuple Write Read Read 1 Odd Magic} \label{sec:format-ALU-BOWRR1O.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 4/ex2, 5/registerWo, 1/1, 2/10, 3/101, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Bit Write Read Even}]{ALU Byte Octuple Bit Write Read Even} \label{sec:format-ALU-BOBWRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerWe, 1/0, 2/10, 3/101, 1/1, 4/alucode8, 1/--, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Bit Write Read Odd}]{ALU Byte Octuple Bit Write Read Odd} \label{sec:format-ALU-BOBWRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerWo, 1/1, 2/10, 3/101, 1/1, 4/alucode8, 1/--, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Byte Octuple Narrow Write Read Read}]{ALU Byte Octuple Narrow Write Read Read} \label{sec:format-ALU-BONWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 6/registerW, 2/10, 3/101, 1/1, 4/alucode8, 1/ziplanes, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Half Word Hexadecuple Widen Lanes Write Read}]{ALU Half Word Hexadecuple Widen Lanes Write Read} \label{sec:format-ALU-BXWIDEWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/--, 2/10, 3/101, 1/1, 4/alucode8, 1/mostsig, 1/1, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Half Word Hexadecuple Extend Lanes Write Read}]{ALU Half Word Hexadecuple Extend Lanes Write Read} \label{sec:format-ALU-BXEXTLWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/1111, 5/registerM, 1/oddlanes, 2/10, 3/101, 1/1, 4/alucode8, 1/--, 1/--, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Complex Operations}]{ALU Floating-Point Double Word Complex Operations} \label{sec:format-ALU-FDCOP}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/imultiply, 3/floatmode, 5/registerM, 1/--, 2/11, 2/alucode6, 1/conjugate, 1/0, 5/registerO, 1/1, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Add Subtract}]{ALU Floating Point Double Word Pair Add Subtract} \label{sec:format-ALU-FDPADD}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatmode, 5/registerM, 1/--, 2/11, 3/alucode3, 1/0, 5/registerO, 1/--, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Comparison Write Read Read}]{ALU Floating Point Double Word Pair Comparison Write Read Read} \label{sec:format-ALU-FDPCWRR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatcomp, 6/registerW, 2/11, 3/alucode3, 1/0, 5/registerO, 1/--, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating-Point Word Quadruple Comparison Write Read Read Magic}]{ALU Floating-Point Word Quadruple Comparison Write Read Read Magic} \label{sec:format-ALU-FDPCWRR.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/0, 3/floatcomp, 6/registerW, 2/11, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Min/Max Write Read}]{ALU Floating Point Double Word Pair Min/Max Write Read} \label{sec:format-ALU-FDPMMWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerM, 1/--, 2/11, 3/000, 1/0, 5/registerO, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Monadic 1}]{ALU Floating Point Double Word Pair Monadic 1} \label{sec:format-ALU-FDPMO1}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerM, 1/--, 2/11, 3/000, 1/0, 4/fpucode6, 1/--, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Widen from Half Word}]{ALU Floating Point Double Word Pair Widen from Half Word} \label{sec:format-ALU-FDPWIDEWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerM, 1/--, 2/11, 3/000, 1/0, 4/fpucode6, 1/mostsig, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Extend Lane from Half Word}]{ALU Floating Point Double Word Pair Extend Lane from Half Word} \label{sec:format-ALU-FDPEXTLWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerM, 1/oddlanes, 2/11, 3/000, 1/0, 4/fpucode6, 1/--, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Convert from Fixed-Point}]{ALU Floating Point Double Word Pair Convert from Fixed-Point} \label{sec:format-ALU-FDPFLOAT}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerM, 1/--, 2/11, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Convert to Fixed-Point}]{ALU Floating Point Double Word Pair Convert to Fixed-Point} \label{sec:format-ALU-FDPFIXED}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerM, 1/--, 2/11, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Monadic 0}]{ALU Floating Point Double Word Pair Monadic 0} \label{sec:format-ALU-FDPMO0}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerM, 1/--, 2/11, 3/001, 1/0, 4/fpucode6, 1/--, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Write Read}]{ALU Floating Point Double Word Pair Write Read} \label{sec:format-ALU-FDPWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerM, 1/--, 2/11, 3/001, 1/0, 4/fpucode6, 1/ziplanes, 1/0, 4/registerR, 1/--, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Comparison Negate Write Read Read Even}]{ALU Floating Point Double Word Comparison Negate Write Read Read Even} \label{sec:format-ALU-FDCNWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/0, 5/registerYe, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Comparison Negate Write Read Read Odd}]{ALU Floating Point Double Word Comparison Negate Write Read Read Odd} \label{sec:format-ALU-FDCNWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/0, 5/registerYo, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Comparison Negate Write Read Read Even Magic}]{ALU Floating-Point Double Word Comparison Negate Write Read Read Even Magic} \label{sec:format-ALU-FDCNWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating-Point Double Word Comparison Negate Write Read Read Odd Magic}]{ALU Floating-Point Double Word Comparison Negate Write Read Read Odd Magic} \label{sec:format-ALU-FDCNWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/0, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Fused Multiply Add}]{ALU Floating Point Double Word Pair Fused Multiply Add} \label{sec:format-ALU-FDPFMA}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerM, 1/--, 2/11, 3/alucode3, 1/0, 5/registerO, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Double Word Pair Multiply Divide}]{ALU Floating Point Double Word Pair Multiply Divide} \label{sec:format-ALU-FDPMUL}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerM, 1/--, 2/11, 3/alucode3, 1/0, 5/registerO, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating-Point Word Complex Pair Operations}]{ALU Floating-Point Word Complex Pair Operations} \label{sec:format-ALU-FWCPOP}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/imultiply, 3/floatmode, 5/registerM, 1/--, 2/11, 2/alucode6, 1/conjugate, 1/0, 5/registerO, 1/1, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Add Subtract Even}]{ALU Floating Point Word Pair Add Subtract Even} \label{sec:format-ALU-FWPADDE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Add Subtract Odd}]{ALU Floating Point Word Pair Add Subtract Odd} \label{sec:format-ALU-FWPADDO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Comparison Write Read Read Even}]{ALU Floating Point Word Pair Comparison Write Read Read Even} \label{sec:format-ALU-FWPCWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Comparison Write Read Read Odd}]{ALU Floating Point Word Pair Comparison Write Read Read Odd} \label{sec:format-ALU-FWPCWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating-Point Word Pair Comparison Write Read Read Even Magic}]{ALU Floating-Point Word Pair Comparison Write Read Read Even Magic} \label{sec:format-ALU-FWPCWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/0, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating-Point Word Pair Comparison Write Read Read Odd Magic}]{ALU Floating-Point Word Pair Comparison Write Read Read Odd Magic} \label{sec:format-ALU-FWPCWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/0, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Min/Max Write Read Even}]{ALU Floating Point Word Pair Min/Max Write Read Even} \label{sec:format-ALU-FWPMMWRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/000, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Min/Max Write Read Odd}]{ALU Floating Point Word Pair Min/Max Write Read Odd} \label{sec:format-ALU-FWPMMWRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/000, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Monadic 1 Even}]{ALU Floating Point Word Pair Monadic 1 Even} \label{sec:format-ALU-FWPMO1E}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerWe, 1/0, 2/11, 3/000, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Monadic 1 Odd}]{ALU Floating Point Word Pair Monadic 1 Odd} \label{sec:format-ALU-FWPMO1O}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerWo, 1/1, 2/11, 3/000, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Quadruple Widen from Half Word}]{ALU Floating Point Word Quadruple Widen from Half Word} \label{sec:format-ALU-FWQWIDEWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerM, 1/--, 2/11, 3/000, 1/1, 4/fpucode6, 1/mostsig, 1/0, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Quadruple Extend Lane from Half Word}]{ALU Floating Point Word Quadruple Extend Lane from Half Word} \label{sec:format-ALU-FWQEXTLWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerM, 1/oddlanes, 2/11, 3/000, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Convert from Fixed-Point Even}]{ALU Floating Point Word Pair Convert from Fixed-Point Even} \label{sec:format-ALU-FWPFLOATE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Convert from Fixed-Point Odd}]{ALU Floating Point Word Pair Convert from Fixed-Point Odd} \label{sec:format-ALU-FWPFLOATO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Convert to Fixed-Point Even}]{ALU Floating Point Word Pair Convert to Fixed-Point Even} \label{sec:format-ALU-FWPFIXEDE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Convert to Fixed-Point Odd}]{ALU Floating Point Word Pair Convert to Fixed-Point Odd} \label{sec:format-ALU-FWPFIXEDO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Monadic 0 Even}]{ALU Floating Point Word Pair Monadic 0 Even} \label{sec:format-ALU-FWPMO0E}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Monadic 0 odd}]{ALU Floating Point Word Pair Monadic 0 odd} \label{sec:format-ALU-FWPMO0O}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Write Read}]{ALU Floating Point Word Pair Write Read} \label{sec:format-ALU-FWPWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/11, 3/001, 1/1, 4/fpucode6, 1/ziplanes, 1/0, 5/registerP, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Comparison Negate Write Read Read Even}]{ALU Floating Point Word Pair Comparison Negate Write Read Read Even} \label{sec:format-ALU-FWPCNWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Comparison Negate Write Read Read Odd}]{ALU Floating Point Word Pair Comparison Negate Write Read Read Odd} \label{sec:format-ALU-FWPCNWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating-Point Word Pair Comparison Negate Write Read Read Even Magic}]{ALU Floating-Point Word Pair Comparison Negate Write Read Read Even Magic} \label{sec:format-ALU-FWPCNWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating-Point Word Pair Comparison Negate Write Read Read Odd Magic}]{ALU Floating-Point Word Pair Comparison Negate Write Read Read Odd Magic} \label{sec:format-ALU-FWPCNWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Fused Multiply Add Even}]{ALU Floating Point Word Pair Fused Multiply Add Even} \label{sec:format-ALU-FWPFMAE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Fused Multiply Add Even}]{ALU Floating Point Word Pair Fused Multiply Add Even} \label{sec:format-ALU-FWPFMAO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Multiply Divide Even}]{ALU Floating Point Word Pair Multiply Divide Even} \label{sec:format-ALU-FWPMULE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Word Pair Multiply Divide Odd}]{ALU Floating Point Word Pair Multiply Divide Odd} \label{sec:format-ALU-FWPMULO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Complex Operations Even}]{ALU Floating-Point Half Word Complex Operations Even} \label{sec:format-ALU-FHCOPE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/imultiply, 3/floatmode, 5/registerWe, 1/0, 2/11, 2/alucode6, 1/conjugate, 1/1, 5/registerYe, 1/1, 5/registerZe, 1/0 }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Complex Operations Odd}]{ALU Floating-Point Half Word Complex Operations Odd} \label{sec:format-ALU-FHCOPO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/imultiply, 3/floatmode, 5/registerWo, 1/1, 2/11, 2/alucode6, 1/conjugate, 1/1, 5/registerYo, 1/1, 5/registerZo, 1/0 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Add Subtract Even}]{ALU Floating Point Half Word Quadruple Add Subtract Even} \label{sec:format-ALU-FHQADDE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Add Subtract Odd}]{ALU Floating Point Half Word Quadruple Add Subtract Odd} \label{sec:format-ALU-FHQADDO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Comparison Write Read Read Even}]{ALU Floating Point Half Word Quadruple Comparison Write Read Read Even} \label{sec:format-ALU-FHQCWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/--, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Comparison Write Read Read Odd}]{ALU Floating Point Half Word Quadruple Comparison Write Read Read Odd} \label{sec:format-ALU-FHQCWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/0, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/--, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Quadruple Comparison Write Read Read Even Magic}]{ALU Floating-Point Half Word Quadruple Comparison Write Read Read Even Magic} \label{sec:format-ALU-FHQCWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/0, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Quadruple Comparison Write Read Read Odd Magic}]{ALU Floating-Point Half Word Quadruple Comparison Write Read Read Odd Magic} \label{sec:format-ALU-FHQCWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/0, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Min/Max Write Read Even}]{ALU Floating Point Half Word Quadruple Min/Max Write Read Even} \label{sec:format-ALU-FHQMMWRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/000, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Min/Max Write Read Even}]{ALU Floating Point Half Word Quadruple Min/Max Write Read Even} \label{sec:format-ALU-FHQMMWRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/000, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Monadic 1 Even}]{ALU Floating Point Half Word Quadruple Monadic 1 Even} \label{sec:format-ALU-FHQMO1E}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerWe, 1/0, 2/11, 3/000, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Monadic 1 Odd}]{ALU Floating Point Half Word Quadruple Monadic 1 Odd} \label{sec:format-ALU-FHQMO1O}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerWo, 1/1, 2/11, 3/000, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Octuple Widen from Byte}]{ALU Floating Point Half Word Octuple Widen from Byte} \label{sec:format-ALU-FHOWIDENWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerM, 1/--, 2/11, 3/100, 1/1, 4/fpucode6, 1/mostsig, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Octuple Extend Lane from Byte}]{ALU Floating Point Half Word Octuple Extend Lane from Byte} \label{sec:format-ALU-FHOEXTLWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/111, 5/registerM, 1/oddlanes, 2/11, 3/100, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Convert from Fixed-Point Even}]{ALU Floating Point Half Word Quadruple Convert from Fixed-Point Even} \label{sec:format-ALU-FHQFLOATE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Convert from Fixed-Point Odd}]{ALU Floating Point Half Word Quadruple Convert from Fixed-Point Odd} \label{sec:format-ALU-FHQFLOATO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Convert to Fixed-Point Even}]{ALU Floating Point Half Word Quadruple Convert to Fixed-Point Even} \label{sec:format-ALU-FHQFIXEDE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/001, 1/1, 5/fpucode5, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Convert to Fixed-Point Odd}]{ALU Floating Point Half Word Quadruple Convert to Fixed-Point Odd} \label{sec:format-ALU-FHQFIXEDO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/001, 1/1, 5/fpucode5, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Monadic 0 Even}]{ALU Floating Point Half Word Quadruple Monadic 0 Even} \label{sec:format-ALU-FHQMO0E}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Monadic 0 Odd}]{ALU Floating Point Half Word Quadruple Monadic 0 Odd} \label{sec:format-ALU-FHQMO0O}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/001, 1/1, 4/fpucode6, 1/--, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Write Read}]{ALU Floating Point Half Word Quadruple Write Read} \label{sec:format-ALU-FHQWR}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatmode, 6/registerW, 2/11, 3/001, 1/1, 4/fpucode6, 1/ziplanes, 1/0, 5/registerP, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Comparison Negate Write Read Read Even}]{ALU Floating Point Half Word Quadruple Comparison Negate Write Read Read Even} \label{sec:format-ALU-FHQCNWRRE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Comparison Negate Write Read Read Odd}]{ALU Floating Point Half Word Quadruple Comparison Negate Write Read Read Odd} \label{sec:format-ALU-FHQCNWRRO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Quadruple Comparison Negate Write Read Read Even Magic}]{ALU Floating-Point Half Word Quadruple Comparison Negate Write Read Read Even Magic} \label{sec:format-ALU-FHQCNWRRE.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating-Point Half Word Quadruple Comparison Negate Write Read Read Odd Magic}]{ALU Floating-Point Half Word Quadruple Comparison Negate Write Read Read Odd Magic} \label{sec:format-ALU-FHQCNWRRO.M}
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/1, 1/1, 3/floatcomp, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 1/splat32, 5/lower5, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Fused Multiply Add Even}]{ALU Floating Point Half Word Quadruple Fused Multiply Add Even} \label{sec:format-ALU-FHQFMAE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Fused Multiply Add Odd}]{ALU Floating Point Half Word Quadruple Fused Multiply Add Odd} \label{sec:format-ALU-FHQFMAO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Multiply Divide Even}]{ALU Floating Point Half Word Quadruple Multiply Divide Even} \label{sec:format-ALU-FHQMULE}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerWe, 1/0, 2/11, 3/alucode3, 1/1, 5/registerYe, 1/0, 5/registerZe, 1/1 }
+
+
+\subsubsection[{\small ALU Floating Point Half Word Quadruple Multiply Divide Odd}]{ALU Floating Point Half Word Quadruple Multiply Divide Odd} \label{sec:format-ALU-FHQMULO}
+
+\bitfields{ 1/P, 2/11, 1/1, 1/fnegate, 3/floatmode, 5/registerWo, 1/1, 2/11, 3/alucode3, 1/1, 5/registerYo, 1/0, 5/registerZo, 1/1 }
+
+
+\subsubsection[{\small ALU No Operation}]{ALU No Operation} \label{sec:format-ALU-NOP}
+
+\bitfields{ 1/P, 2/11, 1/1, 4/ex2, 5/-- -- -- -- --, 1/1, 2/11, 4/1111, 5/11111, 1/1, 5/-- -- -- -- --, 1/1 }
+
+
+\subsubsection[{\small EXT Move From Coprocessor Double Word}]{EXT Move From Coprocessor Double Word} \label{sec:format-EXT-XMOVEFD}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/tcacode1, 6/registerW, 2/00, 1/1, 1/1, 2/qselectC, 6/registerCc, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small EXT Move From Coprocessor Quadruple Word}]{EXT Move From Coprocessor Quadruple Word} \label{sec:format-EXT-XMOVEFQ}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/tcacode1, 5/registerM, 1/1, 2/00, 1/0, 1/0, 1/0, 1/hselectC, 6/registerCb, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small EXT Move From Coprocessor Octuple Word}]{EXT Move From Coprocessor Octuple Word} \label{sec:format-EXT-XMOVEFO}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/tcacode1, 4/registerN, 2/01, 2/00, 1/1, 3/000, 6/registerC, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small EXT XACCESSO from 2-Register Buffer}]{EXT XACCESSO from 2-Register Buffer} \label{sec:format-EXT-XACCESSO2}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/000, 4/registerN, 2/11, 2/00, 1/1, 3/log2size, 5/registerCg, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small EXT XACCESSO from 4-Register Buffer}]{EXT XACCESSO from 4-Register Buffer} \label{sec:format-EXT-XACCESSO4}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/000, 4/registerN, 2/11, 2/00, 1/1, 3/log2size, 4/registerCh, 2/01, 6/registerZ }
+
+
+\subsubsection[{\small EXT XACCESSO from 8-Register Buffer}]{EXT XACCESSO from 8-Register Buffer} \label{sec:format-EXT-XACCESSO8}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/000, 4/registerN, 2/11, 2/00, 1/1, 3/log2size, 3/registerCi, 3/011, 6/registerZ }
+
+
+\subsubsection[{\small EXT XACCESSO from 16-Register Buffer}]{EXT XACCESSO from 16-Register Buffer} \label{sec:format-EXT-XACCESSO16}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/000, 4/registerN, 2/11, 2/00, 1/1, 3/log2size, 2/registerCj, 4/0111, 6/registerZ }
+
+
+\subsubsection[{\small EXT XACCESSO from 32-Register Buffer}]{EXT XACCESSO from 32-Register Buffer} \label{sec:format-EXT-XACCESSO32}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/000, 4/registerN, 2/11, 2/00, 1/1, 3/log2size, 1/registerCk, 5/01111, 6/registerZ }
+
+
+\subsubsection[{\small EXT XACCESSO from 64-Register Buffer}]{EXT XACCESSO from 64-Register Buffer} \label{sec:format-EXT-XACCESSO64}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/000, 4/registerN, 2/11, 2/00, 1/1, 3/log2size, 1/registerCl, 5/11111, 6/registerZ }
+
+
+\subsubsection[{\small EXT XCOPYO}]{EXT XCOPYO} \label{sec:format-EXT-XCOPYO}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/001, 6/registerA, 2/00, 1/0, 3/log2size, 6/registerC, 6/-- -- -- -- -- -- }
+
+
+\subsubsection[{\small EXT XALIGNO from 2-Register Buffer}]{EXT XALIGNO from 2-Register Buffer} \label{sec:format-EXT-XALIGNO2}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/001, 6/registerA, 2/00, 1/1, 3/log2size, 5/registerCg, 1/0, 6/registerZ }
+
+
+\subsubsection[{\small EXT XALIGNO from 4-Register Buffer}]{EXT XALIGNO from 4-Register Buffer} \label{sec:format-EXT-XALIGNO4}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/001, 6/registerA, 2/00, 1/1, 3/log2size, 4/registerCh, 2/01, 6/registerZ }
+
+
+\subsubsection[{\small EXT XALIGNO from 8-Register Buffer}]{EXT XALIGNO from 8-Register Buffer} \label{sec:format-EXT-XALIGNO8}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/001, 6/registerA, 2/00, 1/1, 3/log2size, 3/registerCi, 3/011, 6/registerZ }
+
+
+\subsubsection[{\small EXT XALIGNO from 16-Register Buffer}]{EXT XALIGNO from 16-Register Buffer} \label{sec:format-EXT-XALIGNO16}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/001, 6/registerA, 2/00, 1/1, 3/log2size, 2/registerCj, 4/0111, 6/registerZ }
+
+
+\subsubsection[{\small EXT XALIGNO from 32-Register Buffer}]{EXT XALIGNO from 32-Register Buffer} \label{sec:format-EXT-XALIGNO32}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/001, 6/registerA, 2/00, 1/1, 3/log2size, 1/registerCk, 5/01111, 6/registerZ }
+
+
+\subsubsection[{\small EXT XALIGNO from 64-Register Buffer}]{EXT XALIGNO from 64-Register Buffer} \label{sec:format-EXT-XALIGNO64}
+
+\bitfields{ 1/P, 2/10, 1/0, 1/0, 3/001, 6/registerA, 2/00, 1/1, 3/log2size, 1/registerCl, 5/11111, 6/registerZ }
+
+
+\subsubsection[{\small RV32I U-Type}]{RV32I U-Type} \label{sec:format-RV32I-UType}
+
+\bitfields{ 20/i-- 31-- 12, 5/rd, 7/opcode }
+
+
+\subsubsection[{\small RV32I J-Type}]{RV32I J-Type} \label{sec:format-RV32I-JType}
+
+\bitfields{ 1/i-- 20, 10/i-- 10-- 1, 1/i-- 11j, 8/i-- 19-- 12, 5/rd, 7/opcode }
+
+
+\subsubsection[{\small RV32I J-Type with Zero rd}]{RV32I J-Type with Zero rd} \label{sec:format-RV32I-JTypeZD}
+
+\bitfields{ 1/i-- 20, 10/i-- 10-- 1, 1/i-- 11j, 8/i-- 19-- 12, 5/00000, 7/opcode }
+
+
+\subsubsection[{\small RV32I I-Type with JALR Instruction}]{RV32I I-Type with JALR Instruction} \label{sec:format-RV32I-JALR}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/000, 5/rd, 7/opcode }
+
+
+\subsubsection[{\small RV32I I-Type with JALR with Zero rd and imm.}]{RV32I I-Type with JALR with Zero rd and imm.} \label{sec:format-RV32I-JALRZDI}
+
+\bitfields{ 12/000000000000, 5/rs1, 3/000, 5/00000, 7/opcode }
+
+
+\subsubsection[{\small RV32I B-Type}]{RV32I B-Type} \label{sec:format-RV32I-BType}
+
+\bitfields{ 1/i-- 12, 6/i-- 10-- 5, 5/rs2, 5/rs1, 3/funct3, 4/i-- 4-- 1, 1/i-- 11b, 7/1100011 }
+
+
+\subsubsection[{\small RV32I B-Type with Zero rs1}]{RV32I B-Type with Zero rs1} \label{sec:format-RV32I-BTypeZ1}
+
+\bitfields{ 1/i-- 12, 6/i-- 10-- 5, 5/rs2, 5/00000, 3/funct3, 4/i-- 4-- 1, 1/i-- 11b, 7/1100011 }
+
+
+\subsubsection[{\small RV32I B-Type with Zero rs2}]{RV32I B-Type with Zero rs2} \label{sec:format-RV32I-BTypeZ2}
+
+\bitfields{ 1/i-- 12, 6/i-- 10-- 5, 5/00000, 5/rs1, 3/funct3, 4/i-- 4-- 1, 1/i-- 11b, 7/1100011 }
+
+
+\subsubsection[{\small RV32I I-Type with Loads}]{RV32I I-Type with Loads} \label{sec:format-RV32I-ILoad}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/funct3, 5/rd, 7/0000011 }
+
+
+\subsubsection[{\small RV32I S-Type}]{RV32I S-Type} \label{sec:format-RV32I-SType}
+
+\bitfields{ 7/i-- 11-- 5, 5/rs2, 5/rs1, 3/funct3, 5/i-- 4-- 0s, 7/0100011 }
+
+
+\subsubsection[{\small RV32I I-Type with ALU Instructions}]{RV32I I-Type with ALU Instructions} \label{sec:format-RV32I-I-ALU}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV32I R-Type with Func7 as 0x00}]{RV32I R-Type with Func7 as 0x00} \label{sec:format-RV32I-RF00}
+
+\bitfields{ 7/0000000, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small Zicond R-Type}]{Zicond R-Type} \label{sec:format-RVZI-COND}
+
+\bitfields{ 7/0000111, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV32I R-Type with Func7 as 0x20}]{RV32I R-Type with Func7 as 0x20} \label{sec:format-RV32I-RF20}
+
+\bitfields{ 7/0100000, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV32I I-Type with Fence}]{RV32I I-Type with Fence} \label{sec:format-RV32I-IFence}
+
+\bitfields{ 4/fm, 4/pred, 4/succ, 5/00000, 3/000, 5/00000, 7/0001111 }
+
+
+\subsubsection[{\small RV32I I-Type with Fence.TSO}]{RV32I I-Type with Fence.TSO} \label{sec:format-RV32I-IFence-TSO}
+
+\bitfields{ 4/fm, 4/0000, 4/0000, 5/00000, 3/000, 5/00000, 7/0001111 }
+
+
+\subsubsection[{\small RV32I I-Type with Pause}]{RV32I I-Type with Pause} \label{sec:format-RV32I-IPause}
+
+\bitfields{ 4/fm, 4/0001, 4/0000, 5/00000, 3/000, 5/00000, 7/0001111 }
+
+
+\subsubsection[{\small RV32I I-Type with Environment}]{RV32I I-Type with Environment} \label{sec:format-RV32I-IEnv}
+
+\bitfields{ 12/i-- 11-- 0, 5/00000, 3/000, 5/00000, 7/1110011 }
+
+
+\subsubsection[{\small RV64I I-Type with Loads}]{RV64I I-Type with Loads} \label{sec:format-RV64I-ILoad}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/funct3, 5/rd, 7/0000011 }
+
+
+\subsubsection[{\small RV64I S-Type}]{RV64I S-Type} \label{sec:format-RV64I-SType}
+
+\bitfields{ 7/i-- 11-- 5, 5/rs2, 5/rs1, 3/funct3, 5/i-- 4-- 0s, 7/0100011 }
+
+
+\subsubsection[{\small RV64I XS00 Type with Shifts}]{RV64I XS00 Type with Shifts} \label{sec:format-RV64I-XS00}
+
+\bitfields{ 6/000000, 6/i-- 5-- 0, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64I XS10 Type with Shifts}]{RV64I XS10 Type with Shifts} \label{sec:format-RV64I-XS10}
+
+\bitfields{ 6/010000, 6/i-- 5-- 0, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64I I-Type with ALU Instructions}]{RV64I I-Type with ALU Instructions} \label{sec:format-RV64I-I-ALU}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/funct3, 5/rd, 7/0011011 }
+
+
+\subsubsection[{\small RV64I IS00 Type with Shifts}]{RV64I IS00 Type with Shifts} \label{sec:format-RV64I-IS00}
+
+\bitfields{ 7/0000000, 5/i-- 4-- 0, 5/rs1, 3/funct3, 5/rd, 7/0011011 }
+
+
+\subsubsection[{\small RV64I IS20 Type with Shifts}]{RV64I IS20 Type with Shifts} \label{sec:format-RV64I-IS20}
+
+\bitfields{ 7/0100000, 5/i-- 4-- 0, 5/rs1, 3/funct3, 5/rd, 7/0011011 }
+
+
+\subsubsection[{\small RV64I RF00 Type}]{RV64I RF00 Type} \label{sec:format-RV64I-RF00}
+
+\bitfields{ 7/0000000, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0111011 }
+
+
+\subsubsection[{\small RV64I RF20 Type}]{RV64I RF20 Type} \label{sec:format-RV64I-RF20}
+
+\bitfields{ 7/0100000, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0111011 }
+
+
+\subsubsection[{\small RV64KV I-Type with Loads}]{RV64KV I-Type with Loads} \label{sec:format-RV64KV-ILoad}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/funct3, 4/rd-- pair, 1/0, 7/0000011 }
+
+
+\subsubsection[{\small RV64KV S-Type}]{RV64KV S-Type} \label{sec:format-RV64KV-SType}
+
+\bitfields{ 7/i-- 11-- 5, 4/rs2-- pair, 1/0, 5/rs1, 3/funct3, 5/i-- 4-- 0s, 7/0100011 }
+
+
+\subsubsection[{\small RVZI I-Type with FENCE.I}]{RVZI I-Type with FENCE.I} \label{sec:format-RVZI-FenceI}
+
+\bitfields{ 12/000000000000, 5/00000, 3/funct3, 5/00000, 7/0001111 }
+
+
+\subsubsection[{\small RVZI I-Type with CSR Register}]{RVZI I-Type with CSR Register} \label{sec:format-RVZI-CSRR}
+
+\bitfields{ 12/csr, 5/rs1, 3/funct3, 5/rd, 7/1110011 }
+
+
+\subsubsection[{\small RVZI I-Type with CSR Immediate}]{RVZI I-Type with CSR Immediate} \label{sec:format-RVZI-CSRI}
+
+\bitfields{ 12/csr, 5/uimm, 3/funct3, 5/rd, 7/1110011 }
+
+
+\subsubsection[{\small RV32M R-Type}]{RV32M R-Type} \label{sec:format-RV32M-RType}
+
+\bitfields{ 7/0000001, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV64M R-Type}]{RV64M R-Type} \label{sec:format-RV64M-RType}
+
+\bitfields{ 7/0000001, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0111011 }
+
+
+\subsubsection[{\small RV64A R-Type LR}]{RV64A R-Type LR} \label{sec:format-RV64A-LR}
+
+\bitfields{ 5/00010, 2/acqrel, 5/00000, 5/rs1, 3/funct3, 5/rd, 7/0101111 }
+
+
+\subsubsection[{\small RV64A R-Type SC}]{RV64A R-Type SC} \label{sec:format-RV64A-SC}
+
+\bitfields{ 5/00011, 2/acqrel, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0101111 }
+
+
+\subsubsection[{\small RV64A R-Type RMW}]{RV64A R-Type RMW} \label{sec:format-RV64A-RMW}
+
+\bitfields{ 5/funct5, 2/acqrel, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0101111 }
+
+
+\subsubsection[{\small RV64A R-Type CAS}]{RV64A R-Type CAS} \label{sec:format-RV64A-CAS}
+
+\bitfields{ 5/00101, 2/acqrel, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0101111 }
+
+
+\subsubsection[{\small RV64A R-Type CAS with pair of registers}]{RV64A R-Type CAS with pair of registers} \label{sec:format-RV64A-CAS-PAIR}
+
+\bitfields{ 5/00101, 2/acqrel, 4/rs2-- pair, 1/0, 5/rs1, 3/funct3, 4/rd-- pair, 1/0, 7/0101111 }
+
+
+\subsubsection[{\small RV32F I-Type with Loads}]{RV32F I-Type with Loads} \label{sec:format-RV32F-ILoad}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/funct3, 5/frd, 7/0000111 }
+
+
+\subsubsection[{\small RV32F S-Type}]{RV32F S-Type} \label{sec:format-RV32F-SType}
+
+\bitfields{ 7/i-- 11-- 5, 5/frs2, 5/rs1, 3/funct3, 5/i-- 4-- 0s, 7/0100111 }
+
+
+\subsubsection[{\small RV32F R4-Type}]{RV32F R4-Type} \label{sec:format-RV32F-R4TypeRM}
+
+\bitfields{ 5/frs3, 2/00, 5/frs2, 5/frs1, 3/frm, 5/frd, 7/opcode }
+
+
+\subsubsection[{\small RV32F R-Type with Rounding Mode}]{RV32F R-Type with Rounding Mode} \label{sec:format-RV32F-R3TypeRM}
+
+\bitfields{ 5/funct5, 2/00, 5/frs2, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type with Two Registers}]{RV32F R-Type with Two Registers} \label{sec:format-RV32F-R2TypeRM}
+
+\bitfields{ 5/funct5, 2/00, 5/00000, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type FSGN*}]{RV32F R-Type FSGN*} \label{sec:format-RV32F-RTypeFSGN}
+
+\bitfields{ 5/00100, 2/00, 5/frs2, 5/frs1, 3/funct3, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type FMIN/FMAX}]{RV32F R-Type FMIN/FMAX} \label{sec:format-RV32F-RTypeFMIN}
+
+\bitfields{ 5/00101, 2/00, 5/frs2, 5/frs1, 3/funct3, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type FCVT* Float to Integer}]{RV32F R-Type FCVT* Float to Integer} \label{sec:format-RV32F-RTypeFCF2I}
+
+\bitfields{ 5/11000, 2/00, 5/rs2, 5/frs1, 3/frm, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type Comparisons}]{RV32F R-Type Comparisons} \label{sec:format-RV32F-RTypeFCMP}
+
+\bitfields{ 5/10100, 2/00, 5/frs2, 5/frs1, 3/funct3, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type FCLASS}]{RV32F R-Type FCLASS} \label{sec:format-RV32F-RTypeFF2I}
+
+\bitfields{ 5/11100, 2/00, 5/00000, 5/frs1, 3/funct3, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type FCVT* Integer to Float}]{RV32F R-Type FCVT* Integer to Float} \label{sec:format-RV32F-RTypeFCI2F}
+
+\bitfields{ 5/11010, 2/00, 5/rs2, 5/rs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV64F R-Type FCVT* Float to Long}]{RV64F R-Type FCVT* Float to Long} \label{sec:format-RV64F-RTypeFCF2L}
+
+\bitfields{ 5/11000, 2/00, 5/rs2, 5/frs1, 3/frm, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV64F R-Type FCVT* Long to Float}]{RV64F R-Type FCVT* Long to Float} \label{sec:format-RV64F-RTypeFCL2F}
+
+\bitfields{ 5/11010, 2/00, 5/rs2, 5/rs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type FMV* Float to Integer}]{RV32F R-Type FMV* Float to Integer} \label{sec:format-RV32F-RTypeFMF2I}
+
+\bitfields{ 5/11100, 2/00, 5/00000, 5/frs1, 3/funct3, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type FMV* Integer to Float}]{RV32F R-Type FMV* Integer to Float} \label{sec:format-RV32F-RTypeFMI2F}
+
+\bitfields{ 5/11110, 2/00, 5/00000, 5/rs1, 3/funct3, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D I-Type with Loads}]{RV32D I-Type with Loads} \label{sec:format-RV32D-ILoad}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/funct3, 5/frd, 7/0000111 }
+
+
+\subsubsection[{\small RV32D S-Type}]{RV32D S-Type} \label{sec:format-RV32D-SType}
+
+\bitfields{ 7/i-- 11-- 5, 5/frs2, 5/rs1, 3/funct3, 5/i-- 4-- 0s, 7/0100111 }
+
+
+\subsubsection[{\small RV32D R4-Type}]{RV32D R4-Type} \label{sec:format-RV32D-R4TypeRM}
+
+\bitfields{ 5/frs3, 2/01, 5/frs2, 5/frs1, 3/frm, 5/frd, 7/opcode }
+
+
+\subsubsection[{\small RV32D R-Type with Rounding Mode}]{RV32D R-Type with Rounding Mode} \label{sec:format-RV32D-R3TypeRM}
+
+\bitfields{ 5/funct5, 2/01, 5/frs2, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D R-Type with Two Registers}]{RV32D R-Type with Two Registers} \label{sec:format-RV32D-R2TypeRM}
+
+\bitfields{ 5/funct5, 2/01, 5/00000, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D R-Type FSGN*}]{RV32D R-Type FSGN*} \label{sec:format-RV32D-RTypeFSGN}
+
+\bitfields{ 5/00100, 2/01, 5/frs2, 5/frs1, 3/funct3, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D R-Type FMIN/FMAX}]{RV32D R-Type FMIN/FMAX} \label{sec:format-RV32D-RTypeFMIN}
+
+\bitfields{ 5/00101, 2/01, 5/frs2, 5/frs1, 3/funct3, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D R-Type FCVT* Double to Float}]{RV32D R-Type FCVT* Double to Float} \label{sec:format-RV32D-RTypeFCD2F}
+
+\bitfields{ 5/01000, 2/00, 5/rs2, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D R-Type FCVT* Float to Double}]{RV32D R-Type FCVT* Float to Double} \label{sec:format-RV32D-RTypeFCF2D}
+
+\bitfields{ 5/01000, 2/01, 5/rs2, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D R-Type Comparisons}]{RV32D R-Type Comparisons} \label{sec:format-RV32D-RTypeFCMP}
+
+\bitfields{ 5/10100, 2/01, 5/frs2, 5/frs1, 3/funct3, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D R-Type FCLASS}]{RV32D R-Type FCLASS} \label{sec:format-RV32D-RTypeFD2I}
+
+\bitfields{ 5/11100, 2/01, 5/00000, 5/frs1, 3/funct3, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D R-Type FCVT* Double to Integer}]{RV32D R-Type FCVT* Double to Integer} \label{sec:format-RV32D-RTypeFCD2I}
+
+\bitfields{ 5/11000, 2/01, 5/rs2, 5/frs1, 3/frm, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32D R-Type FCVT* Integer to Double}]{RV32D R-Type FCVT* Integer to Double} \label{sec:format-RV32D-RTypeFCI2D}
+
+\bitfields{ 5/11010, 2/01, 5/rs2, 5/rs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV64D R-Type FCVT* Double to Long}]{RV64D R-Type FCVT* Double to Long} \label{sec:format-RV64D-RTypeFCD2L}
+
+\bitfields{ 5/11000, 2/01, 5/rs2, 5/frs1, 3/frm, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV64F R-Type FCVT* Long to Double}]{RV64F R-Type FCVT* Long to Double} \label{sec:format-RV64D-RTypeFCL2D}
+
+\bitfields{ 5/11010, 2/01, 5/rs2, 5/rs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV64F R-Type FMV* Double to Integer}]{RV64F R-Type FMV* Double to Integer} \label{sec:format-RV64D-RTypeFMF2I}
+
+\bitfields{ 5/11100, 2/01, 5/00000, 5/frs1, 3/funct3, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV64F R-Type FMV* Integer to Double}]{RV64F R-Type FMV* Integer to Double} \label{sec:format-RV64D-RTypeFMI2F}
+
+\bitfields{ 5/11110, 2/01, 5/00000, 5/rs1, 3/funct3, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H I-Type with Loads}]{RV32H I-Type with Loads} \label{sec:format-RV32H-ILoad}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/funct3, 5/frd, 7/0000111 }
+
+
+\subsubsection[{\small RV32H S-Type}]{RV32H S-Type} \label{sec:format-RV32H-SType}
+
+\bitfields{ 7/i-- 11-- 5, 5/frs2, 5/rs1, 3/funct3, 5/i-- 4-- 0s, 7/0100111 }
+
+
+\subsubsection[{\small RV32H R4-Type}]{RV32H R4-Type} \label{sec:format-RV32H-R4TypeRM}
+
+\bitfields{ 5/frs3, 2/10, 5/frs2, 5/frs1, 3/frm, 5/frd, 7/opcode }
+
+
+\subsubsection[{\small RV32H R-Type with Rounding Mode}]{RV32H R-Type with Rounding Mode} \label{sec:format-RV32H-R3TypeRM}
+
+\bitfields{ 5/funct5, 2/10, 5/frs2, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H R-Type with Two Registers}]{RV32H R-Type with Two Registers} \label{sec:format-RV32H-R2TypeRM}
+
+\bitfields{ 5/funct5, 2/10, 5/00000, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H R-Type FSGN*}]{RV32H R-Type FSGN*} \label{sec:format-RV32H-RTypeFSGN}
+
+\bitfields{ 5/00100, 2/10, 5/frs2, 5/frs1, 3/funct3, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H R-Type FMIN/FMAX}]{RV32H R-Type FMIN/FMAX} \label{sec:format-RV32H-RTypeFMIN}
+
+\bitfields{ 5/00101, 2/10, 5/frs2, 5/frs1, 3/funct3, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H R-Type FCVT* Half to Float, Double, Quad}]{RV32H R-Type FCVT* Half to Float, Double, Quad} \label{sec:format-RV32H-RTypeFCVTT}
+
+\bitfields{ 5/01000, 2/fmt, 5/00010, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H R-Type FCVT* Half from Float, Double, Quad}]{RV32H R-Type FCVT* Half from Float, Double, Quad} \label{sec:format-RV32H-RTypeFCVTF}
+
+\bitfields{ 5/01000, 2/10, 5/rs2, 5/frs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type FMV* Float to Integer}]{RV32F R-Type FMV* Float to Integer} \label{sec:format-RV32H-RTypeFMF2I}
+
+\bitfields{ 5/11100, 2/10, 5/00000, 5/frs1, 3/funct3, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H R-Type Comparisons}]{RV32H R-Type Comparisons} \label{sec:format-RV32H-RTypeFCMP}
+
+\bitfields{ 5/10100, 2/10, 5/frs2, 5/frs1, 3/funct3, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H R-Type FCLASS}]{RV32H R-Type FCLASS} \label{sec:format-RV32H-RTypeFD2I}
+
+\bitfields{ 5/11100, 2/10, 5/00000, 5/frs1, 3/funct3, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H R-Type FCVT* Half to Integer}]{RV32H R-Type FCVT* Half to Integer} \label{sec:format-RV32H-RTypeFCD2I}
+
+\bitfields{ 5/11000, 2/10, 5/rs2, 5/frs1, 3/frm, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV32H R-Type FCVT* Integer to Half}]{RV32H R-Type FCVT* Integer to Half} \label{sec:format-RV32H-RTypeFCI2D}
+
+\bitfields{ 5/11010, 2/10, 5/rs2, 5/rs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32F R-Type FMV* Integer to Half}]{RV32F R-Type FMV* Integer to Half} \label{sec:format-RV32H-RTypeFMI2F}
+
+\bitfields{ 5/11110, 2/10, 5/00000, 5/rs1, 3/funct3, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV64H R-Type FCVT* Half to Long}]{RV64H R-Type FCVT* Half to Long} \label{sec:format-RV64H-RTypeFCD2L}
+
+\bitfields{ 5/11000, 2/10, 5/rs2, 5/frs1, 3/frm, 5/rd, 7/1010011 }
+
+
+\subsubsection[{\small RV64F R-Type FCVT* Long to Half}]{RV64F R-Type FCVT* Long to Half} \label{sec:format-RV64H-RTypeFCL2H}
+
+\bitfields{ 5/11010, 2/10, 5/rs2, 5/rs1, 3/frm, 5/frd, 7/1010011 }
+
+
+\subsubsection[{\small RV32B OPREG}]{RV32B OPREG} \label{sec:format-RV32B-OPREG}
+
+\bitfields{ 7/funct7, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0111011 }
+
+
+\subsubsection[{\small RV32B OPIMM I-11-6 000010}]{RV32B OPIMM I-11-6 000010} \label{sec:format-RV32B-OPIMM-0x20}
+
+\bitfields{ 6/000010, 6/i-- 5-- 0, 5/rs1, 3/funct3, 5/rd, 7/0011011 }
+
+
+\subsubsection[{\small RV32B OPIMM I-11-5 0110000}]{RV32B OPIMM I-11-5 0110000} \label{sec:format-RV32B-OPIMM-0x30}
+
+\bitfields{ 7/0110000, 5/i-- 4-- 0, 5/rs1, 3/funct3, 5/rd, 7/0011011 }
+
+
+\subsubsection[{\small RV32B OPEXT I-11-5 0000100}]{RV32B OPEXT I-11-5 0000100} \label{sec:format-RV32B-OPEXT-0x04}
+
+\bitfields{ 7/0000100, 5/00000, 5/rs1, 3/funct3, 5/rd, 7/0111011 }
+
+
+\subsubsection[{\small RV32B OPCNT I-11-5 0110000}]{RV32B OPCNT I-11-5 0110000} \label{sec:format-RV32B-OPCNT-0x30}
+
+\bitfields{ 7/0110000, 5/i-- 4-- 0, 5/rs1, 3/001, 5/rd, 7/0011011 }
+
+
+\subsubsection[{\small RV64B OPREG Funct7 0000100}]{RV64B OPREG Funct7 0000100} \label{sec:format-RV64B-OPREG-0x04}
+
+\bitfields{ 7/0000100, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV64B OPREG Funct7 0000101}]{RV64B OPREG Funct7 0000101} \label{sec:format-RV64B-OPREG-0x05}
+
+\bitfields{ 7/0000101, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV64B OPREG Func7 0010000}]{RV64B OPREG Func7 0010000} \label{sec:format-RV64B-OPREG-0x10}
+
+\bitfields{ 7/0010000, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV64B OPREG Funct7 0010100}]{RV64B OPREG Funct7 0010100} \label{sec:format-RV64B-OPREG-0x14}
+
+\bitfields{ 7/0010100, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV64B OPREG Funct7 0100000}]{RV64B OPREG Funct7 0100000} \label{sec:format-RV64B-OPREG-0x20}
+
+\bitfields{ 7/0100000, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV64B OPREG Funct7 0100100}]{RV64B OPREG Funct7 0100100} \label{sec:format-RV64B-OPREG-0x24}
+
+\bitfields{ 7/0100100, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV64B OPREG Func7 0110000}]{RV64B OPREG Func7 0110000} \label{sec:format-RV64B-OPREG-0x30}
+
+\bitfields{ 7/0110000, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV64B OPREG Funct7 0110100}]{RV64B OPREG Funct7 0110100} \label{sec:format-RV64B-OPREG-0x34}
+
+\bitfields{ 7/0110100, 5/rs2, 5/rs1, 3/funct3, 5/rd, 7/0110011 }
+
+
+\subsubsection[{\small RV64B OPIMM I-11-6 001010}]{RV64B OPIMM I-11-6 001010} \label{sec:format-RV64B-OPIMM-0x0a}
+
+\bitfields{ 6/001010, 6/i-- 5-- 0, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64B OPIMM I-11-6 010010}]{RV64B OPIMM I-11-6 010010} \label{sec:format-RV64B-OPIMM-0x12}
+
+\bitfields{ 6/010010, 6/i-- 5-- 0, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64B OPIMM I-11-6 011000}]{RV64B OPIMM I-11-6 011000} \label{sec:format-RV64B-OPIMM-0x18}
+
+\bitfields{ 6/011000, 6/i-- 5-- 0, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64B OPIMM I-11-6 011010}]{RV64B OPIMM I-11-6 011010} \label{sec:format-RV64B-OPIMM-0x1a}
+
+\bitfields{ 6/011010, 6/i-- 5-- 0, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64B OPCNT I-11-6 011000}]{RV64B OPCNT I-11-6 011000} \label{sec:format-RV64B-OPCNT-0x18}
+
+\bitfields{ 6/011000, 6/i-- 5-- 0, 5/rs1, 3/001, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64I OPIMM I-11-0 001010000111}]{RV64I OPIMM I-11-0 001010000111} \label{sec:format-RV64B-OPIMM-0x287}
+
+\bitfields{ 12/001010000111, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64I OPIMM I-11-0 011010111000}]{RV64I OPIMM I-11-0 011010111000} \label{sec:format-RV64B-OPIMM-0x6b8}
+
+\bitfields{ 12/011010111000, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64I OPIMM I-11-0 011010000111}]{RV64I OPIMM I-11-0 011010000111} \label{sec:format-RV64B-OPIMM-0x687}
+
+\bitfields{ 12/011010000111, 5/rs1, 3/funct3, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV64B OPEXT I-11-5 0110000}]{RV64B OPEXT I-11-5 0110000} \label{sec:format-RV64B-OPEXT-0x30}
+
+\bitfields{ 7/0110000, 5/i-- 4-- 0, 5/rs1, 3/001, 5/rd, 7/0010011 }
+
+
+\subsubsection[{\small RV32I\_ZICBOM}]{RV32I\_ZICBOM} \label{sec:format-RV32I-ZICBOM}
+
+\bitfields{ 12/i-- 11-- 0, 5/rs1, 3/010, 5/00000, 7/0001111 }
+
+
+\subsubsection[{\small RV32I\_STypeZICBOP}]{RV32I\_STypeZICBOP} \label{sec:format-RV32I-STypeZICBOP}
+
+\bitfields{ 7/i-- 11-- 5, 5/rs2, 5/rs1, 3/110, 5/00000, 7/0010011 }
+

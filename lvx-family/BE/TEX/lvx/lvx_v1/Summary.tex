@@ -1,0 +1,905 @@
+\sect{BCU}
+\cm{AWAIT}{Wait for any event or interrupt.}
+\cm{BARRIER}{Instruction Pipeline Barrier}
+\cm{BLEND}{Blended execution prefix}
+\cm{BREAK}{Debugger Breakpoint}
+\cm{CALL}{Call Subroutine PC-Relative}
+\cm{CALLX}{Call Subroutine Extended PC-Relative}
+\cm{CB}{Conditional Branch PC-Relative}
+\cm{CBX}{Conditional Branch Extended PC-Relative}
+\cm{CCB}{Compare Conditional Branch PC-Relative}
+\cm{CCBX}{Compare Conditional Extended Branch PC-Relative}
+\cm{GET}{Get System Register}
+\cm{GOTO}{Branch Unconditional PC-Relative}
+\cm{GOTOX}{Branch Unconditional Extended PC-Relative}
+\cm{GUARD}{Guarded execution prefix.}
+\cm{ICALL}{Indirect Call from Register}
+\cm{IGET}{Indirect Get System Register}
+\cm{IGOTO}{Indirect Branch from Register}
+\cm{LOOPDO}{Hardware Loop setup and Do execute}
+\cm{RET}{Return from Call}
+\cm{RFE}{Return from Exception}
+\cm{RSWAP}{General and System Register Swap}
+\cm{SCALL}{System Call}
+\cm{SET}{Set System Register}
+\cm{SLEEP}{Wait for an eligible interrupt.}
+\cm{STOP}{Wait for power controller wake-up.}
+\cm{SYNCGROUP}{Synchronize Group of Cores}
+\cm{TLBDINVAL}{Invalidate Data Micro-TLB.}
+\cm{TLBIINVAL}{Invalidate Instruction Micro-TLB.}
+\cm{TLBPROBE}{Probe TLB}
+\cm{TLBREAD}{Read TLB Entry}
+\cm{TLBWRITE}{TLB Entry Write}
+\cm{WAITIT}{Wait for Interrupt}
+\cm{WFXL}{Effects on Least Significant Word System Register}
+\cm{WFXM}{Word Effects on Most Significant Word System Register}
+\sect{LSU}
+\cm{ACSWAPB}{Atomic Compare and Swap Byte}
+\cm{ACSWAPD}{Atomic Compare and Swap Double Word}
+\cm{ACSWAPH}{Atomic Compare and Swap Half Word}
+\cm{ACSWAPQ}{Atomic Compare and Swap Quadruple Word}
+\cm{ACSWAPW}{Atomic Compare and Swap Word}
+\cm{ALADDB}{Atomic Load and Add Byte}
+\cm{ALADDD}{Atomic Load and Add Double Word}
+\cm{ALADDH}{Atomic Load and Add Half Word}
+\cm{ALADDW}{Atomic Load and Add Word}
+\cm{ALANDB}{Atomic Load and AND Byte}
+\cm{ALANDD}{Atomic Load and AND Double Word}
+\cm{ALANDH}{Atomic Load and AND Half Word}
+\cm{ALANDW}{Atomic Load and AND Word}
+\cm{ALB}{Atomic Load Byte}
+\cm{ALCLRB}{Atomic Load and Clear Byte}
+\cm{ALCLRD}{Atomic Load and Clear Double Word}
+\cm{ALCLRH}{Atomic Load and Clear Half Word}
+\cm{ALCLRW}{Atomic Load and Clear Word}
+\cm{ALD}{Atomic Load Double Word}
+\cm{ALDUSB}{Atomic Load and Decrement Unsigned Saturating Byte}
+\cm{ALDUSD}{Atomic Load and DUS Double Word}
+\cm{ALDUSH}{Atomic Load and DUS Half Word}
+\cm{ALDUSW}{Atomic Load and DUS Word}
+\cm{ALEORB}{Atomic Load and EOR Byte}
+\cm{ALEORD}{Atomic Load and EOR Double Word}
+\cm{ALEORH}{Atomic Load and EOR Half Word}
+\cm{ALEORW}{Atomic Load and EOR Word}
+\cm{ALH}{Atomic Load Half Word}
+\cm{ALIORB}{Atomic Load and IOR Byte}
+\cm{ALIORD}{Atomic Load and IOR Double Word}
+\cm{ALIORH}{Atomic Load and IOR Half Word}
+\cm{ALIORW}{Atomic Load and IOR Word}
+\cm{ALMAXB}{Atomic Load and MAX Byte}
+\cm{ALMAXD}{Atomic Load and MAX Double Word}
+\cm{ALMAXH}{Atomic Load and MAX Half Word}
+\cm{ALMAXUB}{Atomic Load and MAX Unsigned Byte}
+\cm{ALMAXUD}{Atomic Load and MAX Unsigned Double Word}
+\cm{ALMAXUH}{Atomic Load and MAX Unsigned Half Word}
+\cm{ALMAXUW}{Atomic Load and MAX Unsigned Word}
+\cm{ALMAXW}{Atomic Load and MAX Word}
+\cm{ALMINB}{Atomic Load and MIN Byte}
+\cm{ALMIND}{Atomic Load and MIN Double Word}
+\cm{ALMINH}{Atomic Load and MIN Half Word}
+\cm{ALMINUB}{Atomic Load and MIN Unsigned Byte}
+\cm{ALMINUD}{Atomic Load and MIN Unsigned Double Word}
+\cm{ALMINUH}{Atomic Load and MIN Unsigned Half Word}
+\cm{ALMINUW}{Atomic Load and MIN Unsigned Word}
+\cm{ALMINW}{Atomic Load and MIN Word}
+\cm{ALW}{Atomic Load Word}
+\cm{ASADDB}{Atomic Store Add Byte}
+\cm{ASADDD}{Atomic Store Add Double Word}
+\cm{ASADDH}{Atomic Store Add Half Word}
+\cm{ASADDW}{Atomic Store Add Word}
+\cm{ASANDB}{Atomic Store AND Byte}
+\cm{ASANDD}{Atomic Store AND Double Word}
+\cm{ASANDH}{Atomic Store AND Half Word}
+\cm{ASANDW}{Atomic Store AND Word}
+\cm{ASB}{Atomic Store Byte}
+\cm{ASD}{Atomic Store Double Word}
+\cm{ASDUSB}{Atomic Store Decrement Unsigned Saturating Byte}
+\cm{ASDUSD}{Atomic Store DUS Double Word}
+\cm{ASDUSH}{Atomic Store DUS Half Word}
+\cm{ASDUSW}{Atomic Store DUS Word}
+\cm{ASEORB}{Atomic Store EOR Byte}
+\cm{ASEORD}{Atomic Store EOR Double Word}
+\cm{ASEORH}{Atomic Store EOR Half Word}
+\cm{ASEORW}{Atomic Store EOR Word}
+\cm{ASH}{Atomic Store Half Word}
+\cm{ASIORB}{Atomic Store IOR Byte}
+\cm{ASIORD}{Atomic Store IOR Double Word}
+\cm{ASIORH}{Atomic Store IOR Half Word}
+\cm{ASIORW}{Atomic Store IOR Word}
+\cm{ASMAXB}{Atomic Store MAX Byte}
+\cm{ASMAXD}{Atomic Store MAX Double Word}
+\cm{ASMAXH}{Atomic Store MAX Half Word}
+\cm{ASMAXUB}{Atomic Store MAX Unsigned Byte}
+\cm{ASMAXUD}{Atomic Store MAX Unsigned Double Word}
+\cm{ASMAXUH}{Atomic Store MAX Unsigned Half Word}
+\cm{ASMAXUW}{Atomic Store MAX Unsigned Word}
+\cm{ASMAXW}{Atomic Store MAX Word}
+\cm{ASMINB}{Atomic Store MIN Byte}
+\cm{ASMIND}{Atomic Store MIN Double Word}
+\cm{ASMINH}{Atomic Store MIN Half Word}
+\cm{ASMINUB}{Atomic Store MIN Unsigned Byte}
+\cm{ASMINUD}{Atomic Store MIN Unsigned Double Word}
+\cm{ASMINUH}{Atomic Store MIN Unsigned Half Word}
+\cm{ASMINUW}{Atomic Store MIN Unsigned Word}
+\cm{ASMINW}{Atomic Store MIN Word}
+\cm{ASW}{Atomic Store Word}
+\cm{ASWAPB}{Atomic Swap Byte}
+\cm{ASWAPD}{Atomic Swap Double Word}
+\cm{ASWAPH}{Atomic Swap Half Word}
+\cm{ASWAPW}{Atomic Swap Word}
+\cm{COPYO}{Copy Octuple Word}
+\cm{D1INVAL}{Data Cache 1 Invalidate}
+\cm{DFLUSHL}{Data Cache Flush Line}
+\cm{DFLUSHSW}{Data Cache Flush Line by Set and Way}
+\cm{DINVALL}{Data Cache Invalidate Line}
+\cm{DINVALSW}{Data Cache Invalidate Line by Set and Way}
+\cm{DPURGEL}{Data Cache Purge Line}
+\cm{DPURGESW}{Data Cache Purge Line by Set and Way}
+\cm{DTOUCHL}{Data Cache Touch Line}
+\cm{FENCE}{Memory Fence}
+\cm{I1INVAL}{Instruction Cache 1 Invalidate}
+\cm{I1INVALS}{Instruction Cache 1 Invalidate Set}
+\cm{LBS}{Load Byte Sign Extended}
+\cm{LBZ}{Load Byte Zero Extended}
+\cm{LD}{Load Double Word}
+\cm{LHS}{Load Half Word Sign Extended}
+\cm{LHZ}{Load Half Word Zero Extended}
+\cm{LO}{Load Octuple Word}
+\cm{LQ}{Load Quadruple Word}
+\cm{LWS}{Load Word Sign Extended}
+\cm{LWZ}{Load Word Zero Extended}
+\cm{SB}{Store Byte}
+\cm{SD}{Store Double Word}
+\cm{SH}{Store Half Word}
+\cm{SO}{Store Octuple Word}
+\cm{SQ}{Store Quadruple Word}
+\cm{SW}{Store Word}
+\cm{XLO}{Extension Load Octuple Word}
+\cm{XPLB}{Extension Preload Byte}
+\cm{XPLD}{Extension Preload Double Word}
+\cm{XPLH}{Extension Preload Half}
+\cm{XPLO}{Extension Preload Octuple Word}
+\cm{XPLQ}{Extension Preload Quadruple Word}
+\cm{XPLW}{Extension Preload Word}
+\cm{XSO}{Extension Store Octuple Word}
+\sect{ALU}
+\cm{ABDBO}{Absolute Difference Byte Octuple}
+\cm{ABDD}{Absolute Difference Double Word}
+\cm{ABDHQ}{Absolute Difference Half Word Quadruple}
+\cm{ABDSBO}{Absolute Difference Saturated Byte Octuple}
+\cm{ABDSD}{Absolute Difference Saturated Double Word}
+\cm{ABDSHQ}{Absolute Difference Saturated Half Word Quadruple}
+\cm{ABDSW}{Absolute Difference Saturated Word}
+\cm{ABDSWP}{Absolute Difference Saturated Word Pair}
+\cm{ABDUBO}{Absolute Difference Unsigned Byte Octuple}
+\cm{ABDUD}{Absolute Difference Unsigned Double Word}
+\cm{ABDUHQ}{Absolute Difference Unsigned Half Word Quadruple}
+\cm{ABDUW}{Absolute Difference Unsigned Word}
+\cm{ABDUWP}{Absolute Difference Unsigned Word Pair}
+\cm{ABDW}{Absolute Difference Word}
+\cm{ABDWP}{Absolute Difference Word Pair}
+\cm{ABSBO}{Absolute Value Byte Octuple}
+\cm{ABSD}{Absolute Value Double Word}
+\cm{ABSHQ}{Absolute Value Half Word Quadruple}
+\cm{ABSSBO}{Absolute Value Saturated Byte Octuple}
+\cm{ABSSD}{Absolute Value Saturated Double Word}
+\cm{ABSSHQ}{Absolute Value Saturated Half Word Quadruple}
+\cm{ABSSW}{Absolute Value Saturated Word}
+\cm{ABSSWP}{Absolute Value Saturated Word Pair}
+\cm{ABSW}{Absolute Value Word}
+\cm{ABSWP}{Absolute Value Word Pair}
+\cm{ADDBO}{Add Byte Octuple}
+\cm{ADDD}{Add Double Word to Double Word}
+\cm{ADDHQ}{Add Half Word Quadruple}
+\cm{ADDQ}{Add Quadruple Word to Quadruple Word}
+\cm{ADDSBO}{Add Saturated Byte Octuple}
+\cm{ADDSD}{Add Saturated Double Word}
+\cm{ADDSHQ}{Add Saturated Half Word Quadruple}
+\cm{ADDSW}{Add Saturated Word}
+\cm{ADDSWP}{Add Saturated Word Pair}
+\cm{ADDUSBO}{Add Unsigned Saturated Byte Octuple}
+\cm{ADDUSD}{Add Unsigned Saturated Double Word}
+\cm{ADDUSHQ}{Add Unsigned Saturated Half Word Quadruple}
+\cm{ADDUSW}{Add Unsigned Saturated Word}
+\cm{ADDUSWP}{Add Unsigned Saturated Word Pair}
+\cm{ADDW}{Add Word to Word}
+\cm{ADDWP}{Add Word Pair}
+\cm{ADDX16BO}{Add to Times 16 Byte Octuple}
+\cm{ADDX16D}{Add Double Word to Double Word Times 16}
+\cm{ADDX16HQ}{Add to Times 16 Half Word Quadruple}
+\cm{ADDX16W}{Add Word to Word Times 16}
+\cm{ADDX16WP}{Add to Times 16 Word Pair}
+\cm{ADDX2BO}{Add to Times 2 Byte Octuple}
+\cm{ADDX2D}{Add to Times 2 Double Word}
+\cm{ADDX2HQ}{Add to Times 2 Half Word Quadruple}
+\cm{ADDX2W}{Add to Times 2 Word}
+\cm{ADDX2WP}{Add to Times 2 Word Pair}
+\cm{ADDX32D}{Add to Times 32 Double Word}
+\cm{ADDX32W}{Add to Times 32 Word}
+\cm{ADDX4BO}{Add to Times 4 Byte Octuple}
+\cm{ADDX4D}{Add to Times 4 Double Word}
+\cm{ADDX4HQ}{Add to Times 4 Half Word Quadruple}
+\cm{ADDX4W}{Add to Times 4 Word}
+\cm{ADDX4WP}{Add to Times 4 Word Pair}
+\cm{ADDX64D}{Add to Times 64 Double Word}
+\cm{ADDX64W}{Add to Times 64 Word}
+\cm{ADDX8BO}{Add to Times 8 Byte Octuple}
+\cm{ADDX8D}{Add to Times 8 Double Word}
+\cm{ADDX8HQ}{Add to Times 8 Half Word Quadruple}
+\cm{ADDX8W}{Add to Times 8 Word}
+\cm{ADDX8WP}{Add to Times 8 Word Pair}
+\cm{ANDD}{Bitwise And Double Word}
+\cm{ANDND}{Bitwise And with Not Operand Double Word}
+\cm{ANDNQ}{Bitwise And with Not Operand Quadruple Word}
+\cm{ANDNW}{Bitwise And with Not Operand Word}
+\cm{ANDQ}{Bitwise And Quadruple Word}
+\cm{ANDW}{Bitwise And Word}
+\cm{AVGBO}{Average Byte Octuple}
+\cm{AVGHQ}{Average Half Word Quadruple}
+\cm{AVGRBO}{Average Rounded Byte Octuple}
+\cm{AVGRHQ}{Average Rounded Half Word Quadruple}
+\cm{AVGRUBO}{Average Rounded Unsigned Byte Octuple}
+\cm{AVGRUHQ}{Average Rounded Unsigned Half Word Quadruple}
+\cm{AVGRUW}{Average Rounded Unsigned Word}
+\cm{AVGRUWP}{Average Rounded Unsigned Word Pair}
+\cm{AVGRW}{Average Rounded Word}
+\cm{AVGRWP}{Average Rounded Word Pair}
+\cm{AVGUBO}{Average Unsigned Byte Octuple}
+\cm{AVGUHQ}{Average Unsigned Half Word Quadruple}
+\cm{AVGUW}{Average Unsigned Word}
+\cm{AVGUWP}{Average Unsigned Word Pair}
+\cm{AVGW}{Average Word}
+\cm{AVGWP}{Average Word Pair}
+\cm{CATDQ}{Catenate Double to Quadruple Word}
+\cm{CBSD}{Count Bit Set Double Word}
+\cm{CBSHQ}{Count Bit Sets Half Word Quadruple}
+\cm{CBSW}{Count Bit Set Word}
+\cm{CBSWP}{Count Bit Sets Word Pair}
+\cm{CLSD}{Count Leading Sign Double Word}
+\cm{CLSHQ}{Count Leading Signs Half Word Quadruple}
+\cm{CLSW}{Count Leading Sign Word}
+\cm{CLSWP}{Count Leading Signs Word Pair}
+\cm{CLZD}{Count Leading Zero Double Word}
+\cm{CLZHQ}{Count Leading Zeroes Half Word Quadruple}
+\cm{CLZW}{Count Leading Zero Word}
+\cm{CLZWP}{Count Leading Zeroes Word Pair}
+\cm{CMOVEBO}{Conditional Move Byte Octuple}
+\cm{CMOVED}{Conditional Move Double Word}
+\cm{CMOVEHQ}{Conditional Move Half Word Quadruple}
+\cm{CMOVEQ}{Conditional Move Quadruple Word}
+\cm{CMOVEWP}{Conditional Move Word Pair}
+\cm{COMPBO}{Compare Byte Octuple}
+\cm{COMPD}{Compare Double Word}
+\cm{COMPHQ}{Compare Half Word Quadruple}
+\cm{COMPNBO}{Compare Negate Byte Octuple}
+\cm{COMPND}{Compare Negate Double Word}
+\cm{COMPNHQ}{Compare Negate Half Word Quadruple}
+\cm{COMPNWP}{Compare Negate Word Pair}
+\cm{COMPQ}{Compare Quadruple Word}
+\cm{COMPW}{Compare Word}
+\cm{COMPWP}{Compare Word Pair}
+\cm{CRCBELLW}{Cyclic Redundancy Check Big-Endian Least Significant with Least Significant Word}
+\cm{CRCBELMW}{Cyclic Redundancy Check Big-Endian Least Significant with Most Significant Word}
+\cm{CRCLELLW}{Cyclic Redundancy Check Little-Endian Least Significant with Least Significant Word}
+\cm{CRCLELMW}{Cyclic Redundancy Check Little-Endian Least Significant with Most Significant Word}
+\cm{CTZD}{Count Trailing Zero Double Word}
+\cm{CTZHQ}{Count Trailing Zeroes Half Word Quadruple}
+\cm{CTZW}{Count Trailing Zero Word}
+\cm{CTZWP}{Count Trailing Zeroes Word Pair}
+\cm{DIVMODD}{Integer Division Modulus Double Word}
+\cm{DIVMODUD}{Integer Division Modulus Unsigned Double Word}
+\cm{DIVMODUW}{Integer Division Modulus Unsigned Word}
+\cm{DIVMODW}{Integer Division Modulus Word}
+\cm{EORD}{Bitwise Exclusive Or Double Word}
+\cm{EORQ}{Bitwise Exclusive Or Quadruple Word}
+\cm{EORW}{Bitwise Exclusive Or Word}
+\cm{EXTFS}{Extract Bit Field and Sign Extend to Double Word}
+\cm{EXTFZ}{Extract Bit Field and Zero Extend to Double Word}
+\cm{EXTLQBHO}{Extend Lane Q7 Byte to Half Word Octuple}
+\cm{EXTLQHWQ}{Extend Lane Q15 Half Word to Word Quadruple}
+\cm{EXTLQNBX}{Extend Lane Q3 Nibble to Byte Hexadecuple}
+\cm{EXTLQWDP}{Extend Lane Q31 Word to Double Word Pair}
+\cm{EXTLSBHO}{Extend Lane with Sign Byte to Half Word Octuple}
+\cm{EXTLSHWQ}{Extend Lane with Sign Half Word to Word Quadruple}
+\cm{EXTLSNBX}{Extend Lane with Sign Nibble to Byte Hexadecuple}
+\cm{EXTLSWDP}{Extend Lane with Sign Word to Double Word Pair}
+\cm{EXTLZBHO}{Extend Lane with Zero Byte to Half Word Octuple}
+\cm{EXTLZHWQ}{Extend Lane with Zero Half Word to Word Quadruple}
+\cm{EXTLZNBX}{Extend Lane with Zero Nibble to Byte Hexadecuple}
+\cm{EXTLZWDP}{Extend Lane with Zero Word to Double Word Pair}
+\cm{FCOMPHQ}{Floating-Point Compare Half Word Quadruple}
+\cm{FCOMPWP}{Floating-Point Compare Word Pair}
+\cm{FNARROWWHQ}{Floating Point Narrow Word to Half Word Quadruple}
+\cm{FRACTDWP}{Fraction Double Word to Word Pair}
+\cm{FRACTHBO}{Fraction Half Word to Byte Octuple}
+\cm{FRACTWHQ}{Fraction Word to Half Word Quadruple}
+\cm{INSF}{Insert Bit Field into Word}
+\cm{IORD}{Bitwise Inclusive Or Double Word}
+\cm{IORND}{Bitwise Inclusive Or with Not Operand Double Word}
+\cm{IORNQ}{Bitwise Inclusive Or with Not Operand Quadruple Word}
+\cm{IORNW}{Bitwise Inclusive Or with Not Operand Double Word}
+\cm{IORQ}{Bitwise Inclusive Or Quadruple Word}
+\cm{IORW}{Bitwise Inclusive Or Word}
+\cm{LANDD}{Logical And Double Word}
+\cm{LANDW}{Logical And Word}
+\cm{LIORD}{Logical Or Double Word}
+\cm{LIORW}{Logical Or Word}
+\cm{LNANDD}{Logical Not And Double Word}
+\cm{LNANDW}{Logical Not And Word}
+\cm{LNIORD}{Logical Not Or Double Word}
+\cm{LNIORW}{Logical Not Or Word}
+\cm{MADDBHO}{Multiply Add Extend Byte to Half Word Octuple}
+\cm{MADDD}{Multiply Add Double Word}
+\cm{MADDDQ}{Multiply Add Extend Double Word to Quadruple Word}
+\cm{MADDHQ}{Multiply Add Half Word Quadruple}
+\cm{MADDHWQ}{Multiply Add Extend Half Word to Word Quadruple}
+\cm{MADDW}{Multiply Add Word}
+\cm{MADDWD}{Multiply Add Extend Word to Double Word}
+\cm{MADDWDP}{Multiply Add Extend Word to Double Word Pair}
+\cm{MADDWP}{Multiply Add Word Pair}
+\cm{MADDXBHO}{Multiply Add Extend Byte to Half Word Octuple}
+\cm{MADDXHWQ}{Multiply Add Extend Half Word to Word Quadruple}
+\cm{MADDXWDP}{Multiply Add Extend Word to Double Word Pair}
+\cm{MAKE}{Make Word from Immediate}
+\cm{MAXBO}{Maximum Byte Octuple}
+\cm{MAXD}{Maximum Double Word}
+\cm{MAXHQ}{Maximum Half Word Quadruple}
+\cm{MAXUBO}{Maximum Unsigned Byte Octuple}
+\cm{MAXUD}{Maximum Unsigned Double Word}
+\cm{MAXUHQ}{Maximum Unsigned Half Word Quadruple}
+\cm{MAXUW}{Maximum Unsigned Word}
+\cm{MAXUWP}{Maximum Unsigned Word Pair}
+\cm{MAXW}{Maximum Word}
+\cm{MAXWP}{Maximum Word Pair}
+\cm{MINBO}{Minimum Byte Octuple}
+\cm{MIND}{Minimum Double Word}
+\cm{MINHQ}{Minimum Half Word Quadruple}
+\cm{MINUBO}{Minimum Unsigned Byte Octuple}
+\cm{MINUD}{Minimum Unsigned Double Word}
+\cm{MINUHQ}{Minimum Unsigned Half Word Octuple}
+\cm{MINUW}{Minimum Unsigned Word}
+\cm{MINUWP}{Minimum Unsigned Word Pair}
+\cm{MINW}{Minimum Word}
+\cm{MINWP}{Minimum Word Pair}
+\cm{MSBFBHO}{Multiply Subtract From Extend Byte to Half Word Octuple}
+\cm{MSBFD}{Multiply Subtract From Double Word}
+\cm{MSBFDQ}{Multiply Subtract From Extend Double Word to Quadruple Word}
+\cm{MSBFHQ}{Multiply Subtract From Half Word Quadruple}
+\cm{MSBFHWQ}{Multiply Subtract From Extend Half Word to Word Quadruple}
+\cm{MSBFW}{Multiply Subtract From Word}
+\cm{MSBFWD}{Multiply Subtract From Extend Word to Double Word}
+\cm{MSBFWDP}{Multiply Subtract From Extend Word to Double Word Pair}
+\cm{MSBFWP}{Multiply Subtract From Word Pair}
+\cm{MSBFXBHO}{Multiply Subtract From Extend Byte to Half Word Octuple}
+\cm{MSBFXHWQ}{Multiply Subtract From Extend Half Word to Word Quadruple}
+\cm{MSBFXWDP}{Multiply Subtract From Extend Word to Double Word Pair}
+\cm{MULBHO}{Multiply Extend Byte to Half Word Octuple}
+\cm{MULD}{Multiply Double Word}
+\cm{MULDQ}{Multiply Extend Double Word to Quadruple Word}
+\cm{MULHQ}{Multiply Half Word Quadruple}
+\cm{MULHWQ}{Multiply Extend Half Word to Word Quadruple}
+\cm{MULNBHO}{Multiply Negate Extend Byte to Half Word Octuple}
+\cm{MULND}{Multiply Negate Double Word}
+\cm{MULNDQ}{Multiply Negate Extend Double Word to Quadruple Word}
+\cm{MULNHQ}{Multiply Negate Half Word Quadruple}
+\cm{MULNHWQ}{Multiply Negate Extend Half Word to Word Quadruple}
+\cm{MULNW}{Multiply Negate Word}
+\cm{MULNWD}{Multiply Negate Extend Word to Double Word}
+\cm{MULNWDP}{Multiply Negate Extend Word to Double Word Pair}
+\cm{MULNWP}{Multiply Negate Word Pair}
+\cm{MULNXBHO}{Multiply Negate Extend Byte to Half Word Octuple}
+\cm{MULNXHWQ}{Multiply Negate Extend Half Word to Word Quadruple}
+\cm{MULNXWDP}{Multiply Negate Extend Word to Double Word Pair}
+\cm{MULW}{Multiply Word}
+\cm{MULWD}{Multiply Extend Word to Double Word}
+\cm{MULWDP}{Multiply Extend Word to Double Word Pair}
+\cm{MULWP}{Multiply Word Pair}
+\cm{MULXBHO}{Multiply Extend Byte to Half Word Octuple}
+\cm{MULXHWQ}{Multiply Extend Half Word to Word Quadruple}
+\cm{MULXWDP}{Multiply Extend Word to Double Word Pair}
+\cm{NANDD}{Bitwise Not And Double Word}
+\cm{NANDQ}{Bitwise Not And Quadruple Word}
+\cm{NANDW}{Bitwise Not And Word}
+\cm{NEGBO}{Negate Byte Octuple}
+\cm{NEGD}{Negate Double Word}
+\cm{NEGHQ}{Negate Half Word Quadruple}
+\cm{NEGQ}{Negate Quadruple Word}
+\cm{NEGSBO}{Negate Saturated Byte Octuple}
+\cm{NEGSD}{Negate Saturated Double Word}
+\cm{NEGSHQ}{Negate Saturated Half Word Quadruple}
+\cm{NEGSW}{Negate Saturated Word}
+\cm{NEGSWP}{Negate Saturated Word Pair}
+\cm{NEGW}{Negate Word}
+\cm{NEGWP}{Negate Word Pair}
+\cm{NEORD}{Bitwise Not Exclusive Or Double Word}
+\cm{NEORQ}{Bitwise Not Exclusive Or Quadruple Word}
+\cm{NEORW}{Bitwise Not Exclusive Or Word}
+\cm{NIORD}{Bitwise Not Inclusive Or Double Word}
+\cm{NIORQ}{Bitwise Not Inclusive Or Quadruple Word}
+\cm{NIORW}{Bitwise Not Inclusive Or Word}
+\cm{NOP}{No Operation}
+\cm{NOTD}{Negate Double Word}
+\cm{NOTQ}{Negate Quadruple Word}
+\cm{NOTW}{Negate Word}
+\cm{PCREL}{PC-Relative}
+\cm{ROLD}{Rotate Left Double Word}
+\cm{ROLW}{Rotate Left Word}
+\cm{ROLWP}{Rotate Left Word Pair}
+\cm{RORD}{Rotate Right Double Word}
+\cm{RORW}{Rotate Right Word}
+\cm{RORWP}{Rotate Right Word Pair}
+\cm{SBFBO}{Subtract From Byte Octuple}
+\cm{SBFD}{Subtract From Double Word}
+\cm{SBFHQ}{Subtract From Half Word Quadruple}
+\cm{SBFQ}{Subtract From Quadruple Word}
+\cm{SBFSBO}{Subtract Saturated Byte Octuple}
+\cm{SBFSD}{Subtract Saturated Double Word}
+\cm{SBFSHQ}{Subtract Saturated Half Word Quadruple}
+\cm{SBFSW}{Subtract Saturated Word}
+\cm{SBFSWP}{Subtract Saturated Word Pair}
+\cm{SBFUSBO}{Subtract Unsigned Saturated Byte Octuple}
+\cm{SBFUSD}{Subtract Unsigned Saturated Double Word}
+\cm{SBFUSHQ}{Subtract Unsigned Saturated Half Word Quadruple}
+\cm{SBFUSW}{Subtract Unsigned Saturated Word}
+\cm{SBFUSWP}{Subtract Unsigned Saturated Word Pair}
+\cm{SBFW}{Subtract From Word}
+\cm{SBFWP}{Subtract From Word Pair}
+\cm{SBMM8D}{Swapped Bit Matrix Multiplication 8$\times$8 Double Word}
+\cm{SBMM8EORD}{Swapped Bit Matrix Multiplication 8$\times$8 Exclusive OR Double Word}
+\cm{SBMMT8D}{Swapped Bit Matrix Multiplication Transposed 8$\times$8 Double Word}
+\cm{SBMMT8EORD}{Swapped Bit Matrix Multiplication Transposed 8$\times$8 Exclusive OR Double Word}
+\cm{SIGNBO}{Apply Sign Byte Octuple}
+\cm{SIGND}{Apply Sign Double Word}
+\cm{SIGNHQ}{Apply Sign Half Word Quadruple}
+\cm{SIGNSBO}{Apply Sign Saturated Byte Octuple}
+\cm{SIGNSD}{Apply Sign Saturated Double Word}
+\cm{SIGNSHQ}{Apply Sign Saturated Half Word Quadruple}
+\cm{SIGNSW}{Apply Sign Saturated Word}
+\cm{SIGNSWP}{Apply Sign Saturated Word Pair}
+\cm{SIGNW}{Apply Sign Word}
+\cm{SIGNWP}{Apply Sign Word Pair}
+\cm{SLLBO}{Shift Left Logical Byte Octuple}
+\cm{SLLD}{Shift Left Logical Double Word}
+\cm{SLLHQ}{Shift Left Logical Half Word Quadruple}
+\cm{SLLW}{Shift Left Logical Word}
+\cm{SLLWP}{Shift Left Logical Word Pair}
+\cm{SLSBO}{Shift Left Saturated Byte Octuple}
+\cm{SLSD}{Shift Left Saturated Double Word}
+\cm{SLSHQ}{Shift Left Saturated Half Word Quadruple}
+\cm{SLSW}{Shift Left Saturated Word}
+\cm{SLSWP}{Shift Left Saturated Word Pair}
+\cm{SLUSBO}{Shift Left Unsigned Saturated Byte Octuple}
+\cm{SLUSD}{Shift Left Unsigned Saturated Double Word}
+\cm{SLUSHQ}{Shift Left Unsigned Saturated Half Word Quadruple}
+\cm{SLUSW}{Shift Left Unsigned Saturated Word}
+\cm{SLUSWP}{Shift Left Unsigned Saturated Word Pair}
+\cm{SRABO}{Shift Right Arithmetic Byte Octuple}
+\cm{SRAD}{Shift Right Arithmetic Double Word}
+\cm{SRAHQ}{Shift Right Arithmetic Half Word Quadruple}
+\cm{SRAW}{Shift Right Arithmetic Word}
+\cm{SRAWP}{Shift Right Arithmetic Word Pair}
+\cm{SRLBO}{Shift Right Logical Byte Octuple}
+\cm{SRLD}{Shift Right Logical Double Word}
+\cm{SRLHQ}{Shift Right Logical Half Word Quadruple}
+\cm{SRLW}{Shift Right Logical Word}
+\cm{SRLWP}{Shift Right Logical Word Pair}
+\cm{SRSBO}{Shift Right Symmetric Byte Octuple}
+\cm{SRSD}{Shift Right Symmetric Double Word}
+\cm{SRSHQ}{Shift Right Symmetric Half Word Quadruple}
+\cm{SRSW}{Shift Right Symmetric Word}
+\cm{SRSWP}{Shift Right Symmetric Word Pair}
+\cm{STSUD}{Subtract, Test and Shift Unsigned Double Word}
+\cm{STSUHQ}{Subtract, Test and Shift Unsigned Half Word Quadruple}
+\cm{STSUW}{Subtract, Test and Shift Unsigned Word}
+\cm{STSUWP}{Subtract, Test and Shift Unsigned Word Pair}
+\cm{TRUNCDWP}{Truncate Double Word to Word Pair}
+\cm{TRUNCHBO}{Truncate Half Word to Byte Octuple}
+\cm{TRUNCWHQ}{Truncate Word to Half Word Quadruple}
+\cm{WIDENQBHO}{Widen Q7 Byte to Half Word Octuple}
+\cm{WIDENQHWQ}{Widen Q15 Half Word to Word Quadruple}
+\cm{WIDENQWDP}{Widen Q31 Word to Double Word Pair}
+\cm{WIDENSBHO}{Sign Widen Byte to Half Word Octuple}
+\cm{WIDENSHWQ}{Sign Widen Half Word to Word Quadruple}
+\cm{WIDENSWDP}{Sign Widen Word to Double Word Pair}
+\cm{WIDENZBHO}{Zero Widen Byte to Half Word Octuple}
+\cm{WIDENZHWQ}{Zero Widen Half Word to Word Quadruple}
+\cm{WIDENZWDP}{Zero Widen Word to Double Word Pair}
+\cm{XMOVETD}{Move To Extension Double Word}
+\cm{XMOVETO}{Move To Extension Octuple Word}
+\cm{XMOVETQ}{Move To Extension Quadruple Word}
+\sect{FPU}
+\cm{FABSD}{Floating-Point Absolute Value Double Word}
+\cm{FABSH}{Floating-Point Absolute Value Half Word}
+\cm{FABSHQ}{Floating-Point Absolute Value Half Word Quadruple}
+\cm{FABSW}{Floating-Point Absolute Value Word}
+\cm{FABSWP}{Floating-Point Absolute Value Word Pair}
+\cm{FADDD}{Floating-Point Add Double Word}
+\cm{FADDH}{Floating-Point Add Half Word}
+\cm{FADDHQ}{Floating-Point Add Half Word Quadruple}
+\cm{FADDW}{Floating-Point Add Word}
+\cm{FADDWC}{Floating-Point Add to Word Complex}
+\cm{FADDWP}{Floating-Point Add Word Pair}
+\cm{FCLASSD}{Floating-Point Classify Double Word}
+\cm{FCLASSH}{Floating-Point Classify Half Word}
+\cm{FCLASSHQ}{Floating-Point Classify Half Word Quadruple}
+\cm{FCLASSW}{Floating-Point Classify Word}
+\cm{FCLASSWP}{Floating-Point Classify Word Pair}
+\cm{FCOMPD}{Floating-Point Compare Double Word}
+\cm{FCOMPH}{Floating-Point Compare Half Word}
+\cm{FCOMPND}{Floating-Point Compare Negate Double Word}
+\cm{FCOMPNHQ}{Floating-Point Compare Negate Half Word Quadruple}
+\cm{FCOMPNWP}{Floating-Point Compare Negate Word Pair}
+\cm{FCOMPW}{Floating-Point Compare Word}
+\cm{FDIVD}{Floating-Point Divide Double Word}
+\cm{FDIVH}{Floating-Point Divide Half Word}
+\cm{FDIVW}{Floating-Point Divide Word}
+\cm{FEXTLHWQ}{Floating Point Extend Lane Half Word to Word Quadruple}
+\cm{FFMAD}{Floating-Point Fused Multiply Add Double Word}
+\cm{FFMAH}{Floating-Point Fused Multiply Add Half Word}
+\cm{FFMAHQ}{Floating-Point Fused Multiply Add Half Word Quadruple}
+\cm{FFMAW}{Floating-Point Fused Multiply Add Word}
+\cm{FFMAWC}{Floating-Point Multiply Add Word Complex}
+\cm{FFMAWP}{Floating-Point Fused Multiply Add Word Pair}
+\cm{FFMSD}{Floating-Point Fused Multiply Subtract From Double Word}
+\cm{FFMSH}{Floating-Point Fused Multiply Subtract From Half Word}
+\cm{FFMSHQ}{Floating-Point Fused Multiply Subtract From Half Word Quadruple}
+\cm{FFMSW}{Floating-Point Fused Multiply Subtract From Word}
+\cm{FFMSWP}{Floating-Point Fused Multiply Subtract From Word Pair}
+\cm{FIXEDD}{Floating Point Conversion to Fixed-Point Double Word}
+\cm{FIXEDDW}{Floating Point Conversion from Double Word to Fixed-Point Word}
+\cm{FIXEDHQ}{Floating Point Conversion to Fixed-Point Half Word Quadruple}
+\cm{FIXEDUD}{Floating Point Conversion to Unsigned Fixed-Point Double Word}
+\cm{FIXEDUDW}{Floating Point Conversion from Double Word to Unsigned Fixed-Point Word}
+\cm{FIXEDUHQ}{Floating Point Conversion to Unsigned Fixed-Point Half Word Quadruple}
+\cm{FIXEDUW}{Floating Point Conversion to Unsigned Fixed-Point}
+\cm{FIXEDUWD}{Floating Point Conversion from Word to Unsigned Fixed-Point Double Word}
+\cm{FIXEDUWP}{Floating Point Conversion to Unsigned Fixed-Point Word Pair}
+\cm{FIXEDW}{Floating Point Conversion to Fixed-Point}
+\cm{FIXEDWD}{Floating Point Conversion from Word to Fixed-Point Double Word}
+\cm{FIXEDWP}{Floating Point Conversion to Fixed-Point Word Pair}
+\cm{FLOATD}{Floating Point Conversion from Fixed-Point Double Word}
+\cm{FLOATDW}{Floating Point Conversion from Fixed-Point Double Word to Word}
+\cm{FLOATHQ}{Floating Point Conversion from Fixed-Point Half Word Quadruple}
+\cm{FLOATUD}{Floating Point Conversion from Unsigned Fixed-Point Double Word}
+\cm{FLOATUDW}{Floating Point Conversion from Unsigned Fixed-Point Double Word to Word}
+\cm{FLOATUHQ}{Floating Point Conversion from Unsigned Fixed-Point Half Word Quadruple}
+\cm{FLOATUW}{Floating Point Conversion from Unsigned Fixed-Point}
+\cm{FLOATUWD}{Floating Point Conversion from Unsigned Fixed-Point Word to Double Word}
+\cm{FLOATUWP}{Floating Point Conversion from Unsigned Fixed-Point Word Pair}
+\cm{FLOATW}{Floating Point Conversion from Fixed-Point}
+\cm{FLOATWD}{Floating Point Conversion from Fixed-Point Word to Double Word}
+\cm{FLOATWP}{Floating Point Conversion from Fixed-Point Word Pair}
+\cm{FMAXD}{Floating-Point Maximum Double Word}
+\cm{FMAXH}{Floating-Point Maximum Half Word}
+\cm{FMAXHQ}{Floating-Point Maximum Half Word Quadruple}
+\cm{FMAXND}{Floating-Point Maximum Number Double Word}
+\cm{FMAXNH}{Floating-Point Maximum Number Half Word}
+\cm{FMAXNHQ}{Floating-Point Maximum Number Half Word Quadruple}
+\cm{FMAXNW}{Floating-Point Maximum Number Word}
+\cm{FMAXNWP}{Floating-Point Maximum Number Word Pair}
+\cm{FMAXW}{Floating-Point Maximum Word}
+\cm{FMAXWP}{Floating-Point Maximum Word Pair}
+\cm{FMIND}{Floating-Point Minimum Double Word}
+\cm{FMINH}{Floating-Point Minimum Half Word}
+\cm{FMINHQ}{Floating-Point Minimum Half Word Quadruple}
+\cm{FMINND}{Floating-Point Minimum Number Double Word}
+\cm{FMINNH}{Floating-Point Minimum Number Half Word}
+\cm{FMINNHQ}{Floating-Point Minimum Number Half Word Quadruple}
+\cm{FMINNW}{Floating-Point Minimum Number Word}
+\cm{FMINNWP}{Floating-Point Minimum Number Word Pair}
+\cm{FMINW}{Floating-Point Minimum Word}
+\cm{FMINWP}{Floating-Point Minimum Word Pair}
+\cm{FMULD}{Floating-Point Multiply Double Word}
+\cm{FMULH}{Floating-Point Multiply Half Word}
+\cm{FMULHQ}{Floating-Point Multiply Half Word Quadruple}
+\cm{FMULW}{Floating-Point Multiply Word}
+\cm{FMULWC}{Floating-Point Multiply Word Complex}
+\cm{FMULWP}{Floating-Point Multiply Word Pair}
+\cm{FNARROWDW}{Floating Point Narrow Double Word to Word}
+\cm{FNARROWDWP}{Floating Point Narrow Double Word to Word Pair}
+\cm{FNARROWWH}{Floating Point Narrow Word to Half Word}
+\cm{FNEGD}{Floating-Point Negate Double Word}
+\cm{FNEGH}{Floating-Point Negate Half Word}
+\cm{FNEGHQ}{Floating-Point Negate Half Word Quadruple}
+\cm{FNEGW}{Floating-Point Negate Word}
+\cm{FNEGWP}{Floating-Point Negate Word Pair}
+\cm{FRINTD}{Floating Point Round to Int Double Word}
+\cm{FRINTH}{Floating Point Round to Int Half Word}
+\cm{FRINTW}{Floating Point Round to Int Word}
+\cm{FSBFD}{Floating-Point Subtract From Double Word}
+\cm{FSBFH}{Floating-Point Subtract From Half Word}
+\cm{FSBFHQ}{Floating-Point Subtract From Half Word Quadruple}
+\cm{FSBFW}{Floating-Point Subtract From Word}
+\cm{FSBFWC}{Floating-Point Subtract from Word Complex}
+\cm{FSBFWP}{Floating-Point Subtract From Word Pair}
+\cm{FSIGND}{Floating-Point Sign Transfer Double Word}
+\cm{FSIGNH}{Floating-Point Sign Transfer Half Word}
+\cm{FSIGNHQ}{Floating-Point Sign Transfer Half Word Quadruple}
+\cm{FSIGNMD}{Floating-Point Sign Combine Transfer Double Word}
+\cm{FSIGNMH}{Floating-Point Sign Combine Transfer Half Word}
+\cm{FSIGNMHQ}{Floating-Point Sign Combine Transfer Half Word Quadruple}
+\cm{FSIGNMW}{Floating-Point Sign Combine Transfer Word}
+\cm{FSIGNMWP}{Floating-Point Sign Combine Transfer Double Word Pair}
+\cm{FSIGNND}{Floating-Point Sign Negate Transfer Double Word}
+\cm{FSIGNNH}{Floating-Point Sign Negate Transfer Half Word}
+\cm{FSIGNNHQ}{Floating-Point Sign Negate Transfer Half Word Quadruple}
+\cm{FSIGNNW}{Floating-Point Sign Negate Transfer Word}
+\cm{FSIGNNWP}{Floating-Point Sign Negate Transfer Word Pair}
+\cm{FSIGNW}{Floating-Point Sign Transfer Word}
+\cm{FSIGNWP}{Floating-Point Sign Transfer Word Pair}
+\cm{FSQRTD}{Floating Point Square Root Double Word}
+\cm{FSQRTH}{Floating Point Square Root Half Word}
+\cm{FSQRTW}{Floating Point Square Root Word}
+\cm{FSRECD}{Floating-Point Seed for Reciprocal Double Word}
+\cm{FSRECW}{Floating-Point Seed for Reciprocal Word}
+\cm{FSRECWP}{Floating-Point Seed for Reciprocal Word Pair}
+\cm{FSRSRD}{Floating-Point Seed for Reciprocal Square Root Double Word}
+\cm{FSRSRW}{Floating-Point Seed for Reciprocal Square Root Word}
+\cm{FSRSRWP}{Floating-Point Seed for Reciprocal Square Root Word Pair}
+\cm{FWIDENHW}{Floating Point Widen Half Word to Word}
+\cm{FWIDENHWQ}{Floating Point Widen Half Word to Word Quadruple}
+\cm{FWIDENWD}{Floating Point Widen Word to Double Word}
+\sect{EXT}
+\cm{XACCESSO}{Access from Extension into Octuple Word}
+\cm{XALIGNO}{Align Extension into Octuple Word}
+\cm{XCOPYO}{Copy Extension Octuple Word}
+\cm{XMOVEFD}{Move From Extension Double Word}
+\cm{XMOVEFO}{Move From Extension Octuple Word}
+\cm{XMOVEFQ}{Move From Extension Quadruple Word}
+\sect{RV32B}
+\cm{ADD.UW}{Integer Add Unsigned Word}
+\cm{CLZW}{Count Leading Zero Bits in Word}
+\cm{CPOPW}{Count Set Bits in Word}
+\cm{CTZW}{Count Trailing Zero Bits in Word}
+\cm{ROLW}{Rotate Left Word}
+\cm{RORIW}{Rotate Right Immediate Word}
+\cm{RORW}{Rotate Right Word}
+\cm{SH1ADD.UW}{Shift unsigned word left by 1 and ADD}
+\cm{SH2ADD.UW}{Shift unsigned word left by 2 and ADD}
+\cm{SH3ADD.UW}{Shift unsigned word left by 3 and ADD}
+\cm{SLLI.UW}{Shift Left Logical Immediate Unsigned Word}
+\cm{ZEXT.H}{Zero-Extend Half Word}
+\sect{RV32D}
+\cm{FADD.D}{Floating-Point Add Double}
+\cm{FCLASS.D}{Floating-Point Classify Double}
+\cm{FCVT.D.S}{Floating-Point Convert Double from Single}
+\cm{FCVT.D.W}{Floating-Point Convert Double from Word}
+\cm{FCVT.D.WU}{Floating-Point Convert Double from Word Unsigned}
+\cm{FCVT.S.D}{Floating-Point Convert Single from Double}
+\cm{FCVT.W.D}{Floating-Point Convert Word from Double}
+\cm{FCVT.WU.D}{Floating-Point Convert Word Unsigned from Double}
+\cm{FDIV.D}{Floating-Point Divide Double}
+\cm{FEQ.D}{Floating-Point Compare Equal Double}
+\cm{FLD}{Floating-Point Load Double Word}
+\cm{FLE.D}{Floating-Point Compare Less Than or Equal Double}
+\cm{FLT.D}{Floating-Point Compare Less Than Double}
+\cm{FMADD.D}{Floating-Point Fused Multiply Add Double}
+\cm{FMAX.D}{Floating-Point Maximum Double}
+\cm{FMIN.D}{Floating-Point Minimum Double}
+\cm{FMSUB.D}{Floating-Point Fused Multiply Subtract Double}
+\cm{FMUL.D}{Floating-Point Multiply Double}
+\cm{FNMADD.D}{Floating-Point Fused Negate Multiply Add Double}
+\cm{FNMSUB.D}{Floating-Point Fused Negate Multiply Subtract Double}
+\cm{FSD}{Floating-Point Store Double Word}
+\cm{FSGNJ.D}{Floating-Point Sign Inject Double}
+\cm{FSGNJN.D}{Floating-Point Sign Inject Negate Double}
+\cm{FSGNJX.D}{Floating-Point Sign Inject XOR Double}
+\cm{FSQRT.D}{Floating-Point Square Root Double}
+\cm{FSUB.D}{Floating-Point Subtract Double}
+\sect{RV32F}
+\cm{FADD.S}{Floating-Point Add Single}
+\cm{FCLASS.S}{Floating-Point Classify Single}
+\cm{FCVT.S.W}{Floating-Point Convert Single from Word}
+\cm{FCVT.S.WU}{Floating-Point Convert Single from Word Unsigned}
+\cm{FCVT.W.S}{Floating-Point Convert Word from Single}
+\cm{FCVT.WU.S}{Floating-Point Convert Word Unsigned from Single}
+\cm{FDIV.S}{Floating-Point Divide Single}
+\cm{FEQ.S}{Floating-Point Compare Equal Single}
+\cm{FLE.S}{Floating-Point Compare Less Than or Equal Single}
+\cm{FLT.S}{Floating-Point Compare Less Than Single}
+\cm{FLW}{Floating-Point Load Word}
+\cm{FMADD.S}{Floating-Point Fused Multiply Add Single}
+\cm{FMAX.S}{Floating-Point Maximum Single}
+\cm{FMIN.S}{Floating-Point Minimum Single}
+\cm{FMSUB.S}{Floating-Point Fused Multiply Subtract Single}
+\cm{FMUL.S}{Floating-Point Multiply Single}
+\cm{FMV.W.X}{Floating-Point Move Single from Integer}
+\cm{FMV.X.W}{Floating-Point Move Integer from Single}
+\cm{FNMADD.S}{Floating-Point Fused Negate Multiply Add Single}
+\cm{FNMSUB.S}{Floating-Point Fused Negate Multiply Subtract Single}
+\cm{FSGNJ.S}{Floating-Point Sign Inject Single}
+\cm{FSGNJN.S}{Floating-Point Sign Inject Negate Single}
+\cm{FSGNJX.S}{Floating-Point Sign Inject XOR Single}
+\cm{FSQRT.S}{Floating-Point Square Root Single}
+\cm{FSUB.S}{Floating-Point Subtract Single}
+\cm{FSW}{Floating-Point Store Word}
+\sect{RV32I}
+\cm{ADD}{Integer Add}
+\cm{ADDI}{Integer ADD Immediate}
+\cm{AND}{Bitwise AND}
+\cm{ANDI}{Bitwise AND Immediate}
+\cm{AUIPC}{Add Upper Immediate to PC}
+\cm{BEQ}{Branch if Equal}
+\cm{BEQZ}{Branch if Equal Zero}
+\cm{BGE}{Branch if Greater Than or Equal}
+\cm{BGEU}{Branch if Greater Than or Equal Unsigned}
+\cm{BGEZ}{Branch if Greater Than or Equal Zero}
+\cm{BGTZ}{Branch if Greater Than Zero}
+\cm{BLEZ}{Branch if Less Than or Equal Zero}
+\cm{BLT}{Branch if Less Than}
+\cm{BLTU}{Branch if Less Than Unsigned}
+\cm{BLTZ}{Branch if Less Than Zero}
+\cm{BNE}{Branch if Not Equal}
+\cm{BNEZ}{Branch if Not Equal Zero}
+\cm{CBO.CLEAN}{Perform a clean operation on the cache block containing the effective address}
+\cm{CBO.FLUSH}{Perform a flush operation on the cache block containing the effective address}
+\cm{CBO.INVAL}{Perform an invalidate operation on the cache block containing the effective address}
+\cm{CBO.ZERO}{Store zeros to the set of the bytes corresponding to the cache block containing the effective address}
+\cm{EBREAK}{Debugger Breakpoint}
+\cm{ECALL}{Environment Call}
+\cm{FENCE.MEM}{Memory Access Fence}
+\cm{J}{Jump}
+\cm{JAL}{Jump And Link}
+\cm{JALR}{Jump And Link Register}
+\cm{JR}{Jump Register}
+\cm{LB}{Load Byte}
+\cm{LBU}{Load Byte Unsigned}
+\cm{LH}{Load Half Word}
+\cm{LHU}{Load Half Word Unsigned}
+\cm{LUI}{Load Upper Immediate}
+\cm{LW}{Load Word}
+\cm{OR}{Inclusive OR}
+\cm{ORI}{Inclusive OR Immediate}
+\cm{PREFETCH.I}{Provide a hint to hardware that the cache block containing the effective address is likely to be accessed by an instruction fetch in the near future
+}
+\cm{PREFETCH.R}{Provide a hint to hardware that the cache block containing the effective address is likely to be accessed by a data read in the near future
+}
+\cm{PREFETCH.W}{Provide a hint to hardware that the cache block containing the effective address is likely to be accessed by a data write in the near future
+}
+\cm{SB}{Store Byte}
+\cm{SH}{Store Half Word}
+\cm{SLL}{Shift Left Logical}
+\cm{SLT}{Set Less Than}
+\cm{SLTI}{Set Less Than Immediate}
+\cm{SLTIU}{Set Less Than Immediate Unsigned}
+\cm{SLTU}{Set Less Than Unsigned}
+\cm{SRA}{Shift Right Arithmetic}
+\cm{SRL}{Shift Right Logical}
+\cm{SUB}{Integer Subtract}
+\cm{SW}{Store Word}
+\cm{XOR}{Exclusive OR}
+\cm{XORI}{Exclusive OR Immediate}
+\sect{RV32M}
+\cm{DIV}{Integer Division}
+\cm{DIVU}{Integer Division Unsigned}
+\cm{MUL}{Integer Multiply}
+\cm{MULH}{Integer Multiply High}
+\cm{MULHSU}{Integer Multiply High Signed by Unsigned}
+\cm{MULHU}{Integer Multiply High Signed by Unsigned}
+\cm{REM}{Integer Remainder}
+\cm{REMU}{Integer Remainder Unsigned}
+\sect{RV64A}
+\cm{AMOADD.B}{Atomic Memory Operation ADD byte}
+\cm{AMOADD.D}{Atomic Memory Operation ADD Double Word}
+\cm{AMOADD.H}{Atomic Memory Operation ADD half Word}
+\cm{AMOADD.W}{Atomic Memory Operation ADD Word}
+\cm{AMOAND.B}{Atomic Memory Operation AND byte}
+\cm{AMOAND.D}{Atomic Memory Operation AND Double Word}
+\cm{AMOAND.H}{Atomic Memory Operation AND half Word}
+\cm{AMOAND.W}{Atomic Memory Operation AND Word}
+\cm{AMOCAS.B}{Atomic Memory Operation Compare-And-Swap byte}
+\cm{AMOCAS.D}{Atomic Memory Operation Compare-And-Swap Double Word}
+\cm{AMOCAS.H}{Atomic Memory Operation Compare-And-Swap half word}
+\cm{AMOCAS.Q}{Atomic Memory Operation Compare-And-Swap Quadruple Word}
+\cm{AMOCAS.W}{Atomic Memory Operation Compare-And-Swap Word}
+\cm{AMOMAX.B}{Atomic Memory Operation MAX byte}
+\cm{AMOMAX.D}{Atomic Memory Operation MAX Double Word}
+\cm{AMOMAX.H}{Atomic Memory Operation MAX half Word}
+\cm{AMOMAX.W}{Atomic Memory Operation MAX Word}
+\cm{AMOMAXU.B}{Atomic Memory Operation MAX Unsigned byte}
+\cm{AMOMAXU.D}{Atomic Memory Operation MAX Unsigned Double Word}
+\cm{AMOMAXU.H}{Atomic Memory Operation MAX Unsigned half Word}
+\cm{AMOMAXU.W}{Atomic Memory Operation MAX Unsigned Word}
+\cm{AMOMIN.B}{Atomic Memory Operation MIN byte}
+\cm{AMOMIN.D}{Atomic Memory Operation MIN Double Word}
+\cm{AMOMIN.H}{Atomic Memory Operation MIN half Word}
+\cm{AMOMIN.W}{Atomic Memory Operation MIN Word}
+\cm{AMOMINU.B}{Atomic Memory Operation MIN Unsigned byte}
+\cm{AMOMINU.D}{Atomic Memory Operation MIN Unsigned Double Word}
+\cm{AMOMINU.H}{Atomic Memory Operation MIN Unsigned half Word}
+\cm{AMOMINU.W}{Atomic Memory Operation MIN Unsigned Word}
+\cm{AMOOR.B}{Atomic Memory Operation OR byte}
+\cm{AMOOR.D}{Atomic Memory Operation OR Double Word}
+\cm{AMOOR.H}{Atomic Memory Operation OR half Word}
+\cm{AMOOR.W}{Atomic Memory Operation OR Word}
+\cm{AMOSWAP.B}{Atomic Memory Operation Swap byte}
+\cm{AMOSWAP.D}{Atomic Memory Operation Swap Double Word}
+\cm{AMOSWAP.H}{Atomic Memory Operation Swap half Word}
+\cm{AMOSWAP.W}{Atomic Memory Operation Swap Word}
+\cm{AMOXOR.B}{Atomic Memory Operation XOR byte}
+\cm{AMOXOR.D}{Atomic Memory Operation XOR Double Word}
+\cm{AMOXOR.H}{Atomic Memory Operation XOR half Word}
+\cm{AMOXOR.W}{Atomic Memory Operation XOR Word}
+\cm{LR.D}{Load-Reserved Double Word}
+\cm{LR.W}{Load-Reserved Word}
+\cm{SC.D}{Store-Conditional Double Word}
+\cm{SC.W}{Store-Conditional Word}
+\sect{RV64B}
+\cm{ANDN}{AND with Not operand}
+\cm{BCLR}{Single Bit Clear}
+\cm{BCLRI}{Single Bit Clear Immediate}
+\cm{BEXT}{Single Bit Extract}
+\cm{BEXTI}{Single Bit Extract Immediate}
+\cm{BINV}{Single Bit Invert}
+\cm{BINVI}{Single Bit Invert Immediate}
+\cm{BSET}{Single Bit Set}
+\cm{BSETI}{Single Bit Set Immediate}
+\cm{CLMUL}{Carryless Multiply}
+\cm{CLMULH}{Carryless Multiply High}
+\cm{CLMULR}{Carryless Multiply Reversed}
+\cm{CLZ}{Count Leading Zero Bits}
+\cm{CPOP}{Count Set Bits}
+\cm{CTZ}{Count Trailing Zero Bits}
+\cm{MAX}{Maximum of Double Words}
+\cm{MAXU}{Maximum of Double Words Unsigned}
+\cm{MIN}{Minimum of Double Words}
+\cm{MINU}{Minimum of Double Words Unsigned}
+\cm{ORC.B}{Bitwise OR-Combine, Byte Granule}
+\cm{ORN}{OR with Not operand}
+\cm{REV8}{Reverse Bytes}
+\cm{ROL}{Rotate Left}
+\cm{ROR}{Rotate Right}
+\cm{RORI}{Rotate Right Immediate}
+\cm{SEXT.B}{Sign-Extend Byte}
+\cm{SEXT.H}{Sign-Extend Half Word}
+\cm{SH1ADD}{Shift left by 1 and ADD}
+\cm{SH2ADD}{Shift left by 2 and ADD}
+\cm{SH3ADD}{Shift left by 3 and ADD}
+\cm{XNOR}{Exclusive NOR}
+\sect{RV64D}
+\cm{FCVT.D.L}{Floating-Point Convert Double from Long}
+\cm{FCVT.D.LU}{Floating-Point Convert Double from Long Unsigned}
+\cm{FCVT.L.D}{Floating-Point Convert Long from Double}
+\cm{FCVT.LU.D}{Floating-Point Convert Long Unsigned from Double}
+\cm{FMV.D.X}{Floating-Point Move Double from Integer}
+\cm{FMV.X.D}{Floating-Point Move Integer from Double}
+\sect{RV64F}
+\cm{FCVT.L.S}{Floating-Point Convert Long from Single}
+\cm{FCVT.LU.S}{Floating-Point Convert Long Unsigned from Single}
+\cm{FCVT.S.L}{Floating-Point Convert Single from Long}
+\cm{FCVT.S.LU}{Floating-Point Convert Single from Long Unsigned}
+\sect{RV64I}
+\cm{ADDIW}{Integer ADD Immediate Word}
+\cm{ADDW}{Integer Add Word}
+\cm{LD}{Load Double Word}
+\cm{LWU}{Load Word Unsigned}
+\cm{SD}{Store Double Word}
+\cm{SLLI}{Shift Left Logical Immediate}
+\cm{SLLIW}{Shift Left Logical Immediate Word}
+\cm{SLLW}{Shift Left Logical Word}
+\cm{SRAI}{Shift Right Arithmetic Immediate}
+\cm{SRAIW}{Shift Right Arithmetic Immediate Word}
+\cm{SRAW}{Shift Right Arithmetic Word}
+\cm{SRLI}{Shift Right Logical Immediate}
+\cm{SRLIW}{Shift Right Logical Immediate Word}
+\cm{SRLW}{Shift Right Logical Word}
+\cm{SUBW}{Integer Subtract Word}
+\sect{RV64M}
+\cm{DIVUW}{Integer Division Unsigned Word}
+\cm{DIVW}{Integer Division Word}
+\cm{MULW}{Integer Multiply Word}
+\cm{REMUW}{Integer Remainder Unsigned Word}
+\cm{REMW}{Integer Remainder Word}
+\sect{RVZI}
+\cm{CSRRC}{CSR Atomic Read and Clear}
+\cm{CSRRCI}{CSR Atomic Read and Clear Immediate}
+\cm{CSRRS}{CSR Atomic Read and Set}
+\cm{CSRRSI}{CSR Atomic Read and Set Immediate}
+\cm{CSRRW}{CSR Atomic Read Write}
+\cm{CSRRWI}{CSR Atomic Read Write Immediate}
+\cm{CZERO.EQZ}{Conditional Copy Register}
+\cm{CZERO.NEZ}{Conditional Copy Register}
+\cm{FENCE.I}{Synchronize instruction and data.}
+\sect{RV64KV}
+\cm{KV.LQ}{Load Quadruple Word}
+\cm{KV.SQ}{Store Quadruple Word}

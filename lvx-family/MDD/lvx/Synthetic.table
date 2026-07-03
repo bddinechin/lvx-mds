@@ -1,0 +1,463 @@
+
+<Synthetic
+  ID=	"Synthetic-lvx-"
+  formats=	"Format-lvx-"
+  instruction=	"Instruction-lvx-"
+  mnemonic=	"#UNDEF"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:SBMM8"
+  formats=	"Format-lvx-ALU_DBMWRR Format-lvx-ALU_DBMWRR.M Format-lvx-ALU_DBMWRI Format-lvx-ALU_DBMWRI.X Format-lvx-ALU_DBMWRI.Y"
+  instruction=	"Instruction-lvx-ALU:SBMM8D"
+  mnemonic=	"sbmm8"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  what=	"Swapped Bit Matrix Multiplication 8$\times$8"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:SBMMT8"
+  formats=	"Format-lvx-ALU_DBMWRR Format-lvx-ALU_DBMWRR.M Format-lvx-ALU_DBMWRI Format-lvx-ALU_DBMWRI.X Format-lvx-ALU_DBMWRI.Y"
+  instruction=	"Instruction-lvx-ALU:SBMMT8D"
+  mnemonic=	"sbmmt8"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  what=	"Swapped Bit Matrix Multiplication Transposed 8$\times$8"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:COPYQ"
+  formats=	"Format-lvx-ALU_CATDQ"
+  instruction=	"Instruction-lvx-ALU:CATDQ"
+  mnemonic=	"copyq"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  what=	"Copy Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:COPYD"
+  forced=	"%3"
+  formats=	"Format-lvx-ALU_DWRI"
+  instruction=	"Instruction-lvx-ALU:IORD"
+  mnemonic=	"copyd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2"
+  values=	"0"
+  what=	"Copy Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-BCU:ERROP"
+  forced=	"%1 %2 %3 %4"
+  formats=	"Format-lvx-BCU_CCB"
+  instruction=	"Instruction-lvx-BCU:CCB"
+  mnemonic=	"errop"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0"
+  values=	"0 0 0 0"
+  what=	"Error opcode."
+><Execution>
+stage RR:
+_THROW(OPCODE);
+</Execution><Behavior>
+(THROW.ID.OPCODE)
+</Behavior></Synthetic>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:ZXBD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx-ALU_BFWR"
+  instruction=	"Instruction-lvx-ALU:EXTFZ"
+  mnemonic=	"zxbd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2"
+  values=	"7 0"
+  what=	"Zero Extend Byte to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:SXBD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx-ALU_BFWR"
+  instruction=	"Instruction-lvx-ALU:EXTFS"
+  mnemonic=	"sxbd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2"
+  values=	"7 0"
+  what=	"Sign Extend Byte to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:ZXHD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx-ALU_BFWR"
+  instruction=	"Instruction-lvx-ALU:EXTFZ"
+  mnemonic=	"zxhd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2"
+  values=	"15 0"
+  what=	"Zero Extend Half Word to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:SXHD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx-ALU_BFWR"
+  instruction=	"Instruction-lvx-ALU:EXTFS"
+  mnemonic=	"sxhd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2"
+  values=	"15 0"
+  what=	"Sign Extend Half Word to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:ZXWD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx-ALU_BFWR"
+  instruction=	"Instruction-lvx-ALU:EXTFZ"
+  mnemonic=	"zxwd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2"
+  values=	"31 0"
+  what=	"Zero Extend Word to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:SXWD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx-ALU_BFWR"
+  instruction=	"Instruction-lvx-ALU:EXTFS"
+  mnemonic=	"sxwd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2"
+  values=	"31 0"
+  what=	"Sign Extend Word to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:COPYW"
+  forced=	"%3"
+  formats=	"Format-lvx-ALU_WSWRI"
+  instruction=	"Instruction-lvx-ALU:SLLW"
+  mnemonic=	"copyw"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0%4 %1 = %2"
+  values=	"0"
+  what=	"Copy Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MULDT"
+  forced=	"%4"
+  formats=	"Format-lvx-ALU_QMEWRR"
+  instruction=	"Instruction-lvx-ALU:MULDQ"
+  mnemonic=	"muldt"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"0"
+  what=	"alias of MULDQ"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MULUDT"
+  forced=	"%4"
+  formats=	"Format-lvx-ALU_QMEWRR"
+  instruction=	"Instruction-lvx-ALU:MULDQ"
+  mnemonic=	"muludt"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1"
+  what=	"alias of MULDQ.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MULSUDT"
+  forced=	"%4"
+  formats=	"Format-lvx-ALU_QMEWRR"
+  instruction=	"Instruction-lvx-ALU:MULDQ"
+  mnemonic=	"mulsudt"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2"
+  what=	"alias of MULDQ.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MADDDT"
+  forced=	"%4"
+  formats=	"Format-lvx-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx-ALU:MADDDQ"
+  mnemonic=	"madddt"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"0"
+  what=	"alias of MADDDQ"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MADDUDT"
+  forced=	"%4"
+  formats=	"Format-lvx-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx-ALU:MADDDQ"
+  mnemonic=	"maddudt"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1"
+  what=	"alias of MADDDQ.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MADDSUDT"
+  forced=	"%4"
+  formats=	"Format-lvx-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx-ALU:MADDDQ"
+  mnemonic=	"maddsudt"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2"
+  what=	"alias of MADDDQ.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MSBFDT"
+  forced=	"%4"
+  formats=	"Format-lvx-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx-ALU:MSBFDQ"
+  mnemonic=	"msbfdt"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"0"
+  what=	"alias of MSBFDQ"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MSBFUDT"
+  forced=	"%4"
+  formats=	"Format-lvx-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx-ALU:MSBFDQ"
+  mnemonic=	"msbfudt"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1"
+  what=	"alias of MSBFDQ.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MSBFSUDT"
+  forced=	"%4"
+  formats=	"Format-lvx-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx-ALU:MSBFDQ"
+  mnemonic=	"msbfsudt"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2"
+  what=	"alias of MSBFDQ.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MULUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx-ALU_DMEWRR Format-lvx-ALU_DMEWRR.M"
+  instruction=	"Instruction-lvx-ALU:MULWD"
+  mnemonic=	"muluwd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1 0"
+  what=	"alias of MULWD.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MULSUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx-ALU_DMEWRR Format-lvx-ALU_DMEWRR.M"
+  instruction=	"Instruction-lvx-ALU:MULWD"
+  mnemonic=	"mulsuwd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2 0"
+  what=	"alias of MULWD.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MADDUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx-ALU_DMEWRRR Format-lvx-ALU_DMEWRRR.M"
+  instruction=	"Instruction-lvx-ALU:MADDWD"
+  mnemonic=	"madduwd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1 0"
+  what=	"alias of MADDWD.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MADDSUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx-ALU_DMEWRRR Format-lvx-ALU_DMEWRRR.M"
+  instruction=	"Instruction-lvx-ALU:MADDWD"
+  mnemonic=	"maddsuwd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2 0"
+  what=	"alias of MADDWD.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MSBFUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx-ALU_DMEWRRR Format-lvx-ALU_DMEWRRR.M"
+  instruction=	"Instruction-lvx-ALU:MSBFWD"
+  mnemonic=	"msbfuwd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1 0"
+  what=	"alias of MSBFWD.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-ALU:MSBFSUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx-ALU_DMEWRRR Format-lvx-ALU_DMEWRRR.M"
+  instruction=	"Instruction-lvx-ALU:MSBFWD"
+  mnemonic=	"msbfsuwd"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2 0"
+  what=	"alias of MSBFWD.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV32I:NOP"
+  forced=	"%1 %2 %3"
+  formats=	"Format-lvx-RV32I_I_ALU"
+  instruction=	"Instruction-lvx-RV32I:ADDI"
+  mnemonic=	"nop"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0"
+  values=	"0 0 0"
+  what=	"Pseudoinstruction."
+><Execution>
+stage RR:
+;
+</Execution><Behavior>
+(SKIP)
+</Behavior></Synthetic>
+<Synthetic
+  ID=	"Synthetic-lvx-RV32I:LI"
+  forced=	"%2"
+  formats=	"Format-lvx-RV32I_I_ALU"
+  instruction=	"Instruction-lvx-RV32I:ADDI"
+  mnemonic=	"li"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %3"
+  values=	"0"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV32I:MV"
+  forced=	"%3"
+  formats=	"Format-lvx-RV32I_I_ALU"
+  instruction=	"Instruction-lvx-RV32I:ADDI"
+  mnemonic=	"mv"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %2"
+  values=	"0"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV32I:NOT"
+  forced=	"%3"
+  formats=	"Format-lvx-RV32I_I_ALU"
+  instruction=	"Instruction-lvx-RV32I:XORI"
+  mnemonic=	"not"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %2"
+  values=	"-1"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV32I:NEG"
+  forced=	"%2"
+  formats=	"Format-lvx-RV32I_RF20"
+  instruction=	"Instruction-lvx-RV32I:SUB"
+  mnemonic=	"neg"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %3"
+  values=	"0"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV64I:NEGW"
+  forced=	"%2"
+  formats=	"Format-lvx-RV64I_RF20"
+  instruction=	"Instruction-lvx-RV64I:SUBW"
+  mnemonic=	"negw"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %3"
+  values=	"0"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV64I:SEXT.W"
+  forced=	"%3"
+  formats=	"Format-lvx-RV64I_I_ALU"
+  instruction=	"Instruction-lvx-RV64I:ADDIW"
+  mnemonic=	"sext.w"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %2"
+  values=	"0"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV32I:SEQZ"
+  forced=	"%3"
+  formats=	"Format-lvx-RV32I_I_ALU"
+  instruction=	"Instruction-lvx-RV32I:SLTIU"
+  mnemonic=	"seqz"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %2"
+  values=	"1"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV32I:SNEZ"
+  forced=	"%2"
+  formats=	"Format-lvx-RV32I_RF00"
+  instruction=	"Instruction-lvx-RV32I:SLTU"
+  mnemonic=	"snez"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %3"
+  values=	"0"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV32I:SLTZ"
+  forced=	"%3"
+  formats=	"Format-lvx-RV32I_RF00"
+  instruction=	"Instruction-lvx-RV32I:SLT"
+  mnemonic=	"sltz"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %2"
+  values=	"0"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RV32I:SGTZ"
+  forced=	"%2"
+  formats=	"Format-lvx-RV32I_RF00"
+  instruction=	"Instruction-lvx-RV32I:SLT"
+  mnemonic=	"sgtz"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %3"
+  values=	"0"
+  what=	"Pseudoinstruction."
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-RVZI:CSRR"
+  forced=	"%2"
+  formats=	"Format-lvx-RVZI_CSRR"
+  instruction=	"Instruction-lvx-RVZI:CSRRS"
+  mnemonic=	"csrr"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %1, %3"
+  values=	"0"
+  what=	"Pseudoinstruction."
+><Execution>
+rd = csr_read(csr);
+</Execution><Behavior>
+(WRITE.rd
+  (READ.csr)
+)
+</Behavior></Synthetic>
+<Synthetic
+  ID=	"Synthetic-lvx-RVZI:CSRW"
+  forced=	"%1"
+  formats=	"Format-lvx-RVZI_CSRR"
+  instruction=	"Instruction-lvx-RVZI:CSRRW"
+  mnemonic=	"csrw"
+  processors=	"Processor-lvx_v1-cpu"
+  syntax=	"%0 %3, %2"
+  values=	"0"
+  what=	"Pseudoinstruction."
+><Execution>
+csr_write(csr, rs1);
+</Execution><Behavior>
+(COMMIT.E1.%3
+  (READ.rs1)
+)
+</Behavior></Synthetic>

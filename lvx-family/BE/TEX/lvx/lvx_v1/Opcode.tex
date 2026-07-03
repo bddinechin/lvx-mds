@@ -1,0 +1,817 @@
+{
+\hbadness=10000
+\vbadness=10000
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+BCU\_CCB \\ \hline
+BCU\_CB \\ \hline
+BCU\_HLS \\ \hline
+BCU\_GUARD \\ \hline
+BCU\_BLEND \\ \hline
+BCU\_TLB \\ \hline
+BCU\_IPC \\ \hline
+BCU\_PGI \\ \hline
+BCU\_WFX \\ \hline
+BCU\_WFXA \\ \hline
+BCU\_SET \\ \hline
+BCU\_SETA \\ \hline
+BCU\_SETRA \\ \hline
+BCU\_GSR \\ \hline
+BCU\_RSWAP \\ \hline
+BCU\_RSWAPA \\ \hline
+BCU\_IGSR \\ \hline
+BCU\_RTS \\ \hline
+BCU\_IBC \\ \hline
+BCU\_SCI \\ \hline
+BCU\_SCR \\ \hline
+BCU\_BREAK \\ \hline
+BCU\_UB \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+LSU\_LSBO \\ \hline
+LSU\_LQBO \\ \hline
+LSU\_LOBO \\ \hline
+LSU\_FXBO \\ \hline
+LSU\_MCC \\ \hline
+LSU\_FENCE \\ \hline
+LSU\_XLOBO \\ \hline
+LSU\_XLOC2BO \\ \hline
+LSU\_XLOC4BO \\ \hline
+LSU\_SSBO \\ \hline
+LSU\_SQBO \\ \hline
+LSU\_SOBO \\ \hline
+LSU\_COPYO \\ \hline
+LSU\_XSOBO \\ \hline
+LSU\_XSOC2BO \\ \hline
+LSU\_XSOC4BO \\ \hline
+LSU\_XLSB \\ \hline
+LSU\_LSBI \\ \hline
+LSU\_LQBI \\ \hline
+LSU\_LOBI \\ \hline
+LSU\_FXBI \\ \hline
+LSU\_FXSW \\ \hline
+LSU\_XPL2RBB \\ \hline
+LSU\_XPL4RBB \\ \hline
+LSU\_XPL8RBB \\ \hline
+LSU\_XPL16RBB \\ \hline
+LSU\_XPL32RBB \\ \hline
+LSU\_XPL64RBB \\ \hline
+LSU\_XLSBI \\ \hline
+LSU\_XLBI \\ \hline
+LSU\_XLOC2BI \\ \hline
+LSU\_XLOC4BI \\ \hline
+LSU\_SSBI \\ \hline
+LSU\_SQBI \\ \hline
+LSU\_SOBI \\ \hline
+LSU\_XSOBI \\ \hline
+LSU\_XSOC2BI \\ \hline
+LSU\_XSOC4BI \\ \hline
+LSU\_ALSB \\ \hline
+LSU\_ALCLRSB \\ \hline
+LSU\_ASWAPSB \\ \hline
+LSU\_ALADDSB \\ \hline
+LSU\_ALANDSB \\ \hline
+LSU\_ALIORSB \\ \hline
+LSU\_ALEORSB \\ \hline
+LSU\_ALMINSB \\ \hline
+LSU\_ALMAXSB \\ \hline
+LSU\_ALMINUSB \\ \hline
+LSU\_ALMAXUSB \\ \hline
+LSU\_ALDUSSB \\ \hline
+LSU\_ADMAQSB \\ \hline
+LSU\_ASSB \\ \hline
+LSU\_ASADDSB \\ \hline
+LSU\_ASANDSB \\ \hline
+LSU\_ASIORSB \\ \hline
+LSU\_ASEORSB \\ \hline
+LSU\_ASMINSB \\ \hline
+LSU\_ASMAXSB \\ \hline
+LSU\_ASMINUSB \\ \hline
+LSU\_ASMAXUSB \\ \hline
+LSU\_ASDUSSB \\ \hline
+LSU\_ACSWAPSB \\ \hline
+LSU\_ACSWAPQB \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+ALU\_DWI \\ \hline
+ALU\_DWRI \\ \hline
+ALU\_BFWR \\ \hline
+ALU\_XSDOI \\ \hline
+ALU\_XSDXI \\ \hline
+ALU\_DBMWRI \\ \hline
+ALU\_DWRR0 \\ \hline
+ALU\_DCWRR \\ \hline
+ALU\_DBMWRRR \\ \hline
+ALU\_DBMWRR \\ \hline
+ALU\_DWRR2 \\ \hline
+ALU\_DWRRS \\ \hline
+ALU\_DCMWRR \\ \hline
+ALU\_DSWRR \\ \hline
+ALU\_DSWRI \\ \hline
+ALU\_DWRR1 \\ \hline
+ALU\_DDMWRR \\ \hline
+ALU\_DBWR \\ \hline
+ALU\_DMWRR \\ \hline
+ALU\_DMWRRR \\ \hline
+ALU\_DMEWRR \\ \hline
+ALU\_DMEWRRR \\ \hline
+ALU\_QWRR0 \\ \hline
+ALU\_QCWRR \\ \hline
+ALU\_XMOVETD0 \\ \hline
+ALU\_XMOVETD1 \\ \hline
+ALU\_XMOVETD2 \\ \hline
+ALU\_XMOVETD3 \\ \hline
+ALU\_XMOVETQ0 \\ \hline
+ALU\_XMOVETQ1 \\ \hline
+ALU\_XMOVETO \\ \hline
+ALU\_CATDQ \\ \hline
+ALU\_QCMWRR \\ \hline
+ALU\_QBWR \\ \hline
+ALU\_QMEWRR \\ \hline
+ALU\_QMEWRRR \\ \hline
+ALU\_WWRR0 \\ \hline
+ALU\_WCWRR \\ \hline
+ALU\_WAVG \\ \hline
+ALU\_WWRR2 \\ \hline
+ALU\_WCWRRR \\ \hline
+ALU\_WWRRS \\ \hline
+ALU\_WCMWRR \\ \hline
+ALU\_WSWRR \\ \hline
+ALU\_WSWRI \\ \hline
+ALU\_WWRR1 \\ \hline
+ALU\_WDMWRR \\ \hline
+ALU\_BWRW \\ \hline
+ALU\_WMWRR \\ \hline
+ALU\_WMWRRR \\ \hline
+ALU\_WMEWRR \\ \hline
+ALU\_WMEWRRR \\ \hline
+ALU\_FDADD \\ \hline
+ALU\_FDCWRR \\ \hline
+ALU\_FDMMWR \\ \hline
+ALU\_FDMO1 \\ \hline
+ALU\_FDWIDEN \\ \hline
+ALU\_FDFLOAT \\ \hline
+ALU\_FDFIXED \\ \hline
+ALU\_FDMO0 \\ \hline
+ALU\_DWWR \\ \hline
+ALU\_FWPMO1 \\ \hline
+ALU\_FWPFLOAT \\ \hline
+ALU\_FWPFIXED \\ \hline
+ALU\_FDFMA \\ \hline
+ALU\_FDMUL \\ \hline
+ALU\_FWCOP \\ \hline
+ALU\_FWADD \\ \hline
+ALU\_FWCWRR \\ \hline
+ALU\_FWMMWR \\ \hline
+ALU\_FWMO1 \\ \hline
+ALU\_FWWIDEN \\ \hline
+ALU\_FWFLOAT \\ \hline
+ALU\_FWFIXED \\ \hline
+ALU\_FWMO0 \\ \hline
+ALU\_FWWR \\ \hline
+ALU\_FWFMA \\ \hline
+ALU\_FWMUL \\ \hline
+ALU\_FHADD \\ \hline
+ALU\_FHCWRR \\ \hline
+ALU\_FHMMWR \\ \hline
+ALU\_FHMO1 \\ \hline
+ALU\_FHWIDEN \\ \hline
+ALU\_FHFLOAT \\ \hline
+ALU\_FHFIXED \\ \hline
+ALU\_FHMO0 \\ \hline
+ALU\_FHWR \\ \hline
+ALU\_FHFMA \\ \hline
+ALU\_FHMUL \\ \hline
+ALU\_DPWRR0 \\ \hline
+ALU\_DPCWRR \\ \hline
+ALU\_DPSBMME \\ \hline
+ALU\_DPSBMM \\ \hline
+ALU\_DCNWRRE \\ \hline
+ALU\_DCNWRRO \\ \hline
+ALU\_DPWRRS \\ \hline
+ALU\_DPCMWRR \\ \hline
+ALU\_DPSWRR \\ \hline
+ALU\_DPSWRI \\ \hline
+ALU\_DPWRR1 \\ \hline
+ALU\_DPBWR \\ \hline
+ALU\_DPNWRR \\ \hline
+ALU\_DPWIDEWR \\ \hline
+ALU\_DPEXTLWR \\ \hline
+ALU\_DPMWRR \\ \hline
+ALU\_DPMWRRR \\ \hline
+ALU\_DPMEWRRE \\ \hline
+ALU\_DPMEWRRO \\ \hline
+ALU\_DPMEWRRRE \\ \hline
+ALU\_DPMEWRRRO \\ \hline
+ALU\_DPMXWRR \\ \hline
+ALU\_DPMXWRRR \\ \hline
+ALU\_WPWRR0E \\ \hline
+ALU\_WPWRR0O \\ \hline
+ALU\_WPCWRRE \\ \hline
+ALU\_WPCWRRO \\ \hline
+ALU\_WPAVGE \\ \hline
+ALU\_WPAVGO \\ \hline
+ALU\_WPCNWRRE \\ \hline
+ALU\_WPCNWRRO \\ \hline
+ALU\_WPWRRSE \\ \hline
+ALU\_WPWRRSO \\ \hline
+ALU\_WPCMWRRE \\ \hline
+ALU\_WPCMWRRO \\ \hline
+ALU\_WPSWRRE \\ \hline
+ALU\_WPSWRRO \\ \hline
+ALU\_WPSWRIE \\ \hline
+ALU\_WPSWRIO \\ \hline
+ALU\_WPWRR1E \\ \hline
+ALU\_WPWRR1O \\ \hline
+ALU\_WPBWRE \\ \hline
+ALU\_WPBWRO \\ \hline
+ALU\_WPNWRR \\ \hline
+ALU\_WQWIDEWR \\ \hline
+ALU\_WQEXTLWR \\ \hline
+ALU\_WPMWRRE \\ \hline
+ALU\_WPMWRRO \\ \hline
+ALU\_WPMWRRRE \\ \hline
+ALU\_WPMWRRRO \\ \hline
+ALU\_WQMEWRRE \\ \hline
+ALU\_WQMEWRRO \\ \hline
+ALU\_WQMEWRRRE \\ \hline
+ALU\_WQMEWRRRO \\ \hline
+ALU\_WQMXWRR \\ \hline
+ALU\_WQMXWRRR \\ \hline
+ALU\_HQWRR0E \\ \hline
+ALU\_HQWRR0O \\ \hline
+ALU\_HQCWRRE \\ \hline
+ALU\_HQCWRRO \\ \hline
+ALU\_HQAVGE \\ \hline
+ALU\_HQAVGO \\ \hline
+ALU\_HQCNWRRE \\ \hline
+ALU\_HQCNWRRO \\ \hline
+ALU\_HQWRRSE \\ \hline
+ALU\_HQWRRSO \\ \hline
+ALU\_HQCMWRRE \\ \hline
+ALU\_HQCMWRRO \\ \hline
+ALU\_HQSWRRE \\ \hline
+ALU\_HQSWRRO \\ \hline
+ALU\_HQSWRIE \\ \hline
+ALU\_HQSWRIO \\ \hline
+ALU\_HQWRR1E \\ \hline
+ALU\_HQWRR1O \\ \hline
+ALU\_HQBWRE \\ \hline
+ALU\_HQBWRO \\ \hline
+ALU\_HQNWRR \\ \hline
+ALU\_HOWIDEWR \\ \hline
+ALU\_HOEXTLWR \\ \hline
+ALU\_HQMWRRE \\ \hline
+ALU\_HQMWRRO \\ \hline
+ALU\_HQMWRRRE \\ \hline
+ALU\_HQMWRRRO \\ \hline
+ALU\_HOMEWRRE \\ \hline
+ALU\_HOMEWRRO \\ \hline
+ALU\_HOMEWRRRE \\ \hline
+ALU\_HOMEWRRRO \\ \hline
+ALU\_HOMXWRR \\ \hline
+ALU\_HOMXWRRR \\ \hline
+ALU\_BOWRR0E \\ \hline
+ALU\_BOWRR0O \\ \hline
+ALU\_BOCWRRE \\ \hline
+ALU\_BOCWRRO \\ \hline
+ALU\_BOAVGE \\ \hline
+ALU\_BOAVGO \\ \hline
+ALU\_BOCNWRRE \\ \hline
+ALU\_BOCNWRRO \\ \hline
+ALU\_BOWRRSE \\ \hline
+ALU\_BOWRRSO \\ \hline
+ALU\_BOCMWRRE \\ \hline
+ALU\_BOCMWRRO \\ \hline
+ALU\_BOSWRRE \\ \hline
+ALU\_BOSWRRO \\ \hline
+ALU\_BOSWRIE \\ \hline
+ALU\_BOSWRIO \\ \hline
+ALU\_BOWRR1E \\ \hline
+ALU\_BOWRR1O \\ \hline
+ALU\_BOBWRE \\ \hline
+ALU\_BOBWRO \\ \hline
+ALU\_BONWRR \\ \hline
+ALU\_BXWIDEWR \\ \hline
+ALU\_BXEXTLWR \\ \hline
+ALU\_FDCOP \\ \hline
+ALU\_FDPADD \\ \hline
+ALU\_FDPCWRR \\ \hline
+ALU\_FDPMMWR \\ \hline
+ALU\_FDPMO1 \\ \hline
+ALU\_FDPWIDEWR \\ \hline
+ALU\_FDPEXTLWR \\ \hline
+ALU\_FDPFLOAT \\ \hline
+ALU\_FDPFIXED \\ \hline
+ALU\_FDPMO0 \\ \hline
+ALU\_FDPWR \\ \hline
+ALU\_FDCNWRRE \\ \hline
+ALU\_FDCNWRRO \\ \hline
+ALU\_FDPFMA \\ \hline
+ALU\_FDPMUL \\ \hline
+ALU\_FWCPOP \\ \hline
+ALU\_FWPADDE \\ \hline
+ALU\_FWPADDO \\ \hline
+ALU\_FWPCWRRE \\ \hline
+ALU\_FWPCWRRO \\ \hline
+ALU\_FWPMMWRE \\ \hline
+ALU\_FWPMMWRO \\ \hline
+ALU\_FWPMO1E \\ \hline
+ALU\_FWPMO1O \\ \hline
+ALU\_FWQWIDEWR \\ \hline
+ALU\_FWQEXTLWR \\ \hline
+ALU\_FWPFLOATE \\ \hline
+ALU\_FWPFLOATO \\ \hline
+ALU\_FWPFIXEDE \\ \hline
+ALU\_FWPFIXEDO \\ \hline
+ALU\_FWPMO0E \\ \hline
+ALU\_FWPMO0O \\ \hline
+ALU\_FWPWR \\ \hline
+ALU\_FWPCNWRRE \\ \hline
+ALU\_FWPCNWRRO \\ \hline
+ALU\_FWPFMAE \\ \hline
+ALU\_FWPFMAO \\ \hline
+ALU\_FWPMULE \\ \hline
+ALU\_FWPMULO \\ \hline
+ALU\_FHCOPE \\ \hline
+ALU\_FHCOPO \\ \hline
+ALU\_FHQADDE \\ \hline
+ALU\_FHQADDO \\ \hline
+ALU\_FHQCWRRE \\ \hline
+ALU\_FHQCWRRO \\ \hline
+ALU\_FHQMMWRE \\ \hline
+ALU\_FHQMMWRO \\ \hline
+ALU\_FHQMO1E \\ \hline
+ALU\_FHQMO1O \\ \hline
+ALU\_FHOWIDENWR \\ \hline
+ALU\_FHOEXTLWR \\ \hline
+ALU\_FHQFLOATE \\ \hline
+ALU\_FHQFLOATO \\ \hline
+ALU\_FHQFIXEDE \\ \hline
+ALU\_FHQFIXEDO \\ \hline
+ALU\_FHQMO0E \\ \hline
+ALU\_FHQMO0O \\ \hline
+ALU\_FHQWR \\ \hline
+ALU\_FHQCNWRRE \\ \hline
+ALU\_FHQCNWRRO \\ \hline
+ALU\_FHQFMAE \\ \hline
+ALU\_FHQFMAO \\ \hline
+ALU\_FHQMULE \\ \hline
+ALU\_FHQMULO \\ \hline
+ALU\_NOP \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+EXT\_XMOVEFD \\ \hline
+EXT\_XMOVEFQ \\ \hline
+EXT\_XMOVEFO \\ \hline
+EXT\_XACCESSO2 \\ \hline
+EXT\_XACCESSO4 \\ \hline
+EXT\_XACCESSO8 \\ \hline
+EXT\_XACCESSO16 \\ \hline
+EXT\_XACCESSO32 \\ \hline
+EXT\_XACCESSO64 \\ \hline
+EXT\_XCOPYO \\ \hline
+EXT\_XALIGNO2 \\ \hline
+EXT\_XALIGNO4 \\ \hline
+EXT\_XALIGNO8 \\ \hline
+EXT\_XALIGNO16 \\ \hline
+EXT\_XALIGNO32 \\ \hline
+EXT\_XALIGNO64 \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV32I\_UType \\ \hline
+RV32I\_JType \\ \hline
+RV32I\_JTypeZD \\ \hline
+RV32I\_JALR \\ \hline
+RV32I\_JALRZDI \\ \hline
+RV32I\_BType \\ \hline
+RV32I\_BTypeZ1 \\ \hline
+RV32I\_BTypeZ2 \\ \hline
+RV32I\_ILoad \\ \hline
+RV32I\_SType \\ \hline
+RV32I\_I\_ALU \\ \hline
+RV32I\_RF00 \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RVZI\_COND \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV32I\_RF20 \\ \hline
+RV32I\_IFence \\ \hline
+RV32I\_IFence\_TSO \\ \hline
+RV32I\_IPause \\ \hline
+RV32I\_IEnv \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV64I\_ILoad \\ \hline
+RV64I\_SType \\ \hline
+RV64I\_XS00 \\ \hline
+RV64I\_XS10 \\ \hline
+RV64I\_I\_ALU \\ \hline
+RV64I\_IS00 \\ \hline
+RV64I\_IS20 \\ \hline
+RV64I\_RF00 \\ \hline
+RV64I\_RF20 \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV64KV\_ILoad \\ \hline
+RV64KV\_SType \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RVZI\_FenceI \\ \hline
+RVZI\_CSRR \\ \hline
+RVZI\_CSRI \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV32M\_RType \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV64M\_RType \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV64A\_LR \\ \hline
+RV64A\_SC \\ \hline
+RV64A\_RMW \\ \hline
+RV64A\_CAS \\ \hline
+RV64A\_CAS\_PAIR \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV32F\_ILoad \\ \hline
+RV32F\_SType \\ \hline
+RV32F\_R4TypeRM \\ \hline
+RV32F\_R3TypeRM \\ \hline
+RV32F\_R2TypeRM \\ \hline
+RV32F\_RTypeFSGN \\ \hline
+RV32F\_RTypeFMIN \\ \hline
+RV32F\_RTypeFCF2I \\ \hline
+RV32F\_RTypeFCMP \\ \hline
+RV32F\_RTypeFF2I \\ \hline
+RV32F\_RTypeFCI2F \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV64F\_RTypeFCF2L \\ \hline
+RV64F\_RTypeFCL2F \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV32F\_RTypeFMF2I \\ \hline
+RV32F\_RTypeFMI2F \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV32D\_ILoad \\ \hline
+RV32D\_SType \\ \hline
+RV32D\_R4TypeRM \\ \hline
+RV32D\_R3TypeRM \\ \hline
+RV32D\_R2TypeRM \\ \hline
+RV32D\_RTypeFSGN \\ \hline
+RV32D\_RTypeFMIN \\ \hline
+RV32D\_RTypeFCD2F \\ \hline
+RV32D\_RTypeFCF2D \\ \hline
+RV32D\_RTypeFCMP \\ \hline
+RV32D\_RTypeFD2I \\ \hline
+RV32D\_RTypeFCD2I \\ \hline
+RV32D\_RTypeFCI2D \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV64D\_RTypeFCD2L \\ \hline
+RV64D\_RTypeFCL2D \\ \hline
+RV64D\_RTypeFMF2I \\ \hline
+RV64D\_RTypeFMI2F \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV32H\_ILoad \\ \hline
+RV32H\_SType \\ \hline
+RV32H\_R4TypeRM \\ \hline
+RV32H\_R3TypeRM \\ \hline
+RV32H\_R2TypeRM \\ \hline
+RV32H\_RTypeFSGN \\ \hline
+RV32H\_RTypeFMIN \\ \hline
+RV32H\_RTypeFCVTT \\ \hline
+RV32H\_RTypeFCVTF \\ \hline
+RV32H\_RTypeFMF2I \\ \hline
+RV32H\_RTypeFCMP \\ \hline
+RV32H\_RTypeFD2I \\ \hline
+RV32H\_RTypeFCD2I \\ \hline
+RV32H\_RTypeFCI2D \\ \hline
+RV32H\_RTypeFMI2F \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV64H\_RTypeFCD2L \\ \hline
+RV64H\_RTypeFCL2H \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV32B\_OPREG \\ \hline
+RV32B\_OPIMM\_0x20 \\ \hline
+RV32B\_OPIMM\_0x30 \\ \hline
+RV32B\_OPEXT\_0x04 \\ \hline
+RV32B\_OPCNT\_0x30 \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV64B\_OPREG\_0x04 \\ \hline
+RV64B\_OPREG\_0x05 \\ \hline
+RV64B\_OPREG\_0x10 \\ \hline
+RV64B\_OPREG\_0x14 \\ \hline
+RV64B\_OPREG\_0x20 \\ \hline
+RV64B\_OPREG\_0x24 \\ \hline
+RV64B\_OPREG\_0x30 \\ \hline
+RV64B\_OPREG\_0x34 \\ \hline
+RV64B\_OPIMM\_0x0a \\ \hline
+RV64B\_OPIMM\_0x12 \\ \hline
+RV64B\_OPIMM\_0x18 \\ \hline
+RV64B\_OPIMM\_0x1a \\ \hline
+RV64B\_OPCNT\_0x18 \\ \hline
+RV64B\_OPIMM\_0x287 \\ \hline
+RV64B\_OPIMM\_0x6b8 \\ \hline
+RV64B\_OPIMM\_0x687 \\ \hline
+RV64B\_OPEXT\_0x30 \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{32}{c@{\hskip 2.7pt}p{6pt}@{}}|}\hline
+RV32I\_ZICBOM \\ \hline
+RV32I\_STypeZICBOP \\ \hline
+\end{tabular}
+}
+\smallskip
+
+\begin{landscape}
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{64}{c@{\hskip 1.7pt}p{5pt}@{}}|}\hline
+BCU\_CCB.X \\ \hline
+BCU\_CB.X \\ \hline
+BCU\_UB.X \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{64}{c@{\hskip 1.7pt}p{5pt}@{}}|}\hline
+LSU\_LSBO.X \\ \hline
+LSU\_LQBO.X \\ \hline
+LSU\_LOBO.X \\ \hline
+LSU\_FXBO.X \\ \hline
+LSU\_XLOBO.X \\ \hline
+LSU\_XLOC2BO.X \\ \hline
+LSU\_XLOC4BO.X \\ \hline
+LSU\_SSBO.X \\ \hline
+LSU\_SQBO.X \\ \hline
+LSU\_SOBO.X \\ \hline
+LSU\_XSOBO.X \\ \hline
+LSU\_XSOC2BO.X \\ \hline
+LSU\_XSOC4BO.X \\ \hline
+LSU\_XPL2RBB.O \\ \hline
+LSU\_XPL4RBB.O \\ \hline
+LSU\_XPL8RBB.O \\ \hline
+LSU\_XPL16RBB.O \\ \hline
+LSU\_XPL32RBB.O \\ \hline
+LSU\_XPL64RBB.O \\ \hline
+LSU\_ALSB.O \\ \hline
+LSU\_ALCLRSB.O \\ \hline
+LSU\_ASWAPSB.O \\ \hline
+LSU\_ALADDSB.O \\ \hline
+LSU\_ALANDSB.O \\ \hline
+LSU\_ALIORSB.O \\ \hline
+LSU\_ALEORSB.O \\ \hline
+LSU\_ALMINSB.O \\ \hline
+LSU\_ALMAXSB.O \\ \hline
+LSU\_ALMINUSB.O \\ \hline
+LSU\_ALMAXUSB.O \\ \hline
+LSU\_ALDUSSB.O \\ \hline
+LSU\_ADMAQSB.O \\ \hline
+LSU\_ASSB.O \\ \hline
+LSU\_ASADDSB.O \\ \hline
+LSU\_ASANDSB.O \\ \hline
+LSU\_ASIORSB.O \\ \hline
+LSU\_ASEORSB.O \\ \hline
+LSU\_ASMINSB.O \\ \hline
+LSU\_ASMAXSB.O \\ \hline
+LSU\_ASMINUSB.O \\ \hline
+LSU\_ASMAXUSB.O \\ \hline
+LSU\_ASDUSSB.O \\ \hline
+LSU\_ACSWAPSB.O \\ \hline
+LSU\_ACSWAPQB.O \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{64}{c@{\hskip 1.7pt}p{5pt}@{}}|}\hline
+ALU\_DWI.X \\ \hline
+ALU\_DWRI.X \\ \hline
+ALU\_XSDOI.X \\ \hline
+ALU\_XSDXI.X \\ \hline
+ALU\_DBMWRI.X \\ \hline
+ALU\_DWRR0.M \\ \hline
+ALU\_DCWRR.W \\ \hline
+ALU\_DBMWRRR.M \\ \hline
+ALU\_DBMWRR.M \\ \hline
+ALU\_DWRRS.M \\ \hline
+ALU\_DCMWRR.M \\ \hline
+ALU\_DWRR1.M \\ \hline
+ALU\_DMWRR.M \\ \hline
+ALU\_DMWRRR.M \\ \hline
+ALU\_DMEWRR.M \\ \hline
+ALU\_DMEWRRR.M \\ \hline
+ALU\_QWRR0.M \\ \hline
+ALU\_WWRR0.W \\ \hline
+ALU\_WCWRR.W \\ \hline
+ALU\_WAVG.W \\ \hline
+ALU\_WCWRRR.W \\ \hline
+ALU\_WWRRS.M \\ \hline
+ALU\_WWRR1.W \\ \hline
+ALU\_WMWRR.W \\ \hline
+ALU\_WMWRRR.W \\ \hline
+ALU\_WMEWRR.M \\ \hline
+ALU\_WMEWRRR.M \\ \hline
+ALU\_FDCWRR.W \\ \hline
+ALU\_FWCWRR.W \\ \hline
+ALU\_FHCWRR.W \\ \hline
+ALU\_DPWRR0.M \\ \hline
+ALU\_DPCWRR.M \\ \hline
+ALU\_DPSBMME.M \\ \hline
+ALU\_DPSBMM.M \\ \hline
+ALU\_DCNWRRE.M \\ \hline
+ALU\_DCNWRRO.M \\ \hline
+ALU\_DPWRRS.M \\ \hline
+ALU\_DPCMWRR.M \\ \hline
+ALU\_DPWRR1.M \\ \hline
+ALU\_WPWRR0E.M \\ \hline
+ALU\_WPWRR0O.M \\ \hline
+ALU\_WPCWRRE.M \\ \hline
+ALU\_WPCWRRO.M \\ \hline
+ALU\_WPAVGE.M \\ \hline
+ALU\_WPAVGO.M \\ \hline
+ALU\_WPCNWRRE.M \\ \hline
+ALU\_WPCNWRRO.M \\ \hline
+ALU\_WPWRRSE.M \\ \hline
+ALU\_WPWRRSO.M \\ \hline
+ALU\_WPCMWRRE.M \\ \hline
+ALU\_WPCMWRRO.M \\ \hline
+ALU\_WPWRR1E.M \\ \hline
+ALU\_WPWRR1O.M \\ \hline
+ALU\_HQWRR0E.M \\ \hline
+ALU\_HQWRR0O.M \\ \hline
+ALU\_HQCWRRE.M \\ \hline
+ALU\_HQCWRRO.M \\ \hline
+ALU\_HQAVGE.M \\ \hline
+ALU\_HQAVGO.M \\ \hline
+ALU\_HQCNWRRE.M \\ \hline
+ALU\_HQCNWRRO.M \\ \hline
+ALU\_HQWRRSE.M \\ \hline
+ALU\_HQWRRSO.M \\ \hline
+ALU\_HQCMWRRE.M \\ \hline
+ALU\_HQCMWRRO.M \\ \hline
+ALU\_HQWRR1E.M \\ \hline
+ALU\_HQWRR1O.M \\ \hline
+ALU\_BOWRR0E.M \\ \hline
+ALU\_BOWRR0O.M \\ \hline
+ALU\_BOCWRRE.M \\ \hline
+ALU\_BOCWRRO.M \\ \hline
+ALU\_BOAVGE.M \\ \hline
+ALU\_BOAVGO.M \\ \hline
+ALU\_BOCNWRRE.M \\ \hline
+ALU\_BOCNWRRO.M \\ \hline
+ALU\_BOWRRSE.M \\ \hline
+ALU\_BOWRRSO.M \\ \hline
+ALU\_BOCMWRRE.M \\ \hline
+ALU\_BOCMWRRO.M \\ \hline
+ALU\_BOWRR1E.M \\ \hline
+ALU\_BOWRR1O.M \\ \hline
+ALU\_FDPCWRR.M \\ \hline
+ALU\_FDCNWRRE.M \\ \hline
+ALU\_FDCNWRRO.M \\ \hline
+ALU\_FWPCWRRE.M \\ \hline
+ALU\_FWPCWRRO.M \\ \hline
+ALU\_FWPCNWRRE.M \\ \hline
+ALU\_FWPCNWRRO.M \\ \hline
+ALU\_FHQCWRRE.M \\ \hline
+ALU\_FHQCWRRO.M \\ \hline
+ALU\_FHQCNWRRE.M \\ \hline
+ALU\_FHQCNWRRO.M \\ \hline
+\end{tabular}
+}
+\smallskip
+
+{\def\nop{--}\tiny
+\begin{tabular}{|p{16mm}@{}p{14mm}@{}*{64}{c@{\hskip 1.7pt}p{5pt}@{}}|}\hline
+LSU\_XPL2RBB.D \\ \hline
+LSU\_XPL4RBB.D \\ \hline
+LSU\_XPL8RBB.D \\ \hline
+LSU\_XPL16RBB.D \\ \hline
+LSU\_XPL32RBB.D \\ \hline
+LSU\_XPL64RBB.D \\ \hline
+LSU\_ALSB.D \\ \hline
+LSU\_ALCLRSB.D \\ \hline
+LSU\_ASWAPSB.D \\ \hline
+LSU\_ALADDSB.D \\ \hline
+LSU\_ALANDSB.D \\ \hline
+LSU\_ALIORSB.D \\ \hline
+LSU\_ALEORSB.D \\ \hline
+LSU\_ALMINSB.D \\ \hline
+LSU\_ALMAXSB.D \\ \hline
+LSU\_ALMINUSB.D \\ \hline
+LSU\_ALMAXUSB.D \\ \hline
+LSU\_ALDUSSB.D \\ \hline
+LSU\_ADMAQSB.D \\ \hline
+LSU\_ASSB.D \\ \hline
+LSU\_ASADDSB.D \\ \hline
+LSU\_ASANDSB.D \\ \hline
+LSU\_ASIORSB.D \\ \hline
+LSU\_ASEORSB.D \\ \hline
+LSU\_ASMINSB.D \\ \hline
+LSU\_ASMAXSB.D \\ \hline
+LSU\_ASMINUSB.D \\ \hline
+LSU\_ASMAXUSB.D \\ \hline
+LSU\_ASDUSSB.D \\ \hline
+LSU\_ACSWAPSB.D \\ \hline
+LSU\_ACSWAPQB.D \\ \hline
+\end{tabular}
+}
+
+\end{landscape}
+}

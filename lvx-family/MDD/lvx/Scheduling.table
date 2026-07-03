@@ -1,0 +1,347 @@
+
+<Scheduling
+  ID=	"Scheduling-lvx-"
+  reservation=	"Reservation-lvx-"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALL"
+  bundling=	"Bundling-lvx-ALL"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALL"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-BCU"
+  bundling=	"Bundling-lvx-BCU"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-BCU"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-BCU_XFER"
+  bundling=	"Bundling-lvx-BCU"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-BCU_XFER"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-BCU_XFER_BRRP"
+  bundling=	"Bundling-lvx-BCU"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-BCU_XFER_BRRP"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-BCU_BRRP"
+  bundling=	"Bundling-lvx-BCU"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-BCU_BRRP"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-BCU_BRRP2"
+  bundling=	"Bundling-lvx-BCU"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-BCU_BRRP2"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-BCU2"
+  bundling=	"Bundling-lvx-BCU2"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-BCU2"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-BCU2.X"
+  bundling=	"Bundling-lvx-BCU2.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-BCU2.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-BCU2_TINY_LSU"
+  bundling=	"Bundling-lvx-BCU2"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-BCU2_TINY_LSU"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_TINY"
+  bundling=	"Bundling-lvx-TINY"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_TINY"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_TINY.X"
+  bundling=	"Bundling-lvx-TINY.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_TINY.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_TINY.Y"
+  bundling=	"Bundling-lvx-TINY.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_TINY.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_TINY_AUXR"
+  bundling=	"Bundling-lvx-TINY"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_TINY_AUXR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_LITE"
+  bundling=	"Bundling-lvx-LITE"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_LITE"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_LITE.X"
+  bundling=	"Bundling-lvx-LITE.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_LITE.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_LITE.Y"
+  bundling=	"Bundling-lvx-LITE.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_LITE.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_LITE_MISC"
+  bundling=	"Bundling-lvx-LITE"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_LITE_MISC"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_FULL"
+  bundling=	"Bundling-lvx-FULL"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_FULL"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_FULL.X"
+  bundling=	"Bundling-lvx-FULL.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_FULL.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-ALU_FULL.Y"
+  bundling=	"Bundling-lvx-FULL.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-ALU_FULL.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU"
+  bundling=	"Bundling-lvx-LSU"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU.X"
+  bundling=	"Bundling-lvx-LSU.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU.Y"
+  bundling=	"Bundling-lvx-LSU.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_MEMW_ACCR"
+  bundling=	"Bundling-lvx-LSU0"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_MEMW_ACCR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_MEMW_ACCR.X"
+  bundling=	"Bundling-lvx-LSU0.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_MEMW_ACCR.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_MEMW_ACCR.Y"
+  bundling=	"Bundling-lvx-LSU0.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_MEMW_ACCR.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW"
+  bundling=	"Bundling-lvx-LSU0"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW.X"
+  bundling=	"Bundling-lvx-LSU0.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW.Y"
+  bundling=	"Bundling-lvx-LSU0.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_AUXR"
+  bundling=	"Bundling-lvx-LSU"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_AUXR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_AUXR.X"
+  bundling=	"Bundling-lvx-LSU.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_AUXR.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_AUXR.Y"
+  bundling=	"Bundling-lvx-LSU.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_AUXR.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_MEMW_AUXR"
+  bundling=	"Bundling-lvx-LSU0"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_MEMW_AUXR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_MEMW_AUXR.X"
+  bundling=	"Bundling-lvx-LSU0.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_MEMW_AUXR.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_MEMW_AUXR.Y"
+  bundling=	"Bundling-lvx-LSU0.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_MEMW_AUXR.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW_AUXR"
+  bundling=	"Bundling-lvx-LSU0"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW_AUXR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW_AUXR.X"
+  bundling=	"Bundling-lvx-LSU0.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW_AUXR.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW_AUXR.Y"
+  bundling=	"Bundling-lvx-LSU0.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW_AUXR.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_MEMW_AUXW"
+  bundling=	"Bundling-lvx-LSU0"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_MEMW_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_MEMW_AUXW.X"
+  bundling=	"Bundling-lvx-LSU0.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_MEMW_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_MEMW_AUXW.Y"
+  bundling=	"Bundling-lvx-LSU0.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_MEMW_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW_AUXW"
+  bundling=	"Bundling-lvx-LSU0"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW_AUXW.X"
+  bundling=	"Bundling-lvx-LSU0.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW_AUXW.Y"
+  bundling=	"Bundling-lvx-LSU0.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_AUXW"
+  bundling=	"Bundling-lvx-LSU"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_AUXW.X"
+  bundling=	"Bundling-lvx-LSU.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_AUXW.Y"
+  bundling=	"Bundling-lvx-LSU.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_AUXR_AUXW"
+  bundling=	"Bundling-lvx-LSU"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_AUXR_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_AUXR_AUXW.X"
+  bundling=	"Bundling-lvx-LSU.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_AUXR_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU_AUXR_AUXW.Y"
+  bundling=	"Bundling-lvx-LSU.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU_AUXR_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW_AUXR_AUXW"
+  bundling=	"Bundling-lvx-LSU0"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW_AUXR_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW_AUXR_AUXW.X"
+  bundling=	"Bundling-lvx-LSU0.X"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW_AUXR_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-LSU2_MEMW_AUXR_AUXW.Y"
+  bundling=	"Bundling-lvx-LSU0.Y"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-LSU2_MEMW_AUXR_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-EXT"
+  bundling=	"Bundling-lvx-EXT"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-EXT"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-EXT_COMP"
+  bundling=	"Bundling-lvx-EXT"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-EXT_COMP"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-EXT_MISC"
+  bundling=	"Bundling-lvx-EXT"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-EXT_MISC"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx-EXT_MISC_AUXW"
+  bundling=	"Bundling-lvx-EXT"
+  processors=	"Processor-lvx_v1-cpu"
+  reservation=	"Reservation-lvx-EXT_MISC_AUXW"
+/>

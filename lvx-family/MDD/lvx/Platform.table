@@ -1,0 +1,24 @@
+
+<Platform
+  ID=	"Platform-lvx-"
+  addrWidth=	"0"
+  charWidth=	"0"
+  nativeFloat=	"NativeType-lvx-"
+  nativeInt=	"NativeType-lvx-"
+  nativePtr=	"NativeType-lvx-"
+  nativeUInt=	"NativeType-lvx-"
+/>
+<Platform
+  ID=	"Platform-lvx-lvx_64"
+  addrWidth=	"32"
+  alignData=	"8"
+  alignHeap=	"8"
+  alignStack=	"8"
+  alignText=	"8"
+  charWidth=	"8"
+  endian=	"Little"
+  nativeFloat=	"NativeType-lvx-Float64"
+  nativeInt=	"NativeType-lvx-Int32"
+  nativePtr=	"NativeType-lvx-UInt64"
+  nativeUInt=	"NativeType-lvx-UInt32"
+/>

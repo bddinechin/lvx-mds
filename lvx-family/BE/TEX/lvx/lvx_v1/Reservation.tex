@@ -1,0 +1,1508 @@
+\subsubsection{Reservation Table ALL} \label{sec:reservation-ALL}
+
+Instruction must be alone in instruction bundle.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 8	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_FULL} \label{sec:reservation-ALU-FULL}
+
+Instruction must issue on the ALU0.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 1	\\
+\textsf{FULL}	& 1	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_FULL.X} \label{sec:reservation-ALU-FULL.X}
+
+Instruction with one immediate extension, must issue on the ALU0.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 1	\\
+\textsf{FULL}	& 1	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_FULL.Y} \label{sec:reservation-ALU-FULL.Y}
+
+Instruction with two immediate extensions, must issue on the ALU0.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 1	\\
+\textsf{FULL}	& 1	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_LITE} \label{sec:reservation-ALU-LITE}
+
+Instruction must issue on one of the two LITE units.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 1	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_LITE.X} \label{sec:reservation-ALU-LITE.X}
+
+Instruction with one immediate extension, must issue on one of the two LITE units.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 1	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_LITE.Y} \label{sec:reservation-ALU-LITE.Y}
+
+Instruction with two immediate extensions, must issue on one of the two LITE units.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 1	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_LITE\_MISC} \label{sec:reservation-ALU-LITE-MISC}
+
+Instruction must issue on one of the two LITE units and used the write port of the MISC unit.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 1	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 1	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_TINY} \label{sec:reservation-ALU-TINY}
+
+Instruction must issue on one of the four TINY units.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_TINY.X} \label{sec:reservation-ALU-TINY.X}
+
+Instruction with one immediate extension, must issue on one of the four TINY units.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_TINY.Y} \label{sec:reservation-ALU-TINY.Y}
+
+Instruction with two immediate extensions, must issue on one of the four TINY units.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table ALU\_TINY\_AUXR} \label{sec:reservation-ALU-TINY-AUXR}
+
+Instruction must issue on one of the four TINY units, and requires an auxiliary read port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table BCU} \label{sec:reservation-BCU}
+
+Instruction must issue on the BCU.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 1	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table BCU2} \label{sec:reservation-BCU2}
+
+Instruction uses the two BCUs and one issue slot.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 2	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table BCU2.X} \label{sec:reservation-BCU2.X}
+
+Instruction uses the two BCUs and two issue slots.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 2	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table BCU2\_TINY\_LSU} \label{sec:reservation-BCU2-TINY-LSU}
+
+Instruction uses the two BCUs and uses the TINY LSU write port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 2	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table BCU\_BRRP} \label{sec:reservation-BCU-BRRP}
+
+Instruction must issue on the BCU and reads a general register.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 1	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 1	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table BCU\_BRRP2} \label{sec:reservation-BCU-BRRP2}
+
+Instruction uses a BCU and two register read ports.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 1	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 2	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table BCU\_XFER} \label{sec:reservation-BCU-XFER}
+
+Instruction uses a BCU and unconditionally transfers control.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 1	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 1	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table BCU\_XFER\_BRRP} \label{sec:reservation-BCU-XFER-BRRP}
+
+Instruction uses a BCU, reads a general register and unconditionally transfers control.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 1	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 1	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 1	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table EXT} \label{sec:reservation-EXT}
+
+Instruction must issue on the EXT.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 1	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table EXT\_COMP} \label{sec:reservation-EXT-COMP}
+
+Instruction must issue on the EXT, and requires the main computational unit (COMP).
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 1	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 1	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table EXT\_MISC} \label{sec:reservation-EXT-MISC}
+
+Instruction must issue on the EXT, and requires data move unit (MISC).
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 1	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 1	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table EXT\_MISC\_AUXW} \label{sec:reservation-EXT-MISC-AUXW}
+
+Instruction must issue on the EXT, and requires an auxiliary write port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 1	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 1	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU} \label{sec:reservation-LSU}
+
+Instruction must issue on the LSU.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU.X} \label{sec:reservation-LSU.X}
+
+Instruction with one immediate extension, must issue on the LSU.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU.Y} \label{sec:reservation-LSU.Y}
+
+Instruction with two immediate extensions, must issue on the LSU.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW} \label{sec:reservation-LSU2-MEMW}
+
+Instruction must issue on the LSU and no other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW.X} \label{sec:reservation-LSU2-MEMW.X}
+
+Instruction must issue on the LSU with one immediate extension and no other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW.Y} \label{sec:reservation-LSU2-MEMW.Y}
+
+Instruction must issue on the LSU with two immediate extensions and no other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW\_AUXR} \label{sec:reservation-LSU2-MEMW-AUXR}
+
+Instruction must issue on the LSU, writes to memory and requires the auxiliary read port. No other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW\_AUXR.X} \label{sec:reservation-LSU2-MEMW-AUXR.X}
+
+Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary read port. No other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW\_AUXR.Y} \label{sec:reservation-LSU2-MEMW-AUXR.Y}
+
+Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary read port. No other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW\_AUXR\_AUXW} \label{sec:reservation-LSU2-MEMW-AUXR-AUXW}
+
+Instruction must issue on the LSU, writes to memory and requires the auxiliary read and write ports. No other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW\_AUXR\_AUXW.X} \label{sec:reservation-LSU2-MEMW-AUXR-AUXW.X}
+
+Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary read and write ports. No other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW\_AUXR\_AUXW.Y} \label{sec:reservation-LSU2-MEMW-AUXR-AUXW.Y}
+
+Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary read and write ports. No other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW\_AUXW} \label{sec:reservation-LSU2-MEMW-AUXW}
+
+Instruction must issue on the the LSU, writes to memory and requires the auxiliary write port. No other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW\_AUXW.X} \label{sec:reservation-LSU2-MEMW-AUXW.X}
+
+Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary write port. No other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU2\_MEMW\_AUXW.Y} \label{sec:reservation-LSU2-MEMW-AUXW.Y}
+
+Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary write port. No other LSU can issue.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 2	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_AUXR} \label{sec:reservation-LSU-AUXR}
+
+Instruction must issue on the LSU, and requires the auxiliary read port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_AUXR.X} \label{sec:reservation-LSU-AUXR.X}
+
+Instruction with one immediate extension, must issue on the LSU, and requires the auxiliary read port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_AUXR.Y} \label{sec:reservation-LSU-AUXR.Y}
+
+Instruction with two immediate extensions, must issue on the LSU, and requires the auxiliary read port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_AUXR\_AUXW} \label{sec:reservation-LSU-AUXR-AUXW}
+
+Instruction must issue on the LSU, and requires the auxiliary read and write ports.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_AUXR\_AUXW.X} \label{sec:reservation-LSU-AUXR-AUXW.X}
+
+Instruction with one immediate extension, must issue on the LSU, and requires the auxiliary read and write ports.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_AUXR\_AUXW.Y} \label{sec:reservation-LSU-AUXR-AUXW.Y}
+
+Instruction with two immediate extensions, must issue on the LSU, and requires the auxiliary read and write ports.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_AUXW} \label{sec:reservation-LSU-AUXW}
+
+Instruction must issue on the LSU, and requires the auxiliary write port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_AUXW.X} \label{sec:reservation-LSU-AUXW.X}
+
+Instruction with one immediate extension, must issue on the LSU, and requires the auxiliary write port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_AUXW.Y} \label{sec:reservation-LSU-AUXW.Y}
+
+Instruction with two immediate extensions, must issue on the LSU, and requires the auxiliary write port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_MEMW\_ACCR} \label{sec:reservation-LSU-MEMW-ACCR}
+
+Instruction must issue on the LSU and writes to memory.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 1	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_MEMW\_ACCR.X} \label{sec:reservation-LSU-MEMW-ACCR.X}
+
+Instruction with one immediate extension, must issue on the LSU and writes to memory.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 1	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_MEMW\_ACCR.Y} \label{sec:reservation-LSU-MEMW-ACCR.Y}
+
+Instruction with two immediate extensions, must issue on the LSU and writes to memory.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 1	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_MEMW\_AUXR} \label{sec:reservation-LSU-MEMW-AUXR}
+
+Instruction must issue on the LSU, writes to memory and requires the auxiliary read port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_MEMW\_AUXR.X} \label{sec:reservation-LSU-MEMW-AUXR.X}
+
+Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary read port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_MEMW\_AUXR.Y} \label{sec:reservation-LSU-MEMW-AUXR.Y}
+
+Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary read port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 1	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_MEMW\_AUXW} \label{sec:reservation-LSU-MEMW-AUXW}
+
+Instruction must issue on the the LSU, writes to memory and requires the auxiliary write port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_MEMW\_AUXW.X} \label{sec:reservation-LSU-MEMW-AUXW.X}
+
+Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary write port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 2	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table LSU\_MEMW\_AUXW.Y} \label{sec:reservation-LSU-MEMW-AUXW.Y}
+
+Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary write port.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 3	\\
+\textsf{TINY}	& 1	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 1	\\
+\textsf{MAU}	& 	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 1	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 1	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+
+\subsubsection{Reservation Table MAU} \label{sec:reservation-MAU}
+
+Instruction must issue on the MAU.
+\medskip
+
+\begin{tabular}{|l|r|} \hline
+Resource	& Cycle 0 \\ \hline
+\textsf{ISSUE}	& 1	\\
+\textsf{TINY}	& 	\\
+\textsf{LITE}	& 	\\
+\textsf{FULL}	& 	\\
+\textsf{LSU}	& 	\\
+\textsf{MAU}	& 1	\\
+\textsf{BCU}	& 	\\
+\textsf{EXT}	& 	\\
+\textsf{AUXR}	& 	\\
+\textsf{AUXW}	& 	\\
+\textsf{XFER}	& 	\\
+\textsf{MEMW}	& 	\\
+\textsf{SR12}	& 	\\
+\textsf{SR13}	& 	\\
+\textsf{SR14}	& 	\\
+\textsf{SR15}	& 	\\
+\hline Stalls	& 	\\
+\hline \end{tabular}
+

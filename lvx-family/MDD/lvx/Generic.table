@@ -1,0 +1,774 @@
+
+<Generic
+  ID=	"Generic-lvx-ENTRY"
+  attributes=	"Pseudo"
+  mnemonic=	"ENTRY"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%1"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-LABEL"
+  attributes=	"Pseudo"
+  mnemonic=	"LABEL"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%1"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-FALLTO"
+  attributes=	"Pseudo Control"
+  mnemonic=	"FALLTO"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%1"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-LOOPTO"
+  attributes=	"Pseudo Control"
+  mnemonic=	"LOOPTO"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-HWLOOP"
+  attributes=	"Pseudo Control"
+  mnemonic=	"HWLOOP"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-HWLNEZ"
+  attributes=	"Pseudo Control Conditional"
+  mnemonic=	"HWLNEZ"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-HWLGTZ"
+  attributes=	"Pseudo Control Conditional"
+  mnemonic=	"HWLGTZ"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-GOTO"
+  attributes=	"Control"
+  mnemonic=	"GOTO"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%1"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFTRUE"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFTRUE"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFFALSE"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFFALSE"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFNEZ"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFNEZ"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFEQZ"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFEQZ"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFLTZ"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFLTZ"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFGEZ"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFGEZ"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFLEZ"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFLEZ"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFGTZ"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFGTZ"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFODD"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFODD"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-IFEVEN"
+  attributes=	"Control Conditional"
+  mnemonic=	"IFEVEN"
+  syntax=	"%0 %1 %2"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%2"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-JUMP"
+  attributes=	"Control"
+  mnemonic=	"JUMP"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-CALL"
+  attributes=	"Control"
+  mnemonic=	"CALL"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-"
+  proxy=	"%1"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-LINK"
+  attributes=	"Control"
+  mnemonic=	"LINK"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+  usage=	"Target"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-RETURN"
+  attributes=	"Control"
+  mnemonic=	"RETURN"
+  syntax=	"%0"
+/>
+<Generic
+  ID=	"Generic-lvx-PHI"
+  attributes=	"Pseudo"
+  mnemonic=	"PHI"
+  syntax=	"%0"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+/><Parameter
+  action=	"ReadList"
+  method=	"RegClass-lvx-"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-PSI"
+  attributes=	"Pseudo"
+  mnemonic=	"PSI"
+  syntax=	"%0"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+/><Parameter
+  action=	"ReadList"
+  method=	"RegClass-lvx-"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-SIGMA"
+  attributes=	"Pseudo"
+  mnemonic=	"SIGMA"
+  syntax=	"%0"
+><Parameter
+  action=	"WriteList"
+  method=	"RegClass-lvx-"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-KILL"
+  attributes=	"Pseudo"
+  mnemonic=	"KILL"
+  syntax=	"%0"
+><Parameter
+  action=	"WriteList"
+  method=	"RegClass-lvx-"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-PCOPY"
+  mnemonic=	"PCOPY"
+  syntax=	"%0"
+><Parameter
+  action=	"WriteList"
+  method=	"RegClass-lvx-"
+/><Parameter
+  action=	"ReadList"
+  method=	"RegClass-lvx-"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-ECOPY"
+  mnemonic=	"ECOPY"
+  syntax=	"%0"
+><Parameter
+  action=	"WriteList"
+  method=	"RegClass-lvx-"
+/><Parameter
+  action=	"ReadList"
+  method=	"RegClass-lvx-"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-LCOPY"
+  mnemonic=	"LCOPY"
+  syntax=	"%0"
+><Parameter
+  action=	"WriteList"
+  method=	"RegClass-lvx-"
+/><Parameter
+  action=	"ReadList"
+  method=	"RegClass-lvx-"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-COPY"
+  mnemonic=	"COPY"
+  syntax=	"%0 %1 = %2"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-SKIP"
+  mnemonic=	"SKIP"
+  syntax=	"%0"
+/>
+<Generic
+  ID=	"Generic-lvx-LNOT"
+  mnemonic=	"LNOT"
+  syntax=	"%0 %1 = %2"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-BNOT"
+  mnemonic=	"BNOT"
+  syntax=	"%0 %1 = %2"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-NEG"
+  mnemonic=	"NEG"
+  syntax=	"%0 %1 = %2"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-ADD"
+  mnemonic=	"ADD"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-SUB"
+  mnemonic=	"SUB"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-MUL"
+  mnemonic=	"MUL"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-DIV"
+  mnemonic=	"DIV"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-REM"
+  mnemonic=	"REM"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-SHL"
+  mnemonic=	"SHL"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-ASHR"
+  mnemonic=	"ASHR"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-LSHR"
+  mnemonic=	"LSHR"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-LAND"
+  mnemonic=	"LAND"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-LIOR"
+  mnemonic=	"LIOR"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-LXOR"
+  mnemonic=	"LXOR"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-BAND"
+  mnemonic=	"BAND"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-BIOR"
+  mnemonic=	"BIOR"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-BXOR"
+  mnemonic=	"BXOR"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-MIN"
+  mnemonic=	"MIN"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-MAX"
+  mnemonic=	"MAX"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-SELECT"
+  mnemonic=	"SELECT"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%3"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-APPLY"
+  mnemonic=	"APPLY"
+  syntax=	"%0"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+/><Parameter
+  action=	"ReadList"
+  method=	"RegClass-lvx-"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-TEST"
+  mnemonic=	"TEST"
+  syntax=	"%0"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+/><Parameter
+  action=	"ReadList"
+  method=	"RegClass-lvx-"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-FWDBAR"
+  attributes=	"Pseudo"
+  mnemonic=	"FWDBAR"
+  syntax=	"%0"
+/>
+<Generic
+  ID=	"Generic-lvx-BWDBAR"
+  attributes=	"Pseudo"
+  mnemonic=	"BWDBAR"
+  syntax=	"%0"
+/>
+<Generic
+  ID=	"Generic-lvx-IFIXUP"
+  attributes=	"Pseudo"
+  mnemonic=	"IFIXUP"
+  syntax=	"%0 %1 ="
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-BEGIN_PREGTN"
+  attributes=	"Pseudo"
+  mnemonic=	"BEGIN_PREGTN"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/></Generic>
+<Generic
+  ID=	"Generic-lvx-END_PREGTN"
+  attributes=	"Pseudo"
+  mnemonic=	"END_PREGTN"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-"
+  proxy=	"%1"
+/></Generic>
