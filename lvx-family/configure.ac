@@ -29,7 +29,7 @@ case $target_alias in
   lvx )
     family="lvx"
     target="^target^"
-    with_cores="lvx_v1"
+    with_cores="lvx_v1 lvx_v2"
     enable_tools="TEX GBU GDB GCC LAO"
     ;;
   *)

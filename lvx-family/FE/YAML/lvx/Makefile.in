@@ -4,12 +4,12 @@ TOPDIR:= @TOPDIR@
 INPUTDIR:= $(FAMDIR)/FE/YAML/lvx
 OUTPUTDIR:= $(TOPDIR)/FE/YAML/lvx
 
-CORES:= lvx_v1
+CORES:= lvx_v1 lvx_v2
 
 DIRS:=$(addprefix $(OUTPUTDIR)/,$(CORES))
 DESCS:=$(addsuffix /Description.yml,$(DIRS))
 
-core_gen_uc=$(shell echo '$1' | tr 'a-z' 'A-Z' | sed -e 's/_V[0-9].*//')
+core_version=$(shell echo '$1' | sed -e 's/[a-zA-Z_]*\([0-9].*\)/\1/')
 
 YMLNAMES:= Builtin.yml Convention.yml Format.yml Generic.yml Immediate.yml Instruction.yml \
 	Modifier.yml NativeType.yml Platform.yml Processor.yml RegClass.yml RegField.yml \
@@ -24,8 +24,8 @@ ${CORES}: %: $(OUTPUTDIR)/%/Description.yml
 ${DESCS}: $(OUTPUTDIR)/%/Description.yml: $(YMLFILES) | $(OUTPUTDIR)/%
 	@echo "Generate description for $*"
 	( echo '## Description.yml' ; echo ; \
-	  echo '#define _KV4_' ; echo '#define _$(shell echo $* | tr a-z A-Z)_' ; echo ; \
-	  cat $(YMLFILES) ) | cpp -E -P -undef -nostdinc -D_$(call core_gen_uc,$*)_RV_ - -o $@
+	  echo '#define _$(shell echo $* | tr a-z A-Z)_' ; echo ; \
+	  cat $(YMLFILES) ) | cpp -E -P -undef -nostdinc -D_LVX_=$(call core_version,$*) - -o $@
 
 .PHONY: install all clean ${CORES}
 

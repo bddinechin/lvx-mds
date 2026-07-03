@@ -45,9 +45,7 @@ RegFile:
       - { ID: PSO, location: [ PSO, 0..63 ], names: [ "$pso", "$s37" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 64, what: "PS register fields Owners"}
       - { ID: TPCM0, location: [ TPCM0, 0 ], names: [ "$tpcm0", "$s38" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message register 0"}
       - { ID: TPCM1, location: [ TPCM1, 0 ], names: [ "$tpcm1", "$s39" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message register 1"}
-#if defined(_KV4_)
       - { ID: DC, location: [ RVC, 0..31 ], names: [ "$rvc", "$s40" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "RISC-V configuration (FIXME rename to RVC)"}
-#endif//_KV4_
       - { ID: DBA0, location: [ DBA0, 0 ], names: [ "$dba0", "$s41" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_B0 ], what: "Breakpoint Address 0"}
       - { ID: DBA1, location: [ DBA1, 0 ], names: [ "$dba1", "$s42" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_B1 ], what: "Breakpoint Address 1"}
       - { ID: DWA0, location: [ DWA0, 0 ], names: [ "$dwa0", "$s43" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_W0 ], what: "Watchpoint Address 0"}
@@ -909,7 +907,6 @@ RegFile:
     shortName: l
     execution: "X64R[%0]"
 
-#ifdef _LVX_RV_
 
   - ID: RV_BIR
     what: RISC-V Base Integer Registers
@@ -5125,5 +5122,4 @@ RegFile:
     regClass: csReg
     execution: "CSR[%0]"
 
-#endif //_LVX_RV_
 

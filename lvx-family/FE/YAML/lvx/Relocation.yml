@@ -394,7 +394,6 @@ Relocation:
     elfIds: [ 80 ]
     fields: [ BYTE ]
 
-#ifdef _KV4_
 
   - ID: pcrel11s2
     what: extended 11 bits PC relative relocation on symbol + addend
@@ -468,5 +467,4 @@ Relocation:
     fields: [ upper27, lower27 ]
     operands: [ upper27_lower27 ]
 
-#endif//_KV4_
 

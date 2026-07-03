@@ -1,6 +1,5 @@
 Synthetic:
 
-#ifdef _KV4_
 
   - ID: SBMM8
     what: Swapped Bit Matrix Multiplication 8$\times$8
@@ -222,9 +221,7 @@ Synthetic:
     specialize: { "%4": "2", "%5": "0" }
     syntax: "%0 %1 = %2, %3"
 
-#endif//_KV4_
 
-#ifdef _LVX_RV_
 
   - ID: NOP
     what: Pseudoinstruction.
@@ -334,5 +331,4 @@ Synthetic:
         (READ.rs1)
       )
 
-#endif//_LVX_RV_
 

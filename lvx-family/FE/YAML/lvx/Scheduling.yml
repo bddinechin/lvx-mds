@@ -1,6 +1,5 @@
 Scheduling:
 
-#ifdef _KV4_
 
   - ID: ALL
     bundling: ALL
@@ -230,5 +229,4 @@ Scheduling:
     bundling: EXT
     reservation: EXT_MISC_AUXW
 
-#endif//_KV4_
 

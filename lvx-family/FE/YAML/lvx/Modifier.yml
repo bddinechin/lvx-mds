@@ -1,6 +1,5 @@
 Modifier:
 
-#ifdef _KV4_
 
   - ID: exunum
     what: Execution Unit Number in Immediate Extensions
@@ -340,9 +339,7 @@ Modifier:
       - Splat x2
     execution: "_ZX_1(%0)"
 
-#endif//_KV4_
 
-#ifdef _LVX_RV_
 
   - ID: ordering
     what: Fence predecessor and successor ordering
@@ -390,5 +387,4 @@ Modifier:
       - Dynamic rounding mode
     execution: "_ZX_3(%0)"
 
-#endif//_LVX_RV_
 

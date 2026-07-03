@@ -1,6 +1,5 @@
 Macro:
 
-#ifdef _KV4_
 
   - ID: BCV
     execution: &executionBCV |
@@ -4674,14 +4673,12 @@ Macro:
         (COMMIT.E1.%1:1 (READ.result1_1)))
 
 
-#endif //_KV4_
 
 
 Format:
 
   ## BCU: steering=00
 
-#ifdef _KV4_
 
   - ID: BCU_CCB
     what: BCU Compare Conditional Branches
@@ -5357,12 +5354,10 @@ Format:
     behavior: |
       (WRITE.argument1 (ACCESS.ID.%1))
 
-#endif//_KV4_
 
 
   ## LSU: steering=01
 
-#ifdef _KV4_
 
   - ID: LSU_LSBO
     what: LSU Load Scalar Base Offset
@@ -9113,12 +9108,10 @@ Format:
     execution: *executionARPBO
     behavior: *behaviorARPBO
 
-#endif//_KV4_
 
 
   ## ALU: steering=11
 
-#ifdef _KV4_
 
   - ID: ALU_DWI
     what: ALU Double Word from Immediate
@@ -20206,9 +20199,7 @@ Format:
     syntax: "%0"
     scheduling: ALU_TINY
 
-#endif//_KV4_
 
-#ifdef _KV4_
 
   ## EXT: steering=10
 
@@ -20713,9 +20704,7 @@ Format:
 
 #endif//SIMD512
 
-#endif//_KV4_
 
-#ifdef _LVX_RV_
 
   - ID: RV32I_UType
     what: RV32I U-Type
@@ -23260,5 +23249,4 @@ Format:
       )
 
 
-#endif//_LVX_RV_
 

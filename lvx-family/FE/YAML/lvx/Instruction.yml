@@ -1,6 +1,5 @@
 Instruction:
 
-#ifdef _KV4_
 
   - ID: AWAIT
     what: Wait for any event or interrupt.
@@ -21334,9 +21333,7 @@ Instruction:
     execution: *executionXALIGN
     behavior: *behaviorXALIGN
 
-#endif//_KV4_
 
-#ifdef _LVX_RV_
 
   - ID: LUI
     what: Load Upper Immediate
@@ -26215,5 +26212,4 @@ Instruction:
         (WRITE.rd (ZX.64 (CONST.0)))
         (WRITE.rd (ZX.64 (READ.rs1)))
       )
-#endif//_LVX_RV_
 

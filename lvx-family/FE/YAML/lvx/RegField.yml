@@ -1871,12 +1871,10 @@ RegField:
     location: [ MO, 48..49 ]
     reset: 0
 
-#if defined(_KV4_)
   - ID: MO_RVC
     what: RVC instruction owner.
     location: [ MO, 50..51 ]
     reset: 0
-#endif // _KV4_
 
 ################ MOW ################
 
@@ -2107,7 +2105,6 @@ RegField:
     reset: 0
 
 
-#if defined(_KV4_)
   - ID: MOW_RVC
     what: RVC instruction owner.
     location: [ MO, 50..51 ]
@@ -2116,7 +2113,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     register: MOW
     reset: 0
-#endif // _KV4_
 
 ################ PS ################
 
@@ -2271,7 +2267,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0x1
 
-#ifdef _KV4_
   - ID: PS_RV
     what: RiscV mode.
     location: [ PS, 25 ]
@@ -2279,7 +2274,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-#endif
 
 ################ SPS ################
 
@@ -2434,7 +2428,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
 
-#ifdef _KV4_
   - ID: SPS_RV
     what: RiscV mode.
     location: [ SPS, 25 ]
@@ -2442,7 +2435,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-#endif
 
 ################ SPS_PL0 ################
 
@@ -2597,7 +2589,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
 
-#ifdef _KV4_
   - ID: SPS_PL0_RV
     what: RiscV mode.
     location: [ SPS_PL0, 25 ]
@@ -2605,7 +2596,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-#endif
 
 ################ SPS_PL1 ################
 
@@ -2760,7 +2750,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
 
-#ifdef _KV4_
   - ID: SPS_PL1_RV
     what: RiscV mode.
     location: [ SPS_PL1, 25 ]
@@ -2768,7 +2757,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-#endif
 
 ################ SPS_PL2 ################
 
@@ -2923,7 +2911,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
 
-#ifdef _KV4_
   - ID: SPS_PL2_RV
     what: RiscV mode.
     location: [ SPS_PL2, 25 ]
@@ -2931,7 +2918,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-#endif
 
 ################ SPS_PL3 ################
 
@@ -3086,7 +3072,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
 
-#ifdef _KV4_
   - ID: SPS_PL3_RV
     what: RiscV mode.
     location: [ SPS_PL3, 25 ]
@@ -3094,7 +3079,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-#endif
 
 ################ PSO ################
 
@@ -3218,12 +3202,10 @@ RegField:
     location: [ PSO, 48..49 ]
     reset: 0
 
-#ifdef _KV4_
   - ID: PSO_RV
     what: RiscV mode owner
     location: [ PSO, 50..51 ]
     reset: 0
-#endif
 
 ################ PSOW ################
 
@@ -3443,7 +3425,6 @@ RegField:
     register: PSOW
     reset: 0
 
-#ifdef _KV4_
   - ID: PSOW_RV
     what: RiscV mode owner
     location: [ PSO, 50..51 ]
@@ -3452,7 +3433,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     register: PSOW
     reset: 0
-#endif
 
 ################ CS ################
 
@@ -4737,7 +4717,6 @@ RegField:
     description: >
       PC of the last sequence rupture, when applicable
 
-#if defined(_KV4_)
 
 ################ RVC ################
   - ID: RVC_ECRID
@@ -4748,7 +4727,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
 
-#endif // _KV4_
 
 ################ PMSA ################
 

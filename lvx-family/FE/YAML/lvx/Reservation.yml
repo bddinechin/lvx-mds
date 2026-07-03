@@ -1,6 +1,5 @@
 Reservation:
 
-#ifdef _KV4_
 
   - ID: ALL
     what: Instruction must be alone in instruction bundle.
@@ -292,5 +291,4 @@ Reservation:
     requirements: [ 1, 1, 1, 1 ]
     resources: [ ISSUE, EXT, SR12, AUXW ]
 
-#endif//_KV4_
 

@@ -348,13 +348,11 @@ Storage:
     width: 64
     count: 64
 
-#ifdef _LVX_RV_
   - ID: ZERO
     what: RiscV x0 Register Storage
     kind: Register
     width: 64
     count: 2
-#endif
 
   - ID: XRS
     what: Extension Register Storage
@@ -518,11 +516,9 @@ Storage:
     width: 1
     count: 64
 
-#ifdef _LVX_RV_
   - ID: CSRS
     what: Control and System Registers Storage
     kind: Special
     width: 64
     count: 4096
-#endif //_LVX_RV_
 
