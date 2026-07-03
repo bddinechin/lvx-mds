@@ -17313,7 +17313,7 @@ const int *lvx_v1_reservation_tables[] ={
   Reservation_lvx_v1_EXT_MISC_AUXW_table
 };
 
-const struct lvx_core_info lvx_v1_core_info = { lvx_v1_optab, "lvx-1", lvx_v1_resources, ELF_LVX_CORE_KV4_1, lvx_v1_pseudo_func, 26, (int **) lvx_v1_reservation_tables, lvx_v1_RESERVATION_TABLE_CYCLES, lvx_v1_RESOURCE_COUNT, (char **) lvx_v1_resource_names };
+const struct lvx_core_info lvx_v1_core_info = { lvx_v1_optab, "lvx-1", lvx_v1_resources, ELF_LVX_CORE_LVX_V1, lvx_v1_pseudo_func, 26, (int **) lvx_v1_reservation_tables, lvx_v1_RESERVATION_TABLE_CYCLES, lvx_v1_RESOURCE_COUNT, (char **) lvx_v1_resource_names };
 
 struct lvx_opc lvx_v1_optab[] = {
   { /* A_Opcode-lvx_v1-COPYD_registerW_registerZ_simple */

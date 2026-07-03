@@ -57,15 +57,12 @@
 #define ELF_LVX_CORE_MAJOR_SHIFT (0 + ELF_LVX_CORE_BIT_SHIFT)
 #define ELF_LVX_CORE_MINOR_SHIFT (4 + ELF_LVX_CORE_BIT_SHIFT)
 
-#define ELF_LVX_CORE_KV4         (0x04 << ELF_LVX_CORE_BIT_SHIFT)
-
-#define ELF_LVX_CORE_KV4_1      (ELF_LVX_CORE_KV4 | (1 << (ELF_LVX_CORE_MINOR_SHIFT)))
-
-#define ELF_LVX_IS_KV4(flags)   (((flags) & ELF_LVX_CORE_MAJOR_MASK) == (ELF_LVX_CORE_KV4))
+#define ELF_LVX_CORE_LVX         (0x04 << ELF_LVX_CORE_BIT_SHIFT)
+#define ELF_LVX_CORE_LVX_V1      (ELF_LVX_CORE_LVX | (1 << (ELF_LVX_CORE_MINOR_SHIFT)))
+#define ELF_LVX_IS_LVX(flags)   (((flags) & ELF_LVX_CORE_MAJOR_MASK) == (ELF_LVX_CORE_LVX))
 #define ELF_LVX_CHECK_CORE(flags,m) (((flags) & ELF_LVX_CORE_MASK)==(m))
 
 #define ELF_LVX_ABI_MASK         (0xFF)
-
 #define ELF_LVX_ABI_IDENT_MASK   (0x7)
 #define ELF_LVX_ABI_REGULAR      (0x1)
 #define ELF_LVX_ABI_UNDEF        (0x0)

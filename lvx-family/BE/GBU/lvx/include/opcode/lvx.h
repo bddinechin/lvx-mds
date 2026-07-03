@@ -35,14 +35,14 @@
  * code.  They should not be used in new code.
  */
 
-#define KV4_ACTIVATE_OFFSET	6
-#define KV4_ACTIVATE_WIDTH	8
-#define KV4_ACTIVATE_MASK	\
-  (((1 << KV4_ACTIVATE_WIDTH) - 1) << KV4_ACTIVATE_OFFSET)
-#define KV4_BCU_GUARD_OPCODE	0x0f800000
-#define KV4_BCU_GUARD_MASK	0x7ffc0000
-#define KV4_BCU_BLEND_OPCODE	0x0f840000
-#define KV4_BCU_BLEND_MASK	0x7ffc0000
+#define LVX_ACTIVATE_OFFSET	6
+#define LVX_ACTIVATE_WIDTH	8
+#define LVX_ACTIVATE_MASK	\
+  (((1 << LVX_ACTIVATE_WIDTH) - 1) << LVX_ACTIVATE_OFFSET)
+#define LVX_BCU_GUARD_OPCODE	0x0f800000
+#define LVX_BCU_GUARD_MASK	0x7ffc0000
+#define LVX_BCU_BLEND_OPCODE	0x0f840000
+#define LVX_BCU_BLEND_MASK	0x7ffc0000
 
 /***********************************************/
 /*       DATA TYPES                            */

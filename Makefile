@@ -1,10 +1,10 @@
-BUILD_DIR := build
+BUILD_DIR := build_lvx
 
 .PHONY: configure all check refs opcode
 
 # Run the first line of HOWTO, which sets up the build tree from scratch.
 configure:
-	head -n1 HOWTO | sh
+	mkdir -p $(BUILD_DIR) && cd $(BUILD_DIR) && ../lvx-family/configure --enable-mdf --target=lvx
 
 all check refs:
 	$(MAKE) -C $(BUILD_DIR) $@
@@ -16,3 +16,7 @@ OPCODE_TXT := $(addprefix $(FAMILY)/,$(addsuffix /Opcode.txt,$(CORES)))
 opcode:
 	rm -f $(addprefix $(BUILD_DIR)/FE/YAML/,$(OPCODE_TXT))
 	$(MAKE) -C $(BUILD_DIR)/FE/YAML $(OPCODE_TXT)
+
+clean:
+	rm -rf $(BUILD_DIR)
+

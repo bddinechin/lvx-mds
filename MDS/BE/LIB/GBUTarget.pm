@@ -101,7 +101,8 @@ sub methodCanExtend {
 sub elfCoreInfo {
     my $core = shift;
     my $type = "UNDEF";
-    $type = "KV4_1" if $core =~ /lvx_v1/;
+    $type = "LVX_V$1" if $core =~ /lvx_v(\d+)/;
+    die "elfCoreInfo failed" unless defined $type;
     return ("ELF_LVX_CORE_$type");
 }
 
@@ -114,14 +115,14 @@ sub CoreNames {
 sub addMacros {
     my ($file) = @_;
     print $file <<"EOT";
-#define KV4_ACTIVATE_OFFSET\t6
-#define KV4_ACTIVATE_WIDTH\t8
-#define KV4_ACTIVATE_MASK\t\\
-  (((1 << KV4_ACTIVATE_WIDTH) - 1) << KV4_ACTIVATE_OFFSET)
-#define KV4_BCU_GUARD_OPCODE\t0x0f800000
-#define KV4_BCU_GUARD_MASK\t0x7ffc0000
-#define KV4_BCU_BLEND_OPCODE\t0x0f840000
-#define KV4_BCU_BLEND_MASK\t0x7ffc0000
+#define LVX_ACTIVATE_OFFSET\t6
+#define LVX_ACTIVATE_WIDTH\t8
+#define LVX_ACTIVATE_MASK\t\\
+  (((1 << LVX_ACTIVATE_WIDTH) - 1) << LVX_ACTIVATE_OFFSET)
+#define LVX_BCU_GUARD_OPCODE\t0x0f800000
+#define LVX_BCU_GUARD_MASK\t0x7ffc0000
+#define LVX_BCU_BLEND_OPCODE\t0x0f840000
+#define LVX_BCU_BLEND_MASK\t0x7ffc0000
 EOT
 }
 
@@ -301,7 +302,7 @@ sub ObjdumpPrint {
         my $immx_nb = 0;
 
         for(my $i=7; $i < $coding_size; $i+=4) {
-            # Add exunum: ALU -> 0, LSU -> 1 on KV4.
+            # Add exunum: ALU -> 0, LSU -> 1 on LVX.
             my $exu = hex("0x".$$codings[$i]);
             if($BCU_STEERING_OPCODE == ($BCU_STEERING_MASK & $exu)) {
                 my ($format) = $opcode->access("format");
