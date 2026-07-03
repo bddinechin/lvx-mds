@@ -18,7 +18,7 @@
    along with this program; see the file COPYING3. If not,
    see <http://www.gnu.org/licenses/>.  */
 
-#ifdef LVX_LVX_V1
+#ifdef LVX_LVX_V1_LVX_V2
 static reloc_howto_type elf_lvx_howto_table[] =
 {
   HOWTO (R_LVX_NONE,			/* type */
@@ -1193,4 +1193,4 @@ static reloc_howto_type elf_lvx_howto_table[] =
 	 true),			/* pc_offset */
 };
 
-#endif /* LVX_LVX_V1 */
+#endif /* LVX_LVX_V1_LVX_V2 */
