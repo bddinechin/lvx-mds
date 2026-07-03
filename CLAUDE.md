@@ -9,21 +9,21 @@ This is the **lvx-mds** repo — the Machine Description System (MDS) for the LV
 - **`MDS/`** — the MDS toolchain itself: Perl scripts and Makefiles that parse YAML architecture descriptions and generate binary `.table` files used by compilers, assemblers, debuggers, etc. This is meant to be reusable across processor families.
 - **`lvx-family/`** — the architecture description for the LVX family: YAML source files, per-core entry points, and family-specific back-end overrides (TEX docs, GBU header).
 
-There is no build logic at the repo root — `MDS/` and `lvx-family/` are separate autoconf packages, and `lvx-family/configure` is the one you invoke (it locates and drives `MDS/configure` under the hood).
+There is no build logic at the repo root beyond a thin convenience `Makefile` (see below) — `MDS/` and `lvx-family/` are separate autoconf packages, and `lvx-family/configure` is the one that drives the real build (it locates and drives `MDS/configure` under the hood).
 
 ## Build
 
 ### Configure (run once from an out-of-tree build dir)
 
 ```sh
-mkdir -p build && cd build && ../lvx-family/configure --enable-mdf --target=lvx
+mkdir -p build_lvx && cd build_lvx && ../lvx-family/configure --enable-mdf --target=lvx
 ```
 
-(also documented in the top-level `HOWTO` file). Notable options, defined in `lvx-family/configure.ac`:
+(also documented in the top-level `HOWTO` file; `make configure` at the repo root runs the same thing into `build_lvx/`). Notable options, defined in `lvx-family/configure.ac`:
 
 | Option | Effect |
 |---|---|
-| `--target=lvx` | Only supported target; selects `FAMILY=lvx`, `CORES=lvx_v1`, and the default back-end list. Defaults to `lvx` if omitted. |
+| `--target=lvx` | Only supported target; selects `FAMILY=lvx`, `CORES=lvx_v1 lvx_v2`, and the default back-end list. Defaults to `lvx` if omitted. |
 | `--with-mds=<path>` | Path to the `MDS/` tree to build against; defaults to `<lvx-family>/../MDS`, i.e. the sibling `MDS/` in this repo. |
 | `--enable-mdf` | Enables the `MDD/MDF` merged-table step (tables merged across cores) after `MDD/MDE`. |
 | `--enable-avp` | Adds `AVP` to the enabled back-ends (auto-tests). |
@@ -31,29 +31,30 @@ mkdir -p build && cd build && ../lvx-family/configure --enable-mdf --target=lvx
 
 For `--target=lvx`, the default enabled back-ends (`TOOLS`) are **`TEX GBU GDB GCC LAO`**. Others (`ISS`, `MPPADL`, `TDH`, `AVP`) require editing the `enable_tools` value in `lvx-family/configure.ac` (per-target case statement) — `--enable-avp` is the only one exposed as a flag.
 
-### Build targets (run inside `build/`)
+### Top-level convenience `Makefile`
+
+The repo root has a thin `Makefile` that wraps the out-of-tree build in `build_lvx/`:
+
+| Target | Effect |
+|---|---|
+| `make configure` | Runs the configure line above into `build_lvx/` |
+| `make all` / `make check` / `make refs` | Forwards to the same target in `build_lvx/Makefile` |
+| `make opcode` | Forces a rebuild of `Opcode.txt` for every core under `build_lvx/FE/YAML` |
+| `make clean` | `rm -rf build_lvx` |
+
+### Build targets (run inside `build_lvx/`, or via the wrappers above)
 
 | Command | Effect |
 |---|---|
 | `make all` | Full build: `DOC` → `FE/YAML` → `MDD/MDE` (→ `MDD/MDF` if `--enable-mdf`) → enabled back-ends |
-| `make refs` | Copy generated `Opcode.txt` / `Description.yml` back into `lvx-family/` as reference snapshots |
+| `make refs` | Copy generated reference outputs (`Opcode.txt`/`Description.yml`, and per-backend `.table`/output snapshots) back into `lvx-family/` |
 | `make diff` | Diff current build output against the committed reference files in `lvx-family/` |
-| `make check` | Validate generated XML against the MDS DTD (needs `osx`/OpenSP — `configure` fails outright if `osx` isn't on `PATH`) |
+| `make check` | Validate generated XML against the MDS DTD (needs `osx`/OpenSP — `configure` fails outright if `osx` isn't on `PATH`) and diff generated tables against the committed references. Every default back-end (`TEX GBU GDB GCC LAO`) plus `MDD/MDF` now has a working `check` target that reuses the same reference path as its `diff`/`refs` targets — `BE/AVP` and `BE/MPPADL` are intentionally excluded (`AVP`'s diff/refs are stubs by design; `MPPADL` isn't in the default `TOOLS` list). |
 | `make clean` | Remove generated files |
 | `make doc` | Build the LaTeX documentation under `MDS/DOC` |
 | `make install` | Install generated back-end artifacts to their configured prefixes (`--with-*-prefix`) |
 
 Build order between `DOC`/`FE/YAML`/`MDD/MDE`/`MDD/MDF` is a strict chain (each depends on the previous); back-ends depend on the last MDD step and can run in parallel with `-j`. Each MDS sub-step itself is forced single-threaded (`make -j1` inside that subdir) because the Perl generators are not parallel-safe. Individual back-ends can be skipped with `MDS_SKIP_BE="GDB GCC" make all`.
-
-### Known issue
-
-As of the current `main`, a from-scratch `make all` with the default back-end set fails inside `BE/GBU`:
-
-```
-Bad ElfID 7 at MDS/BE/GBU/BIN/reloc.pl line 87.
-```
-
-This is a gap in the relocation ELF-ID numbering in the architecture description (likely left over from the KV3 removal), not something introduced by unrelated edits — `DOC`, `FE/YAML`, `MDD/MDE`, `MDD/MDF`, and `BE/TEX` all build cleanly before it. If you hit this, don't assume your change caused it; check `git blame`/`lvx-family/FE/YAML/lvx/Relocation.yml` before spending time chasing it.
 
 ### Regenerate `configure` after editing `configure.ac`
 
@@ -67,28 +68,27 @@ cd lvx-family && autoconf   # or: cd MDS && autoconf
 
 ```
 lvx-family/FE/YAML/lvx/
-  *.yml                        ← shared arch YAML (all cores)
-  lvx_v1/Description.yml.in    ← per-core entry point (#define/#include guards)
+  *.yml                        ← shared arch YAML, one copy for all cores (no per-core .yml.in anymore)
 
         ↓  lvx-family/FE/YAML/lvx/Makefile (generated by lvx-family/configure)
-        ↓  cpp -D_<CORE>_RV_ expands #includes + #ifdefs → per-core Description.yml
+        ↓  cpp -D_LVX_=<version> -D_<CORE>_ concatenates *.yml → per-core Description.yml
 
-build/FE/YAML/lvx/<core>/Description.yml
-        + build/FE/YAML/lvx/<core>/Bundle.yml   (generated by lvx-family/FE/YAML/lvx/makeBundle.pl)
+build_lvx/FE/YAML/lvx/<core>/Description.yml
+        + build_lvx/FE/YAML/lvx/<core>/Bundle.yml   (generated by lvx-family/FE/YAML/lvx/makeBundle.pl)
 
         ↓  MDS/FE/YAML/BIN/Description2MDS.pl  (reads Description.yml + Bundle.yml)
 
-build/FE/YAML/lvx/<core>/*.yml  (Format.yml, Instruction.yml, Synthetic.yml, …)
-build/FE/YAML/lvx/<core>/Opcode.txt   (via MDS/FE/YAML/BIN/Opcode2txt.pl)
+build_lvx/FE/YAML/lvx/<core>/*.yml  (Format.yml, Instruction.yml, Synthetic.yml, …)
+build_lvx/FE/YAML/lvx/<core>/Opcode.txt   (via MDS/FE/YAML/BIN/Opcode2txt.pl)
 
         ↓  MDS/FE/YAML/BIN/yml2pl.pl  →  *.pl
         ↓  *.pl executed               →  *.table   (MDD base tables)
 
-build/MDD/<family>/<core>/*.table
+build_lvx/MDD/<family>/<core>/*.table
 
         ↓  MDS/MDD/MDE/BIN/*.pl  (expand tables → MDE tables: Opcode, Decoding, Bundle, Operator, …)
 
-build/MDD/<family>/<core>/*.X.table, Opcode.table, Decoding.table, Bundle.table, …
+build_lvx/MDD/<family>/<core>/*.X.table, Opcode.table, Decoding.table, Bundle.table, …
 
         ↓  (if --enable-mdf) MDS/MDD/MDF  merges tables across cores
 
@@ -96,6 +96,12 @@ build/MDD/<family>/<core>/*.X.table, Opcode.table, Decoding.table, Bundle.table,
 
 generated headers / scripts installed into tool build trees
 ```
+
+Since the core-versioning `#ifdef`s were removed from `lvx-family/FE/YAML/lvx/*.yml`, the only conditionals left in the shared YAML are feature/variant guards (`SIMD128`, `SIMDDP`, `WIP`, `INDEX4`, `SIMD512`, `_NO_UNSIGNED6_`, …), not per-core ones; the per-core preprocessing (`cpp -D_LVX_=<version> -D_<CORE>_`) still runs, it just has nothing core-specific left to select on for now.
+
+`MDS/MDD/MDE/BIN/*.X.pl` scripts (`Instruction.X.pl`, `Pattern.X.pl`, `Template.X.pl`, `Synthetic.X.pl`, `Opcode.X.pl`, `RegFile.X.pl`, `Register.X.pl`) each read a `%.core.xml` (a plain concatenation of the relevant `.table` inputs, built by a dedicated pattern rule) and print derived records to stdout to produce the matching `%.X.table`. Two things about these that look like leftover build cruft but aren't:
+- **`*.X.core.xml`** are true single-use intermediates: GNU Make already auto-deletes them once the sibling `.table` is built (they're never named on the command line, only reached via pattern-rule chaining), so they don't need `.INTERMEDIATE` markers or manual cleanup — they just won't be present in a finished build tree.
+- **`*.X.table`** are NOT temporary — back-ends (`GBU`/`GDB`/`GCC`/`LAO`) consume them as real data (e.g. `Instruction.X.table`, `Opcode.X.table`). Some are legitimately empty for `lvx` (e.g. `Template.X.table`/`Pattern.X.table`'s NOP-filling logic never fires because `lvx-family/FE/YAML/lvx/makeBundle.pl` never emits a `nopValues` attribute on any Dispersal, and `Synthetic.X.pl` is gated `exit if $MDD::FAMILY ne 'arm'`) — that's a property of this architecture, not a bug, and the scripts still have to run since MDS is shared across families. At the merged (`--enable-mdf`) family level, `MDS/MDD/MDF/Makefile.in` deliberately truncates `.X.table` to an empty placeholder after folding its content into the merged base table (`# .X tables are empty after merge`).
 
 Key variables threaded through the whole build (set by `lvx-family/configure`, visible in generated `Makerules`):
 
@@ -106,18 +112,18 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 | `ARCHDIR` | Architecture description root (defaults to `FAMDIR`) |
 | `MDSDIR` | Absolute path to `MDS/` (from `--with-mds`) |
 | `FAMILY` | `lvx` |
-| `CORES` | Space-separated list, e.g. `lvx_v1` |
+| `CORES` | Space-separated list, e.g. `lvx_v1 lvx_v2` |
 | `TOOLS` | Uppercase list of enabled back-ends |
 
 ## Key source files
 
 - **`HOWTO`** — the canonical one-shot build recipe.
+- **`Makefile`** (repo root) — thin wrapper driving the out-of-tree build in `build_lvx/`.
 - **`lvx-family/configure.ac`** — defines the `--target` → `FAMILY`/`CORES`/`TOOLS` mapping and all `--with-*`/`--enable-*` options; calls into `MDS/configure`.
-- **`lvx-family/FE/YAML/lvx/Makefile.in`** — preprocesses per-core `Description.yml.in` via `cpp`.
-- **`lvx-family/FE/YAML/lvx/*.yml`** — the actual architecture description (instructions, formats, registers, scheduling…).
-- **`lvx-family/FE/YAML/lvx/lvx_v1/Description.yml.in`** — per-core entry point; uses `#define`/`#ifdef` guards to select core-specific behaviour from the shared YMLs.
+- **`lvx-family/FE/YAML/lvx/Makefile.in`** — generates each core's `Description.yml` directly by piping the shared `*.yml` files through `cpp` (no per-core `.yml.in` file anymore).
+- **`lvx-family/FE/YAML/lvx/*.yml`** — the actual architecture description (instructions, formats, registers, scheduling…), shared unmodified across all cores.
 - **`MDS/FE/YAML/BIN/Description2MDS.pl`** — main parser: reads `Description.yml` + `Bundle.yml`, produces all per-category `.yml` outputs.
-- **`MDS/MDD/MDE/BIN/*.pl`** — expanders that derive Opcode, Decoding, Bundle, Operator tables from the base MDD tables.
+- **`MDS/MDD/MDE/BIN/*.pl`** — expanders that derive Opcode, Decoding, Bundle, Operator, and `*.X` tables from the base MDD tables.
 - **`lvx-family/BE/GBU/lvx_elfids.h`** — ELF ID constants for LVX, consumed by binutils/GDB back-ends.
 
 ## Reference workflow
@@ -125,9 +131,9 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 After editing YAML source in `lvx-family/FE/YAML/lvx/`, rebuild and update the committed reference outputs:
 
 ```sh
-cd build
+cd build_lvx
 make all
-make refs   # copies Opcode.txt and Description.yml back to lvx-family/FE/YAML/lvx/<core>/
+make refs   # copies Opcode.txt/Description.yml and per-backend reference outputs back into lvx-family/
 ```
 
-Committed reference files (`lvx-family/FE/YAML/lvx/lvx_v1/Opcode.txt`, `Description.yml`) serve as the known-good snapshot; `make diff` compares the current build's output against them.
+Committed reference files (`lvx-family/FE/YAML/lvx/<core>/Opcode.txt`, `Description.yml`, plus each back-end's own `refs`-copied outputs under `lvx-family/BE/<backend>/`) serve as the known-good snapshot; `make diff`/`make check` compare the current build's output against them.
