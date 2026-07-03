@@ -1,0 +1,898 @@
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{rel16} & \textsf{R\_LVX\_16} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{rel32} & \textsf{R\_LVX\_32} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{rel64} & \textsf{R\_LVX\_64} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{pcrel\_signed16} & \textsf{R\_LVX\_S16\_PCREL} & \textsf{@pcrel} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{MAKE} \\
+ & & & & & & & & & & \textsf{PCREL} \\
+\hline
+\textsf{pcrel32} & \textsf{R\_LVX\_32\_PCREL} & \textsf{} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{pcrel\_signed37} & \textsf{R\_LVX\_S37\_PCREL\_UP27} & \textsf{@pcrel} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_PCREL\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{pcrel\_signed43} & \textsf{R\_LVX\_S43\_PCREL\_EX6} & \textsf{@pcrel} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_PCREL\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_PCREL\_LO10} & & & & & & & & & \\
+\hline
+\textsf{pcrel\_signed64} & \textsf{R\_LVX\_S64\_PCREL\_EX27} & \textsf{@pcrel} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S64\_PCREL\_UP27} & & & & & & & & & \textsf{ANDD} \\
+ & \textsf{R\_LVX\_S64\_PCREL\_LO10} & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAKE} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{PCREL} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+\hline\end{tabular}
+}
+\smallskip
+
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{pcrel\_signed64} & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{pcrel64} & \textsf{R\_LVX\_64\_PCREL} & \textsf{} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{signed16} & \textsf{R\_LVX\_S16} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{MAKE} \\
+ & & & & & & & & & & \textsf{PCREL} \\
+\hline
+\textsf{signed32} & \textsf{R\_LVX\_S32\_UP27} & \textsf{@signed32} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{ABDBX} \\
+ & \textsf{R\_LVX\_S32\_LO5} & & & & & & & & & \textsf{ABDD} \\
+ & & & & & & & & & & \textsf{ABDDP} \\
+ & & & & & & & & & & \textsf{ABDHO} \\
+ & & & & & & & & & & \textsf{ABDSBX} \\
+ & & & & & & & & & & \textsf{ABDSD} \\
+ & & & & & & & & & & \textsf{ABDSDP} \\
+ & & & & & & & & & & \textsf{ABDSHO} \\
+ & & & & & & & & & & \textsf{ABDSW} \\
+ & & & & & & & & & & \textsf{ABDSWQ} \\
+ & & & & & & & & & & \textsf{ABDUBX} \\
+ & & & & & & & & & & \textsf{ABDUD} \\
+ & & & & & & & & & & \textsf{ABDUDP} \\
+ & & & & & & & & & & \textsf{ABDUHO} \\
+ & & & & & & & & & & \textsf{ABDUW} \\
+ & & & & & & & & & & \textsf{ABDUWQ} \\
+ & & & & & & & & & & \textsf{ABDW} \\
+ & & & & & & & & & & \textsf{ABDWQ} \\
+ & & & & & & & & & & \textsf{ADDBX} \\
+ & & & & & & & & & & \textsf{ADDD} \\
+ & & & & & & & & & & \textsf{ADDDP} \\
+ & & & & & & & & & & \textsf{ADDHO} \\
+ & & & & & & & & & & \textsf{ADDQ} \\
+ & & & & & & & & & & \textsf{ADDSBX} \\
+ & & & & & & & & & & \textsf{ADDSD} \\
+ & & & & & & & & & & \textsf{ADDSDP} \\
+ & & & & & & & & & & \textsf{ADDSHO} \\
+ & & & & & & & & & & \textsf{ADDSW} \\
+ & & & & & & & & & & \textsf{ADDSWQ} \\
+ & & & & & & & & & & \textsf{ADDUSBX} \\
+ & & & & & & & & & & \textsf{ADDUSD} \\
+ & & & & & & & & & & \textsf{ADDUSDP} \\
+ & & & & & & & & & & \textsf{ADDUSHO} \\
+ & & & & & & & & & & \textsf{ADDUSW} \\
+ & & & & & & & & & & \textsf{ADDUSWQ} \\
+ & & & & & & & & & & \textsf{ADDW} \\
+ & & & & & & & & & & \textsf{ADDWQ} \\
+ & & & & & & & & & & \textsf{ADDX16BX} \\
+ & & & & & & & & & & \textsf{ADDX16D} \\
+ & & & & & & & & & & \textsf{ADDX16DP} \\
+ & & & & & & & & & & \textsf{ADDX16HO} \\
+ & & & & & & & & & & \textsf{ADDX16W} \\
+ & & & & & & & & & & \textsf{ADDX16WQ} \\
+ & & & & & & & & & & \textsf{ADDX2BX} \\
+ & & & & & & & & & & \textsf{ADDX2D} \\
+ & & & & & & & & & & \textsf{ADDX2DP} \\
+ & & & & & & & & & & \textsf{ADDX2HO} \\
+ & & & & & & & & & & \textsf{ADDX2W} \\
+ & & & & & & & & & & \textsf{ADDX2WQ} \\
+ & & & & & & & & & & \textsf{ADDX32D} \\
+ & & & & & & & & & & \textsf{ADDX32W} \\
+ & & & & & & & & & & \textsf{ADDX4BX} \\
+ & & & & & & & & & & \textsf{ADDX4D} \\
+ & & & & & & & & & & \textsf{ADDX4DP} \\
+ & & & & & & & & & & \textsf{ADDX4HO} \\
+ & & & & & & & & & & \textsf{ADDX4W} \\
+ & & & & & & & & & & \textsf{ADDX4WQ} \\
+ & & & & & & & & & & \textsf{ADDX64D} \\
+ & & & & & & & & & & \textsf{ADDX64W} \\
+ & & & & & & & & & & \textsf{ADDX8BX} \\
+ & & & & & & & & & & \textsf{ADDX8D} \\
+ & & & & & & & & & & \textsf{ADDX8DP} \\
+ & & & & & & & & & & \textsf{ADDX8HO} \\
+ & & & & & & & & & & \textsf{ADDX8W} \\
+ & & & & & & & & & & \textsf{ADDX8WQ} \\
+ & & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{ANDNQ} \\
+ & & & & & & & & & & \textsf{ANDNW} \\
+ & & & & & & & & & & \textsf{ANDQ} \\
+ & & & & & & & & & & \textsf{ANDW} \\
+ & & & & & & & & & & \textsf{AVGBX} \\
+\hline\end{tabular}
+}
+\smallskip
+
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{signed32} & & & & & & & & & & \textsf{AVGHO} \\
+ & & & & & & & & & & \textsf{AVGRBX} \\
+ & & & & & & & & & & \textsf{AVGRHO} \\
+ & & & & & & & & & & \textsf{AVGRUBX} \\
+ & & & & & & & & & & \textsf{AVGRUHO} \\
+ & & & & & & & & & & \textsf{AVGRUW} \\
+ & & & & & & & & & & \textsf{AVGRUWQ} \\
+ & & & & & & & & & & \textsf{AVGRW} \\
+ & & & & & & & & & & \textsf{AVGRWQ} \\
+ & & & & & & & & & & \textsf{AVGUBX} \\
+ & & & & & & & & & & \textsf{AVGUHO} \\
+ & & & & & & & & & & \textsf{AVGUW} \\
+ & & & & & & & & & & \textsf{AVGUWQ} \\
+ & & & & & & & & & & \textsf{AVGW} \\
+ & & & & & & & & & & \textsf{AVGWQ} \\
+ & & & & & & & & & & \textsf{CMOVEBX} \\
+ & & & & & & & & & & \textsf{CMOVED} \\
+ & & & & & & & & & & \textsf{CMOVEDP} \\
+ & & & & & & & & & & \textsf{CMOVEHO} \\
+ & & & & & & & & & & \textsf{CMOVEWQ} \\
+ & & & & & & & & & & \textsf{COMPBX} \\
+ & & & & & & & & & & \textsf{COMPD} \\
+ & & & & & & & & & & \textsf{COMPDP} \\
+ & & & & & & & & & & \textsf{COMPHO} \\
+ & & & & & & & & & & \textsf{COMPNBX} \\
+ & & & & & & & & & & \textsf{COMPNDP} \\
+ & & & & & & & & & & \textsf{COMPNHO} \\
+ & & & & & & & & & & \textsf{COMPNWQ} \\
+ & & & & & & & & & & \textsf{COMPW} \\
+ & & & & & & & & & & \textsf{COMPWQ} \\
+ & & & & & & & & & & \textsf{CRCBELLW} \\
+ & & & & & & & & & & \textsf{CRCBELMW} \\
+ & & & & & & & & & & \textsf{CRCLELLW} \\
+ & & & & & & & & & & \textsf{CRCLELMW} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{EORQ} \\
+ & & & & & & & & & & \textsf{EORW} \\
+ & & & & & & & & & & \textsf{FCOMPD} \\
+ & & & & & & & & & & \textsf{FCOMPDP} \\
+ & & & & & & & & & & \textsf{FCOMPH} \\
+ & & & & & & & & & & \textsf{FCOMPHO} \\
+ & & & & & & & & & & \textsf{FCOMPNDP} \\
+ & & & & & & & & & & \textsf{FCOMPNHO} \\
+ & & & & & & & & & & \textsf{FCOMPNWQ} \\
+ & & & & & & & & & & \textsf{FCOMPW} \\
+ & & & & & & & & & & \textsf{FCOMPWQ} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{IORNQ} \\
+ & & & & & & & & & & \textsf{IORNW} \\
+ & & & & & & & & & & \textsf{IORQ} \\
+ & & & & & & & & & & \textsf{IORW} \\
+ & & & & & & & & & & \textsf{MADDD} \\
+ & & & & & & & & & & \textsf{MADDW} \\
+ & & & & & & & & & & \textsf{MADDWD} \\
+ & & & & & & & & & & \textsf{MAXBX} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXDP} \\
+ & & & & & & & & & & \textsf{MAXHO} \\
+ & & & & & & & & & & \textsf{MAXUBX} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MAXUDP} \\
+ & & & & & & & & & & \textsf{MAXUHO} \\
+ & & & & & & & & & & \textsf{MAXUW} \\
+ & & & & & & & & & & \textsf{MAXUWQ} \\
+ & & & & & & & & & & \textsf{MAXW} \\
+ & & & & & & & & & & \textsf{MAXWQ} \\
+ & & & & & & & & & & \textsf{MINBX} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINDP} \\
+ & & & & & & & & & & \textsf{MINHO} \\
+ & & & & & & & & & & \textsf{MINUBX} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{MINUDP} \\
+ & & & & & & & & & & \textsf{MINUHO} \\
+ & & & & & & & & & & \textsf{MINUW} \\
+ & & & & & & & & & & \textsf{MINUWQ} \\
+ & & & & & & & & & & \textsf{MINW} \\
+ & & & & & & & & & & \textsf{MINWQ} \\
+ & & & & & & & & & & \textsf{MSBFD} \\
+ & & & & & & & & & & \textsf{MSBFW} \\
+\hline\end{tabular}
+}
+\smallskip
+
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{signed32} & & & & & & & & & & \textsf{MSBFWD} \\
+ & & & & & & & & & & \textsf{MULD} \\
+ & & & & & & & & & & \textsf{MULND} \\
+ & & & & & & & & & & \textsf{MULNW} \\
+ & & & & & & & & & & \textsf{MULNWD} \\
+ & & & & & & & & & & \textsf{MULW} \\
+ & & & & & & & & & & \textsf{MULWD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NANDQ} \\
+ & & & & & & & & & & \textsf{NANDW} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NEORQ} \\
+ & & & & & & & & & & \textsf{NEORW} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{NIORQ} \\
+ & & & & & & & & & & \textsf{NIORW} \\
+ & & & & & & & & & & \textsf{SBFBX} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBFDP} \\
+ & & & & & & & & & & \textsf{SBFHO} \\
+ & & & & & & & & & & \textsf{SBFQ} \\
+ & & & & & & & & & & \textsf{SBFSBX} \\
+ & & & & & & & & & & \textsf{SBFSD} \\
+ & & & & & & & & & & \textsf{SBFSDP} \\
+ & & & & & & & & & & \textsf{SBFSHO} \\
+ & & & & & & & & & & \textsf{SBFSW} \\
+ & & & & & & & & & & \textsf{SBFSWQ} \\
+ & & & & & & & & & & \textsf{SBFUSBX} \\
+ & & & & & & & & & & \textsf{SBFUSD} \\
+ & & & & & & & & & & \textsf{SBFUSDP} \\
+ & & & & & & & & & & \textsf{SBFUSHO} \\
+ & & & & & & & & & & \textsf{SBFUSW} \\
+ & & & & & & & & & & \textsf{SBFUSWQ} \\
+ & & & & & & & & & & \textsf{SBFW} \\
+ & & & & & & & & & & \textsf{SBFWQ} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMM8DP} \\
+ & & & & & & & & & & \textsf{SBMM8EORD} \\
+ & & & & & & & & & & \textsf{SBMM8EORDP} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SBMMT8DP} \\
+ & & & & & & & & & & \textsf{SBMMT8EORD} \\
+ & & & & & & & & & & \textsf{SBMMT8EORDP} \\
+ & & & & & & & & & & \textsf{SIGNBX} \\
+ & & & & & & & & & & \textsf{SIGND} \\
+ & & & & & & & & & & \textsf{SIGNDP} \\
+ & & & & & & & & & & \textsf{SIGNHO} \\
+ & & & & & & & & & & \textsf{SIGNSBX} \\
+ & & & & & & & & & & \textsf{SIGNSD} \\
+ & & & & & & & & & & \textsf{SIGNSDP} \\
+ & & & & & & & & & & \textsf{SIGNSHO} \\
+ & & & & & & & & & & \textsf{SIGNSW} \\
+ & & & & & & & & & & \textsf{SIGNSWQ} \\
+ & & & & & & & & & & \textsf{SIGNW} \\
+ & & & & & & & & & & \textsf{SIGNWQ} \\
+\hline
+\textsf{signed37} & \textsf{R\_LVX\_S37\_UP27} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+\hline\end{tabular}
+}
+\smallskip
+
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{signed37} & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{gotoff\_signed37} & \textsf{R\_LVX\_S37\_GOTOFF\_UP27} & \textsf{@gotoff} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_GOTOFF\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{gotoff\_signed43} & \textsf{R\_LVX\_S43\_GOTOFF\_EX6} & \textsf{@gotoff} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_GOTOFF\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_GOTOFF\_LO10} & & & & & & & & & \\
+\hline
+\textsf{gotoff\_32} & \textsf{R\_LVX\_32\_GOTOFF} & \textsf{@gotoff} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} \\
+\hline
+\textsf{gotoff\_64} & \textsf{R\_LVX\_64\_GOTOFF} & \textsf{@gotoff} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} \\
+\hline
+\textsf{got\_32} & \textsf{R\_LVX\_32\_GOT} & \textsf{@got} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} \\
+\hline
+\textsf{got\_signed37} & \textsf{R\_LVX\_S37\_GOT\_UP27} & \textsf{@got} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_GOT\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+\hline\end{tabular}
+}
+\smallskip
+
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{got\_signed37} & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{got\_signed43} & \textsf{R\_LVX\_S43\_GOT\_EX6} & \textsf{@got} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_GOT\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_GOT\_LO10} & & & & & & & & & \\
+\hline
+\textsf{got\_64} & \textsf{R\_LVX\_64\_GOT} & \textsf{@got} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} \\
+\hline
+\textsf{glob\_dat} & \textsf{R\_LVX\_GLOB\_DAT} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} \\
+\hline
+\textsf{copy} & \textsf{R\_LVX\_COPY} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{jump\_slot} & \textsf{R\_LVX\_JMP\_SLOT} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{relative} & \textsf{R\_LVX\_RELATIVE} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{signed43} & \textsf{R\_LVX\_S43\_EX6} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_LO10} & & & & & & & & & \\
+\hline
+\textsf{signed64} & \textsf{R\_LVX\_S64\_EX27} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S64\_UP27} & & & & & & & & & \textsf{ANDD} \\
+ & \textsf{R\_LVX\_S64\_LO10} & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAKE} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{PCREL} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{gotaddr\_signed37} & \textsf{R\_LVX\_S37\_GOTADDR\_UP27} & \textsf{@gotaddr} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_GOTADDR\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+\hline\end{tabular}
+}
+\smallskip
+
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{gotaddr\_signed37} & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{gotaddr\_signed43} & \textsf{R\_LVX\_S43\_GOTADDR\_EX6} & \textsf{@gotaddr} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_GOTADDR\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_GOTADDR\_LO10} & & & & & & & & & \\
+\hline
+\textsf{gotaddr\_signed64} & \textsf{R\_LVX\_S64\_GOTADDR\_EX27} & \textsf{@gotaddr} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S64\_GOTADDR\_UP27} & & & & & & & & & \textsf{ANDD} \\
+ & \textsf{R\_LVX\_S64\_GOTADDR\_LO10} & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAKE} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{PCREL} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{dtpmod64} & \textsf{R\_LVX\_64\_DTPMOD} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{dtpoff64} & \textsf{R\_LVX\_64\_DTPOFF} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{dtpoff\_signed37} & \textsf{R\_LVX\_S37\_TLS\_DTPOFF\_UP27} & \textsf{@dtpoff} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_TLS\_DTPOFF\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+\hline\end{tabular}
+}
+\smallskip
+
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{dtpoff\_signed37} & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{dtpoff\_signed43} & \textsf{R\_LVX\_S43\_TLS\_DTPOFF\_EX6} & \textsf{@tlsgd} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_TLS\_DTPOFF\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_TLS\_DTPOFF\_LO10} & & & & & & & & & \\
+\hline
+\textsf{tlsgd\_signed37} & \textsf{R\_LVX\_S37\_TLS\_GD\_UP27} & \textsf{@tlsgd} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_TLS\_GD\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{tlsgd\_signed43} & \textsf{R\_LVX\_S43\_TLS\_GD\_EX6} & \textsf{@tlsgd} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_TLS\_GD\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_TLS\_GD\_LO10} & & & & & & & & & \\
+\hline
+\textsf{tlsld\_signed37} & \textsf{R\_LVX\_S37\_TLS\_LD\_UP27} & \textsf{@tlsld} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_TLS\_LD\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+\hline\end{tabular}
+}
+\smallskip
+
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{tlsld\_signed37} & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{tlsld\_signed43} & \textsf{R\_LVX\_S43\_TLS\_LD\_EX6} & \textsf{@tlsld} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_TLS\_LD\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_TLS\_LD\_LO10} & & & & & & & & & \\
+\hline
+\textsf{tpoff64} & \textsf{R\_LVX\_64\_TPOFF} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} \\
+\hline
+\textsf{tlsie\_signed37} & \textsf{R\_LVX\_S37\_TLS\_IE\_UP27} & \textsf{@tlsie} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_TLS\_IE\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+ & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{tlsie\_signed43} & \textsf{R\_LVX\_S43\_TLS\_IE\_EX6} & \textsf{@tlsie} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{X} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_TLS\_IE\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_TLS\_IE\_LO10} & & & & & & & & & \\
+\hline
+\textsf{tlsle\_signed37} & \textsf{R\_LVX\_S37\_TLS\_LE\_UP27} & \textsf{@tlsle} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{ADDD} \\
+ & \textsf{R\_LVX\_S37\_TLS\_LE\_LO10} & & & & & & & & & \textsf{ANDD} \\
+ & & & & & & & & & & \textsf{ANDND} \\
+ & & & & & & & & & & \textsf{DFLUSHL} \\
+ & & & & & & & & & & \textsf{DINVALL} \\
+ & & & & & & & & & & \textsf{DPURGEL} \\
+ & & & & & & & & & & \textsf{DTOUCHL} \\
+ & & & & & & & & & & \textsf{EORD} \\
+ & & & & & & & & & & \textsf{I1INVALS} \\
+ & & & & & & & & & & \textsf{IORD} \\
+ & & & & & & & & & & \textsf{IORND} \\
+ & & & & & & & & & & \textsf{LBS} \\
+\hline\end{tabular}
+}
+\smallskip
+
+{\tiny
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|} \hline
+\textsf{Relocation} & \textsf{Linker relocations} & \textsf{Syntax} & \textsf{Symbol} & \textsf{Symbol + addend} & \textsf{PC} & \textsf{GP} & \textsf{TP} & \textsf{GOT} & \textsf{Instructions} \\
+\hline
+\textsf{tlsle\_signed37} & & & & & & & & & & \textsf{LBZ} \\
+ & & & & & & & & & & \textsf{LD} \\
+ & & & & & & & & & & \textsf{LHS} \\
+ & & & & & & & & & & \textsf{LHZ} \\
+ & & & & & & & & & & \textsf{LO} \\
+ & & & & & & & & & & \textsf{LQ} \\
+ & & & & & & & & & & \textsf{LWS} \\
+ & & & & & & & & & & \textsf{LWZ} \\
+ & & & & & & & & & & \textsf{MAXD} \\
+ & & & & & & & & & & \textsf{MAXUD} \\
+ & & & & & & & & & & \textsf{MIND} \\
+ & & & & & & & & & & \textsf{MINUD} \\
+ & & & & & & & & & & \textsf{NANDD} \\
+ & & & & & & & & & & \textsf{NEORD} \\
+ & & & & & & & & & & \textsf{NIORD} \\
+ & & & & & & & & & & \textsf{SB} \\
+ & & & & & & & & & & \textsf{SBFD} \\
+ & & & & & & & & & & \textsf{SBMM8D} \\
+ & & & & & & & & & & \textsf{SBMMT8D} \\
+ & & & & & & & & & & \textsf{SD} \\
+ & & & & & & & & & & \textsf{SH} \\
+ & & & & & & & & & & \textsf{SO} \\
+ & & & & & & & & & & \textsf{SQ} \\
+ & & & & & & & & & & \textsf{SW} \\
+ & & & & & & & & & & \textsf{XLO} \\
+ & & & & & & & & & & \textsf{XSO} \\
+\hline
+\textsf{tlsle\_signed43} & \textsf{R\_LVX\_S43\_TLS\_LE\_EX6} & \textsf{@tlsle} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{MAKE} \\
+ & \textsf{R\_LVX\_S43\_TLS\_LE\_UP27} & & & & & & & & & \textsf{PCREL} \\
+ & \textsf{R\_LVX\_S43\_TLS\_LE\_LO10} & & & & & & & & & \\
+\hline
+\textsf{rel8} & \textsf{R\_LVX\_8} & \textsf{} & \textsf{} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{} & \textsf{} \\
+\hline
+\textsf{pcrel11s2} & \textsf{R\_LVX\_S11S2\_PCREL} & \textsf{} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{CCB} \\
+\hline
+\textsf{pcrel17s2} & \textsf{R\_LVX\_S17S2\_PCREL} & \textsf{} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{CB} \\
+ & & & & & & & & & & \textsf{LOOPDO} \\
+\hline
+\textsf{pcrel27s2} & \textsf{R\_LVX\_S27S2\_PCREL} & \textsf{} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{CALL} \\
+ & & & & & & & & & & \textsf{GOTO} \\
+\hline
+\textsf{pcrel38s2} & \textsf{R\_LVX\_S38S2\_PCREL\_UP27} & \textsf{} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{CCBX} \\
+ & \textsf{R\_LVX\_S38S2\_PCREL\_LO11} & & & & & & & & & \\
+\hline
+\textsf{pcrel44s2} & \textsf{R\_LVX\_S44S2\_PCREL\_UP27} & \textsf{} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{CBX} \\
+ & \textsf{R\_LVX\_S44S2\_PCREL\_LO17} & & & & & & & & & \\
+\hline
+\textsf{pcrel54s2} & \textsf{R\_LVX\_S54S2\_PCREL\_UP27} & \textsf{} & \textsf{} & \textsf{X} & \textsf{X} & \textsf{} & \textsf{} & \textsf{} & \textsf{CALLX} \\
+ & \textsf{R\_LVX\_S54S2\_PCREL\_LO27} & & & & & & & & & \textsf{GOTOX} \\
+\hline
+\end{tabular}
+}
+

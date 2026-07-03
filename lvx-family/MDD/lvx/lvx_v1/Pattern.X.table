@@ -1,0 +1,226 @@
+
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DWRI:ALU:COPYD.signed10"
+  fields=	"BitField-lvx_v1-signed10"
+  values=	"0b0000000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-BCU_CCB:BCU:ERROP.ccbcomp"
+  fields=	"BitField-lvx_v1-ccbcomp"
+  values=	"0b0000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-BCU_CCB:BCU:ERROP.registerZ"
+  fields=	"BitField-lvx_v1-registerZ"
+  values=	"0b000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-BCU_CCB:BCU:ERROP.registerY"
+  fields=	"BitField-lvx_v1-registerY"
+  values=	"0b000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-BCU_CCB:BCU:ERROP.pcrel11s2"
+  fields=	"BitField-lvx_v1-pcrel11s2"
+  values=	"0b00000000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:ZXBD.stopbit2_stopbit4"
+  fields=	"BitField-lvx_v1-stopbit2 BitField-lvx_v1-stopbit4"
+  values=	"0b00 0b0111"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:ZXBD.startbit"
+  fields=	"BitField-lvx_v1-startbit"
+  values=	"0b000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:SXBD.stopbit2_stopbit4"
+  fields=	"BitField-lvx_v1-stopbit2 BitField-lvx_v1-stopbit4"
+  values=	"0b00 0b0111"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:SXBD.startbit"
+  fields=	"BitField-lvx_v1-startbit"
+  values=	"0b000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:ZXHD.stopbit2_stopbit4"
+  fields=	"BitField-lvx_v1-stopbit2 BitField-lvx_v1-stopbit4"
+  values=	"0b00 0b1111"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:ZXHD.startbit"
+  fields=	"BitField-lvx_v1-startbit"
+  values=	"0b000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:SXHD.stopbit2_stopbit4"
+  fields=	"BitField-lvx_v1-stopbit2 BitField-lvx_v1-stopbit4"
+  values=	"0b00 0b1111"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:SXHD.startbit"
+  fields=	"BitField-lvx_v1-startbit"
+  values=	"0b000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:ZXWD.stopbit2_stopbit4"
+  fields=	"BitField-lvx_v1-stopbit2 BitField-lvx_v1-stopbit4"
+  values=	"0b01 0b1111"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:ZXWD.startbit"
+  fields=	"BitField-lvx_v1-startbit"
+  values=	"0b000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:SXWD.stopbit2_stopbit4"
+  fields=	"BitField-lvx_v1-stopbit2 BitField-lvx_v1-stopbit4"
+  values=	"0b01 0b1111"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_BFWR:ALU:SXWD.startbit"
+  fields=	"BitField-lvx_v1-startbit"
+  values=	"0b000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_WSWRI:ALU:COPYW.unsigned6"
+  fields=	"BitField-lvx_v1-unsigned6"
+  values=	"0b000000"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_QMEWRR:ALU:MULDT.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b00"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_QMEWRR:ALU:MULUDT.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_QMEWRR:ALU:MULSUDT.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b10"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_QMEWRRR:ALU:MADDDT.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b00"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_QMEWRRR:ALU:MADDUDT.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_QMEWRRR:ALU:MADDSUDT.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b10"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_QMEWRRR:ALU:MSBFDT.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b00"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_QMEWRRR:ALU:MSBFUDT.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_QMEWRRR:ALU:MSBFSUDT.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b10"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRR:ALU:MULUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRR.M:ALU:MULUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRR.M:ALU:MULUWD.splat32"
+  fields=	"BitField-lvx_v1-splat32"
+  values=	"0b0"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRR:ALU:MULSUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b10"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRR.M:ALU:MULSUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b10"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRR.M:ALU:MULSUWD.splat32"
+  fields=	"BitField-lvx_v1-splat32"
+  values=	"0b0"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR:ALU:MADDUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR.M:ALU:MADDUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR.M:ALU:MADDUWD.splat32"
+  fields=	"BitField-lvx_v1-splat32"
+  values=	"0b0"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR:ALU:MADDSUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b10"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR.M:ALU:MADDSUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b10"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR.M:ALU:MADDSUWD.splat32"
+  fields=	"BitField-lvx_v1-splat32"
+  values=	"0b0"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR:ALU:MSBFUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR.M:ALU:MSBFUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR.M:ALU:MSBFUWD.splat32"
+  fields=	"BitField-lvx_v1-splat32"
+  values=	"0b0"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR:ALU:MSBFSUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b10"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR.M:ALU:MSBFSUWD.widemult"
+  fields=	"BitField-lvx_v1-widemult"
+  values=	"0b10"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v1-ALU_DMEWRRR.M:ALU:MSBFSUWD.splat32"
+  fields=	"BitField-lvx_v1-splat32"
+  values=	"0b0"
+/>

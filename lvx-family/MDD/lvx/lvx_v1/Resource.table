@@ -1,0 +1,85 @@
+
+<Resource
+  ID=	"Resource-lvx_v1-"
+  availability=	"0"
+/>
+<Resource
+  ID=	"Resource-lvx_v1-ISSUE"
+  availability=	"8"
+  what=	"Issue slots counted in 32-bit syllables."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-TINY"
+  availability=	"4"
+  what=	"Tiny ALU function units."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-LITE"
+  availability=	"2"
+  what=	"Lite ALU function units."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-FULL"
+  availability=	"1"
+  what=	"Full ALU function units."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-LSU"
+  availability=	"2"
+  what=	"Load/Store function unit."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-MAU"
+  availability=	"1"
+  what=	"Coprocessor main computational unit (COMP)."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-BCU"
+  availability=	"2"
+  what=	"Branch and control unit."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-EXT"
+  availability=	"4"
+  what=	"Extension coprocessor units."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-AUXR"
+  availability=	"1"
+  what=	"Auxiliary core register read port shared with LSU (256 bits)."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-AUXW"
+  availability=	"2"
+  what=	"Auxiliary core register write port shared with LSU (256 bits)."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-XFER"
+  availability=	"1"
+  what=	"Unconditional control-flow transfer (XFER)."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-MEMW"
+  availability=	"1"
+  what=	"Memory write or memory read-modify-write resource (MEMW)."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-SR12"
+  availability=	"1"
+  what=	"Coprocessor miscellaneous execution unit (MISC)."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-SR13"
+  availability=	"1"
+  what=	"Coprocessor compute execution unit addend port (ACCR)."
+/>
+<Resource
+  ID=	"Resource-lvx_v1-SR14"
+  availability=	"1"
+  what=	"Coprocessor miscellaneous execution unit write port (OUTW)"
+/>
+<Resource
+  ID=	"Resource-lvx_v1-SR15"
+  availability=	"2"
+  what=	"BCU register read port (BRRP)"
+/>

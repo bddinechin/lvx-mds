@@ -221,7 +221,7 @@ Synthetic:
     specialize: { "%4": "2", "%5": "0" }
     syntax: "%0 %1 = %2, %3"
 
-
+#ifdef _RV64_
 
   - ID: NOP
     what: Pseudoinstruction.
@@ -331,4 +331,5 @@ Synthetic:
         (READ.rs1)
       )
 
+#endif//_RV64_
 

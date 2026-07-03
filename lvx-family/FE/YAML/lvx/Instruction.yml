@@ -1,6 +1,5 @@
 Instruction:
 
-
   - ID: AWAIT
     what: Wait for any event or interrupt.
     formats: [ BCU_IPC ]
@@ -845,6 +844,8 @@ Instruction:
           (READ.variant)
           (SHL (METHOD.%1) (CONST.2))))
 
+#ifdef _LVX_V2_
+
   - ID: XLO
     what: Extension Load Octuple Word
     formats: [ LSU_XLOBO, LSU_XLOBO.X, LSU_XLOBO.Y, LSU_XLOC4BO, LSU_XLOC4BO.X, LSU_XLOC4BO.Y, LSU_XLBI, LSU_XLOC4BI ]
@@ -957,6 +958,8 @@ Instruction:
           (READ.variant)
           (READ.dri)))
 
+#endif//_LVX_V2_
+
   - ID: SB
     what: Store Byte
     formats: [ LSU_SSBO, LSU_SSBO.X, LSU_SSBO.Y, LSU_SSBI ]
@@ -1059,6 +1062,8 @@ Instruction:
         (READ.argument3)
         (SHL (METHOD.%3) (CONST.2)))
 
+#ifdef _LVX_V2_
+
   - ID: XSO
     what: Extension Store Octuple Word
     formats: [ LSU_XSOBO, LSU_XSOBO.X, LSU_XSOBO.Y, LSU_XSOBI, LSU_XSOC4BO, LSU_XSOC4BO.X, LSU_XSOC4BO.Y, LSU_XSOC4BI ]
@@ -1075,6 +1080,8 @@ Instruction:
         (CONST.0)
         (READ.argument3)
         (READ.dri))
+
+#endif//_LVX_V2_
 
   - ID: ACSWAPB
     what: Atomic Compare and Swap Byte
@@ -3056,7 +3063,7 @@ Instruction:
             (ZX.64 (READ.argument3))
             (CONST.1))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: STSUDP
     what: Subtract, Test and Shift Unsigned Double Word Pair
     formats: [ ALU_DPWRRS ]
@@ -3088,7 +3095,7 @@ Instruction:
             (SHL
               (ZX.64 (READ.64[(INDEX.I)].argument3))
               (CONST.1)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: STSUW
     what: Subtract, Test and Shift Unsigned Word
@@ -3118,7 +3125,7 @@ Instruction:
             (READ.32[0].argument3)
             (CONST.1))))
 
-#ifndef SIMD128
+#if 0
   - ID: STSUWP
     what: Subtract, Test and Shift Unsigned Word Pair
     formats: [ ALU_WPWRRSE, ALU_WPWRRSO ]
@@ -3150,7 +3157,7 @@ Instruction:
             (SHL
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (CONST.1)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: STSUWQ
     what: Subtract, Test and Shift Unsigned Word Quadruple
     formats: [ ALU_WQWRRS ]
@@ -3182,9 +3189,9 @@ Instruction:
             (SHL
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (CONST.1)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: STSUHQ
     what: Subtract, Test and Shift Unsigned Half Word Quadruple
     formats: [ ALU_HQWRRSE, ALU_HQWRRSO ]
@@ -3216,7 +3223,7 @@ Instruction:
             (SHL
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (CONST.1)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: STSUHO
     what: Subtract, Test and Shift Unsigned Half Word Octuple
     formats: [ ALU_HOWRRS ]
@@ -3248,7 +3255,7 @@ Instruction:
             (SHL
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (CONST.1)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ABDD
     what: Absolute Difference Double Word
@@ -3264,7 +3271,7 @@ Instruction:
             (SX.64 (READ.argument3))
             (SX.64 (READ.argument2)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ABDDP
     what: Absolute Difference Double Word Pair
     formats: [ ALU_DPWRRS, ALU_DPWRRS.M ]
@@ -3283,7 +3290,7 @@ Instruction:
             (SUB
               (SX.64 (READ.64[(INDEX.I)].argument3))
               (SX.64 (READ.64[(INDEX.I)].argument2))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ABDW
     what: Absolute Difference Word
@@ -3299,7 +3306,7 @@ Instruction:
             (SX.32 (READ.argument3))
             (SX.32 (READ.argument2)))))
 
-#ifndef SIMD128
+#if 0
   - ID: ABDWP
     what: Absolute Difference Word Pair
     formats: [ ALU_WPWRRSE, ALU_WPWRRSO, ALU_WPWRRSE.M, ALU_WPWRRSO.M ]
@@ -3318,7 +3325,7 @@ Instruction:
             (SUB
               (SX.32 (READ.32[(INDEX.I)].argument3))
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABDWQ
     what: Absolute Difference Word Quadruple
     formats: [ ALU_WQWRRS, ALU_WQWRRS.M ]
@@ -3337,9 +3344,9 @@ Instruction:
             (SUB
               (SX.32 (READ.32[(INDEX.I)].argument3))
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABDHQ
     what: Absolute Difference Half Word Quadruple
     formats: [ ALU_HQWRRSE, ALU_HQWRRSO, ALU_HQWRRSE.M, ALU_HQWRRSO.M ]
@@ -3358,7 +3365,7 @@ Instruction:
             (SUB
               (SX.16 (READ.16[(INDEX.I)].argument3))
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABDHO
     what: Absolute Difference Half Word Octuple
     formats: [ ALU_HOWRRS, ALU_HOWRRS.M ]
@@ -3377,9 +3384,9 @@ Instruction:
             (SUB
               (SX.16 (READ.16[(INDEX.I)].argument3))
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABDBO
     what: Absolute Difference Byte Octuple
     formats: [ ALU_BOWRRSE, ALU_BOWRRSO, ALU_BOWRRSE.M, ALU_BOWRRSO.M ]
@@ -3398,7 +3405,7 @@ Instruction:
             (SUB
               (SX.8 (READ.8[(INDEX.I)].argument3))
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABDBX
     what: Absolute Difference Byte Hexadecuple
     formats: [ ALU_BXWRRS, ALU_BXWRRS.M ]
@@ -3417,7 +3424,7 @@ Instruction:
             (SUB
               (SX.8 (READ.8[(INDEX.I)].argument3))
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ABDSD
     what: Absolute Difference Saturated Double Word
@@ -3435,7 +3442,7 @@ Instruction:
               (SX.64 (READ.argument3))
               (SX.64 (READ.argument2))))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ABDSDP
     what: Absolute Difference Saturated Double Word Pair
     formats: [ ALU_DPWRRS, ALU_DPWRRS.M ]
@@ -3454,7 +3461,7 @@ Instruction:
               (SUB
                 (SX.64 (READ.64[(INDEX.I)].argument3))
                 (SX.64 (READ.64[(INDEX.I)].argument2)))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ABDSW
     what: Absolute Difference Saturated Word
@@ -3472,7 +3479,7 @@ Instruction:
               (SX.32 (READ.argument3))
               (SX.32 (READ.argument2))))))
 
-#ifndef SIMD128
+#if 0
   - ID: ABDSWP
     what: Absolute Difference Saturated Word Pair
     formats: [ ALU_WPWRRSE, ALU_WPWRRSO, ALU_WPWRRSE.M, ALU_WPWRRSO.M ]
@@ -3492,7 +3499,7 @@ Instruction:
               (SUB
                 (SX.32 (READ.32[(INDEX.I)].argument3))
                 (SX.32 (READ.32[(INDEX.I)].argument2)))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABDSWQ
     what: Absolute Difference Saturated Word Quadruple
     formats: [ ALU_WQWRRS, ALU_WQWRRS.M ]
@@ -3512,9 +3519,9 @@ Instruction:
               (SUB
                 (SX.32 (READ.32[(INDEX.I)].argument3))
                 (SX.32 (READ.32[(INDEX.I)].argument2)))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABDSHQ
     what: Absolute Difference Saturated Half Word Quadruple
     formats: [ ALU_HQWRRSE, ALU_HQWRRSO, ALU_HQWRRSE.M, ALU_HQWRRSO.M ]
@@ -3534,7 +3541,7 @@ Instruction:
               (SUB
                 (SX.16 (READ.16[(INDEX.I)].argument3))
                 (SX.16 (READ.16[(INDEX.I)].argument2)))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABDSHO
     what: Absolute Difference Saturated Half Word Octuple
     formats: [ ALU_HOWRRS, ALU_HOWRRS.M ]
@@ -3554,9 +3561,9 @@ Instruction:
               (SUB
                 (SX.16 (READ.16[(INDEX.I)].argument3))
                 (SX.16 (READ.16[(INDEX.I)].argument2)))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABDSBO
     what: Absolute Difference Saturated Byte Octuple
     formats: [ ALU_BOWRRSE, ALU_BOWRRSO, ALU_BOWRRSE.M, ALU_BOWRRSO.M ]
@@ -3576,7 +3583,7 @@ Instruction:
               (SUB
                 (SX.8 (READ.8[(INDEX.I)].argument3))
                 (SX.8 (READ.8[(INDEX.I)].argument2)))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABDSBX
     what: Absolute Difference Saturated Byte Hexadecuple
     formats: [ ALU_BXWRRS, ALU_BXWRRS.M ]
@@ -3596,7 +3603,7 @@ Instruction:
               (SUB
                 (SX.8 (READ.8[(INDEX.I)].argument3))
                 (SX.8 (READ.8[(INDEX.I)].argument2)))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ABDUD
     what: Absolute Difference Unsigned Double Word
@@ -3613,7 +3620,7 @@ Instruction:
             (ZX.64 (READ.argument3))
             (ZX.64 (READ.argument2)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ABDUDP
     what: Absolute Difference Unsigned Double Word Pair
     formats: [ ALU_DPWRRS, ALU_DPWRRS.M ]
@@ -3632,7 +3639,7 @@ Instruction:
             (SUB
               (ZX.64 (READ.64[(INDEX.I)].argument3))
               (ZX.64 (READ.64[(INDEX.I)].argument2))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ABDUW
     what: Absolute Difference Unsigned Word
@@ -3649,7 +3656,7 @@ Instruction:
             (ZX.32 (READ.argument3))
             (ZX.32 (READ.argument2)))))
 
-#ifndef SIMD128
+#if 0
   - ID: ABDUWP
     what: Absolute Difference Unsigned Word Pair
     formats: [ ALU_WPWRRSE, ALU_WPWRRSO, ALU_WPWRRSE.M, ALU_WPWRRSO.M ]
@@ -3668,7 +3675,7 @@ Instruction:
             (SUB
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (ZX.32 (READ.32[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABDUWQ
     what: Absolute Difference Unsigned Word Quadruple
     formats: [ ALU_WQWRRS, ALU_WQWRRS.M ]
@@ -3687,9 +3694,9 @@ Instruction:
             (SUB
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (ZX.32 (READ.32[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABDUHQ
     what: Absolute Difference Unsigned Half Word Quadruple
     formats: [ ALU_HQWRRSE, ALU_HQWRRSO, ALU_HQWRRSE.M, ALU_HQWRRSO.M ]
@@ -3708,7 +3715,7 @@ Instruction:
             (SUB
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (ZX.16 (READ.16[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABDUHO
     what: Absolute Difference Unsigned Half Word Octuple
     formats: [ ALU_HOWRRS, ALU_HOWRRS.M ]
@@ -3727,9 +3734,9 @@ Instruction:
             (SUB
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (ZX.16 (READ.16[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABDUBO
     what: Absolute Difference Unsigned Byte Octuple
     formats: [ ALU_BOWRRSE, ALU_BOWRRSO, ALU_BOWRRSE.M, ALU_BOWRRSO.M ]
@@ -3748,7 +3755,7 @@ Instruction:
             (SUB
               (ZX.8 (READ.8[(INDEX.I)].argument3))
               (ZX.8 (READ.8[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABDUBX
     what: Absolute Difference Unsigned Byte Hexadecuple
     formats: [ ALU_BXWRRS, ALU_BXWRRS.M ]
@@ -3767,7 +3774,7 @@ Instruction:
             (SUB
               (ZX.8 (READ.8[(INDEX.I)].argument3))
               (ZX.8 (READ.8[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ADDQ
     what: Add Quadruple Word to Quadruple Word
@@ -3808,7 +3815,7 @@ Instruction:
           (READ.argument3)
           (READ.argument2)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ADDDP
     what: Add Double Word Pair
     formats: [ ALU_DPWRR0, ALU_DPWRR0.M ]
@@ -3826,9 +3833,9 @@ Instruction:
           (ADD
             (READ.32[(INDEX.I)].argument3)
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDWP
     what: Add Word Pair
     formats: [ ALU_WPWRR0E, ALU_WPWRR0O, ALU_WPWRR0E.M, ALU_WPWRR0O.M ]
@@ -3846,7 +3853,7 @@ Instruction:
           (ADD
             (READ.32[(INDEX.I)].argument3)
             (READ.32[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDWQ
     what: Add Word Quadruple
     formats: [ ALU_WQWRR0, ALU_WQWRR0.M ]
@@ -3864,9 +3871,9 @@ Instruction:
           (ADD
             (READ.32[(INDEX.I)].argument3)
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDHQ
     what: Add Half Word Quadruple
     formats: [ ALU_HQWRR0E, ALU_HQWRR0O, ALU_HQWRR0E.M, ALU_HQWRR0O.M ]
@@ -3884,7 +3891,7 @@ Instruction:
           (ADD
             (READ.16[(INDEX.I)].argument3)
             (READ.16[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDHO
     what: Add Half Word Octuple
     formats: [ ALU_HOWRR0, ALU_HOWRR0.M ]
@@ -3902,9 +3909,9 @@ Instruction:
           (ADD
             (READ.16[(INDEX.I)].argument3)
             (READ.16[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDBO
     what: Add Byte Octuple
     formats: [ ALU_BOWRR0E, ALU_BOWRR0O, ALU_BOWRR0E.M, ALU_BOWRR0O.M ]
@@ -3922,7 +3929,7 @@ Instruction:
           (ADD
             (READ.8[(INDEX.I)].argument3)
             (READ.8[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDBX
     what: Add Byte Hexadecuple
     formats: [ ALU_BXWRR0, ALU_BXWRR0.M ]
@@ -3940,7 +3947,7 @@ Instruction:
           (ADD
             (READ.8[(INDEX.I)].argument3)
             (READ.8[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ADDSD
     what: Add Saturated Double Word
@@ -3956,7 +3963,7 @@ Instruction:
             (SX.64 (READ.argument3))
             (SX.64 (READ.argument2)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ADDSDP
     what: Add Saturated Double Word Pair
     formats: [ ALU_DPWRR1, ALU_DPWRR1.M ]
@@ -3975,7 +3982,7 @@ Instruction:
             (ADD
               (SX.64 (READ.64[(INDEX.I)].argument3))
               (SX.64 (READ.64[(INDEX.I)].argument2))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ADDSW
     what: Add Saturated Word
@@ -3991,7 +3998,7 @@ Instruction:
             (SX.32 (READ.argument3))
             (SX.32 (READ.argument2)))))
 
-#ifndef SIMD128
+#if 0
   - ID: ADDSWP
     what: Add Saturated Word Pair
     formats: [ ALU_WPWRR1E, ALU_WPWRR1O, ALU_WPWRR1E.M, ALU_WPWRR1O.M ]
@@ -4010,7 +4017,7 @@ Instruction:
             (ADD
               (SX.32 (READ.32[(INDEX.I)].argument3))
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDSWQ
     what: Add Saturated Word Quadruple
     formats: [ ALU_WQWRR1, ALU_WQWRR1.M ]
@@ -4029,9 +4036,9 @@ Instruction:
             (ADD
               (SX.32 (READ.32[(INDEX.I)].argument3))
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDSHQ
     what: Add Saturated Half Word Quadruple
     formats: [ ALU_HQWRR1E, ALU_HQWRR1O, ALU_HQWRR1E.M, ALU_HQWRR1O.M ]
@@ -4050,7 +4057,7 @@ Instruction:
             (ADD
               (SX.16 (READ.16[(INDEX.I)].argument3))
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDSHO
     what: Add Saturated Half Word Octuple
     formats: [ ALU_HOWRR1, ALU_HOWRR1.M ]
@@ -4069,9 +4076,9 @@ Instruction:
             (ADD
               (SX.16 (READ.16[(INDEX.I)].argument3))
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDSBO
     what: Add Saturated Byte Octuple
     formats: [ ALU_BOWRR1E, ALU_BOWRR1O, ALU_BOWRR1E.M, ALU_BOWRR1O.M ]
@@ -4090,7 +4097,7 @@ Instruction:
             (ADD
               (SX.8 (READ.8[(INDEX.I)].argument3))
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDSBX
     what: Add Saturated Byte Hexadecuple
     formats: [ ALU_BXWRR1, ALU_BXWRR1.M ]
@@ -4109,7 +4116,7 @@ Instruction:
             (ADD
               (SX.8 (READ.8[(INDEX.I)].argument3))
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ADDUSD
     what: Add Unsigned Saturated Double Word
@@ -4125,7 +4132,7 @@ Instruction:
             (ZX.64 (READ.argument3))
             (ZX.64 (READ.argument2)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ADDUSDP
     what: Add Unsigned Saturated Double Word Pair
     formats: [ ALU_DPWRR1, ALU_DPWRR1.M ]
@@ -4144,7 +4151,7 @@ Instruction:
             (ADD
               (ZX.64 (READ.64[(INDEX.I)].argument3))
               (ZX.64 (READ.64[(INDEX.I)].argument2))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ADDUSW
     what: Add Unsigned Saturated Word
@@ -4160,7 +4167,7 @@ Instruction:
             (ZX.32 (READ.argument3))
             (ZX.32 (READ.argument2)))))
 
-#ifndef SIMD128
+#if 0
   - ID: ADDUSWP
     what: Add Unsigned Saturated Word Pair
     formats: [ ALU_WPWRR1E, ALU_WPWRR1O, ALU_WPWRR1E.M, ALU_WPWRR1O.M ]
@@ -4179,7 +4186,7 @@ Instruction:
             (ADD
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (ZX.32 (READ.32[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDUSWQ
     what: Add Unsigned Saturated Word Quadruple
     formats: [ ALU_WQWRR1, ALU_WQWRR1.M ]
@@ -4198,9 +4205,9 @@ Instruction:
             (ADD
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (ZX.32 (READ.32[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDUSHQ
     what: Add Unsigned Saturated Half Word Quadruple
     formats: [ ALU_HQWRR1E, ALU_HQWRR1O, ALU_HQWRR1E.M, ALU_HQWRR1O.M ]
@@ -4219,7 +4226,7 @@ Instruction:
             (ADD
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (ZX.16 (READ.16[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDUSHO
     what: Add Unsigned Saturated Half Word Octuple
     formats: [ ALU_HOWRR1, ALU_HOWRR1.M ]
@@ -4238,9 +4245,9 @@ Instruction:
             (ADD
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (ZX.16 (READ.16[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDUSBO
     what: Add Unsigned Saturated Byte Octuple
     formats: [ ALU_BOWRR1E, ALU_BOWRR1O, ALU_BOWRR1E.M, ALU_BOWRR1O.M ]
@@ -4259,7 +4266,7 @@ Instruction:
             (ADD
               (ZX.8 (READ.8[(INDEX.I)].argument3))
               (ZX.8 (READ.8[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDUSBX
     what: Add Unsigned Saturated Byte Hexadecuple
     formats: [ ALU_BXWRR1, ALU_BXWRR1.M ]
@@ -4278,7 +4285,7 @@ Instruction:
             (ADD
               (ZX.8 (READ.8[(INDEX.I)].argument3))
               (ZX.8 (READ.8[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SBFQ
     what: Subtract From Quadruple Word
@@ -4308,7 +4315,7 @@ Instruction:
           (READ.argument3)
           (READ.argument2)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SBFDP
     what: Subtract From Double Word Pair
     formats: [ ALU_DPWRR0, ALU_DPWRR0.M ]
@@ -4326,7 +4333,7 @@ Instruction:
           (SUB
             (READ.64[(INDEX.I)].argument3)
             (READ.64[(INDEX.I)].argument2))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SBFW
     what: Subtract From Word
@@ -4341,7 +4348,7 @@ Instruction:
           (READ.argument3)
           (READ.argument2)))
 
-#ifndef SIMD128
+#if 0
   - ID: SBFWP
     what: Subtract From Word Pair
     formats: [ ALU_WPWRR0E, ALU_WPWRR0O, ALU_WPWRR0E.M, ALU_WPWRR0O.M ]
@@ -4359,7 +4366,7 @@ Instruction:
           (SUB
             (READ.32[(INDEX.I)].argument3)
             (READ.32[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SBFWQ
     what: Subtract From Word Quadruple
     formats: [ ALU_WQWRR0, ALU_WQWRR0.M ]
@@ -4377,9 +4384,9 @@ Instruction:
           (SUB
             (READ.32[(INDEX.I)].argument3)
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SBFHQ
     what: Subtract From Half Word Quadruple
     formats: [ ALU_HQWRR0E, ALU_HQWRR0O, ALU_HQWRR0E.M, ALU_HQWRR0O.M ]
@@ -4397,7 +4404,7 @@ Instruction:
           (SUB
             (READ.16[(INDEX.I)].argument3)
             (READ.16[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SBFHO
     what: Subtract From Half Word Octuple
     formats: [ ALU_HOWRR0, ALU_HOWRR0.M ]
@@ -4415,9 +4422,9 @@ Instruction:
           (SUB
             (READ.16[(INDEX.I)].argument3)
             (READ.16[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SBFBO
     what: Subtract From Byte Octuple
     formats: [ ALU_BOWRR0E, ALU_BOWRR0O, ALU_BOWRR0E.M, ALU_BOWRR0O.M ]
@@ -4435,7 +4442,7 @@ Instruction:
           (SUB
             (READ.8[(INDEX.I)].argument3)
             (READ.8[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SBFBX
     what: Subtract From Byte Hexadecuple
     formats: [ ALU_BXWRR0, ALU_BXWRR0.M ]
@@ -4453,7 +4460,7 @@ Instruction:
           (SUB
             (READ.8[(INDEX.I)].argument3)
             (READ.8[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SBFSD
     what: Subtract Saturated Double Word
@@ -4469,7 +4476,7 @@ Instruction:
             (SX.64 (READ.argument3))
             (SX.64 (READ.argument2)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SBFSDP
     what: Subtract Saturated Double Word Pair
     formats: [ ALU_DPWRR1, ALU_DPWRR1.M ]
@@ -4488,7 +4495,7 @@ Instruction:
             (SUB
               (SX.64 (READ.64[(INDEX.I)].argument3))
               (SX.64 (READ.64[(INDEX.I)].argument2))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SBFSW
     what: Subtract Saturated Word
@@ -4504,7 +4511,7 @@ Instruction:
             (SX.32 (READ.argument3))
             (SX.32 (READ.argument2)))))
 
-#ifndef SIMD128
+#if 0
   - ID: SBFSWP
     what: Subtract Saturated Word Pair
     formats: [ ALU_WPWRR1E, ALU_WPWRR1O, ALU_WPWRR1E.M, ALU_WPWRR1O.M ]
@@ -4523,7 +4530,7 @@ Instruction:
             (SUB
               (SX.32 (READ.32[(INDEX.I)].argument3))
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SBFSWQ
     what: Subtract Saturated Word Quadruple
     formats: [ ALU_WQWRR1, ALU_WQWRR1.M ]
@@ -4542,9 +4549,9 @@ Instruction:
             (SUB
               (SX.32 (READ.32[(INDEX.I)].argument3))
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SBFSHQ
     what: Subtract Saturated Half Word Quadruple
     formats: [ ALU_HQWRR1E, ALU_HQWRR1O, ALU_HQWRR1E.M, ALU_HQWRR1O.M ]
@@ -4563,7 +4570,7 @@ Instruction:
             (SUB
               (SX.16 (READ.16[(INDEX.I)].argument3))
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SBFSHO
     what: Subtract Saturated Half Word Octuple
     formats: [ ALU_HOWRR1, ALU_HOWRR1.M ]
@@ -4582,9 +4589,9 @@ Instruction:
             (SUB
               (SX.16 (READ.16[(INDEX.I)].argument3))
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SBFSBO
     what: Subtract Saturated Byte Octuple
     formats: [ ALU_BOWRR1E, ALU_BOWRR1O, ALU_BOWRR1E.M, ALU_BOWRR1O.M ]
@@ -4603,7 +4610,7 @@ Instruction:
             (SUB
               (SX.8 (READ.8[(INDEX.I)].argument3))
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SBFSBX
     what: Subtract Saturated Byte Hexadecuple
     formats: [ ALU_BXWRR1, ALU_BXWRR1.M ]
@@ -4622,7 +4629,7 @@ Instruction:
             (SUB
               (SX.8 (READ.8[(INDEX.I)].argument3))
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SBFUSD
     what: Subtract Unsigned Saturated Double Word
@@ -4638,7 +4645,7 @@ Instruction:
             (ZX.64 (READ.argument3))
             (ZX.64 (READ.argument2)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SBFUSDP
     what: Subtract Unsigned Saturated Double Word Pair
     formats: [ ALU_DPWRR1, ALU_DPWRR1.M ]
@@ -4657,7 +4664,7 @@ Instruction:
             (SUB
               (ZX.64 (READ.64[(INDEX.I)].argument3))
               (ZX.64 (READ.64[(INDEX.I)].argument2))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SBFUSW
     what: Subtract Unsigned Saturated Word
@@ -4673,7 +4680,7 @@ Instruction:
             (ZX.32 (READ.argument3))
             (ZX.32 (READ.argument2)))))
 
-#ifndef SIMD128
+#if 0
   - ID: SBFUSWP
     what: Subtract Unsigned Saturated Word Pair
     formats: [ ALU_WPWRR1E, ALU_WPWRR1O, ALU_WPWRR1E.M, ALU_WPWRR1O.M ]
@@ -4692,7 +4699,7 @@ Instruction:
             (SUB
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (ZX.32 (READ.32[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SBFUSWQ
     what: Subtract Unsigned Saturated Word Quadruple
     formats: [ ALU_WQWRR1, ALU_WQWRR1.M ]
@@ -4711,9 +4718,9 @@ Instruction:
             (SUB
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (ZX.32 (READ.32[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SBFUSHQ
     what: Subtract Unsigned Saturated Half Word Quadruple
     formats: [ ALU_HQWRR1E, ALU_HQWRR1O, ALU_HQWRR1E.M, ALU_HQWRR1O.M ]
@@ -4732,7 +4739,7 @@ Instruction:
             (SUB
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (ZX.16 (READ.16[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SBFUSHO
     what: Subtract Unsigned Saturated Half Word Octuple
     formats: [ ALU_HOWRR1, ALU_HOWRR1.M ]
@@ -4751,9 +4758,9 @@ Instruction:
             (SUB
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (ZX.16 (READ.16[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SBFUSBO
     what: Subtract Unsigned Saturated Byte Octuple
     formats: [ ALU_BOWRR1E, ALU_BOWRR1O, ALU_BOWRR1E.M, ALU_BOWRR1O.M ]
@@ -4772,7 +4779,7 @@ Instruction:
             (SUB
               (ZX.8 (READ.8[(INDEX.I)].argument3))
               (ZX.8 (READ.8[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SBFUSBX
     what: Subtract Unsigned Saturated Byte Hexadecuple
     formats: [ ALU_BXWRR1, ALU_BXWRR1.M ]
@@ -4791,7 +4798,7 @@ Instruction:
             (SUB
               (ZX.8 (READ.8[(INDEX.I)].argument3))
               (ZX.8 (READ.8[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: MIND
     what: Minimum Double Word
@@ -4806,7 +4813,7 @@ Instruction:
           (SX.64 (READ.argument3))
           (SX.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: MINDP
     what: Minimum Double Word Pair
     formats: [ ALU_DPWRR0, ALU_DPWRR0.M ]
@@ -4824,7 +4831,7 @@ Instruction:
           (MIN
             (SX.64 (READ.64[(INDEX.I)].argument3))
             (SX.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: MINW
     what: Minimum Word
@@ -4839,7 +4846,7 @@ Instruction:
           (SX.32 (READ.argument3))
           (SX.32 (READ.argument2))))
 
-#ifndef SIMD128
+#if 0
   - ID: MINWP
     what: Minimum Word Pair
     formats: [ ALU_WPWRR0E, ALU_WPWRR0O, ALU_WPWRR0E.M, ALU_WPWRR0O.M ]
@@ -4857,7 +4864,7 @@ Instruction:
           (MIN
             (SX.32 (READ.32[(INDEX.I)].argument3))
             (SX.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MINWQ
     what: Minimum Word Quadruple
     formats: [ ALU_WQWRR0, ALU_WQWRR0.M ]
@@ -4875,9 +4882,9 @@ Instruction:
           (MIN
             (SX.32 (READ.32[(INDEX.I)].argument3))
             (SX.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MINHQ
     what: Minimum Half Word Quadruple
     formats: [ ALU_HQWRR0E, ALU_HQWRR0O, ALU_HQWRR0E.M, ALU_HQWRR0O.M ]
@@ -4895,7 +4902,7 @@ Instruction:
           (MIN
             (SX.16 (READ.16[(INDEX.I)].argument3))
             (SX.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MINHO
     what: Minimum Half Word Octuple
     formats: [ ALU_HOWRR0, ALU_HOWRR0.M ]
@@ -4913,9 +4920,9 @@ Instruction:
           (MIN
             (SX.16 (READ.16[(INDEX.I)].argument3))
             (SX.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MINBO
     what: Minimum Byte Octuple
     formats: [ ALU_BOWRR0E, ALU_BOWRR0O, ALU_BOWRR0E.M, ALU_BOWRR0O.M ]
@@ -4933,7 +4940,7 @@ Instruction:
           (MIN
             (SX.8 (READ.8[(INDEX.I)].argument3))
             (SX.8 (READ.8[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MINBX
     what: Minimum Byte Hexadecuple
     formats: [ ALU_BXWRR0, ALU_BXWRR0.M ]
@@ -4951,7 +4958,7 @@ Instruction:
           (MIN
             (SX.8 (READ.8[(INDEX.I)].argument3))
             (SX.8 (READ.8[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: MAXD
     what: Maximum Double Word
@@ -4966,7 +4973,7 @@ Instruction:
           (SX.64 (READ.argument3))
           (SX.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: MAXDP
     what: Maximum Double Word Pair
     formats: [ ALU_DPWRR0, ALU_DPWRR0.M ]
@@ -4984,7 +4991,7 @@ Instruction:
           (MAX
             (SX.64 (READ.64[(INDEX.I)].argument3))
             (SX.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: MAXW
     what: Maximum Word
@@ -4999,7 +5006,7 @@ Instruction:
           (SX.32 (READ.argument3))
           (SX.32 (READ.argument2))))
 
-#ifndef SIMD128
+#if 0
   - ID: MAXWP
     what: Maximum Word Pair
     formats: [ ALU_WPWRR0E, ALU_WPWRR0O, ALU_WPWRR0E.M, ALU_WPWRR0O.M ]
@@ -5017,7 +5024,7 @@ Instruction:
           (MAX
             (SX.32 (READ.32[(INDEX.I)].argument3))
             (SX.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MAXWQ
     what: Maximum Word Quadruple
     formats: [ ALU_WQWRR0, ALU_WQWRR0.M ]
@@ -5035,9 +5042,9 @@ Instruction:
           (MAX
             (SX.32 (READ.32[(INDEX.I)].argument3))
             (SX.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MAXHQ
     what: Maximum Half Word Quadruple
     formats: [ ALU_HQWRR0E, ALU_HQWRR0O, ALU_HQWRR0E.M, ALU_HQWRR0O.M ]
@@ -5055,7 +5062,7 @@ Instruction:
           (MAX
             (SX.16 (READ.16[(INDEX.I)].argument3))
             (SX.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MAXHO
     what: Maximum Half Word Octuple
     formats: [ ALU_HOWRR0, ALU_HOWRR0.M ]
@@ -5073,9 +5080,9 @@ Instruction:
           (MAX
             (SX.16 (READ.16[(INDEX.I)].argument3))
             (SX.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MAXBO
     what: Maximum Byte Octuple
     formats: [ ALU_BOWRR0E, ALU_BOWRR0O, ALU_BOWRR0E.M, ALU_BOWRR0O.M ]
@@ -5093,7 +5100,7 @@ Instruction:
           (MAX
             (SX.8 (READ.8[(INDEX.I)].argument3))
             (SX.8 (READ.8[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MAXBX
     what: Maximum Byte Hexadecuple
     formats: [ ALU_BXWRR0, ALU_BXWRR0.M ]
@@ -5111,7 +5118,7 @@ Instruction:
           (MAX
             (SX.8 (READ.8[(INDEX.I)].argument3))
             (SX.8 (READ.8[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: MINUD
     what: Minimum Unsigned Double Word
@@ -5126,7 +5133,7 @@ Instruction:
           (ZX.64 (READ.argument3))
           (ZX.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: MINUDP
     what: Minimum Unsigned Double Word Pair
     formats: [ ALU_DPWRR0, ALU_DPWRR0.M ]
@@ -5144,7 +5151,7 @@ Instruction:
           (MIN
             (ZX.64 (READ.64[(INDEX.I)].argument3))
             (ZX.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: MINUW
     what: Minimum Unsigned Word
@@ -5159,7 +5166,7 @@ Instruction:
           (READ.32[0].argument3)
           (READ.32[0].argument2)))
 
-#ifndef SIMD128
+#if 0
   - ID: MINUWP
     what: Minimum Unsigned Word Pair
     formats: [ ALU_WPWRR0E, ALU_WPWRR0O, ALU_WPWRR0E.M, ALU_WPWRR0O.M ]
@@ -5177,7 +5184,7 @@ Instruction:
           (MIN
             (ZX.32 (READ.32[(INDEX.I)].argument3))
             (ZX.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MINUWQ
     what: Minimum Unsigned Word Quadruple
     formats: [ ALU_WQWRR0, ALU_WQWRR0.M ]
@@ -5195,9 +5202,9 @@ Instruction:
           (MIN
             (ZX.32 (READ.32[(INDEX.I)].argument3))
             (ZX.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MINUHQ
     what: Minimum Unsigned Half Word Octuple
     formats: [ ALU_HQWRR0E, ALU_HQWRR0O, ALU_HQWRR0E.M, ALU_HQWRR0O.M ]
@@ -5215,7 +5222,7 @@ Instruction:
           (MIN
             (ZX.16 (READ.16[(INDEX.I)].argument3))
             (ZX.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MINUHO
     what: Minimum Unsigned Half Word Octuple
     formats: [ ALU_HOWRR0, ALU_HOWRR0.M ]
@@ -5233,9 +5240,9 @@ Instruction:
           (MIN
             (ZX.16 (READ.16[(INDEX.I)].argument3))
             (ZX.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MINUBO
     what: Minimum Unsigned Byte Octuple
     formats: [ ALU_BOWRR0E, ALU_BOWRR0O, ALU_BOWRR0E.M, ALU_BOWRR0O.M ]
@@ -5253,7 +5260,7 @@ Instruction:
           (MIN
             (ZX.8 (READ.8[(INDEX.I)].argument3))
             (ZX.8 (READ.8[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MINUBX
     what: Minimum Unsigned Byte Hexadecuple
     formats: [ ALU_BXWRR0, ALU_BXWRR0.M ]
@@ -5271,7 +5278,7 @@ Instruction:
           (MIN
             (ZX.8 (READ.8[(INDEX.I)].argument3))
             (ZX.8 (READ.8[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: MAXUD
     what: Maximum Unsigned Double Word
@@ -5286,7 +5293,7 @@ Instruction:
           (ZX.64 (READ.argument3))
           (ZX.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: MAXUDP
     what: Maximum Unsigned Double Word Pair
     formats: [ ALU_DPWRR0, ALU_DPWRR0.M ]
@@ -5304,7 +5311,7 @@ Instruction:
           (MAX
             (ZX.64 (READ.64[(INDEX.I)].argument3))
             (ZX.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: MAXUW
     what: Maximum Unsigned Word
@@ -5319,7 +5326,7 @@ Instruction:
           (READ.32[0].argument3)
           (READ.32[0].argument2)))
 
-#ifndef SIMD128
+#if 0
   - ID: MAXUWP
     what: Maximum Unsigned Word Pair
     formats: [ ALU_WPWRR0E, ALU_WPWRR0O, ALU_WPWRR0E.M, ALU_WPWRR0O.M ]
@@ -5337,7 +5344,7 @@ Instruction:
           (MAX
             (ZX.32 (READ.32[(INDEX.I)].argument3))
             (ZX.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MAXUWQ
     what: Maximum Unsigned Word Quadruple
     formats: [ ALU_WQWRR0, ALU_WQWRR0.M ]
@@ -5355,9 +5362,9 @@ Instruction:
           (MAX
             (ZX.32 (READ.32[(INDEX.I)].argument3))
             (ZX.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MAXUHQ
     what: Maximum Unsigned Half Word Quadruple
     formats: [ ALU_HQWRR0E, ALU_HQWRR0O, ALU_HQWRR0E.M, ALU_HQWRR0O.M ]
@@ -5375,7 +5382,7 @@ Instruction:
           (MAX
             (ZX.16 (READ.16[(INDEX.I)].argument3))
             (ZX.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MAXUHO
     what: Maximum Unsigned Half Word Octuple
     formats: [ ALU_HOWRR0, ALU_HOWRR0.M ]
@@ -5393,9 +5400,9 @@ Instruction:
           (MAX
             (ZX.16 (READ.16[(INDEX.I)].argument3))
             (ZX.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MAXUBO
     what: Maximum Unsigned Byte Octuple
     formats: [ ALU_BOWRR0E, ALU_BOWRR0O, ALU_BOWRR0E.M, ALU_BOWRR0O.M ]
@@ -5413,7 +5420,7 @@ Instruction:
           (MAX
             (ZX.8 (READ.8[(INDEX.I)].argument3))
             (ZX.8 (READ.8[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MAXUBX
     what: Maximum Unsigned Byte Hexadecuple
     formats: [ ALU_BXWRR0, ALU_BXWRR0.M ]
@@ -5431,7 +5438,7 @@ Instruction:
           (MAX
             (ZX.8 (READ.8[(INDEX.I)].argument3))
             (ZX.8 (READ.8[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ANDQ
     what: Bitwise And Quadruple Word
@@ -5792,7 +5799,7 @@ Instruction:
           (ZX.64 (READ.argument2))
           (ZX.6 (READ.argument3))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SRLDP
     what: Shift Right Logical Double Word Pair
     formats: [ ALU_DPSWRI, ALU_DPSWRR ]
@@ -5814,7 +5821,7 @@ Instruction:
             (SHR
               (ZX.64 (READ.64[(INDEX.I)].argument2))
               (READ.shift)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SRLW
     what: Shift Right Logical Word
@@ -5831,7 +5838,7 @@ Instruction:
           (READ.32[0].argument2)
           (ZX.5 (READ.argument3))))
 
-#ifndef SIMD128
+#if 0
   - ID: SRLWP
     what: Shift Right Logical Word Pair
     formats: [ ALU_WPSWRIE, ALU_WPSWRIO, ALU_WPSWRRE, ALU_WPSWRRO ]
@@ -5853,7 +5860,7 @@ Instruction:
             (SHR
               (ZX.32 (READ.32[(INDEX.I)].argument2))
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SRLWQ
     what: Shift Right Logical Word Quadruple
     formats: [ ALU_WQSWRI, ALU_WQSWRR ]
@@ -5875,9 +5882,9 @@ Instruction:
             (SHR
               (ZX.32 (READ.32[(INDEX.I)].argument2))
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SRLHQ
     what: Shift Right Logical Half Word Quadruple
     formats: [ ALU_HQSWRIE, ALU_HQSWRIO, ALU_HQSWRRE, ALU_HQSWRRO ]
@@ -5899,7 +5906,7 @@ Instruction:
             (SHR
               (ZX.16 (READ.16[(INDEX.I)].argument2))
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SRLHO
     what: Shift Right Logical Half Word Octuple
     formats: [ ALU_HOSWRI, ALU_HOSWRR ]
@@ -5921,9 +5928,9 @@ Instruction:
             (SHR
               (ZX.16 (READ.16[(INDEX.I)].argument2))
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SRLBO
     what: Shift Right Logical Byte Octuple
     formats: [ ALU_BOSWRIE, ALU_BOSWRIO, ALU_BOSWRRE, ALU_BOSWRRO ]
@@ -5945,7 +5952,7 @@ Instruction:
             (SHR
               (ZX.8 (READ.8[(INDEX.I)].argument2))
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SRLBX
     what: Shift Right Logical Byte Hexadecuple
     formats: [ ALU_BXSWRI, ALU_BXSWRR ]
@@ -5967,7 +5974,7 @@ Instruction:
             (SHR
               (ZX.8 (READ.8[(INDEX.I)].argument2))
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SRAD
     what: Shift Right Arithmetic Double Word
@@ -5983,7 +5990,7 @@ Instruction:
           (SX.64 (READ.argument2))
           (ZX.6 (READ.argument3))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SRADP
     what: Shift Right Arithmetic Double Word Pair
     formats: [ ALU_DPSWRI, ALU_DPSWRR ]
@@ -6006,7 +6013,7 @@ Instruction:
             (SHR
               (SX.64 (READ.64[(INDEX.I)].argument2))
               (READ.shift)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SRAW
     what: Shift Right Arithmetic Word
@@ -6023,7 +6030,7 @@ Instruction:
           (SX.32 (READ.argument2))
           (ZX.5 (READ.argument3))))
 
-#ifndef SIMD128
+#if 0
   - ID: SRAWP
     what: Shift Right Arithmetic Word Pair
     formats: [ ALU_WPSWRIE, ALU_WPSWRIO, ALU_WPSWRRE, ALU_WPSWRRO ]
@@ -6046,7 +6053,7 @@ Instruction:
             (SHR
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SRAWQ
     what: Shift Right Arithmetic Word Quadruple
     formats: [ ALU_WQSWRI, ALU_WQSWRR ]
@@ -6069,9 +6076,9 @@ Instruction:
             (SHR
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SRAHQ
     what: Shift Right Arithmetic Half Word Quadruple
     formats: [ ALU_HQSWRIE, ALU_HQSWRIO, ALU_HQSWRRE, ALU_HQSWRRO ]
@@ -6094,7 +6101,7 @@ Instruction:
             (SHR
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SRAHO
     what: Shift Right Arithmetic Half Word Octuple
     formats: [ ALU_HOSWRI, ALU_HOSWRR ]
@@ -6117,9 +6124,9 @@ Instruction:
             (SHR
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SRABO
     what: Shift Right Arithmetic Byte Octuple
     formats: [ ALU_BOSWRIE, ALU_BOSWRIO, ALU_BOSWRRE, ALU_BOSWRRO ]
@@ -6142,7 +6149,7 @@ Instruction:
             (SHR
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SRABX
     what: Shift Right Arithmetic Byte Hexadecuple
     formats: [ ALU_BXSWRI, ALU_BXSWRR ]
@@ -6165,7 +6172,7 @@ Instruction:
             (SHR
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SRSD
     what: Shift Right Symmetric Double Word
@@ -6202,7 +6209,7 @@ Instruction:
               (READ.bias))
             (READ.shift))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SRSDP
     what: Shift Right Symmetric Double Word Pair
     formats: [ ALU_DPSWRI, ALU_DPSWRR ]
@@ -6242,7 +6249,7 @@ Instruction:
                   (READ.bias)
                   (CONST.0)))
               (READ.shift)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SRSW
     what: Shift Right Symmetric Word
@@ -6279,7 +6286,7 @@ Instruction:
               (READ.bias))
             (READ.shift))))
 
-#ifndef SIMD128
+#if 0
   - ID: SRSWP
     what: Shift Right Symmetric Word Pair
     formats: [ ALU_WPSWRIE, ALU_WPSWRIO, ALU_WPSWRRE, ALU_WPSWRRO ]
@@ -6319,7 +6326,7 @@ Instruction:
                   (READ.bias)
                   (CONST.0)))
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SRSWQ
     what: Shift Right Symmetric Word Quadruple
     formats: [ ALU_WQSWRI, ALU_WQSWRR ]
@@ -6359,9 +6366,9 @@ Instruction:
                   (READ.bias)
                   (CONST.0)))
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SRSHQ
     what: Shift Right Symmetric Half Word Quadruple
     formats: [ ALU_HQSWRIE, ALU_HQSWRIO, ALU_HQSWRRE, ALU_HQSWRRO ]
@@ -6401,7 +6408,7 @@ Instruction:
                   (READ.bias)
                   (CONST.0)))
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SRSHO
     what: Shift Right Symmetric Half Word Octuple
     formats: [ ALU_HOSWRI, ALU_HOSWRR ]
@@ -6441,9 +6448,9 @@ Instruction:
                   (READ.bias)
                   (CONST.0)))
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SRSBO
     what: Shift Right Symmetric Byte Octuple
     formats: [ ALU_BOSWRIE, ALU_BOSWRIO, ALU_BOSWRRE, ALU_BOSWRRO ]
@@ -6483,7 +6490,7 @@ Instruction:
                   (READ.bias)
                   (CONST.0)))
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SRSBX
     what: Shift Right Symmetric Byte Hexadecuple
     formats: [ ALU_BXSWRI, ALU_BXSWRR ]
@@ -6523,7 +6530,7 @@ Instruction:
                   (READ.bias)
                   (CONST.0)))
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SLLD
     what: Shift Left Logical Double Word
@@ -6539,7 +6546,7 @@ Instruction:
           (ZX.64 (READ.argument2))
           (ZX.6 (READ.argument3))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SLLDP
     what: Shift Left Logical Word Pair by Scalar
     formats: [ ALU_DPSWRI, ALU_DPSWRR ]
@@ -6561,7 +6568,7 @@ Instruction:
             (SHL
               (READ.64[(INDEX.I)].argument2)
               (READ.shift)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SLLW
     what: Shift Left Logical Word
@@ -6578,7 +6585,7 @@ Instruction:
           (READ.32[0].argument2)
           (ZX.5 (READ.argument3))))
 
-#ifndef SIMD128
+#if 0
   - ID: SLLWP
     what: Shift Left Logical Word Pair
     formats: [ ALU_WPSWRIE, ALU_WPSWRIO, ALU_WPSWRRE, ALU_WPSWRRO ]
@@ -6600,7 +6607,7 @@ Instruction:
             (SHL
               (READ.32[(INDEX.I)].argument2)
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SLLWQ
     what: Shift Left Logical Word Quadruple
     formats: [ ALU_WQSWRI, ALU_WQSWRR ]
@@ -6622,9 +6629,9 @@ Instruction:
             (SHL
               (READ.32[(INDEX.I)].argument2)
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SLLHQ
     what: Shift Left Logical Half Word Quadruple
     formats: [ ALU_HQSWRIE, ALU_HQSWRIO, ALU_HQSWRRE, ALU_HQSWRRO ]
@@ -6646,7 +6653,7 @@ Instruction:
             (SHL
               (READ.16[(INDEX.I)].argument2)
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SLLHO
     what: Shift Left Logical Half Word Octuple
     formats: [ ALU_HOSWRI, ALU_HOSWRR ]
@@ -6668,9 +6675,9 @@ Instruction:
             (SHL
               (READ.16[(INDEX.I)].argument2)
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SLLBO
     what: Shift Left Logical Byte Octuple
     formats: [ ALU_BOSWRIE, ALU_BOSWRIO, ALU_BOSWRRE, ALU_BOSWRRO ]
@@ -6692,7 +6699,7 @@ Instruction:
             (SHL
               (READ.8[(INDEX.I)].argument2)
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SLLBX
     what: Shift Left Logical Byte Hexadecuple
     formats: [ ALU_BXSWRI, ALU_BXSWRR ]
@@ -6714,7 +6721,7 @@ Instruction:
             (SHL
               (READ.8[(INDEX.I)].argument2)
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SLSD
     what: Shift Left Saturated Double Word
@@ -6735,7 +6742,7 @@ Instruction:
               (SX.64 (READ.argument2))
               (READ.shift)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SLSDP
     what: Shift Left Saturated Double Word Pair
     formats: [ ALU_DPSWRI, ALU_DPSWRR ]
@@ -6759,7 +6766,7 @@ Instruction:
               (SHL
                 (SX.64 (READ.64[(INDEX.I)].argument2))
                 (READ.shift))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SLSW
     what: Shift Left Saturated Word
@@ -6781,7 +6788,7 @@ Instruction:
               (SX.32 (READ.argument2))
               (READ.shift)))))
 
-#ifndef SIMD128
+#if 0
   - ID: SLSWP
     what: Shift Left Saturated Word Pair
     formats: [ ALU_WPSWRIE, ALU_WPSWRIO, ALU_WPSWRRE, ALU_WPSWRRO ]
@@ -6805,7 +6812,7 @@ Instruction:
               (SHL
                 (SX.32 (READ.32[(INDEX.I)].argument2))
                 (READ.shift))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SLSWQ
     what: Shift Left Saturated Word Quadruple
     formats: [ ALU_WQSWRI, ALU_WQSWRR ]
@@ -6829,9 +6836,9 @@ Instruction:
               (SHL
                 (SX.32 (READ.32[(INDEX.I)].argument2))
                 (READ.shift))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SLSHQ
     what: Shift Left Saturated Half Word Quadruple
     formats: [ ALU_HQSWRIE, ALU_HQSWRIO, ALU_HQSWRRE, ALU_HQSWRRO ]
@@ -6855,7 +6862,7 @@ Instruction:
               (SHL
                 (SX.16 (READ.16[(INDEX.I)].argument2))
                 (READ.shift))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SLSHO
     what: Shift Left Saturated Half Word Octuple
     formats: [ ALU_HOSWRI, ALU_HOSWRR ]
@@ -6879,9 +6886,9 @@ Instruction:
               (SHL
                 (SX.16 (READ.16[(INDEX.I)].argument2))
                 (READ.shift))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SLSBO
     what: Shift Left Saturated Byte Octuple
     formats: [ ALU_BOSWRIE, ALU_BOSWRIO, ALU_BOSWRRE, ALU_BOSWRRO ]
@@ -6905,7 +6912,7 @@ Instruction:
               (SHL
                 (SX.8 (READ.8[(INDEX.I)].argument2))
                 (READ.shift))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SLSBX
     what: Shift Left Saturated Byte Hexadecuple
     formats: [ ALU_BXSWRI, ALU_BXSWRR ]
@@ -6929,7 +6936,7 @@ Instruction:
               (SHL
                 (SX.8 (READ.8[(INDEX.I)].argument2))
                 (READ.shift))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SLUSD
     what: Shift Left Unsigned Saturated Double Word
@@ -6950,7 +6957,7 @@ Instruction:
               (ZX.64 (READ.argument2))
               (READ.shift)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SLUSDP
     what: Shift Left Unsigned Saturated Double Word Pair
     formats: [ ALU_DPSWRI, ALU_DPSWRR ]
@@ -6974,7 +6981,7 @@ Instruction:
               (SHL
                 (ZX.64 (READ.64[(INDEX.I)].argument2))
                 (READ.shift))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SLUSW
     what: Shift Left Unsigned Saturated Word
@@ -6996,7 +7003,7 @@ Instruction:
               (ZX.32 (READ.argument2))
               (READ.shift)))))
 
-#ifndef SIMD128
+#if 0
   - ID: SLUSWP
     what: Shift Left Unsigned Saturated Word Pair
     formats: [ ALU_WPSWRIE, ALU_WPSWRIO, ALU_WPSWRRE, ALU_WPSWRRO ]
@@ -7020,7 +7027,7 @@ Instruction:
               (SHL
                 (ZX.32 (READ.32[(INDEX.I)].argument2))
                 (READ.shift))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SLUSWQ
     what: Shift Left Unsigned Saturated Word Quadruple
     formats: [ ALU_WQSWRI, ALU_WQSWRR ]
@@ -7044,9 +7051,9 @@ Instruction:
               (SHL
                 (ZX.32 (READ.32[(INDEX.I)].argument2))
                 (READ.shift))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SLUSHQ
     what: Shift Left Unsigned Saturated Half Word Quadruple
     formats: [ ALU_HQSWRIE, ALU_HQSWRIO, ALU_HQSWRRE, ALU_HQSWRRO ]
@@ -7070,7 +7077,7 @@ Instruction:
               (SHL
                 (ZX.16 (READ.16[(INDEX.I)].argument2))
                 (READ.shift))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SLUSHO
     what: Shift Left Unsigned Saturated Half Word Octuple
     formats: [ ALU_HOSWRI, ALU_HOSWRR ]
@@ -7094,9 +7101,9 @@ Instruction:
               (SHL
                 (ZX.16 (READ.16[(INDEX.I)].argument2))
                 (READ.shift))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SLUSBO
     what: Shift Left Unsigned Saturated Byte Octuple
     formats: [ ALU_BOSWRIE, ALU_BOSWRIO, ALU_BOSWRRE, ALU_BOSWRRO ]
@@ -7120,7 +7127,7 @@ Instruction:
               (SHL
                 (ZX.8 (READ.8[(INDEX.I)].argument2))
                 (READ.shift))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SLUSBX
     what: Shift Left Unsigned Saturated Byte Hexadecuple
     formats: [ ALU_BXSWRI, ALU_BXSWRR ]
@@ -7144,7 +7151,7 @@ Instruction:
               (SHL
                 (ZX.8 (READ.8[(INDEX.I)].argument2))
                 (READ.shift))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ROLD
     what: Rotate Left Double Word
@@ -7172,7 +7179,7 @@ Instruction:
           (READ.32[0].argument2)
           (ZX.5 (READ.argument3))))
 
-#ifndef SIMD128
+#if 0
   - ID: ROLWP
     what: Rotate Left Word Pair
     formats: [ ALU_WPSWRIE, ALU_WPSWRIO, ALU_WPSWRRE, ALU_WPSWRRO ]
@@ -7194,7 +7201,7 @@ Instruction:
             (ROL.32
               (READ.32[(INDEX.I)].argument2)
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ROLWQ
     what: Rotate Left Word Quadruple
     formats: [ ALU_WQSWRI, ALU_WQSWRR ]
@@ -7216,7 +7223,7 @@ Instruction:
             (ROL.32
               (READ.32[(INDEX.I)].argument2)
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: RORD
     what: Rotate Right Double Word
@@ -7244,7 +7251,7 @@ Instruction:
           (READ.32[0].argument2)
           (ZX.5 (READ.argument3))))
 
-#ifndef SIMD128
+#if 0
   - ID: RORWP
     what: Rotate Right Word Pair
     formats: [ ALU_WPSWRIE, ALU_WPSWRIO, ALU_WPSWRRE, ALU_WPSWRRO ]
@@ -7266,7 +7273,7 @@ Instruction:
             (ROR.32
               (READ.32[(INDEX.I)].argument2)
               (READ.shift)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: RORWQ
     what: Rotate Right Word Quadruple
     formats: [ ALU_WQSWRI, ALU_WQSWRR ]
@@ -7288,7 +7295,7 @@ Instruction:
             (ROR.32
               (READ.32[(INDEX.I)].argument2)
               (READ.shift)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SBMM8D
     what: Swapped Bit Matrix Multiplication 8$\times$8 Double Word
@@ -7304,7 +7311,7 @@ Instruction:
           (ZX.64 (READ.argument3))
           (ZX.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SBMM8DP
     what: Swapped Bit Matrix Multiplication 8$\times$8 Double Word Pair
     formats: [ ALU_DPSBMM, ALU_DPSBMM.M ]
@@ -7321,7 +7328,7 @@ Instruction:
           (APPLY.64._BMM_8
             (ZX.64 (READ.64[(INDEX.I)].argument3))
             (ZX.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SBMMT8D
     what: Swapped Bit Matrix Multiplication Transposed 8$\times$8 Double Word
@@ -7338,7 +7345,7 @@ Instruction:
             (ZX.64 (READ.argument3))
             (ZX.64 (READ.argument2)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SBMMT8DP
     what: Swapped Bit Matrix Multiplication Transposed 8$\times$8 Double Word Pair
     formats: [ ALU_DPSBMM, ALU_DPSBMM.M ]
@@ -7356,7 +7363,7 @@ Instruction:
             (APPLY.64._BMM_8
               (ZX.64 (READ.64[(INDEX.I)].argument3))
               (ZX.64 (READ.64[(INDEX.I)].argument2))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SBMM8EORD
     what: Swapped Bit Matrix Multiplication 8$\times$8 Exclusive OR Double Word
@@ -7374,7 +7381,7 @@ Instruction:
             (ZX.64 (READ.argument2)))
           (ZX.64 (READ.argument1))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SBMM8EORDP
     what: Swapped Bit Matrix Multiplication 8$\times$8 Exclusive OR Double Word Pair
     formats: [ ALU_DPSBMME, ALU_DPSBMME.M ]
@@ -7393,7 +7400,7 @@ Instruction:
               (ZX.64 (READ.64[(INDEX.I)].argument3))
               (ZX.64 (READ.64[(INDEX.I)].argument2)))
             (ZX.64 (READ.64[(INDEX.I)].argument1)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SBMMT8EORD
     what: Swapped Bit Matrix Multiplication Transposed 8$\times$8 Exclusive OR Double Word
@@ -7412,7 +7419,7 @@ Instruction:
               (ZX.64 (READ.argument2))))
           (ZX.64 (READ.argument1))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SBMMT8EORDP
     what: Swapped Bit Matrix Multiplication Transposed 8$\times$8 Exclusive OR Double Word Pair
     formats: [ ALU_DPSBMME, ALU_DPSBMME.M ]
@@ -7432,7 +7439,7 @@ Instruction:
                 (ZX.64 (READ.64[(INDEX.I)].argument3))
                 (ZX.64 (READ.64[(INDEX.I)].argument2))))
             (ZX.64 (READ.64[(INDEX.I)].argument1)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: AVGW
     what: Average Word
@@ -7449,7 +7456,7 @@ Instruction:
             (SX.32 (READ.argument2)))
           (CONST.1)))
 
-#ifndef SIMD128
+#if 0
   - ID: AVGWP
     what: Average Word Pair
     formats: [ ALU_WPAVGE, ALU_WPAVGO, ALU_WPAVGE.M, ALU_WPAVGO.M ]
@@ -7469,7 +7476,7 @@ Instruction:
               (SX.32 (READ.32[(INDEX.I)].argument3))
               (SX.32 (READ.32[(INDEX.I)].argument2)))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGWQ
     what: Average Word Quadruple
     formats: [ ALU_WQAVG, ALU_WQAVG.M ]
@@ -7489,9 +7496,9 @@ Instruction:
               (SX.32 (READ.32[(INDEX.I)].argument3))
               (SX.32 (READ.32[(INDEX.I)].argument2)))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: AVGHQ
     what: Average Half Word Quadruple
     formats: [ ALU_HQAVGE, ALU_HQAVGO, ALU_HQAVGE.M, ALU_HQAVGO.M ]
@@ -7511,7 +7518,7 @@ Instruction:
               (SX.16 (READ.16[(INDEX.I)].argument3))
               (SX.16 (READ.16[(INDEX.I)].argument2)))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGHO
     what: Average Half Word Octuple
     formats: [ ALU_HOAVG, ALU_HOAVG.M ]
@@ -7531,9 +7538,9 @@ Instruction:
               (SX.16 (READ.16[(INDEX.I)].argument3))
               (SX.16 (READ.16[(INDEX.I)].argument2)))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: AVGBO
     what: Average Byte Octuple
     formats: [ ALU_BOAVGE, ALU_BOAVGO, ALU_BOAVGE.M, ALU_BOAVGO.M ]
@@ -7553,7 +7560,7 @@ Instruction:
               (SX.8 (READ.8[(INDEX.I)].argument3))
               (SX.8 (READ.8[(INDEX.I)].argument2)))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGBX
     what: Average Byte Hexadecuple
     formats: [ ALU_BXAVG, ALU_BXAVG.M ]
@@ -7573,7 +7580,7 @@ Instruction:
               (SX.8 (READ.8[(INDEX.I)].argument3))
               (SX.8 (READ.8[(INDEX.I)].argument2)))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: AVGUW
     what: Average Unsigned Word
@@ -7590,7 +7597,7 @@ Instruction:
             (READ.32[0].argument2))
           (CONST.1)))
 
-#ifndef SIMD128
+#if 0
   - ID: AVGUWP
     what: Average Unsigned Word Pair
     formats: [ ALU_WPAVGE, ALU_WPAVGO, ALU_WPAVGE.M, ALU_WPAVGO.M ]
@@ -7610,7 +7617,7 @@ Instruction:
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (ZX.32 (READ.32[(INDEX.I)].argument2)))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGUWQ
     what: Average Unsigned Word Quadruple
     formats: [ ALU_WQAVG, ALU_WQAVG.M ]
@@ -7630,9 +7637,9 @@ Instruction:
               (ZX.32 (READ.32[(INDEX.I)].argument3))
               (ZX.32 (READ.32[(INDEX.I)].argument2)))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: AVGUHQ
     what: Average Unsigned Half Word Quadruple
     formats: [ ALU_HQAVGE, ALU_HQAVGO, ALU_HQAVGE.M, ALU_HQAVGO.M ]
@@ -7652,7 +7659,7 @@ Instruction:
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (ZX.16 (READ.16[(INDEX.I)].argument2)))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGUHO
     what: Average Unsigned Half Word Octuple
     formats: [ ALU_HOAVG, ALU_HOAVG.M ]
@@ -7672,9 +7679,9 @@ Instruction:
               (ZX.16 (READ.16[(INDEX.I)].argument3))
               (ZX.16 (READ.16[(INDEX.I)].argument2)))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: AVGUBO
     what: Average Unsigned Byte Octuple
     formats: [ ALU_BOAVGE, ALU_BOAVGO, ALU_BOAVGE.M, ALU_BOAVGO.M ]
@@ -7694,7 +7701,7 @@ Instruction:
               (ZX.8 (READ.8[(INDEX.I)].argument3))
               (ZX.8 (READ.8[(INDEX.I)].argument2)))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGUBX
     what: Average Unsigned Byte Hexadecuple
     formats: [ ALU_BXAVG, ALU_BXAVG.M ]
@@ -7714,7 +7721,7 @@ Instruction:
               (ZX.8 (READ.8[(INDEX.I)].argument3))
               (ZX.8 (READ.8[(INDEX.I)].argument2)))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: AVGRW
     what: Average Rounded Word
@@ -7733,7 +7740,7 @@ Instruction:
             (CONST.1))
           (CONST.1)))
 
-#ifndef SIMD128
+#if 0
   - ID: AVGRWP
     what: Average Rounded Word Pair
     formats: [ ALU_WPAVGE, ALU_WPAVGO, ALU_WPAVGE.M, ALU_WPAVGO.M ]
@@ -7755,7 +7762,7 @@ Instruction:
                 (SX.32 (READ.32[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGRWQ
     what: Average Rounded Word Quadruple
     formats: [ ALU_WQAVG, ALU_WQAVG.M ]
@@ -7777,9 +7784,9 @@ Instruction:
                 (SX.32 (READ.32[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: AVGRHQ
     what: Average Rounded Half Word Quadruple
     formats: [ ALU_HQAVGE, ALU_HQAVGO, ALU_HQAVGE.M, ALU_HQAVGO.M ]
@@ -7801,7 +7808,7 @@ Instruction:
                 (SX.16 (READ.16[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGRHO
     what: Average Rounded Half Word Octuple
     formats: [ ALU_HOAVG, ALU_HOAVG.M ]
@@ -7823,9 +7830,9 @@ Instruction:
                 (SX.16 (READ.16[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: AVGRBO
     what: Average Rounded Byte Octuple
     formats: [ ALU_BOAVGE, ALU_BOAVGO, ALU_BOAVGE.M, ALU_BOAVGO.M ]
@@ -7847,7 +7854,7 @@ Instruction:
                 (SX.8 (READ.8[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGRBX
     what: Average Rounded Byte Hexadecuple
     formats: [ ALU_BXAVG, ALU_BXAVG.M ]
@@ -7869,7 +7876,7 @@ Instruction:
                 (SX.8 (READ.8[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: AVGRUW
     what: Average Rounded Unsigned Word
@@ -7888,7 +7895,7 @@ Instruction:
              (CONST.1))
           (CONST.1)))
 
-#ifndef SIMD128
+#if 0
   - ID: AVGRUWP
     what: Average Rounded Unsigned Word Pair
     formats: [ ALU_WPAVGE, ALU_WPAVGO, ALU_WPAVGE.M, ALU_WPAVGO.M ]
@@ -7910,7 +7917,7 @@ Instruction:
                 (ZX.32 (READ.32[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGRUWQ
     what: Average Rounded Unsigned Word Quadruple
     formats: [ ALU_WQAVG, ALU_WQAVG.M ]
@@ -7932,9 +7939,9 @@ Instruction:
                 (ZX.32 (READ.32[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: AVGRUHQ
     what: Average Rounded Unsigned Half Word Quadruple
     formats: [ ALU_HQAVGE, ALU_HQAVGO, ALU_HQAVGE.M, ALU_HQAVGO.M ]
@@ -7956,7 +7963,7 @@ Instruction:
                 (ZX.16 (READ.16[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGRUHO
     what: Average Rounded Unsigned Half Word Octuple
     formats: [ ALU_HOAVG, ALU_HOAVG.M ]
@@ -7978,9 +7985,9 @@ Instruction:
                 (ZX.16 (READ.16[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: AVGRUBO
     what: Average Rounded Unsigned Byte Octuple
     formats: [ ALU_BOAVGE, ALU_BOAVGO, ALU_BOAVGE.M, ALU_BOAVGO.M ]
@@ -8002,7 +8009,7 @@ Instruction:
                 (ZX.8 (READ.8[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: AVGRUBX
     what: Average Rounded Unsigned Byte Hexadecuple
     formats: [ ALU_BXAVG, ALU_BXAVG.M ]
@@ -8024,7 +8031,7 @@ Instruction:
                 (ZX.8 (READ.8[(INDEX.I)].argument2)))
               (CONST.1))
             (CONST.1))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SIGND
     what: Apply Sign Double Word
@@ -8058,7 +8065,7 @@ Instruction:
             (CONST.0))
           (SKIP)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SIGNDP
     what: Apply Sign Double Word Pair
     formats: [ ALU_DPWRR0, ALU_DPWRR0.M ]
@@ -8092,7 +8099,7 @@ Instruction:
           (WRITE.64[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SIGNW
     what: Apply Sign Word
@@ -8126,7 +8133,7 @@ Instruction:
             (CONST.0))
           (SKIP)))
 
-#ifndef SIMD128
+#if 0
   - ID: SIGNWP
     what: Apply Sign Word Pair
     formats: [ ALU_WPWRR0E, ALU_WPWRR0O, ALU_WPWRR0E.M, ALU_WPWRR0O.M ]
@@ -8160,7 +8167,7 @@ Instruction:
           (WRITE.32[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SIGNWQ
     what: Apply Sign Word Quadruple
     formats: [ ALU_WQWRR0, ALU_WQWRR0.M ]
@@ -8194,9 +8201,9 @@ Instruction:
           (WRITE.32[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SIGNHQ
     what: Apply Sign Half Word Quadruple
     formats: [ ALU_HQWRR0E, ALU_HQWRR0O, ALU_HQWRR0E.M, ALU_HQWRR0O.M ]
@@ -8230,7 +8237,7 @@ Instruction:
           (WRITE.16[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SIGNHO
     what: Apply Sign Half Word Octuple
     formats: [ ALU_HOWRR0, ALU_HOWRR0.M ]
@@ -8264,9 +8271,9 @@ Instruction:
           (WRITE.16[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SIGNBO
     what: Apply Sign Byte Octuple
     formats: [ ALU_BOWRR0E, ALU_BOWRR0O, ALU_BOWRR0E.M, ALU_BOWRR0O.M ]
@@ -8300,7 +8307,7 @@ Instruction:
           (WRITE.8[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SIGNBX
     what: Apply Sign Byte Hexadecuple
     formats: [ ALU_BXWRR0, ALU_BXWRR0.M ]
@@ -8334,7 +8341,7 @@ Instruction:
           (WRITE.8[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: SIGNSD
     what: Apply Sign Saturated Double Word
@@ -8368,7 +8375,7 @@ Instruction:
             (CONST.0))
           (SKIP)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: SIGNSDP
     what: Apply Sign Saturated Double Word Pair
     formats: [ ALU_DPWRR0, ALU_DPWRR0.M ]
@@ -8402,7 +8409,7 @@ Instruction:
           (WRITE.64[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: SIGNSW
     what: Apply Sign Saturated Word
@@ -8436,7 +8443,7 @@ Instruction:
             (CONST.0))
           (SKIP)))
 
-#ifndef SIMD128
+#if 0
   - ID: SIGNSWP
     what: Apply Sign Saturated Word Pair
     formats: [ ALU_WPWRR0E, ALU_WPWRR0O, ALU_WPWRR0E.M, ALU_WPWRR0O.M ]
@@ -8470,7 +8477,7 @@ Instruction:
           (WRITE.32[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SIGNSWQ
     what: Apply Sign Saturated Word Quadruple
     formats: [ ALU_WQWRR0, ALU_WQWRR0.M ]
@@ -8504,9 +8511,9 @@ Instruction:
           (WRITE.32[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SIGNSHQ
     what: Apply Sign Saturated Half Word Quadruple
     formats: [ ALU_HQWRR0E, ALU_HQWRR0O, ALU_HQWRR0E.M, ALU_HQWRR0O.M ]
@@ -8540,7 +8547,7 @@ Instruction:
           (WRITE.16[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SIGNSHO
     what: Apply Sign Saturated Half Word Octuple
     formats: [ ALU_HOWRR0, ALU_HOWRR0.M ]
@@ -8574,9 +8581,9 @@ Instruction:
           (WRITE.16[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: SIGNSBO
     what: Apply Sign Saturated Byte Octuple
     formats: [ ALU_BOWRR0E, ALU_BOWRR0O, ALU_BOWRR0E.M, ALU_BOWRR0O.M ]
@@ -8610,7 +8617,7 @@ Instruction:
           (WRITE.8[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: SIGNSBX
     what: Apply Sign Saturated Byte Hexadecuple
     formats: [ ALU_BXWRR0, ALU_BXWRR0.M ]
@@ -8644,7 +8651,7 @@ Instruction:
           (WRITE.8[(INDEX.I)].result1
             (CONST.0))
           (SKIP)))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ADDX2D
     what: Add to Times 2 Double Word
@@ -8661,7 +8668,7 @@ Instruction:
             (READ.argument2)
             (CONST.1))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ADDX2DP
     what: Add to Times 2 Double Word Pair
     formats: [ ALU_DPWRR1, ALU_DPWRR1.M ]
@@ -8681,7 +8688,7 @@ Instruction:
             (SHL
               (SX.64 (READ.64[(INDEX.I)].argument2))
               (CONST.1)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ADDX2W
     what: Add to Times 2 Word
@@ -8698,7 +8705,7 @@ Instruction:
             (READ.argument2)
             (CONST.1))))
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX2WP
     what: Add to Times 2 Word Pair
     formats: [ ALU_WPWRR1E, ALU_WPWRR1O, ALU_WPWRR1E.M, ALU_WPWRR1O.M ]
@@ -8718,7 +8725,7 @@ Instruction:
             (SHL
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (CONST.1)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX2WQ
     what: Add to Times 2 Word Quadruple
     formats: [ ALU_WQWRR1, ALU_WQWRR1.M ]
@@ -8738,9 +8745,9 @@ Instruction:
             (SHL
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (CONST.1)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX2HQ
     what: Add to Times 2 Half Word Quadruple
     formats: [ ALU_HQWRR1E, ALU_HQWRR1O, ALU_HQWRR1E.M, ALU_HQWRR1O.M ]
@@ -8760,7 +8767,7 @@ Instruction:
             (SHL
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (CONST.1)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX2HO
     what: Add to Times 2 Half Word Octuple
     formats: [ ALU_HOWRR1, ALU_HOWRR1.M ]
@@ -8780,9 +8787,9 @@ Instruction:
             (SHL
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (CONST.1)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX2BO
     what: Add to Times 2 Byte Octuple
     formats: [ ALU_BOWRR1E, ALU_BOWRR1O, ALU_BOWRR1E.M, ALU_BOWRR1O.M ]
@@ -8802,7 +8809,7 @@ Instruction:
             (SHL
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (CONST.1)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX2BX
     what: Add to Times 2 Byte Hexadecuple
     formats: [ ALU_BXWRR1, ALU_BXWRR1.M ]
@@ -8822,7 +8829,7 @@ Instruction:
             (SHL
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (CONST.1)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ADDX4D
     what: Add to Times 4 Double Word
@@ -8839,7 +8846,7 @@ Instruction:
             (READ.argument2)
             (CONST.2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ADDX4DP
     what: Add to Times 4 Double Word Pair
     formats: [ ALU_DPWRR1, ALU_DPWRR1.M ]
@@ -8859,7 +8866,7 @@ Instruction:
             (SHL
               (SX.64 (READ.64[(INDEX.I)].argument2))
               (CONST.2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ADDX4W
     what: Add to Times 4 Word
@@ -8876,7 +8883,7 @@ Instruction:
             (READ.argument2)
             (CONST.2))))
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX4WP
     what: Add to Times 4 Word Pair
     formats: [ ALU_WPWRR1E, ALU_WPWRR1O, ALU_WPWRR1E.M, ALU_WPWRR1O.M ]
@@ -8896,7 +8903,7 @@ Instruction:
             (SHL
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (CONST.2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX4WQ
     what: Add to Times 4 Word Quadruple
     formats: [ ALU_WQWRR1, ALU_WQWRR1.M ]
@@ -8916,9 +8923,9 @@ Instruction:
             (SHL
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (CONST.2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX4HQ
     what: Add to Times 4 Half Word Quadruple
     formats: [ ALU_HQWRR1E, ALU_HQWRR1O, ALU_HQWRR1E.M, ALU_HQWRR1O.M ]
@@ -8938,7 +8945,7 @@ Instruction:
             (SHL
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (CONST.2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX4HO
     what: Add to Times 4 Half Word Octuple
     formats: [ ALU_HOWRR1, ALU_HOWRR1.M ]
@@ -8958,9 +8965,9 @@ Instruction:
             (SHL
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (CONST.2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX4BO
     what: Add to Times 4 Byte Octuple
     formats: [ ALU_BOWRR1E, ALU_BOWRR1O, ALU_BOWRR1E.M, ALU_BOWRR1O.M ]
@@ -8980,7 +8987,7 @@ Instruction:
             (SHL
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (CONST.2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX4BX
     what: Add to Times 4 Byte Hexadecuple
     formats: [ ALU_BXWRR1, ALU_BXWRR1.M ]
@@ -9000,7 +9007,7 @@ Instruction:
             (SHL
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (CONST.2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ADDX8D
     what: Add to Times 8 Double Word
@@ -9017,7 +9024,7 @@ Instruction:
             (READ.argument2)
             (CONST.3))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ADDX8DP
     what: Add to Times 8 Double Word Pair
     formats: [ ALU_DPWRR1, ALU_DPWRR1.M ]
@@ -9037,7 +9044,7 @@ Instruction:
             (SHL
               (SX.64 (READ.64[(INDEX.I)].argument2))
               (CONST.3)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ADDX8W
     what: Add to Times 8 Word
@@ -9054,7 +9061,7 @@ Instruction:
             (READ.argument2)
             (CONST.3))))
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX8WP
     what: Add to Times 8 Word Pair
     formats: [ ALU_WPWRR1E, ALU_WPWRR1O, ALU_WPWRR1E.M, ALU_WPWRR1O.M ]
@@ -9074,7 +9081,7 @@ Instruction:
             (SHL
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (CONST.3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX8WQ
     what: Add to Times 8 Word Quadruple
     formats: [ ALU_WQWRR1, ALU_WQWRR1.M ]
@@ -9094,9 +9101,9 @@ Instruction:
             (SHL
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (CONST.3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX8HQ
     what: Add to Times 8 Half Word Quadruple
     formats: [ ALU_HQWRR1E, ALU_HQWRR1O, ALU_HQWRR1E.M, ALU_HQWRR1O.M ]
@@ -9116,7 +9123,7 @@ Instruction:
             (SHL
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (CONST.3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX8HO
     what: Add to Times 8 Half Word Octuple
     formats: [ ALU_HOWRR1, ALU_HOWRR1.M ]
@@ -9136,9 +9143,9 @@ Instruction:
             (SHL
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (CONST.3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX8BO
     what: Add to Times 8 Byte Octuple
     formats: [ ALU_BOWRR1E, ALU_BOWRR1O, ALU_BOWRR1E.M, ALU_BOWRR1O.M ]
@@ -9158,7 +9165,7 @@ Instruction:
             (SHL
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (CONST.3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX8BX
     what: Add to Times 8 Byte Hexadecuple
     formats: [ ALU_BXWRR1, ALU_BXWRR1.M ]
@@ -9178,7 +9185,7 @@ Instruction:
             (SHL
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (CONST.3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ADDX16D
     what: Add Double Word to Double Word Times 16
@@ -9195,7 +9202,7 @@ Instruction:
             (READ.argument2)
             (CONST.4))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ADDX16DP
     what: Add to Times 16 Double Word Pair
     formats: [ ALU_DPWRR1, ALU_DPWRR1.M ]
@@ -9215,7 +9222,7 @@ Instruction:
             (SHL
               (SX.64 (READ.64[(INDEX.I)].argument2))
               (CONST.4)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ADDX16W
     what: Add Word to Word Times 16
@@ -9232,7 +9239,7 @@ Instruction:
             (READ.argument2)
             (CONST.4))))
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX16WP
     what: Add to Times 16 Word Pair
     formats: [ ALU_WPWRR1E, ALU_WPWRR1O, ALU_WPWRR1E.M, ALU_WPWRR1O.M ]
@@ -9252,7 +9259,7 @@ Instruction:
             (SHL
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (CONST.4)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX16WQ
     what: Add to Times 16 Word Quadruple
     formats: [ ALU_WQWRR1, ALU_WQWRR1.M ]
@@ -9272,9 +9279,9 @@ Instruction:
             (SHL
               (SX.32 (READ.32[(INDEX.I)].argument2))
               (CONST.4)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX16HQ
     what: Add to Times 16 Half Word Quadruple
     formats: [ ALU_HQWRR1E, ALU_HQWRR1O, ALU_HQWRR1E.M, ALU_HQWRR1O.M ]
@@ -9294,7 +9301,7 @@ Instruction:
             (SHL
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (CONST.4)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX16HO
     what: Add to Times 16 Half Word Octuple
     formats: [ ALU_HOWRR1, ALU_HOWRR1.M ]
@@ -9314,9 +9321,9 @@ Instruction:
             (SHL
               (SX.16 (READ.16[(INDEX.I)].argument2))
               (CONST.4)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ADDX16BO
     what: Add to Times 16 Byte Octuple
     formats: [ ALU_BOWRR1E, ALU_BOWRR1O, ALU_BOWRR1E.M, ALU_BOWRR1O.M ]
@@ -9336,7 +9343,7 @@ Instruction:
             (SHL
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (CONST.4)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ADDX16BX
     what: Add to Times 16 Byte Hexadecuple
     formats: [ ALU_BXWRR1, ALU_BXWRR1.M ]
@@ -9356,7 +9363,7 @@ Instruction:
             (SHL
               (SX.8 (READ.8[(INDEX.I)].argument2))
               (CONST.4)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ADDX32D
     what: Add to Times 32 Double Word
@@ -9565,7 +9572,7 @@ Instruction:
           (READ.argument2)
           (CONST.0x8000000000000000)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FNEGDP
     what: Floating-Point Negate Double Word Pair
     class: FPU
@@ -9583,7 +9590,7 @@ Instruction:
           (XOR
             (READ.64[(INDEX.I)].argument2)
             (CONST.0x8000000000000000))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FNEGW
     what: Floating-Point Negate Word
@@ -9619,8 +9626,8 @@ Instruction:
             (READ.32[(INDEX.I)].argument2)
             (CONST.0x80000000))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FNEGWQ
     what: Floating-Point Negate Word Quadruple
     class: FPU
@@ -9638,7 +9645,7 @@ Instruction:
           (XOR
             (READ.32[(INDEX.I)].argument2)
             (CONST.0x80000000))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FNEGH
     what: Floating-Point Negate Half Word
@@ -9656,7 +9663,7 @@ Instruction:
             (READ.argument2)
             (CONST.0x8000))))
 
-#ifndef SIMD128
+#if 0
   - ID: FNEGHQ
     what: Floating-Point Negate Half Word Quadruple
     class: FPU
@@ -9674,7 +9681,7 @@ Instruction:
           (XOR
             (READ.16[(INDEX.I)].argument2)
             (CONST.0x8000))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FNEGHO
     what: Floating-Point Negate Half Word Octuple
     class: FPU
@@ -9692,7 +9699,7 @@ Instruction:
           (XOR
             (READ.16[(INDEX.I)].argument2)
             (CONST.0x8000))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FABSD
     what: Floating-Point Absolute Value Double Word
@@ -9709,7 +9716,7 @@ Instruction:
           (READ.argument2)
           (CONST.0x7FFFFFFFFFFFFFFF)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FABSDP
     what: Floating-Point Absolute Value Double Word Pair
     class: FPU
@@ -9727,7 +9734,7 @@ Instruction:
           (AND
             (READ.64[(INDEX.I)].argument2)
             (CONST.0x7FFFFFFFFFFFFFFF))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FABSW
     what: Floating-Point Absolute Value Word
@@ -9763,8 +9770,8 @@ Instruction:
             (READ.32[(INDEX.I)].argument2)
             (CONST.0x7FFFFFFF))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FABSWQ
     what: Floating-Point Absolute Value Word Quadruple
     class: FPU
@@ -9782,7 +9789,7 @@ Instruction:
           (AND
             (READ.32[(INDEX.I)].argument2)
             (CONST.0x7FFFFFFF))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FABSH
     what: Floating-Point Absolute Value Half Word
@@ -9800,7 +9807,7 @@ Instruction:
             (READ.argument2)
             (CONST.0x7FFF))))
 
-#ifndef SIMD128
+#if 0
   - ID: FABSHQ
     what: Floating-Point Absolute Value Half Word Quadruple
     class: FPU
@@ -9818,7 +9825,7 @@ Instruction:
           (AND
             (READ.16[(INDEX.I)].argument2)
             (CONST.0x7FFF))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FABSHO
     what: Floating-Point Absolute Value Half Word Octuple
     class: FPU
@@ -9836,7 +9843,7 @@ Instruction:
           (AND
             (READ.16[(INDEX.I)].argument2)
             (CONST.0x7FFF))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSRECD
     what: Floating-Point Seed for Reciprocal Double Word
@@ -9884,8 +9891,8 @@ Instruction:
           (APPLY.32.f32_fast_rec
             (READ.32[(INDEX.I)].argument2))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FSRECWQ
     what: Floating-Point Seed for Reciprocal Word Quadruple
     class: FPU
@@ -9903,7 +9910,7 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (APPLY.32.f32_fast_rec
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSRSRD
     what: Floating-Point Seed for Reciprocal Square Root Double Word
@@ -9950,8 +9957,8 @@ Instruction:
           (APPLY.32.f32_fast_rsqrt
             (READ.32[(INDEX.I)].argument2))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FSRSRWQ
     what: Floating-Point Seed for Reciprocal Square Root Word Quadruple
     class: FPU
@@ -9968,7 +9975,7 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (APPLY.32.f32_fast_rsqrt
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FCLASSD
     what: Floating-Point Classify Double Word
@@ -10016,8 +10023,8 @@ Instruction:
           (APPLY.16.f32_classify
             (READ.32[(INDEX.I)].argument2))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FCLASSWQ
     what: Floating-Point Classify Word Quadruple
     class: FPU
@@ -10035,7 +10042,7 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (APPLY.16.f32_classify
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FCLASSH
     what: Floating-Point Classify Half Word
@@ -10051,7 +10058,7 @@ Instruction:
         (APPLY.16.f16_classify
           (READ.argument2)))
 
-#ifndef SIMD128
+#if 0
   - ID: FCLASSHQ
     what: Floating-Point Classify Half Word Quadruple
     class: FPU
@@ -10069,8 +10076,8 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (APPLY.16.f16_classify
             (READ.16[(INDEX.I)].argument2))))
-#else//SIMD128
-#endif//SIMD128
+#elif defined(_LVX_V2_)
+#endif//_LVX_V2_
 
   - ID: FWIDENWD
     what: Floating Point Widen Word to Double Word
@@ -10096,8 +10103,8 @@ Instruction:
           (APPLY.64.f32_to_f64
             (READ.32[0].argument2))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FWIDENWDP
     what: Floating Point Widen Word to Double Word Pair
     formats: [ ALU_FDPWIDEWR ]
@@ -10123,7 +10130,7 @@ Instruction:
           (WRITE.64[(INDEX.I)].result1
             (APPLY.64.f32_to_f64
               (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FWIDENHW
     what: Floating Point Widen Half Word to Word
@@ -10177,7 +10184,7 @@ Instruction:
           (WRITE.32[(INDEX.I)].result1
             (APPLY.32.f16_to_f32
               (ZX.16 (READ.16[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FWIDENHWQ
     what: Floating Point Widen Half Word to Word Quadruple
     class: FPU
@@ -10205,7 +10212,7 @@ Instruction:
           (WRITE.32[(INDEX.I)].result1
             (APPLY.32.f16_to_f32
               (ZX.16 (READ.16[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
   - ID: FEXTLHWP
@@ -10235,7 +10242,7 @@ Instruction:
           (WRITE.32[(INDEX.I)].result1
             (APPLY.32.f16_to_f32
               (ZX.16 (READ.32[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FEXTLHWQ
     what: Floating Point Extend Lane Half Word to Word Quadruple
     class: FPU
@@ -10263,7 +10270,7 @@ Instruction:
           (WRITE.32[(INDEX.I)].result1
             (APPLY.32.f16_to_f32
               (ZX.16 (READ.32[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FNARROWDW
     what: Floating Point Narrow Double Word to Word
@@ -10281,7 +10288,7 @@ Instruction:
           (READ.RM)
           (READ.64[0].argument2)))
 
-#ifndef SIMD128
+#if 0
   - ID: FNARROWDWP
     what: Floating Point Narrow Double Word to Word Pair
     formats: [ ALU_FWPWR ]
@@ -10304,7 +10311,7 @@ Instruction:
           (APPLY.32.f64_to_f32
             (READ.RM)
             (READ.64[1].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FNARROWDWQ
     what: Floating Point Narrow Double Word to Word Quadruple
     formats: [ ALU_FWQWR ]
@@ -10339,7 +10346,7 @@ Instruction:
           (WRITE.32[1].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[1].argument2)))
           (WRITE.32[2].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[0].argument3)))
           (WRITE.32[3].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[1].argument3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FNARROWWH
     what: Floating Point Narrow Word to Half Word
@@ -10379,7 +10386,7 @@ Instruction:
             (READ.32[(INDEX.I)].argument2))))
 #endif
 
-#ifndef SIMD128
+#if 0
   - ID: FNARROWWHQ
     what: Floating Point Narrow Word to Half Word Quadruple
     formats: [ ALU_FHQWR ]
@@ -10414,10 +10421,10 @@ Instruction:
           (WRITE.16[1].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[1].argument2)))
           (WRITE.16[2].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[2].argument2)))
           (WRITE.16[3].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[3].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FNARROWWHQ
     what: Floating Point Narrow Word to Half Word Quadruple
-    formats: [ ALU_FHQWRE, ALU_FHQWRO ]
+    formats: [ ALU_FHQWR ]
     description: >
       The %3 and the %2 are interpreted as two binary 32 floating-point numbers packed into 64 bits.
       The %3 and the %2 words are converted to binary 16 floating-point numbers according to the rounding mode.
@@ -10449,7 +10456,7 @@ Instruction:
           (WRITE.16[1].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[1].argument2)))
           (WRITE.16[2].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[0].argument3)))
           (WRITE.16[3].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[1].argument3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: INSF
     what: Insert Bit Field into Word
@@ -10594,7 +10601,7 @@ Instruction:
             (READ.argument2)
             (READ.argument3))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: COMPDP
     what: Compare Double Word Pair
     formats: [ ALU_DPCWRR, ALU_DPCWRR.M ]
@@ -10613,9 +10620,9 @@ Instruction:
               (READ.argument4)
               (READ.64[(INDEX.I)].argument2)
               (READ.64[(INDEX.I)].argument3)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: COMPWP
     what: Compare Word Pair
     formats: [ ALU_WPCWRRE, ALU_WPCWRRO, ALU_WPCWRRE.M, ALU_WPCWRRO.M ]
@@ -10634,7 +10641,7 @@ Instruction:
               (READ.argument4)
               (READ.32[(INDEX.I)].argument2)
               (READ.32[(INDEX.I)].argument3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: COMPWQ
     what: Compare Word Quadruple
     formats: [ ALU_WQCWRR, ALU_WQCWRR.M ]
@@ -10653,9 +10660,9 @@ Instruction:
               (READ.argument4)
               (READ.32[(INDEX.I)].argument2)
               (READ.32[(INDEX.I)].argument3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: COMPHQ
     what: Compare Half Word Quadruple
     formats: [ ALU_HQCWRRE, ALU_HQCWRRO, ALU_HQCWRRE.M, ALU_HQCWRRO.M ]
@@ -10674,7 +10681,7 @@ Instruction:
               (READ.argument4)
               (READ.16[(INDEX.I)].argument2)
               (READ.16[(INDEX.I)].argument3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: COMPHO
     what: Compare Half Word Octuple
     formats: [ ALU_HOCWRR, ALU_HOCWRR.M ]
@@ -10693,9 +10700,9 @@ Instruction:
               (READ.argument4)
               (READ.16[(INDEX.I)].argument2)
               (READ.16[(INDEX.I)].argument3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: COMPBO
     what: Compare Byte Octuple
     formats: [ ALU_BOCWRRE, ALU_BOCWRRO, ALU_BOCWRRE.M, ALU_BOCWRRO.M ]
@@ -10714,7 +10721,7 @@ Instruction:
               (READ.argument4)
               (READ.8[(INDEX.I)].argument2)
               (READ.8[(INDEX.I)].argument3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: COMPBX
     what: Compare Byte Hexadecuple
     formats: [ ALU_BXCWRR, ALU_BXCWRR.M ]
@@ -10733,9 +10740,9 @@ Instruction:
               (READ.argument4)
               (READ.8[(INDEX.I)].argument2)
               (READ.8[(INDEX.I)].argument3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: COMPND
     what: Compare Negate Double Word
     formats: [ ALU_DCNWRRE, ALU_DCNWRRO, ALU_DCNWRRE.M, ALU_DCNWRRO.M ]
@@ -10752,7 +10759,7 @@ Instruction:
               (READ.argument4)
               (READ.argument2)
               (READ.argument3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: COMPNDP
     what: Compare Negate Double Word Pair
     formats: [ ALU_DPCNWRR, ALU_DPCNWRR.M ]
@@ -10773,9 +10780,9 @@ Instruction:
                 (READ.argument4)
                 (READ.64[(INDEX.I)].argument2)
                 (READ.64[(INDEX.I)].argument3))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: COMPNWP
     what: Compare Negate Word Pair
     formats: [ ALU_WPCNWRRE, ALU_WPCNWRRO, ALU_WPCNWRRE.M, ALU_WPCNWRRO.M ]
@@ -10796,7 +10803,7 @@ Instruction:
                 (READ.argument4)
                 (READ.32[(INDEX.I)].argument2)
                 (READ.32[(INDEX.I)].argument3))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: COMPNWQ
     what: Compare Negate Word Quadruple
     formats: [ ALU_WQCNWRR, ALU_WQCNWRR.M ]
@@ -10817,9 +10824,9 @@ Instruction:
                 (READ.argument4)
                 (READ.32[(INDEX.I)].argument2)
                 (READ.32[(INDEX.I)].argument3))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: COMPNHQ
     what: Compare Negate Half Word Quadruple
     formats: [ ALU_HQCNWRRE, ALU_HQCNWRRO, ALU_HQCNWRRE.M, ALU_HQCNWRRO.M ]
@@ -10840,7 +10847,7 @@ Instruction:
                 (READ.argument4)
                 (READ.16[(INDEX.I)].argument2)
                 (READ.16[(INDEX.I)].argument3))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: COMPNHO
     what: Compare Negate Half Word Octuple
     formats: [ ALU_HOCNWRR, ALU_HOCNWRR.M ]
@@ -10861,9 +10868,9 @@ Instruction:
                 (READ.argument4)
                 (READ.16[(INDEX.I)].argument2)
                 (READ.16[(INDEX.I)].argument3))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: COMPNBO
     what: Compare Negate Byte Octuple
     formats: [ ALU_BOCNWRRE, ALU_BOCNWRRO, ALU_BOCNWRRE.M, ALU_BOCNWRRO.M ]
@@ -10884,7 +10891,7 @@ Instruction:
                 (READ.argument4)
                 (READ.8[(INDEX.I)].argument2)
                 (READ.8[(INDEX.I)].argument3))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: COMPNBX
     what: Compare Negate Byte Hexadecuple
     formats: [ ALU_BXCNWRR, ALU_BXCNWRR.M ]
@@ -10905,7 +10912,7 @@ Instruction:
                 (READ.argument4)
                 (READ.8[(INDEX.I)].argument2)
                 (READ.8[(INDEX.I)].argument3))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: CMOVEQ
     what: Conditional Move Quadruple Word
@@ -10943,7 +10950,7 @@ Instruction:
         (COMMIT.E1.%1 (READ.argument3))
         (SKIP))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: CMOVEDP
     what: Conditional Move Double Word Pair
     formats: [ ALU_DPCMWRR, ALU_DPCMWRR.M ]
@@ -10970,9 +10977,9 @@ Instruction:
           (TEST.bcucond (READ.argument4) (READ.64[1].argument2))
           (COMMIT.E1.%1 (READ.argument3) (CONST.64[1]))
           (SKIP)))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: CMOVEWP
     what: Conditional Move Word Pair
     formats: [ ALU_WPCMWRRE, ALU_WPCMWRRO, ALU_WPCMWRRE.M, ALU_WPCMWRRO.M ]
@@ -10996,7 +11003,7 @@ Instruction:
           (TEST.lanecond_32 (READ.argument4) (READ.32[1].argument2))
           (COMMIT.E1.%1 (READ.argument3) (CONST.32[1]))
           (SKIP)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CMOVEWQ
     what: Conditional Move Word Quadruple
     formats: [ ALU_WQCMWRR, ALU_WQCMWRR.M ]
@@ -11032,9 +11039,9 @@ Instruction:
           (TEST.lanecond_32 (READ.argument4) (READ.32[3].argument2))
           (COMMIT.E1.%1 (READ.argument3) (CONST.32[3]))
           (SKIP)))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: CMOVEHQ
     what: Conditional Move Half Word Quadruple
     formats: [ ALU_HQCMWRRE, ALU_HQCMWRRO, ALU_HQCMWRRE.M, ALU_HQCMWRRO.M ]
@@ -11070,7 +11077,7 @@ Instruction:
           (TEST.lanecond_16 (READ.argument4) (READ.16[3].argument2))
           (COMMIT.E1.%1 (READ.argument3) (CONST.16[3]))
           (SKIP)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CMOVEHO
     what: Conditional Move Half Word Octuple
     formats: [ ALU_HOCMWRR, ALU_HOCMWRR.M ]
@@ -11130,9 +11137,9 @@ Instruction:
           (TEST.lanecond_16 (READ.argument4) (READ.16[7].argument2))
           (COMMIT.E1.%1 (READ.argument3) (CONST.16[7]))
           (SKIP)))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: CMOVEBO
     what: Conditional Move Byte Octuple
     formats: [ ALU_BOCMWRRE, ALU_BOCMWRRO, ALU_BOCMWRRE.M, ALU_BOCMWRRO.M ]
@@ -11192,7 +11199,7 @@ Instruction:
           (TEST.lanecond_8 (READ.argument4) (READ.8[7].argument2))
           (COMMIT.E1.%1 (READ.argument3) (CONST.8[7]))
           (SKIP)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CMOVEBX
     what: Conditional Move Byte Hexadecuple
     formats: [ ALU_BXCMWRR, ALU_BXCMWRR.M ]
@@ -11300,7 +11307,7 @@ Instruction:
           (TEST.lanecond_8 (READ.argument4) (READ.8[15].argument2))
           (COMMIT.E1.%1 (READ.argument3) (CONST.8[15]))
           (SKIP)))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: MAKE
     what: Make Word from Immediate
@@ -11388,7 +11395,7 @@ Instruction:
         (NEG
           (SX.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: NEGDP
     what: Negate Double Word Pair
     formats: [ ALU_DPBWR ]
@@ -11403,7 +11410,7 @@ Instruction:
         (WRITE.64[(INDEX.I)].result1
           (NEG
             (SX.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: NEGW
     what: Negate Word
@@ -11417,7 +11424,7 @@ Instruction:
         (NEG
           (SX.32 (READ.argument2))))
 
-#ifndef SIMD128
+#if 0
   - ID: NEGWP
     what: Negate Word Pair
     formats: [ ALU_WPBWRE, ALU_WPBWRO ]
@@ -11432,7 +11439,7 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (NEG
             (SX.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: NEGWQ
     what: Negate Word Quadruple
     formats: [ ALU_WQBWR ]
@@ -11447,9 +11454,9 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (NEG
             (SX.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: NEGHQ
     what: Negate Half Word Quadruple
     formats: [ ALU_HQBWRE, ALU_HQBWRO ]
@@ -11464,7 +11471,7 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (NEG
             (SX.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: NEGHO
     what: Negate Half Word Octuple
     formats: [ ALU_HOBWR ]
@@ -11479,9 +11486,9 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (NEG
             (SX.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: NEGBO
     what: Negate Byte Octuple
     formats: [ ALU_BOBWRE, ALU_BOBWRO ]
@@ -11496,7 +11503,7 @@ Instruction:
         (WRITE.8[(INDEX.I)].result1
           (NEG
             (SX.8 (READ.8[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: NEGBX
     what: Negate Byte Hexadecuple
     formats: [ ALU_BXBWR ]
@@ -11511,7 +11518,7 @@ Instruction:
         (WRITE.8[(INDEX.I)].result1
           (NEG
             (SX.8 (READ.8[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: NEGSD
     what: Negate Saturated Double Word
@@ -11526,7 +11533,7 @@ Instruction:
           (NEG
             (SX.64 (READ.argument2)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: NEGSDP
     what: Negate Saturated Double Word Pair
     formats: [ ALU_DPBWR ]
@@ -11542,7 +11549,7 @@ Instruction:
           (SAT.64
             (NEG
               (SX.64 (READ.64[(INDEX.I)].argument2))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: NEGSW
     what: Negate Saturated Word
@@ -11557,7 +11564,7 @@ Instruction:
           (NEG
             (SX.32 (READ.argument2)))))
 
-#ifndef SIMD128
+#if 0
   - ID: NEGSWP
     what: Negate Saturated Word Pair
     formats: [ ALU_WPBWRE, ALU_WPBWRO ]
@@ -11573,7 +11580,7 @@ Instruction:
           (SAT.32
             (NEG
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: NEGSWQ
     what: Negate Saturated Word Quadruple
     formats: [ ALU_WQBWR ]
@@ -11589,9 +11596,9 @@ Instruction:
           (SAT.32
             (NEG
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: NEGSHQ
     what: Negate Saturated Half Word Quadruple
     formats: [ ALU_HQBWRE, ALU_HQBWRO ]
@@ -11607,7 +11614,7 @@ Instruction:
           (SAT.16
             (NEG
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: NEGSHO
     what: Negate Saturated Half Word Octuple
     formats: [ ALU_HOBWR ]
@@ -11623,9 +11630,9 @@ Instruction:
           (SAT.16
             (NEG
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: NEGSBO
     what: Negate Saturated Byte Octuple
     formats: [ ALU_BOBWRE, ALU_BOBWRO ]
@@ -11641,7 +11648,7 @@ Instruction:
           (SAT.8
             (NEG
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: NEGSBX
     what: Negate Saturated Byte Hexadecuple
     formats: [ ALU_BXBWR ]
@@ -11657,7 +11664,7 @@ Instruction:
           (SAT.8
             (NEG
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ABSD
     what: Absolute Value Double Word
@@ -11671,7 +11678,7 @@ Instruction:
         (ABS
           (SX.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ABSDP
     what: Absolute Value Double Word Pair
     formats: [ ALU_DPBWR ]
@@ -11686,7 +11693,7 @@ Instruction:
         (WRITE.64[(INDEX.I)].result1
           (ABS
             (SX.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ABSW
     what: Absolute Value Word
@@ -11700,7 +11707,7 @@ Instruction:
         (ABS
           (SX.32 (READ.argument2))))
 
-#ifndef SIMD128
+#if 0
   - ID: ABSWP
     what: Absolute Value Word Pair
     formats: [ ALU_WPBWRE, ALU_WPBWRO ]
@@ -11715,7 +11722,7 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ABS
             (SX.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABSWQ
     what: Absolute Value Word Quadruple
     formats: [ ALU_WQBWR ]
@@ -11730,9 +11737,9 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ABS
             (SX.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABSHQ
     what: Absolute Value Half Word Quadruple
     formats: [ ALU_HQBWRE, ALU_HQBWRO ]
@@ -11747,7 +11754,7 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ABS
             (SX.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABSHO
     what: Absolute Value Half Word Octuple
     formats: [ ALU_HOBWR ]
@@ -11762,9 +11769,9 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ABS
             (SX.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABSBO
     what: Absolute Value Byte Octuple
     formats: [ ALU_BOBWRE, ALU_BOBWRO ]
@@ -11779,7 +11786,7 @@ Instruction:
         (WRITE.8[(INDEX.I)].result1
           (ABS
             (SX.8 (READ.8[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABSBX
     what: Absolute Value Byte Hexadecuple
     formats: [ ALU_BXBWR ]
@@ -11794,7 +11801,7 @@ Instruction:
         (WRITE.8[(INDEX.I)].result1
           (ABS
             (SX.8 (READ.8[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ABSSD
     what: Absolute Value Saturated Double Word
@@ -11809,7 +11816,7 @@ Instruction:
           (ABS
             (SX.64 (READ.argument2)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: ABSSDP
     what: Absolute Value Saturated Double Word Pair
     formats: [ ALU_DPBWR ]
@@ -11825,7 +11832,7 @@ Instruction:
           (SAT.64
             (ABS
               (SX.64 (READ.64[(INDEX.I)].argument2))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: ABSSW
     what: Absolute Value Saturated Word
@@ -11840,7 +11847,7 @@ Instruction:
           (ABS
             (SX.32 (READ.argument2)))))
 
-#ifndef SIMD128
+#if 0
   - ID: ABSSWP
     what: Absolute Value Saturated Word Pair
     formats: [ ALU_WPBWRE, ALU_WPBWRO ]
@@ -11856,7 +11863,7 @@ Instruction:
           (SAT.32
             (ABS
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABSSWQ
     what: Absolute Value Saturated Word Quadruple
     formats: [ ALU_WQBWR ]
@@ -11872,9 +11879,9 @@ Instruction:
           (SAT.32
             (ABS
               (SX.32 (READ.32[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABSSHQ
     what: Absolute Value Saturated Half Word Quadruple
     formats: [ ALU_HQBWRE, ALU_HQBWRO ]
@@ -11890,7 +11897,7 @@ Instruction:
           (SAT.16
             (ABS
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABSSHO
     what: Absolute Value Saturated Half Word Octuple
     formats: [ ALU_HOBWR ]
@@ -11906,9 +11913,9 @@ Instruction:
           (SAT.16
             (ABS
               (SX.16 (READ.16[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: ABSSBO
     what: Absolute Value Saturated Byte Octuple
     formats: [ ALU_BOBWRE, ALU_BOBWRO ]
@@ -11924,7 +11931,7 @@ Instruction:
           (SAT.8
             (ABS
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: ABSSBX
     what: Absolute Value Saturated Byte Hexadecuple
     formats: [ ALU_BXBWR ]
@@ -11940,7 +11947,7 @@ Instruction:
           (SAT.8
             (ABS
               (SX.8 (READ.8[(INDEX.I)].argument2))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: CLZD
     what: Count Leading Zero Double Word
@@ -11954,7 +11961,7 @@ Instruction:
         (ZX.64
           (CLZ.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: CLZDP
     what: Count Leading Zeroes Double Word Pair
     formats: [ ALU_DPBWR ]
@@ -11970,7 +11977,7 @@ Instruction:
         (WRITE.64[(INDEX.I)].result1
           (ZX.64
             (CLZ.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: CLZW
     what: Count Leading Zero Word
@@ -11984,7 +11991,7 @@ Instruction:
         (ZX.32
           (CLZ.32 (READ.argument2))))
 
-#ifndef SIMD128
+#if 0
   - ID: CLZWP
     what: Count Leading Zeroes Word Pair
     formats: [ ALU_WPBWRE, ALU_WPBWRO ]
@@ -12000,7 +12007,7 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ZX.32
             (CLZ.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CLZWQ
     what: Count Leading Zeroes Word Quadruple
     formats: [ ALU_WQBWR ]
@@ -12016,9 +12023,9 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ZX.32
             (CLZ.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: CLZHQ
     what: Count Leading Zeroes Half Word Quadruple
     formats: [ ALU_HQBWRE, ALU_HQBWRO ]
@@ -12034,7 +12041,7 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ZX.16
             (CLZ.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CLZHO
     what: Count Leading Zeroes Half Word Octuple
     formats: [ ALU_HOBWR ]
@@ -12050,7 +12057,7 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ZX.16
             (CLZ.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: CLSD
     what: Count Leading Sign Double Word
@@ -12064,7 +12071,7 @@ Instruction:
         (ZX.64
           (CLS.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: CLSDP
     what: Count Leading Signs Double Word Pair
     formats: [ ALU_DPBWR ]
@@ -12080,7 +12087,7 @@ Instruction:
         (WRITE.64[(INDEX.I)].result1
           (ZX.64
             (CLS.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: CLSW
     what: Count Leading Sign Word
@@ -12094,7 +12101,7 @@ Instruction:
         (ZX.32
           (CLS.32 (READ.argument2))))
 
-#ifndef SIMD128
+#if 0
   - ID: CLSWP
     what: Count Leading Signs Word Pair
     formats: [ ALU_WPBWRE, ALU_WPBWRO ]
@@ -12110,7 +12117,7 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ZX.32
             (CLS.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CLSWQ
     what: Count Leading Signs Word Quadruple
     formats: [ ALU_WQBWR ]
@@ -12126,9 +12133,9 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ZX.32
             (CLS.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: CLSHQ
     what: Count Leading Signs Half Word Quadruple
     formats: [ ALU_HQBWRE, ALU_HQBWRO ]
@@ -12144,7 +12151,7 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ZX.16
             (CLS.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CLSHO
     what: Count Leading Signs Half Word Octuple
     formats: [ ALU_HOBWR ]
@@ -12160,7 +12167,7 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ZX.16
             (CLS.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: CBSD
     what: Count Bit Set Double Word
@@ -12174,7 +12181,7 @@ Instruction:
         (ZX.64
           (CBS.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: CBSDP
     what: Count Bit Sets Double Word Pair
     formats: [ ALU_DPBWR ]
@@ -12189,7 +12196,7 @@ Instruction:
         (WRITE.64[(INDEX.I)].result1
           (ZX.64
             (CBS.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: CBSW
     what: Count Bit Set Word
@@ -12203,7 +12210,7 @@ Instruction:
         (ZX.32
           (CBS.32 (READ.argument2))))
 
-#ifndef SIMD128
+#if 0
   - ID: CBSWP
     what: Count Bit Sets Word Pair
     formats: [ ALU_WPBWRE, ALU_WPBWRO ]
@@ -12218,7 +12225,7 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ZX.32
             (CBS.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CBSWQ
     what: Count Bit Sets Word Quadruple
     formats: [ ALU_WQBWR ]
@@ -12233,9 +12240,9 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ZX.32
             (CBS.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: CBSHQ
     what: Count Bit Sets Half Word Quadruple
     formats: [ ALU_HQBWRE, ALU_HQBWRO ]
@@ -12250,7 +12257,7 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ZX.16
             (CBS.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CBSHO
     what: Count Bit Sets Half Word Octuple
     formats: [ ALU_HOBWR ]
@@ -12265,7 +12272,7 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ZX.16
             (CBS.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: CTZD
     what: Count Trailing Zero Double Word
@@ -12279,7 +12286,7 @@ Instruction:
         (ZX.64
           (CTZ.64 (READ.argument2))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: CTZDP
     what: Count Trailing Zeroes Double Word Pair
     formats: [ ALU_DPBWR ]
@@ -12295,7 +12302,7 @@ Instruction:
         (WRITE.64[(INDEX.I)].result1
           (ZX.64
             (CTZ.64 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: CTZW
     what: Count Trailing Zero Word
@@ -12309,7 +12316,7 @@ Instruction:
         (ZX.32
           (CTZ.32 (READ.argument2))))
 
-#ifndef SIMD128
+#if 0
   - ID: CTZWP
     what: Count Trailing Zeroes Word Pair
     formats: [ ALU_WPBWRE, ALU_WPBWRO ]
@@ -12325,7 +12332,7 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ZX.32
             (CTZ.32 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CTZWQ
     what: Count Trailing Zeroes Word Quadruple
     formats: [ ALU_WQBWR ]
@@ -12341,9 +12348,9 @@ Instruction:
         (WRITE.32[(INDEX.I)].result1
           (ZX.32
             (CTZ.32 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: CTZHQ
     what: Count Trailing Zeroes Half Word Quadruple
     formats: [ ALU_HQBWRE, ALU_HQBWRO ]
@@ -12359,7 +12366,7 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ZX.16
             (CTZ.16 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: CTZHO
     what: Count Trailing Zeroes Half Word Octuple
     formats: [ ALU_HOBWR ]
@@ -12375,7 +12382,9 @@ Instruction:
         (WRITE.16[(INDEX.I)].result1
           (ZX.16
             (CTZ.16 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
+
+#ifdef _LVX_V2_
 
   - ID: WIDENZWDP
     what: Zero Widen Word to Double Word Pair
@@ -12691,6 +12700,8 @@ Instruction:
               (CONST.4)))))
 #endif//INDEX4
 
+#endif//_LVX_V2_
+
 #if 0// ndef SIMD128
   - ID: EXTLZWD
     what: Extend Lane with Zero Word to Double Word
@@ -12713,7 +12724,7 @@ Instruction:
           (SKIP))
         (WRITE.64[0].result1
           (ZX.32 (READ.64[0].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLZWDP
     what: Extend Lane with Zero Word to Double Word Pair
     formats: [ ALU_DPEXTLWR ]
@@ -12738,7 +12749,7 @@ Instruction:
         (FOR.I (RANGE.2)
           (WRITE.64[(INDEX.I)].result1
             (ZX.32 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
   - ID: EXTLZHWP
@@ -12765,7 +12776,7 @@ Instruction:
         (FOR.I (RANGE.2)
           (WRITE.32[(INDEX.I)].result1
             (ZX.16 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLZHWQ
     what: Extend Lane with Zero Half Word to Word Quadruple
     formats: [ ALU_WQEXTLWR ]
@@ -12790,7 +12801,7 @@ Instruction:
         (FOR.I (RANGE.4)
           (WRITE.32[(INDEX.I)].result1
             (ZX.16 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
   - ID: EXTLZBHQ
@@ -12817,7 +12828,7 @@ Instruction:
         (FOR.I (RANGE.4)
           (WRITE.16[(INDEX.I)].result1
             (ZX.8 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLZBHO
     what: Extend Lane with Zero Byte to Half Word Octuple
     formats: [ ALU_HOEXTLWR ]
@@ -12842,10 +12853,10 @@ Instruction:
         (FOR.I (RANGE.8)
           (WRITE.16[(INDEX.I)].result1
             (ZX.8 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLZNBX
     what: Extend Lane with Zero Nibble to Byte Hexadecuple
     formats: [ ALU_BXEXTLWR ]
@@ -12870,7 +12881,7 @@ Instruction:
         (FOR.I (RANGE.16)
           (WRITE.8[(INDEX.I)].result1
             (ZX.4 (READ.8[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
   - ID: EXTLSWD
@@ -12894,7 +12905,7 @@ Instruction:
           (SKIP))
         (WRITE.64[0].result1
           (SX.32 (READ.64[0].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLSWDP
     what: Extend Lane with Sign Word to Double Word Pair
     formats: [ ALU_DPEXTLWR ]
@@ -12919,7 +12930,7 @@ Instruction:
         (FOR.I (RANGE.2)
           (WRITE.64[(INDEX.I)].result1
             (SX.32 (READ.64[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
   - ID: EXTLSHWP
@@ -12946,7 +12957,7 @@ Instruction:
         (FOR.I (RANGE.2)
           (WRITE.32[(INDEX.I)].result1
             (SX.16 (READ.32[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLSHWQ
     what: Extend Lane with Sign Half Word to Word Quadruple
     formats: [ ALU_WQEXTLWR ]
@@ -12971,7 +12982,7 @@ Instruction:
         (FOR.I (RANGE.4)
           (WRITE.32[(INDEX.I)].result1
             (SX.16 (READ.32[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
   - ID: EXTLSBHQ
@@ -12998,7 +13009,7 @@ Instruction:
         (FOR.I (RANGE.4)
           (WRITE.16[(INDEX.I)].result1
             (SX.8 (READ.16[(INDEX.I)].argument2)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLSBHO
     what: Extend Lane with Sign Byte to Half Word Octuple
     formats: [ ALU_HOEXTLWR ]
@@ -13023,10 +13034,10 @@ Instruction:
         (FOR.I (RANGE.8)
           (WRITE.16[(INDEX.I)].result1
             (SX.8 (READ.16[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLSNBX
     what: Extend Lane with Sign Nibble to Byte Hexadecuple
     formats: [ ALU_BXEXTLWR ]
@@ -13051,7 +13062,7 @@ Instruction:
         (FOR.I (RANGE.16)
           (WRITE.8[(INDEX.I)].result1
             (SX.4 (READ.8[(INDEX.I)].argument2)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
   - ID: EXTLQWD
@@ -13077,7 +13088,7 @@ Instruction:
           (SHL
             (READ.64[0].argument2)
               (CONST.32))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLQWDP
     what: Extend Lane Q31 Word to Double Word Pair
     formats: [ ALU_DPEXTLWR ]
@@ -13104,7 +13115,7 @@ Instruction:
             (SHL
               (READ.64[(INDEX.I)].argument2)
               (CONST.32)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
   - ID: EXTLQHWP
@@ -13133,7 +13144,7 @@ Instruction:
             (SHL
               (READ.32[(INDEX.I)].argument2)
               (CONST.16)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLQHWQ
     what: Extend Lane Q15 Half Word to Word Quadruple
     formats: [ ALU_WQEXTLWR ]
@@ -13160,7 +13171,7 @@ Instruction:
             (SHL
               (READ.32[(INDEX.I)].argument2)
               (CONST.16)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
   - ID: EXTLQBHQ
@@ -13189,7 +13200,7 @@ Instruction:
             (SHL
               (READ.16[(INDEX.I)].argument2)
               (CONST.8)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLQBHO
     what: Extend Lane Q7 Byte to Half Word Octuple
     formats: [ ALU_HOEXTLWR ]
@@ -13216,10 +13227,10 @@ Instruction:
             (SHL
               (READ.16[(INDEX.I)].argument2)
               (CONST.8)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
 #if 0// ndef SIMD128
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: EXTLQNBX
     what: Extend Lane Q3 Nibble to Byte Hexadecuple
     formats: [ ALU_BXEXTLWR ]
@@ -13246,7 +13257,7 @@ Instruction:
             (SHL
               (READ.8[(INDEX.I)].argument2)
               (CONST.4)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FCOMPD
     what: Floating-Point Compare Double Word
@@ -13268,7 +13279,7 @@ Instruction:
               (READ.argument2)
               (READ.argument3)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FCOMPDP
     what: Floating-Point Compare Double Word Pair
     class: FPU
@@ -13289,7 +13300,7 @@ Instruction:
               (READ.argument4)
               (READ.64[(INDEX.I)].argument2)
               (READ.64[(INDEX.I)].argument3)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FCOMPW
     what: Floating-Point Compare Word
@@ -13311,7 +13322,7 @@ Instruction:
               (READ.argument2)
               (READ.argument3)))))
 
-#ifndef SIMD128
+#if 0
   - ID: FCOMPWP
     what: Floating-Point Compare Word Pair
     formats: [ ALU_FWPCWRRE, ALU_FWPCWRRO, ALU_FWPCWRRE.M, ALU_FWPCWRRO.M ]
@@ -13331,7 +13342,7 @@ Instruction:
               (READ.argument4)
               (READ.32[(INDEX.I)].argument2)
               (READ.32[(INDEX.I)].argument3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FCOMPWQ
     what: Floating-Point Compare Word Quadruple
     formats: [ ALU_FWQCWRR, ALU_FWQCWRR.M ]
@@ -13351,7 +13362,7 @@ Instruction:
               (READ.argument4)
               (READ.32[(INDEX.I)].argument2)
               (READ.32[(INDEX.I)].argument3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FCOMPH
     what: Floating-Point Compare Half Word
@@ -13373,7 +13384,7 @@ Instruction:
               (READ.argument2)
               (READ.argument3)))))
 
-#ifndef SIMD128
+#if 0
   - ID: FCOMPHQ
     what: Floating-Point Compare Half Word Quadruple
     formats: [ ALU_FHQCWRRE, ALU_FHQCWRRO, ALU_FHQCWRRE.M, ALU_FHQCWRRO.M ]
@@ -13393,7 +13404,7 @@ Instruction:
               (READ.argument4)
               (READ.16[(INDEX.I)].argument2)
               (READ.16[(INDEX.I)].argument3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FCOMPHO
     what: Floating-Point Compare Half Word Octuple
     formats: [ ALU_FHOCWRR, ALU_FHOCWRR.M ]
@@ -13413,9 +13424,9 @@ Instruction:
               (READ.argument4)
               (READ.16[(INDEX.I)].argument2)
               (READ.16[(INDEX.I)].argument3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FCOMPND
     what: Floating-Point Compare Negate Double Word
     class: FPU
@@ -13436,7 +13447,7 @@ Instruction:
                 (READ.argument4)
                 (READ.argument2)
                 (READ.argument3))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FCOMPNDP
     what: Floating-Point Compare Negate Double Word Pair
     class: FPU
@@ -13459,9 +13470,9 @@ Instruction:
                 (READ.argument4)
                 (READ.64[(INDEX.I)].argument2)
                 (READ.64[(INDEX.I)].argument3))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FCOMPNWP
     what: Floating-Point Compare Negate Word Pair
     class: FPU
@@ -13484,7 +13495,7 @@ Instruction:
                 (READ.argument4)
                 (READ.32[(INDEX.I)].argument2)
                 (READ.32[(INDEX.I)].argument3))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FCOMPNWQ
     what: Floating-Point Compare Negate Word Quadruple
     class: FPU
@@ -13507,9 +13518,9 @@ Instruction:
                 (READ.argument4)
                 (READ.32[(INDEX.I)].argument2)
                 (READ.32[(INDEX.I)].argument3))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FCOMPNHQ
     what: Floating-Point Compare Negate Half Word Quadruple
     class: FPU
@@ -13532,7 +13543,7 @@ Instruction:
                 (READ.argument4)
                 (READ.16[(INDEX.I)].argument2)
                 (READ.16[(INDEX.I)].argument3))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FCOMPNHO
     what: Floating-Point Compare Negate Half Word Octuple
     class: FPU
@@ -13555,7 +13566,7 @@ Instruction:
                 (READ.argument4)
                 (READ.16[(INDEX.I)].argument2)
                 (READ.16[(INDEX.I)].argument3))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMIND
     what: Floating-Point Minimum Double Word
@@ -13572,7 +13583,7 @@ Instruction:
         (READ.argument2)
         (READ.argument3)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FMINDP
     what: Floating-Point Minimum Double Word Pair
     class: FPU
@@ -13591,7 +13602,7 @@ Instruction:
           (APPLY.64.f64_min
           (READ.64[(INDEX.I)].argument2)
           (READ.64[(INDEX.I)].argument3))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FMINW
     what: Floating-Point Minimum Word
@@ -13608,7 +13619,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FMINWP
     what: Floating-Point Minimum Word Pair
     class: FPU
@@ -13627,7 +13638,7 @@ Instruction:
           (APPLY.32.f32_min
           (READ.32[(INDEX.I)].argument2)
           (READ.32[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMINWQ
     what: Floating-Point Minimum Word Quadruple
     class: FPU
@@ -13646,7 +13657,7 @@ Instruction:
           (APPLY.32.f32_min
           (READ.32[(INDEX.I)].argument2)
           (READ.32[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMINH
     what: Floating-Point Minimum Half Word
@@ -13663,7 +13674,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FMINHQ
     what: Floating-Point Minimum Half Word Quadruple
     class: FPU
@@ -13682,7 +13693,7 @@ Instruction:
           (APPLY.16.f16_min
           (READ.16[(INDEX.I)].argument2)
           (READ.16[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMINHO
     what: Floating-Point Minimum Half Word Octuple
     class: FPU
@@ -13701,7 +13712,7 @@ Instruction:
           (APPLY.16.f16_min
           (READ.16[(INDEX.I)].argument2)
           (READ.16[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMINND
     what: Floating-Point Minimum Number Double Word
@@ -13718,7 +13729,7 @@ Instruction:
         (READ.argument2)
         (READ.argument3)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FMINNDP
     what: Floating-Point Minimum Number Double Word Pair
     class: FPU
@@ -13737,7 +13748,7 @@ Instruction:
           (APPLY.64.f64_minNum
           (READ.64[(INDEX.I)].argument2)
           (READ.64[(INDEX.I)].argument3))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FMINNW
     what: Floating-Point Minimum Number Word
@@ -13754,7 +13765,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FMINNWP
     what: Floating-Point Minimum Number Word Pair
     class: FPU
@@ -13773,7 +13784,7 @@ Instruction:
           (APPLY.32.f32_minNum
           (READ.32[(INDEX.I)].argument2)
           (READ.32[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMINNWQ
     what: Floating-Point Minimum Number Word Quadruple
     class: FPU
@@ -13792,7 +13803,7 @@ Instruction:
           (APPLY.32.f32_minNum
           (READ.32[(INDEX.I)].argument2)
           (READ.32[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMINNH
     what: Floating-Point Minimum Number Half Word
@@ -13809,7 +13820,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FMINNHQ
     what: Floating-Point Minimum Number Half Word Quadruple
     class: FPU
@@ -13828,7 +13839,7 @@ Instruction:
           (APPLY.16.f16_minNum
           (READ.16[(INDEX.I)].argument2)
           (READ.16[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMINNHO
     what: Floating-Point Minimum Number Half Word Octuple
     class: FPU
@@ -13847,7 +13858,7 @@ Instruction:
           (APPLY.16.f16_minNum
           (READ.16[(INDEX.I)].argument2)
           (READ.16[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMAXD
     what: Floating-Point Maximum Double Word
@@ -13864,7 +13875,7 @@ Instruction:
         (READ.argument2)
         (READ.argument3)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FMAXDP
     what: Floating-Point Maximum Double Word Pair
     class: FPU
@@ -13883,7 +13894,7 @@ Instruction:
           (APPLY.64.f64_max
           (READ.64[(INDEX.I)].argument2)
           (READ.64[(INDEX.I)].argument3))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FMAXW
     what: Floating-Point Maximum Word
@@ -13900,7 +13911,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FMAXWP
     what: Floating-Point Maximum Word Pair
     class: FPU
@@ -13919,7 +13930,7 @@ Instruction:
           (APPLY.32.f32_max
           (READ.32[(INDEX.I)].argument2)
           (READ.32[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMAXWQ
     what: Floating-Point Maximum Word Quadruple
     class: FPU
@@ -13938,7 +13949,7 @@ Instruction:
           (APPLY.32.f32_max
           (READ.32[(INDEX.I)].argument2)
           (READ.32[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMAXH
     what: Floating-Point Maximum Half Word
@@ -13955,7 +13966,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FMAXHQ
     what: Floating-Point Maximum Half Word Quadruple
     class: FPU
@@ -13974,7 +13985,7 @@ Instruction:
           (APPLY.16.f16_max
           (READ.16[(INDEX.I)].argument2)
           (READ.16[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMAXHO
     what: Floating-Point Maximum Half Word Octuple
     class: FPU
@@ -13993,7 +14004,7 @@ Instruction:
           (APPLY.16.f16_max
           (READ.16[(INDEX.I)].argument2)
           (READ.16[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMAXND
     what: Floating-Point Maximum Number Double Word
@@ -14010,7 +14021,7 @@ Instruction:
         (READ.argument2)
         (READ.argument3)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FMAXNDP
     what: Floating-Point Maximum Number Double Word Pair
     class: FPU
@@ -14029,7 +14040,7 @@ Instruction:
           (APPLY.64.f64_maxNum
           (READ.64[(INDEX.I)].argument2)
           (READ.64[(INDEX.I)].argument3))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FMAXNW
     what: Floating-Point Maximum Number Word
@@ -14046,7 +14057,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FMAXNWP
     what: Floating-Point Maximum Number Word Pair
     class: FPU
@@ -14065,7 +14076,7 @@ Instruction:
           (APPLY.32.f32_maxNum
           (READ.32[(INDEX.I)].argument2)
           (READ.32[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMAXNWQ
     what: Floating-Point Maximum Number Word Quadruple
     class: FPU
@@ -14084,7 +14095,7 @@ Instruction:
           (APPLY.32.f32_maxNum
           (READ.32[(INDEX.I)].argument2)
           (READ.32[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMAXNH
     what: Floating-Point Maximum Number Half Word
@@ -14101,7 +14112,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FMAXNHQ
     what: Floating-Point Maximum Number Half Word Quadruple
     class: FPU
@@ -14120,7 +14131,7 @@ Instruction:
           (APPLY.16.f16_maxNum
           (READ.16[(INDEX.I)].argument2)
           (READ.16[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMAXNHO
     what: Floating-Point Maximum Number Half Word Octuple
     class: FPU
@@ -14139,7 +14150,7 @@ Instruction:
           (APPLY.16.f16_maxNum
           (READ.16[(INDEX.I)].argument2)
           (READ.16[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSIGND
     what: Floating-Point Sign Transfer Double Word
@@ -14161,7 +14172,7 @@ Instruction:
             (READ.argument3)
             (CONST.0x8000000000000000))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FSIGNDP
     what: Floating-Point Sign Transfer Double Word Pair
     class: FPU
@@ -14184,7 +14195,7 @@ Instruction:
             (AND
               (READ.64[(INDEX.I)].argument3)
               (CONST.0x8000000000000000)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FSIGNW
     what: Floating-Point Sign Transfer Word
@@ -14206,7 +14217,7 @@ Instruction:
             (READ.argument3)
             (CONST.0x80000000))))
 
-#ifndef SIMD128
+#if 0
   - ID: FSIGNWP
     what: Floating-Point Sign Transfer Word Pair
     class: FPU
@@ -14229,7 +14240,7 @@ Instruction:
             (AND
               (READ.32[(INDEX.I)].argument3)
               (CONST.0x80000000)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FSIGNWQ
     what: Floating-Point Sign Transfer Word Quadruple
     class: FPU
@@ -14252,7 +14263,7 @@ Instruction:
             (AND
               (READ.32[(INDEX.I)].argument3)
               (CONST.0x80000000)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSIGNH
     what: Floating-Point Sign Transfer Half Word
@@ -14274,7 +14285,7 @@ Instruction:
             (READ.argument3)
             (CONST.0x8000))))
 
-#ifndef SIMD128
+#if 0
   - ID: FSIGNHQ
     what: Floating-Point Sign Transfer Half Word Quadruple
     class: FPU
@@ -14297,7 +14308,7 @@ Instruction:
             (AND
               (READ.16[(INDEX.I)].argument3)
               (CONST.0x8000)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FSIGNHO
     what: Floating-Point Sign Transfer Half Word Octuple
     class: FPU
@@ -14320,7 +14331,7 @@ Instruction:
             (AND
               (READ.16[(INDEX.I)].argument3)
               (CONST.0x8000)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSIGNND
     what: Floating-Point Sign Negate Transfer Double Word
@@ -14342,7 +14353,7 @@ Instruction:
             (NOT (READ.argument3))
             (CONST.0x8000000000000000))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FSIGNNDP
     what: Floating-Point Sign Negate Transfer Double Word Pair
     class: FPU
@@ -14365,7 +14376,7 @@ Instruction:
             (AND
               (NOT (READ.64[(INDEX.I)].argument3))
               (CONST.0x8000000000000000)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FSIGNNW
     what: Floating-Point Sign Negate Transfer Word
@@ -14387,7 +14398,7 @@ Instruction:
             (NOT (READ.argument3))
             (CONST.0x80000000))))
 
-#ifndef SIMD128
+#if 0
   - ID: FSIGNNWP
     what: Floating-Point Sign Negate Transfer Word Pair
     class: FPU
@@ -14410,7 +14421,7 @@ Instruction:
             (AND
               (NOT (READ.32[(INDEX.I)].argument3))
               (CONST.0x80000000)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FSIGNNWQ
     what: Floating-Point Sign Negate Transfer Word Quadruple
     class: FPU
@@ -14433,7 +14444,7 @@ Instruction:
             (AND
               (NOT (READ.32[(INDEX.I)].argument3))
               (CONST.0x80000000)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSIGNNH
     what: Floating-Point Sign Negate Transfer Half Word
@@ -14455,7 +14466,7 @@ Instruction:
             (NOT (READ.argument3))
             (CONST.0x8000))))
 
-#ifndef SIMD128
+#if 0
   - ID: FSIGNNHQ
     what: Floating-Point Sign Negate Transfer Half Word Quadruple
     class: FPU
@@ -14478,7 +14489,7 @@ Instruction:
             (AND
               (NOT (READ.16[(INDEX.I)].argument3))
               (CONST.0x8000)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FSIGNNHO
     what: Floating-Point Sign Negate Transfer Half Word Octuple
     class: FPU
@@ -14501,7 +14512,7 @@ Instruction:
             (AND
               (NOT (READ.16[(INDEX.I)].argument3))
               (CONST.0x8000)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSIGNMD
     what: Floating-Point Sign Combine Transfer Double Word
@@ -14521,7 +14532,7 @@ Instruction:
             (NOT (READ.argument3))
             (CONST.0x8000000000000000))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FSIGNMDP
     what: Floating-Point Sign Combine Transfer Double Word Pair
     class: FPU
@@ -14542,7 +14553,7 @@ Instruction:
             (AND
               (NOT (READ.64[(INDEX.I)].argument3))
               (CONST.0x8000000000000000)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FSIGNMW
     what: Floating-Point Sign Combine Transfer Word
@@ -14562,7 +14573,7 @@ Instruction:
             (NOT (READ.argument3))
             (CONST.0x80000000))))
 
-#ifndef SIMD128
+#if 0
   - ID: FSIGNMWP
     what: Floating-Point Sign Combine Transfer Double Word Pair
     class: FPU
@@ -14583,7 +14594,7 @@ Instruction:
             (AND
               (NOT (READ.32[(INDEX.I)].argument3))
               (CONST.0x80000000)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FSIGNMWQ
     what: Floating-Point Sign Combine Transfer Double Word Quadruple
     class: FPU
@@ -14604,7 +14615,7 @@ Instruction:
             (AND
               (NOT (READ.32[(INDEX.I)].argument3))
               (CONST.0x80000000)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSIGNMH
     what: Floating-Point Sign Combine Transfer Half Word
@@ -14624,7 +14635,7 @@ Instruction:
             (NOT (READ.argument3))
             (CONST.0x8000))))
 
-#ifndef SIMD128
+#if 0
   - ID: FSIGNMHQ
     what: Floating-Point Sign Combine Transfer Half Word Quadruple
     class: FPU
@@ -14645,7 +14656,7 @@ Instruction:
             (AND
               (NOT (READ.16[(INDEX.I)].argument3))
               (CONST.0x8000000000000000)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FSIGNMHO
     what: Floating-Point Sign Combine Transfer Half Word Octuple
     class: FPU
@@ -14666,7 +14677,7 @@ Instruction:
             (AND
               (NOT (READ.16[(INDEX.I)].argument3))
               (CONST.0x8000000000000000)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FLOATD
     what: Floating Point Conversion from Fixed-Point Double Word
@@ -14684,7 +14695,7 @@ Instruction:
           (READ.RM)
           (READ.argument2)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FLOATDP
     what: Floating Point Conversion from Fixed-Point Double Word Pair
     class: FPU
@@ -14704,7 +14715,7 @@ Instruction:
           (APPLY.64.i64_to_f64
             (READ.RM)
             (READ.64[(INDEX.I)].argument2))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FLOATW
     what: Floating Point Conversion from Fixed-Point
@@ -14742,8 +14753,8 @@ Instruction:
             (READ.RM)
             (READ.32[(INDEX.I)].argument2))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FLOATWQ
     what: Floating Point Conversion from Fixed-Point Word Quadruple
     class: FPU
@@ -14763,9 +14774,9 @@ Instruction:
           (APPLY.32.i32_to_f32
             (READ.RM)
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FLOATHQ
     what: Floating Point Conversion from Fixed-Point Half Word Quadruple
     class: FPU
@@ -14785,7 +14796,7 @@ Instruction:
           (APPLY.16.i16_to_f16
             (READ.RM)
             (READ.16[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FLOATHO
     what: Floating Point Conversion from Fixed-Point Half Word Octuple
     class: FPU
@@ -14805,7 +14816,7 @@ Instruction:
           (APPLY.16.i16_to_f16
             (READ.RM)
             (READ.16[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FLOATUD
     what: Floating Point Conversion from Unsigned Fixed-Point Double Word
@@ -14823,7 +14834,7 @@ Instruction:
           (READ.RM)
           (READ.argument2)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FLOATUDP
     what: Floating Point Conversion from Unsigned Fixed-Point Double Word Pair
     class: FPU
@@ -14843,7 +14854,7 @@ Instruction:
           (APPLY.64.ui64_to_f64
             (READ.RM)
             (READ.64[(INDEX.I)].argument2))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FLOATUW
     what: Floating Point Conversion from Unsigned Fixed-Point
@@ -14881,8 +14892,8 @@ Instruction:
             (READ.RM)
             (READ.32[(INDEX.I)].argument2))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FLOATUWQ
     what: Floating Point Conversion from Unsigned Fixed-Point Word Quadruple
     class: FPU
@@ -14902,9 +14913,9 @@ Instruction:
           (APPLY.32.ui32_to_f32
             (READ.RM)
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FLOATUHQ
     what: Floating Point Conversion from Unsigned Fixed-Point Half Word Quadruple
     class: FPU
@@ -14924,7 +14935,7 @@ Instruction:
           (APPLY.16.ui16_to_f16
             (READ.RM)
             (READ.16[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FLOATUHO
     what: Floating Point Conversion from Unsigned Fixed-Point Half Word Octuple
     class: FPU
@@ -14944,7 +14955,7 @@ Instruction:
           (APPLY.16.ui16_to_f16
             (READ.RM)
             (READ.16[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FLOATWD
     what: Floating Point Conversion from Fixed-Point Word to Double Word
@@ -15026,7 +15037,7 @@ Instruction:
           (READ.RM)
           (READ.argument2)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FIXEDDP
     what: Floating Point Conversion to Fixed-Point Double Word Pair
     class: FPU
@@ -15046,7 +15057,7 @@ Instruction:
           (APPLY.64.f64_to_i64
             (READ.RM)
             (READ.64[(INDEX.I)].argument2))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FIXEDW
     what: Floating Point Conversion to Fixed-Point
@@ -15084,8 +15095,8 @@ Instruction:
             (READ.RM)
             (READ.32[(INDEX.I)].argument2))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FIXEDWQ
     what: Floating Point Conversion to Fixed-Point Word Quadruple
     class: FPU
@@ -15105,9 +15116,9 @@ Instruction:
           (APPLY.32.f32_to_i32
             (READ.RM)
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FIXEDHQ
     what: Floating Point Conversion to Fixed-Point Half Word Quadruple
     class: FPU
@@ -15127,7 +15138,7 @@ Instruction:
           (APPLY.16.f16_to_i16
             (READ.RM)
             (READ.16[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FIXEDHO
     what: Floating Point Conversion to Fixed-Point Half Word Octuple
     class: FPU
@@ -15147,7 +15158,7 @@ Instruction:
           (APPLY.16.f16_to_i16
             (READ.RM)
             (READ.16[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FIXEDUD
     what: Floating Point Conversion to Unsigned Fixed-Point Double Word
@@ -15165,7 +15176,7 @@ Instruction:
           (READ.RM)
           (READ.argument2)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FIXEDUDP
     what: Floating Point Conversion to Unsigned Fixed-Point Double Word Pair
     class: FPU
@@ -15185,7 +15196,7 @@ Instruction:
           (APPLY.64.f64_to_ui64
             (READ.RM)
             (READ.64[(INDEX.I)].argument2))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FIXEDUW
     what: Floating Point Conversion to Unsigned Fixed-Point
@@ -15223,8 +15234,8 @@ Instruction:
             (READ.RM)
             (READ.32[(INDEX.I)].argument2))))
 
-#ifndef SIMD128
-#else//SIMD128
+#if 0
+#elif defined(_LVX_V2_)
   - ID: FIXEDUWQ
     what: Floating Point Conversion to Unsigned Fixed-Point Word Quadruple
     class: FPU
@@ -15244,9 +15255,9 @@ Instruction:
           (APPLY.32.f32_to_ui32
             (READ.RM)
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FIXEDUHQ
     what: Floating Point Conversion to Unsigned Fixed-Point Half Word Quadruple
     class: FPU
@@ -15266,7 +15277,7 @@ Instruction:
           (APPLY.16.f16_to_ui16
             (READ.RM)
             (READ.16[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FIXEDUHO
     what: Floating Point Conversion to Unsigned Fixed-Point Half Word Octuple
     class: FPU
@@ -15286,7 +15297,7 @@ Instruction:
           (APPLY.16.f16_to_ui16
             (READ.RM)
             (READ.16[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FIXEDWD
     what: Floating Point Conversion from Word to Fixed-Point Double Word
@@ -15505,7 +15516,7 @@ Instruction:
           (WRITE.result1
             (READ.64[0].product))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: MULDP
     what: Multiply Double Word Pair
     formats: [ ALU_DPMWRR ]
@@ -15559,7 +15570,7 @@ Instruction:
             (READ.64[1].product))
           (WRITE.64[(INDEX.I)].result1
             (READ.64[0].product))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: MULW
     what: Multiply Word
@@ -15612,7 +15623,7 @@ Instruction:
           (WRITE.result1
             (READ.32[0].product))))
 
-#ifndef SIMD128
+#if 0
   - ID: MULWP
     what: Multiply Word Pair
     formats: [ ALU_WPMWRRE, ALU_WPMWRRO ]
@@ -15666,10 +15677,10 @@ Instruction:
             (READ.32[1].product))
           (WRITE.32[(INDEX.I)].result1
             (READ.32[0].product))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MULWQ
     what: Multiply Word Quadruple
-    formats: [ ALU_WQMWRR, ALU_WQMWRR.M ]
+    formats: [ ALU_WQMWRR ]
     description: >
       The %3 and the %2 are interpreted as four words packed into 128 bits.
       The %3 and the %2 words are sign-extended or zero-extended from 32 bits, depending on the %4.
@@ -15720,9 +15731,9 @@ Instruction:
             (READ.32[1].product))
           (WRITE.32[(INDEX.I)].result1
             (READ.32[0].product))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MULHQ
     what: Multiply Half Word Quadruple
     formats: [ ALU_HQMWRRE, ALU_HQMWRRO ]
@@ -15776,10 +15787,10 @@ Instruction:
             (READ.16[1].product))
           (WRITE.16[(INDEX.I)].result1
             (READ.16[0].product))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MULHO
     what: Multiply Half Word Octuple
-    formats: [ ALU_HOMWRR, ALU_HOMWRR.M ]
+    formats: [ ALU_HOMWRR ]
     description: >
       The %3 and the %2 are interpreted as eight half words packed into 128 bits.
       The %3 and the %2 half words are sign-extended or zero-extended from 16 bits, depending on the %4.
@@ -15830,7 +15841,7 @@ Instruction:
             (READ.16[1].product))
           (WRITE.16[(INDEX.I)].result1
             (READ.16[0].product))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: MULND
     what: Multiply Negate Double Word
@@ -15883,7 +15894,7 @@ Instruction:
           (WRITE.result1
             (NEG (READ.64[0].product)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: MULNDP
     what: Multiply Negate Double Word Pair
     formats: [ ALU_DPMWRR ]
@@ -15937,7 +15948,7 @@ Instruction:
             (NEG (READ.64[1].product)))
           (WRITE.64[(INDEX.I)].result1
             (NEG (READ.64[0].product)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: MULNW
     what: Multiply Negate Word
@@ -15990,7 +16001,7 @@ Instruction:
           (WRITE.result1
             (NEG (READ.32[0].product)))))
 
-#ifndef SIMD128
+#if 0
   - ID: MULNWP
     what: Multiply Negate Word Pair
     formats: [ ALU_WPMWRRE, ALU_WPMWRRO ]
@@ -16044,10 +16055,10 @@ Instruction:
             (NEG (READ.32[1].product)))
           (WRITE.32[(INDEX.I)].result1
             (NEG (READ.32[0].product)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MULNWQ
     what: Multiply Negate Word Quadruple
-    formats: [ ALU_WQMWRR, ALU_WQMWRR.M ]
+    formats: [ ALU_WQMWRR ]
     description: >
       The %3 and the %2 are interpreted as four words packed into 128 bits.
       The %3 and the %2 words are sign-extended or zero-extended from 32 bits, depending on the %4.
@@ -16098,9 +16109,9 @@ Instruction:
             (NEG (READ.32[1].product)))
           (WRITE.32[(INDEX.I)].result1
             (NEG (READ.32[0].product)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MULNHQ
     what: Multiply Negate Half Word Quadruple
     formats: [ ALU_HQMWRRE, ALU_HQMWRRO ]
@@ -16154,10 +16165,10 @@ Instruction:
             (NEG (READ.16[1].product)))
           (WRITE.16[(INDEX.I)].result1
             (NEG (READ.16[0].product)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: MULNHO
     what: Multiply Negate Half Word Octuple
-    formats: [ ALU_HOMWRR, ALU_HOMWRR.M ]
+    formats: [ ALU_HOMWRR ]
     description: >
       The %3 and the %2 are interpreted as eight half words packed into 128 bits.
       The %3 and the %2 half words are sign-extended or zero-extended from 16 bits, depending on the %4.
@@ -16208,7 +16219,7 @@ Instruction:
             (NEG (READ.16[1].product)))
           (WRITE.16[(INDEX.I)].result1
             (NEG (READ.16[0].product)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: MULDQ
     what: Multiply Extend Double Word to Quadruple Word
@@ -16297,6 +16308,8 @@ Instruction:
           (SKIP))
         (WRITE.result1
           (READ.product)))
+
+#ifdef _LVX_V2_
 
   - ID: MULWDP
     what: Multiply Extend Word to Double Word Pair
@@ -16622,6 +16635,8 @@ Instruction:
           (WRITE.16[(INDEX.I)].result1
             (READ.product))))
 
+#endif//_LVX_V2_
+
 #if 0
   - ID: MULXHWP
     what: Multiply Extend Half Word to Word Pair
@@ -16838,6 +16853,8 @@ Instruction:
           (NEG
             (READ.product))))
 
+#ifdef _LVX_V2_
+
   - ID: MULNWDP
     what: Multiply Negate Extend Word to Double Word Pair
     formats: [ ALU_DPMEWRRE, ALU_DPMEWRRO ]
@@ -17044,6 +17061,8 @@ Instruction:
             (NEG
               (READ.product)))))
 
+#endif//_LVX_V2_
+
 #if 0
   - ID: MULNXHWP
     what: Multiply Negate Extend Half Word to Word Pair
@@ -17108,6 +17127,7 @@ Instruction:
               (READ.product)))))
 #endif
 
+#ifdef _LVX_V2_
   - ID: MULNXHWQ
     what: Multiply Negate Extend Half Word to Word Quadruple
     formats: [ ALU_WQMXWRR ]
@@ -17169,6 +17189,7 @@ Instruction:
           (WRITE.32[(INDEX.I)].result1
             (NEG
               (READ.product)))))
+#endif//_LVX_V2_
 
 #if 0
   - ID: MULNXBHQ
@@ -17234,6 +17255,7 @@ Instruction:
               (READ.product)))))
 #endif
 
+#ifdef _LVX_V2_
   - ID: MULNXBHO
     what: Multiply Negate Extend Byte to Half Word Octuple
     formats: [ ALU_HOMXWRR ]
@@ -17295,6 +17317,7 @@ Instruction:
           (WRITE.16[(INDEX.I)].result1
             (NEG
               (READ.product)))))
+#endif//_LVX_V2_
 
   - ID: MADDD
     what: Multiply Add Double Word
@@ -17351,7 +17374,7 @@ Instruction:
               (READ.argument1)
               (READ.64[0].product)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: MADDDP
     what: Multiply Add Double Word Pair
     formats: [ ALU_DPMWRRR ]
@@ -17409,7 +17432,7 @@ Instruction:
             (ADD
               (READ.64[(INDEX.I)].argument1)
               (READ.64[0].product)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: MADDW
     what: Multiply Add Word
@@ -17466,7 +17489,7 @@ Instruction:
               (READ.argument1)
               (READ.32[0].product)))))
 
-#ifndef SIMD128
+#if 0
   - ID: MADDWP
     what: Multiply Add Word Pair
     formats: [ ALU_WPMWRRRE, ALU_WPMWRRRO ]
@@ -17524,10 +17547,10 @@ Instruction:
             (ADD
               (READ.32[(INDEX.I)].argument1)
               (READ.32[0].product)))))
-#else//SIMD128
-#endif//SIMD128
+#elif defined(_LVX_V2_)
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MADDHQ
     what: Multiply Add Half Word Quadruple
     formats: [ ALU_HQMWRRRE, ALU_HQMWRRRO ]
@@ -17585,8 +17608,8 @@ Instruction:
             (ADD
               (READ.16[(INDEX.I)].argument1)
               (READ.16[0].product)))))
-#else//SIMD128
-#endif//SIMD128
+#elif defined(_LVX_V2_)
+#endif//_LVX_V2_
 
   - ID: MADDDQ
     what: Multiply Add Extend Double Word to Quadruple Word
@@ -17679,6 +17702,8 @@ Instruction:
           (ADD
             (READ.argument1)
             (READ.product))))
+
+#ifdef _LVX_V2_
 
   - ID: MADDWDP
     what: Multiply Add Extend Word to Double Word Pair
@@ -17890,6 +17915,8 @@ Instruction:
               (READ.64[(INDEX.I)].argument1)
               (READ.product)))))
 
+#endif//_LVX_V2_
+
 #if 0
   - ID: MADDXHWP
     what: Multiply Add Extend Half Word to Word Pair
@@ -17955,6 +17982,7 @@ Instruction:
               (READ.product)))))
 #endif
 
+#ifdef _LVX_V2_
   - ID: MADDXHWQ
     what: Multiply Add Extend Half Word to Word Quadruple
     formats: [ ALU_WQMXWRRR ]
@@ -18017,6 +18045,7 @@ Instruction:
             (ADD
               (READ.32[(INDEX.I)].argument1)
               (READ.product)))))
+#endif//_LVX_V2_
 
 #if 0
   - ID: MADDXBHQ
@@ -18083,6 +18112,7 @@ Instruction:
               (READ.product)))))
 #endif
 
+#ifdef _LVX_V2_
   - ID: MADDXBHO
     what: Multiply Add Extend Byte to Half Word Octuple
     formats: [ ALU_HOMXWRRR ]
@@ -18145,6 +18175,7 @@ Instruction:
             (ADD
               (READ.16[(INDEX.I)].argument1)
               (READ.product)))))
+#endif//_LVX_V2_
 
   - ID: MSBFD
     what: Multiply Subtract From Double Word
@@ -18201,7 +18232,7 @@ Instruction:
               (READ.argument1)
               (READ.64[0].product)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: MSBFDP
     what: Multiply Subtract From Double Word Pair
     formats: [ ALU_DPMWRRR ]
@@ -18259,7 +18290,7 @@ Instruction:
             (SUB
               (READ.64[(INDEX.I)].argument1)
               (READ.64[0].product)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: MSBFW
     what: Multiply Subtract From Word
@@ -18316,7 +18347,7 @@ Instruction:
               (READ.argument1)
               (READ.32[0].product)))))
 
-#ifndef SIMD128
+#if 0
   - ID: MSBFWP
     what: Multiply Subtract From Word Pair
     formats: [ ALU_WPMWRRRE, ALU_WPMWRRRO ]
@@ -18374,10 +18405,10 @@ Instruction:
             (SUB
               (READ.32[(INDEX.I)].argument1)
               (READ.32[0].product)))))
-#else//SIMD128
-#endif//SIMD128
+#elif defined(_LVX_V2_)
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: MSBFHQ
     what: Multiply Subtract From Half Word Quadruple
     formats: [ ALU_HQMWRRRE, ALU_HQMWRRRO ]
@@ -18435,8 +18466,8 @@ Instruction:
             (SUB
               (READ.16[(INDEX.I)].argument1)
               (READ.16[0].product)))))
-#else//SIMD128
-#endif//SIMD128
+#elif defined(_LVX_V2_)
+#endif//_LVX_V2_
 
   - ID: MSBFDQ
     what: Multiply Subtract From Extend Double Word to Quadruple Word
@@ -18529,6 +18560,8 @@ Instruction:
           (SUB
             (READ.argument1)
             (READ.product))))
+
+#ifdef _LVX_V2_
 
   - ID: MSBFWDP
     what: Multiply Subtract From Extend Word to Double Word Pair
@@ -18740,6 +18773,8 @@ Instruction:
               (READ.64[(INDEX.I)].argument1)
               (READ.product)))))
 
+#endif//_LVX_V2_
+
 #if 0
   - ID: MSBFXHWP
     what: Multiply Subtract From Extend Half Word to Word Pair
@@ -18805,6 +18840,7 @@ Instruction:
               (READ.product)))))
 #endif
 
+#ifdef _LVX_V2_
   - ID: MSBFXHWQ
     what: Multiply Subtract From Extend Half Word to Word Quadruple
     formats: [ ALU_WQMXWRRR ]
@@ -18867,6 +18903,7 @@ Instruction:
             (SUB
               (READ.32[(INDEX.I)].argument1)
               (READ.product)))))
+#endif//_LVX_V2_
 
 #if 0
   - ID: MSBFXBHQ
@@ -18933,6 +18970,7 @@ Instruction:
               (READ.product)))))
 #endif
 
+#ifdef _LVX_V2_
   - ID: MSBFXBHO
     what: Multiply Subtract From Extend Byte to Half Word Octuple
     formats: [ ALU_HOMXWRRR ]
@@ -18995,6 +19033,7 @@ Instruction:
             (SUB
               (READ.16[(INDEX.I)].argument1)
               (READ.product)))))
+#endif//_LVX_V2_
 
   - ID: DIVMODD
     what: Integer Division Modulus Double Word
@@ -19162,7 +19201,7 @@ Instruction:
               (SX.32 (READ.64[1].result1))))
             (SKIP)))
 
-#ifndef SIMD128
+#if 0
   - ID: TRUNCDWP
     what: Truncate Double Word to Word Pair
     formats: [ ALU_WPNWRR ]
@@ -19177,7 +19216,7 @@ Instruction:
       (SEQ
         (WRITE.32[0].result1 (READ.64[0].argument2))
         (WRITE.32[1].result1 (READ.64[1].argument2)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: TRUNCDWQ
     what: Truncate Double Word to Word Quadruple
     formats: [ ALU_WQNWRR ]
@@ -19211,9 +19250,9 @@ Instruction:
           (WRITE.32[1].result1 (READ.64[1].argument2))
           (WRITE.32[2].result1 (READ.64[0].argument3))
           (WRITE.32[3].result1 (READ.64[1].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: TRUNCWHQ
     what: Truncate Word to Half Word Quadruple
     formats: [ ALU_HQNWRR ]
@@ -19247,7 +19286,7 @@ Instruction:
           (WRITE.16[1].result1 (READ.32[1].argument2))
           (WRITE.16[2].result1 (READ.32[2].argument2))
           (WRITE.16[3].result1 (READ.32[3].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: TRUNCWHO
     what: Truncate Word to Half Word Octuple
     formats: [ ALU_HONWRR ]
@@ -19297,9 +19336,9 @@ Instruction:
           (WRITE.16[5].result1 (READ.32[1].argument3))
           (WRITE.16[6].result1 (READ.32[2].argument3))
           (WRITE.16[7].result1 (READ.32[3].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: TRUNCHBO
     what: Truncate Half Word to Byte Octuple
     formats: [ ALU_BONWRR ]
@@ -19349,7 +19388,7 @@ Instruction:
           (WRITE.8[5].result1 (READ.16[5].argument2))
           (WRITE.8[6].result1 (READ.16[6].argument2))
           (WRITE.8[7].result1 (READ.16[7].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: TRUNCHBX
     what: Truncate Half Word to Byte Hexadecuple
     formats: [ ALU_BXNWRR ]
@@ -19431,9 +19470,9 @@ Instruction:
           (WRITE.8[13].result1 (READ.16[5].argument3))
           (WRITE.8[14].result1 (READ.16[6].argument3))
           (WRITE.8[15].result1 (READ.16[7].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FRACTDWP
     what: Fraction Double Word to Word Pair
     formats: [ ALU_WPNWRR ]
@@ -19448,7 +19487,7 @@ Instruction:
       (SEQ
         (WRITE.32[0].result1 (READ.32[1].argument2))
         (WRITE.32[1].result1 (READ.32[3].argument2)))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FRACTDWQ
     what: Fraction Double Word to Word Quadruple
     formats: [ ALU_WQNWRR ]
@@ -19482,9 +19521,9 @@ Instruction:
           (WRITE.32[1].result1 (READ.32[3].argument2))
           (WRITE.32[2].result1 (READ.32[1].argument3))
           (WRITE.32[3].result1 (READ.32[3].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FRACTWHQ
     what: Fraction Word to Half Word Quadruple
     formats: [ ALU_HQNWRR ]
@@ -19518,7 +19557,7 @@ Instruction:
           (WRITE.16[1].result1 (READ.16[3].argument2))
           (WRITE.16[2].result1 (READ.16[5].argument2))
           (WRITE.16[3].result1 (READ.16[7].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FRACTWHO
     what: Fraction Word to Half Word Octuple
     formats: [ ALU_HONWRR ]
@@ -19568,9 +19607,9 @@ Instruction:
           (WRITE.16[5].result1 (READ.16[3].argument3))
           (WRITE.16[6].result1 (READ.16[5].argument3))
           (WRITE.16[7].result1 (READ.16[7].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FRACTHBO
     what: Fraction Half Word to Byte Octuple
     formats: [ ALU_BONWRR ]
@@ -19620,7 +19659,7 @@ Instruction:
           (WRITE.8[5].result1 (READ.8[11].argument2))
           (WRITE.8[6].result1 (READ.8[13].argument2))
           (WRITE.8[7].result1 (READ.8[15].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FRACTHBX
     what: Fraction Half Word to Byte Hexadecuple
     formats: [ ALU_BXNWRR ]
@@ -19702,7 +19741,7 @@ Instruction:
           (WRITE.8[13].result1 (READ.8[11].argument3))
           (WRITE.8[14].result1 (READ.8[13].argument3))
           (WRITE.8[15].result1 (READ.8[15].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: CRCBELMW
     what: Cyclic Redundancy Check Big-Endian Least Significant with Most Significant Word
@@ -19812,7 +19851,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FADDDP
     what: Floating-Point Add Double Word Pair
     class: FPU
@@ -19832,7 +19871,7 @@ Instruction:
             (READ.RM)
             (READ.64[(INDEX.I)].argument2)
             (READ.64[(INDEX.I)].argument3))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FADDW
     what: Floating-Point Add Word
@@ -19852,7 +19891,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FADDWP
     what: Floating-Point Add Word Pair
     class: FPU
@@ -19872,7 +19911,7 @@ Instruction:
             (READ.RM)
             (READ.32[(INDEX.I)].argument2)
             (READ.32[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FADDWQ
     what: Floating-Point Add Word Quadruple
     class: FPU
@@ -19892,7 +19931,7 @@ Instruction:
             (READ.RM)
             (READ.32[(INDEX.I)].argument2)
             (READ.32[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FADDH
     what: Floating-Point Add Half Word
@@ -19912,7 +19951,7 @@ Instruction:
           (READ.argument2)
           (READ.argument3)))
 
-#ifndef SIMD128
+#if 0
   - ID: FADDHQ
     what: Floating-Point Add Half Word Quadruple
     class: FPU
@@ -19932,7 +19971,7 @@ Instruction:
             (READ.RM)
             (READ.16[(INDEX.I)].argument2)
             (READ.16[(INDEX.I)].argument3))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FADDHO
     what: Floating-Point Add Half Word Octuple
     class: FPU
@@ -19952,7 +19991,7 @@ Instruction:
             (READ.RM)
             (READ.16[(INDEX.I)].argument2)
             (READ.16[(INDEX.I)].argument3))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSBFD
     what: Floating-Point Subtract From Double Word
@@ -19972,7 +20011,7 @@ Instruction:
           (READ.argument3)
           (READ.argument2)))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FSBFDP
     what: Floating-Point Subtract From Double Word Pair
     class: FPU
@@ -19992,7 +20031,7 @@ Instruction:
             (READ.RM)
             (READ.64[(INDEX.I)].argument3)
             (READ.64[(INDEX.I)].argument2))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FSBFW
     what: Floating-Point Subtract From Word
@@ -20012,7 +20051,7 @@ Instruction:
           (READ.argument3)
           (READ.argument2)))
 
-#ifndef SIMD128
+#if 0
   - ID: FSBFWP
     what: Floating-Point Subtract From Word Pair
     class: FPU
@@ -20032,7 +20071,7 @@ Instruction:
             (READ.RM)
             (READ.32[(INDEX.I)].argument3)
             (READ.32[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FSBFWQ
     what: Floating-Point Subtract From Word Quadruple
     class: FPU
@@ -20052,7 +20091,7 @@ Instruction:
             (READ.RM)
             (READ.32[(INDEX.I)].argument3)
             (READ.32[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FSBFH
     what: Floating-Point Subtract From Half Word
@@ -20072,7 +20111,7 @@ Instruction:
           (READ.argument3)
           (READ.argument2)))
 
-#ifndef SIMD128
+#if 0
   - ID: FSBFHQ
     what: Floating-Point Subtract From Half Word Quadruple
     class: FPU
@@ -20092,7 +20131,7 @@ Instruction:
             (READ.RM)
             (READ.16[(INDEX.I)].argument3)
             (READ.16[(INDEX.I)].argument2))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FSBFHO
     what: Floating-Point Subtract From Half Word Octuple
     class: FPU
@@ -20112,7 +20151,7 @@ Instruction:
             (READ.RM)
             (READ.16[(INDEX.I)].argument3)
             (READ.16[(INDEX.I)].argument2))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMULD
     what: Floating-Point Multiply Double Word
@@ -20140,7 +20179,7 @@ Instruction:
             (XOR (READ.argument2) (READ.fsign))
             (READ.argument3))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FMULDP
     what: Floating-Point Multiply Double Word Pair
     class: FPU
@@ -20168,7 +20207,7 @@ Instruction:
               (READ.RM)
               (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
               (READ.64[(INDEX.I)].argument3)))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FMULW
     what: Floating-Point Multiply Word
@@ -20196,7 +20235,7 @@ Instruction:
             (XOR (READ.argument2) (READ.fsign))
             (READ.argument3))))
 
-#ifndef SIMD128
+#if 0
   - ID: FMULWP
     what: Floating-Point Multiply Word Pair
     class: FPU
@@ -20224,7 +20263,7 @@ Instruction:
               (READ.RM)
               (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
               (READ.32[(INDEX.I)].argument3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMULWQ
     what: Floating-Point Multiply Word Quadruple
     class: FPU
@@ -20252,7 +20291,7 @@ Instruction:
               (READ.RM)
               (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
               (READ.32[(INDEX.I)].argument3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FMULH
     what: Floating-Point Multiply Half Word
@@ -20280,7 +20319,7 @@ Instruction:
             (XOR (READ.argument2) (READ.fsign))
             (READ.argument3))))
 
-#ifndef SIMD128
+#if 0
   - ID: FMULHQ
     what: Floating-Point Multiply Half Word Quadruple
     class: FPU
@@ -20308,7 +20347,7 @@ Instruction:
               (READ.RM)
               (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
               (READ.16[(INDEX.I)].argument3)))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FMULHO
     what: Floating-Point Multiply Half Word Octuple
     class: FPU
@@ -20336,7 +20375,7 @@ Instruction:
               (READ.RM)
               (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
               (READ.16[(INDEX.I)].argument3)))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FDIVD
     what: Floating-Point Divide Double Word
@@ -20446,7 +20485,7 @@ Instruction:
             (XOR (READ.argument2) (READ.fsign))
             (XOR (READ.argument1) (READ.fsign)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FFMADP
     what: Floating-Point Fused Multiply Add Double Word Pair
     class: FPU
@@ -20478,7 +20517,7 @@ Instruction:
               (READ.64[(INDEX.I)].argument3)
               (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FFMAW
     what: Floating-Point Fused Multiply Add Word
@@ -20534,7 +20573,7 @@ Instruction:
             (XOR (READ.argument2) (READ.fsign))
             (XOR (READ.argument1) (READ.fsign)))))
 
-#ifndef SIMD128
+#if 0
   - ID: FFMAWP
     what: Floating-Point Fused Multiply Add Word Pair
     class: FPU
@@ -20566,7 +20605,7 @@ Instruction:
               (READ.32[(INDEX.I)].argument3)
               (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FFMAWQ
     what: Floating-Point Fused Multiply Add Word Quadruple
     class: FPU
@@ -20598,9 +20637,9 @@ Instruction:
               (READ.32[(INDEX.I)].argument3)
               (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FFMAHQ
     what: Floating-Point Fused Multiply Add Half Word Quadruple
     class: FPU
@@ -20632,7 +20671,7 @@ Instruction:
               (READ.16[(INDEX.I)].argument3)
               (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FFMAHO
     what: Floating-Point Fused Multiply Add Half Word Octuple
     class: FPU
@@ -20664,7 +20703,7 @@ Instruction:
               (READ.16[(INDEX.I)].argument3)
               (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FFMSD
     what: Floating-Point Fused Multiply Subtract From Double Word
@@ -20693,7 +20732,7 @@ Instruction:
             (XOR (READ.argument2) (READ.fsign))
             (XOR (READ.argument1) (READ.fsign)))))
 
-#ifdef SIMDDP
+#ifdef _LVX_V2_
   - ID: FFMSDP
     what: Floating-Point Fused Multiply Subtract From Double Word Pair
     class: FPU
@@ -20725,7 +20764,7 @@ Instruction:
               (READ.64[(INDEX.I)].argument3)
               (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))))
-#endif//SIMDDP
+#endif//_LVX_V2_
 
   - ID: FFMSW
     what: Floating-Point Fused Multiply Subtract From Word
@@ -20781,7 +20820,7 @@ Instruction:
             (XOR (READ.argument2) (READ.fsign))
             (XOR (READ.argument1) (READ.fsign)))))
 
-#ifndef SIMD128
+#if 0
   - ID: FFMSWP
     what: Floating-Point Fused Multiply Subtract From Word Pair
     class: FPU
@@ -20813,7 +20852,7 @@ Instruction:
               (READ.32[(INDEX.I)].argument3)
               (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FFMSWQ
     what: Floating-Point Fused Multiply Subtract From Word Quadruple
     class: FPU
@@ -20845,9 +20884,9 @@ Instruction:
               (READ.32[(INDEX.I)].argument3)
               (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifndef SIMD128
+#if 0
   - ID: FFMSHQ
     what: Floating-Point Fused Multiply Subtract From Half Word Quadruple
     class: FPU
@@ -20879,7 +20918,7 @@ Instruction:
               (READ.16[(INDEX.I)].argument3)
               (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
-#else//SIMD128
+#elif defined(_LVX_V2_)
   - ID: FFMSHO
     what: Floating-Point Fused Multiply Subtract From Half Word Octuple
     class: FPU
@@ -20911,7 +20950,7 @@ Instruction:
               (READ.16[(INDEX.I)].argument3)
               (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
               (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: FADDWC
     what: Floating-Point Add to Word Complex
@@ -21159,6 +21198,8 @@ Instruction:
           (ZX.64 (READ.argument2))
           (SHL (READ.argument3) (CONST.64))))
 
+#ifdef _LVX_V2_
+
   - ID: XMOVETO
     what: Move To Extension Octuple Word
     formats: [ ALU_XMOVETO ]
@@ -21333,7 +21374,9 @@ Instruction:
     execution: *executionXALIGN
     behavior: *behaviorXALIGN
 
+#endif//_LVX_V2_
 
+#ifdef _RV64_
 
   - ID: LUI
     what: Load Upper Immediate
@@ -26212,4 +26255,6 @@ Instruction:
         (WRITE.rd (ZX.64 (CONST.0)))
         (WRITE.rd (ZX.64 (READ.rs1)))
       )
+
+#endif//_RV64_
 

@@ -1,0 +1,19 @@
+
+<Convention
+  ID=	"Convention-lvx_v1-"
+/>
+<Convention
+  ID=	"Convention-lvx_v1-regular"
+  argument=	"Register-lvx_v1-R0 Register-lvx_v1-R1 Register-lvx_v1-R2 Register-lvx_v1-R3 Register-lvx_v1-R4 Register-lvx_v1-R5 Register-lvx_v1-R6 Register-lvx_v1-R7 Register-lvx_v1-R8 Register-lvx_v1-R9 Register-lvx_v1-R10 Register-lvx_v1-R11"
+  callee=	"Register-lvx_v1-R14 Register-lvx_v1-R18 Register-lvx_v1-R19 Register-lvx_v1-R20 Register-lvx_v1-R21 Register-lvx_v1-R22 Register-lvx_v1-R23 Register-lvx_v1-R24 Register-lvx_v1-R25 Register-lvx_v1-R26 Register-lvx_v1-R27 Register-lvx_v1-R28 Register-lvx_v1-R29 Register-lvx_v1-R30 Register-lvx_v1-R31"
+  caller=	"Register-lvx_v1-R0 Register-lvx_v1-R1 Register-lvx_v1-R2 Register-lvx_v1-R3 Register-lvx_v1-R4 Register-lvx_v1-R5 Register-lvx_v1-R6 Register-lvx_v1-R7 Register-lvx_v1-R8 Register-lvx_v1-R9 Register-lvx_v1-R10 Register-lvx_v1-R11 Register-lvx_v1-R15 Register-lvx_v1-R16 Register-lvx_v1-R17 Register-lvx_v1-R32 Register-lvx_v1-R33 Register-lvx_v1-R34 Register-lvx_v1-R35 Register-lvx_v1-R36 Register-lvx_v1-R37 Register-lvx_v1-R38 Register-lvx_v1-R39 Register-lvx_v1-R40 Register-lvx_v1-R41 Register-lvx_v1-R42 Register-lvx_v1-R43 Register-lvx_v1-R44 Register-lvx_v1-R45 Register-lvx_v1-R46 Register-lvx_v1-R47 Register-lvx_v1-R48 Register-lvx_v1-R49 Register-lvx_v1-R50 Register-lvx_v1-R51 Register-lvx_v1-R52 Register-lvx_v1-R53 Register-lvx_v1-R54 Register-lvx_v1-R55 Register-lvx_v1-R56 Register-lvx_v1-R57 Register-lvx_v1-R58 Register-lvx_v1-R59 Register-lvx_v1-R60 Register-lvx_v1-R61 Register-lvx_v1-R62 Register-lvx_v1-R63"
+  frame=	"Register-lvx_v1-R14"
+  local=	"Register-lvx_v1-R13"
+  program=	"Register-lvx_v1-PC"
+  reserved=	"Register-lvx_v1-R12 Register-lvx_v1-R13"
+  result=	"Register-lvx_v1-R0 Register-lvx_v1-R1 Register-lvx_v1-R2 Register-lvx_v1-R3"
+  return=	"Register-lvx_v1-RA"
+  stack=	"Register-lvx_v1-R12"
+  struct=	"Register-lvx_v1-R15"
+  veneer=	"Register-lvx_v1-R16 Register-lvx_v1-R17"
+/>

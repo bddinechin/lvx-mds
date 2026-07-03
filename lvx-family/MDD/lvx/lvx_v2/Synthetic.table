@@ -1,0 +1,276 @@
+
+<Synthetic
+  ID=	"Synthetic-lvx_v2-"
+  formats=	"Format-lvx_v2-"
+  instruction=	"Instruction-lvx_v2-"
+  mnemonic=	"#UNDEF"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:SBMM8"
+  formats=	"Format-lvx_v2-ALU_DBMWRR Format-lvx_v2-ALU_DBMWRR.M Format-lvx_v2-ALU_DBMWRI Format-lvx_v2-ALU_DBMWRI.X Format-lvx_v2-ALU_DBMWRI.Y"
+  instruction=	"Instruction-lvx_v2-ALU:SBMM8D"
+  mnemonic=	"sbmm8"
+  syntax=	"%0 %1 = %2, %3"
+  what=	"Swapped Bit Matrix Multiplication 8$\times$8"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:SBMMT8"
+  formats=	"Format-lvx_v2-ALU_DBMWRR Format-lvx_v2-ALU_DBMWRR.M Format-lvx_v2-ALU_DBMWRI Format-lvx_v2-ALU_DBMWRI.X Format-lvx_v2-ALU_DBMWRI.Y"
+  instruction=	"Instruction-lvx_v2-ALU:SBMMT8D"
+  mnemonic=	"sbmmt8"
+  syntax=	"%0 %1 = %2, %3"
+  what=	"Swapped Bit Matrix Multiplication Transposed 8$\times$8"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:COPYQ"
+  formats=	"Format-lvx_v2-ALU_CATDQ"
+  instruction=	"Instruction-lvx_v2-ALU:CATDQ"
+  mnemonic=	"copyq"
+  syntax=	"%0 %1 = %2, %3"
+  what=	"Copy Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:COPYD"
+  forced=	"%3"
+  formats=	"Format-lvx_v2-ALU_DWRI"
+  instruction=	"Instruction-lvx_v2-ALU:IORD"
+  mnemonic=	"copyd"
+  syntax=	"%0 %1 = %2"
+  values=	"0"
+  what=	"Copy Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-BCU:ERROP"
+  forced=	"%1 %2 %3 %4"
+  formats=	"Format-lvx_v2-BCU_CCB"
+  instruction=	"Instruction-lvx_v2-BCU:CCB"
+  mnemonic=	"errop"
+  syntax=	"%0"
+  values=	"0 0 0 0"
+  what=	"Error opcode."
+><Execution>
+stage RR:
+_THROW(OPCODE);
+</Execution><Behavior>
+(THROW.ID.OPCODE)
+</Behavior></Synthetic>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:ZXBD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  instruction=	"Instruction-lvx_v2-ALU:EXTFZ"
+  mnemonic=	"zxbd"
+  syntax=	"%0 %1 = %2"
+  values=	"7 0"
+  what=	"Zero Extend Byte to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:SXBD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  instruction=	"Instruction-lvx_v2-ALU:EXTFS"
+  mnemonic=	"sxbd"
+  syntax=	"%0 %1 = %2"
+  values=	"7 0"
+  what=	"Sign Extend Byte to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:ZXHD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  instruction=	"Instruction-lvx_v2-ALU:EXTFZ"
+  mnemonic=	"zxhd"
+  syntax=	"%0 %1 = %2"
+  values=	"15 0"
+  what=	"Zero Extend Half Word to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:SXHD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  instruction=	"Instruction-lvx_v2-ALU:EXTFS"
+  mnemonic=	"sxhd"
+  syntax=	"%0 %1 = %2"
+  values=	"15 0"
+  what=	"Sign Extend Half Word to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:ZXWD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  instruction=	"Instruction-lvx_v2-ALU:EXTFZ"
+  mnemonic=	"zxwd"
+  syntax=	"%0 %1 = %2"
+  values=	"31 0"
+  what=	"Zero Extend Word to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:SXWD"
+  forced=	"%3 %4"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  instruction=	"Instruction-lvx_v2-ALU:EXTFS"
+  mnemonic=	"sxwd"
+  syntax=	"%0 %1 = %2"
+  values=	"31 0"
+  what=	"Sign Extend Word to Double Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:COPYW"
+  forced=	"%3"
+  formats=	"Format-lvx_v2-ALU_WSWRI"
+  instruction=	"Instruction-lvx_v2-ALU:SLLW"
+  mnemonic=	"copyw"
+  syntax=	"%0%4 %1 = %2"
+  values=	"0"
+  what=	"Copy Word"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MULDT"
+  forced=	"%4"
+  formats=	"Format-lvx_v2-ALU_QMEWRR"
+  instruction=	"Instruction-lvx_v2-ALU:MULDQ"
+  mnemonic=	"muldt"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"0"
+  what=	"alias of MULDQ"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MULUDT"
+  forced=	"%4"
+  formats=	"Format-lvx_v2-ALU_QMEWRR"
+  instruction=	"Instruction-lvx_v2-ALU:MULDQ"
+  mnemonic=	"muludt"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1"
+  what=	"alias of MULDQ.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MULSUDT"
+  forced=	"%4"
+  formats=	"Format-lvx_v2-ALU_QMEWRR"
+  instruction=	"Instruction-lvx_v2-ALU:MULDQ"
+  mnemonic=	"mulsudt"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2"
+  what=	"alias of MULDQ.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MADDDT"
+  forced=	"%4"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx_v2-ALU:MADDDQ"
+  mnemonic=	"madddt"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"0"
+  what=	"alias of MADDDQ"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MADDUDT"
+  forced=	"%4"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx_v2-ALU:MADDDQ"
+  mnemonic=	"maddudt"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1"
+  what=	"alias of MADDDQ.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MADDSUDT"
+  forced=	"%4"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx_v2-ALU:MADDDQ"
+  mnemonic=	"maddsudt"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2"
+  what=	"alias of MADDDQ.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MSBFDT"
+  forced=	"%4"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx_v2-ALU:MSBFDQ"
+  mnemonic=	"msbfdt"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"0"
+  what=	"alias of MSBFDQ"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MSBFUDT"
+  forced=	"%4"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx_v2-ALU:MSBFDQ"
+  mnemonic=	"msbfudt"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1"
+  what=	"alias of MSBFDQ.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MSBFSUDT"
+  forced=	"%4"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  instruction=	"Instruction-lvx_v2-ALU:MSBFDQ"
+  mnemonic=	"msbfsudt"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2"
+  what=	"alias of MSBFDQ.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MULUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx_v2-ALU_DMEWRR Format-lvx_v2-ALU_DMEWRR.M"
+  instruction=	"Instruction-lvx_v2-ALU:MULWD"
+  mnemonic=	"muluwd"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1 0"
+  what=	"alias of MULWD.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MULSUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx_v2-ALU_DMEWRR Format-lvx_v2-ALU_DMEWRR.M"
+  instruction=	"Instruction-lvx_v2-ALU:MULWD"
+  mnemonic=	"mulsuwd"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2 0"
+  what=	"alias of MULWD.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MADDUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx_v2-ALU_DMEWRRR Format-lvx_v2-ALU_DMEWRRR.M"
+  instruction=	"Instruction-lvx_v2-ALU:MADDWD"
+  mnemonic=	"madduwd"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1 0"
+  what=	"alias of MADDWD.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MADDSUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx_v2-ALU_DMEWRRR Format-lvx_v2-ALU_DMEWRRR.M"
+  instruction=	"Instruction-lvx_v2-ALU:MADDWD"
+  mnemonic=	"maddsuwd"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2 0"
+  what=	"alias of MADDWD.SU"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MSBFUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx_v2-ALU_DMEWRRR Format-lvx_v2-ALU_DMEWRRR.M"
+  instruction=	"Instruction-lvx_v2-ALU:MSBFWD"
+  mnemonic=	"msbfuwd"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"1 0"
+  what=	"alias of MSBFWD.U"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v2-ALU:MSBFSUWD"
+  forced=	"%4 %5"
+  formats=	"Format-lvx_v2-ALU_DMEWRRR Format-lvx_v2-ALU_DMEWRRR.M"
+  instruction=	"Instruction-lvx_v2-ALU:MSBFWD"
+  mnemonic=	"msbfsuwd"
+  syntax=	"%0 %1 = %2, %3"
+  values=	"2 0"
+  what=	"alias of MSBFWD.SU"
+/>

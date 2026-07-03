@@ -339,7 +339,7 @@ Modifier:
       - Splat x2
     execution: "_ZX_1(%0)"
 
-
+#ifdef _RV64_
 
   - ID: ordering
     what: Fence predecessor and successor ordering
@@ -387,4 +387,5 @@ Modifier:
       - Dynamic rounding mode
     execution: "_ZX_3(%0)"
 
+#endif//_RV64_
 

@@ -1,0 +1,354 @@
+
+<Reservation
+  ID=	"Reservation-lvx_v2-"
+  requirements=	"0"
+  resources=	"Resource-lvx_v2-"
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALL"
+  requirements=	"8"
+  resources=	"Resource-lvx_v2-ISSUE"
+  what=	"Instruction must be alone in instruction bundle."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_TINY"
+  requirements=	"1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY"
+  what=	"Instruction must issue on one of the four TINY units."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_TINY.X"
+  requirements=	"2 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY"
+  what=	"Instruction with one immediate extension, must issue on one of the four TINY units."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_TINY.Y"
+  requirements=	"3 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY"
+  what=	"Instruction with two immediate extensions, must issue on one of the four TINY units."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_TINY_AUXR"
+  requirements=	"1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-AUXR"
+  what=	"Instruction must issue on one of the four TINY units, and requires an auxiliary read port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_LITE"
+  requirements=	"1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-LITE Resource-lvx_v2-TINY"
+  what=	"Instruction must issue on one of the two LITE units."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_LITE.X"
+  requirements=	"2 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-LITE Resource-lvx_v2-TINY"
+  what=	"Instruction with one immediate extension, must issue on one of the two LITE units."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_LITE.Y"
+  requirements=	"3 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-LITE Resource-lvx_v2-TINY"
+  what=	"Instruction with two immediate extensions, must issue on one of the two LITE units."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_LITE_MISC"
+  requirements=	"1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-LITE Resource-lvx_v2-TINY Resource-lvx_v2-SR12"
+  what=	"Instruction must issue on one of the two LITE units and used the write port of the MISC unit."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_FULL"
+  requirements=	"1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LITE Resource-lvx_v2-FULL"
+  what=	"Instruction must issue on the ALU0."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_FULL.X"
+  requirements=	"2 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LITE Resource-lvx_v2-FULL"
+  what=	"Instruction with one immediate extension, must issue on the ALU0."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-ALU_FULL.Y"
+  requirements=	"3 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LITE Resource-lvx_v2-FULL"
+  what=	"Instruction with two immediate extensions, must issue on the ALU0."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-BCU"
+  requirements=	"1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-BCU"
+  what=	"Instruction must issue on the BCU."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-BCU_BRRP"
+  requirements=	"1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-BCU Resource-lvx_v2-SR15"
+  what=	"Instruction must issue on the BCU and reads a general register."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-BCU_BRRP2"
+  requirements=	"1 1 2"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-BCU Resource-lvx_v2-SR15"
+  what=	"Instruction uses a BCU and two register read ports."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-BCU2"
+  requirements=	"1 2"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-BCU"
+  what=	"Instruction uses the two BCUs and one issue slot."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-BCU2.X"
+  requirements=	"2 2"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-BCU"
+  what=	"Instruction uses the two BCUs and two issue slots."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-BCU_XFER"
+  requirements=	"1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-BCU Resource-lvx_v2-XFER"
+  what=	"Instruction uses a BCU and unconditionally transfers control."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-BCU_XFER_BRRP"
+  requirements=	"1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-BCU Resource-lvx_v2-XFER Resource-lvx_v2-SR15"
+  what=	"Instruction uses a BCU, reads a general register and unconditionally transfers control."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-BCU2_TINY_LSU"
+  requirements=	"1 2 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-BCU Resource-lvx_v2-TINY Resource-lvx_v2-LSU"
+  what=	"Instruction uses the two BCUs and uses the TINY LSU write port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU"
+  requirements=	"1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU"
+  what=	"Instruction must issue on the LSU."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU.X"
+  requirements=	"2 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU"
+  what=	"Instruction with one immediate extension, must issue on the LSU."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU.Y"
+  requirements=	"3 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU"
+  what=	"Instruction with two immediate extensions, must issue on the LSU."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_MEMW_ACCR"
+  requirements=	"1 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-MEMW Resource-lvx_v2-SR13"
+  what=	"Instruction must issue on the LSU and writes to memory."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_MEMW_ACCR.X"
+  requirements=	"2 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-MEMW Resource-lvx_v2-SR13"
+  what=	"Instruction with one immediate extension, must issue on the LSU and writes to memory."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_MEMW_ACCR.Y"
+  requirements=	"3 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-MEMW Resource-lvx_v2-SR13"
+  what=	"Instruction with two immediate extensions, must issue on the LSU and writes to memory."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW"
+  requirements=	"1 1 2 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-MEMW"
+  what=	"Instruction must issue on the LSU and no other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW.X"
+  requirements=	"2 1 2 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-MEMW"
+  what=	"Instruction must issue on the LSU with one immediate extension and no other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW.Y"
+  requirements=	"3 1 2 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-MEMW"
+  what=	"Instruction must issue on the LSU with two immediate extensions and no other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_AUXR"
+  requirements=	"1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR"
+  what=	"Instruction must issue on the LSU, and requires the auxiliary read port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_AUXR.X"
+  requirements=	"2 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR"
+  what=	"Instruction with one immediate extension, must issue on the LSU, and requires the auxiliary read port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_AUXR.Y"
+  requirements=	"3 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR"
+  what=	"Instruction with two immediate extensions, must issue on the LSU, and requires the auxiliary read port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_MEMW_AUXR"
+  requirements=	"1 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-MEMW"
+  what=	"Instruction must issue on the LSU, writes to memory and requires the auxiliary read port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_MEMW_AUXR.X"
+  requirements=	"2 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-MEMW"
+  what=	"Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary read port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_MEMW_AUXR.Y"
+  requirements=	"3 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-MEMW"
+  what=	"Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary read port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW_AUXR"
+  requirements=	"1 1 2 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-MEMW"
+  what=	"Instruction must issue on the LSU, writes to memory and requires the auxiliary read port. No other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW_AUXR.X"
+  requirements=	"2 1 2 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-MEMW"
+  what=	"Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary read port. No other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW_AUXR.Y"
+  requirements=	"3 1 2 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-MEMW"
+  what=	"Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary read port. No other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_MEMW_AUXW"
+  requirements=	"1 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXW Resource-lvx_v2-MEMW"
+  what=	"Instruction must issue on the the LSU, writes to memory and requires the auxiliary write port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_MEMW_AUXW.X"
+  requirements=	"2 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXW Resource-lvx_v2-MEMW"
+  what=	"Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary write port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_MEMW_AUXW.Y"
+  requirements=	"3 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXW Resource-lvx_v2-MEMW"
+  what=	"Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary write port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW_AUXW"
+  requirements=	"1 1 2 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXW Resource-lvx_v2-MEMW"
+  what=	"Instruction must issue on the the LSU, writes to memory and requires the auxiliary write port. No other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW_AUXW.X"
+  requirements=	"2 1 2 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXW Resource-lvx_v2-MEMW"
+  what=	"Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary write port. No other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW_AUXW.Y"
+  requirements=	"3 1 2 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXW Resource-lvx_v2-MEMW"
+  what=	"Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary write port. No other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_AUXW"
+  requirements=	"1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXW"
+  what=	"Instruction must issue on the LSU, and requires the auxiliary write port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_AUXW.X"
+  requirements=	"2 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXW"
+  what=	"Instruction with one immediate extension, must issue on the LSU, and requires the auxiliary write port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_AUXW.Y"
+  requirements=	"3 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXW"
+  what=	"Instruction with two immediate extensions, must issue on the LSU, and requires the auxiliary write port."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_AUXR_AUXW"
+  requirements=	"1 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-AUXW"
+  what=	"Instruction must issue on the LSU, and requires the auxiliary read and write ports."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_AUXR_AUXW.X"
+  requirements=	"2 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-AUXW"
+  what=	"Instruction with one immediate extension, must issue on the LSU, and requires the auxiliary read and write ports."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU_AUXR_AUXW.Y"
+  requirements=	"3 1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-AUXW"
+  what=	"Instruction with two immediate extensions, must issue on the LSU, and requires the auxiliary read and write ports."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW_AUXR_AUXW"
+  requirements=	"1 1 2 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-AUXW Resource-lvx_v2-MEMW"
+  what=	"Instruction must issue on the LSU, writes to memory and requires the auxiliary read and write ports. No other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW_AUXR_AUXW.X"
+  requirements=	"2 1 2 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-AUXW Resource-lvx_v2-MEMW"
+  what=	"Instruction with one immediate extension, must issue on the LSU, writes to memory and requires the auxiliary read and write ports. No other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-LSU2_MEMW_AUXR_AUXW.Y"
+  requirements=	"3 1 2 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-TINY Resource-lvx_v2-LSU Resource-lvx_v2-AUXR Resource-lvx_v2-AUXW Resource-lvx_v2-MEMW"
+  what=	"Instruction with two immediate extensions, must issue on the LSU, writes to memory and requires the auxiliary read and write ports. No other LSU can issue."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-MAU"
+  requirements=	"1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-MAU"
+  what=	"Instruction must issue on the MAU."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-EXT"
+  requirements=	"1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-EXT"
+  what=	"Instruction must issue on the EXT."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-EXT_COMP"
+  requirements=	"1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-EXT Resource-lvx_v2-MAU"
+  what=	"Instruction must issue on the EXT, and requires the main computational unit (COMP)."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-EXT_MISC"
+  requirements=	"1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-EXT Resource-lvx_v2-SR12"
+  what=	"Instruction must issue on the EXT, and requires data move unit (MISC)."
+/>
+<Reservation
+  ID=	"Reservation-lvx_v2-EXT_MISC_AUXW"
+  requirements=	"1 1 1 1"
+  resources=	"Resource-lvx_v2-ISSUE Resource-lvx_v2-EXT Resource-lvx_v2-SR12 Resource-lvx_v2-AUXW"
+  what=	"Instruction must issue on the EXT, and requires an auxiliary write port."
+/>

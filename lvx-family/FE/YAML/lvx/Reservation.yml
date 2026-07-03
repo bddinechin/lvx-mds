@@ -1,6 +1,5 @@
 Reservation:
 
-
   - ID: ALL
     what: Instruction must be alone in instruction bundle.
     requirements: [ 8 ]

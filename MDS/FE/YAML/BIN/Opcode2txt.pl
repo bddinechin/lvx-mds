@@ -43,7 +43,6 @@ while (my ($instruction_ID, $instruction) = each %{$Instruction}) {
     my @formatIDs = @{$$instruction{formats}};
     my @schedulingIDs = @{$$instruction{schedulings}};
     my @pruned_formatIDs = grep { ! ($_ =~ /^\*/) } @formatIDs;
-    print STDERR "prune: @pruned_formatIDs\n";
     die "$instruction_ID: mismatched formats and schedulings" unless (@pruned_formatIDs == @schedulingIDs);
 # If die above, either fix description or fix @schedulingIDs like in ./MDD/MDE/BIN/Instruction.X.pl
     foreach my $format_ID (@{$$instruction{formats}}) {

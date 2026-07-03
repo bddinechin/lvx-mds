@@ -516,9 +516,13 @@ Storage:
     width: 1
     count: 64
 
+#ifdef _RV64_
+
   - ID: CSRS
     what: Control and System Registers Storage
     kind: Special
     width: 64
     count: 4096
+
+#endif//_RV64_
 

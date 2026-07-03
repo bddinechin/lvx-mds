@@ -1,0 +1,121 @@
+
+<Immediate
+  ID=	"Immediate-lvx_v1-"
+  extend=	"Unsigned"
+  what=	"Generic immediate"
+  width=	"0"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-pcrel11s2"
+  extend=	"Signed"
+  shift=	"2"
+  what=	"CCB Offset"
+  width=	"11"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-pcrel17s2"
+  extend=	"Signed"
+  shift=	"2"
+  what=	"CB Offset"
+  width=	"17"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-pcrel27s2"
+  extend=	"Signed"
+  shift=	"2"
+  what=	"GOTO / CALL Offset"
+  width=	"27"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-pcrel38s2"
+  extend=	"Signed"
+  shift=	"2"
+  what=	"CCB Offset Extended"
+  width=	"38"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-pcrel44s2"
+  extend=	"Signed"
+  shift=	"2"
+  what=	"CB Offset Extended"
+  width=	"44"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-pcrel54s2"
+  extend=	"Signed"
+  shift=	"2"
+  what=	"GOTO Offset Extended"
+  width=	"54"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-brknumber"
+  extend=	"Unsigned"
+  what=	"Break Number"
+  width=	"2"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-sysnumber"
+  extend=	"Unsigned"
+  what=	"System Number"
+  width=	"12"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-unsigned6"
+  extend=	"Unsigned"
+  what=	"Zero Extended Immediate 6 bits"
+  width=	"6"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-wrapped8"
+  extend=	"Wrap"
+  what=	"Wrapped Immediate 8 bits"
+  width=	"8"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-signed10"
+  extend=	"Signed"
+  what=	"Sign Extended Immediate 10 bits"
+  width=	"10"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-signed16"
+  extend=	"Signed"
+  what=	"Sign Extended Immediate 16 bits"
+  width=	"16"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-signed27"
+  extend=	"Signed"
+  what=	"Sign Extended Immediate 27 bits"
+  width=	"27"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-wrapped32"
+  extend=	"Wrap"
+  what=	"Wrapped Immediate 32 bits"
+  width=	"32"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-signed37"
+  extend=	"Signed"
+  what=	"Sign Extended Immediate 37 bits"
+  width=	"37"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-signed43"
+  extend=	"Signed"
+  what=	"Sign Extended Immediate 43 bits"
+  width=	"43"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-signed54"
+  extend=	"Signed"
+  what=	"Sign Extended Immediate 54 bits"
+  width=	"54"
+/>
+<Immediate
+  ID=	"Immediate-lvx_v1-wrapped64"
+  extend=	"Wrap"
+  what=	"Wrapped Immediate 64 bits"
+  width=	"64"
+/>

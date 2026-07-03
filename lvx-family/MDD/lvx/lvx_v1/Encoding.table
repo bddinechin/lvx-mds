@@ -1,0 +1,21 @@
+
+<Encoding
+  ID=	"Encoding-lvx_v1-"
+  wordCount=	"0"
+  wordWidth=	"0"
+/>
+<Encoding
+  ID=	"Encoding-lvx_v1-simple"
+  wordCount=	"1"
+  wordWidth=	"32"
+/>
+<Encoding
+  ID=	"Encoding-lvx_v1-double"
+  wordCount=	"2"
+  wordWidth=	"32"
+/>
+<Encoding
+  ID=	"Encoding-lvx_v1-triple"
+  wordCount=	"3"
+  wordWidth=	"32"
+/>

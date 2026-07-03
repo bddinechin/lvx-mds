@@ -1,0 +1,475 @@
+
+<Access
+  ID=	"Access-lvx_v1-Operand.ccbcomp"
+  method=	"Modifier-lvx_v1-ccbcomp"
+  read=	"(ZX.4(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerZ"
+  method=	"RegClass-lvx_v1-singleReg"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerY"
+  method=	"RegClass-lvx_v1-singleReg"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.pcrel11s2"
+  method=	"Immediate-lvx_v1-pcrel11s2"
+  read=	"(SX.13(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.upper27_lower11"
+  method=	"Immediate-lvx_v1-pcrel38s2"
+  read=	"(SX.40(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.bcucond"
+  method=	"Modifier-lvx_v1-bcucond"
+  read=	"(ZX.4(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.pcrel17s2"
+  method=	"Immediate-lvx_v1-pcrel17s2"
+  read=	"(SX.19(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.upper27_lower17"
+  method=	"Immediate-lvx_v1-pcrel44s2"
+  read=	"(SX.46(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.execpred"
+  method=	"Modifier-lvx_v1-bcucond"
+  read=	"(ZX.4(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.activate"
+  method=	"Immediate-lvx_v1-unsigned6"
+  read=	"(ZX.6(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.lanetodo"
+  method=	"Modifier-lvx_v1-lanetodo"
+  read=	"(ZX.2(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.lanesize"
+  method=	"Modifier-lvx_v1-lanesize"
+  read=	"(ZX.2(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.systemT2"
+  method=	"RegClass-lvx_v1-onlyfxReg"
+  read=	"(F2I.64(LOAD._(AGGL.SFR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.SFR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.systemAlone"
+  method=	"RegClass-lvx_v1-aloneReg"
+  read=	"(F2I.64(LOAD._(AGGL.SFR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.SFR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.systemT4"
+  method=	"RegClass-lvx_v1-systemReg"
+  read=	"(F2I.64(LOAD._(AGGL.SFR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.SFR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.systemT3"
+  method=	"RegClass-lvx_v1-onlysetReg"
+  read=	"(F2I.64(LOAD._(AGGL.SFR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.SFR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.systemRA"
+  method=	"RegClass-lvx_v1-onlyraReg"
+  read=	"(F2I.64(LOAD._(AGGL.SFR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.SFR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.systemS2"
+  method=	"RegClass-lvx_v1-onlygetReg"
+  read=	"(F2I.64(LOAD._(AGGL.SFR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.SFR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.systemS3"
+  method=	"RegClass-lvx_v1-systemReg"
+  read=	"(F2I.64(LOAD._(AGGL.SFR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.SFR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.systemS4"
+  method=	"RegClass-lvx_v1-onlyswapReg"
+  read=	"(F2I.64(LOAD._(AGGL.SFR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.SFR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.sysnumber"
+  method=	"Immediate-lvx_v1-sysnumber"
+  read=	"(ZX.12(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.brknumber"
+  method=	"Immediate-lvx_v1-brknumber"
+  read=	"(ZX.2(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.pcrel27s2"
+  method=	"Immediate-lvx_v1-pcrel27s2"
+  read=	"(SX.29(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.upper27_lower27"
+  method=	"Immediate-lvx_v1-pcrel54s2"
+  read=	"(SX.56(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerW"
+  method=	"RegClass-lvx_v1-singleReg"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.signed10"
+  method=	"Immediate-lvx_v1-signed10"
+  read=	"(SX.10(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.variant"
+  method=	"Modifier-lvx_v1-variant"
+  read=	"(ZX.2(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.upper27_lower10"
+  method=	"Immediate-lvx_v1-signed37"
+  read=	"(SX.37(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.extend27_upper27_lower10"
+  method=	"Immediate-lvx_v1-wrapped64"
+  read=	"(SX.64(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerM"
+  method=	"RegClass-lvx_v1-pairedReg"
+  read=	"(F2I.128(LOAD._(AGGL.PGR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.PGR(METHOD.%0)(CONST.1))(I2F.128(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerM.0"
+  method=	"RegClass-lvx_v1-pairedReg.0"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerM.1"
+  method=	"RegClass-lvx_v1-pairedReg.1"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerN"
+  method=	"RegClass-lvx_v1-quadReg"
+  read=	"(F2I.256(LOAD._(AGGL.QGR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.QGR(METHOD.%0)(CONST.1))(I2F.256(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerN.0"
+  method=	"RegClass-lvx_v1-quadReg.0"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerN.1"
+  method=	"RegClass-lvx_v1-quadReg.1"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerN.2"
+  method=	"RegClass-lvx_v1-quadReg.2"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerN.3"
+  method=	"RegClass-lvx_v1-quadReg.3"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.accesses"
+  method=	"Modifier-lvx_v1-accesses"
+  read=	"(ZX.2(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerT"
+  method=	"RegClass-lvx_v1-singleReg"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerU"
+  method=	"RegClass-lvx_v1-pairedReg"
+  read=	"(F2I.128(LOAD._(AGGL.PGR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.PGR(METHOD.%0)(CONST.1))(I2F.128(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerU.0"
+  method=	"RegClass-lvx_v1-pairedReg.0"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerU.1"
+  method=	"RegClass-lvx_v1-pairedReg.1"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerV"
+  method=	"RegClass-lvx_v1-quadReg"
+  read=	"(F2I.256(LOAD._(AGGL.QGR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.QGR(METHOD.%0)(CONST.1))(I2F.256(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerV.0"
+  method=	"RegClass-lvx_v1-quadReg.0"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerV.1"
+  method=	"RegClass-lvx_v1-quadReg.1"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerV.2"
+  method=	"RegClass-lvx_v1-quadReg.2"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerV.3"
+  method=	"RegClass-lvx_v1-quadReg.3"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerR"
+  method=	"RegClass-lvx_v1-quadReg"
+  read=	"(F2I.256(LOAD._(AGGL.QGR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.QGR(METHOD.%0)(CONST.1))(I2F.256(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerR.0"
+  method=	"RegClass-lvx_v1-quadReg.0"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerR.1"
+  method=	"RegClass-lvx_v1-quadReg.1"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerR.2"
+  method=	"RegClass-lvx_v1-quadReg.2"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerR.3"
+  method=	"RegClass-lvx_v1-quadReg.3"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.cachelev"
+  method=	"Modifier-lvx_v1-cachelev"
+  read=	"(ZX.2(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.coherency"
+  method=	"Modifier-lvx_v1-coherency"
+  read=	"(ZX.2(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.offset27"
+  method=	"Immediate-lvx_v1-signed27"
+  read=	"(SX.27(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.extend27_offset27"
+  method=	"Immediate-lvx_v1-signed54"
+  read=	"(SX.54(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerO"
+  method=	"RegClass-lvx_v1-pairedReg"
+  read=	"(F2I.128(LOAD._(AGGL.PGR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.PGR(METHOD.%0)(CONST.1))(I2F.128(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerO.0"
+  method=	"RegClass-lvx_v1-pairedReg.0"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerO.1"
+  method=	"RegClass-lvx_v1-pairedReg.1"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.boolcas"
+  method=	"Modifier-lvx_v1-boolcas"
+  read=	"(ZX.1(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerQ"
+  method=	"RegClass-lvx_v1-quadReg"
+  read=	"(F2I.256(LOAD._(AGGL.QGR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.QGR(METHOD.%0)(CONST.1))(I2F.256(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerQ.0"
+  method=	"RegClass-lvx_v1-quadReg.0"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerQ.1"
+  method=	"RegClass-lvx_v1-quadReg.1"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerQ.2"
+  method=	"RegClass-lvx_v1-quadReg.2"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerQ.3"
+  method=	"RegClass-lvx_v1-quadReg.3"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.signed16"
+  method=	"Immediate-lvx_v1-signed16"
+  read=	"(SX.16(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.extend6_upper27_lower10"
+  method=	"Immediate-lvx_v1-signed43"
+  read=	"(SX.43(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.stopbit2_stopbit4"
+  method=	"Immediate-lvx_v1-unsigned6"
+  read=	"(ZX.6(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.startbit"
+  method=	"Immediate-lvx_v1-unsigned6"
+  read=	"(ZX.6(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.upper27_lower5"
+  method=	"Immediate-lvx_v1-wrapped32"
+  read=	"(SX.32(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.splat32"
+  method=	"Modifier-lvx_v1-splat32"
+  read=	"(ZX.1(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.intcomp"
+  method=	"Modifier-lvx_v1-intcomp"
+  read=	"(ZX.4(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.cmovecond"
+  method=	"Modifier-lvx_v1-bcucond"
+  read=	"(ZX.4(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.unsigned6"
+  method=	"Immediate-lvx_v1-unsigned6"
+  read=	"(ZX.6(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.highmult"
+  method=	"Modifier-lvx_v1-highmult"
+  read=	"(ZX.2(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.widemult"
+  method=	"Modifier-lvx_v1-widemult"
+  read=	"(ZX.2(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerP"
+  method=	"RegClass-lvx_v1-pairedReg"
+  read=	"(F2I.128(LOAD._(AGGL.PGR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.PGR(METHOD.%0)(CONST.1))(I2F.128(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerP.0"
+  method=	"RegClass-lvx_v1-pairedReg.0"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.registerP.1"
+  method=	"RegClass-lvx_v1-pairedReg.1"
+  read=	"(F2I.64(LOAD._(AGGL.GPR(METHOD.%0)(CONST.1))))"
+  write=	"(STORE._(AGGL.GPR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.signextw"
+  method=	"Modifier-lvx_v1-signextw"
+  read=	"(ZX.1(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.floatmode"
+  method=	"Modifier-lvx_v1-floatmode"
+  read=	"(ZX.3(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.floatcomp"
+  method=	"Modifier-lvx_v1-floatcomp"
+  read=	"(ZX.3(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.mostsig"
+  method=	"Modifier-lvx_v1-mostsig"
+  read=	"(ZX.1(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.fnegate"
+  method=	"Modifier-lvx_v1-fnegate"
+  read=	"(ZX.1(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.imultiply"
+  method=	"Modifier-lvx_v1-imultiply"
+  read=	"(ZX.1(METHOD.%0))"
+/>
+<Access
+  ID=	"Access-lvx_v1-Operand.conjugate"
+  method=	"Modifier-lvx_v1-conjugate"
+  read=	"(ZX.1(METHOD.%0))"
+/>

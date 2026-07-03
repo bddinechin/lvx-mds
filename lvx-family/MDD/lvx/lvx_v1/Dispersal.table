@@ -1,0 +1,319 @@
+
+<Dispersal
+  ID=	"Dispersal-lvx_v1-"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-"
+  toFields=	"BitField-lvx_v1-"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-ALL.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-BCU.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-BCU0.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-BCU2.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-BCU2.X.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-EXT.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.X.0.1"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.X.0.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.X.0.3"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.3"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.X.0.4"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.4"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.X.0.5"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.5"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.Y.0.1.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.Y.0.2.3"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2 BitField-lvx_v1-ENCODE.3"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.Y.0.3.4"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.3 BitField-lvx_v1-ENCODE.4"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.Y.0.4.5"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.4 BitField-lvx_v1-ENCODE.5"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-FULL.Y.0.5.6"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.5 BitField-lvx_v1-ENCODE.6"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.X.0.1"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.X.0.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.X.0.3"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.3"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.X.0.4"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.4"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.X.0.5"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.5"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.Y.0.1.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.Y.0.2.3"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2 BitField-lvx_v1-ENCODE.3"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.Y.0.3.4"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.3 BitField-lvx_v1-ENCODE.4"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.Y.0.4.5"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.4 BitField-lvx_v1-ENCODE.5"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LITE.Y.0.5.6"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.5 BitField-lvx_v1-ENCODE.6"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU.X.0.1"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU.X.0.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU.Y.0.1.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU.Y.0.2.3"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2 BitField-lvx_v1-ENCODE.3"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU0.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU0.X.0.1"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU0.X.0.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU0.X.0.3"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.3"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU0.Y.0.1.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU0.Y.0.2.3"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2 BitField-lvx_v1-ENCODE.3"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-LSU0.Y.0.3.4"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.3 BitField-lvx_v1-ENCODE.4"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-NOP.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.0"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0"
+  toFields=	"BitField-lvx_v1-ENCODE.0"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.X.0.1"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.X.0.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.X.0.3"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.3"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.X.0.4"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.4"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.X.0.5"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.5"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.Y.0.1.2"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.Y.0.2.3"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.2 BitField-lvx_v1-ENCODE.3"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.Y.0.3.4"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.3 BitField-lvx_v1-ENCODE.4"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.Y.0.4.5"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.4 BitField-lvx_v1-ENCODE.5"
+/>
+<Dispersal
+  ID=	"Dispersal-lvx_v1-TINY.Y.0.5.6"
+  distance=	"0"
+  fromFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.1 BitField-lvx_v1-ENCODE.2"
+  toFields=	"BitField-lvx_v1-ENCODE.0 BitField-lvx_v1-ENCODE.5 BitField-lvx_v1-ENCODE.6"
+/>

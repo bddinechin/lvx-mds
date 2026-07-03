@@ -1018,6 +1018,8 @@ RegFile:
     execution: "BIRP[%0]"
     multi: [ mainReg, mainReg ]
 
+#ifdef _RV64_
+
   - ID: CSR
     what: Control and System Registers
     width: 64
@@ -5122,4 +5124,5 @@ RegFile:
     regClass: csReg
     execution: "CSR[%0]"
 
+#endif//_RV64_
 

@@ -1,0 +1,233 @@
+
+<Modifier
+  ID=	"Modifier-lvx_v2-"
+  members=	"#UNDEF"
+  values=	"0"
+  width=	"0"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-exunum"
+  members=	"ALU0 ALU1 LSU0 LSU1"
+  values=	"0 1 2 3"
+  what=	"Execution Unit Number in Immediate Extensions"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-ccbcomp"
+  members=	".DLT .DGE .DLTU .DGEU .DEQ .DNE .DANY .DNONE .WLT .WGE .WLTU .WGEU .WEQ .WNE .WANY .WNONE"
+  values=	"0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15"
+  what=	"CCB Double Word Compare"
+  width=	"4"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-bcucond"
+  members=	".DLTZ .DGEZ .DLEZ .DGTZ .DEQZ .DNEZ .ODD .EVEN .WLTZ .WGEZ .WLEZ .WGTZ .WEQZ .WNEZ"
+  values=	"0 1 2 3 4 5 6 7 8 9 10 11 12 13"
+  what=	"CB Condition"
+  width=	"4"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-intcomp"
+  members=	".LT .GE .LTU .GEU .EQ .NE .ANY .NONE .LE .GT .LEU .GTU"
+  values=	"0 1 2 3 4 5 6 7 8 9 10 11"
+  what=	"Integer Comparison"
+  width=	"4"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-lanecond"
+  members=	".LTZ .GEZ .LEZ .GTZ .EQZ .NEZ .ODD .EVEN"
+  values=	"0 1 2 3 4 5 6 7"
+  what=	"Lane Condition"
+  width=	"3"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-lanetodo"
+  members=	".MT .MF .MTC .MFC"
+  values=	"0 1 2 3"
+  what=	"BLEND Lane To Do"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-lanesize"
+  members=	". .H .W .D"
+  values=	"0 1 2 3"
+  what=	"BLEND Lane Size"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-floatcomp"
+  members=	".ONE .UEQ .OEQ .UNE .OLT .UGE .OGE .ULT"
+  values=	"0 1 2 3 4 5 6 7"
+  what=	"Floating-Point Comparison"
+  width=	"3"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-floatmode"
+  members=	".RN .RZ .RD .RU .RM .R5 .RO ."
+  values=	"0 1 2 3 4 5 6 7"
+  what=	"Floating-Point Rounding Mode"
+  width=	"3"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-signextw"
+  members=	". .SX"
+  values=	"0 1"
+  what=	"Sign Extend Word"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-highmult"
+  members=	". .H .HU .HSU"
+  values=	"0 1 2 3"
+  what=	"High Multiply"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-widemult"
+  members=	". .U .SU"
+  values=	"0 1 2"
+  what=	"Wide Multiply"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-mostsig"
+  members=	". .M"
+  values=	"0 1"
+  what=	"Least or Most Significant Bits"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-oddlanes"
+  members=	". .O"
+  values=	"0 1"
+  what=	"Even or Odd SIMD Lanes"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-ziplanes"
+  members=	". .Z"
+  values=	"0 1"
+  what=	"Zip SIMD Lanes"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-fnegate"
+  members=	". .N"
+  values=	"0 1"
+  what=	"Floating-Point Negate"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-variant"
+  members=	". .S .U .US"
+  properties=	"%0.S: Dismissible, %0.U: MemoryLevel=2 %0.US: MemoryLevel=2;Dismissible"
+  values=	"0 1 2 3"
+  what=	"Load Variants"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-speculate"
+  members=	".U .US"
+  properties=	"%0.U: MemoryLevel=2 %0.US: MemoryLevel=2;Dismissible"
+  values=	"0 1"
+  what=	"Speculative Load"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-doscale"
+  members=	". .XS"
+  values=	"0 1"
+  what=	"Enable Scaling for Indexed Addressing"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-qindex"
+  members=	".Q0 .Q1 .Q2 .Q3"
+  values=	"0 1 2 3"
+  what=	"Quarter Index"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-hindex"
+  members=	".H0 .H1"
+  values=	"0 1"
+  what=	"Half Index"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-cachelev"
+  members=	".L1 .L2"
+  values=	"0 1"
+  what=	"Cache Level for Set/Way maintenance"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-coherency"
+  members=	". .G .S"
+  values=	"0 1 2"
+  what=	"Coherency Domain for atomics"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-boolcas"
+  members=	".V ."
+  values=	"0 1"
+  what=	"Boolean Compare-and-Swap"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-accesses"
+  members=	". .W .R .WA"
+  values=	"0 1 2 3"
+  what=	"Fence Access"
+  width=	"2"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-channel"
+  members=	".F .B"
+  values=	"0 1"
+  what=	"Coprocessor Channel"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-conjugate"
+  members=	". .C"
+  values=	"0 1"
+  what=	"Complex Conjugate"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-imultiply"
+  members=	". .MI"
+  values=	"0 1"
+  what=	"Multiply by Imaginary Unit"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-realimag"
+  members=	".R .I"
+  values=	"0 1"
+  what=	"Complex Part"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-shuffleV"
+  members=	". .TD"
+  values=	"0 1"
+  what=	"Shuffle a Word Vector (1024 bits)"
+  width=	"1"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-shuffleX"
+  members=	". .ZD .UD .TQ .TW .ZW .UW"
+  values=	"0 1 2 3 4 5 6"
+  what=	"Shuffle a Word Hexadecuple (512 bits)"
+  width=	"3"
+/>
+<Modifier
+  ID=	"Modifier-lvx_v2-splat32"
+  members=	". .@"
+  values=	"0 1"
+  what=	"Splat 32-bit Immediate"
+  width=	"1"
+/>

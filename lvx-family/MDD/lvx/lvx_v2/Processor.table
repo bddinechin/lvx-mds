@@ -1,0 +1,15 @@
+
+<Processor
+  ID=	"Processor-lvx_v2-"
+  interlocks=	"0"
+  minTaken=	"0"
+  pipeline=	"0"
+  stages=	"0"
+/>
+<Processor
+  ID=	"Processor-lvx_v2-cpu"
+  interlocks=	"1"
+  minTaken=	"1"
+  pipeline=	"ID RR E1 E2 CR E3 E4 E5 WB SF SR"
+  stages=	"0 1 2 3 4 4 5 6 6 16 24"
+/>

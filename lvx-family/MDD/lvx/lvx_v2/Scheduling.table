@@ -1,0 +1,290 @@
+
+<Scheduling
+  ID=	"Scheduling-lvx_v2-"
+  reservation=	"Reservation-lvx_v2-"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALL"
+  bundling=	"Bundling-lvx_v2-ALL"
+  reservation=	"Reservation-lvx_v2-ALL"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-BCU"
+  bundling=	"Bundling-lvx_v2-BCU"
+  reservation=	"Reservation-lvx_v2-BCU"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-BCU_XFER"
+  bundling=	"Bundling-lvx_v2-BCU"
+  reservation=	"Reservation-lvx_v2-BCU_XFER"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-BCU_XFER_BRRP"
+  bundling=	"Bundling-lvx_v2-BCU"
+  reservation=	"Reservation-lvx_v2-BCU_XFER_BRRP"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-BCU_BRRP"
+  bundling=	"Bundling-lvx_v2-BCU"
+  reservation=	"Reservation-lvx_v2-BCU_BRRP"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-BCU_BRRP2"
+  bundling=	"Bundling-lvx_v2-BCU"
+  reservation=	"Reservation-lvx_v2-BCU_BRRP2"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-BCU2"
+  bundling=	"Bundling-lvx_v2-BCU2"
+  reservation=	"Reservation-lvx_v2-BCU2"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-BCU2.X"
+  bundling=	"Bundling-lvx_v2-BCU2.X"
+  reservation=	"Reservation-lvx_v2-BCU2.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-BCU2_TINY_LSU"
+  bundling=	"Bundling-lvx_v2-BCU2"
+  reservation=	"Reservation-lvx_v2-BCU2_TINY_LSU"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_TINY"
+  bundling=	"Bundling-lvx_v2-TINY"
+  reservation=	"Reservation-lvx_v2-ALU_TINY"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_TINY.X"
+  bundling=	"Bundling-lvx_v2-TINY.X"
+  reservation=	"Reservation-lvx_v2-ALU_TINY.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_TINY.Y"
+  bundling=	"Bundling-lvx_v2-TINY.Y"
+  reservation=	"Reservation-lvx_v2-ALU_TINY.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_TINY_AUXR"
+  bundling=	"Bundling-lvx_v2-TINY"
+  reservation=	"Reservation-lvx_v2-ALU_TINY_AUXR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_LITE"
+  bundling=	"Bundling-lvx_v2-LITE"
+  reservation=	"Reservation-lvx_v2-ALU_LITE"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_LITE.X"
+  bundling=	"Bundling-lvx_v2-LITE.X"
+  reservation=	"Reservation-lvx_v2-ALU_LITE.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_LITE.Y"
+  bundling=	"Bundling-lvx_v2-LITE.Y"
+  reservation=	"Reservation-lvx_v2-ALU_LITE.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_LITE_MISC"
+  bundling=	"Bundling-lvx_v2-LITE"
+  reservation=	"Reservation-lvx_v2-ALU_LITE_MISC"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_FULL"
+  bundling=	"Bundling-lvx_v2-FULL"
+  reservation=	"Reservation-lvx_v2-ALU_FULL"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_FULL.X"
+  bundling=	"Bundling-lvx_v2-FULL.X"
+  reservation=	"Reservation-lvx_v2-ALU_FULL.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-ALU_FULL.Y"
+  bundling=	"Bundling-lvx_v2-FULL.Y"
+  reservation=	"Reservation-lvx_v2-ALU_FULL.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU"
+  bundling=	"Bundling-lvx_v2-LSU"
+  reservation=	"Reservation-lvx_v2-LSU"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU.X"
+  bundling=	"Bundling-lvx_v2-LSU.X"
+  reservation=	"Reservation-lvx_v2-LSU.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU.Y"
+  bundling=	"Bundling-lvx_v2-LSU.Y"
+  reservation=	"Reservation-lvx_v2-LSU.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_MEMW_ACCR"
+  bundling=	"Bundling-lvx_v2-LSU0"
+  reservation=	"Reservation-lvx_v2-LSU_MEMW_ACCR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_MEMW_ACCR.X"
+  bundling=	"Bundling-lvx_v2-LSU0.X"
+  reservation=	"Reservation-lvx_v2-LSU_MEMW_ACCR.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_MEMW_ACCR.Y"
+  bundling=	"Bundling-lvx_v2-LSU0.Y"
+  reservation=	"Reservation-lvx_v2-LSU_MEMW_ACCR.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW"
+  bundling=	"Bundling-lvx_v2-LSU0"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW.X"
+  bundling=	"Bundling-lvx_v2-LSU0.X"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW.Y"
+  bundling=	"Bundling-lvx_v2-LSU0.Y"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_AUXR"
+  bundling=	"Bundling-lvx_v2-LSU"
+  reservation=	"Reservation-lvx_v2-LSU_AUXR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_AUXR.X"
+  bundling=	"Bundling-lvx_v2-LSU.X"
+  reservation=	"Reservation-lvx_v2-LSU_AUXR.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_AUXR.Y"
+  bundling=	"Bundling-lvx_v2-LSU.Y"
+  reservation=	"Reservation-lvx_v2-LSU_AUXR.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_MEMW_AUXR"
+  bundling=	"Bundling-lvx_v2-LSU0"
+  reservation=	"Reservation-lvx_v2-LSU_MEMW_AUXR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_MEMW_AUXR.X"
+  bundling=	"Bundling-lvx_v2-LSU0.X"
+  reservation=	"Reservation-lvx_v2-LSU_MEMW_AUXR.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_MEMW_AUXR.Y"
+  bundling=	"Bundling-lvx_v2-LSU0.Y"
+  reservation=	"Reservation-lvx_v2-LSU_MEMW_AUXR.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW_AUXR"
+  bundling=	"Bundling-lvx_v2-LSU0"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW_AUXR"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW_AUXR.X"
+  bundling=	"Bundling-lvx_v2-LSU0.X"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW_AUXR.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW_AUXR.Y"
+  bundling=	"Bundling-lvx_v2-LSU0.Y"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW_AUXR.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_MEMW_AUXW"
+  bundling=	"Bundling-lvx_v2-LSU0"
+  reservation=	"Reservation-lvx_v2-LSU_MEMW_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_MEMW_AUXW.X"
+  bundling=	"Bundling-lvx_v2-LSU0.X"
+  reservation=	"Reservation-lvx_v2-LSU_MEMW_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_MEMW_AUXW.Y"
+  bundling=	"Bundling-lvx_v2-LSU0.Y"
+  reservation=	"Reservation-lvx_v2-LSU_MEMW_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW_AUXW"
+  bundling=	"Bundling-lvx_v2-LSU0"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW_AUXW.X"
+  bundling=	"Bundling-lvx_v2-LSU0.X"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW_AUXW.Y"
+  bundling=	"Bundling-lvx_v2-LSU0.Y"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_AUXW"
+  bundling=	"Bundling-lvx_v2-LSU"
+  reservation=	"Reservation-lvx_v2-LSU_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_AUXW.X"
+  bundling=	"Bundling-lvx_v2-LSU.X"
+  reservation=	"Reservation-lvx_v2-LSU_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_AUXW.Y"
+  bundling=	"Bundling-lvx_v2-LSU.Y"
+  reservation=	"Reservation-lvx_v2-LSU_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_AUXR_AUXW"
+  bundling=	"Bundling-lvx_v2-LSU"
+  reservation=	"Reservation-lvx_v2-LSU_AUXR_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_AUXR_AUXW.X"
+  bundling=	"Bundling-lvx_v2-LSU.X"
+  reservation=	"Reservation-lvx_v2-LSU_AUXR_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU_AUXR_AUXW.Y"
+  bundling=	"Bundling-lvx_v2-LSU.Y"
+  reservation=	"Reservation-lvx_v2-LSU_AUXR_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW_AUXR_AUXW"
+  bundling=	"Bundling-lvx_v2-LSU0"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW_AUXR_AUXW"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW_AUXR_AUXW.X"
+  bundling=	"Bundling-lvx_v2-LSU0.X"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW_AUXR_AUXW.X"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-LSU2_MEMW_AUXR_AUXW.Y"
+  bundling=	"Bundling-lvx_v2-LSU0.Y"
+  reservation=	"Reservation-lvx_v2-LSU2_MEMW_AUXR_AUXW.Y"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-EXT"
+  bundling=	"Bundling-lvx_v2-EXT"
+  reservation=	"Reservation-lvx_v2-EXT"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-EXT_COMP"
+  bundling=	"Bundling-lvx_v2-EXT"
+  reservation=	"Reservation-lvx_v2-EXT_COMP"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-EXT_MISC"
+  bundling=	"Bundling-lvx_v2-EXT"
+  reservation=	"Reservation-lvx_v2-EXT_MISC"
+/>
+<Scheduling
+  ID=	"Scheduling-lvx_v2-EXT_MISC_AUXW"
+  bundling=	"Bundling-lvx_v2-EXT"
+  reservation=	"Reservation-lvx_v2-EXT_MISC_AUXW"
+/>

@@ -1,6 +1,5 @@
 Macro:
 
-
   - ID: BCV
     execution: &executionBCV |
       stage RR:
@@ -5693,6 +5692,8 @@ Format:
         (WRITE.accesses (ACCESS.ID.%1))
         (MACRO.Instruction))
 
+#ifdef _LVX_V2_
+
   - ID: LSU_XLOBO
     what: LSU Extension Load Octuple Base Offset
     fields:
@@ -5899,6 +5900,8 @@ Format:
     scheduling: LSU.Y
     execution: *executionLVQBO
     behavior: *behaviorLVQBO
+
+#endif//_LVX_V2_
 
   - ID: LSU_SSBO
     what: LSU Store Scalar Base Offset
@@ -6133,6 +6136,8 @@ Format:
         (MACRO.Instruction)
         (COMMIT.E3.%1 (READ.result1)))
 
+#ifdef _LVX_V2_
+
   - ID: LSU_XSOBO
     what: LSU Extension Store Octuple Base Offset
     fields:
@@ -6354,6 +6359,8 @@ Format:
     execution: *executionLVBO
     behavior: *behaviorLVBO
 
+#endif//_LVX_V2_
+
   - ID: LSU_LSBI
     what: LSU Load Scalar Base + Index
     fields:
@@ -6471,6 +6478,8 @@ Format:
     scheduling: LSU2_MEMW
     execution: *executionFXSW
     behavior: *behaviorFXSW
+
+#ifdef _LVX_V2_
 
   - ID: LSU_XPL2RBB
     what: LSU Extension Preload 2-Register Buffer Packed Base
@@ -6992,6 +7001,8 @@ Format:
     execution: *executionLVQBI
     behavior: *behaviorLVQBI
 
+#endif//_LVX_V2_
+
   - ID: LSU_SSBI
     what: LSU Store Scalar Base + Index
     fields:
@@ -7059,6 +7070,8 @@ Format:
     execution: *executionSQBI
     behavior: *behaviorSQBI
 
+#ifdef _LVX_V2_
+
   - ID: LSU_XSOBI
     what: LSU Extension Store Octuple Base + Index
     fields:
@@ -7124,6 +7137,8 @@ Format:
     execution: *executionSVQBI
     behavior: *behaviorSVQBI
 
+#endif//_LVX_V2_
+
   - ID: LSU_ALSB
     what: LSU Atomic Load Scalar Base
     fields:
@@ -7152,7 +7167,11 @@ Format:
     what: LSU Atomic Load Scalar Base Offset
     fields2:
       - parallel2: "-"
-    fields1: *fieldsO
+    fields1: &fieldsO
+      - steerimx: "00"
+      - exunum2: "__"
+      - offset27: "---------------------------"
+      - parallel: "1"
     fields:
       - steering: "01"
       - lsucode1: "111"
@@ -9290,6 +9309,8 @@ Format:
         (MACRO.Instruction)
         (COMMIT.E1.%1 (READ.result1)))
 
+#ifdef _LVX_V2_
+
   - ID: ALU_XSDOI
     what: ALU Extension Double Word Splat To Octuple Word Immediate
     fields:
@@ -9412,6 +9433,8 @@ Format:
     scheduling: ALU_TINY.Y
     execution: *executionXWI
     behavior: *behaviorXWI
+
+#endif//_LVX_V2_
 
   - ID: ALU_DBMWRI
     what: ALU Double Word Bit Matrix Multiply Immediate
@@ -10211,6 +10234,8 @@ Format:
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
 
+#ifdef _LVX_V2_
+
   - ID: ALU_XMOVETD0
     what: ALU Double Word Move To Extension 0
     fields:
@@ -10358,6 +10383,8 @@ Format:
     scheduling: ALU_LITE_MISC
     execution: *executionMOVETQ
     behavior: *behaviorMOVETQ
+
+#endif//_LVX_V2_
 
   - ID: ALU_CATDQ
     what: ALU Catenate Double to Quadruple Word
@@ -11982,6 +12009,8 @@ Format:
     execution: *executionGW3RRFN
     behavior: *behaviorGW3RRFN
 
+#ifdef _LVX_V2_
+
   - ID: ALU_DPWRR0
     what: ALU Double Word Pair Write Read Read 0
     fields:
@@ -12176,7 +12205,7 @@ Format:
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_DPCNWRR
     what: ALU Double Word Pair Comparison Negate Write Read Read
     fields:
@@ -12199,54 +12228,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_DCNWRRE
-    what: ALU Double Word Comparison Negate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPND: "010" }
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_DCNWRRO
-    what: ALU Double Word Comparison Negate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPND: "010" }
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_DPCNWRR.M
     what: ALU Double Word Pair Comparison Negate Write Read Read Magic
     fields2:
@@ -12272,58 +12256,7 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_DCNWRRE.M
-    what: ALU Double Word Comparison Negate Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPND: "010" }
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_DCNWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_DCNWRRO.M
-    what: ALU Double Word Comparison Negate Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPND: "010" }
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_DCNWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
   - ID: ALU_DPWRRS
     what: ALU Double Word Pair Write Read Read Special
@@ -12808,7 +12741,7 @@ Format:
     execution: *executionGW2RRR1WO
     behavior: *behaviorGW2RRR1WO
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQWRR0
     what: ALU Word Quadruple Write Read Read 0
     fields:
@@ -12831,54 +12764,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_WPWRR0E
-    what: ALU Word Pair Write Read Read 0 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNWP, SIGNSWP, ADDWP, SBFWP, MINWP, MAXWP, MINUWP, MAXUWP ]": "0000..0111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_WPWRR0O
-    what: ALU Word Pair Write Read Read 0 Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNWP, SIGNSWP, ADDWP, SBFWP, MINWP, MAXWP, MINUWP, MAXUWP ]": "0000..0111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQWRR0.M
     what: ALU Word Quadruple Write Read Read 0 Magic
     fields2:
@@ -12904,60 +12792,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_WPWRR0E.M
-    what: ALU Word Pair Write Read Read 0 Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNWP, SIGNSWP, ADDWP, SBFWP, MINWP, MAXWP, MINUWP, MAXUWP ]": "0000..0111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPWRR0E: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_WPWRR0O.M
-    what: ALU Word Pair Write Read Read 0 Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNWP, SIGNSWP, ADDWP, SBFWP, MINWP, MAXWP, MINUWP, MAXUWP ]": "0000..0111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPWRR0O: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQCWRR
     what: ALU Word Quadruple Comparison Write Read Read
     fields:
@@ -12979,54 +12816,9 @@ Format:
     scheduling: ALU_TINY
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_WPCWRRE
-    what: ALU Word Pair Comparison Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPWP: "001" }
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_TINY
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_WPCWRRO
-    what: ALU Word Pair Comparison Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPWP: "001" }
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_TINY
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQCWRR.M
     what: ALU Word Quadruple Comparison Write Read Read Magic
     fields2:
@@ -13051,60 +12843,9 @@ Format:
     scheduling: ALU_TINY.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_WPCWRRE.M
-    what: ALU Word Pair Comparison Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPWP: "001" }
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPCWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_TINY.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_WPCWRRO.M
-    what: ALU Word Pair Comparison Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPWP: "001" }
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPCWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_TINY.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQAVG
     what: ALU Word Quadruple Average
     fields:
@@ -13127,54 +12868,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_WPAVGE
-    what: ALU Word Pair Average Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGWP, AVGUWP, AVGRWP, AVGRUWP ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_WPAVGO
-    what: ALU Word Pair Average Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGWP, AVGUWP, AVGRWP, AVGRUWP ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQAVG.M
     what: ALU Word Quadruple Average Magic
     fields2:
@@ -13200,60 +12896,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_WPAVGE.M
-    what: ALU Word Pair Average Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGWP, AVGUWP, AVGRWP, AVGRUWP ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPAVGE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_WPAVGO.M
-    what: ALU Word Quadruple Average Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGWP, AVGUWP, AVGRWP, AVGRUWP ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPAVGO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQCNWRR
     what: ALU Word Quadruple Comparison Negate Write Read Read
     fields:
@@ -13276,54 +12921,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_WPCNWRRE
-    what: ALU Word Pair Comparison Negate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPNWP: "010" }
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_WPCNWRRO
-    what: ALU Word Pair Comparison Negate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPNWP: "010" }
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQCNWRR.M
     what: ALU Word Quadruple Comparison Negate Write Read Read Magic
     fields2:
@@ -13349,60 +12949,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_WPCNWRRE.M
-    what: ALU Word Pair Comparison Negate Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPNWP: "010" }
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPCNWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_WPCNWRRO.M
-    what: ALU Word Pair Comparison Negate Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPNWP: "010" }
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPCNWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQWRRS
     what: ALU Word Quadruple Write Read Read Special
     fields:
@@ -13425,54 +12974,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_WPWRRSE
-    what: ALU Word Pair Write Read Read Special Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDWP, ABDUWP, ABDSWP, STSUWP ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_WPWRRSO
-    what: ALU Word Pair Write Read Read Special Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDWP, ABDUWP, ABDSWP, STSUWP ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQWRRS.M
     what: ALU Word Quadruple Write Read Read Special Magic
     fields2:
@@ -13498,60 +13002,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_WPWRRSE.M
-    what: ALU Word Pair Write Read Read Special Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDWP, ABDUWP, ABDSWP, STSUWP ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPWRRSE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_WPWRRSO.M
-    what: ALU Word Pair Write Read Read Special Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDWP, ABDUWP, ABDSWP, STSUWP ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPWRRSO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQCMWRR
     what: ALU Word Quadruple Conditional Move Write Read Read
     fields:
@@ -13575,56 +13028,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRS
     behavior: *behaviorGWRRS
-#else//!SIMD128
-  - ID: ALU_WPCMWRRE
-    what: ALU Word Pair Conditional Move Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEWP, CMOVEMWP ]": "0..1" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, lanecond ]
-    syntax: "%0%4 %2? %1 = %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRS
-    behavior: *behaviorGWRRS
-  - ID: ALU_WPCMWRRO
-    what: ALU Word Pair Conditional Move Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEWP, CMOVEMWP ]": "0..1" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, lanecond ]
-    syntax: "%0%4 %2? %1 = %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRS
-    behavior: *behaviorGWRRS
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQCMWRR.M
     what: ALU Word Quadruple Conditional Move Write Read Read Magic
     fields2:
@@ -13651,62 +13057,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRSM
     behavior: *behaviorGWRRSM
-#else//!SIMD128
-  - ID: ALU_WPCMWRRE.M
-    what: ALU Word Pair Conditional Move Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEWP, CMOVEMWP ]": "0..1" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPCMWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, lanecond, splat32 ]
-    syntax: "%0%4 %2? %1 = %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRSM
-    behavior: *behaviorGWRRSM
-  - ID: ALU_WPCMWRRO.M
-    what: ALU Word Pair Conditional Move Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEWP, CMOVEMWP ]": "0..1" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPCMWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, lanecond, splat32 ]
-    syntax: "%0%4 %2? %1 = %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRSM
-    behavior: *behaviorGWRRSM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQSWRR
     what: ALU Word Quadruple Shift Rotate Write Read Read
     fields:
@@ -13729,54 +13082,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_WPSWRRE
-    what: ALU Word Pair Shift Rotate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - exucode1: { "[ SRSWP, SLLWP, SRAWP, SRLWP, SLSWP, SLUSWP, ROLWP, RORWP ]": "000..111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "0"
-      - registerY: "------"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { singleReg: registerY } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_WPSWRRO
-    what: ALU Word Pair Shift Rotate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - exucode1: { "[ SRSWP, SLLWP, SRAWP, SRLWP, SLSWP, SLUSWP, ROLWP, RORWP ]": "000..111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "0"
-      - registerY: "------"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { singleReg: registerY } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQSWRI
     what: ALU Word Quadruple Shift Rotate Write Read Immediate
     fields:
@@ -13799,54 +13107,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_WPSWRIE
-    what: ALU Word Pair Shift Rotate Write Read Immediate Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - exucode1: { "[ SRSWP, SLLWP, SRAWP, SRLWP, SLSWP, SLUSWP, ROLWP, RORWP ]": "000..111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "0"
-      - unsigned6: "------"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, unsigned6 ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_WPSWRIO
-    what: ALU Word Pair Shift Rotate Write Read Immediate Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - exucode1: { "[ SRSWP, SLLWP, SRAWP, SRLWP, SLSWP, SLUSWP, ROLWP, RORWP ]": "000..111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "0"
-      - unsigned6: "------"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, unsigned6 ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQWRR1
     what: ALU Word Quadruple Write Read Read 1
     fields:
@@ -13869,54 +13132,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_WPWRR1E
-    what: ALU Word Pair Write Read Read 1 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2WP, ADDX4WP, ADDX8WP, ADDX16WP ]": "0000..0011", "[ ADDSWP, SBFSWP, ADDUSWP, SBFUSWP ]": "1000..1011" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_WPWRR1O
-    what: ALU Word Pair Write Read Read 1 Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2WP, ADDX4WP, ADDX8WP, ADDX16WP ]": "0000..0011", "[ ADDSWP, SBFSWP, ADDUSWP, SBFUSWP ]": "1000..1011" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQWRR1.M
     what: ALU Word Quadruple Write Read Read 1 Magic
     fields2:
@@ -13942,60 +13160,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_WPWRR1E.M
-    what: ALU Word Pair Write Read Read 1 Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2WP, ADDX4WP, ADDX8WP, ADDX16WP ]": "0000..0011", "[ ADDSWP, SBFSWP, ADDUSWP, SBFUSWP ]": "1000..1011" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPWRR1E: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_WPWRR1O.M
-    what: ALU Word Pair Write Read Read 1 Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2WP, ADDX4WP, ADDX8WP, ADDX16WP ]": "0000..0011", "[ ADDSWP, SBFSWP, ADDUSWP, SBFUSWP ]": "1000..1011" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_WPWRR1O: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQBWR
     what: ALU Word Quadruple Bit Write Read
     fields:
@@ -14019,56 +13186,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWR
     behavior: *behaviorGWR
-#else//!SIMD128
-  - ID: ALU_WPBWRE
-    what: ALU Word Pair Bit Write Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: "1111"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "0"
-      - alucode8: { "[ NEGWP, ABSWP, NEGSWP, ABSSWP, CLZWP, CLSWP, CBSWP, CTZWP ]": "0000..0111" }
-      - exubit7: "_"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-  - ID: ALU_WPBWRO
-    what: ALU Word Pair Bit Write Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: "1111"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "0"
-      - alucode8: { "[ NEGWP, ABSWP, NEGSWP, ABSSWP, CLZWP, CLSWP, CBSWP, CTZWP ]": "0000..0111" }
-      - exubit7: "_"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQNWRR
     what: ALU Word Quadruple Narrow Write Read Read
     fields:
@@ -14093,31 +13213,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRL
     behavior: *behaviorGWRL
-#else//!SIMD128
-  - ID: ALU_WPNWRR
-    what: ALU Word Pair Narrow Write Read Read
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: "1111"
-      - registerW: "------"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "0"
-      - alucode8: { "[ TRUNCDWP, FRACTDWP ]": "1000..1001" }
-      - ziplanes: "_"
-      - exubit6: "0"
-      - registerP: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { singleReg: registerW }, { pairedReg: registerP } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-#endif//SIMD128
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_WQWIDEWR
     what: ALU Word Quadruple Widen Lanes Write Read
     fields:
@@ -14141,7 +13239,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRM
     behavior: *behaviorGWRM
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_WQEXTLWR
     what: ALU Word Quadruple Extend Lanes Write Read
     fields:
@@ -14165,8 +13265,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRO
     behavior: *behaviorGWRO
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQMWRR
     what: ALU Word Quadruple Multiply Write Read Read
     fields:
@@ -14190,56 +13291,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRH
     behavior: *behaviorGW2RRH
-#else//!SIMD128
-  - ID: ALU_WPMWRRE
-    what: ALU Word Pair Multiply Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - alucode2: { "[ MULWP, MULNWP ]": "00..01" }
-      - highmult: "--"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "110"
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, highmult ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGW2RRH
-    behavior: *behaviorGW2RRH
-  - ID: ALU_WPMWRRO
-    what: ALU Word Pair Multiply Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - alucode2: { "[ MULWP, MULNWP ]": "00..01" }
-      - highmult: "--"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "110"
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, highmult ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGW2RRH
-    behavior: *behaviorGW2RRH
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_WQMWRRR
     what: ALU Word Quadruple Multiply Write Read Read Read
     fields:
@@ -14263,55 +13317,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRR1H
     behavior: *behaviorGW2RRR1H
-#else//!SIMD128
-  - ID: ALU_WPMWRRRE
-    what: ALU Word Pair Multiply Write Read Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - alucode2: { "[ MADDWP, MSBFWP ]": "10..11" }
-      - highmult: "--"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "110"
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, highmult ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGW2RRR1H
-    behavior: *behaviorGW2RRR1H
-  - ID: ALU_WPMWRRRO
-    what: ALU Word Pair Multiply Write Read Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - alucode2: { "[ MADDWP, MSBFWP ]": "10..11" }
-      - highmult: "--"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "110"
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, highmult ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGW2RRR1H
-    behavior: *behaviorGW2RRR1H
-#endif//SIMD128
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_WQMEWRRE
     what: ALU Word Quadruple Multiply Extend Write Read Read Even
     fields:
@@ -14358,7 +13366,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRW
     behavior: *behaviorGW2RRW
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_WQMEWRRRE
     what: ALU Word Quadruple Multiply Extend Write Read Read Read Even
     fields:
@@ -14405,7 +13415,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRR1W
     behavior: *behaviorGW2RRR1W
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_WQMXWRR
     what: ALU Word Quadruple Multiply Extend Write Read Read
     fields:
@@ -14429,7 +13441,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRWO
     behavior: *behaviorGW2RRWO
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_WQMXWRRR
     what: ALU Word Quadruple Multiply Extend Write Read Read Read
     fields:
@@ -14453,8 +13467,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRR1WO
     behavior: *behaviorGW2RRR1WO
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOWRR0
     what: ALU Half Word Octuple Write Read Read 0
     fields:
@@ -14477,54 +13492,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_HQWRR0E
-    what: ALU Half Word Quadruple Write Read Read 0 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNHQ, SIGNSHQ, ADDHQ, SBFHQ, MINHQ, MAXHQ, MINUHQ, MAXUHQ ]": "0000..0111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_HQWRR0O
-    what: ALU Half Word Quadruple Write Read Read 0 Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNHQ, SIGNSHQ, ADDHQ, SBFHQ, MINHQ, MAXHQ, MINUHQ, MAXUHQ ]": "0000..0111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOWRR0.M
     what: ALU Half Word Octuple Write Read Read 0 Magic
     fields2:
@@ -14550,60 +13520,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_HQWRR0E.M
-    what: ALU Half Word Quadruple Write Read Read 0 Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNHQ, SIGNSHQ, ADDHQ, SBFHQ, MINHQ, MAXHQ, MINUHQ, MAXUHQ ]": "0000..0111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQWRR0E: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_HQWRR0O.M
-    what: ALU Half Word Quadruple Write Read Read 0 Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNHQ, SIGNSHQ, ADDHQ, SBFHQ, MINHQ, MAXHQ, MINUHQ, MAXUHQ ]": "0000..0111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQWRR0O: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOCWRR
     what: ALU Half Word Octuple Comparison Write Read Read
     fields:
@@ -14625,54 +13544,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_HQCWRRE
-    what: ALU Half Word Quadruple Comparison Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPHQ: "001" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_HQCWRRO
-    what: ALU Half Word Quadruple Comparison Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPHQ: "001" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOCWRR.M
     what: ALU Half Word Octuple Comparison Write Read Read Magic
     fields2:
@@ -14697,60 +13571,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_HQCWRRE.M
-    what: ALU Half Word Quadruple Comparison Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPHQ: "001" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQCWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_HQCWRRO.M
-    what: ALU Half Word Quadruple Comparison Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPHQ: "001" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQCWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOAVG
     what: ALU Half Word Octuple Average
     fields:
@@ -14773,54 +13596,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_HQAVGE
-    what: ALU Half Word Quadruple Average Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGHQ, AVGUHQ, AVGRHQ, AVGRUHQ ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_HQAVGO
-    what: ALU Half Word Quadruple Average Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGHQ, AVGUHQ, AVGRHQ, AVGRUHQ ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOAVG.M
     what: ALU Half Word Octuple Average Magic
     fields2:
@@ -14846,60 +13624,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_HQAVGE.M
-    what: ALU Half Word Quadruple Average Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGHQ, AVGUHQ, AVGRHQ, AVGRUHQ ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQAVGE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_HQAVGO.M
-    what: ALU Half Word Quadruple Average Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGHQ, AVGUHQ, AVGRHQ, AVGRUHQ ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQAVGO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOCNWRR
     what: ALU Half Word Octuple Comparison Negate Write Read Read
     fields:
@@ -14922,54 +13649,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_HQCNWRRE
-    what: ALU Half Word Quadruple Comparison Negate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPNHQ: "010" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_HQCNWRRO
-    what: ALU Half Word Quadruple Comparison Negate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPNHQ: "010" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOCNWRR.M
     what: ALU Half Word Octuple Comparison Negate Write Read Read Magic
     fields2:
@@ -14995,60 +13677,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_HQCNWRRE.M
-    what: ALU Half Word Quadruple Comparison Negate Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPNHQ: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQCNWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_HQCNWRRO.M
-    what: ALU Half Word Quadruple Comparison Negate Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPNHQ: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQCNWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOWRRS
     what: ALU Half Word Octuple Write Read Read Special
     fields:
@@ -15071,54 +13702,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_HQWRRSE
-    what: ALU Half Word Quadruple Write Read Read Special Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDHQ, ABDUHQ, ABDSHQ, STSUHQ ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_HQWRRSO
-    what: ALU Half Word Quadruple Write Read Read Special Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDHQ, ABDUHQ, ABDSHQ, STSUHQ ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOWRRS.M
     what: ALU Half Word Octuple Write Read Read Special Magic
     fields2:
@@ -15144,60 +13730,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_HQWRRSE.M
-    what: ALU Half Word Octuple Write Read Read Special Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDHQ, ABDUHQ, ABDSHQ, STSUHQ ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQWRRSE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_HQWRRSO.M
-    what: ALU Half Word Octuple Write Read Read Special Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDHQ, ABDUHQ, ABDSHQ, STSUHQ ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQWRRSO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOCMWRR
     what: ALU Half Word Octuple Conditional Move Write Read Read
     fields:
@@ -15221,56 +13756,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRS
     behavior: *behaviorGWRRS
-#else//!SIMD128
-  - ID: ALU_HQCMWRRE
-    what: ALU Half Word Quadruple Conditional Move Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEHQ, CMOVEMHQ ]": "0..1" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, lanecond ]
-    syntax: "%0%4 %2? %1 = %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRS
-    behavior: *behaviorGWRRS
-  - ID: ALU_HQCMWRRO
-    what: ALU Half Word Quadruple Conditional Move Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEHQ, CMOVEMHQ ]": "0..1" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, lanecond ]
-    syntax: "%0%4 %2? %1 = %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRS
-    behavior: *behaviorGWRRS
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOCMWRR.M
     what: ALU Half Word Octuple Conditional Move Write Read Read Magic
     fields2:
@@ -15297,62 +13785,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRSM
     behavior: *behaviorGWRRSM
-#else//!SIMD128
-  - ID: ALU_HQCMWRRE.M
-    what: ALU Half Word Quadruple Conditional Move Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEHQ, CMOVEMHQ ]": "0..1" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQCMWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, lanecond, splat32 ]
-    syntax: "%0%4 %2? %1 = %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRSM
-    behavior: *behaviorGWRRSM
-  - ID: ALU_HQCMWRRO.M
-    what: ALU Half Word Quadruple Conditional Move Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEHQ, CMOVEMHQ ]": "0..1" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQCMWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, lanecond, splat32 ]
-    syntax: "%0%4 %2? %1 = %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRSM
-    behavior: *behaviorGWRRSM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOSWRR
     what: ALU Half Word Octuple Shift Rotate Write Read Read
     fields:
@@ -15375,54 +13810,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_HQSWRRE
-    what: ALU Half Word Quadruple Shift Rotate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - exucode1: { "[ SRSHQ, SLLHQ, SRAHQ, SRLHQ, SLSHQ, SLUSHQ, ROLHQ, RORHQ ]": "000..111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "1"
-      - registerY: "------"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { singleReg: registerY } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_HQSWRRO
-    what: ALU Half Word Quadruple Shift Rotate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - exucode1: { "[ SRSHQ, SLLHQ, SRAHQ, SRLHQ, SLSHQ, SLUSHQ, ROLHQ, RORHQ ]": "000..111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "1"
-      - registerY: "------"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { singleReg: registerY } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOSWRI
     what: ALU Half Word Octuple Shift Rotate Write Read Immediate
     fields:
@@ -15445,54 +13835,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_HQSWRIE
-    what: ALU Half Word Quadruple Shift Rotate Write Read Immediate Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - exucode1: { "[ SRSHQ, SLLHQ, SRAHQ, SRLHQ, SLSHQ, SLUSHQ, ROLHQ, RORHQ ]": "000..111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "1"
-      - unsigned6: "------"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, unsigned6 ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_HQSWRIO
-    what: ALU Half Word Quadruple Shift Rotate Write Read Immediate Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - exucode1: { "[ SRSHQ, SLLHQ, SRAHQ, SRLHQ, SLSHQ, SLUSHQ, ROLHQ, RORHQ ]": "000..111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "1"
-      - unsigned6: "------"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, unsigned6 ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOWRR1
     what: ALU Half Word Octuple Write Read Read 1
     fields:
@@ -15515,54 +13860,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_HQWRR1E
-    what: ALU Half Word Quadruple Write Read Read 1 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2HQ, ADDX4HQ, ADDX8HQ, ADDX16HQ ]": "0000..0011", "[ ADDSHQ, SBFSHQ, ADDUSHQ, SBFUSHQ ]": "1000..1011" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_HQWRR1O
-    what: ALU Half Word Quadruple Write Read Read 1 Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2HQ, ADDX4HQ, ADDX8HQ, ADDX16HQ ]": "0000..0011", "[ ADDSHQ, SBFSHQ, ADDUSHQ, SBFUSHQ ]": "1000..1011" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOWRR1.M
     what: ALU Half Word Octuple Write Read Read 1 Magic
     fields2:
@@ -15588,60 +13888,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_HQWRR1E.M
-    what: ALU Half Word Quadruple Write Read Read 1 Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2HQ, ADDX4HQ, ADDX8HQ, ADDX16HQ ]": "0000..0011", "[ ADDSHQ, SBFSHQ, ADDUSHQ, SBFUSHQ ]": "1000..1011" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQWRR1E: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_HQWRR1O.M
-    what: ALU Half Word Quadruple Write Read Read 1 Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2HQ, ADDX4HQ, ADDX8HQ, ADDX16HQ ]": "0000..0011", "[ ADDSHQ, SBFSHQ, ADDUSHQ, SBFUSHQ ]": "1000..1011" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_HQWRR1O: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOBWR
     what: ALU Half Word Octuple Bit Write Read
     fields:
@@ -15665,56 +13914,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWR
     behavior: *behaviorGWR
-#else//!SIMD128
-  - ID: ALU_HQBWRE
-    what: ALU Half Word Quadruple Bit Write Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: "1111"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - alucode8: { "[ NEGHQ, ABSHQ, NEGSHQ, ABSSHQ, CLZHQ, CLSHQ, CBSHQ, CTZHQ ]": "0000..0111" }
-      - exubit7: "_"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-  - ID: ALU_HQBWRO
-    what: ALU Half Word Quadruple Bit Write Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: "1111"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - alucode8: { "[ NEGHQ, ABSHQ, NEGSHQ, ABSSHQ, CLZHQ, CLSHQ, CBSHQ, CTZHQ ]": "0000..0111" }
-      - exubit7: "_"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HONWRR
     what: ALU Half Word Octuple Narrow Write Read Read
     fields:
@@ -15733,36 +13935,14 @@ Format:
       - registerP: "-----"
       - exubit0: "0"
     encoding: simple
-    operands: [ { pairedReg: registerM }, { pairedReg: registerP }, }, ziplanes ]
+    operands: [ { pairedReg: registerM }, { pairedReg: registerP }, ziplanes ]
     syntax: "%0%3 %1 = %2"
     scheduling: ALU_LITE
     execution: *executionGWRL
     behavior: *behaviorGWRL
-#else//!SIMD128
-  - ID: ALU_HQNWRR
-    what: ALU Half Word Quadruple Narrow Write Read Read
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: "1111"
-      - registerW: "------"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - alucode8: { "[ TRUNCWHQ, FRACTWHQ ]": "1000..1001" }
-      - ziplanes: "-"
-      - exubit6: "0"
-      - registerP: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { singleReg: registerW }, { pairedReg: registerP }, ziplanes ]
-    syntax: "%0%3 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWRL
-    behavior: *behaviorGWRL
-#endif//SIMD128
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_HOWIDEWR
     what: ALU Half Word Octuple Widen Lanes Write Read
     fields:
@@ -15786,7 +13966,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRM
     behavior: *behaviorGWRM
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_HOEXTLWR
     what: ALU Half Word Octuple Extend Lanes Write Read
     fields:
@@ -15810,8 +13992,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRO
     behavior: *behaviorGWRO
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOMWRR
     what: ALU Half Word Octuple Multiply Write Read Read
     fields:
@@ -15835,56 +14018,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRH
     behavior: *behaviorGW2RRH
-#else//!SIMD128
-  - ID: ALU_HQMWRRE
-    what: ALU Half Word Quadruple Multiply Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - alucode2: { "[ MULHQ, MULNHQ ]": "00..01" }
-      - highmult: "--"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "110"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, highmult ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGW2RRH
-    behavior: *behaviorGW2RRH
-  - ID: ALU_HQMWRRO
-    what: ALU Half Word Quadruple Multiply Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - alucode2: { "[ MULHQ, MULNHQ ]": "00..01" }
-      - highmult: "--"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "110"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, highmult ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGW2RRH
-    behavior: *behaviorGW2RRH
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_HOMWRRR
     what: ALU Half Word Octuple Multiply Write Read Read Read
     fields:
@@ -15908,55 +14044,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRR1H
     behavior: *behaviorGW2RRR1H
-#else//!SIMD128
-  - ID: ALU_HQMWRRRE
-    what: ALU Half Word Quadruple Multiply Write Read Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - alucode2: { "[ MADDHQ, MSBFHQ ]": "10..11" }
-      - highmult: "--"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "110"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, highmult ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGW2RRR1H
-    behavior: *behaviorGW2RRR1H
-  - ID: ALU_HQMWRRRO
-    what: ALU Half Word Quadruple Multiply Write Read Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - alucode2: { "[ MADDHQ, MSBFHQ ]": "10..11" }
-      - highmult: "--"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "110"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, highmult ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGW2RRR1H
-    behavior: *behaviorGW2RRR1H
-#endif//SIMD128
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_HOMEWRRE
     what: ALU Half Word Octuple Multiply Extend Write Read Read Even
     fields:
@@ -16003,7 +14093,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRW
     behavior: *behaviorGW2RRW
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_HOMEWRRRE
     what: ALU Half Word Octuple Multiply Extend Write Read Read Read Even
     fields:
@@ -16050,7 +14142,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRR1W
     behavior: *behaviorGW2RRR1W
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_HOMXWRR
     what: ALU Half Word Octuple Multiply Extend Write Read Read
     fields:
@@ -16074,7 +14168,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRWO
     behavior: *behaviorGW2RRWO
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_HOMXWRRR
     what: ALU Half Word Octuple Multiply Extend Write Read Read Read
     fields:
@@ -16098,8 +14194,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW2RRR1WO
     behavior: *behaviorGW2RRR1WO
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXWRR0
     what: ALU Byte Hexadecuple Write Read Read 0
     fields:
@@ -16122,54 +14219,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_BOWRR0E
-    what: ALU Byte Octuple Write Read Read 0 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNBO, SIGNSBO, ADDBO, SBFBO, MINBO, MAXBO, MINUBO, MAXUBO ]": "0000..0111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_BOWRR0O
-    what: ALU Byte Octuple Write Read Read 0 Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNBO, SIGNSBO, ADDBO, SBFBO, MINBO, MAXBO, MINUBO, MAXUBO ]": "0000..0111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXWRR0.M
     what: ALU Byte Hexadecuple Write Read Read 0 Magic
     fields2:
@@ -16195,60 +14247,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_BOWRR0E.M
-    what: ALU Byte Octuple Write Read Read 0 Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNBO, SIGNSBO, ADDBO, SBFBO, MINBO, MAXBO, MINUBO, MAXUBO ]": "0000..0111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOWRR0E: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_BOWRR0O.M
-    what: ALU Byte Octuple Write Read Read 0 Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ SIGNBO, SIGNSBO, ADDBO, SBFBO, MINBO, MAXBO, MINUBO, MAXUBO ]": "0000..0111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "000"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOWRR0O: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXCWRR
     what: ALU Byte Hexadecuple Comparison Write Read Read
     fields:
@@ -16270,54 +14271,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_BOCWRRE
-    what: ALU Byte Octuple Comparison Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPBO: "001" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_BOCWRRO
-    what: ALU Byte Octuple Comparison Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPBO: "001" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXCWRR.M
     what: ALU Byte Hexadecuple Comparison Write Read Read Magic
     fields2:
@@ -16342,60 +14298,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_BOCWRRE.M
-    what: ALU Byte Octuple Comparison Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPBO: "001" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOCWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_BOCWRRO.M
-    what: ALU Byte Octuple Comparison Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPBO: "001" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOCWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXAVG
     what: ALU Byte Hexadecuple Average
     fields:
@@ -16418,54 +14323,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_BOAVGE
-    what: ALU Byte Octuple Average Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGBO, AVGUBO, AVGRBO, AVGRUBO ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_BOAVGO
-    what: ALU Byte Octuple Average Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGBO, AVGUBO, AVGRBO, AVGRUBO ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXAVG.M
     what: ALU Byte Hexadecuple Average Magic
     fields2:
@@ -16491,60 +14351,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_BOAVGE.M
-    what: ALU Byte Octuple Average Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGBO, AVGUBO, AVGRBO, AVGRUBO ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOAVGE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_BOAVGO.M
-    what: ALU Byte Octuple Average Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ AVGBO, AVGUBO, AVGRBO, AVGRUBO ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "001"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOAVGO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXCNWRR
     what: ALU Byte Hexadecuple Comparison Negate Write Read Read
     fields:
@@ -16567,54 +14376,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_BOCNWRRE
-    what: ALU Byte Octuple Comparison Negate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPNBO: "010" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_BOCNWRRO
-    what: ALU Byte Octuple Comparison Negate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPNBO: "010" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, intcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXCNWRR.M
     what: ALU Byte Hexadecuple Comparison Negate Write Read Read Magic
     fields2:
@@ -16640,60 +14404,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_BOCNWRRE.M
-    what: ALU Byte Octuple Comparison Negate Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: { COMPNBO: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOCNWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_BOCNWRRO.M
-    what: ALU Byte Octuple Comparison Negate Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - intcomp: "----"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: { COMPNBO: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOCNWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, intcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXWRRS
     what: ALU Byte Hexadecuple Write Read Read Special
     fields:
@@ -16716,54 +14429,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_BOWRRSE
-    what: ALU Byte Octuple Write Read Read Special Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDBO, ABDUBO, ABDSBO, STSUBO ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_BOWRRSO
-    what: ALU Byte Octuple Write Read Read Special Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDBO, ABDUBO, ABDSBO, STSUBO ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXWRRS.M
     what: ALU Byte Hexadecuple Write Read Read Special Magic
     fields2:
@@ -16789,60 +14457,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_BOWRRSE.M
-    what: ALU Byte Octuple Write Read Read Special Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDBO, ABDUBO, ABDSBO, STSUBO ]": "1100..1111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOWRRSE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_BOWRRSO.M
-    what: ALU Byte Octuple Write Read Read Special Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ABDBO, ABDUBO, ABDSBO, STSUBO ]": "1100..1111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "010"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOWRRSO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXCMWRR
     what: ALU Byte Hexadecuple Conditional Move Write Read Read
     fields:
@@ -16866,56 +14483,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRS
     behavior: *behaviorGWRRS
-#else//!SIMD128
-  - ID: ALU_BOCMWRRE
-    what: ALU Byte Octuple Conditional Move Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEBO, CMOVEMBO ]": "0..1" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, lanecond ]
-    syntax: "%0%4 %2? %1 = %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRS
-    behavior: *behaviorGWRRS
-  - ID: ALU_BOCMWRRO
-    what: ALU Byte Octuple Conditional Move Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEBO, CMOVEMBO ]": "0..1" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, lanecond ]
-    syntax: "%0%4 %2? %1 = %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRRS
-    behavior: *behaviorGWRRS
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXCMWRR.M
     what: ALU Byte Hexadecuple Conditional Move Write Read Read Magic
     fields2:
@@ -16942,62 +14512,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRSM
     behavior: *behaviorGWRRSM
-#else//!SIMD128
-  - ID: ALU_BOCMWRRE.M
-    what: ALU Byte Octuple Conditional Move Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEBO, CMOVEMBO ]": "0..1" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOCMWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, lanecond, splat32 ]
-    syntax: "%0%4 %2? %1 = %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRSM
-    behavior: *behaviorGWRRSM
-  - ID: ALU_BOCMWRRO.M
-    what: ALU Byte Octuple Conditional Move Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - lanecond: "---"
-      - exubit24: { "[ CMOVEBO, CMOVEMBO ]": "0..1" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "011"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOCMWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, lanecond, splat32 ]
-    syntax: "%0%4 %2? %1 = %3%5"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRSM
-    behavior: *behaviorGWRRSM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXSWRR
     what: ALU Byte Hexadecuple Shift Rotate Write Read Read
     fields:
@@ -17020,54 +14537,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_BOSWRRE
-    what: ALU Byte Octuple Shift Rotate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - exucode1: { "[ SRSBO, SLLBO, SRABO, SRLBO, SLSBO, SLUSBO, ROLBO, RORBO ]": "000..111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "1"
-      - registerY: "------"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { singleReg: registerY } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_BOSWRRO
-    what: ALU Byte Octuple Shift Rotate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - exucode1: { "[ SRSBO, SLLBO, SRABO, SRLBO, SLSBO, SLUSBO, ROLBO, RORBO ]": "000..111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "1"
-      - registerY: "------"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { singleReg: registerY } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXSWRI
     what: ALU Byte Hexadecuple Shift Rotate Write Read Immediate
     fields:
@@ -17090,54 +14562,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_BOSWRIE
-    what: ALU Byte Octuple Shift Rotate Write Read Immediate Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - exucode1: { "[ SRSBO, SLLBO, SRABO, SRLBO, SLSBO, SLUSBO, ROLBO, RORBO ]": "000..111" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "1"
-      - unsigned6: "------"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, unsigned6 ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_BOSWRIO
-    what: ALU Byte Octuple Shift Rotate Write Read Immediate Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - exucode1: { "[ SRSBO, SLLBO, SRABO, SRLBO, SLSBO, SLUSBO, ROLBO, RORBO ]": "000..111" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "100"
-      - exubit12: "1"
-      - unsigned6: "------"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, unsigned6 ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXWRR1
     what: ALU Byte Hexadecuple Write Read Read 1
     fields:
@@ -17160,54 +14587,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_BOWRR1E
-    what: ALU Byte Octuple Write Read Read 1 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2BO, ADDX4BO, ADDX8BO, ADDX16BO ]": "0000..0011", "[ ADDSBO, SBFSBO, ADDUSBO, SBFUSBO ]": "1000..1011" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_BOWRR1O
-    what: ALU Byte Octuple Write Read Read 1 Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2BO, ADDX4BO, ADDX8BO, ADDX16BO ]": "0000..0011", "[ ADDSBO, SBFSBO, ADDUSBO, SBFUSBO ]": "1000..1011" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXWRR1.M
     what: ALU Byte Hexadecuple Write Read Read 1 Magic
     fields2:
@@ -17233,60 +14615,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRM
     behavior: *behaviorGWRRM
-#else//!SIMD128
-  - ID: ALU_BOWRR1E.M
-    what: ALU Byte Octuple Write Read Read 1 Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2BO, ADDX4BO, ADDX8BO, ADDX16BO ]": "0000..0011", "[ ADDSBO, SBFSBO, ADDUSBO, SBFUSBO ]": "1000..1011" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOWRR1E: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-  - ID: ALU_BOWRR1O.M
-    what: ALU Byte Octuple Write Read Read 1 Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: { "[ ADDX2BO, ADDX4BO, ADDX8BO, ADDX16BO ]": "0000..0011", "[ ADDSBO, SBFSBO, ADDUSBO, SBFUSBO ]": "1000..1011" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_BOWRR1O: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, splat32 ]
-    syntax: "%0 %1 = %2, %3%4"
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRM
-    behavior: *behaviorGWRRM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXBWR
     what: ALU Byte Hexadecuple Bit Write Read
     fields:
@@ -17300,7 +14631,7 @@ Format:
       - alucode3: "101"
       - exubit12: "1"
       - alucode8: { "[ NEGBX, ABSBX, NEGSBX, ABSSBX, CLZBX, CLSBX, CBSBX, CTZBX ]": "0000..0111" }
-      - exubit6: "_"
+      - exubit7: "_"
       - exubit6: "_"
       - registerP: "-----"
       - exubit0: "1"
@@ -17310,56 +14641,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWR
     behavior: *behaviorGWR
-#else//!SIMD128
-  - ID: ALU_BOBWRE
-    what: ALU Byte Octuple Bit Write Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: "1111"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - alucode8: { "[ NEGBO, ABSBO, NEGSBO, ABSSBO, CLZBO, CLSBO, CBSBO, CTZBO ]": "0000..0111" }
-      - exubit7: "_"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-  - ID: ALU_BOBWRO
-    what: ALU Byte Octuple Bit Write Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: "1111"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - alucode8: { "[ NEGBO, ABSBO, NEGSBO, ABSSBO, CLZBO, CLSBO, CBSBO, CTZBO ]": "0000..0111" }
-      - exubit7: "_"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_BXNWRR
     what: ALU Byte Hexadecuple Narrow Write Read Read
     fields:
@@ -17383,31 +14667,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRL
     behavior: *behaviorGWRL
-#else//!SIMD128
-  - ID: ALU_BONWRR
-    what: ALU Byte Octuple Narrow Write Read Read
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exucode2: "1111"
-      - registerW: "------"
-      - exucode4: "10"
-      - alucode3: "101"
-      - exubit12: "1"
-      - alucode8: { "[ TRUNCHBO, FRACTHBO ]": "1000..1001" }
-      - ziplanes: "-"
-      - exubit6: "0"
-      - registerP: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { singleReg: registerW }, { pairedReg: registerP }, ziplanes ]
-    syntax: "%0%3 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWRL
-    behavior: *behaviorGWRL
-#endif//SIMD128
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_BXWIDEWR
     what: ALU Half Word Hexadecuple Widen Lanes Write Read
     fields:
@@ -17431,7 +14693,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRM
     behavior: *behaviorGWRM
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_BXEXTLWR
     what: ALU Half Word Hexadecuple Extend Lanes Write Read
     fields:
@@ -17455,6 +14719,7 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRO
     behavior: *behaviorGWRO
+#endif//_LVX_V2_
 
 #ifdef WIP
 
@@ -17545,6 +14810,8 @@ Format:
     behavior: *behaviorGW2RRR1
 
 #endif//WIP
+
+#ifdef _LVX_V2_
 
   - ID: ALU_FDCOP
     what: ALU Floating-Point Double Word Complex Operations
@@ -17851,7 +15118,9 @@ Format:
     execution: *executionGWRFL
     behavior: *behaviorGWRFL
 
-#ifdef SIMD128
+#endif//_LVX_V2_
+
+#ifdef _LVX_V2_
   - ID: ALU_FDPCNWRR
     what: ALU Floating Point Double Word Pair Comparison Negate Write Read Read
     fields:
@@ -17876,58 +15145,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_FDCNWRRE
-    what: ALU Floating Point Double Word Comparison Negate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPND: "010" }
-      - exubit12: "0"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_FDCNWRRO
-    what: ALU Floating Point Double Word Comparison Negate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPND: "010" }
-      - exubit12: "0"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FDPCNWRR.M
     what: ALU Floating-Point Double Word Pair Comparison Negate Write Read Read Magic
     fields2:
@@ -17955,62 +15175,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_FDCNWRRE.M
-    what: ALU Floating-Point Double Word Comparison Negate Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPND: "011" }
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_FDCNWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_FDCNWRRO.M
-    what: ALU Floating-Point Double Word Comparison Negate Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPND: "011" }
-      - exubit12: "0"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_FDCNWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
+
+#ifdef _LVX_V2_
 
   - ID: ALU_FDPFMA
     what: ALU Floating Point Double Word Pair Fused Multiply Add
@@ -18088,7 +15255,9 @@ Format:
     execution: *executionGW4RRRFIC
     behavior: *behaviorGW4RRRFIC
 
-#ifdef SIMD128
+#endif//_LVX_V2_
+
+#ifdef _LVX_V2_
   - ID: ALU_FWQADD
     what: ALU Floating Point Word Quadruple Add Subtract
     fields:
@@ -18113,58 +15282,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RRF
     behavior: *behaviorGW4RRF
-#else//!SIMD128
-  - ID: ALU_FWPADDE
-    what: ALU Floating Point Word Pair Add Subtract Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { "[ FADDWP, FSBFWP ]": "000..001" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatmode ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRF
-    behavior: *behaviorGW4RRF
-  - ID: ALU_FWPADDO
-    what: ALU Floating Point Word Pair Add Subtract Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { "[ FADDWP, FSBFWP ]": "000..001" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatmode ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRF
-    behavior: *behaviorGW4RRF
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQCWRR
     what: ALU Floating Point Word Quadruple Comparison Write Read Read
     fields:
@@ -18188,58 +15308,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_FWPCWRRE
-    what: ALU Floating Point Word Pair Comparison Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPWP: "010" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_FWPCWRRO
-    what: ALU Floating Point Word Pair Comparison Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPWP: "010" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQCWRR.M
     what: ALU Floating-Point Word Quadruple Comparison Write Read Read Magic
     fields2:
@@ -18266,64 +15337,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_FWPCWRRE.M
-    what: ALU Floating-Point Word Pair Comparison Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPWP: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_FWPCWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_FWPCWRRO.M
-    what: ALU Floating-Point Word Pair Comparison Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPWP: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_FWPCWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQMMWR
     what: ALU Floating Point Word Quadruple Min/Max Write Read
     fields:
@@ -18348,58 +15364,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_FWPMMWRE
-    what: ALU Floating Point Word Pair Min/Max Write Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: { "[ FMINWP, FMAXWP, FMINNWP, FMAXNWP ]": "000..011", "[ FSIGNWP, FSIGNNWP, FSIGNMWP ]": "100..110" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "000"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_FWPMMWRO
-    what: ALU Floating Point Word Pair Min/Max Write Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: { "[ FMINWP, FMAXWP, FMINNWP, FMAXNWP ]": "000..011", "[ FSIGNWP, FSIGNNWP, FSIGNMWP ]": "100..110" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "000"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQMO1
     what: ALU Floating Point Word Quadruple Monadic 1
     fields:
@@ -18424,56 +15391,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWR
     behavior: *behaviorGWR
-#else//!SIMD128
-  - ID: ALU_FWPMO1E
-    what: ALU Floating Point Word Pair Monadic 1 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "111"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "000"
-      - exubit12: "1"
-      - fpucode6: { "[ FNEGWP, FABSWP, FSRECWP, FSRSRWP ]": "0010..0101", FCLASSWP: "0110" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-  - ID: ALU_FWPMO1O
-    what: ALU Floating Point Word Pair Monadic 1 Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "111"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "000"
-      - exubit12: "1"
-      - fpucode6: { "[ FNEGWP, FABSWP, FSRECWP, FSRSRWP ]": "0010..0101", FCLASSWP: "0110" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-#endif//SIMD128
+#endif//_LVX_V2_
+
+#ifdef _LVX_V2_
 
   - ID: ALU_FWQWIDEWR
     what: ALU Floating Point Word Quadruple Widen from Half Word
@@ -18525,7 +15445,9 @@ Format:
     execution: *executionGWRO
     behavior: *behaviorGWRO
 
-#ifdef SIMD128
+#endif//_LVX_V2_
+
+#ifdef _LVX_V2_
   - ID: ALU_FWQFLOAT
     what: ALU Floating Point Word Quadruple Convert from Fixed-Point
     fields:
@@ -18551,60 +15473,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RF
     behavior: *behaviorGW4RF
-#else//!SIMD128
-  - ID: ALU_FWPFLOATE
-    what: ALU Floating Point Word Pair Convert from Fixed-Point Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FLOATWP, FLOATUWP ]": "0000..0001" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerWe }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RF
-    behavior: *behaviorGW4RF
-  - ID: ALU_FWPFLOATO
-    what: ALU Floating Point Word Pair Convert from Fixed-Point Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FLOATWP, FLOATUWP ]": "0000..0001" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerWo }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RF
-    behavior: *behaviorGW4RF
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQFIXED
     what: ALU Floating Point Word Quadruple Convert to Fixed-Point
     fields:
@@ -18630,60 +15501,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RF
     behavior: *behaviorGW4RF
-#else//!SIMD128
-  - ID: ALU_FWPFIXEDE
-    what: ALU Floating Point Word Pair Convert to Fixed-Point Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FIXEDWP, FIXEDUWP ]": "0100..0101" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RF
-    behavior: *behaviorGW4RF
-  - ID: ALU_FWPFIXEDO
-    what: ALU Floating Point Word Pair Convert to Fixed-Point Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FIXEDWP, FIXEDUWP ]": "0100..0101" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RF
-    behavior: *behaviorGW4RF
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQMO0
     what: ALU Floating Point Word Quadruple Monadic 0
     fields:
@@ -18708,59 +15528,11 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWSRF
     behavior: *behaviorGWSRF
-#else//!SIMD128
-  - ID: ALU_FWPMO0E
-    what: ALU Floating Point Word Pair Monadic 0 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FSQRTWP, FRINTWP ]": "1000..1001" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWSRF
-    behavior: *behaviorGWSRF
-  - ID: ALU_FWPMO0O
-    what: ALU Floating Point Word Pair Monadic 0 odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FSQRTWP, FRINTWP ]": "1000..1001" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWSRF
-    behavior: *behaviorGWSRF
-#endif//SIMD128
+#endif//_LVX_V2_
 
-  - ID: ALU_FWPWR
-    what: ALU Floating Point Word Pair Write Read
+#ifdef _LVX_V2_
+  - ID: ALU_FWQWR
+    what: ALU Floating Point Word Quadruple Write Read
     fields:
       - parallel: "-"
       - steering: "11"
@@ -18771,7 +15543,7 @@ Format:
       - exucode4: "11"
       - alucode3: "001"
       - exubit12: "1"
-      - fpucode6: { FNARROWDWP: "1100" }
+      - fpucode6: { FNARROWDWQ: "1100" }
       - ziplanes: "-"
       - exubit6: "0"
       - registerP: "-----"
@@ -18782,8 +15554,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRF
     behavior: *behaviorGWRF
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQCNWRR
     what: ALU Floating Point Word Quadruple Comparison Negate Write Read Read
     fields:
@@ -18808,58 +15581,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_FWPCNWRRE
-    what: ALU Floating Point Word Pair Comparison Negate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPNWP: "010" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_FWPCNWRRO
-    what: ALU Floating Point Word Pair Comparison Negate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPNWP: "010" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQCNWRR.M
     what: ALU Floating-Point Word Quadruple Comparison Negate Write Read Read Magic
     fields2:
@@ -18887,64 +15611,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_FWPCNWRRE.M
-    what: ALU Floating-Point Word Pair Comparison Negate Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPNWP: "001" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "0"
-    samefields: { ALU_FWPCNWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_FWPCNWRRO.M
-    what: ALU Floating-Point Word Pair Comparison Negate Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPNWP: "001" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "0"
-    samefields: { ALU_FWPCNWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQFMA
     what: ALU Floating Point Word Quadruple Fused Multiply Add
     fields:
@@ -18969,58 +15638,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RRRFN
     behavior: *behaviorGW4RRRFN
-#else//!SIMD128
-  - ID: ALU_FWPFMAE
-    what: ALU Floating Point Word Pair Fused Multiply Add Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - fnegate: "-"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { "[ FFMAWP, FFMSWP ]": "100..101" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatmode, fnegate ]
-    syntax: "%0%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRRFN
-    behavior: *behaviorGW4RRRFN
-  - ID: ALU_FWPFMAO
-    what: ALU Floating Point Word Pair Fused Multiply Add Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - fnegate: "-"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { "[ FFMAWP, FFMSWP ]": "100..101" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatmode, fnegate ]
-    syntax: "%0%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRRFN
-    behavior: *behaviorGW4RRRFN
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FWQMUL
     what: ALU Floating Point Word Quadruple Multiply Divide
     fields:
@@ -19045,58 +15665,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RRFN
     behavior: *behaviorGW4RRFN
-#else//!SIMD128
-  - ID: ALU_FWPMULE
-    what: ALU Floating Point Word Pair Multiply Divide Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - fnegate: "-"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { "[ FMULWP, FDIVWP_ ]": "110..111" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatmode, fnegate ]
-    syntax: "%0%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRFN
-    behavior: *behaviorGW4RRFN
-  - ID: ALU_FWPMULO
-    what: ALU Floating Point Word Pair Multiply Divide Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - fnegate: "-"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { "[ FMULWP, FDIVWP_ ]": "110..111" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatmode, fnegate ]
-    syntax: "%0%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRFN
-    behavior: *behaviorGW4RRFN
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHCPOP
     what: ALU Floating-Point Half Word Complex Pair Operations
     fields:
@@ -19122,60 +15693,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RRRFIC
     behavior: *behaviorGW4RRRFIC
-#else//!SIMD128
-  - ID: ALU_FHCOPE
-    what: ALU Floating-Point Half Word Complex Operations Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - imultiply: "-"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode6: { "[ FADDHWC, FSBFHWC, FMULHWC, FFMAHWC ]": "00..11" }
-      - conjugate: "-"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "1"
-      - registerZe: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatmode, imultiply, conjugate ]
-    syntax: "%0%6%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRRFIC
-    behavior: *behaviorGW4RRRFIC
-  - ID: ALU_FHCOPO
-    what: ALU Floating-Point Half Word Complex Operations Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - imultiply: "-"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode6: { "[ FADDHWC, FSBFHWC, FMULHWC, FFMAHWC ]": "00..11" }
-      - conjugate: "-"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "1"
-      - registerZo: "-----"
-      - exubit0: "0"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatmode, imultiply, conjugate ]
-    syntax: "%0%6%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRRFIC
-    behavior: *behaviorGW4RRRFIC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOADD
     what: ALU Floating Point Half Word Octuple Add Subtract
     fields:
@@ -19200,58 +15720,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RRF
     behavior: *behaviorGW4RRF
-#else//!SIMD128
-  - ID: ALU_FHQADDE
-    what: ALU Floating Point Half Word Quadruple Add Subtract Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { "[ FADDHQ, FSBFHQ ]": "000..001" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatmode ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRF
-    behavior: *behaviorGW4RRF
-  - ID: ALU_FHQADDO
-    what: ALU Floating Point Half Word Quadruple Add Subtract Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { "[ FADDHQ, FSBFHQ ]": "000..001" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatmode ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRF
-    behavior: *behaviorGW4RRF
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOCWRR
     what: ALU Floating Point Half Word Octuple Comparison Write Read Read
     fields:
@@ -19275,58 +15746,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_FHQCWRRE
-    what: ALU Floating Point Half Word Quadruple Comparison Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPHQ: "010" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "_"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_FHQCWRRO
-    what: ALU Floating Point Half Word Quadruple Comparison Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPHQ: "010" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "_"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOCWRR.M
     what: ALU Floating-Point Half Word Octuple Comparison Write Read Read Magic
     fields2:
@@ -19353,64 +15775,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_FHQCWRRE.M
-    what: ALU Floating-Point Half Word Quadruple Comparison Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPHQ: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_FHQCWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_FHQCWRRO.M
-    what: ALU Floating-Point Half Word Quadruple Comparison Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "0"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPHQ: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_FHQCWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOMMWR
     what: ALU Floating Point Half Word Octuple Min/Max Write Read
     fields:
@@ -19435,58 +15802,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRR
     behavior: *behaviorGWRR
-#else//!SIMD128
-  - ID: ALU_FHQMMWRE
-    what: ALU Floating Point Half Word Quadruple Min/Max Write Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: { "[ FMINHQ, FMAXHQ, FMINNHQ, FMAXNHQ ]": "000..011", "[ FSIGNHQ, FSIGNNHQ, FSIGNMHQ ]": "100..110" }
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "000"
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe } ]
-    syntax: "%0 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-  - ID: ALU_FHQMMWRO
-    what: ALU Floating Point Half Word Quadruple Min/Max Write Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: { "[ FMINHQ, FMAXHQ, FMINNHQ, FMAXNHQ ]": "000..011", "[ FSIGNHQ, FSIGNNHQ, FSIGNMHQ ]": "100..110" }
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "000"
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo } ]
-    syntax: "%0 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOMO1
     what: ALU Floating Point Half Word Octuple Monadic 1
     fields:
@@ -19511,57 +15829,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWR
     behavior: *behaviorGWR
-#else//!SIMD128
-  - ID: ALU_FHQMO1E
-    what: ALU Floating Point Half Word Quadruple Monadic 1 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "111"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "000"
-      - exubit12: "1"
-      - fpucode6: { "[ FNEGHQ, FABSHQ, FSRECHQ, FSRSRHQ ]": "0010..0101", FCLASSHQ: "0110" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-  - ID: ALU_FHQMO1O
-    what: ALU Floating Point Half Word Quadruple Monadic 1 Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "111"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "000"
-      - exubit12: "1"
-      - fpucode6: { "[ FNEGHQ, FABSHQ, FSRECHQ, FSRSRHQ ]": "0010..0101", FCLASSHQ: "0110" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo } ]
-    syntax: "%0 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWR
-    behavior: *behaviorGWR
-#endif//SIMD128
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_FHOWIDENWR
     what: ALU Floating Point Half Word Octuple Widen from Byte
     fields:
@@ -19586,7 +15856,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRM
     behavior: *behaviorGWRM
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_FHOEXTLWR
     what: ALU Floating Point Half Word Octuple Extend Lane from Byte
     fields:
@@ -19611,8 +15883,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRO
     behavior: *behaviorGWRO
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOFLOAT
     what: ALU Floating Point Half Word Octuple Convert from Fixed-Point
     fields:
@@ -19638,60 +15911,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RF
     behavior: *behaviorGW4RF
-#else//!SIMD128
-  - ID: ALU_FHQFLOATE
-    what: ALU Floating Point Half Word Quadruple Convert from Fixed-Point Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FLOATHQ, FLOATUHQ ]": "0000..0001" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RF
-    behavior: *behaviorGW4RF
-  - ID: ALU_FHQFLOATO
-    what: ALU Floating Point Half Word Quadruple Convert from Fixed-Point Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FLOATHQ, FLOATUHQ ]": "0000..0001" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RF
-    behavior: *behaviorGW4RF
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOFIXED
     what: ALU Floating Point Half Word Octuple Convert to Fixed-Point
     fields:
@@ -19716,58 +15938,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RF
     behavior: *behaviorGW4RF
-#else//!SIMD128
-  - ID: ALU_FHQFIXEDE
-    what: ALU Floating Point Half Word Quadruple Convert to Fixed-Point Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode5: { "[ FIXEDHQ, FIXEDUHQ ]": "00100..00101" }
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RF
-    behavior: *behaviorGW4RF
-  - ID: ALU_FHQFIXEDO
-    what: ALU Floating Point Half Word Quadruple Convert to Fixed-Point Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode5: { "[ FIXEDHQ, FIXEDUHQ ]": "00100..00101" }
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RF
-    behavior: *behaviorGW4RF
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOMO0
     what: ALU Floating Point Half Word Octuple Monadic 0
     fields:
@@ -19792,57 +15965,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWSRF
     behavior: *behaviorGWSRF
-#else//!SIMD128
-  - ID: ALU_FHQMO0E
-    what: ALU Floating Point Half Word Quadruple Monadic 0 Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FSQRTHQ, FRINTHQ ]": "1000..1001" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWSRF
-    behavior: *behaviorGWSRF
-  - ID: ALU_FHQMO0O
-    what: ALU Floating Point Half Word Quadruple Monadic 0 Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: "001"
-      - exubit12: "1"
-      - fpucode6: { "[ FSQRTHQ, FRINTHQ ]": "1000..1001" }
-      - exubit7: "_"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, floatmode ]
-    syntax: "%0%3 %1 = %2"
-    scheduling: ALU_LITE
-    execution: *executionGWSRF
-    behavior: *behaviorGWSRF
-#endif//SIMD128
+#endif//_LVX_V2_
 
+#ifdef _LVX_V2_
   - ID: ALU_FHQWR
     what: ALU Floating Point Half Word Quadruple Write Read
     fields:
@@ -19866,8 +15991,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRFL
     behavior: *behaviorGWRFL
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOCNWRR
     what: ALU Floating Point Half Word Octuple Comparison Negate Write Read Read
     fields:
@@ -19892,58 +16018,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGWRRC
     behavior: *behaviorGWRRC
-#else//!SIMD128
-  - ID: ALU_FHQCNWRRE
-    what: ALU Floating Point Half Word Quadruple Comparison Negate Write Read Read Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPNHQ: "010" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-  - ID: ALU_FHQCNWRRO
-    what: ALU Floating Point Half Word Quadruple Comparison Negate Write Read Read Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPNHQ: "010" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatcomp ]
-    syntax: "%0%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGWRRC
-    behavior: *behaviorGWRRC
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOCNWRR.M
     what: ALU Floating-Point Half Word Octuple Comparison Negate Write Read Read Magic
     fields2:
@@ -19957,7 +16034,7 @@ Format:
       - registerM: "-----"
       - exubit18: "_"
       - exucode4: "11"
-      - alucode3: { FCOMPNHQ: "010" }
+      - alucode3: { FCOMPNHO: "010" }
       - exubit12: "1"
       - splat32: "-"
       - lower5: "-----"
@@ -19971,64 +16048,9 @@ Format:
     scheduling: ALU_LITE.X
     execution: *executionGWRRCM
     behavior: *behaviorGWRRCM
-#else//!SIMD128
-  - ID: ALU_FHQCNWRRE.M
-    what: ALU Floating-Point Half Word Quadruple Comparison Negate Write Read Read Even Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { FCOMPNHQ: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZe: "-----"
-      - exubit0: "1"
-    samefields: { ALU_FHQCNWRRE: 12..31 }
-    encoding: double
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-  - ID: ALU_FHQCNWRRO.M
-    what: ALU Floating-Point Half Word Quadruple Comparison Negate Write Read Read Odd Magic
-    fields2:
-      - parallel2: "-"
-    fields1: *fieldsX
-    fields:
-      - steering: "11"
-      - exubit28: "1"
-      - exubit27: "1"
-      - floatcomp: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { FCOMPNHQ: "010" }
-      - exubit12: "1"
-      - splat32: "-"
-      - lower5: "-----"
-      - registerZo: "-----"
-      - exubit0: "1"
-    samefields: { ALU_FHQCNWRRO: 12..31 }
-    encoding: double
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { wrapped32: [ upper27, lower5 ] }, floatcomp, splat32 ]
-    syntax: "%0%4 %1 = %2, %3%5"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE.X
-    execution: *executionGWRRCM
-    behavior: *behaviorGWRRCM
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOFMA
     what: ALU Floating Point Half Word Octuple Fused Multiply Add
     fields:
@@ -20053,58 +16075,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RRRFN
     behavior: *behaviorGW4RRRFN
-#else//!SIMD128
-  - ID: ALU_FHQFMAE
-    what: ALU Floating Point Half Word Quadruple Fused Multiply Add Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - fnegate: "-"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { "[ FFMAHQ, FFMSHQ ]": "100..101" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatmode, fnegate ]
-    syntax: "%0%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRRFN
-    behavior: *behaviorGW4RRRFN
-  - ID: ALU_FHQFMAO
-    what: ALU Floating Point Half Word Quadruple Fused Multiply Add Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - fnegate: "-"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { "[ FFMAHQ, FFMSHQ ]": "100..101" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatmode, fnegate ]
-    syntax: "%0%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRRFN
-    behavior: *behaviorGW4RRRFN
-#endif//SIMD128
+#endif//_LVX_V2_
 
-#ifdef SIMD128
+#ifdef _LVX_V2_
   - ID: ALU_FHOMUL
     what: ALU Floating Point Half Word Octuple Multiply Divide
     fields:
@@ -20129,56 +16102,9 @@ Format:
     scheduling: ALU_LITE
     execution: *executionGW4RRFN
     behavior: *behaviorGW4RRFN
-#else//!SIMD128
-  - ID: ALU_FHQMULE
-    what: ALU Floating Point Half Word Quadruple Multiply Divide Even
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - fnegate: "-"
-      - floatmode: "---"
-      - registerWe: "-----"
-      - exubit18: "0"
-      - exucode4: "11"
-      - alucode3: { "[ FMULHQ, FDIVHQ_ ]": "110..111" }
-      - exubit12: "1"
-      - registerYe: "-----"
-      - exubit6: "0"
-      - registerZe: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegE: registerWe }, { worddRegE: registerZe }, { worddRegE: registerYe }, floatmode, fnegate ]
-    syntax: "%0%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRFN
-    behavior: *behaviorGW4RRFN
-  - ID: ALU_FHQMULO
-    what: ALU Floating Point Half Word Quadruple Multiply Divide Odd
-    fields:
-      - parallel: "-"
-      - steering: "11"
-      - exubit28: "1"
-      - fnegate: "-"
-      - floatmode: "---"
-      - registerWo: "-----"
-      - exubit18: "1"
-      - exucode4: "11"
-      - alucode3: { "[ FMULHQ, FDIVHQ_ ]": "110..111" }
-      - exubit12: "1"
-      - registerYo: "-----"
-      - exubit6: "0"
-      - registerZo: "-----"
-      - exubit0: "1"
-    encoding: simple
-    operands: [ { worddRegO: registerWo }, { worddRegO: registerZo }, { worddRegO: registerYo }, floatmode, fnegate ]
-    syntax: "%0%5%4 %1 = %2, %3"
-    properties: { '%CS': NoEffects }
-    scheduling: ALU_LITE
-    execution: *executionGW4RRFN
-    behavior: *behaviorGW4RRFN
-#endif//SIMD128
+#endif//_LVX_V2_
+
+#endif//_LVX_V2_
 
   - ID: ALU_NOP
     what: ALU No Operation
@@ -20199,9 +16125,9 @@ Format:
     syntax: "%0"
     scheduling: ALU_TINY
 
-
-
   ## EXT: steering=10
+
+#ifdef _LVX_V2_
 
   - ID: EXT_XMOVEFD
     what: EXT Move From Coprocessor Double Word
@@ -20704,7 +16630,7 @@ Format:
 
 #endif//SIMD512
 
-
+#ifdef _RV64_
 
   - ID: RV32I_UType
     what: RV32I U-Type
@@ -23248,5 +19174,7 @@ Format:
         (MACRO.Instruction)
       )
 
+#endif//_LVX_V2_
 
+#endif//_RV64_
 

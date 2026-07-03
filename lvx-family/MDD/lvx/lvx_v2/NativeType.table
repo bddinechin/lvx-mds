@@ -1,0 +1,196 @@
+
+<NativeType
+  ID=	"NativeType-lvx_v2-"
+  align=	"0"
+  printf=	""
+  sizeof=	"0"
+  width=	"0"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Void"
+  align=	"0"
+  printf=	".void"
+  sizeof=	"0"
+  type=	"Void"
+  width=	"0"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Bool"
+  align=	"1"
+  printf=	".byte 0x%x"
+  sizeof=	"1"
+  type=	"Bool"
+  width=	"1"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Int8"
+  align=	"1"
+  printf=	".byte 0x%x"
+  sizeof=	"1"
+  type=	"Signed"
+  width=	"8"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Int16"
+  align=	"2"
+  printf=	".hword 0x%x"
+  sizeof=	"2"
+  type=	"Signed"
+  width=	"16"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Int32"
+  align=	"4"
+  printf=	".word 0x%x"
+  sizeof=	"4"
+  type=	"Signed"
+  width=	"32"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Int64"
+  align=	"8"
+  printf=	".word 0x%x, 0x%x"
+  sizeof=	"8"
+  slice=	"32"
+  type=	"Signed"
+  width=	"64"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Int128"
+  align=	"16"
+  printf=	".word 0x%x, 0x%x, 0x%x, 0x%x"
+  sizeof=	"16"
+  slice=	"32"
+  type=	"Signed"
+  width=	"128"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Int128x4"
+  align=	"16"
+  printf=	".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+  sizeof=	"64"
+  slice=	"32"
+  type=	"Signed"
+  width=	"512"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Int128x8"
+  align=	"16"
+  printf=	".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+  sizeof=	"128"
+  slice=	"32"
+  type=	"Signed"
+  width=	"1024"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Int128x2"
+  align=	"16"
+  printf=	".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+  sizeof=	"32"
+  slice=	"32"
+  type=	"Signed"
+  width=	"256"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-UInt8"
+  align=	"1"
+  printf=	".byte 0x%x"
+  sizeof=	"1"
+  type=	"Unsigned"
+  width=	"8"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-UInt16"
+  align=	"2"
+  printf=	".hword 0x%x"
+  sizeof=	"2"
+  type=	"Unsigned"
+  width=	"16"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-UInt32"
+  align=	"4"
+  printf=	".word 0x%x"
+  sizeof=	"4"
+  type=	"Unsigned"
+  width=	"32"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-UInt64"
+  align=	"8"
+  printf=	".word 0x%x, 0x%x"
+  sizeof=	"8"
+  slice=	"32"
+  type=	"Unsigned"
+  width=	"64"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-UInt128"
+  align=	"16"
+  printf=	".word 0x%x, 0x%x, 0x%x, 0x%x"
+  sizeof=	"16"
+  slice=	"32"
+  type=	"Unsigned"
+  width=	"128"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-UInt128x2"
+  align=	"16"
+  printf=	".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+  sizeof=	"32"
+  slice=	"32"
+  type=	"Unsigned"
+  width=	"256"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-UInt128x4"
+  align=	"16"
+  printf=	".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+  sizeof=	"64"
+  slice=	"32"
+  type=	"Unsigned"
+  width=	"512"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-UInt128x8"
+  align=	"16"
+  printf=	".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"
+  sizeof=	"128"
+  slice=	"32"
+  type=	"Unsigned"
+  width=	"1024"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Float16"
+  align=	"2"
+  printf=	".hword 0x%x"
+  sizeof=	"2"
+  type=	"Float"
+  width=	"16"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Float32"
+  align=	"4"
+  printf=	".word 0x%x"
+  sizeof=	"4"
+  type=	"Float"
+  width=	"32"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Float64"
+  align=	"8"
+  printf=	".word 0x%x, 0x%x"
+  sizeof=	"8"
+  slice=	"32"
+  type=	"Float"
+  width=	"64"
+/>
+<NativeType
+  ID=	"NativeType-lvx_v2-Float128"
+  align=	"16"
+  printf=	".word 0x%x, 0x%x, 0x%x, 0x%x"
+  sizeof=	"16"
+  slice=	"32"
+  type=	"Float"
+  width=	"128"
+/>

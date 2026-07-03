@@ -1,0 +1,94 @@
+{\scriptsize
+\begin{tabular}{|l|l|l|l|l|} \hline
+ID & Names & Index & Description & Reset Value \\ \hline
+PC & \verb|$pc $s0| & 0 & Program Counter & \verb|Hardwired| \\
+PS & \verb|$ps $s1| & 1 & Processor State & \verb|0x01010004| \\
+PCR & \verb|$pcr $s2| & 2 & Processing Identification & \verb|0x0210000002000000| \\
+RA & \verb|$ra $s3| & 3 & Return Address & \verb|0x0000000000000000| \\
+CS & \verb|$cs $s4| & 4 & Compute Status & \verb|0x0000000000000000| \\
+CSIT & \verb|$csit $s5| & 5 & Compute Status arithmetic interrupt & \verb|0x00000000| \\
+AESPC & \verb|$aespc $s6| & 6 & Arithmetic Exception Saved PC & \verb|0x0000000000000000| \\
+LS & \verb|$ls $s7| & 7 & Loop Start Address & \verb|0x0000000000000000| \\
+LE & \verb|$le $s8| & 8 & Loop Exit Address & \verb|0x0000000000000000| \\
+LC & \verb|$lc $s9| & 9 & Loop Counter & \verb|0x0000000000000000| \\
+IPE & \verb|$ipe $s10| & 10 & Inter Processor Event & \verb|0x0000000000000000| \\
+MEN & \verb|$men $s11| & 11 & Misc External Notifications & \verb|0x0000000000000000| \\
+PMC & \verb|$pmc $s12| & 12 & Performance Monitor Control & \verb|0x0000000000408000| \\
+PM\textless i\textgreater & \verb|$pm0-$pm3 $s13-$s16| & 13 - 16 & Performance Monitor \textless i\textgreater [0, 3] & \verb|0x0000000000000000| \\
+PMSA & \verb|$pmsa $s17| & 17 & Performance Monitor Saved Address & \verb|0x0000000000000000| \\
+TCR & \verb|$tcr $s18| & 18 & Timer Control & \verb|0x00000000| \\
+T0V & \verb|$t0v $s19| & 19 & Timer 0 value & \verb|0x0000000000000000| \\
+T1V & \verb|$t1v $s20| & 20 & Timer 1 value & \verb|0x0000000000000000| \\
+T0R & \verb|$t0r $s21| & 21 & Timer 0 reload value & \verb|0x0000000000000000| \\
+T1R & \verb|$t1r $s22| & 22 & Timer 1 reload value & \verb|0x0000000000000000| \\
+WDV & \verb|$wdv $s23| & 23 & Watchdog Value & \verb|0x0000000000000000| \\
+WDR & \verb|$wdr $s24| & 24 & Watchdog Reload & \verb|0x0000000000000000| \\
+ILE & \verb|$ile $s25| & 25 & Interrupt Line Enable & \verb|0x0000000000000000| \\
+ILL & \verb|$ill $s26| & 26 & Interrupt Line Level & \verb|0x0000000000000000| \\
+ILR & \verb|$ilr $s27| & 27 & Interrupt Line Request & \verb|0x0000000000000000| \\
+MMC & \verb|$mmc $s28| & 28 & Memory Management Control & \verb|0x00004000| \\
+TEL & \verb|$tel $s29| & 29 & TLB Entry Low & \verb|0x0000000000000000| \\
+TEH & \verb|$teh $s30| & 30 & TLB Entry High & \verb|0x0000000000000000| \\
+IXC & \verb|$ixc $s31| & 31 & Inter-Extension Communications & \verb|0x00000000| \\
+SYO & \verb|$syo $s32| & 32 & Syscall Owners & \verb|0x00000000| \\
+HTO & \verb|$hto $s33| & 33 & Hardware Trap Owners & \verb|0x00000000| \\
+ITO & \verb|$ito $s34| & 34 & Interrupt Owners & \verb|0x0000000000000000| \\
+DO & \verb|$do $s35| & 35 & Debug Owners & \verb|0x00000000| \\
+MO & \verb|$mo $s36| & 36 & Miscellaneous Owners & \verb|0x0000000000000000| \\
+PSO & \verb|$pso $s37| & 37 & PS register fields Owners & \verb|0x0000000000000000| \\
+TPCM\textless i\textgreater & \verb|$tpcm0-$tpcm1 $s38-$s39| & 38 - 39 & Trace PC message register \textless i\textgreater [0, 1] & \verb|0x0000000000000000| \\
+DC & \verb|$rvc $s40| & 40 & RISC-V configuration (FIXME rename to RVC) & \verb|0x00000000| \\
+DBA\textless i\textgreater & \verb|$dba0-$dba1 $s41-$s42| & 41 - 42 & Breakpoint Address \textless i\textgreater [0, 1] & \verb|0x0000000000000000| \\
+DWA\textless i\textgreater & \verb|$dwa0-$dwa1 $s43-$s44| & 43 - 44 & Watchpoint Address \textless i\textgreater [0, 1] & \verb|0x0000000000000000| \\
+MES & \verb|$mes $s45| & 45 & Memory Error Status & \verb|0x00000000| \\
+WS & \verb|$ws $s46| & 46 & Wake-Up Status & \verb|0x00000007| \\
+DC\textless i\textgreater & \verb|$dc0-$dc3 $s47-$s50| & 47 - 50 & OCE (Debug) Control for hardware watchpoints and breakpoints \textless i\textgreater [0, 3] & \verb|0x0000000000000000| \\
+DBA\textless i\textgreater & \verb|$dba2-$dba3 $s51-$s52| & 51 - 52 & Breakpoint Address \textless i\textgreater [2, 3] & \verb|0x0000000000000000| \\
+DWA\textless i\textgreater & \verb|$dwa2-$dwa3 $s53-$s54| & 53 - 54 & Watchpoint Address \textless i\textgreater [2, 3] & \verb|0x0000000000000000| \\
+TPCM\textless i\textgreater & \verb|$tpcm2-$tpcm2 $s55-$s55| & 55 - 55 & Trace PC message register \textless i\textgreater [2, 2] & \verb|0x0000000000000000| \\
+TPCMC & \verb|$tpcmc $s56| & 56 & Trace PC message control register & \verb|0x0000000000000000| \\
+PM\textless i\textgreater & \verb|$pm4-$pm7 $s57-$s60| & 57 - 60 & Performance Monitor \textless i\textgreater [4, 7] & \verb|0x0000000000000000| \\
+PMC\textless i\textgreater & \verb|$pmc2-$pmc2 $s61-$s61| & 61 - 61 & Performance Monitor Control \textless i\textgreater [2, 2] & \verb|0x0000000000408000| \\
+SRHPC & \verb|$srhpc $s62| & 62 & Last sequence rupture helper PC when uninferrable & \verb|0x0000000000000000| \\
+FRCC & \verb|$frcc $s63| & 63 & Free running cycle counter & \verb|0x0000000000000000| \\
+SPC\_PL\textless i\textgreater & \verb|$spc_pl0-$spc_pl3 $s64-$s67| & 64 - 67 & Shadow PC PL \textless i\textgreater [0, 3] & \verb|0x0000000000000000| \\
+SPS\_PL\textless i\textgreater & \verb|$sps_pl0-$sps_pl3 $s68-$s71| & 68 - 71 & Shadow PS PL \textless i\textgreater [0, 3] & \verb|0x00010000| \\
+EA\_PL\textless i\textgreater & \verb|$ea_pl0-$ea_pl3 $s72-$s75| & 72 - 75 & Effective Address PL\textless i\textgreater [0, 3] & \verb|0x0000000000000000| \\
+EV\_PL\textless i\textgreater & \verb|$ev_pl0-$ev_pl3 $s76-$s79| & 76 - 79 & Exception Vector PL \textless i\textgreater [0, 3] & \verb|0x0000000000000000| \\
+SR\_PL\textless i\textgreater & \verb|$sr_pl0-$sr_pl3 $s80-$s83| & 80 - 83 & System Register PL \textless i\textgreater [0, 3] & \verb|0x0000000000000000| \\
+ES\_PL\textless i\textgreater & \verb|$es_pl0-$es_pl3 $s84-$s87| & 84 - 87 & Exception Syndrome PL \textless i\textgreater [0, 3] & \verb|0x0000000000000004| \\
+SID\_PL\textless i\textgreater & \verb|$sid_pl0-$sid_pl3 $s88-$s91| & 88 - 91 & Stream ID PL \textless i\textgreater [0, 3] & \verb|0x00000000| \\
+SR1\_PL0 & \verb|$sr1_pl0 $s92| & 92 & System Register 1 PL 0 & \verb|0x0000000000000000| \\
+SR1\_PL1 & \verb|$sr1_pl1 $s93| & 93 & System Register 1 PL 1 & \verb|0x0000000000000000| \\
+SR1\_PL2 & \verb|$sr1_pl2 $s94| & 94 & System Register 1 PL 2 & \verb|0x0000000000000000| \\
+SR1\_PL3 & \verb|$sr1_pl3 $s95| & 95 & System Register 1 PL 3 & \verb|0x0000000000000000| \\
+SYOW & \verb|$syow $s96| & 96 & Alias to SYO register & \verb|0x00000000| \\
+HTOW & \verb|$htow $s97| & 97 & Alias to HTO register & \verb|0x00000000| \\
+ITOW & \verb|$itow $s98| & 98 & Alias to ITO register & \verb|0x0000000000000000| \\
+DOW & \verb|$dow $s99| & 99 & Alias to DO register & \verb|0x00000000| \\
+MOW & \verb|$mow $s100| & 100 & Alias to MO register & \verb|0x0000000000000000| \\
+PSOW & \verb|$psow $s101| & 101 & Alias to PSO register & \verb|0x0000000000000000| \\
+RES\textless i\textgreater & \verb|$res102-$res103 $s102-$s103| & 102 - 103 & Reserved & \verb|0x0000000000000000| \\
+TPCC\_PL\textless i\textgreater & \verb|$tpcc_pl0-$tpcc_pl3 $s104-$s107| & 104 - 107 & Trace PC Context & \verb|0x00000000| \\
+RES\textless i\textgreater & \verb|$res108-$res127 $s108-$s127| & 108 - 127 & Reserved & \verb|0x0000000000000000| \\
+SPC & \verb|$spc $s128| & 128 & Shadow PC alias on SPC\_PL\textless i\textgreater & \verb|0x0000000000000000| \\
+RES\textless i\textgreater & \verb|$res129-$res131 $s129-$s131| & 129 - 131 & Reserved & \verb|0x0000000000000000| \\
+SPS & \verb|$sps $s132| & 132 & Shadow PS alias on PS\_PL\textless i\textgreater & \verb|0x00010000| \\
+RES\textless i\textgreater & \verb|$res133-$res135 $s133-$s135| & 133 - 135 & Reserved & \verb|0x0000000000000000| \\
+EA & \verb|$ea $s136| & 136 & Effective Address alias on EA\_PL\textless i\textgreater & \verb|0x0000000000000000| \\
+RES\textless i\textgreater & \verb|$res137-$res139 $s137-$s139| & 137 - 139 & Reserved & \verb|0x0000000000000000| \\
+EV & \verb|$ev $s140| & 140 & Exception Vector alias on EV\_PL\textless i\textgreater & \verb|0x0000000000000000| \\
+RES\textless i\textgreater & \verb|$res141-$res143 $s141-$s143| & 141 - 143 & Reserved & \verb|0x0000000000000000| \\
+SR & \verb|$sr $s144| & 144 & System Register alias on SR\_PL\textless i\textgreater & \verb|0x0000000000000000| \\
+RES\textless i\textgreater & \verb|$res145-$res147 $s145-$s147| & 145 - 147 & Reserved & \verb|0x0000000000000000| \\
+ES & \verb|$es $s148| & 148 & Exception Syndrome alias on ES\_PL\textless i\textgreater & \verb|0x0000000000000004| \\
+RES\textless i\textgreater & \verb|$res149-$res151 $s149-$s151| & 149 - 151 & Reserved & \verb|0x0000000000000000| \\
+SID & \verb|$sid $s152| & 152 & Stream ID alias on SID\_PL\textless i\textgreater & \verb|0x00000000| \\
+RES\textless i\textgreater & \verb|$res153-$res155 $s153-$s155| & 153 - 155 & Reserved & \verb|0x0000000000000000| \\
+SR\textless i\textgreater & \verb|$sr1-$sr1 $s156-$s156| & 156 - 156 & System Register \textless i\textgreater [1, 1] alias on SR1\_PL\textless i\textgreater & \verb|0x0000000000000000| \\
+RES\textless i\textgreater & \verb|$res157-$res167 $s157-$s167| & 157 - 167 & Reserved & \verb|0x0000000000000000| \\
+TPCC & \verb|$tpcc $s168| & 168 & Trace PC Context alias on TPCC\_PL\textless i\textgreater & \verb|0x00000000| \\
+RES\textless i\textgreater & \verb|$res169-$res255 $s169-$s255| & 169 - 255 & Reserved & \verb|0x0000000000000000| \\
+VSFR\textless i\textgreater & \verb|$vsfr0-$vsfr255 $s256-$s511| & 256 - 511 & Virtual SFR \textless i\textgreater [0, 255] & \verb|0x0000000000000000| \\
+\hline \end{tabular}
+}

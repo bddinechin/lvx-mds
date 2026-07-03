@@ -1,0 +1,440 @@
+
+<Relocation
+  ID=	"Relocation-lvx_v2-"
+  elfIds=	"0"
+  fields=	"BitField-lvx_v2-"
+  linker=	"0"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-rel16"
+  elfIds=	"1"
+  fields=	"BitField-lvx_v2-HALF"
+  linker=	"R_LVX_16"
+  overflow=	"Unsigned"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-rel32"
+  elfIds=	"2"
+  fields=	"BitField-lvx_v2-WORD"
+  linker=	"R_LVX_32"
+  overflow=	"Unsigned"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-rel64"
+  elfIds=	"3"
+  fields=	"BitField-lvx_v2-DOUBLE"
+  linker=	"R_LVX_64"
+  overflow=	"Unsigned"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel_signed16"
+  elfIds=	"4"
+  fields=	"BitField-lvx_v2-signed16"
+  linker=	"R_LVX_S16_PCREL"
+  overflow=	"Signed"
+  relative=	"PC"
+  syntax=	"@pcrel"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel32"
+  elfIds=	"5"
+  fields=	"BitField-lvx_v2-WORD"
+  linker=	"R_LVX_32_PCREL"
+  overflow=	"Signed"
+  relative=	"PC"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel_signed37"
+  elfIds=	"7 6"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_PCREL_UP27 R_LVX_S37_PCREL_LO10"
+  relative=	"PC"
+  syntax=	"@pcrel"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel_signed43"
+  elfIds=	"10 9 8"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_PCREL_EX6 R_LVX_S43_PCREL_UP27 R_LVX_S43_PCREL_LO10"
+  relative=	"PC"
+  syntax=	"@pcrel"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel_signed64"
+  elfIds=	"13 12 11"
+  fields=	"BitField-lvx_v2-extend27 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S64_PCREL_EX27 R_LVX_S64_PCREL_UP27 R_LVX_S64_PCREL_LO10"
+  relative=	"PC"
+  syntax=	"@pcrel"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel64"
+  elfIds=	"14"
+  fields=	"BitField-lvx_v2-DOUBLE"
+  linker=	"R_LVX_64_PCREL"
+  overflow=	"Signed"
+  relative=	"PC"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-signed16"
+  elfIds=	"15"
+  fields=	"BitField-lvx_v2-signed16"
+  linker=	"R_LVX_S16"
+  overflow=	"Signed"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-signed32"
+  elfIds=	"17 16"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower5"
+  linker=	"R_LVX_S32_UP27 R_LVX_S32_LO5"
+  syntax=	"@signed32"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-signed37"
+  elfIds=	"19 18"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_UP27 R_LVX_S37_LO10"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-gotoff_signed37"
+  elfIds=	"21 20"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_GOTOFF_UP27 R_LVX_S37_GOTOFF_LO10"
+  relative=	"GOT"
+  syntax=	"@gotoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-gotoff_signed43"
+  elfIds=	"24 23 22"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_GOTOFF_EX6 R_LVX_S43_GOTOFF_UP27 R_LVX_S43_GOTOFF_LO10"
+  relative=	"GOT"
+  syntax=	"@gotoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-gotoff_32"
+  elfIds=	"25"
+  fields=	"BitField-lvx_v2-WORD"
+  linker=	"R_LVX_32_GOTOFF"
+  relative=	"GOT"
+  syntax=	"@gotoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-gotoff_64"
+  elfIds=	"26"
+  fields=	"BitField-lvx_v2-DOUBLE"
+  linker=	"R_LVX_64_GOTOFF"
+  relative=	"GOT"
+  syntax=	"@gotoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-got_32"
+  elfIds=	"27"
+  fields=	"BitField-lvx_v2-WORD"
+  linker=	"R_LVX_32_GOT"
+  overflow=	"Unsigned"
+  relative=	"GOT"
+  syntax=	"@got"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-got_signed37"
+  elfIds=	"29 28"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_GOT_UP27 R_LVX_S37_GOT_LO10"
+  relative=	"GOT"
+  syntax=	"@got"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-got_signed43"
+  elfIds=	"32 31 30"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_GOT_EX6 R_LVX_S43_GOT_UP27 R_LVX_S43_GOT_LO10"
+  relative=	"GOT"
+  syntax=	"@got"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-got_64"
+  elfIds=	"33"
+  fields=	"BitField-lvx_v2-DOUBLE"
+  linker=	"R_LVX_64_GOT"
+  relative=	"GOT"
+  syntax=	"@got"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-glob_dat"
+  elfIds=	"34"
+  fields=	"BitField-lvx_v2-WORD"
+  linker=	"R_LVX_GLOB_DAT"
+  relative=	"GOT"
+  type=	"Rel_s"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-copy"
+  elfIds=	"35"
+  fields=	"BitField-lvx_v2-WORD"
+  linker=	"R_LVX_COPY"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-jump_slot"
+  elfIds=	"36"
+  fields=	"BitField-lvx_v2-WORD"
+  linker=	"R_LVX_JMP_SLOT"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-relative"
+  elfIds=	"37"
+  fields=	"BitField-lvx_v2-WORD"
+  linker=	"R_LVX_RELATIVE"
+  relative=	"BASE"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-signed43"
+  elfIds=	"40 39 38"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_EX6 R_LVX_S43_UP27 R_LVX_S43_LO10"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-signed64"
+  elfIds=	"43 42 41"
+  fields=	"BitField-lvx_v2-extend27 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S64_EX27 R_LVX_S64_UP27 R_LVX_S64_LO10"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-gotaddr_signed37"
+  elfIds=	"45 44"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_GOTADDR_UP27 R_LVX_S37_GOTADDR_LO10"
+  relative=	"PC"
+  syntax=	"@gotaddr"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-gotaddr_signed43"
+  elfIds=	"48 47 46"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_GOTADDR_EX6 R_LVX_S43_GOTADDR_UP27 R_LVX_S43_GOTADDR_LO10"
+  relative=	"PC"
+  syntax=	"@gotaddr"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-gotaddr_signed64"
+  elfIds=	"51 50 49"
+  fields=	"BitField-lvx_v2-extend27 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S64_GOTADDR_EX27 R_LVX_S64_GOTADDR_UP27 R_LVX_S64_GOTADDR_LO10"
+  relative=	"PC"
+  syntax=	"@gotaddr"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-dtpmod64"
+  elfIds=	"52"
+  fields=	"BitField-lvx_v2-DOUBLE"
+  linker=	"R_LVX_64_DTPMOD"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-dtpoff64"
+  elfIds=	"53"
+  fields=	"BitField-lvx_v2-DOUBLE"
+  linker=	"R_LVX_64_DTPOFF"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-dtpoff_signed37"
+  elfIds=	"55 54"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_TLS_DTPOFF_UP27 R_LVX_S37_TLS_DTPOFF_LO10"
+  syntax=	"@dtpoff"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-dtpoff_signed43"
+  elfIds=	"58 57 56"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_TLS_DTPOFF_EX6 R_LVX_S43_TLS_DTPOFF_UP27 R_LVX_S43_TLS_DTPOFF_LO10"
+  syntax=	"@tlsgd"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-tlsgd_signed37"
+  elfIds=	"60 59"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_TLS_GD_UP27 R_LVX_S37_TLS_GD_LO10"
+  relative=	"GOT"
+  syntax=	"@tlsgd"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-tlsgd_signed43"
+  elfIds=	"63 62 61"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_TLS_GD_EX6 R_LVX_S43_TLS_GD_UP27 R_LVX_S43_TLS_GD_LO10"
+  relative=	"GOT"
+  syntax=	"@tlsgd"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-tlsld_signed37"
+  elfIds=	"65 64"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_TLS_LD_UP27 R_LVX_S37_TLS_LD_LO10"
+  relative=	"GOT"
+  syntax=	"@tlsld"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-tlsld_signed43"
+  elfIds=	"68 67 66"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_TLS_LD_EX6 R_LVX_S43_TLS_LD_UP27 R_LVX_S43_TLS_LD_LO10"
+  relative=	"GOT"
+  syntax=	"@tlsld"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-tpoff64"
+  elfIds=	"69"
+  fields=	"BitField-lvx_v2-DOUBLE"
+  linker=	"R_LVX_64_TPOFF"
+  relative=	"TP"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-tlsie_signed37"
+  elfIds=	"71 70"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_TLS_IE_UP27 R_LVX_S37_TLS_IE_LO10"
+  relative=	"GOT"
+  syntax=	"@tlsie"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-tlsie_signed43"
+  elfIds=	"74 73 72"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_TLS_IE_EX6 R_LVX_S43_TLS_IE_UP27 R_LVX_S43_TLS_IE_LO10"
+  relative=	"GOT"
+  syntax=	"@tlsie"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-tlsle_signed37"
+  elfIds=	"76 75"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S37_TLS_LE_UP27 R_LVX_S37_TLS_LE_LO10"
+  relative=	"TP"
+  syntax=	"@tlsle"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-tlsle_signed43"
+  elfIds=	"79 78 77"
+  fields=	"BitField-lvx_v2-extend6 BitField-lvx_v2-upper27 BitField-lvx_v2-lower10"
+  linker=	"R_LVX_S43_TLS_LE_EX6 R_LVX_S43_TLS_LE_UP27 R_LVX_S43_TLS_LE_LO10"
+  relative=	"TP"
+  syntax=	"@tlsle"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-rel8"
+  elfIds=	"80"
+  fields=	"BitField-lvx_v2-BYTE"
+  linker=	"R_LVX_8"
+  overflow=	"Unsigned"
+  type=	"Rel_s_a"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel11s2"
+  elfIds=	"81"
+  fields=	"BitField-lvx_v2-pcrel11s2"
+  linker=	"R_LVX_S11S2_PCREL"
+  overflow=	"Signed"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel17s2"
+  elfIds=	"82"
+  fields=	"BitField-lvx_v2-pcrel17s2"
+  linker=	"R_LVX_S17S2_PCREL"
+  overflow=	"Signed"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel27s2"
+  elfIds=	"83"
+  fields=	"BitField-lvx_v2-pcrel27s2"
+  linker=	"R_LVX_S27S2_PCREL"
+  overflow=	"Signed"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel38s2"
+  elfIds=	"85 84"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower11"
+  linker=	"R_LVX_S38S2_PCREL_UP27 R_LVX_S38S2_PCREL_LO11"
+  overflow=	"Signed"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel44s2"
+  elfIds=	"87 86"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower17"
+  linker=	"R_LVX_S44S2_PCREL_UP27 R_LVX_S44S2_PCREL_LO17"
+  overflow=	"Signed"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>
+<Relocation
+  ID=	"Relocation-lvx_v2-pcrel54s2"
+  elfIds=	"89 88"
+  fields=	"BitField-lvx_v2-upper27 BitField-lvx_v2-lower27"
+  linker=	"R_LVX_S54S2_PCREL_UP27 R_LVX_S54S2_PCREL_LO27"
+  overflow=	"Signed"
+  relative=	"PC"
+  scaling=	"2"
+  type=	"Rel_s_a"
+  underflow=	"1"
+/>

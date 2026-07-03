@@ -1,0 +1,822 @@
+\subsubsectionfont{\color{kalrayblue}}
+{
+\tolerance=4000
+\hbadness=10000
+\vbadness=10000
+\subsubsection[{\small COPYD: Copy Double Word}]{COPYD\hfill Copy Double Word}
+\label{instr:COPYD}\index{copyd}
+
+\paragraph{Encoding} Format \textsf{ALU\_DWRI, exucode2 = 1010}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1010, 6/registerW, 2/00, 10/0000000000, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction IORD, format ALU\_DWRI
+
+\paragraph{Forced operands} \emph{signed10} = 0
+
+\paragraph{Syntax} \texttt{copyd} \emph{registerW} = \emph{registerZ}
+\newpage
+\subsubsection[{\small COPYQ: Copy Double Word}]{COPYQ\hfill Copy Double Word}
+\label{instr:COPYQ}\index{copyq}
+
+\paragraph{Encoding} Format \textsf{ALU\_CATDQ, exucode2 = 1111}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1111, 5/registerM, 1/--, 2/10, 3/010, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction CATDQ, format ALU\_CATDQ
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{copyq} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+\newpage
+\subsubsection[{\small COPYW: Copy Word}]{COPYW\hfill Copy Word}
+\label{instr:COPYW}\index{copyw}
+
+\paragraph{Encoding} Format \textsf{ALU\_WSWRI, exucode1 = 001}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 1/1, 3/001, 6/registerW, 2/11, 3/100, 1/signextw, 6/000000, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SLLW, format ALU\_WSWRI
+
+\paragraph{Forced operands} \emph{unsigned6} = 0
+
+\paragraph{Syntax} \texttt{copyw}\emph{signextw} \emph{registerW} = \emph{registerZ}
+
+\paragraph{Modifier} \textsf{signextw}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Zero Extend & 0 \\
+.SX & Sign Extend & 1 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MADDDT: alias of MADDDQ}]{MADDDT\hfill alias of MADDDQ}
+\label{instr:MADDDT}\index{madddt}
+
+\paragraph{Encoding} Format \textsf{ALU\_QMEWRRR, alucode2 = 10}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/00, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MADDDQ, format ALU\_QMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 0
+
+\paragraph{Syntax} \texttt{madddt} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MADDSUDT: alias of MADDDQ.SU}]{MADDSUDT\hfill alias of MADDDQ.SU}
+\label{instr:MADDSUDT}\index{maddsudt}
+
+\paragraph{Encoding} Format \textsf{ALU\_QMEWRRR, alucode2 = 10}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/10, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MADDDQ, format ALU\_QMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 2
+
+\paragraph{Syntax} \texttt{maddsudt} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MADDSUWD: alias of MADDWD.SU}]{MADDSUWD\hfill alias of MADDWD.SU}
+\label{instr:MADDSUWD}\index{maddsuwd}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRRR, alucode2 = 10}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/10, 6/registerW, 2/10, 3/111, 1/0, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MADDWD, format ALU\_DMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 2, \emph{} = 0
+
+\paragraph{Syntax} \texttt{maddsuwd} \emph{registerW} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRRR.M, alucode2 = 10}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/10, 2/10, 6/registerW, 2/10, 3/111, 1/0, 1/0, 5/lower5, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MADDWD, format ALU\_DMEWRRR.M
+
+\paragraph{Forced operands} \emph{widemult} = 2, \emph{splat32} = 0
+
+\paragraph{Syntax} \texttt{maddsuwd} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower5}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Modifier} \textsf{splat32}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & No splat & 0 \\
+.@ & Splat x2 & 1 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MADDUDT: alias of MADDDQ.U}]{MADDUDT\hfill alias of MADDDQ.U}
+\label{instr:MADDUDT}\index{maddudt}
+
+\paragraph{Encoding} Format \textsf{ALU\_QMEWRRR, alucode2 = 10}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/01, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MADDDQ, format ALU\_QMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 1
+
+\paragraph{Syntax} \texttt{maddudt} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MADDUWD: alias of MADDWD.U}]{MADDUWD\hfill alias of MADDWD.U}
+\label{instr:MADDUWD}\index{madduwd}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRRR, alucode2 = 10}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/01, 6/registerW, 2/10, 3/111, 1/0, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MADDWD, format ALU\_DMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 1, \emph{} = 0
+
+\paragraph{Syntax} \texttt{madduwd} \emph{registerW} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRRR.M, alucode2 = 10}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/10, 2/01, 6/registerW, 2/10, 3/111, 1/0, 1/0, 5/lower5, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MADDWD, format ALU\_DMEWRRR.M
+
+\paragraph{Forced operands} \emph{widemult} = 1, \emph{splat32} = 0
+
+\paragraph{Syntax} \texttt{madduwd} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower5}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Modifier} \textsf{splat32}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & No splat & 0 \\
+.@ & Splat x2 & 1 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MSBFDT: alias of MSBFDQ}]{MSBFDT\hfill alias of MSBFDQ}
+\label{instr:MSBFDT}\index{msbfdt}
+
+\paragraph{Encoding} Format \textsf{ALU\_QMEWRRR, alucode2 = 11}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/11, 2/00, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MSBFDQ, format ALU\_QMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 0
+
+\paragraph{Syntax} \texttt{msbfdt} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MSBFSUDT: alias of MSBFDQ.SU}]{MSBFSUDT\hfill alias of MSBFDQ.SU}
+\label{instr:MSBFSUDT}\index{msbfsudt}
+
+\paragraph{Encoding} Format \textsf{ALU\_QMEWRRR, alucode2 = 11}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/11, 2/10, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MSBFDQ, format ALU\_QMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 2
+
+\paragraph{Syntax} \texttt{msbfsudt} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MSBFSUWD: alias of MSBFWD.SU}]{MSBFSUWD\hfill alias of MSBFWD.SU}
+\label{instr:MSBFSUWD}\index{msbfsuwd}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRRR, alucode2 = 11}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/11, 2/10, 6/registerW, 2/10, 3/111, 1/0, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MSBFWD, format ALU\_DMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 2, \emph{} = 0
+
+\paragraph{Syntax} \texttt{msbfsuwd} \emph{registerW} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRRR.M, alucode2 = 11}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/11, 2/10, 6/registerW, 2/10, 3/111, 1/0, 1/0, 5/lower5, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MSBFWD, format ALU\_DMEWRRR.M
+
+\paragraph{Forced operands} \emph{widemult} = 2, \emph{splat32} = 0
+
+\paragraph{Syntax} \texttt{msbfsuwd} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower5}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Modifier} \textsf{splat32}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & No splat & 0 \\
+.@ & Splat x2 & 1 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MSBFUDT: alias of MSBFDQ.U}]{MSBFUDT\hfill alias of MSBFDQ.U}
+\label{instr:MSBFUDT}\index{msbfudt}
+
+\paragraph{Encoding} Format \textsf{ALU\_QMEWRRR, alucode2 = 11}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/11, 2/01, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MSBFDQ, format ALU\_QMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 1
+
+\paragraph{Syntax} \texttt{msbfudt} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MSBFUWD: alias of MSBFWD.U}]{MSBFUWD\hfill alias of MSBFWD.U}
+\label{instr:MSBFUWD}\index{msbfuwd}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRRR, alucode2 = 11}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/11, 2/01, 6/registerW, 2/10, 3/111, 1/0, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MSBFWD, format ALU\_DMEWRRR
+
+\paragraph{Forced operands} \emph{widemult} = 1, \emph{} = 0
+
+\paragraph{Syntax} \texttt{msbfuwd} \emph{registerW} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRRR.M, alucode2 = 11}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/11, 2/01, 6/registerW, 2/10, 3/111, 1/0, 1/0, 5/lower5, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MSBFWD, format ALU\_DMEWRRR.M
+
+\paragraph{Forced operands} \emph{widemult} = 1, \emph{splat32} = 0
+
+\paragraph{Syntax} \texttt{msbfuwd} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower5}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Modifier} \textsf{splat32}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & No splat & 0 \\
+.@ & Splat x2 & 1 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MULDT: alias of MULDQ}]{MULDT\hfill alias of MULDQ}
+\label{instr:MULDT}\index{muldt}
+
+\paragraph{Encoding} Format \textsf{ALU\_QMEWRR, alucode2 = 00}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/00, 2/00, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MULDQ, format ALU\_QMEWRR
+
+\paragraph{Forced operands} \emph{widemult} = 0
+
+\paragraph{Syntax} \texttt{muldt} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MULSUDT: alias of MULDQ.SU}]{MULSUDT\hfill alias of MULDQ.SU}
+\label{instr:MULSUDT}\index{mulsudt}
+
+\paragraph{Encoding} Format \textsf{ALU\_QMEWRR, alucode2 = 00}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/00, 2/10, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MULDQ, format ALU\_QMEWRR
+
+\paragraph{Forced operands} \emph{widemult} = 2
+
+\paragraph{Syntax} \texttt{mulsudt} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MULSUWD: alias of MULWD.SU}]{MULSUWD\hfill alias of MULWD.SU}
+\label{instr:MULSUWD}\index{mulsuwd}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRR, alucode2 = 00}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/00, 2/10, 6/registerW, 2/10, 3/111, 1/0, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MULWD, format ALU\_DMEWRR
+
+\paragraph{Forced operands} \emph{widemult} = 2, \emph{} = 0
+
+\paragraph{Syntax} \texttt{mulsuwd} \emph{registerW} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRR.M, alucode2 = 00}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/00, 2/10, 6/registerW, 2/10, 3/111, 1/0, 1/0, 5/lower5, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MULWD, format ALU\_DMEWRR.M
+
+\paragraph{Forced operands} \emph{widemult} = 2, \emph{splat32} = 0
+
+\paragraph{Syntax} \texttt{mulsuwd} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower5}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Modifier} \textsf{splat32}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & No splat & 0 \\
+.@ & Splat x2 & 1 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MULUDT: alias of MULDQ.U}]{MULUDT\hfill alias of MULDQ.U}
+\label{instr:MULUDT}\index{muludt}
+
+\paragraph{Encoding} Format \textsf{ALU\_QMEWRR, alucode2 = 00}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/00, 2/01, 5/registerM, 1/--, 2/10, 3/111, 1/1, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MULDQ, format ALU\_QMEWRR
+
+\paragraph{Forced operands} \emph{widemult} = 1
+
+\paragraph{Syntax} \texttt{muludt} \emph{registerM} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small MULUWD: alias of MULWD.U}]{MULUWD\hfill alias of MULWD.U}
+\label{instr:MULUWD}\index{muluwd}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRR, alucode2 = 00}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/00, 2/01, 6/registerW, 2/10, 3/111, 1/0, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MULWD, format ALU\_DMEWRR
+
+\paragraph{Forced operands} \emph{widemult} = 1, \emph{} = 0
+
+\paragraph{Syntax} \texttt{muluwd} \emph{registerW} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Encoding} Format \textsf{ALU\_DMEWRR.M, alucode2 = 00}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 2/00, 2/01, 6/registerW, 2/10, 3/111, 1/0, 1/0, 5/lower5, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction MULWD, format ALU\_DMEWRR.M
+
+\paragraph{Forced operands} \emph{widemult} = 1, \emph{splat32} = 0
+
+\paragraph{Syntax} \texttt{muluwd} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower5}
+
+\paragraph{Modifier} \textsf{widemult}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & Signed & 0 \\
+.U & Unsigned & 1 \\
+.SU & Signed by Unsigned & 2 \\
+\hline \end{tabular}
+
+\paragraph{Modifier} \textsf{splat32}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & No splat & 0 \\
+.@ & Splat x2 & 1 \\
+\hline \end{tabular}
+\newpage
+\subsubsection[{\small SBMM8: Swapped Bit Matrix Multiplication 8$\times$8}]{SBMM8\hfill Swapped Bit Matrix Multiplication 8$\times$8}
+\label{instr:SBMM8}\index{sbmm8}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRR, exucode2 = 1110}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1110, 6/registerW, 2/10, 3/001, 1/0, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMM8D, format ALU\_DBMWRR
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmm8} \emph{registerW} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRR.M, exucode2 = 1110}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/1110, 6/registerW, 2/10, 3/001, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMM8D, format ALU\_DBMWRR.M
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmm8} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower5}
+
+\paragraph{Modifier} \textsf{splat32}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & No splat & 0 \\
+.@ & Splat x2 & 1 \\
+\hline \end{tabular}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRI, exucode2 = 1110}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1110, 6/registerW, 2/01, 10/signed10, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMM8D, format ALU\_DBMWRI
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmm8} \emph{registerW} = \emph{registerZ}, \emph{signed10}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRI.X, exucode2 = 1110}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/1110, 6/registerW, 2/01, 10/lower10, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMM8D, format ALU\_DBMWRI.X
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmm8} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower10}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRI.Y, exucode2 = 1110}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/1110, 6/registerW, 2/01, 10/lower10, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMM8D, format ALU\_DBMWRI.Y
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmm8} \emph{registerW} = \emph{registerZ}, \emph{extend27\_upper27\_lower10}
+\newpage
+\subsubsection[{\small SBMMT8: Swapped Bit Matrix Multiplication Transposed 8$\times$8}]{SBMMT8\hfill Swapped Bit Matrix Multiplication Transposed 8$\times$8}
+\label{instr:SBMMT8}\index{sbmmt8}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRR, exucode2 = 1111}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1111, 6/registerW, 2/10, 3/001, 1/0, 6/registerY, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMMT8D, format ALU\_DBMWRR
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmmt8} \emph{registerW} = \emph{registerZ}, \emph{registerY}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRR.M, exucode2 = 1111}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/1111, 6/registerW, 2/10, 3/001, 1/0, 1/splat32, 5/lower5, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMMT8D, format ALU\_DBMWRR.M
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmmt8} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower5}
+
+\paragraph{Modifier} \textsf{splat32}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+. & No splat & 0 \\
+.@ & Splat x2 & 1 \\
+\hline \end{tabular}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRI, exucode2 = 1111}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 4/1111, 6/registerW, 2/01, 10/signed10, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMMT8D, format ALU\_DBMWRI
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmmt8} \emph{registerW} = \emph{registerZ}, \emph{signed10}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRI.X, exucode2 = 1111}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/1111, 6/registerW, 2/01, 10/lower10, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMMT8D, format ALU\_DBMWRI.X
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmmt8} \emph{registerW} = \emph{registerZ}, \emph{upper27\_lower10}
+
+\paragraph{Encoding} Format \textsf{ALU\_DBMWRI.Y, exucode2 = 1111}\\
+
+\bitfields{ 1/P, 2/00, 2/-- --, 27/extend27, 1/1, 2/00, 2/-- --, 27/upper27, 1/1, 2/11, 1/0, 4/1111, 6/registerW, 2/01, 10/lower10, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction SBMMT8D, format ALU\_DBMWRI.Y
+
+\paragraph{Forced operands} 
+
+\paragraph{Syntax} \texttt{sbmmt8} \emph{registerW} = \emph{registerZ}, \emph{extend27\_upper27\_lower10}
+\newpage
+\subsubsection[{\small SXBD: Sign Extend Byte to Double Word}]{SXBD\hfill Sign Extend Byte to Double Word}
+\label{instr:SXBD}\index{sxbd}
+
+\paragraph{Encoding} Format \textsf{ALU\_BFWR, wricode1 = 10}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/stopbit2, 6/registerW, 2/01, 4/stopbit4, 6/000000, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction EXTFS, format ALU\_BFWR
+
+\paragraph{Forced operands} \emph{stopbit2\_stopbit4} = 7, \emph{startbit} = 0
+
+\paragraph{Syntax} \texttt{sxbd} \emph{registerW} = \emph{registerZ}
+\newpage
+\subsubsection[{\small SXHD: Sign Extend Half Word to Double Word}]{SXHD\hfill Sign Extend Half Word to Double Word}
+\label{instr:SXHD}\index{sxhd}
+
+\paragraph{Encoding} Format \textsf{ALU\_BFWR, wricode1 = 10}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/stopbit2, 6/registerW, 2/01, 4/stopbit4, 6/000000, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction EXTFS, format ALU\_BFWR
+
+\paragraph{Forced operands} \emph{stopbit2\_stopbit4} = 15, \emph{startbit} = 0
+
+\paragraph{Syntax} \texttt{sxhd} \emph{registerW} = \emph{registerZ}
+\newpage
+\subsubsection[{\small SXWD: Sign Extend Word to Double Word}]{SXWD\hfill Sign Extend Word to Double Word}
+\label{instr:SXWD}\index{sxwd}
+
+\paragraph{Encoding} Format \textsf{ALU\_BFWR, wricode1 = 10}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/10, 2/stopbit2, 6/registerW, 2/01, 4/stopbit4, 6/000000, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction EXTFS, format ALU\_BFWR
+
+\paragraph{Forced operands} \emph{stopbit2\_stopbit4} = 31, \emph{startbit} = 0
+
+\paragraph{Syntax} \texttt{sxwd} \emph{registerW} = \emph{registerZ}
+\newpage
+\subsubsection[{\small ZXBD: Zero Extend Byte to Double Word}]{ZXBD\hfill Zero Extend Byte to Double Word}
+\label{instr:ZXBD}\index{zxbd}
+
+\paragraph{Encoding} Format \textsf{ALU\_BFWR, wricode1 = 01}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/01, 2/stopbit2, 6/registerW, 2/01, 4/stopbit4, 6/000000, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction EXTFZ, format ALU\_BFWR
+
+\paragraph{Forced operands} \emph{stopbit2\_stopbit4} = 7, \emph{startbit} = 0
+
+\paragraph{Syntax} \texttt{zxbd} \emph{registerW} = \emph{registerZ}
+\newpage
+\subsubsection[{\small ZXHD: Zero Extend Half Word to Double Word}]{ZXHD\hfill Zero Extend Half Word to Double Word}
+\label{instr:ZXHD}\index{zxhd}
+
+\paragraph{Encoding} Format \textsf{ALU\_BFWR, wricode1 = 01}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/01, 2/stopbit2, 6/registerW, 2/01, 4/stopbit4, 6/000000, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction EXTFZ, format ALU\_BFWR
+
+\paragraph{Forced operands} \emph{stopbit2\_stopbit4} = 15, \emph{startbit} = 0
+
+\paragraph{Syntax} \texttt{zxhd} \emph{registerW} = \emph{registerZ}
+\newpage
+\subsubsection[{\small ZXWD: Zero Extend Word to Double Word}]{ZXWD\hfill Zero Extend Word to Double Word}
+\label{instr:ZXWD}\index{zxwd}
+
+\paragraph{Encoding} Format \textsf{ALU\_BFWR, wricode1 = 01}\\
+
+\bitfields{ 1/P, 2/11, 1/0, 2/01, 2/stopbit2, 6/registerW, 2/01, 4/stopbit4, 6/000000, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction EXTFZ, format ALU\_BFWR
+
+\paragraph{Forced operands} \emph{stopbit2\_stopbit4} = 31, \emph{startbit} = 0
+
+\paragraph{Syntax} \texttt{zxwd} \emph{registerW} = \emph{registerZ}
+\newpage
+\subsubsection[{\small ERROP: Error opcode.}]{ERROP\hfill Error opcode.}
+\label{instr:ERROP}\index{errop}
+
+\paragraph{Encoding} Format \textsf{BCU\_CCB, bcucode1 = 00}\\
+
+\bitfields{ 1/P, 2/00, 2/00, 4/0000, 11/00000000000, 6/000000, 6/000000 }
+
+
+\paragraph{Specializes} Instruction CCB, format BCU\_CCB
+
+\paragraph{Forced operands} \emph{ccbcomp} = 0, \emph{registerZ} = 0, \emph{registerY} = 0, \emph{pcrel11s2} = 0
+
+\paragraph{Syntax} \texttt{errop}
+
+\paragraph{Modifier} \textsf{ccbcomp}:\\
+
+\noindent \begin{tabular}{|l|l|r|} \hline
+\bf{Name} & \bf{Case} & \bf{Value} \\ \hline
+.DLT & Double Word Less Than & 0 \\
+.DGE & Double Word Greater Than or Equal & 1 \\
+.DLTU & Double Word Less Than Unsigned & 2 \\
+.DGEU & Double Word Greater Than or Equal Unsigned & 3 \\
+.DEQ & Double Word Equal & 4 \\
+.DNE & Double Word Not Equal & 5 \\
+.DANY & Double Any bit set after AND-ing & 6 \\
+.DNONE & Double No bits set after AND-ing & 7 \\
+.WLT & Word Less Than & 8 \\
+.WGE & Word Greater Than or Equal & 9 \\
+.WLTU & Word Less Than Unsigned & 10 \\
+.WGEU & Word Greater Than or Equal Unsigned & 11 \\
+.WEQ & Word Equal & 12 \\
+.WNE & Word Not Equal & 13 \\
+.WANY & Word Any bit set after AND-ing & 14 \\
+.WNONE & Word No bits set after AND-ing & 15 \\
+\hline \end{tabular}
+\newpage
+\subsubsectionfont{}
+}

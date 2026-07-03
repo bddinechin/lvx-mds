@@ -1,0 +1,1038 @@
+
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:SBMM8"
+  formats=	"Format-lvx_v2-ALU_DBMWRR Format-lvx_v2-ALU_DBMWRR.M Format-lvx_v2-ALU_DBMWRI Format-lvx_v2-ALU_DBMWRI.X Format-lvx_v2-ALU_DBMWRI.Y"
+  mnemonic=	"sbmm8"
+  patterns=	"Pattern-lvx_v2-ALU_DBMWRR:ALU:SBMM8D.exucode2 Pattern-lvx_v2-ALU_DBMWRR.M:ALU:SBMM8D.exucode2 Pattern-lvx_v2-ALU_DBMWRI:ALU:SBMM8D.exucode2 Pattern-lvx_v2-ALU_DBMWRI.X:ALU:SBMM8D.exucode2 Pattern-lvx_v2-ALU_DBMWRI.Y:ALU:SBMM8D.exucode2"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY Scheduling-lvx_v2-ALU_TINY.X Scheduling-lvx_v2-ALU_TINY Scheduling-lvx_v2-ALU_TINY.X Scheduling-lvx_v2-ALU_TINY.Y"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:SBMM8"
+  what=	"Swapped Bit Matrix Multiplication 8$\times$8"
+><Execution>
+new result1 = _BMM_8(_ZX_64(argument3), _ZX_64(argument2));
+</Execution><Behavior>
+(WRITE.result1
+  (APPLY.64._BMM_8
+    (ZX.64 (READ.argument3))
+    (ZX.64 (READ.argument2))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:SBMMT8"
+  formats=	"Format-lvx_v2-ALU_DBMWRR Format-lvx_v2-ALU_DBMWRR.M Format-lvx_v2-ALU_DBMWRI Format-lvx_v2-ALU_DBMWRI.X Format-lvx_v2-ALU_DBMWRI.Y"
+  mnemonic=	"sbmmt8"
+  patterns=	"Pattern-lvx_v2-ALU_DBMWRR:ALU:SBMMT8D.exucode2 Pattern-lvx_v2-ALU_DBMWRR.M:ALU:SBMMT8D.exucode2 Pattern-lvx_v2-ALU_DBMWRI:ALU:SBMMT8D.exucode2 Pattern-lvx_v2-ALU_DBMWRI.X:ALU:SBMMT8D.exucode2 Pattern-lvx_v2-ALU_DBMWRI.Y:ALU:SBMMT8D.exucode2"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY Scheduling-lvx_v2-ALU_TINY.X Scheduling-lvx_v2-ALU_TINY Scheduling-lvx_v2-ALU_TINY.X Scheduling-lvx_v2-ALU_TINY.Y"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:SBMMT8"
+  what=	"Swapped Bit Matrix Multiplication Transposed 8$\times$8"
+><Execution>
+new result1 = _BMT_8(_BMM_8(_ZX_64(argument3), _ZX_64(argument2)));
+</Execution><Behavior>
+(WRITE.result1
+  (APPLY.64._BMT_8
+    (APPLY.64._BMM_8
+      (ZX.64 (READ.argument3))
+      (ZX.64 (READ.argument2)))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:COPYQ"
+  formats=	"Format-lvx_v2-ALU_CATDQ"
+  mnemonic=	"copyq"
+  patterns=	"Pattern-lvx_v2-ALU_CATDQ:ALU:CATDQ.exucode2"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:COPYQ"
+  what=	"Copy Double Word"
+><Execution>
+new result1 = _ZX_64(argument2) | (argument3 &lt;&lt; 64);
+</Execution><Behavior>
+(WRITE.result1
+  (IOR
+    (ZX.64 (READ.argument2))
+    (SHL (READ.argument3) (CONST.64))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:COPYD"
+  formats=	"Format-lvx_v2-ALU_DWRI"
+  mnemonic=	"copyd"
+  patterns=	"Pattern-lvx_v2-ALU_DWRR0:ALU:IORD.exucode2 Pattern-lvx_v2-ALU_DWRR0.M:ALU:IORD.exucode2 Pattern-lvx_v2-ALU_DWRI:ALU:IORD.exucode2 Pattern-lvx_v2-ALU_DWRI.X:ALU:IORD.exucode2 Pattern-lvx_v2-ALU_DWRI.Y:ALU:IORD.exucode2 Pattern-lvx_v2-ALU_DWRI:ALU:COPYD.signed10"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY"
+  syntax=	"%0 %1 = %2"
+  synthetic=	"Synthetic-lvx_v2-ALU:COPYD"
+  what=	"Copy Double Word"
+><Execution>
+new result1 = argument2 | argument3;
+</Execution><Behavior>
+(WRITE.result1
+  (IOR
+    (READ.argument2)
+    (READ.argument3)))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-BCU:ERROP"
+  formats=	"Format-lvx_v2-BCU_CCB"
+  mnemonic=	"errop"
+  patterns=	"Pattern-lvx_v2-BCU_CCB:BCU:CCB.bcucode1 Pattern-lvx_v2-BCU_CCB:BCU:ERROP.ccbcomp Pattern-lvx_v2-BCU_CCB:BCU:ERROP.registerZ Pattern-lvx_v2-BCU_CCB:BCU:ERROP.registerY Pattern-lvx_v2-BCU_CCB:BCU:ERROP.pcrel11s2"
+  schedulings=	"Scheduling-lvx_v2-BCU_BRRP2"
+  syntax=	"%0"
+  synthetic=	"Synthetic-lvx_v2-BCU:ERROP"
+  what=	"Error opcode."
+><Execution>
+stage RR:
+if (ccbcomp(argument1, argument2, argument3)) {
+  NPC = PC + argument4;
+}
+</Execution><Behavior>
+(IF
+  (TEST.ccbcomp (READ.argument1) (READ.argument2) (READ.argument3))
+  (SEQ
+    (WRITE.address
+      (ADD
+        (F2I.64 (LOAD.ID (AGGL.PC (CONST.0) (CONST.1))))
+        (READ.argument4)))
+    (STORE.RR (AGGL.NPC (CONST.0) (CONST.1))
+      (I2F.64 (READ.address)))
+    (EFFECT.RR.branch_info (CONST.1) (READ.address))
+    (EFFECT.RR.srhpc_update))
+  (EFFECT.RR.branch_info (CONST.0) (CONST.0)))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:ZXBD"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  mnemonic=	"zxbd"
+  patterns=	"Pattern-lvx_v2-ALU_BFWR:ALU:EXTFZ.wricode1 Pattern-lvx_v2-ALU_BFWR:ALU:ZXBD.stopbit2_stopbit4 Pattern-lvx_v2-ALU_BFWR:ALU:ZXBD.startbit"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY"
+  syntax=	"%0 %1 = %2"
+  synthetic=	"Synthetic-lvx_v2-ALU:ZXBD"
+  what=	"Zero Extend Byte to Double Word"
+><Execution>
+new masked = argument2 &amp; mask;
+new result1 = masked &gt;&gt; startbit;
+</Execution><Behavior>
+(SEQ
+  (WRITE.masked
+    (AND
+      (READ.argument2)
+      (READ.mask)))
+  (WRITE.result1
+    (SHR
+      (READ.masked)
+      (READ.startbit))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:SXBD"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  mnemonic=	"sxbd"
+  patterns=	"Pattern-lvx_v2-ALU_BFWR:ALU:EXTFS.wricode1 Pattern-lvx_v2-ALU_BFWR:ALU:SXBD.stopbit2_stopbit4 Pattern-lvx_v2-ALU_BFWR:ALU:SXBD.startbit"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY"
+  syntax=	"%0 %1 = %2"
+  synthetic=	"Synthetic-lvx_v2-ALU:SXBD"
+  what=	"Sign Extend Byte to Double Word"
+><Execution>
+new masked1 = _ZX_64(argument2 &amp; mask);
+new masked2 = _SX_64(argument2 | ~mask);
+new negative = argument2 &amp; (mask &amp; ~(mask &gt;&gt; 1));
+new masked = negative == 0 ? masked1 : masked2;
+new result1 = masked &gt;&gt; startbit;
+</Execution><Behavior>
+(SEQ
+  (WRITE.masked1
+    (ZX.64
+      (AND
+        (READ.argument2)
+        (READ.mask))))
+  (WRITE.masked2
+    (SX.64
+      (IOR
+        (READ.argument2)
+        (NOT (READ.mask)))))
+  (WRITE.negative
+    (AND
+      (READ.argument2)
+      (AND
+        (READ.mask)
+        (NOT
+          (SHR
+            (READ.mask)
+            (CONST.1))))))
+  (WRITE.masked
+    (SELECT
+      (EQ
+        (READ.negative)
+        (CONST.0))
+      (READ.masked1)
+      (READ.masked2)))
+  (WRITE.result1
+    (SHR
+      (READ.masked)
+      (READ.startbit))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:ZXHD"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  mnemonic=	"zxhd"
+  patterns=	"Pattern-lvx_v2-ALU_BFWR:ALU:EXTFZ.wricode1 Pattern-lvx_v2-ALU_BFWR:ALU:ZXHD.stopbit2_stopbit4 Pattern-lvx_v2-ALU_BFWR:ALU:ZXHD.startbit"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY"
+  syntax=	"%0 %1 = %2"
+  synthetic=	"Synthetic-lvx_v2-ALU:ZXHD"
+  what=	"Zero Extend Half Word to Double Word"
+><Execution>
+new masked = argument2 &amp; mask;
+new result1 = masked &gt;&gt; startbit;
+</Execution><Behavior>
+(SEQ
+  (WRITE.masked
+    (AND
+      (READ.argument2)
+      (READ.mask)))
+  (WRITE.result1
+    (SHR
+      (READ.masked)
+      (READ.startbit))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:SXHD"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  mnemonic=	"sxhd"
+  patterns=	"Pattern-lvx_v2-ALU_BFWR:ALU:EXTFS.wricode1 Pattern-lvx_v2-ALU_BFWR:ALU:SXHD.stopbit2_stopbit4 Pattern-lvx_v2-ALU_BFWR:ALU:SXHD.startbit"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY"
+  syntax=	"%0 %1 = %2"
+  synthetic=	"Synthetic-lvx_v2-ALU:SXHD"
+  what=	"Sign Extend Half Word to Double Word"
+><Execution>
+new masked1 = _ZX_64(argument2 &amp; mask);
+new masked2 = _SX_64(argument2 | ~mask);
+new negative = argument2 &amp; (mask &amp; ~(mask &gt;&gt; 1));
+new masked = negative == 0 ? masked1 : masked2;
+new result1 = masked &gt;&gt; startbit;
+</Execution><Behavior>
+(SEQ
+  (WRITE.masked1
+    (ZX.64
+      (AND
+        (READ.argument2)
+        (READ.mask))))
+  (WRITE.masked2
+    (SX.64
+      (IOR
+        (READ.argument2)
+        (NOT (READ.mask)))))
+  (WRITE.negative
+    (AND
+      (READ.argument2)
+      (AND
+        (READ.mask)
+        (NOT
+          (SHR
+            (READ.mask)
+            (CONST.1))))))
+  (WRITE.masked
+    (SELECT
+      (EQ
+        (READ.negative)
+        (CONST.0))
+      (READ.masked1)
+      (READ.masked2)))
+  (WRITE.result1
+    (SHR
+      (READ.masked)
+      (READ.startbit))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:ZXWD"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  mnemonic=	"zxwd"
+  patterns=	"Pattern-lvx_v2-ALU_BFWR:ALU:EXTFZ.wricode1 Pattern-lvx_v2-ALU_BFWR:ALU:ZXWD.stopbit2_stopbit4 Pattern-lvx_v2-ALU_BFWR:ALU:ZXWD.startbit"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY"
+  syntax=	"%0 %1 = %2"
+  synthetic=	"Synthetic-lvx_v2-ALU:ZXWD"
+  what=	"Zero Extend Word to Double Word"
+><Execution>
+new masked = argument2 &amp; mask;
+new result1 = masked &gt;&gt; startbit;
+</Execution><Behavior>
+(SEQ
+  (WRITE.masked
+    (AND
+      (READ.argument2)
+      (READ.mask)))
+  (WRITE.result1
+    (SHR
+      (READ.masked)
+      (READ.startbit))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:SXWD"
+  formats=	"Format-lvx_v2-ALU_BFWR"
+  mnemonic=	"sxwd"
+  patterns=	"Pattern-lvx_v2-ALU_BFWR:ALU:EXTFS.wricode1 Pattern-lvx_v2-ALU_BFWR:ALU:SXWD.stopbit2_stopbit4 Pattern-lvx_v2-ALU_BFWR:ALU:SXWD.startbit"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY"
+  syntax=	"%0 %1 = %2"
+  synthetic=	"Synthetic-lvx_v2-ALU:SXWD"
+  what=	"Sign Extend Word to Double Word"
+><Execution>
+new masked1 = _ZX_64(argument2 &amp; mask);
+new masked2 = _SX_64(argument2 | ~mask);
+new negative = argument2 &amp; (mask &amp; ~(mask &gt;&gt; 1));
+new masked = negative == 0 ? masked1 : masked2;
+new result1 = masked &gt;&gt; startbit;
+</Execution><Behavior>
+(SEQ
+  (WRITE.masked1
+    (ZX.64
+      (AND
+        (READ.argument2)
+        (READ.mask))))
+  (WRITE.masked2
+    (SX.64
+      (IOR
+        (READ.argument2)
+        (NOT (READ.mask)))))
+  (WRITE.negative
+    (AND
+      (READ.argument2)
+      (AND
+        (READ.mask)
+        (NOT
+          (SHR
+            (READ.mask)
+            (CONST.1))))))
+  (WRITE.masked
+    (SELECT
+      (EQ
+        (READ.negative)
+        (CONST.0))
+      (READ.masked1)
+      (READ.masked2)))
+  (WRITE.result1
+    (SHR
+      (READ.masked)
+      (READ.startbit))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:COPYW"
+  formats=	"Format-lvx_v2-ALU_WSWRI"
+  mnemonic=	"copyw"
+  patterns=	"Pattern-lvx_v2-ALU_WSWRR:ALU:SLLW.exucode1 Pattern-lvx_v2-ALU_WSWRI:ALU:SLLW.exucode1 Pattern-lvx_v2-ALU_WSWRI:ALU:COPYW.unsigned6"
+  schedulings=	"Scheduling-lvx_v2-ALU_TINY"
+  syntax=	"%0%4 %1 = %2"
+  synthetic=	"Synthetic-lvx_v2-ALU:COPYW"
+  what=	"Copy Word"
+><Execution>
+new result1 = argument2.32[0] &lt;&lt; _ZX_5(argument3);
+</Execution><Behavior>
+(WRITE.result1
+  (SHL
+    (READ.32[0].argument2)
+    (ZX.5 (READ.argument3))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MULDT"
+  formats=	"Format-lvx_v2-ALU_QMEWRR"
+  mnemonic=	"muldt"
+  patterns=	"Pattern-lvx_v2-ALU_QMEWRR:ALU:MULDQ.alucode2 Pattern-lvx_v2-ALU_QMEWRR:ALU:MULDT.widemult"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MULDT"
+  what=	"alias of MULDQ"
+><Execution>
+if (widemult == 0) {
+  product = _SX_64(argument2) * _SX_64(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_64(argument2) * _ZX_64(argument3);
+}
+if (widemult == 2) {
+  product = _SX_64(argument2) * _ZX_64(argument3);
+}
+result1 = product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (SX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (READ.product)))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MULUDT"
+  formats=	"Format-lvx_v2-ALU_QMEWRR"
+  mnemonic=	"muludt"
+  patterns=	"Pattern-lvx_v2-ALU_QMEWRR:ALU:MULDQ.alucode2 Pattern-lvx_v2-ALU_QMEWRR:ALU:MULUDT.widemult"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MULUDT"
+  what=	"alias of MULDQ.U"
+><Execution>
+if (widemult == 0) {
+  product = _SX_64(argument2) * _SX_64(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_64(argument2) * _ZX_64(argument3);
+}
+if (widemult == 2) {
+  product = _SX_64(argument2) * _ZX_64(argument3);
+}
+result1 = product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (SX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (READ.product)))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MULSUDT"
+  formats=	"Format-lvx_v2-ALU_QMEWRR"
+  mnemonic=	"mulsudt"
+  patterns=	"Pattern-lvx_v2-ALU_QMEWRR:ALU:MULDQ.alucode2 Pattern-lvx_v2-ALU_QMEWRR:ALU:MULSUDT.widemult"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MULSUDT"
+  what=	"alias of MULDQ.SU"
+><Execution>
+if (widemult == 0) {
+  product = _SX_64(argument2) * _SX_64(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_64(argument2) * _ZX_64(argument3);
+}
+if (widemult == 2) {
+  product = _SX_64(argument2) * _ZX_64(argument3);
+}
+result1 = product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (SX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (READ.product)))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MADDDT"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  mnemonic=	"madddt"
+  patterns=	"Pattern-lvx_v2-ALU_QMEWRRR:ALU:MADDDQ.alucode2 Pattern-lvx_v2-ALU_QMEWRRR:ALU:MADDDT.widemult"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MADDDT"
+  what=	"alias of MADDDQ"
+><Execution>
+if (widemult == 0) {
+  product = _SX_64(argument2) * _SX_64(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_64(argument2) * _ZX_64(argument3);
+}
+if (widemult == 2) {
+  product = _SX_64(argument2) * _ZX_64(argument3);
+}
+result1 = argument1 + product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (SX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (ADD
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MADDUDT"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  mnemonic=	"maddudt"
+  patterns=	"Pattern-lvx_v2-ALU_QMEWRRR:ALU:MADDDQ.alucode2 Pattern-lvx_v2-ALU_QMEWRRR:ALU:MADDUDT.widemult"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MADDUDT"
+  what=	"alias of MADDDQ.U"
+><Execution>
+if (widemult == 0) {
+  product = _SX_64(argument2) * _SX_64(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_64(argument2) * _ZX_64(argument3);
+}
+if (widemult == 2) {
+  product = _SX_64(argument2) * _ZX_64(argument3);
+}
+result1 = argument1 + product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (SX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (ADD
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MADDSUDT"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  mnemonic=	"maddsudt"
+  patterns=	"Pattern-lvx_v2-ALU_QMEWRRR:ALU:MADDDQ.alucode2 Pattern-lvx_v2-ALU_QMEWRRR:ALU:MADDSUDT.widemult"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MADDSUDT"
+  what=	"alias of MADDDQ.SU"
+><Execution>
+if (widemult == 0) {
+  product = _SX_64(argument2) * _SX_64(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_64(argument2) * _ZX_64(argument3);
+}
+if (widemult == 2) {
+  product = _SX_64(argument2) * _ZX_64(argument3);
+}
+result1 = argument1 + product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (SX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (ADD
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MSBFDT"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  mnemonic=	"msbfdt"
+  patterns=	"Pattern-lvx_v2-ALU_QMEWRRR:ALU:MSBFDQ.alucode2 Pattern-lvx_v2-ALU_QMEWRRR:ALU:MSBFDT.widemult"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MSBFDT"
+  what=	"alias of MSBFDQ"
+><Execution>
+if (widemult == 0) {
+  product = _SX_64(argument2) * _SX_64(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_64(argument2) * _ZX_64(argument3);
+}
+if (widemult == 2) {
+  product = _SX_64(argument2) * _ZX_64(argument3);
+}
+result1 = argument1 - product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (SX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (SUB
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MSBFUDT"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  mnemonic=	"msbfudt"
+  patterns=	"Pattern-lvx_v2-ALU_QMEWRRR:ALU:MSBFDQ.alucode2 Pattern-lvx_v2-ALU_QMEWRRR:ALU:MSBFUDT.widemult"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MSBFUDT"
+  what=	"alias of MSBFDQ.U"
+><Execution>
+if (widemult == 0) {
+  product = _SX_64(argument2) * _SX_64(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_64(argument2) * _ZX_64(argument3);
+}
+if (widemult == 2) {
+  product = _SX_64(argument2) * _ZX_64(argument3);
+}
+result1 = argument1 - product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (SX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (SUB
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MSBFSUDT"
+  formats=	"Format-lvx_v2-ALU_QMEWRRR"
+  mnemonic=	"msbfsudt"
+  patterns=	"Pattern-lvx_v2-ALU_QMEWRRR:ALU:MSBFDQ.alucode2 Pattern-lvx_v2-ALU_QMEWRRR:ALU:MSBFSUDT.widemult"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MSBFSUDT"
+  what=	"alias of MSBFDQ.SU"
+><Execution>
+if (widemult == 0) {
+  product = _SX_64(argument2) * _SX_64(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_64(argument2) * _ZX_64(argument3);
+}
+if (widemult == 2) {
+  product = _SX_64(argument2) * _ZX_64(argument3);
+}
+result1 = argument1 - product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (SX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.64 (READ.argument2))
+        (ZX.64 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (SUB
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MULUWD"
+  formats=	"Format-lvx_v2-ALU_DMEWRR Format-lvx_v2-ALU_DMEWRR.M"
+  mnemonic=	"muluwd"
+  patterns=	"Pattern-lvx_v2-ALU_DMEWRR:ALU:MULWD.alucode2 Pattern-lvx_v2-ALU_DMEWRR.M:ALU:MULWD.alucode2 Pattern-lvx_v2-ALU_DMEWRR:ALU:MULUWD.widemult Pattern-lvx_v2-ALU_DMEWRR.M:ALU:MULUWD.widemult Pattern-lvx_v2-ALU_DMEWRR.M:ALU:MULUWD.splat32"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE Scheduling-lvx_v2-ALU_LITE.X"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MULUWD"
+  what=	"alias of MULWD.U"
+><Execution>
+if (widemult == 0) {
+  product = _SX_32(argument2) * _SX_32(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_32(argument2) * _ZX_32(argument3);
+}
+if (widemult == 2) {
+  product = _SX_32(argument2) * _ZX_32(argument3);
+}
+result1 = product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (SX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (READ.product)))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MULSUWD"
+  formats=	"Format-lvx_v2-ALU_DMEWRR Format-lvx_v2-ALU_DMEWRR.M"
+  mnemonic=	"mulsuwd"
+  patterns=	"Pattern-lvx_v2-ALU_DMEWRR:ALU:MULWD.alucode2 Pattern-lvx_v2-ALU_DMEWRR.M:ALU:MULWD.alucode2 Pattern-lvx_v2-ALU_DMEWRR:ALU:MULSUWD.widemult Pattern-lvx_v2-ALU_DMEWRR.M:ALU:MULSUWD.widemult Pattern-lvx_v2-ALU_DMEWRR.M:ALU:MULSUWD.splat32"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE Scheduling-lvx_v2-ALU_LITE.X"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MULSUWD"
+  what=	"alias of MULWD.SU"
+><Execution>
+if (widemult == 0) {
+  product = _SX_32(argument2) * _SX_32(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_32(argument2) * _ZX_32(argument3);
+}
+if (widemult == 2) {
+  product = _SX_32(argument2) * _ZX_32(argument3);
+}
+result1 = product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (SX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (READ.product)))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MADDUWD"
+  formats=	"Format-lvx_v2-ALU_DMEWRRR Format-lvx_v2-ALU_DMEWRRR.M"
+  mnemonic=	"madduwd"
+  patterns=	"Pattern-lvx_v2-ALU_DMEWRRR:ALU:MADDWD.alucode2 Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MADDWD.alucode2 Pattern-lvx_v2-ALU_DMEWRRR:ALU:MADDUWD.widemult Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MADDUWD.widemult Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MADDUWD.splat32"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE Scheduling-lvx_v2-ALU_LITE.X"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MADDUWD"
+  what=	"alias of MADDWD.U"
+><Execution>
+if (widemult == 0) {
+  product = _SX_32(argument2) * _SX_32(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_32(argument2) * _ZX_32(argument3);
+}
+if (widemult == 2) {
+  product = _SX_32(argument2) * _ZX_32(argument3);
+}
+result1 = argument1 + product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (SX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (ADD
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MADDSUWD"
+  formats=	"Format-lvx_v2-ALU_DMEWRRR Format-lvx_v2-ALU_DMEWRRR.M"
+  mnemonic=	"maddsuwd"
+  patterns=	"Pattern-lvx_v2-ALU_DMEWRRR:ALU:MADDWD.alucode2 Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MADDWD.alucode2 Pattern-lvx_v2-ALU_DMEWRRR:ALU:MADDSUWD.widemult Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MADDSUWD.widemult Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MADDSUWD.splat32"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE Scheduling-lvx_v2-ALU_LITE.X"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MADDSUWD"
+  what=	"alias of MADDWD.SU"
+><Execution>
+if (widemult == 0) {
+  product = _SX_32(argument2) * _SX_32(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_32(argument2) * _ZX_32(argument3);
+}
+if (widemult == 2) {
+  product = _SX_32(argument2) * _ZX_32(argument3);
+}
+result1 = argument1 + product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (SX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (ADD
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MSBFUWD"
+  formats=	"Format-lvx_v2-ALU_DMEWRRR Format-lvx_v2-ALU_DMEWRRR.M"
+  mnemonic=	"msbfuwd"
+  patterns=	"Pattern-lvx_v2-ALU_DMEWRRR:ALU:MSBFWD.alucode2 Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MSBFWD.alucode2 Pattern-lvx_v2-ALU_DMEWRRR:ALU:MSBFUWD.widemult Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MSBFUWD.widemult Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MSBFUWD.splat32"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE Scheduling-lvx_v2-ALU_LITE.X"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MSBFUWD"
+  what=	"alias of MSBFWD.U"
+><Execution>
+if (widemult == 0) {
+  product = _SX_32(argument2) * _SX_32(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_32(argument2) * _ZX_32(argument3);
+}
+if (widemult == 2) {
+  product = _SX_32(argument2) * _ZX_32(argument3);
+}
+result1 = argument1 - product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (SX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (SUB
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-ALU:MSBFSUWD"
+  formats=	"Format-lvx_v2-ALU_DMEWRRR Format-lvx_v2-ALU_DMEWRRR.M"
+  mnemonic=	"msbfsuwd"
+  patterns=	"Pattern-lvx_v2-ALU_DMEWRRR:ALU:MSBFWD.alucode2 Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MSBFWD.alucode2 Pattern-lvx_v2-ALU_DMEWRRR:ALU:MSBFSUWD.widemult Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MSBFSUWD.widemult Pattern-lvx_v2-ALU_DMEWRRR.M:ALU:MSBFSUWD.splat32"
+  schedulings=	"Scheduling-lvx_v2-ALU_LITE Scheduling-lvx_v2-ALU_LITE.X"
+  syntax=	"%0 %1 = %2, %3"
+  synthetic=	"Synthetic-lvx_v2-ALU:MSBFSUWD"
+  what=	"alias of MSBFWD.SU"
+><Execution>
+if (widemult == 0) {
+  product = _SX_32(argument2) * _SX_32(argument3);
+}
+if (widemult == 1) {
+  product = _ZX_32(argument2) * _ZX_32(argument3);
+}
+if (widemult == 2) {
+  product = _SX_32(argument2) * _ZX_32(argument3);
+}
+result1 = argument1 - product;
+</Execution><Behavior>
+(SEQ
+  (IF
+    (EQ (READ.widemult) (CONST.0))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (SX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.1))
+    (WRITE.product
+      (MUL
+        (ZX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (IF
+    (EQ (READ.widemult) (CONST.2))
+    (WRITE.product
+      (MUL
+        (SX.32 (READ.argument2))
+        (ZX.32 (READ.argument3))))
+    (SKIP))
+  (WRITE.result1
+    (SUB
+      (READ.argument1)
+      (READ.product))))
+</Behavior></Instruction>
