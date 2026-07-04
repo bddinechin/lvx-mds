@@ -2146,9 +2146,12 @@ sub signature {
         $$CodeGen_Helpers{$helper_name} = $proto;
     }
     else {
-        if($$CodeGen_Helpers{$helper_name} ne $proto) {
+        (my $restype_h = $$CodeGen_Helpers{$helper_name}) =~ s/^(\w+)\s+.*/$1/;
+        (my $restype_p = $proto) =~ s/^(\w+)\s+.*/$1/;
+        if ($restype_h ne 'void' && $restype_p ne 'void'
+            && $$CodeGen_Helpers{$helper_name} ne $proto) {
             warn "Prototypes do not match for helper $helper_name" .
-                    "($$CodeGen_Helpers{$helper_name} != $proto)";
+              "($$CodeGen_Helpers{$helper_name} != $proto)";
         }
     }
 }

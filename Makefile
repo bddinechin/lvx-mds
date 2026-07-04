@@ -1,9 +1,9 @@
 BUILD_DIR := build_lvx
 
-.PHONY: configure all check refs opcode
+.PHONY: conf all check refs opcode
 
 # Run the first line of HOWTO, which sets up the build tree from scratch.
-configure:
+conf:
 	mkdir -p $(BUILD_DIR) && cd $(BUILD_DIR) && ../lvx-family/configure --enable-mdf --target=lvx
 
 all check refs:

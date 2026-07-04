@@ -147,15 +147,15 @@ my %opcode_flags = (
 
 
 my %encoding_flags = (
-    simple => [ 'LVX_OPCODE_FLAG_MODE64', 'LVX_OPCODE_FLAG_MODE32' ],
-    double => [ 'LVX_OPCODE_FLAG_MODE64', 'LVX_OPCODE_FLAG_MODE32' ],
-    triple => [ 'LVX_OPCODE_FLAG_MODE64', 'LVX_OPCODE_FLAG_MODE32' ],
+    simple => [ 'LVX_OPCODE_FLAG_MODE64', ],
+    double => [ 'LVX_OPCODE_FLAG_MODE64', ],
+    triple => [ 'LVX_OPCODE_FLAG_MODE64', ],
     riscv  => [ 'LVX_OPCODE_FLAG_MODE64', 'LVX_OPCODE_FLAG_RISCV' ],
   );
 
 
 my %gas_define_options = (
-    "LVX_OPCODE_FLAG_MODE32" => "-m32",
+    #"LVX_OPCODE_FLAG_MODE32" => "-m32",
     "LVX_OPCODE_FLAG_MODE64" => "",
   );
 
@@ -170,6 +170,7 @@ sub getOpcodeDefine {
 
     my @flags = getEncodingFlags($opcode);
     if(grep {/LVX_OPCODE_FLAG_MODE32/} @flags) {
+        die "LVX_OPCODE_FLAG_MODE32 not supported";
         return "LVX_OPCODE_FLAG_MODE32";
     }
     elsif(grep {/LVX_OPCODE_FLAG_MODE64/} @flags) {

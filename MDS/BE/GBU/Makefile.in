@@ -4,9 +4,7 @@ include	../../Makerules
 include	../Makerules
 PERLBIN:=	$(MDSDIR)/BE/GBU/BIN
 
-ifeq ($(FAMILY), lvx)
-  GBU_TESTS:=LVX_OPCODE_FLAG_MODE32 LVX_OPCODE_FLAG_MODE64
-endif
+GBU_TESTS:=LVX_OPCODE_FLAG_MODE64
 ASM_TESTS:=$(addsuffix .s, $(GBU_TESTS))
 BIN_TESTS:=$(addsuffix .bin, $(GBU_TESTS))
 TARGET_TESTS:=$(foreach CORE,$(CORES), $(addprefix $(CORE)/, $(ASM_TESTS))) \
@@ -69,7 +67,7 @@ cleanfiles= $(GBU_xml) $(mach_gbuinfo) $(TESTS_xml) $(mach_tests)
 all: Begin.xml End.xml
 	mkdir -p $(mach_tests_dirs)
 	mkdir -p $(gbuinfo_dirs)
-	echo "FAMILY_TESTS: $(FAMILY_TESTS)"
+	@echo "FAMILY_TESTS: $(FAMILY_TESTS)"
 	$(MAKE) $(GBU_xml)
 	$(MAKE) $(TESTS_xml)
 	$(MAKE) all_gbuinfo

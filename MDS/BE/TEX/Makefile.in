@@ -62,7 +62,7 @@ $(foreach CORE,$(CORES),$(eval $(call generateXml,$(CORE))))
 
 define generateYml
 $(FAMILY)/$(1)/TEX.yml: $(addprefix ../../FE/YAML/$(FAMILY)/$(1)/, $(ymlnames))
-	cat $$^ | sed -e 's/^---$$$$//' > $$@
+	cat $$^ | sed -e 's/^---[^a-zA-Z_0-9]*$$$$//' > $$@
 endef
 
 $(foreach CORE,$(CORES),$(eval $(call generateYml,$(CORE))))
