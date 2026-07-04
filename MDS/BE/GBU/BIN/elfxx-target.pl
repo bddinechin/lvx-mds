@@ -179,7 +179,11 @@ sub print_reloc_type {
 EOT
 
     foreach my $processors_key (sort keys %relocs) {
-        my $reloc_define = $FAMILY."_".uc($processors_key);
+        # Core names may already embed the family prefix (e.g. LVX's
+        # "lvx_v1"/"lvx_v2", unlike KVX's "kv3_v1"/"kv4_v1"); avoid
+        # doubling it in the generated #ifdef guard.
+        my $key_upper = uc($processors_key);
+        my $reloc_define = ($key_upper =~ /^\Q$FAMILY\E/) ? $key_upper : $FAMILY."_".$key_upper;
 
         print $file "#ifdef ".$reloc_define."\n";
         print $file "static reloc_howto_type elf_${Family}_howto_table[] =\n{\n";
