@@ -9,7 +9,7 @@ This is the **lvx-mds** repo — the Machine Description System (MDS) for the LV
 - **`MDS/`** — the MDS toolchain itself: Perl scripts and Makefiles that parse YAML architecture descriptions and generate binary `.table` files used by compilers, assemblers, debuggers, etc. This is meant to be reusable across processor families.
 - **`lvx-family/`** — the architecture description for the LVX family: YAML source files, per-core entry points, and family-specific back-end overrides (TEX docs, GBU header).
 
-There is no build logic at the repo root beyond a thin convenience `Makefile` (see below) — `MDS/` and `lvx-family/` are separate autoconf packages, and `lvx-family/configure` is the one that drives the real build (it locates and drives `MDS/configure` under the hood).
+There is no build logic at this repo's own root — `MDS/` and `lvx-family/` are separate autoconf packages, and `lvx-family/configure` is the one that drives the real build (it locates and drives `MDS/configure` under the hood). The convenience `Makefile` that wraps this build lives one level up, at the top-level `lvx-csw/` directory (see below), since it also needs to know where the sibling `lvx-binutils`/`lvx-gdb`/`lvx-gcc` checkouts are.
 
 ## Build
 
@@ -19,7 +19,7 @@ There is no build logic at the repo root beyond a thin convenience `Makefile` (s
 mkdir -p build_lvx && cd build_lvx && ../lvx-family/configure --target=lvx
 ```
 
-(also documented in the top-level `HOWTO` file; `make configure` at the repo root runs the same thing into `build_lvx/`). Notable options, defined in `lvx-family/configure.ac`:
+(also documented in this repo's own `HOWTO` file; `make config` from the top-level `lvx-csw/` directory runs the same thing into `lvx-mds/build_lvx/`, plus wires up the sibling `--with-*-prefix` options — see below). Notable options, defined in `lvx-family/configure.ac`:
 
 | Option | Effect |
 |---|---|
@@ -31,16 +31,18 @@ mkdir -p build_lvx && cd build_lvx && ../lvx-family/configure --target=lvx
 
 For `--target=lvx`, the default enabled back-ends (`TOOLS`) are **`TEX GBU GDB GCC LAO`**. Others (`ISS`, `MPPADL`, `TDH`, `AVP`) require editing the `enable_tools` value in `lvx-family/configure.ac` (per-target case statement) — `--enable-avp` is the only one exposed as a flag.
 
-### Top-level convenience `Makefile`
+### Convenience `Makefile` (at `lvx-csw/Makefile`, one level up from this repo)
 
-The repo root has a thin `Makefile` that wraps the out-of-tree build in `build_lvx/`:
+`lvx-csw/` (the parent directory of this repo and its `lvx-binutils`/`lvx-gdb`/`lvx-gcc` siblings) has a thin `Makefile` that wraps this out-of-tree build in `lvx-mds/build_lvx/`, run from `lvx-csw/` itself:
 
 | Target | Effect |
 |---|---|
-| `make configure` | Runs the configure line above into `build_lvx/` |
-| `make all` / `make check` / `make refs` | Forwards to the same target in `build_lvx/Makefile` |
-| `make opcode` | Forces a rebuild of `Opcode.txt` for every core under `build_lvx/FE/YAML` |
-| `make clean` | `rm -rf build_lvx` |
+| `make config` | Runs the configure line above into `lvx-mds/build_lvx/`, with `--with-binutils-prefix`/`--with-gdb-prefix`/`--with-gcc-prefix` pointed at the sibling `lvx-binutils`/`lvx-gdb`/`lvx-gcc` checkouts so `BE/GBU` (and eventually `BE/GDB`/`BE/GCC`) install straight into them |
+| `make all` / `make check` / `make refs` | Forwards to the same target in `lvx-mds/build_lvx/Makefile` |
+| `make opcode` | Forces a rebuild of `Opcode.txt` for every core under `lvx-mds/build_lvx/FE/YAML` |
+| `make clean` | `rm -rf lvx-mds/build_lvx` |
+
+This Makefile isn't part of this repo's own git history — it lives in `lvx-csw/`, which isn't (currently) a git repository at all, just the shared parent directory for all the LVX toolchain checkouts.
 
 ### Build targets (run inside `build_lvx/`, or via the wrappers above)
 
@@ -127,7 +129,7 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 ## Key source files
 
 - **`HOWTO`** — the canonical one-shot build recipe.
-- **`Makefile`** (repo root) — thin wrapper driving the out-of-tree build in `build_lvx/`.
+- **`../Makefile`** (`lvx-csw/Makefile`, one level up) — thin wrapper driving the out-of-tree build in `build_lvx/`, with the sibling `--with-*-prefix` options wired in.
 - **`lvx-family/configure.ac`** — defines the `--target` → `FAMILY`/`CORES`/`TOOLS` mapping and all `--with-*`/`--enable-*` options; calls into `MDS/configure`.
 - **`lvx-family/FE/YAML/lvx/Makefile.in`** — generates each core's `Description.yml` directly by piping the shared `*.yml` files through `cpp` (no per-core `.yml.in` file anymore).
 - **`lvx-family/FE/YAML/lvx/*.yml`** — the actual architecture description (instructions, formats, registers, scheduling…), shared unmodified across all cores.
