@@ -50,11 +50,11 @@ description_refs = $(foreach CORE,$(CORES),$(addprefix $(FAMILY)/$(CORE)/, Descr
 diff:
 
 %.diff:
-	$(DIFF) $* $(FAMDIR)/$(FEDIR)/$*
+	$(DIFF) $* $(REFDIR)/$(FEDIR)/$*
 
 refs: $(opcode_refs) $(description_refs)
 
 %.ref:
-	mkdir -p $(dir $(FAMDIR)/$(FEDIR)/$*)
-	cp -p $* $(FAMDIR)/$(FEDIR)/$*
+	mkdir -p $(dir $(REFDIR)/$(FEDIR)/$*)
+	cp -p $* $(REFDIR)/$(FEDIR)/$*
 

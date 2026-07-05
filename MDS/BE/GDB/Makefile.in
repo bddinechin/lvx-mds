@@ -51,15 +51,15 @@ GDB_refs:=	$(addsuffix /GDB.refs, $(FAMILY))
 diff: $(GDB_diff)
 
 %GDB.diff:
-	$(DIFF) $* $(FAMDIR)/BE/GDB/$*
+	$(DIFF) $* $(REFDIR)/BE/GDB/$*
 
 check: $(GDB_diff)
 
 refs: $(GDB_refs)
 
 %GDB.refs:
-	mkdir -p $(FAMDIR)/BE/GDB/$*
-	cp  $*/*.h $*/*.c $(FAMDIR)/BE/GDB/$*
+	mkdir -p $(REFDIR)/BE/GDB/$*
+	cp  $*/*.h $*/*.c $(REFDIR)/BE/GDB/$*
 
 install:
 	$(INSTALL) -d $(gdbinfo_install_dirs)

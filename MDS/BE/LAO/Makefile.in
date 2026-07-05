@@ -94,13 +94,13 @@ LAO_refs:=	$(addsuffix .refs, $(LAO_products))
 diff: $(LAO_diff)
 
 %.diff:
-	$(DIFF) $* $(FAMDIR)/BE/LAO/$*
+	$(DIFF) $* $(REFDIR)/BE/LAO/$*
 
 refs: $(LAO_refs)
 
 %.refs:
-	mkdir -p $(dir $(FAMDIR)/BE/LAO/$*)
-	cp  $* $(FAMDIR)/BE/LAO/$*
+	mkdir -p $(dir $(REFDIR)/BE/LAO/$*)
+	cp  $* $(REFDIR)/BE/LAO/$*
 
 install:
 	$(INSTALL) -d $(lao_install_dir)
@@ -115,7 +115,7 @@ install_lao: $(LAO_installs)
 check: $(LAO_check)
 
 %.check:
-	$(DIFF) $* $(FAMDIR)/BE/LAO/$*
+	$(DIFF) $* $(REFDIR)/BE/LAO/$*
 
 diff_lao:
 	-

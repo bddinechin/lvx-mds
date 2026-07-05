@@ -151,11 +151,11 @@ check: $(MDF_check)
 diff: $(MDS_diff)
 
 %MDS.diff:
-	$(DIFF) -r ../$* $(FAMDIR)/MDD/$*
+	$(DIFF) -r ../$* $(REFDIR)/MDD/$*
 
 refs: $(MDS_refs)
 
 %MDS.refs:
-	mkdir -p $(FAMDIR)/MDD/$*
-	cp  ../$**.table $(FAMDIR)/MDD/$*
+	mkdir -p $(REFDIR)/MDD/$*
+	cp  ../$**.table $(REFDIR)/MDD/$*
 

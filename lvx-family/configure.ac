@@ -74,6 +74,12 @@ AC_ARG_WITH([arch_path],
   [ARCHDIR="$ABSPATH"])
 AC_SUBST(ARCHDIR)
 
+AC_ARG_WITH([ref_path],
+  [AS_HELP_STRING([--with-ref-path],[Set path for committed generated-output references (refs/diff/check), separate from the architecture description sources])],
+  [REFDIR="$with_ref_path"],
+  [REFDIR="`(cd $ABSPATH/..; pwd)`/refs"])
+AC_SUBST(REFDIR)
+
 AC_ARG_WITH([lao_path],
   [AS_HELP_STRING([--with-lao-path],[Set LAO path.])],
   [LAODIR="$with_lao_path"],
@@ -158,7 +164,7 @@ AC_OUTPUT
 
 function run_with_config()
 {
-  "$@" TOPDIR="$TOPDIR" ARCHDIR="$ARCHDIR" \
+  "$@" TOPDIR="$TOPDIR" ARCHDIR="$ARCHDIR" REFDIR="$REFDIR" \
     FAMDIR="$FAMDIR" FAMILY="$FAMILY" CORES="$CORES" MDF_ENABLED="$MDF_ENABLED"\
     TOOLS="$TOOLS" FEDIR="$FEDIR" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \

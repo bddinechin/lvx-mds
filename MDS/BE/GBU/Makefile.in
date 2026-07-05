@@ -120,17 +120,17 @@ $(FAMILY)/gas/config/$(FAMILY)-parse.h: $(MDSDIR)/BE/GBU/BIN/gen-parse-table.rb 
 diff: $(mach_gbuinfo_diffs) $(mach_tests_diffs) diff_gbu
 
 %.diff:
-	$(DIFF) $(FAMDIR)/BE/GBU/$* $*
+	$(DIFF) $(REFDIR)/BE/GBU/$* $*
 
-# Unlike diff, check only validates against the committed FAMDIR/BE/GBU
+# Unlike diff, check only validates against the committed REFDIR/BE/GBU
 # reference tree, not against an external binutils/gdb checkout.
 check: $(mach_gbuinfo_diffs) $(mach_tests_diffs)
 
 refs: $(mach_gbuinfo_refs) $(mach_tests_refs) install
 
 %.ref:
-	mkdir -p $(dir $(FAMDIR)/BE/GBU/$*)
-	cp -p $* $(FAMDIR)/BE/GBU/$*
+	mkdir -p $(dir $(REFDIR)/BE/GBU/$*)
+	cp -p $* $(REFDIR)/BE/GBU/$*
 
 install:
 	$(MAKE) all
@@ -142,7 +142,7 @@ install_bin: $(addsuffix .inst, $(bin_tests))
 install_asm: $(addsuffix .inst, $(asm_tests))
 
 %.inst:
-	$(INSTALL) -D -m 644 $* $(FAMDIR)/BE/GBU/$*
+	$(INSTALL) -D -m 644 $* $(REFDIR)/BE/GBU/$*
 
 install_gbuinfo: $(gbuinfo_installs)
 
@@ -169,5 +169,5 @@ include/$(FAMILY)/reloc.h.idf:
 diff_gbu: $(GBU_gbu_diffs)
 
 %.idf:
-	$(DIFF) $(FAMDIR)/BE/GBU/$(FAMILY)/$* $(GBU_prefix)/$*
-	$(DIFF) $(FAMDIR)/BE/GBU/$(FAMILY)/$* $(GDB_prefix)/$*
+	$(DIFF) $(REFDIR)/BE/GBU/$(FAMILY)/$* $(GBU_prefix)/$*
+	$(DIFF) $(REFDIR)/BE/GBU/$(FAMILY)/$* $(GDB_prefix)/$*

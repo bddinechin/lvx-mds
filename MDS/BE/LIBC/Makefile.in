@@ -52,17 +52,17 @@ LIBC_refs:=	$(addsuffix /LIBC.refs, $(FAMILY))
 diff: $(LIBC_diff)
 
 %LIBC.diff:
-	$(DIFF) $* $(FAMDIR)/BE/LIBC/$*
+	$(DIFF) $* $(REFDIR)/BE/LIBC/$*
 
-# Unlike diff, check only validates against the committed FAMDIR/BE/LIBC
+# Unlike diff, check only validates against the committed REFDIR/BE/LIBC
 # reference tree, not against the external lvx-newlib/lvx-gdb checkouts.
 check: $(LIBC_diff)
 
 refs: $(LIBC_refs)
 
 %LIBC.refs:
-	mkdir -p $(FAMDIR)/BE/LIBC/$*
-	cp $*/*.h $(FAMDIR)/BE/LIBC/$*
+	mkdir -p $(REFDIR)/BE/LIBC/$*
+	cp $*/*.h $(REFDIR)/BE/LIBC/$*
 
 install:
 	$(INSTALL) -d $(registers_install_dir)

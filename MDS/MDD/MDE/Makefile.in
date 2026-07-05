@@ -104,14 +104,14 @@ MDS_refs:=	$(addprefix $(FAMILY)/, $(addsuffix /MDS.refs, $(CORES)))
 diff: $(MDS_diff)
 
 %MDS.diff:
-	$(DIFF) ../$* $(FAMDIR)/MDD/$*
+	$(DIFF) ../$* $(REFDIR)/MDD/$*
 
 ndiff: $(MDS_ndiff)
 
 %MDS.ndiff:
 	echo "Building $@"
 	cat Begin.xml $(addprefix ../$(dir $*), $(MDS_names)) End.xml > MDS_new.xml || $(ABORT)
-	cat Begin.xml $(addprefix $(FAMDIR)/$(dir $*), $(MDS_names)) End.xml > MDS_ref.xml || $(ABORT)
+	cat Begin.xml $(addprefix $(REFDIR)/$(dir $*), $(MDS_names)) End.xml > MDS_ref.xml || $(ABORT)
 	$(PERL) $(PERLINC) $(MDSDIR)/LIB/MDS-diff.pl $(DIFF_OPTS) MDS_ref.xml MDS_new.xml $(addprefix ../$(dir $*),$(MDS_ndiff_names)) || $(ABORT)
 	rm -f MDS_new.xml MDS_ref.xml
 
@@ -119,5 +119,5 @@ ndiff: $(MDS_ndiff)
 refs: $(MDS_refs)
 
 %MDS.refs:
-	mkdir -p $(dir $(FAMDIR)/MDD/$*)
-	cp  ../$**.table $(FAMDIR)/MDD/$*
+	mkdir -p $(dir $(REFDIR)/MDD/$*)
+	cp  ../$**.table $(REFDIR)/MDD/$*

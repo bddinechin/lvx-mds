@@ -44,7 +44,7 @@ yml_texnames:= $(addsuffix .tex, \
 
 cleanfiles=	$(TEX_products) $(TEX_xml) $(TEX_yml) $(TEX_check) $(FAMILY)/ *.xml
 TEX_coredirs:= $(addprefix $(FAMILY)/, $(CORES))
-TEX_coredirs_src:= $(addprefix $(ARCHDIR)/BE/TEX/, $(TEX_coredirs))
+TEX_coredirs_src:= $(addprefix $(REFDIR)/BE/TEX/, $(TEX_coredirs))
 TEX_xml_products= $(addprefix $(FAMILY)/$(1)/, $(xml_texnames))
 TEX_yml_products= $(addprefix $(FAMILY)/$(1)/, $(yml_texnames))
 TEX_products:= $(foreach CORE,$(CORES),$(call TEX_xml_products,$(CORE)) $(call TEX_yml_products,$(CORE)))
@@ -89,15 +89,15 @@ TEX_refs:=	$(addsuffix .refs, $(TEX_products) $(TEX_extras))
 diff: $(TEX_diff)
 
 %.diff:
-	$(DIFF) $* $(FAMDIR)/BE/TEX/$*
+	$(DIFF) $* $(REFDIR)/BE/TEX/$*
 
 check: $(TEX_diff)
 
 refs: $(TEX_refs)
 
 %.refs:
-	mkdir -p $(dir $(FAMDIR)/BE/TEX/$*)
-	cp  $* $(FAMDIR)/BE/TEX/$*
+	mkdir -p $(dir $(REFDIR)/BE/TEX/$*)
+	cp  $* $(REFDIR)/BE/TEX/$*
 
 install:
 	-

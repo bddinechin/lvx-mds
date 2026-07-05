@@ -7,7 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is the **lvx-mds** repo — the Machine Description System (MDS) for the LVX processor family (Kalray). It contains:
 
 - **`MDS/`** — the MDS toolchain itself: Perl scripts and Makefiles that parse YAML architecture descriptions and generate binary `.table` files used by compilers, assemblers, debuggers, etc. This is meant to be reusable across processor families.
-- **`lvx-family/`** — the architecture description for the LVX family: YAML source files, per-core entry points, and family-specific back-end overrides (TEX docs, GBU header).
+- **`lvx-family/`** — the architecture description for the LVX family: YAML source files, per-core entry points, and family-specific back-end overrides (TEX docs, GBU header). **Sources only** — see `refs/` below for generated content.
+- **`refs/`** — committed regression-test baselines: the generated output every backend's `refs`/`diff`/`check` targets compare against, mirroring `lvx-family/`'s `BE/<backend>/`, `MDD/`, and `FE/YAML/lvx/<core>/` layout. This used to live inside `lvx-family/` itself (mixed in with the genuine hand-authored sources); it was split out into its own top-level directory to keep `lvx-family/` down to just sources — see "Reference workflow" below for the full rationale and the `REFDIR` variable that points here.
 
 There is no build logic at this repo's own root — `MDS/` and `lvx-family/` are separate autoconf packages, and `lvx-family/configure` is the one that drives the real build (it locates and drives `MDS/configure` under the hood). The convenience `Makefile` that wraps this build lives one level up, at the top-level `lvx-csw/` directory (see below), since it also needs to know where the sibling `lvx-binutils`/`lvx-gdb`/`lvx-gcc` checkouts are.
 
@@ -113,7 +114,8 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 |---|---|
 | `TOPDIR` | Absolute path to the build directory |
 | `FAMDIR` | Absolute path to `lvx-family/` |
-| `ARCHDIR` | Architecture description root (defaults to `FAMDIR`) |
+| `ARCHDIR` | Architecture description root (defaults to `FAMDIR`); used for genuine source lookups (YAML, `lvx_elfids.h`) |
+| `REFDIR` | Absolute path to the committed regression-reference tree (`--with-ref-path`, defaults to `refs/`, sibling to `lvx-family/`). Every backend's `refs`/`diff`/`check` target reads/writes here — see "Reference workflow" below. |
 | `MDSDIR` | Absolute path to `MDS/` (from `--with-mds`) |
 | `FAMILY` | `lvx` |
 | `CORES` | Space-separated list, e.g. `lvx_v1 lvx_v2` |
@@ -165,7 +167,11 @@ After editing YAML source in `lvx-family/FE/YAML/lvx/`, rebuild and update the c
 ```sh
 cd build_lvx
 make all
-make refs   # copies Opcode.txt/Description.yml and per-backend reference outputs back into lvx-family/
+make refs   # copies Opcode.txt/Description.yml and per-backend reference outputs into refs/
 ```
 
-Committed reference files (`lvx-family/FE/YAML/lvx/<core>/Opcode.txt`, `Description.yml`, plus each back-end's own `refs`-copied outputs under `lvx-family/BE/<backend>/`) serve as the known-good snapshot; `make diff`/`make check` compare the current build's output against them.
+Committed reference files (`refs/FE/YAML/lvx/<core>/{Opcode.txt,Description.yml}`, `refs/MDD/lvx/*.table`, plus each back-end's own `refs`-copied outputs under `refs/BE/<backend>/`) serve as the known-good snapshot; `make diff`/`make check` compare the current build's output against them.
+
+**`refs/` used to live inside `lvx-family/`** (e.g. `lvx-family/BE/GBU/lvx/opcodes/lvx-opc.c`), mixed in with the genuine hand-authored sources — architecturally wrong, since `lvx-family/` is supposed to be the pure ISA-description source repo, and it made it easy to mistake a generated regression snapshot for something hand-maintained. Every backend's `Makefile.in` now reads/writes its reference tree via the `REFDIR` variable (`$(REFDIR)/BE/<backend>/...` etc.) instead of `$(FAMDIR)/BE/<backend>/...`, and `REFDIR` defaults to this sibling `refs/` directory. `lvx-family/` keeps only genuine sources: the hand-authored `*.yml` (plus their own `*.pl` helper scripts, `Makefile.in`, `scripts/`), and the hand-maintained `BE/GBU/lvx_elfids.h`.
+
+One subtlety this surfaced: **`BE/TEX` doesn't only *compare against* its reference tree, it also *consumes* it as a build input.** `TEX_coredirs_src` (in `MDS/BE/TEX/Makefile.in`) copies the previous reference tree's per-core directory wholesale into the build output *after* generation, to carry forward hand-authored per-register `.tex` prose that supplements the auto-generated category files (`DwarfId.tex`, `Format.tex`, etc.) — and since that's a plain `cp -rf` merge, it also silently overwrites any freshly-regenerated file that happens to share a name with something already in the reference, masking generator/reference drift for those files. This is pre-existing behavior (not something this refactor changed), but it means `BE/TEX`'s `check` mostly verifies the copy-forward step works, not that its generators still match the committed prose. If you ever need to add a *new* backend with its own `refs`/`diff`/`check` targets, search for every `$(ARCHDIR)`/`$(FAMDIR)` occurrence in its `Makefile.in` (not just the obvious ones) before assuming a reference-tree move is complete — this exact class of miss broke the whole build once already, silently stopping the top-level `make all` right after `BE/TEX` with no other backend ever running.

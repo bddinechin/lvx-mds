@@ -631,6 +631,7 @@ GDBDIR
 BINUTILSDIR
 ISSDIR
 LAODIR
+REFDIR
 ARCHDIR
 target_alias
 host_alias
@@ -678,6 +679,7 @@ with_mds
 enable_avp
 enable_mdf
 with_arch_path
+with_ref_path
 with_lao_path
 with_iss_path
 with_binutils_prefix
@@ -1318,6 +1320,9 @@ Optional Packages:
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-mds              Set MDS path (to <mds repo>/MDS).
   --with-arch-path        Set Architecture description path
+  --with-ref-path         Set path for committed generated-output references
+                          (refs/diff/check), separate from the architecture
+                          description sources
   --with-lao-path         Set LAO path.
   --with-iss-path         Set ISS path.
   --with-binutils-prefix  Set BINUTILS prefix for install
@@ -1857,6 +1862,17 @@ then :
   withval=$with_arch_path; ARCHDIR="$with_arch_path"
 else $as_nop
   ARCHDIR="$ABSPATH"
+fi
+
+
+
+
+# Check whether --with-ref_path was given.
+if test ${with_ref_path+y}
+then :
+  withval=$with_ref_path; REFDIR="$with_ref_path"
+else $as_nop
+  REFDIR="`(cd $ABSPATH/..; pwd)`/refs"
 fi
 
 
@@ -3154,7 +3170,7 @@ fi
 
 function run_with_config()
 {
-  "$@" TOPDIR="$TOPDIR" ARCHDIR="$ARCHDIR" \
+  "$@" TOPDIR="$TOPDIR" ARCHDIR="$ARCHDIR" REFDIR="$REFDIR" \
     FAMDIR="$FAMDIR" FAMILY="$FAMILY" CORES="$CORES" MDF_ENABLED="$MDF_ENABLED"\
     TOOLS="$TOOLS" FEDIR="$FEDIR" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \

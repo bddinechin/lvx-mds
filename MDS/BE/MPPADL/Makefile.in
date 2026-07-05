@@ -41,12 +41,12 @@ $(FAMILY)/include/arch/mppa_dl_$(FAMILY).h : $(MDSDIR)/BE/MPPADL/BIN/mppa_dl_rel
 diff: $(mach_mppadlinfo_diffs)
 
 %.diff:
-	$(DIFF) $(FAMDIR)/BE/MPPADL/$* $*
+	$(DIFF) $(REFDIR)/BE/MPPADL/$* $*
 
 refs: $(mach_mppadlinfo_refs)
 
 %.ref:
-	$(INSTALL) -D -m 644 $* $(FAMDIR)/BE/MPPADL/$*
+	$(INSTALL) -D -m 644 $* $(REFDIR)/BE/MPPADL/$*
 
 install:
 	$(INSTALL) -d -D -m 644 $(mppadlinfo_install_dirs)

@@ -634,6 +634,7 @@ TOOLS
 CORES
 FAMILY
 MDSDIR
+REFDIR
 ARCHDIR
 FAMDIR
 TOPDIR
@@ -2162,6 +2163,7 @@ fi
 echo -e "TOPDIR=\t$TOPDIR"
 echo -e "FAMDIR=\t$FAMDIR"
 echo -e "ARCHDIR=\t$ARCHDIR"
+echo -e "REFDIR=\t$REFDIR"
 echo -e "MDSDIR=\t$MDSDIR"
 echo -e "FAMILY=\t$FAMILY"
 echo -e "CORES=\t$CORES"
@@ -2178,6 +2180,7 @@ echo -e "ISSDIR=\t$ISSDIR"
 echo -e "LAODIR=\t$LAODIR"
 echo -e "TEXDIR=\t$TEXDIR"
 echo -e "MDF_ENABLED=\t$MDF_ENABLED"
+
 
 
 

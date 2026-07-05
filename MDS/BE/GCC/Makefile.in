@@ -51,16 +51,16 @@ GCC_refs:=	$(addsuffix /GCC.refs, $(FAMILY))
 diff: $(GCC_diff)
 
 %GCC.diff:
-	$(DIFF) $* $(FAMDIR)/BE/GCC/$*
+	$(DIFF) $* $(REFDIR)/BE/GCC/$*
 
 check: $(GCC_diff)
 
 refs: $(GCC_refs)
 
 %GCC.refs:
-	mkdir -p $(FAMDIR)/BE/GCC/$*
-	cp $*/*.h $(FAMDIR)/BE/GCC/$*
-	cp $*/*.md $(FAMDIR)/BE/GCC/$*
+	mkdir -p $(REFDIR)/BE/GCC/$*
+	cp $*/*.h $(REFDIR)/BE/GCC/$*
+	cp $*/*.md $(REFDIR)/BE/GCC/$*
 
 install:
 	$(INSTALL) -d $(GCC_install_dir)
