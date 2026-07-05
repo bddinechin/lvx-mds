@@ -1,0 +1,14 @@
+/*
+ * lvx/Processor.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Processor
+#define Processor(ID, MINTAKEN, INTERLOCKS, AVAILABILITY)
+#else /*Processor*/
+Processor(lvx_v2_cpu, MINTAKEN(1), INTERLOCKS(true),
+          AVAILABILITY(AVAILABLE(RESOURCE(lvx_v2_ISSUE),8) AVAILABLE(RESOURCE(lvx_v2_TINY),4) AVAILABLE(RESOURCE(lvx_v2_LITE),2) AVAILABLE(RESOURCE(lvx_v2_FULL),1) AVAILABLE(RESOURCE(lvx_v2_LSU),2) AVAILABLE(RESOURCE(lvx_v2_MAU),1) AVAILABLE(RESOURCE(lvx_v2_BCU),2) AVAILABLE(RESOURCE(lvx_v2_EXT),4) AVAILABLE(RESOURCE(lvx_v2_AUXR),1) AVAILABLE(RESOURCE(lvx_v2_AUXW),2) AVAILABLE(RESOURCE(lvx_v2_XFER),1) AVAILABLE(RESOURCE(lvx_v2_MEMW),1) AVAILABLE(RESOURCE(lvx_v2_SR12),1) AVAILABLE(RESOURCE(lvx_v2_SR13),1) AVAILABLE(RESOURCE(lvx_v2_SR14),1) AVAILABLE(RESOURCE(lvx_v2_SR15),2)))
+#endif/*Processor*/
+#undef Processor
+

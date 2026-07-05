@@ -274,46 +274,6 @@ Modifier(lvx_splat32,
                  MEMBER(lvx_splat32__, NAME(.@), LCNAME(.@), VALUE(1))),
          ENCODE(VALUE -= 138),
          DECODE(VALUE += 138))
-Modifier(lvx_ordering,
-         MEMBERS(16,
-                 MEMBER(lvx_ordering_NONE, NAME(.NONE), LCNAME(.none), VALUE(0))
-                 MEMBER(lvx_ordering_W, NAME(.W), LCNAME(.w), VALUE(1))
-                 MEMBER(lvx_ordering_R, NAME(.R), LCNAME(.r), VALUE(2))
-                 MEMBER(lvx_ordering_RW, NAME(.RW), LCNAME(.rw), VALUE(3))
-                 MEMBER(lvx_ordering_O, NAME(.O), LCNAME(.o), VALUE(4))
-                 MEMBER(lvx_ordering_OW, NAME(.OW), LCNAME(.ow), VALUE(5))
-                 MEMBER(lvx_ordering_OR, NAME(.OR), LCNAME(.or), VALUE(6))
-                 MEMBER(lvx_ordering_ORW, NAME(.ORW), LCNAME(.orw), VALUE(7))
-                 MEMBER(lvx_ordering_I, NAME(.I), LCNAME(.i), VALUE(8))
-                 MEMBER(lvx_ordering_IW, NAME(.IW), LCNAME(.iw), VALUE(9))
-                 MEMBER(lvx_ordering_IR, NAME(.IR), LCNAME(.ir), VALUE(10))
-                 MEMBER(lvx_ordering_IRW, NAME(.IRW), LCNAME(.irw), VALUE(11))
-                 MEMBER(lvx_ordering_IO, NAME(.IO), LCNAME(.io), VALUE(12))
-                 MEMBER(lvx_ordering_IOW, NAME(.IOW), LCNAME(.iow), VALUE(13))
-                 MEMBER(lvx_ordering_IOR, NAME(.IOR), LCNAME(.ior), VALUE(14))
-                 MEMBER(lvx_ordering_IORW, NAME(.IORW), LCNAME(.iorw), VALUE(15))),
-         ENCODE(VALUE -= 140),
-         DECODE(VALUE += 140))
-Modifier(lvx_acqrel,
-         MEMBERS(4,
-                 MEMBER(lvx_acqrel_, NAME(), LCNAME(), VALUE(0))
-                 MEMBER(lvx_acqrel_RL, NAME(.RL), LCNAME(.rl), VALUE(1))
-                 MEMBER(lvx_acqrel_AQ, NAME(.AQ), LCNAME(.aq), VALUE(2))
-                 MEMBER(lvx_acqrel_AQRL, NAME(.AQRL), LCNAME(.aqrl), VALUE(3))),
-         ENCODE(VALUE -= 156),
-         DECODE(VALUE += 156))
-Modifier(lvx_froundmode,
-         MEMBERS(8,
-                 MEMBER(lvx_froundmode_RNE, NAME(RNE), LCNAME(rne), VALUE(0))
-                 MEMBER(lvx_froundmode_RTZ, NAME(RTZ), LCNAME(rtz), VALUE(1))
-                 MEMBER(lvx_froundmode_RDN, NAME(RDN), LCNAME(rdn), VALUE(2))
-                 MEMBER(lvx_froundmode_RUP, NAME(RUP), LCNAME(rup), VALUE(3))
-                 MEMBER(lvx_froundmode_RMM, NAME(RMM), LCNAME(rmm), VALUE(4))
-                 MEMBER(lvx_froundmode_RES5, NAME(_RES5), LCNAME(_res5), VALUE(5))
-                 MEMBER(lvx_froundmode_RES6, NAME(_RES6), LCNAME(_res6), VALUE(6))
-                 MEMBER(lvx_froundmode_DYN, NAME(DYN), LCNAME(dyn), VALUE(7))),
-         ENCODE(VALUE -= 160),
-         DECODE(VALUE += 160))
 #endif/*Modifier*/
 #undef Modifier
 
@@ -458,33 +418,5 @@ Modifier(lvx_froundmode,
 #define ModifierMemberValue_lvx_shuffleX_UW	6
 #define ModifierMemberValue_lvx_splat32_	0
 #define ModifierMemberValue_lvx_splat32__	1
-#define ModifierMemberValue_lvx_ordering_NONE	0
-#define ModifierMemberValue_lvx_ordering_W	1
-#define ModifierMemberValue_lvx_ordering_R	2
-#define ModifierMemberValue_lvx_ordering_RW	3
-#define ModifierMemberValue_lvx_ordering_O	4
-#define ModifierMemberValue_lvx_ordering_OW	5
-#define ModifierMemberValue_lvx_ordering_OR	6
-#define ModifierMemberValue_lvx_ordering_ORW	7
-#define ModifierMemberValue_lvx_ordering_I	8
-#define ModifierMemberValue_lvx_ordering_IW	9
-#define ModifierMemberValue_lvx_ordering_IR	10
-#define ModifierMemberValue_lvx_ordering_IRW	11
-#define ModifierMemberValue_lvx_ordering_IO	12
-#define ModifierMemberValue_lvx_ordering_IOW	13
-#define ModifierMemberValue_lvx_ordering_IOR	14
-#define ModifierMemberValue_lvx_ordering_IORW	15
-#define ModifierMemberValue_lvx_acqrel_	0
-#define ModifierMemberValue_lvx_acqrel_RL	1
-#define ModifierMemberValue_lvx_acqrel_AQ	2
-#define ModifierMemberValue_lvx_acqrel_AQRL	3
-#define ModifierMemberValue_lvx_froundmode_RNE	0
-#define ModifierMemberValue_lvx_froundmode_RTZ	1
-#define ModifierMemberValue_lvx_froundmode_RDN	2
-#define ModifierMemberValue_lvx_froundmode_RUP	3
-#define ModifierMemberValue_lvx_froundmode_RMM	4
-#define ModifierMemberValue_lvx_froundmode_RES5	5
-#define ModifierMemberValue_lvx_froundmode_RES6	6
-#define ModifierMemberValue_lvx_froundmode_DYN	7
 #endif/*ModifierMemberValue*/
 

@@ -8,37 +8,37 @@
 #define Resource(ID, AVAILABILITY)
 #else /*Resource*/
 Resource(lvx_ISSUE,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),8)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),8) AVAILABLE(PROCESSOR(lvx_v2_cpu),8)))
 Resource(lvx_TINY,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),4)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),4) AVAILABLE(PROCESSOR(lvx_v2_cpu),4)))
 Resource(lvx_LITE,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2) AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
 Resource(lvx_FULL,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1) AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
 Resource(lvx_LSU,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2) AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
 Resource(lvx_MAU,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1) AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
 Resource(lvx_BCU,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2) AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
 Resource(lvx_EXT,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),4)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),4) AVAILABLE(PROCESSOR(lvx_v2_cpu),4)))
 Resource(lvx_AUXR,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1) AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
 Resource(lvx_AUXW,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2) AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
 Resource(lvx_XFER,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1) AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
 Resource(lvx_MEMW,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1) AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
 Resource(lvx_SR12,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1) AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
 Resource(lvx_SR13,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1) AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
 Resource(lvx_SR14,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),1) AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
 Resource(lvx_SR15,
-         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2)))
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v1_cpu),2) AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
 #endif/*Resource*/
 #undef Resource
 

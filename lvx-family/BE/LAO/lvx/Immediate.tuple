@@ -79,30 +79,6 @@ Immediate(lvx_wrapped64, MINVALUE(-9223372036854775808), MAXVALUE(18446744073709
           RELOCATIONS(3, RELOCATION(lvx_pcrel_signed64) RELOCATION(lvx_signed64) RELOCATION(lvx_gotaddr_signed64)),
           ENCODE(uint64_t __value = VALUE; __value &= (uint64_t)-1; VALUE = __value),
           DECODE(uint64_t __value = VALUE; VALUE = __value))
-Immediate(lvx_unsigned5, MINVALUE(0), MAXVALUE(31), EXTEND(Unsigned),
-          RELOCATIONS(1, RELOCATION(_UNDEF)),
-          ENCODE(uint32_t __value = VALUE; __value &= ((uint32_t)1<<5)-1; VALUE = __value),
-          DECODE(uint32_t __value = VALUE; VALUE = __value))
-Immediate(lvx_signed6, MINVALUE(-32), MAXVALUE(31), EXTEND(Signed),
-          RELOCATIONS(1, RELOCATION(_UNDEF)),
-          ENCODE(int32_t __value = VALUE; VALUE = __value),
-          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-6); __value >>= (sizeof(__value)*8-6); VALUE = __value))
-Immediate(lvx_signed12, MINVALUE(-2048), MAXVALUE(2047), EXTEND(Signed),
-          RELOCATIONS(1, RELOCATION(_UNDEF)),
-          ENCODE(int32_t __value = VALUE; VALUE = __value),
-          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-12); __value >>= (sizeof(__value)*8-12); VALUE = __value))
-Immediate(lvx_signed20, MINVALUE(-524288), MAXVALUE(524287), EXTEND(Signed),
-          RELOCATIONS(1, RELOCATION(_UNDEF)),
-          ENCODE(int32_t __value = VALUE; VALUE = __value),
-          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-20); __value >>= (sizeof(__value)*8-20); VALUE = __value))
-Immediate(lvx_pcrel12s1, MINVALUE(-4096), MAXVALUE(4094), EXTEND(Signed),
-          RELOCATIONS(1, RELOCATION(_UNDEF)),
-          ENCODE(int32_t __value = VALUE; __value >>= 1; VALUE = __value),
-          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-12); __value >>= (sizeof(__value)*8-12); __value <<= 1; VALUE = __value))
-Immediate(lvx_pcrel20s1, MINVALUE(-1048576), MAXVALUE(1048574), EXTEND(Signed),
-          RELOCATIONS(1, RELOCATION(_UNDEF)),
-          ENCODE(int32_t __value = VALUE; __value >>= 1; VALUE = __value),
-          DECODE(int32_t __value = VALUE; __value <<= (sizeof(__value)*8-20); __value >>= (sizeof(__value)*8-20); __value <<= 1; VALUE = __value))
 #endif/*Immediate*/
 #undef Immediate
 

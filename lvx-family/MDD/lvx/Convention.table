@@ -9,7 +9,7 @@
   caller=	"Register-lvx-R0 Register-lvx-R1 Register-lvx-R2 Register-lvx-R3 Register-lvx-R4 Register-lvx-R5 Register-lvx-R6 Register-lvx-R7 Register-lvx-R8 Register-lvx-R9 Register-lvx-R10 Register-lvx-R11 Register-lvx-R15 Register-lvx-R16 Register-lvx-R17 Register-lvx-R32 Register-lvx-R33 Register-lvx-R34 Register-lvx-R35 Register-lvx-R36 Register-lvx-R37 Register-lvx-R38 Register-lvx-R39 Register-lvx-R40 Register-lvx-R41 Register-lvx-R42 Register-lvx-R43 Register-lvx-R44 Register-lvx-R45 Register-lvx-R46 Register-lvx-R47 Register-lvx-R48 Register-lvx-R49 Register-lvx-R50 Register-lvx-R51 Register-lvx-R52 Register-lvx-R53 Register-lvx-R54 Register-lvx-R55 Register-lvx-R56 Register-lvx-R57 Register-lvx-R58 Register-lvx-R59 Register-lvx-R60 Register-lvx-R61 Register-lvx-R62 Register-lvx-R63"
   frame=	"Register-lvx-R14"
   local=	"Register-lvx-R13"
-  processors=	"Processor-lvx_v1-cpu"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   program=	"Register-lvx-PC"
   reserved=	"Register-lvx-R12 Register-lvx-R13"
   result=	"Register-lvx-R0 Register-lvx-R1 Register-lvx-R2 Register-lvx-R3"

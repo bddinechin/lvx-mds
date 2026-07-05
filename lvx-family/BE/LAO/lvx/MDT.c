@@ -14,4 +14,5 @@
 #define MDT_TARGET "lvx"
 #define MDT_TARGET_lvx
 #define MDT_CORE_lvx_v1
+#define MDT_CORE_lvx_v2
 #endif//$XCC_h

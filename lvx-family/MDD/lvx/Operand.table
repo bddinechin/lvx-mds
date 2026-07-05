@@ -263,6 +263,333 @@
   what=	"Fence Access"
 />
 <Operand
+  ID=	"Operand-lvx-registerT"
+  fields=	"BitField-lvx-registerT"
+  method=	"RegClass-lvx-singleReg"
+  shortName=	"r"
+  what=	"General-Purpose Registers"
+/>
+<Operand
+  ID=	"Operand-lvx-registerU"
+  fields=	"BitField-lvx-registerU"
+  method=	"RegClass-lvx-pairedReg"
+  shortName=	"p"
+  what=	"Paired General Registers"
+/>
+<Operand
+  ID=	"Operand-lvx-registerU.0"
+  fields=	"BitField-lvx-registerU"
+  method=	"RegClass-lvx-pairedReg.0"
+  shortName=	"p0"
+  what=	"Paired General Registers Multi 0"
+/>
+<Operand
+  ID=	"Operand-lvx-registerU.1"
+  fields=	"BitField-lvx-registerU"
+  method=	"RegClass-lvx-pairedReg.1"
+  shortName=	"p1"
+  what=	"Paired General Registers Multi 1"
+/>
+<Operand
+  ID=	"Operand-lvx-registerV"
+  fields=	"BitField-lvx-registerV"
+  method=	"RegClass-lvx-quadReg"
+  shortName=	"q"
+  what=	"Quadruple General Registers"
+/>
+<Operand
+  ID=	"Operand-lvx-registerV.0"
+  fields=	"BitField-lvx-registerV"
+  method=	"RegClass-lvx-quadReg.0"
+  shortName=	"q0"
+  what=	"Quadruple General Registers Multi 0"
+/>
+<Operand
+  ID=	"Operand-lvx-registerV.1"
+  fields=	"BitField-lvx-registerV"
+  method=	"RegClass-lvx-quadReg.1"
+  shortName=	"q1"
+  what=	"Quadruple General Registers Multi 1"
+/>
+<Operand
+  ID=	"Operand-lvx-registerV.2"
+  fields=	"BitField-lvx-registerV"
+  method=	"RegClass-lvx-quadReg.2"
+  shortName=	"q2"
+  what=	"Quadruple General Registers Multi 2"
+/>
+<Operand
+  ID=	"Operand-lvx-registerV.3"
+  fields=	"BitField-lvx-registerV"
+  method=	"RegClass-lvx-quadReg.3"
+  shortName=	"q3"
+  what=	"Quadruple General Registers Multi 3"
+/>
+<Operand
+  ID=	"Operand-lvx-registerR"
+  fields=	"BitField-lvx-registerR"
+  method=	"RegClass-lvx-quadReg"
+  shortName=	"q"
+  what=	"Quadruple General Registers"
+/>
+<Operand
+  ID=	"Operand-lvx-registerR.0"
+  fields=	"BitField-lvx-registerR"
+  method=	"RegClass-lvx-quadReg.0"
+  shortName=	"q0"
+  what=	"Quadruple General Registers Multi 0"
+/>
+<Operand
+  ID=	"Operand-lvx-registerR.1"
+  fields=	"BitField-lvx-registerR"
+  method=	"RegClass-lvx-quadReg.1"
+  shortName=	"q1"
+  what=	"Quadruple General Registers Multi 1"
+/>
+<Operand
+  ID=	"Operand-lvx-registerR.2"
+  fields=	"BitField-lvx-registerR"
+  method=	"RegClass-lvx-quadReg.2"
+  shortName=	"q2"
+  what=	"Quadruple General Registers Multi 2"
+/>
+<Operand
+  ID=	"Operand-lvx-registerR.3"
+  fields=	"BitField-lvx-registerR"
+  method=	"RegClass-lvx-quadReg.3"
+  shortName=	"q3"
+  what=	"Quadruple General Registers Multi 3"
+/>
+<Operand
+  ID=	"Operand-lvx-cachelev"
+  fields=	"BitField-lvx-cachelev"
+  method=	"Modifier-lvx-cachelev"
+  what=	"Cache Level for Set/Way maintenance"
+/>
+<Operand
+  ID=	"Operand-lvx-coherency"
+  fields=	"BitField-lvx-coherency"
+  method=	"Modifier-lvx-coherency"
+  what=	"Coherency Domain for atomics"
+/>
+<Operand
+  ID=	"Operand-lvx-offset27"
+  fields=	"BitField-lvx-offset27"
+  method=	"Immediate-lvx-signed27"
+  shortName=	"s27"
+  what=	"Sign Extended Immediate 27 bits"
+/>
+<Operand
+  ID=	"Operand-lvx-extend27_offset27"
+  fields=	"BitField-lvx-extend27 BitField-lvx-offset27"
+  method=	"Immediate-lvx-signed54"
+  shortName=	"s54"
+  what=	"Sign Extended Immediate 54 bits"
+/>
+<Operand
+  ID=	"Operand-lvx-registerO"
+  fields=	"BitField-lvx-registerO"
+  method=	"RegClass-lvx-pairedReg"
+  shortName=	"p"
+  what=	"Paired General Registers"
+/>
+<Operand
+  ID=	"Operand-lvx-registerO.0"
+  fields=	"BitField-lvx-registerO"
+  method=	"RegClass-lvx-pairedReg.0"
+  shortName=	"p0"
+  what=	"Paired General Registers Multi 0"
+/>
+<Operand
+  ID=	"Operand-lvx-registerO.1"
+  fields=	"BitField-lvx-registerO"
+  method=	"RegClass-lvx-pairedReg.1"
+  shortName=	"p1"
+  what=	"Paired General Registers Multi 1"
+/>
+<Operand
+  ID=	"Operand-lvx-boolcas"
+  fields=	"BitField-lvx-boolcas"
+  method=	"Modifier-lvx-boolcas"
+  what=	"Boolean Compare-and-Swap"
+/>
+<Operand
+  ID=	"Operand-lvx-registerQ"
+  fields=	"BitField-lvx-registerQ"
+  method=	"RegClass-lvx-quadReg"
+  shortName=	"q"
+  what=	"Quadruple General Registers"
+/>
+<Operand
+  ID=	"Operand-lvx-registerQ.0"
+  fields=	"BitField-lvx-registerQ"
+  method=	"RegClass-lvx-quadReg.0"
+  shortName=	"q0"
+  what=	"Quadruple General Registers Multi 0"
+/>
+<Operand
+  ID=	"Operand-lvx-registerQ.1"
+  fields=	"BitField-lvx-registerQ"
+  method=	"RegClass-lvx-quadReg.1"
+  shortName=	"q1"
+  what=	"Quadruple General Registers Multi 1"
+/>
+<Operand
+  ID=	"Operand-lvx-registerQ.2"
+  fields=	"BitField-lvx-registerQ"
+  method=	"RegClass-lvx-quadReg.2"
+  shortName=	"q2"
+  what=	"Quadruple General Registers Multi 2"
+/>
+<Operand
+  ID=	"Operand-lvx-registerQ.3"
+  fields=	"BitField-lvx-registerQ"
+  method=	"RegClass-lvx-quadReg.3"
+  shortName=	"q3"
+  what=	"Quadruple General Registers Multi 3"
+/>
+<Operand
+  ID=	"Operand-lvx-signed16"
+  default=	"0"
+  fields=	"BitField-lvx-signed16"
+  method=	"Immediate-lvx-signed16"
+  relocations=	"Relocation-lvx-pcrel_signed16 Relocation-lvx-signed16"
+  shortName=	"s16"
+  what=	"Sign Extended Immediate 16 bits"
+/>
+<Operand
+  ID=	"Operand-lvx-extend6_upper27_lower10"
+  default=	"0"
+  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
+  method=	"Immediate-lvx-signed43"
+  relocations=	"Relocation-lvx-pcrel_signed43 Relocation-lvx-gotoff_signed43 Relocation-lvx-got_signed43 Relocation-lvx-signed43 Relocation-lvx-gotaddr_signed43 Relocation-lvx-dtpoff_signed43 Relocation-lvx-tlsgd_signed43 Relocation-lvx-tlsld_signed43 Relocation-lvx-tlsie_signed43 Relocation-lvx-tlsle_signed43"
+  shortName=	"s43"
+  what=	"Sign Extended Immediate 43 bits"
+/>
+<Operand
+  ID=	"Operand-lvx-stopbit2_stopbit4"
+  fields=	"BitField-lvx-stopbit2 BitField-lvx-stopbit4"
+  method=	"Immediate-lvx-unsigned6"
+  shortName=	"u6"
+  what=	"Zero Extended Immediate 6 bits"
+/>
+<Operand
+  ID=	"Operand-lvx-startbit"
+  fields=	"BitField-lvx-startbit"
+  method=	"Immediate-lvx-unsigned6"
+  shortName=	"u6"
+  what=	"Zero Extended Immediate 6 bits"
+/>
+<Operand
+  ID=	"Operand-lvx-upper27_lower5"
+  default=	"0"
+  fields=	"BitField-lvx-upper27 BitField-lvx-lower5"
+  method=	"Immediate-lvx-wrapped32"
+  relocations=	"Relocation-lvx-signed32"
+  shortName=	"w32"
+  what=	"Wrapped Immediate 32 bits"
+/>
+<Operand
+  ID=	"Operand-lvx-splat32"
+  fields=	"BitField-lvx-splat32"
+  method=	"Modifier-lvx-splat32"
+  what=	"Splat 32-bit Immediate"
+/>
+<Operand
+  ID=	"Operand-lvx-intcomp"
+  fields=	"BitField-lvx-intcomp"
+  method=	"Modifier-lvx-intcomp"
+  what=	"Integer Comparison"
+/>
+<Operand
+  ID=	"Operand-lvx-cmovecond"
+  fields=	"BitField-lvx-cmovecond"
+  method=	"Modifier-lvx-bcucond"
+  what=	"CB Condition"
+/>
+<Operand
+  ID=	"Operand-lvx-unsigned6"
+  fields=	"BitField-lvx-unsigned6"
+  method=	"Immediate-lvx-unsigned6"
+  shortName=	"u6"
+  what=	"Zero Extended Immediate 6 bits"
+/>
+<Operand
+  ID=	"Operand-lvx-highmult"
+  fields=	"BitField-lvx-highmult"
+  method=	"Modifier-lvx-highmult"
+  what=	"High Multiply"
+/>
+<Operand
+  ID=	"Operand-lvx-widemult"
+  fields=	"BitField-lvx-widemult"
+  method=	"Modifier-lvx-widemult"
+  what=	"Wide Multiply"
+/>
+<Operand
+  ID=	"Operand-lvx-registerP"
+  fields=	"BitField-lvx-registerP"
+  method=	"RegClass-lvx-pairedReg"
+  shortName=	"p"
+  what=	"Paired General Registers"
+/>
+<Operand
+  ID=	"Operand-lvx-registerP.0"
+  fields=	"BitField-lvx-registerP"
+  method=	"RegClass-lvx-pairedReg.0"
+  shortName=	"p0"
+  what=	"Paired General Registers Multi 0"
+/>
+<Operand
+  ID=	"Operand-lvx-registerP.1"
+  fields=	"BitField-lvx-registerP"
+  method=	"RegClass-lvx-pairedReg.1"
+  shortName=	"p1"
+  what=	"Paired General Registers Multi 1"
+/>
+<Operand
+  ID=	"Operand-lvx-signextw"
+  fields=	"BitField-lvx-signextw"
+  method=	"Modifier-lvx-signextw"
+  what=	"Sign Extend Word"
+/>
+<Operand
+  ID=	"Operand-lvx-floatmode"
+  fields=	"BitField-lvx-floatmode"
+  method=	"Modifier-lvx-floatmode"
+  what=	"Floating-Point Rounding Mode"
+/>
+<Operand
+  ID=	"Operand-lvx-floatcomp"
+  fields=	"BitField-lvx-floatcomp"
+  method=	"Modifier-lvx-floatcomp"
+  what=	"Floating-Point Comparison"
+/>
+<Operand
+  ID=	"Operand-lvx-mostsig"
+  fields=	"BitField-lvx-mostsig"
+  method=	"Modifier-lvx-mostsig"
+  what=	"Least or Most Significant Bits"
+/>
+<Operand
+  ID=	"Operand-lvx-fnegate"
+  fields=	"BitField-lvx-fnegate"
+  method=	"Modifier-lvx-fnegate"
+  what=	"Floating-Point Negate"
+/>
+<Operand
+  ID=	"Operand-lvx-imultiply"
+  fields=	"BitField-lvx-imultiply"
+  method=	"Modifier-lvx-imultiply"
+  what=	"Multiply by Imaginary Unit"
+/>
+<Operand
+  ID=	"Operand-lvx-conjugate"
+  fields=	"BitField-lvx-conjugate"
+  method=	"Modifier-lvx-conjugate"
+  what=	"Complex Conjugate"
+/>
+<Operand
   ID=	"Operand-lvx-registerG"
   fields=	"BitField-lvx-registerG"
   method=	"RegClass-lvx-xwordoReg"
@@ -366,104 +693,6 @@
   what=	"Quarter Index"
 />
 <Operand
-  ID=	"Operand-lvx-registerT"
-  fields=	"BitField-lvx-registerT"
-  method=	"RegClass-lvx-singleReg"
-  shortName=	"r"
-  what=	"General-Purpose Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-registerU"
-  fields=	"BitField-lvx-registerU"
-  method=	"RegClass-lvx-pairedReg"
-  shortName=	"p"
-  what=	"Paired General Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-registerU.0"
-  fields=	"BitField-lvx-registerU"
-  method=	"RegClass-lvx-pairedReg.0"
-  shortName=	"p0"
-  what=	"Paired General Registers Multi 0"
-/>
-<Operand
-  ID=	"Operand-lvx-registerU.1"
-  fields=	"BitField-lvx-registerU"
-  method=	"RegClass-lvx-pairedReg.1"
-  shortName=	"p1"
-  what=	"Paired General Registers Multi 1"
-/>
-<Operand
-  ID=	"Operand-lvx-registerV"
-  fields=	"BitField-lvx-registerV"
-  method=	"RegClass-lvx-quadReg"
-  shortName=	"q"
-  what=	"Quadruple General Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-registerV.0"
-  fields=	"BitField-lvx-registerV"
-  method=	"RegClass-lvx-quadReg.0"
-  shortName=	"q0"
-  what=	"Quadruple General Registers Multi 0"
-/>
-<Operand
-  ID=	"Operand-lvx-registerV.1"
-  fields=	"BitField-lvx-registerV"
-  method=	"RegClass-lvx-quadReg.1"
-  shortName=	"q1"
-  what=	"Quadruple General Registers Multi 1"
-/>
-<Operand
-  ID=	"Operand-lvx-registerV.2"
-  fields=	"BitField-lvx-registerV"
-  method=	"RegClass-lvx-quadReg.2"
-  shortName=	"q2"
-  what=	"Quadruple General Registers Multi 2"
-/>
-<Operand
-  ID=	"Operand-lvx-registerV.3"
-  fields=	"BitField-lvx-registerV"
-  method=	"RegClass-lvx-quadReg.3"
-  shortName=	"q3"
-  what=	"Quadruple General Registers Multi 3"
-/>
-<Operand
-  ID=	"Operand-lvx-registerR"
-  fields=	"BitField-lvx-registerR"
-  method=	"RegClass-lvx-quadReg"
-  shortName=	"q"
-  what=	"Quadruple General Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-registerR.0"
-  fields=	"BitField-lvx-registerR"
-  method=	"RegClass-lvx-quadReg.0"
-  shortName=	"q0"
-  what=	"Quadruple General Registers Multi 0"
-/>
-<Operand
-  ID=	"Operand-lvx-registerR.1"
-  fields=	"BitField-lvx-registerR"
-  method=	"RegClass-lvx-quadReg.1"
-  shortName=	"q1"
-  what=	"Quadruple General Registers Multi 1"
-/>
-<Operand
-  ID=	"Operand-lvx-registerR.2"
-  fields=	"BitField-lvx-registerR"
-  method=	"RegClass-lvx-quadReg.2"
-  shortName=	"q2"
-  what=	"Quadruple General Registers Multi 2"
-/>
-<Operand
-  ID=	"Operand-lvx-registerR.3"
-  fields=	"BitField-lvx-registerR"
-  method=	"RegClass-lvx-quadReg.3"
-  shortName=	"q3"
-  what=	"Quadruple General Registers Multi 3"
-/>
-<Operand
   ID=	"Operand-lvx-registerE"
   fields=	"BitField-lvx-registerE"
   method=	"RegClass-lvx-xwordoReg"
@@ -555,31 +784,11 @@
   what=	"Extension Word Vector Registers Multi 3"
 />
 <Operand
-  ID=	"Operand-lvx-cachelev"
-  fields=	"BitField-lvx-cachelev"
-  method=	"Modifier-lvx-cachelev"
-  what=	"Cache Level for Set/Way maintenance"
-/>
-<Operand
   ID=	"Operand-lvx-registerGg"
   fields=	"BitField-lvx-registerGg"
   method=	"RegClass-lvx-buffer2Reg"
   shortName=	"g"
   what=	"Extension 2-Register Buffer"
-/>
-<Operand
-  ID=	"Operand-lvx-offset27"
-  fields=	"BitField-lvx-offset27"
-  method=	"Immediate-lvx-signed27"
-  shortName=	"s27"
-  what=	"Sign Extended Immediate 27 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-extend27_offset27"
-  fields=	"BitField-lvx-extend27 BitField-lvx-offset27"
-  method=	"Immediate-lvx-signed54"
-  shortName=	"s54"
-  what=	"Sign Extended Immediate 54 bits"
 />
 <Operand
   ID=	"Operand-lvx-registerGh"
@@ -615,106 +824,6 @@
   method=	"RegClass-lvx-buffer64Reg"
   shortName=	"l"
   what=	"Extension 64-Register Buffer"
-/>
-<Operand
-  ID=	"Operand-lvx-coherency"
-  fields=	"BitField-lvx-coherency"
-  method=	"Modifier-lvx-coherency"
-  what=	"Coherency Domain for atomics"
-/>
-<Operand
-  ID=	"Operand-lvx-registerO"
-  fields=	"BitField-lvx-registerO"
-  method=	"RegClass-lvx-pairedReg"
-  shortName=	"p"
-  what=	"Paired General Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-registerO.0"
-  fields=	"BitField-lvx-registerO"
-  method=	"RegClass-lvx-pairedReg.0"
-  shortName=	"p0"
-  what=	"Paired General Registers Multi 0"
-/>
-<Operand
-  ID=	"Operand-lvx-registerO.1"
-  fields=	"BitField-lvx-registerO"
-  method=	"RegClass-lvx-pairedReg.1"
-  shortName=	"p1"
-  what=	"Paired General Registers Multi 1"
-/>
-<Operand
-  ID=	"Operand-lvx-boolcas"
-  fields=	"BitField-lvx-boolcas"
-  method=	"Modifier-lvx-boolcas"
-  what=	"Boolean Compare-and-Swap"
-/>
-<Operand
-  ID=	"Operand-lvx-registerQ"
-  fields=	"BitField-lvx-registerQ"
-  method=	"RegClass-lvx-quadReg"
-  shortName=	"q"
-  what=	"Quadruple General Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-registerQ.0"
-  fields=	"BitField-lvx-registerQ"
-  method=	"RegClass-lvx-quadReg.0"
-  shortName=	"q0"
-  what=	"Quadruple General Registers Multi 0"
-/>
-<Operand
-  ID=	"Operand-lvx-registerQ.1"
-  fields=	"BitField-lvx-registerQ"
-  method=	"RegClass-lvx-quadReg.1"
-  shortName=	"q1"
-  what=	"Quadruple General Registers Multi 1"
-/>
-<Operand
-  ID=	"Operand-lvx-registerQ.2"
-  fields=	"BitField-lvx-registerQ"
-  method=	"RegClass-lvx-quadReg.2"
-  shortName=	"q2"
-  what=	"Quadruple General Registers Multi 2"
-/>
-<Operand
-  ID=	"Operand-lvx-registerQ.3"
-  fields=	"BitField-lvx-registerQ"
-  method=	"RegClass-lvx-quadReg.3"
-  shortName=	"q3"
-  what=	"Quadruple General Registers Multi 3"
-/>
-<Operand
-  ID=	"Operand-lvx-signed16"
-  default=	"0"
-  fields=	"BitField-lvx-signed16"
-  method=	"Immediate-lvx-signed16"
-  relocations=	"Relocation-lvx-pcrel_signed16 Relocation-lvx-signed16"
-  shortName=	"s16"
-  what=	"Sign Extended Immediate 16 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-extend6_upper27_lower10"
-  default=	"0"
-  fields=	"BitField-lvx-extend6 BitField-lvx-upper27 BitField-lvx-lower10"
-  method=	"Immediate-lvx-signed43"
-  relocations=	"Relocation-lvx-pcrel_signed43 Relocation-lvx-gotoff_signed43 Relocation-lvx-got_signed43 Relocation-lvx-signed43 Relocation-lvx-gotaddr_signed43 Relocation-lvx-dtpoff_signed43 Relocation-lvx-tlsgd_signed43 Relocation-lvx-tlsld_signed43 Relocation-lvx-tlsie_signed43 Relocation-lvx-tlsle_signed43"
-  shortName=	"s43"
-  what=	"Sign Extended Immediate 43 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-stopbit2_stopbit4"
-  fields=	"BitField-lvx-stopbit2 BitField-lvx-stopbit4"
-  method=	"Immediate-lvx-unsigned6"
-  shortName=	"u6"
-  what=	"Zero Extended Immediate 6 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-startbit"
-  fields=	"BitField-lvx-startbit"
-  method=	"Immediate-lvx-unsigned6"
-  shortName=	"u6"
-  what=	"Zero Extended Immediate 6 bits"
 />
 <Operand
   ID=	"Operand-lvx-registerA"
@@ -771,73 +880,6 @@
   method=	"RegClass-lvx-xwordxReg.1"
   shortName=	"x1"
   what=	"Extension Word Hexadecuple Register Multi 1"
-/>
-<Operand
-  ID=	"Operand-lvx-upper27_lower5"
-  default=	"0"
-  fields=	"BitField-lvx-upper27 BitField-lvx-lower5"
-  method=	"Immediate-lvx-wrapped32"
-  relocations=	"Relocation-lvx-signed32"
-  shortName=	"w32"
-  what=	"Wrapped Immediate 32 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-splat32"
-  fields=	"BitField-lvx-splat32"
-  method=	"Modifier-lvx-splat32"
-  what=	"Splat 32-bit Immediate"
-/>
-<Operand
-  ID=	"Operand-lvx-intcomp"
-  fields=	"BitField-lvx-intcomp"
-  method=	"Modifier-lvx-intcomp"
-  what=	"Integer Comparison"
-/>
-<Operand
-  ID=	"Operand-lvx-cmovecond"
-  fields=	"BitField-lvx-cmovecond"
-  method=	"Modifier-lvx-bcucond"
-  what=	"CB Condition"
-/>
-<Operand
-  ID=	"Operand-lvx-unsigned6"
-  fields=	"BitField-lvx-unsigned6"
-  method=	"Immediate-lvx-unsigned6"
-  shortName=	"u6"
-  what=	"Zero Extended Immediate 6 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-highmult"
-  fields=	"BitField-lvx-highmult"
-  method=	"Modifier-lvx-highmult"
-  what=	"High Multiply"
-/>
-<Operand
-  ID=	"Operand-lvx-widemult"
-  fields=	"BitField-lvx-widemult"
-  method=	"Modifier-lvx-widemult"
-  what=	"Wide Multiply"
-/>
-<Operand
-  ID=	"Operand-lvx-registerP"
-  fields=	"BitField-lvx-registerP"
-  method=	"RegClass-lvx-pairedReg"
-  shortName=	"p"
-  what=	"Paired General Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-registerP.0"
-  fields=	"BitField-lvx-registerP"
-  method=	"RegClass-lvx-pairedReg.0"
-  shortName=	"p0"
-  what=	"Paired General Registers Multi 0"
-/>
-<Operand
-  ID=	"Operand-lvx-registerP.1"
-  fields=	"BitField-lvx-registerP"
-  method=	"RegClass-lvx-pairedReg.1"
-  shortName=	"p1"
-  what=	"Paired General Registers Multi 1"
 />
 <Operand
   ID=	"Operand-lvx-registerAx"
@@ -900,84 +942,6 @@
   what=	"Block Registers Odd Numbered Multi 1"
 />
 <Operand
-  ID=	"Operand-lvx-signextw"
-  fields=	"BitField-lvx-signextw"
-  method=	"Modifier-lvx-signextw"
-  what=	"Sign Extend Word"
-/>
-<Operand
-  ID=	"Operand-lvx-floatmode"
-  fields=	"BitField-lvx-floatmode"
-  method=	"Modifier-lvx-floatmode"
-  what=	"Floating-Point Rounding Mode"
-/>
-<Operand
-  ID=	"Operand-lvx-floatcomp"
-  fields=	"BitField-lvx-floatcomp"
-  method=	"Modifier-lvx-floatcomp"
-  what=	"Floating-Point Comparison"
-/>
-<Operand
-  ID=	"Operand-lvx-mostsig"
-  fields=	"BitField-lvx-mostsig"
-  method=	"Modifier-lvx-mostsig"
-  what=	"Least or Most Significant Bits"
-/>
-<Operand
-  ID=	"Operand-lvx-fnegate"
-  fields=	"BitField-lvx-fnegate"
-  method=	"Modifier-lvx-fnegate"
-  what=	"Floating-Point Negate"
-/>
-<Operand
-  ID=	"Operand-lvx-imultiply"
-  fields=	"BitField-lvx-imultiply"
-  method=	"Modifier-lvx-imultiply"
-  what=	"Multiply by Imaginary Unit"
-/>
-<Operand
-  ID=	"Operand-lvx-conjugate"
-  fields=	"BitField-lvx-conjugate"
-  method=	"Modifier-lvx-conjugate"
-  what=	"Complex Conjugate"
-/>
-<Operand
-  ID=	"Operand-lvx-registerWe"
-  fields=	"BitField-lvx-registerWe"
-  method=	"RegClass-lvx-worddRegE"
-  what=	"Accelerator Registers Even Numbered"
-/>
-<Operand
-  ID=	"Operand-lvx-registerZe"
-  fields=	"BitField-lvx-registerZe"
-  method=	"RegClass-lvx-worddRegE"
-  what=	"Accelerator Registers Even Numbered"
-/>
-<Operand
-  ID=	"Operand-lvx-registerYe"
-  fields=	"BitField-lvx-registerYe"
-  method=	"RegClass-lvx-worddRegE"
-  what=	"Accelerator Registers Even Numbered"
-/>
-<Operand
-  ID=	"Operand-lvx-registerWo"
-  fields=	"BitField-lvx-registerWo"
-  method=	"RegClass-lvx-worddRegO"
-  what=	"Accelerator Registers Odd Numbered"
-/>
-<Operand
-  ID=	"Operand-lvx-registerZo"
-  fields=	"BitField-lvx-registerZo"
-  method=	"RegClass-lvx-worddRegO"
-  what=	"Accelerator Registers Odd Numbered"
-/>
-<Operand
-  ID=	"Operand-lvx-registerYo"
-  fields=	"BitField-lvx-registerYo"
-  method=	"RegClass-lvx-worddRegO"
-  what=	"Accelerator Registers Odd Numbered"
-/>
-<Operand
   ID=	"Operand-lvx-lanecond"
   fields=	"BitField-lvx-lanecond"
   method=	"Modifier-lvx-lanecond"
@@ -994,6 +958,30 @@
   fields=	"BitField-lvx-oddlanes"
   method=	"Modifier-lvx-oddlanes"
   what=	"Even or Odd SIMD Lanes"
+/>
+<Operand
+  ID=	"Operand-lvx-registerZe"
+  fields=	"BitField-lvx-registerZe"
+  method=	"RegClass-lvx-worddRegE"
+  what=	"Accelerator Registers Even Numbered"
+/>
+<Operand
+  ID=	"Operand-lvx-registerYe"
+  fields=	"BitField-lvx-registerYe"
+  method=	"RegClass-lvx-worddRegE"
+  what=	"Accelerator Registers Even Numbered"
+/>
+<Operand
+  ID=	"Operand-lvx-registerZo"
+  fields=	"BitField-lvx-registerZo"
+  method=	"RegClass-lvx-worddRegO"
+  what=	"Accelerator Registers Odd Numbered"
+/>
+<Operand
+  ID=	"Operand-lvx-registerYo"
+  fields=	"BitField-lvx-registerYo"
+  method=	"RegClass-lvx-worddRegO"
+  what=	"Accelerator Registers Odd Numbered"
 />
 <Operand
   ID=	"Operand-lvx-registerCc_qselectC"
@@ -1099,180 +1087,4 @@
   method=	"RegClass-lvx-buffer64Reg"
   shortName=	"l"
   what=	"Extension 64-Register Buffer"
-/>
-<Operand
-  ID=	"Operand-lvx-rd"
-  fields=	"BitField-lvx-rd"
-  method=	"RegClass-lvx-mainReg"
-  shortName=	"x"
-  what=	"RISC-V Base Integer Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-i_31_12"
-  fields=	"BitField-lvx-i_31_12"
-  method=	"Immediate-lvx-signed20"
-  shortName=	"s20"
-  what=	"Sign Extended Immediate 20 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-i_20_i_19_12_i_11j_i_10_1"
-  fields=	"BitField-lvx-i_20 BitField-lvx-i_19_12 BitField-lvx-i_11j BitField-lvx-i_10_1"
-  method=	"Immediate-lvx-pcrel20s1"
-  what=	"PC-Relative Immediate 20 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-rs1"
-  fields=	"BitField-lvx-rs1"
-  method=	"RegClass-lvx-mainReg"
-  shortName=	"x"
-  what=	"RISC-V Base Integer Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-i_11_0"
-  fields=	"BitField-lvx-i_11_0"
-  method=	"Immediate-lvx-signed12"
-  shortName=	"s12"
-  what=	"Sign Extended Immediate 12 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-rs2"
-  fields=	"BitField-lvx-rs2"
-  method=	"RegClass-lvx-mainReg"
-  shortName=	"x"
-  what=	"RISC-V Base Integer Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-i_12_i_11b_i_10_5_i_4_1"
-  fields=	"BitField-lvx-i_12 BitField-lvx-i_11b BitField-lvx-i_10_5 BitField-lvx-i_4_1"
-  method=	"Immediate-lvx-pcrel12s1"
-  what=	"PC-Relative Immediate 12 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-i_11_5_i_4_0s"
-  fields=	"BitField-lvx-i_11_5 BitField-lvx-i_4_0s"
-  method=	"Immediate-lvx-signed12"
-  shortName=	"s12"
-  what=	"Sign Extended Immediate 12 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-pred"
-  fields=	"BitField-lvx-pred"
-  method=	"Modifier-lvx-ordering"
-  what=	"Fence predecessor and successor ordering"
-/>
-<Operand
-  ID=	"Operand-lvx-succ"
-  fields=	"BitField-lvx-succ"
-  method=	"Modifier-lvx-ordering"
-  what=	"Fence predecessor and successor ordering"
-/>
-<Operand
-  ID=	"Operand-lvx-i_5_0"
-  fields=	"BitField-lvx-i_5_0"
-  method=	"Immediate-lvx-unsigned6"
-  shortName=	"u6"
-  what=	"Zero Extended Immediate 6 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-i_4_0"
-  fields=	"BitField-lvx-i_4_0"
-  method=	"Immediate-lvx-unsigned5"
-  shortName=	"u5"
-  what=	"Zero Extended Immediate 5 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-rd_pair"
-  fields=	"BitField-lvx-rd_pair"
-  method=	"RegClass-lvx-mainRegPair"
-  what=	"RISC-V Base Integer Register Pairs"
-/>
-<Operand
-  ID=	"Operand-lvx-rd_pair.0"
-  fields=	"BitField-lvx-rd_pair"
-  method=	"RegClass-lvx-mainRegPair.0"
-  what=	"RISC-V Base Integer Register Pairs Multi 0"
-/>
-<Operand
-  ID=	"Operand-lvx-rd_pair.1"
-  fields=	"BitField-lvx-rd_pair"
-  method=	"RegClass-lvx-mainRegPair.1"
-  what=	"RISC-V Base Integer Register Pairs Multi 1"
-/>
-<Operand
-  ID=	"Operand-lvx-rs2_pair"
-  fields=	"BitField-lvx-rs2_pair"
-  method=	"RegClass-lvx-mainRegPair"
-  what=	"RISC-V Base Integer Register Pairs"
-/>
-<Operand
-  ID=	"Operand-lvx-rs2_pair.0"
-  fields=	"BitField-lvx-rs2_pair"
-  method=	"RegClass-lvx-mainRegPair.0"
-  what=	"RISC-V Base Integer Register Pairs Multi 0"
-/>
-<Operand
-  ID=	"Operand-lvx-rs2_pair.1"
-  fields=	"BitField-lvx-rs2_pair"
-  method=	"RegClass-lvx-mainRegPair.1"
-  what=	"RISC-V Base Integer Register Pairs Multi 1"
-/>
-<Operand
-  ID=	"Operand-lvx-csr"
-  fields=	"BitField-lvx-csr"
-  method=	"RegClass-lvx-csReg"
-  what=	"Control and System Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-uimm"
-  fields=	"BitField-lvx-uimm"
-  method=	"Immediate-lvx-unsigned5"
-  shortName=	"u5"
-  what=	"Zero Extended Immediate 5 bits"
-/>
-<Operand
-  ID=	"Operand-lvx-acqrel"
-  fields=	"BitField-lvx-acqrel"
-  method=	"Modifier-lvx-acqrel"
-  what=	"Acquire/Release memory ordering"
-/>
-<Operand
-  ID=	"Operand-lvx-frd"
-  fields=	"BitField-lvx-frd"
-  method=	"RegClass-lvx-floatReg"
-  shortName=	"f"
-  what=	"RISC-V Floating-Point Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-frs2"
-  fields=	"BitField-lvx-frs2"
-  method=	"RegClass-lvx-floatReg"
-  shortName=	"f"
-  what=	"RISC-V Floating-Point Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-frs1"
-  fields=	"BitField-lvx-frs1"
-  method=	"RegClass-lvx-floatReg"
-  shortName=	"f"
-  what=	"RISC-V Floating-Point Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-frs3"
-  fields=	"BitField-lvx-frs3"
-  method=	"RegClass-lvx-floatReg"
-  shortName=	"f"
-  what=	"RISC-V Floating-Point Registers"
-/>
-<Operand
-  ID=	"Operand-lvx-frm"
-  fields=	"BitField-lvx-frm"
-  method=	"Modifier-lvx-froundmode"
-  what=	"Floating-point rounding mode"
-/>
-<Operand
-  ID=	"Operand-lvx-i_11_5"
-  fields=	"BitField-lvx-i_11_5"
-  method=	"Immediate-lvx-signed6"
-  shortName=	"s6"
-  what=	"Sign Extended Immediate 6 bits"
 />

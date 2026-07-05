@@ -231,24 +231,3 @@
   what=	"Splat 32-bit Immediate"
   width=	"1"
 />
-<Modifier
-  ID=	"Modifier-lvx-ordering"
-  members=	".NONE .W .R .RW .O .OW .OR .ORW .I .IW .IR .IRW .IO .IOW .IOR .IORW"
-  values=	"0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15"
-  what=	"Fence predecessor and successor ordering"
-  width=	"4"
-/>
-<Modifier
-  ID=	"Modifier-lvx-acqrel"
-  members=	". .RL .AQ .AQRL"
-  values=	"0 1 2 3"
-  what=	"Acquire/Release memory ordering"
-  width=	"1"
-/>
-<Modifier
-  ID=	"Modifier-lvx-froundmode"
-  members=	"RNE RTZ RDN RUP RMM _RES5 _RES6 DYN"
-  values=	"0 1 2 3 4 5 6 7"
-  what=	"Floating-point rounding mode"
-  width=	"3"
-/>

@@ -1,6 +1,6 @@
 /* LVX-specific relocations table.
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
-   Contributed by Liesme Tech.
+   Contributed by Kalray SA.
 
    This file is part of BFD, the Binary File Descriptor library.
 
@@ -18,7 +18,7 @@
    along with this program; see the file COPYING3. If not,
    see <http://www.gnu.org/licenses/>.  */
 
-#ifdef LVX_LVX_V1_LVX_V2
+#ifdef LVX_V1_LVX_V2
 static reloc_howto_type elf_lvx_howto_table[] =
 {
   HOWTO (R_LVX_NONE,			/* type */
@@ -1193,4 +1193,4 @@ static reloc_howto_type elf_lvx_howto_table[] =
 	 true),			/* pc_offset */
 };
 
-#endif /* LVX_LVX_V1_LVX_V2 */
+#endif /* LVX_V1_LVX_V2 */

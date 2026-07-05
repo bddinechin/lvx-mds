@@ -1,0 +1,38 @@
+/*
+ * lvx/Bundling.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Bundling
+#define Bundling(ID)
+#else /*Bundling*/
+Bundling(lvx_v2_ALL)
+Bundling(lvx_v2_BCU2)
+Bundling(lvx_v2_BCU2_X)
+Bundling(lvx_v2_BCU0)
+Bundling(lvx_v2_BCU)
+Bundling(lvx_v2_FULL)
+Bundling(lvx_v2_FULL_X)
+Bundling(lvx_v2_FULL_Y)
+Bundling(lvx_v2_LITE)
+Bundling(lvx_v2_LITE_X)
+Bundling(lvx_v2_LITE_Y)
+Bundling(lvx_v2_LSU0)
+Bundling(lvx_v2_LSU0_X)
+Bundling(lvx_v2_LSU0_Y)
+Bundling(lvx_v2_LSU)
+Bundling(lvx_v2_LSU_X)
+Bundling(lvx_v2_LSU_Y)
+Bundling(lvx_v2_TINY)
+Bundling(lvx_v2_TINY_X)
+Bundling(lvx_v2_TINY_Y)
+Bundling(lvx_v2_EXT)
+Bundling(lvx_v2_NOP)
+#endif/*Bundling*/
+#undef Bundling
+
+#ifndef Bundling_LOG2_MAX
+#define Bundling_LOG2_MAX 5
+#endif/*Bundling_LOG2_MAX*/
+

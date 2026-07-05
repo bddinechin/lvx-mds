@@ -267,3 +267,265 @@
   proxy=	"%2"
   stages=	"2"
 /></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-ADJUST"
+  mnemonic=	"ADJUST"
+  scheduling=	"Scheduling-lvx-ALU_LITE"
+  syntax=	"%0 %1 = %2, %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%2"
+  stages=	"1"
+  usage=	"Left"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-signed10"
+  proxy=	"%3"
+  stages=	"0"
+  usage=	"Right"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-GETPC"
+  mnemonic=	"GETPC"
+  scheduling=	"Scheduling-lvx-BCU"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Write"
+  method=	"Register-lvx-PC"
+  proxy=	"%1"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-pcrel27s2"
+  proxy=	"%2"
+  stages=	"0"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-SET_GOTP"
+  mnemonic=	"SET_GOTP"
+  scheduling=	"Scheduling-lvx-ALL"
+  syntax=	"unspecified"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-systemReg"
+  proxy=	"%2"
+  stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-wrapped32"
+  proxy=	"%4"
+  stages=	"1"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-GNUASM"
+  mnemonic=	"GNUASM"
+  scheduling=	"Scheduling-lvx-ALL"
+  syntax=	"%0"
+><Parameter
+  action=	"WriteList"
+  method=	"RegClass-lvx-"
+  stages=	"2"
+/><Parameter
+  action=	"ReadList"
+  method=	"RegClass-lvx-"
+  stages=	"1"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-GNUASM_CFG"
+  mnemonic=	"GNUASM_CFG"
+  scheduling=	"Scheduling-lvx-ALL"
+  syntax=	"%0"
+><Parameter
+  action=	"WriteList"
+  method=	"RegClass-lvx-"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-pcrel27s2"
+  stages=	"1"
+  usage=	"Target"
+/><Parameter
+  action=	"ReadList"
+  method=	"RegClass-lvx-"
+  stages=	"1"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-MOVP"
+  mnemonic=	"MOVP"
+  scheduling=	"Scheduling-lvx-ALU_LITE"
+  syntax=	"unspecified"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-pairedReg"
+  proxy=	"%1"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-pairedReg"
+  proxy=	"%2"
+  stages=	"1"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-COMPOSEP"
+  mnemonic=	"COMPOSEP"
+  scheduling=	"Scheduling-lvx-ALU_FULL"
+  syntax=	"unspecified"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-pairedReg"
+  proxy=	"%1"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%2"
+  stages=	"1"
+  usage=	"Left"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%3"
+  stages=	"1"
+  usage=	"Right"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-EXTRACTP"
+  mnemonic=	"EXTRACTP"
+  scheduling=	"Scheduling-lvx-ALU_LITE"
+  syntax=	"unspecified"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%2"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-pairedReg"
+  proxy=	"%3"
+  stages=	"1"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-MOVC"
+  mnemonic=	"MOVC"
+  scheduling=	"Scheduling-lvx-ALU_LITE"
+  syntax=	"%0 %1 = %2 %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"3"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%2"
+  stages=	"2"
+  usage=	"Pred"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%3"
+  stages=	"2"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-MOVPC"
+  mnemonic=	"MOVPC"
+  scheduling=	"Scheduling-lvx-ALU_LITE"
+  syntax=	"%0 %1 = %2 %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-pairedReg"
+  proxy=	"%1"
+  stages=	"3"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%2"
+  stages=	"2"
+  usage=	"Pred"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-MOVCF"
+  mnemonic=	"MOVCF"
+  scheduling=	"Scheduling-lvx-ALU_LITE"
+  syntax=	"%0 %1 = %2 %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"3"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%2"
+  stages=	"2"
+  usage=	"Pred"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%3"
+  stages=	"2"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-MOVPCF"
+  mnemonic=	"MOVPCF"
+  scheduling=	"Scheduling-lvx-ALU_LITE"
+  syntax=	"%0 %1 = %2 %3"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-pairedReg"
+  proxy=	"%1"
+  stages=	"3"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%2"
+  stages=	"2"
+  usage=	"Pred"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/></Simulated>
+<Simulated
+  ID=	"Simulated-lvx_v2-SYSCALL"
+  mnemonic=	"SYSCALL"
+  scheduling=	"Scheduling-lvx-ALL"
+  syntax=	"%0 %1 = %2"
+><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"3"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%2"
+  stages=	"2"
+/></Simulated>

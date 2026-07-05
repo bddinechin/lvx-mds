@@ -240,11 +240,6 @@
   width=	"2"
 />
 <BitField
-  ID=	"BitField-lvx-acqrel"
-  offset=	"25"
-  width=	"2"
-/>
-<BitField
   ID=	"BitField-lvx-activate"
   offset=	"6"
   width=	"8"
@@ -290,11 +285,6 @@
   width=	"5"
 />
 <BitField
-  ID=	"BitField-lvx-bcucode4"
-  offset=	"18"
-  width=	"2"
-/>
-<BitField
   ID=	"BitField-lvx-bcucode5"
   offset=	"12"
   width=	"6"
@@ -330,36 +320,6 @@
   width=	"4"
 />
 <BitField
-  ID=	"BitField-lvx-buffcode1"
-  offset=	"6"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-buffcode2"
-  offset=	"6"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-buffcode3"
-  offset=	"6"
-  width=	"3"
-/>
-<BitField
-  ID=	"BitField-lvx-buffcode4"
-  offset=	"6"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-buffcode5"
-  offset=	"6"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-byteshift"
-  offset=	"0"
-  width=	"6"
-/>
-<BitField
   ID=	"BitField-lvx-cachelev"
   offset=	"24"
   width=	"2"
@@ -383,11 +343,6 @@
   ID=	"BitField-lvx-conjugate"
   offset=	"13"
   width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-csr"
-  offset=	"20"
-  width=	"12"
 />
 <BitField
   ID=	"BitField-lvx-doscale"
@@ -425,28 +380,8 @@
   width=	"1"
 />
 <BitField
-  ID=	"BitField-lvx-exubit13"
-  offset=	"13"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-exubit14"
-  offset=	"14"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-exubit15"
-  offset=	"15"
-  width=	"1"
-/>
-<BitField
   ID=	"BitField-lvx-exubit18"
   offset=	"18"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-exubit24"
-  offset=	"24"
   width=	"1"
 />
 <BitField
@@ -490,16 +425,6 @@
   width=	"4"
 />
 <BitField
-  ID=	"BitField-lvx-exucode8"
-  offset=	"26"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-exucode9"
-  offset=	"25"
-  width=	"3"
-/>
-<BitField
   ID=	"BitField-lvx-exunum2"
   offset=	"59"
   width=	"2"
@@ -520,24 +445,9 @@
   width=	"3"
 />
 <BitField
-  ID=	"BitField-lvx-fm"
-  offset=	"28"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-fmt"
-  offset=	"25"
-  width=	"2"
-/>
-<BitField
   ID=	"BitField-lvx-fnegate"
   offset=	"27"
   width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-fpucode5"
-  offset=	"7"
-  width=	"5"
 />
 <BitField
   ID=	"BitField-lvx-fpucode6"
@@ -545,143 +455,8 @@
   width=	"4"
 />
 <BitField
-  ID=	"BitField-lvx-frd"
-  offset=	"7"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-frm"
-  offset=	"12"
-  width=	"3"
-/>
-<BitField
-  ID=	"BitField-lvx-frs1"
-  offset=	"15"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-frs2"
-  offset=	"20"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-frs3"
-  offset=	"27"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-funct3"
-  offset=	"12"
-  width=	"3"
-/>
-<BitField
-  ID=	"BitField-lvx-funct5"
-  offset=	"27"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-funct7"
-  offset=	"25"
-  width=	"7"
-/>
-<BitField
   ID=	"BitField-lvx-highmult"
   offset=	"24"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-hindex"
-  offset=	"18"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-hselectA"
-  offset=	"24"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-hselectC"
-  offset=	"12"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-i_10_1"
-  offset=	"21"
-  width=	"10"
-/>
-<BitField
-  ID=	"BitField-lvx-i_10_5"
-  offset=	"25"
-  width=	"6"
-/>
-<BitField
-  ID=	"BitField-lvx-i_11_0"
-  offset=	"20"
-  width=	"12"
-/>
-<BitField
-  ID=	"BitField-lvx-i_11_5"
-  offset=	"25"
-  width=	"7"
-/>
-<BitField
-  ID=	"BitField-lvx-i_11_6"
-  offset=	"26"
-  width=	"6"
-/>
-<BitField
-  ID=	"BitField-lvx-i_11b"
-  offset=	"7"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-i_11j"
-  offset=	"20"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-i_12"
-  offset=	"31"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-i_19_12"
-  offset=	"12"
-  width=	"8"
-/>
-<BitField
-  ID=	"BitField-lvx-i_20"
-  offset=	"31"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-i_31_12"
-  offset=	"12"
-  width=	"20"
-/>
-<BitField
-  ID=	"BitField-lvx-i_4_0"
-  offset=	"20"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-i_4_0s"
-  offset=	"7"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-i_4_1"
-  offset=	"8"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-i_5_0"
-  offset=	"20"
-  width=	"6"
-/>
-<BitField
-  ID=	"BitField-lvx-i_6_5"
-  offset=	"25"
   width=	"2"
 />
 <BitField
@@ -693,11 +468,6 @@
   ID=	"BitField-lvx-intcomp"
   offset=	"24"
   width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-lanecond"
-  offset=	"25"
-  width=	"3"
 />
 <BitField
   ID=	"BitField-lvx-lanesize"
@@ -712,36 +482,6 @@
 <BitField
   ID=	"BitField-lvx-loadcode"
   offset=	"26"
-  width=	"3"
-/>
-<BitField
-  ID=	"BitField-lvx-loadcode1"
-  offset=	"18"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-loadcode2"
-  offset=	"18"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-loadcode3"
-  offset=	"18"
-  width=	"3"
-/>
-<BitField
-  ID=	"BitField-lvx-loadcode4"
-  offset=	"18"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-loadcode5"
-  offset=	"18"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-log2size"
-  offset=	"12"
   width=	"3"
 />
 <BitField
@@ -815,19 +555,9 @@
   width=	"1"
 />
 <BitField
-  ID=	"BitField-lvx-oddlanes"
-  offset=	"18"
-  width=	"1"
-/>
-<BitField
   ID=	"BitField-lvx-offset27"
   offset=	"32"
   width=	"27"
-/>
-<BitField
-  ID=	"BitField-lvx-opcode"
-  offset=	"0"
-  width=	"7"
 />
 <BitField
   ID=	"BitField-lvx-parallel"
@@ -860,9 +590,319 @@
   width=	"27"
 />
 <BitField
-  ID=	"BitField-lvx-pred"
-  offset=	"24"
+  ID=	"BitField-lvx-registerM"
+  offset=	"19"
+  width=	"5"
+/>
+<BitField
+  ID=	"BitField-lvx-registerN"
+  offset=	"20"
   width=	"4"
+/>
+<BitField
+  ID=	"BitField-lvx-registerO"
+  offset=	"7"
+  width=	"5"
+/>
+<BitField
+  ID=	"BitField-lvx-registerP"
+  offset=	"1"
+  width=	"5"
+/>
+<BitField
+  ID=	"BitField-lvx-registerQ"
+  offset=	"8"
+  width=	"4"
+/>
+<BitField
+  ID=	"BitField-lvx-registerR"
+  offset=	"2"
+  width=	"4"
+/>
+<BitField
+  ID=	"BitField-lvx-registerT"
+  offset=	"18"
+  width=	"6"
+/>
+<BitField
+  ID=	"BitField-lvx-registerU"
+  offset=	"19"
+  width=	"5"
+/>
+<BitField
+  ID=	"BitField-lvx-registerV"
+  offset=	"20"
+  width=	"4"
+/>
+<BitField
+  ID=	"BitField-lvx-registerW"
+  offset=	"18"
+  width=	"6"
+/>
+<BitField
+  ID=	"BitField-lvx-registerY"
+  offset=	"6"
+  width=	"6"
+/>
+<BitField
+  ID=	"BitField-lvx-registerZ"
+  offset=	"0"
+  width=	"6"
+/>
+<BitField
+  ID=	"BitField-lvx-signed10"
+  offset=	"6"
+  width=	"10"
+/>
+<BitField
+  ID=	"BitField-lvx-signed16"
+  offset=	"0"
+  width=	"16"
+/>
+<BitField
+  ID=	"BitField-lvx-signextw"
+  offset=	"12"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-splat32"
+  offset=	"11"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-startbit"
+  offset=	"6"
+  width=	"6"
+/>
+<BitField
+  ID=	"BitField-lvx-steerimx"
+  offset=	"61"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-steerimx3"
+  offset=	"93"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-steering"
+  offset=	"29"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-stopbit2"
+  offset=	"24"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-stopbit4"
+  offset=	"12"
+  width=	"4"
+/>
+<BitField
+  ID=	"BitField-lvx-sysnumber"
+  offset=	"0"
+  width=	"12"
+/>
+<BitField
+  ID=	"BitField-lvx-systemAlone"
+  offset=	"6"
+  width=	"9"
+/>
+<BitField
+  ID=	"BitField-lvx-systemRA"
+  offset=	"6"
+  width=	"9"
+/>
+<BitField
+  ID=	"BitField-lvx-systemS2"
+  offset=	"6"
+  width=	"9"
+/>
+<BitField
+  ID=	"BitField-lvx-systemS3"
+  offset=	"6"
+  width=	"9"
+/>
+<BitField
+  ID=	"BitField-lvx-systemS4"
+  offset=	"6"
+  width=	"9"
+/>
+<BitField
+  ID=	"BitField-lvx-systemT2"
+  offset=	"6"
+  width=	"9"
+/>
+<BitField
+  ID=	"BitField-lvx-systemT3"
+  offset=	"6"
+  width=	"9"
+/>
+<BitField
+  ID=	"BitField-lvx-systemT4"
+  offset=	"6"
+  width=	"9"
+/>
+<BitField
+  ID=	"BitField-lvx-unsigned6"
+  offset=	"6"
+  width=	"6"
+/>
+<BitField
+  ID=	"BitField-lvx-unused16"
+  offset=	"0"
+  width=	"16"
+/>
+<BitField
+  ID=	"BitField-lvx-unused6"
+  offset=	"0"
+  width=	"6"
+/>
+<BitField
+  ID=	"BitField-lvx-upper27"
+  offset=	"32"
+  width=	"27"
+/>
+<BitField
+  ID=	"BitField-lvx-variant"
+  offset=	"24"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-widemult"
+  offset=	"24"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-wricode1"
+  offset=	"26"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-bcucode4"
+  offset=	"18"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-buffcode1"
+  offset=	"6"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-buffcode2"
+  offset=	"6"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-buffcode3"
+  offset=	"6"
+  width=	"3"
+/>
+<BitField
+  ID=	"BitField-lvx-buffcode4"
+  offset=	"6"
+  width=	"4"
+/>
+<BitField
+  ID=	"BitField-lvx-buffcode5"
+  offset=	"6"
+  width=	"5"
+/>
+<BitField
+  ID=	"BitField-lvx-byteshift"
+  offset=	"0"
+  width=	"6"
+/>
+<BitField
+  ID=	"BitField-lvx-exubit13"
+  offset=	"13"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-exubit14"
+  offset=	"14"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-exubit15"
+  offset=	"15"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-exubit24"
+  offset=	"24"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-exucode8"
+  offset=	"26"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-exucode9"
+  offset=	"25"
+  width=	"3"
+/>
+<BitField
+  ID=	"BitField-lvx-fpucode5"
+  offset=	"7"
+  width=	"5"
+/>
+<BitField
+  ID=	"BitField-lvx-hindex"
+  offset=	"18"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-hselectA"
+  offset=	"24"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-hselectC"
+  offset=	"12"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-lanecond"
+  offset=	"25"
+  width=	"3"
+/>
+<BitField
+  ID=	"BitField-lvx-loadcode1"
+  offset=	"18"
+  width=	"1"
+/>
+<BitField
+  ID=	"BitField-lvx-loadcode2"
+  offset=	"18"
+  width=	"2"
+/>
+<BitField
+  ID=	"BitField-lvx-loadcode3"
+  offset=	"18"
+  width=	"3"
+/>
+<BitField
+  ID=	"BitField-lvx-loadcode4"
+  offset=	"18"
+  width=	"4"
+/>
+<BitField
+  ID=	"BitField-lvx-loadcode5"
+  offset=	"18"
+  width=	"5"
+/>
+<BitField
+  ID=	"BitField-lvx-log2size"
+  offset=	"12"
+  width=	"3"
+/>
+<BitField
+  ID=	"BitField-lvx-oddlanes"
+  offset=	"18"
+  width=	"1"
 />
 <BitField
   ID=	"BitField-lvx-qindex"
@@ -878,21 +918,6 @@
   ID=	"BitField-lvx-qselectC"
   offset=	"12"
   width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-rd"
-  offset=	"7"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-rd_bit0"
-  offset=	"7"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-rd_pair"
-  offset=	"8"
-  width=	"4"
 />
 <BitField
   ID=	"BitField-lvx-registerA"
@@ -1040,71 +1065,6 @@
   width=	"4"
 />
 <BitField
-  ID=	"BitField-lvx-registerM"
-  offset=	"19"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-registerN"
-  offset=	"20"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-registerO"
-  offset=	"7"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-registerP"
-  offset=	"1"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-registerQ"
-  offset=	"8"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-registerR"
-  offset=	"2"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-registerT"
-  offset=	"18"
-  width=	"6"
-/>
-<BitField
-  ID=	"BitField-lvx-registerU"
-  offset=	"19"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-registerV"
-  offset=	"20"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-registerW"
-  offset=	"18"
-  width=	"6"
-/>
-<BitField
-  ID=	"BitField-lvx-registerWe"
-  offset=	"19"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-registerWo"
-  offset=	"19"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-registerY"
-  offset=	"6"
-  width=	"6"
-/>
-<BitField
   ID=	"BitField-lvx-registerYe"
   offset=	"7"
   width=	"5"
@@ -1113,11 +1073,6 @@
   ID=	"BitField-lvx-registerYo"
   offset=	"7"
   width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-registerZ"
-  offset=	"0"
-  width=	"6"
 />
 <BitField
   ID=	"BitField-lvx-registerZe"
@@ -1130,44 +1085,9 @@
   width=	"5"
 />
 <BitField
-  ID=	"BitField-lvx-rs1"
-  offset=	"15"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-rs2"
-  offset=	"20"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-rs2_bit0"
-  offset=	"20"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-rs2_pair"
-  offset=	"21"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-signed10"
-  offset=	"6"
-  width=	"10"
-/>
-<BitField
-  ID=	"BitField-lvx-signed16"
-  offset=	"0"
-  width=	"16"
-/>
-<BitField
   ID=	"BitField-lvx-signed6"
   offset=	"6"
   width=	"6"
-/>
-<BitField
-  ID=	"BitField-lvx-signextw"
-  offset=	"12"
-  width=	"1"
 />
 <BitField
   ID=	"BitField-lvx-silent"
@@ -1175,134 +1095,9 @@
   width=	"1"
 />
 <BitField
-  ID=	"BitField-lvx-splat32"
-  offset=	"11"
-  width=	"1"
-/>
-<BitField
-  ID=	"BitField-lvx-startbit"
-  offset=	"6"
-  width=	"6"
-/>
-<BitField
-  ID=	"BitField-lvx-steerimx"
-  offset=	"61"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-steerimx3"
-  offset=	"93"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-steering"
-  offset=	"29"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-stopbit2"
-  offset=	"24"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-stopbit4"
-  offset=	"12"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-succ"
-  offset=	"20"
-  width=	"4"
-/>
-<BitField
-  ID=	"BitField-lvx-sysnumber"
-  offset=	"0"
-  width=	"12"
-/>
-<BitField
-  ID=	"BitField-lvx-systemAlone"
-  offset=	"6"
-  width=	"9"
-/>
-<BitField
-  ID=	"BitField-lvx-systemRA"
-  offset=	"6"
-  width=	"9"
-/>
-<BitField
-  ID=	"BitField-lvx-systemS2"
-  offset=	"6"
-  width=	"9"
-/>
-<BitField
-  ID=	"BitField-lvx-systemS3"
-  offset=	"6"
-  width=	"9"
-/>
-<BitField
-  ID=	"BitField-lvx-systemS4"
-  offset=	"6"
-  width=	"9"
-/>
-<BitField
-  ID=	"BitField-lvx-systemT2"
-  offset=	"6"
-  width=	"9"
-/>
-<BitField
-  ID=	"BitField-lvx-systemT3"
-  offset=	"6"
-  width=	"9"
-/>
-<BitField
-  ID=	"BitField-lvx-systemT4"
-  offset=	"6"
-  width=	"9"
-/>
-<BitField
   ID=	"BitField-lvx-tcacode1"
   offset=	"24"
   width=	"3"
-/>
-<BitField
-  ID=	"BitField-lvx-uimm"
-  offset=	"15"
-  width=	"5"
-/>
-<BitField
-  ID=	"BitField-lvx-unsigned6"
-  offset=	"6"
-  width=	"6"
-/>
-<BitField
-  ID=	"BitField-lvx-unused16"
-  offset=	"0"
-  width=	"16"
-/>
-<BitField
-  ID=	"BitField-lvx-unused6"
-  offset=	"0"
-  width=	"6"
-/>
-<BitField
-  ID=	"BitField-lvx-upper27"
-  offset=	"32"
-  width=	"27"
-/>
-<BitField
-  ID=	"BitField-lvx-variant"
-  offset=	"24"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-widemult"
-  offset=	"24"
-  width=	"2"
-/>
-<BitField
-  ID=	"BitField-lvx-wricode1"
-  offset=	"26"
-  width=	"2"
 />
 <BitField
   ID=	"BitField-lvx-ziplanes"

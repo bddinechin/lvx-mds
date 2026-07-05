@@ -1,101 +1,101 @@
 
 <Resource
   ID=	"Resource-lvx-"
-  availability=	"0"
+  availability=	"0 0"
 />
 <Resource
   ID=	"Resource-lvx-ISSUE"
-  availability=	"8"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"8 8"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Issue slots counted in 32-bit syllables."
 />
 <Resource
   ID=	"Resource-lvx-TINY"
-  availability=	"4"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"4 4"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Tiny ALU function units."
 />
 <Resource
   ID=	"Resource-lvx-LITE"
-  availability=	"2"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"2 2"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Lite ALU function units."
 />
 <Resource
   ID=	"Resource-lvx-FULL"
-  availability=	"1"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"1 1"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Full ALU function units."
 />
 <Resource
   ID=	"Resource-lvx-LSU"
-  availability=	"2"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"2 2"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Load/Store function unit."
 />
 <Resource
   ID=	"Resource-lvx-MAU"
-  availability=	"1"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"1 1"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Coprocessor main computational unit (COMP)."
 />
 <Resource
   ID=	"Resource-lvx-BCU"
-  availability=	"2"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"2 2"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Branch and control unit."
 />
 <Resource
   ID=	"Resource-lvx-EXT"
-  availability=	"4"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"4 4"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Extension coprocessor units."
 />
 <Resource
   ID=	"Resource-lvx-AUXR"
-  availability=	"1"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"1 1"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Auxiliary core register read port shared with LSU (256 bits)."
 />
 <Resource
   ID=	"Resource-lvx-AUXW"
-  availability=	"2"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"2 2"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Auxiliary core register write port shared with LSU (256 bits)."
 />
 <Resource
   ID=	"Resource-lvx-XFER"
-  availability=	"1"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"1 1"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Unconditional control-flow transfer (XFER)."
 />
 <Resource
   ID=	"Resource-lvx-MEMW"
-  availability=	"1"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"1 1"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Memory write or memory read-modify-write resource (MEMW)."
 />
 <Resource
   ID=	"Resource-lvx-SR12"
-  availability=	"1"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"1 1"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Coprocessor miscellaneous execution unit (MISC)."
 />
 <Resource
   ID=	"Resource-lvx-SR13"
-  availability=	"1"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"1 1"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Coprocessor compute execution unit addend port (ACCR)."
 />
 <Resource
   ID=	"Resource-lvx-SR14"
-  availability=	"1"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"1 1"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"Coprocessor miscellaneous execution unit write port (OUTW)"
 />
 <Resource
   ID=	"Resource-lvx-SR15"
-  availability=	"2"
-  processors=	"Processor-lvx_v1-cpu"
+  availability=	"2 2"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   what=	"BCU register read port (BRRP)"
 />

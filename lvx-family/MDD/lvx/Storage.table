@@ -605,10 +605,3 @@
   what=	"Coolidge V2, Trace PC Context for Privilege Level 3"
   width=	"1"
 />
-<Storage
-  ID=	"Storage-lvx-CSRS"
-  count=	"4096"
-  kind=	"Special"
-  what=	"Control and System Registers Storage"
-  width=	"64"
-/>

@@ -1,0 +1,44 @@
+/*
+ * lvx/Resource.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Resource
+#define Resource(ID, AVAILABILITY)
+#else /*Resource*/
+Resource(lvx_v2_ISSUE,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),8)))
+Resource(lvx_v2_TINY,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),4)))
+Resource(lvx_v2_LITE,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
+Resource(lvx_v2_FULL,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
+Resource(lvx_v2_LSU,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
+Resource(lvx_v2_MAU,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
+Resource(lvx_v2_BCU,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
+Resource(lvx_v2_EXT,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),4)))
+Resource(lvx_v2_AUXR,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
+Resource(lvx_v2_AUXW,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
+Resource(lvx_v2_XFER,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
+Resource(lvx_v2_MEMW,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
+Resource(lvx_v2_SR12,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
+Resource(lvx_v2_SR13,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
+Resource(lvx_v2_SR14,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),1)))
+Resource(lvx_v2_SR15,
+         AVAILABILITY(AVAILABLE(PROCESSOR(lvx_v2_cpu),2)))
+#endif/*Resource*/
+#undef Resource
+
