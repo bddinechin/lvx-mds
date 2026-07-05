@@ -151,16 +151,16 @@ bfd/reloc.c.ist:
 	$(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh PATCH $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GDB_prefix)/bfd/reloc.c
 
 bfd/reloc.c.idf:
-	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh EXTRACT $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GBU_prefix)/bfd/reloc.c) $(FAMILY)/bfd/reloc.c"
-	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh EXTRACT $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GDB_prefix)/bfd/reloc.c) $(FAMILY)/bfd/reloc.c"
+	-bash -c "diff <($(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh EXTRACT $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GBU_prefix)/bfd/reloc.c) $(FAMILY)/bfd/reloc.c"
+	-bash -c "diff <($(MDSDIR)/BE/GBU/BIN/patch_reloc_c.sh EXTRACT $(FAMILY) RELOC_START  $(FAMILY)/bfd/reloc.c $(GDB_prefix)/bfd/reloc.c) $(FAMILY)/bfd/reloc.c"
 
 include/$(FAMILY)/reloc.h.ist:
 	$(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh PATCH $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GBU_prefix)/include/elf/$(FAMILY).h
 	$(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh PATCH $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GDB_prefix)/include/elf/$(FAMILY).h
 
 include/$(FAMILY)/reloc.h.idf:
-	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh EXTRACT $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GBU_prefix)/include/elf/$(FAMILY).h) $(FAMILY)/include/$(FAMILY)/reloc.h"
-	bash -c "$(DIFF) <($(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh EXTRACT $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GDB_prefix)/include/elf/$(FAMILY).h) $(FAMILY)/include/$(FAMILY)/reloc.h"
+	-bash -c "diff <($(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh EXTRACT $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GBU_prefix)/include/elf/$(FAMILY).h) $(FAMILY)/include/$(FAMILY)/reloc.h"
+	-bash -c "diff <($(MDSDIR)/BE/GBU/BIN/patch_elf_target_h.sh EXTRACT $(FAMILY) START_RELOC_NUMBERS  $(FAMILY)/include/$(FAMILY)/reloc.h $(GDB_prefix)/include/elf/$(FAMILY).h) $(FAMILY)/include/$(FAMILY)/reloc.h"
 
 %.ist:
 	$(INSTALL) -D -m 644 $(FAMILY)/$* $(GBU_prefix)/$*
