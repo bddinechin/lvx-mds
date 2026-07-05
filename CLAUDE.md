@@ -114,6 +114,13 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 | `FAMILY` | `lvx` |
 | `CORES` | Space-separated list, e.g. `lvx_v1 lvx_v2` |
 | `TOOLS` | Uppercase list of enabled back-ends |
+| `BINUTILSDIR` / `GDBDIR` | Install targets for `BE/GBU`'s shared binutils/gdb deliverables (`--with-binutils-prefix`/`--with-gdb-prefix`); default to `lvx-family/BE` placeholders if not passed. Point these at the real sibling checkouts (`/home/bd3/LVX/lvx-binutils`, `/home/bd3/LVX/lvx-gdb`) to actually deliver generated files there. |
+
+## Installing BE/GBU output into the sibling toolchain repos
+
+`make -C build_lvx/BE/GBU install` (after configuring with `--with-binutils-prefix=<lvx-binutils>` and/or `--with-gdb-prefix=<lvx-gdb>`) copies the plain generated files (`opcodes/lvx-opc.c`, `include/opcode/lvx.h`, `lvx-insn-macros.h`, `bfd/elfxx-lvx-relocs.h`, `include/elf/lvx_elfids.h`, `gas/config/lvx-parse.h`) straight into both prefixes, but **patches** two files in place instead of copying them (`bfd/reloc.c`, `include/elf/lvx.h`) via `patch_reloc_c.sh`/`patch_elf_target_h.sh` — these scripts find the existing `BFD_RELOC_<FAMILY>_RELOC_START`/`END` (or `START_RELOC_NUMBERS`) markers in the *target* file and replace only that block. **They require the target to already have a same-family marker block** — they can't do a first-time KVX→LVX (or empty-file) conversion themselves. When seeding a fresh sibling repo (as `lvx-gdb` was), hand-replace the KVX block with the equivalent block from an already-working sibling (e.g. `lvx-binutils`'s `bfd/reloc.c`) once, and the scripts will patch it incrementally from then on.
+
+`BE/GDB` (unlike `BE/GBU`) has never actually been installed into `lvx-gdb`: it generates `<FAMILY>-mds-tdep.c`/`<FAMILY>-regs.h` (the GDB register-model/target-description files), but `lvx-gdb/gdb/lvx-mds-tdep.c` currently comes from a hand-written "Tier-1" port of KVX's tdep files (see `lvx-gdb/CLAUDE.md`), not from this backend. Running `make -C BE/GDB install --with-gdb-prefix=<lvx-gdb>` would overwrite it with a freshly MDS-generated version — worth doing eventually to stop hand-maintaining it, but check the two don't disagree on register layout first.
 
 ## Key source files
 
