@@ -44,7 +44,6 @@ yml_texnames:= $(addsuffix .tex, \
 
 cleanfiles=	$(TEX_products) $(TEX_xml) $(TEX_yml) $(TEX_check) $(FAMILY)/ *.xml
 TEX_coredirs:= $(addprefix $(FAMILY)/, $(CORES))
-TEX_coredirs_src:= $(addprefix $(REFDIR)/BE/TEX/, $(TEX_coredirs))
 TEX_xml_products= $(addprefix $(FAMILY)/$(1)/, $(xml_texnames))
 TEX_yml_products= $(addprefix $(FAMILY)/$(1)/, $(yml_texnames))
 TEX_products:= $(foreach CORE,$(CORES),$(call TEX_xml_products,$(CORE)) $(call TEX_yml_products,$(CORE)))
@@ -71,7 +70,6 @@ $(foreach CORE,$(CORES),$(eval $(call generateYml,$(CORE))))
 all: Begin.xml End.xml
 	mkdir -p $(TEX_coredirs)
 	$(MAKE) $(TEX_products)
-	cp -rf $(TEX_coredirs_src) $(FAMILY)/
 
 define generate
 $(call TEX_xml_products,$(1)): $(FAMILY)/$(1)/%.tex: $(FAMILY)/$(1)/TEX.xml
