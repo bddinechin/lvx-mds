@@ -19,7 +19,7 @@ GDB_products:=	$(addprefix $(FAMILY)/, $(FAMILY)-mds-tdep.c $(FAMILY)-regs.h )
 gdbinfo= $(FAMILY)-mds-tdep.c
 gdbinfo_installs = $(addsuffix .ist, $(gdbinfo))
 
-gdbinfo_dirs= $(FAMILY)
+gdbinfo_dirs= gdb
 gdbinfo_install_dirs = $(addprefix $(GDB_prefix)/, $(gdbinfo_dirs))
 
 
