@@ -20,7 +20,7 @@ GCC_input:=	Operator.table Instruction.table Format.table Operand.table \
 GCC_files:= $(FAMILY)-registers.h $(FAMILY)-registers.md
 GCC_products:= $(addprefix $(FAMILY)/, $(GCC_files))
 GCC_installs:= $(addsuffix .ist, $(GCC_files))
-GCC_install_dir:= $(addprefix $(GCC_prefix)/, $(FAMILY))
+GCC_install_dir:= $(GCC_prefix)/gcc/config/$(FAMILY)
 
 define generateXml
 $(1)/GCC.xml: $(addprefix ../../MDD/$(1)/, $(GCC_input))
@@ -70,11 +70,11 @@ install:
 install_gccinfo: $(GCC_installs)
 
 $(FAMILY)-registers.h.ist:
-	$(INSTALL) -m 644 $(FAMILY)/$(subst .ist,,$@) $(GCC_prefix)/$(subst .ist,,$@)
+	$(INSTALL) -D -m 644 $(FAMILY)/$(subst .ist,,$@) $(GCC_install_dir)/$(subst .ist,,$@)
 
 %.h.ist:
-	$(INSTALL) -m 644 $(FAMILY)/$*.h $(GCC_prefix)/$*.h
+	$(INSTALL) -D -m 644 $(FAMILY)/$*.h $(GCC_install_dir)/$*.h
 
 %.ist:
-	$(INSTALL) -D -m 644 $(FAMILY)/$* $(GCC_prefix)/$*
+	$(INSTALL) -D -m 644 $(FAMILY)/$* $(GCC_install_dir)/$*
 
