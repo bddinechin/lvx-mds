@@ -52,22 +52,23 @@ GBU_gbu_diffs = $(addsuffix .idf, $(filter-out $(gbuinfo_drop), $(gbuinfo)))
 GBU_gbu_prefix = $(GBU_prefix)
 gbuinfo_installs = $(addsuffix .ist, $(filter-out $(gbuinfo_drop), $(gbuinfo)))
 
-tests_dirs= $(Family)
-tests= $(FAMILY_TESTS)
-
 mach_tests_dirs= $(addprefix $(FAMILY)/, $(CORES))
-mach_tests= $(addprefix $(FAMILY)/, $(tests))
+# mach_tests mirrors bin_tests/asm_tests (defined below from GBU_TESTS x
+# CORES) so that check/diff/refs cover exactly what "all" builds, for
+# every core. This used to be driven by a separate $(FAMILY_TESTS)/$(tests)
+# indirection that nothing ever set (and whose $(addprefix $(FAMILY)/,
+# $(tests)) shape didn't even include the per-core directory or .bin/.s
+# suffix), so check/diff never actually covered testbin.pl/testasm.pl
+# output - just the plain gbuinfo files.
+mach_tests= $(bin_tests) $(asm_tests)
 mach_tests_refs = $(addsuffix .ref, $(mach_tests))
 mach_tests_diffs = $(addsuffix .diff, $(mach_tests))
-tests_install_dirs = $(addprefix $(GNU_prefix)/, $(tests_dirs))
-tests_installs = $(addsuffix .ist, $(mach_tests))
 
 cleanfiles= $(GBU_xml) $(mach_gbuinfo) $(TESTS_xml) $(mach_tests)
 
 all: Begin.xml End.xml
 	mkdir -p $(mach_tests_dirs)
 	mkdir -p $(gbuinfo_dirs)
-	@echo "FAMILY_TESTS: $(FAMILY_TESTS)"
 	$(MAKE) $(GBU_xml)
 	$(MAKE) $(TESTS_xml)
 	$(MAKE) all_gbuinfo
