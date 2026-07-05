@@ -6,6 +6,12 @@ include REXML
 
 $family = ENV['FAMILY']
 
+# TDesc feature-name namespace prefix (e.g. "eu.kalray" for real Kalray
+# products, "org.lvx" for the independent LVX project). Defaults to
+# Kalray's own convention so this generic, family-agnostic script keeps
+# its original behavior unless a family's build explicitly overrides it.
+$tdesc_namespace = ENV['TDESC_NAMESPACE'] || 'eu.kalray'
+
 module GDBStorage
   attr_reader :registers
 

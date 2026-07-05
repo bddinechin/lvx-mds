@@ -163,7 +163,7 @@ EOS
 $processors.each do |processor_id, processor|
   gdb_core = "#{processor.cores[0].gsub(/_v/,"-")}"
   puts <<EOS
-\tif (tdesc_find_feature (tdesc, \"eu.kalray.core.#{gdb_core}\"))
+\tif (tdesc_find_feature (tdesc, \"#{$tdesc_namespace}.core.#{gdb_core}\"))
 \t\treturn \"#{gdb_core}\";
 EOS
 end

@@ -2222,9 +2222,9 @@ find_tdesc_arch (struct gdbarch *gdbarch)
 tdesc = gdbarch_target_desc (gdbarch);
 
 	if (tdesc == NULL) return "lvx-1";
-	if (tdesc_find_feature (tdesc, "eu.kalray.core.lvx-1"))
+	if (tdesc_find_feature (tdesc, "org.lvx.core.lvx-1"))
 		return "lvx-1";
-	if (tdesc_find_feature (tdesc, "eu.kalray.core.lvx-2"))
+	if (tdesc_find_feature (tdesc, "org.lvx.core.lvx-2"))
 		return "lvx-2";
 	return "lvx";
 }

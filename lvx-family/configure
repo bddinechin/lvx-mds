@@ -633,6 +633,7 @@ ISSDIR
 LAODIR
 REFDIR
 ARCHDIR
+TDESC_NAMESPACE
 target_alias
 host_alias
 build_alias
@@ -1812,6 +1813,7 @@ case $target_alias in
     target="^target^"
     with_cores="lvx_v1 lvx_v2"
     enable_tools="TEX GBU GDB GCC LAO LIBC"
+    tdesc_namespace="org.lvx"
     ;;
   *)
     as_fn_error $? "target $target_alias unknown!" "$LINENO" 5
@@ -1854,6 +1856,8 @@ FAMILY=`echo $family | tr 'A-Z' 'a-z'`
 CORES=`echo $with_cores | tr 'A-Z' 'a-z'`
 TOOLS=`echo $enable_tools | tr 'a-z' 'A-Z'`
 FEDIR=FE/YAML
+TDESC_NAMESPACE="$tdesc_namespace"
+
 
 
 # Check whether --with-arch_path was given.
@@ -3172,7 +3176,7 @@ function run_with_config()
 {
   "$@" TOPDIR="$TOPDIR" ARCHDIR="$ARCHDIR" REFDIR="$REFDIR" \
     FAMDIR="$FAMDIR" FAMILY="$FAMILY" CORES="$CORES" MDF_ENABLED="$MDF_ENABLED"\
-    TOOLS="$TOOLS" FEDIR="$FEDIR" \
+    TOOLS="$TOOLS" FEDIR="$FEDIR" TDESC_NAMESPACE="$TDESC_NAMESPACE" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \
     GCCDIR="$GCCDIR" NEWLIBDIR="$NEWLIBDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
     TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"

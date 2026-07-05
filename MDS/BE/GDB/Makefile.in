@@ -1,4 +1,5 @@
 GDB_prefix:=@GDBDIR@
+TDESC_NAMESPACE:=@TDESC_NAMESPACE@
 include	../../Makerules
 include	../Makerules
 
@@ -43,7 +44,7 @@ $(FAMILY)/$(FAMILY)-regs.h: target-regs.pl $(GDB_xml)
 #	FAMILY=$(FAMILY) CORES="$(CORES)" $(RUBY) $(RUBYINC) $^ > $@  || $(ABORT2)
 
 $(FAMILY)/$(FAMILY)-mds-tdep.c: GDBTargeting.rb $(GDB_xml)
-	FAMILY=$(FAMILY) CORES="$(CORES)" $(RUBY) $(RUBYINC) $^ > $@  || $(ABORT2)
+	FAMILY=$(FAMILY) CORES="$(CORES)" TDESC_NAMESPACE="$(TDESC_NAMESPACE)" $(RUBY) $(RUBYINC) $^ > $@  || $(ABORT2)
 
 GDB_diff:=	$(addsuffix /GDB.diff, $(FAMILY))
 GDB_refs:=	$(addsuffix /GDB.refs, $(FAMILY))

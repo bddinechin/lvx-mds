@@ -31,6 +31,7 @@ case $target_alias in
     target="^target^"
     with_cores="lvx_v1 lvx_v2"
     enable_tools="TEX GBU GDB GCC LAO LIBC"
+    tdesc_namespace="org.lvx"
     ;;
   *)
     AC_MSG_ERROR([target $target_alias unknown!])
@@ -67,6 +68,8 @@ FAMILY=`echo $family | tr 'A-Z' 'a-z'`
 CORES=`echo $with_cores | tr 'A-Z' 'a-z'`
 TOOLS=`echo $enable_tools | tr 'a-z' 'A-Z'`
 FEDIR=FE/YAML
+TDESC_NAMESPACE="$tdesc_namespace"
+AC_SUBST(TDESC_NAMESPACE)
 
 AC_ARG_WITH([arch_path],
   [AS_HELP_STRING([--with-arch-path],[Set Architecture description path])],
@@ -166,7 +169,7 @@ function run_with_config()
 {
   "$@" TOPDIR="$TOPDIR" ARCHDIR="$ARCHDIR" REFDIR="$REFDIR" \
     FAMDIR="$FAMDIR" FAMILY="$FAMILY" CORES="$CORES" MDF_ENABLED="$MDF_ENABLED"\
-    TOOLS="$TOOLS" FEDIR="$FEDIR" \
+    TOOLS="$TOOLS" FEDIR="$FEDIR" TDESC_NAMESPACE="$TDESC_NAMESPACE" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \
     GCCDIR="$GCCDIR" NEWLIBDIR="$NEWLIBDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
     TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"
