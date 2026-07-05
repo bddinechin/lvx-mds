@@ -623,6 +623,7 @@ HWTESTDIR
 TEXDIR
 AVPDIR
 LLVMDIR
+NEWLIBDIR
 GCCDIR
 O64DIR
 MPPADLDIR
@@ -684,6 +685,7 @@ with_gdb_prefix
 with_mppadl_prefix
 with_o64_prefix
 with_gcc_prefix
+with_newlib_prefix
 with_llvm_prefix
 with_avp_prefix
 with_tex_valid_prefix
@@ -1323,6 +1325,7 @@ Optional Packages:
   --with-mppadl-prefix    Set MPPADL prefix for install
   --with-o64-prefix       Set O64 prefix for install
   --with-gcc-prefix       Set GCC prefix for install
+  --with-newlib-prefix    Set NEWLIB prefix for install
   --with-llvm-prefix      Set LLVM prefix for install
   --with-avp-prefix       Set AVP prefix for install
   --with-tex-valid-prefix Set TEX valid prefix for install
@@ -1803,7 +1806,7 @@ case $target_alias in
     family="lvx"
     target="^target^"
     with_cores="lvx_v1 lvx_v2"
-    enable_tools="TEX GBU GDB GCC LAO"
+    enable_tools="TEX GBU GDB GCC LAO LIBC"
     ;;
   *)
     as_fn_error $? "target $target_alias unknown!" "$LINENO" 5
@@ -1813,7 +1816,7 @@ if test -z "$enable_tools"; then
   enable_tools=""
 fi
 if test "$enable_tools" == "yes"; then
-  enable_tools="TEX GBU GDB GCC LAO"
+  enable_tools="TEX GBU GDB GCC LAO LIBC"
 fi
 
 # Check whether --enable-avp was given.
@@ -1931,6 +1934,17 @@ then :
   withval=$with_gcc_prefix; GCCDIR="$with_gcc_prefix"
 else $as_nop
   GCCDIR="$ABSPATH/BE"
+fi
+
+
+
+
+# Check whether --with-newlib_prefix was given.
+if test ${with_newlib_prefix+y}
+then :
+  withval=$with_newlib_prefix; NEWLIBDIR="$with_newlib_prefix"
+else $as_nop
+  NEWLIBDIR="$ABSPATH/BE"
 fi
 
 
@@ -3144,7 +3158,7 @@ function run_with_config()
     FAMDIR="$FAMDIR" FAMILY="$FAMILY" CORES="$CORES" MDF_ENABLED="$MDF_ENABLED"\
     TOOLS="$TOOLS" FEDIR="$FEDIR" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \
-    GCCDIR="$GCCDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
+    GCCDIR="$GCCDIR" NEWLIBDIR="$NEWLIBDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
     TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"
 }
 run_with_config echo $with_mds/configure

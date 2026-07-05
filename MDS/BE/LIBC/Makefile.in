@@ -1,0 +1,80 @@
+LIBC_prefix:=@NEWLIBDIR@
+GDB_prefix:=@GDBDIR@
+
+include	../../Makerules
+include	../Makerules
+PERLBIN:=	$(MDSDIR)/BE/LIBC/BIN
+
+vpath %.pl $(PERLBIN)
+
+cleanfiles=	$(LIBC_products) $(LIBC_xml) *.xml
+
+LIBC_xml:=	$(addsuffix /LIBC.xml, $(FAMILY))
+LIBC_input:=	Register.table RegField.table RegFile.table Convention.table
+
+LIBC_files:= registers.h jmpbuf.h
+LIBC_products:= $(addprefix $(FAMILY)/, $(LIBC_files))
+LIBC_installs:= $(addsuffix .ist, $(LIBC_files))
+
+# registers.h has one consumer (newlib's cpu.h, which already does
+# #include "registers.h" from this same directory).
+registers_install_dir:= $(LIBC_prefix)/newlib/libc/sys/mbr/include/mbr/$(FAMILY)
+
+# jmpbuf.h has two consumers that used to hand-sync the same offsets via a
+# source comment: newlib's setjmp.S (same directory, plain #include) and
+# gdb's lvx-common-tdep.c (installed as $(FAMILY)-jmpbuf.h to match the
+# lvx-*.c/.h naming convention already used in gdb/gdb/).
+jmpbuf_newlib_install_dir:= $(LIBC_prefix)/newlib/libc/machine/$(FAMILY)
+jmpbuf_gdb_install_path:= $(GDB_prefix)/gdb/$(FAMILY)-jmpbuf.h
+
+define generateXml
+$(1)/LIBC.xml: $(addprefix ../../MDD/$(1)/, $(LIBC_input))
+	echo $$^
+	cat Begin.xml $$^ End.xml > $$@	|| $(ABORT2)
+endef
+
+$(eval $(call generateXml,$(FAMILY)))
+
+all: Begin.xml End.xml
+	mkdir -p $(FAMILY)
+	$(MAKE) $(LIBC_products)
+	rm -f $(LIBC_xml)
+
+$(FAMILY)/registers.h: libc-registers.pl $(LIBC_xml)
+	FAMILY=$(FAMILY) CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@	|| $(ABORT)
+
+$(FAMILY)/jmpbuf.h: libc-jmpbuf.pl $(LIBC_xml)
+	FAMILY=$(FAMILY) CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@	|| $(ABORT)
+
+LIBC_diff:=	$(addsuffix /LIBC.diff, $(FAMILY))
+LIBC_refs:=	$(addsuffix /LIBC.refs, $(FAMILY))
+
+diff: $(LIBC_diff)
+
+%LIBC.diff:
+	$(DIFF) $* $(FAMDIR)/BE/LIBC/$*
+
+# Unlike diff, check only validates against the committed FAMDIR/BE/LIBC
+# reference tree, not against the external lvx-newlib/lvx-gdb checkouts.
+check: $(LIBC_diff)
+
+refs: $(LIBC_refs)
+
+%LIBC.refs:
+	mkdir -p $(FAMDIR)/BE/LIBC/$*
+	cp $*/*.h $(FAMDIR)/BE/LIBC/$*
+
+install:
+	$(INSTALL) -d $(registers_install_dir)
+	$(INSTALL) -d $(jmpbuf_newlib_install_dir)
+	$(MAKE) all
+	$(MAKE) install_libcinfo
+
+install_libcinfo: $(LIBC_installs)
+
+registers.h.ist:
+	$(INSTALL) -D -m 644 $(FAMILY)/registers.h $(registers_install_dir)/registers.h
+
+jmpbuf.h.ist:
+	$(INSTALL) -D -m 644 $(FAMILY)/jmpbuf.h $(jmpbuf_newlib_install_dir)/jmpbuf.h
+	$(INSTALL) -D -m 644 $(FAMILY)/jmpbuf.h $(jmpbuf_gdb_install_path)

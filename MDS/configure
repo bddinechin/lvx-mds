@@ -623,6 +623,7 @@ HWTESTDIR
 TEXDIR
 LAODIR
 LLVMDIR
+NEWLIBDIR
 GCCDIR
 BINUTILSDIR
 GDBDIR
@@ -2171,11 +2172,13 @@ echo -e "AVPDIR=\t$AVPDIR"
 echo -e "GDBDIR=\t$GDBDIR"
 echo -e "BINUTILSDIR=\t$BINUTILSDIR"
 echo -e "GCCDIR=\t$GCCDIR"
+echo -e "NEWLIBDIR=\t$NEWLIBDIR"
 echo -e "LLVMDIR=\t$LLVMDIR"
 echo -e "ISSDIR=\t$ISSDIR"
 echo -e "LAODIR=\t$LAODIR"
 echo -e "TEXDIR=\t$TEXDIR"
 echo -e "MDF_ENABLED=\t$MDF_ENABLED"
+
 
 
 
@@ -2289,7 +2292,7 @@ MDT_names=" \
 "
 
 
-ac_config_files="$ac_config_files Makefile Makerules FE/Makerules MDD/Makerules BE/Makerules DOC/Makefile FE/YAML/Makefile MDD/MDE/Makefile MDD/MDF/Makefile BE/GBU/Makefile BE/GDB/Makefile BE/GCC/Makefile BE/MPPADL/Makefile BE/LAO/Makefile BE/TEX/Makefile"
+ac_config_files="$ac_config_files Makefile Makerules FE/Makerules MDD/Makerules BE/Makerules DOC/Makefile FE/YAML/Makefile MDD/MDE/Makefile MDD/MDF/Makefile BE/GBU/Makefile BE/GDB/Makefile BE/GCC/Makefile BE/MPPADL/Makefile BE/LAO/Makefile BE/TEX/Makefile BE/LIBC/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -3007,6 +3010,7 @@ do
     "BE/MPPADL/Makefile") CONFIG_FILES="$CONFIG_FILES BE/MPPADL/Makefile" ;;
     "BE/LAO/Makefile") CONFIG_FILES="$CONFIG_FILES BE/LAO/Makefile" ;;
     "BE/TEX/Makefile") CONFIG_FILES="$CONFIG_FILES BE/TEX/Makefile" ;;
+    "BE/LIBC/Makefile") CONFIG_FILES="$CONFIG_FILES BE/LIBC/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

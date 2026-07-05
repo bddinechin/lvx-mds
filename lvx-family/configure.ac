@@ -30,7 +30,7 @@ case $target_alias in
     family="lvx"
     target="^target^"
     with_cores="lvx_v1 lvx_v2"
-    enable_tools="TEX GBU GDB GCC LAO"
+    enable_tools="TEX GBU GDB GCC LAO LIBC"
     ;;
   *)
     AC_MSG_ERROR([target $target_alias unknown!])
@@ -40,7 +40,7 @@ if test -z "$enable_tools"; then
   enable_tools=""
 fi
 if test "$enable_tools" == "yes"; then
-  enable_tools="TEX GBU GDB GCC LAO"
+  enable_tools="TEX GBU GDB GCC LAO LIBC"
 fi
 
 AC_ARG_ENABLE([avp],
@@ -116,6 +116,12 @@ AC_ARG_WITH([gcc_prefix],
   [GCCDIR="$ABSPATH/BE"])
 AC_SUBST(GCCDIR)
 
+AC_ARG_WITH([newlib_prefix],
+  [AS_HELP_STRING([--with-newlib-prefix],[Set NEWLIB prefix for install])],
+  [NEWLIBDIR="$with_newlib_prefix"],
+  [NEWLIBDIR="$ABSPATH/BE"])
+AC_SUBST(NEWLIBDIR)
+
 AC_ARG_WITH([llvm_prefix],
   [AS_HELP_STRING([--with-llvm-prefix],[Set LLVM prefix for install])],
   [LLVMDIR="$with_llvm_prefix"],
@@ -156,7 +162,7 @@ function run_with_config()
     FAMDIR="$FAMDIR" FAMILY="$FAMILY" CORES="$CORES" MDF_ENABLED="$MDF_ENABLED"\
     TOOLS="$TOOLS" FEDIR="$FEDIR" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \
-    GCCDIR="$GCCDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
+    GCCDIR="$GCCDIR" NEWLIBDIR="$NEWLIBDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
     TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"
 }
 run_with_config echo $with_mds/configure

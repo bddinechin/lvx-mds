@@ -48,6 +48,7 @@ echo -e "AVPDIR=\t$AVPDIR"
 echo -e "GDBDIR=\t$GDBDIR"
 echo -e "BINUTILSDIR=\t$BINUTILSDIR"
 echo -e "GCCDIR=\t$GCCDIR"
+echo -e "NEWLIBDIR=\t$NEWLIBDIR"
 echo -e "LLVMDIR=\t$LLVMDIR"
 echo -e "ISSDIR=\t$ISSDIR"
 echo -e "LAODIR=\t$LAODIR"
@@ -67,6 +68,7 @@ AC_SUBST(AVPDIR)
 AC_SUBST(GDBDIR)
 AC_SUBST(BINUTILSDIR)
 AC_SUBST(GCCDIR)
+AC_SUBST(NEWLIBDIR)
 AC_SUBST(LLVMDIR)
 AC_SUBST(LAODIR)
 AC_SUBST(TEXDIR)
@@ -175,7 +177,7 @@ AC_SUBST(MDT_names)
 AC_CONFIG_FILES([Makefile Makerules FE/Makerules MDD/Makerules BE/Makerules \
   DOC/Makefile FE/YAML/Makefile MDD/MDE/Makefile MDD/MDF/Makefile \
   BE/GBU/Makefile BE/GDB/Makefile BE/GCC/Makefile BE/MPPADL/Makefile \
-  BE/LAO/Makefile BE/TEX/Makefile
+  BE/LAO/Makefile BE/TEX/Makefile BE/LIBC/Makefile
 ])
 AC_OUTPUT
 
