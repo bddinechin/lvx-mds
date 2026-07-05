@@ -3,7 +3,7 @@
 /* LVX ELF IDs definitions.
 
    Copyright (C) 2009-2023 Free Software Foundation, Inc.
-   Contributed by Kalray SA.
+   Contributed by Liesme Tech.
 
    This file is part of GNU Binutils.
 
@@ -59,6 +59,7 @@
 
 #define ELF_LVX_CORE_LVX         (0x04 << ELF_LVX_CORE_BIT_SHIFT)
 #define ELF_LVX_CORE_LVX_V1      (ELF_LVX_CORE_LVX | (1 << (ELF_LVX_CORE_MINOR_SHIFT)))
+#define ELF_LVX_CORE_LVX_V2      (ELF_LVX_CORE_LVX | (2 << (ELF_LVX_CORE_MINOR_SHIFT)))
 #define ELF_LVX_IS_LVX(flags)   (((flags) & ELF_LVX_CORE_MAJOR_MASK) == (ELF_LVX_CORE_LVX))
 #define ELF_LVX_CHECK_CORE(flags,m) (((flags) & ELF_LVX_CORE_MASK)==(m))
 
