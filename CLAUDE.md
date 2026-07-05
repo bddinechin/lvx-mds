@@ -29,7 +29,7 @@ mkdir -p build_lvx && cd build_lvx && ../lvx-family/configure --target=lvx
 | `--enable-avp` | Adds `AVP` to the enabled back-ends (auto-tests). |
 | `--with-arch-path` | Overrides `ARCHDIR` (defaults to the `lvx-family` checkout itself). |
 
-For `--target=lvx`, the default enabled back-ends (`TOOLS`) are **`TEX GBU GDB GCC LAO`**. Others (`ISS`, `MPPADL`, `TDH`, `AVP`) require editing the `enable_tools` value in `lvx-family/configure.ac` (per-target case statement) — `--enable-avp` is the only one exposed as a flag.
+For `--target=lvx`, the default enabled back-ends (`TOOLS`) are **`TEX GBU GDB GCC LAO LIBC`**. Others (`ISS`, `MPPADL`, `TDH`, `AVP`) require editing the `enable_tools` value in `lvx-family/configure.ac` (per-target case statement) — `--enable-avp` is the only one exposed as a flag.
 
 ### Convenience `Makefile` (at `lvx-csw/Makefile`, one level up from this repo)
 
@@ -117,6 +117,7 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 | `CORES` | Space-separated list, e.g. `lvx_v1 lvx_v2` |
 | `TOOLS` | Uppercase list of enabled back-ends |
 | `BINUTILSDIR` / `GDBDIR` | Install targets for `BE/GBU`'s shared binutils/gdb deliverables (`--with-binutils-prefix`/`--with-gdb-prefix`); default to `lvx-family/BE` placeholders if not passed. Point these at the real sibling checkouts (`/home/bd3/lvx-csw/lvx-binutils`, `/home/bd3/lvx-csw/lvx-gdb`) to actually deliver generated files there. |
+| `NEWLIBDIR` | Install target for `BE/LIBC`'s deliverables (`--with-newlib-prefix`); defaults to an `lvx-family/BE` placeholder if not passed. Point at `/home/bd3/lvx-csw/lvx-newlib`. |
 
 ## Installing BE/GBU output into the sibling toolchain repos
 
@@ -125,6 +126,24 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 `BE/GDB` (unlike `BE/GBU`) has never actually been installed into `lvx-gdb`: it generates `<FAMILY>-mds-tdep.c`/`<FAMILY>-regs.h` (the GDB register-model/target-description files), but `lvx-gdb/gdb/lvx-mds-tdep.c` currently comes from a hand-written "Tier-1" port of KVX's tdep files (see `lvx-gdb/CLAUDE.md`), not from this backend. Running `make -C BE/GDB install --with-gdb-prefix=<lvx-gdb>` would overwrite it with a freshly MDS-generated version — worth doing eventually to stop hand-maintaining it, but check the two don't disagree on register layout first.
 
 **A regeneration that changes relocation *numbering* (adding/removing a `RELOC_NUMBER` entry in the YAML, which renumbers every entry after it) has downstream blast radius beyond the files `BE/GBU` installs.** Consumer repos (`lvx-binutils`, `lvx-gdb`) both hand-maintain files with hardcoded relocation-number literals and stale target-check strings that don't get touched by `make -C BE/GBU install` and don't error at compile time when they drift — they just silently misbehave or silently stop running. Found and fixed a whole cluster of these in one pass (see both repos' git history around "kvx"/"lvx" cleanup): `binutils/readelf.c`'s per-relocation numeric literals (e.g. `is_32bit_pcrel_reloc`), `*/po/POTFILES.in` translation manifests still pointing at pre-rename `kvx-*.c` filenames, and — the big one — `binutils/testsuite/lib/binutils-common.exp`'s `is_elf_format`/`supports_gnu_osabi` never recognizing bare `lvx-*-*` as ELF, which silently skipped *hundreds* of generic testsuite cases rather than failing loudly (gas passes went 137→268, ld 138→513 once fixed). Worth a full `git grep -i kvx` sweep of each consumer repo after any MDS regen that touches core/relocation naming or numbering, not just a rebuild-and-see.
+
+## `BE/LIBC`: generating newlib's registers.h and jmpbuf.h
+
+`BE/LIBC` (`MDS/BE/LIBC/`) is a small backend added specifically to stop `lvx-newlib` and `lvx-gdb` hand-syncing ISA/ABI facts that MDS already has authoritative tables for. It reads `Register.table`/`RegField.table`/`RegFile.table`/`Convention.table` (no DTD-heavy input list needed — `MDS::parse` resolves IDREFs lazily via `->access()`, so only tables actually dereferenced by the script need to be concatenated into its XML blob) and produces two files, both under `build_lvx/BE/LIBC/lvx/`:
+
+| File | Generator | Source data | Consumer(s) |
+|------|-----------|--------------|-------------|
+| `registers.h` | `BIN/libc-registers.pl` | Every SFR (`RegFile-lvx-SFR`) with a `$sNN` alias in `Register.table`, plus each SFR's `RegField.table` bit-offsets/widths | `lvx-newlib`'s `newlib/libc/sys/mbr/include/mbr/lvx/registers.h` (replaces a hand-ported subset that only covered the timer registers and was missing several bit-fields even for those, e.g. `TCR_T0SI`/`WCE`/`WIE`/`WUI`/`WUS`/`WSI`) |
+| `jmpbuf.h` | `BIN/libc-jmpbuf.pl` | `Convention-lvx-regular`'s `callee`/`frame`/`local`/`stack`/`return` register roles | `lvx-newlib`'s `newlib/libc/machine/lvx/jmpbuf.h` (included by `setjmp.S`) **and** `lvx-gdb`'s `gdb/lvx-jmpbuf.h` (included by `lvx-common-tdep.c`'s `lvx_get_longjmp_target`) — same generated file installed to both, replacing what used to be two hand-encoded copies of the same `jmp_buf` layout cross-referenced only by a source comment |
+
+`libc-jmpbuf.pl` hardcodes the register *grouping* used to pack the save slots (2-or-4 registers at a time, matching the VLIW `sq`/`so` store-multiple instructions setjmp.S uses) since that packing is an implementation choice, not something `Convention.table` encodes — but it cross-checks the *set* of registers in that grouping against `Convention.table`'s actual callee-saved/frame/local roles and `die`s if they've drifted apart, so a future ABI change can't silently desync `setjmp.S` from `lvx-common-tdep.c` again.
+
+Install destinations (`make -C BE/LIBC install`, needs `--with-newlib-prefix` and `--with-gdb-prefix` set):
+
+- `registers.h` → `$(NEWLIBDIR)/newlib/libc/sys/mbr/include/mbr/lvx/registers.h`
+- `jmpbuf.h` → `$(NEWLIBDIR)/newlib/libc/machine/lvx/jmpbuf.h` **and** `$(GDBDIR)/gdb/lvx-jmpbuf.h`
+
+Like `BE/GBU`, `BE/LIBC` has a `diff`/`refs`/`check` cycle against a committed reference tree at `lvx-family/BE/LIBC/lvx/`, separate from the actual `install` into the sibling repos.
 
 ## Key source files
 
