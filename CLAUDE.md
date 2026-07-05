@@ -114,7 +114,7 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 | `FAMILY` | `lvx` |
 | `CORES` | Space-separated list, e.g. `lvx_v1 lvx_v2` |
 | `TOOLS` | Uppercase list of enabled back-ends |
-| `BINUTILSDIR` / `GDBDIR` | Install targets for `BE/GBU`'s shared binutils/gdb deliverables (`--with-binutils-prefix`/`--with-gdb-prefix`); default to `lvx-family/BE` placeholders if not passed. Point these at the real sibling checkouts (`/home/bd3/LVX/lvx-binutils`, `/home/bd3/LVX/lvx-gdb`) to actually deliver generated files there. |
+| `BINUTILSDIR` / `GDBDIR` | Install targets for `BE/GBU`'s shared binutils/gdb deliverables (`--with-binutils-prefix`/`--with-gdb-prefix`); default to `lvx-family/BE` placeholders if not passed. Point these at the real sibling checkouts (`/home/bd3/lvx-csw/lvx-binutils`, `/home/bd3/lvx-csw/lvx-gdb`) to actually deliver generated files there. |
 
 ## Installing BE/GBU output into the sibling toolchain repos
 
