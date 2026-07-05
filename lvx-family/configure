@@ -1831,6 +1831,8 @@ fi
 if test ${enable_mdf+y}
 then :
   enableval=$enable_mdf;
+else $as_nop
+  enable_mdf=yes
 fi
 
 

@@ -55,7 +55,7 @@ fi
 AC_ARG_ENABLE([mdf],
   [AS_HELP_STRING([--enable-mdf],[Enable MDF merged mds.])],
   [],
-  [])
+  [enable_mdf=yes])
 
 if test "$enable_mdf" = "yes"; then
   MDF_ENABLED=yes

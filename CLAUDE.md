@@ -16,7 +16,7 @@ There is no build logic at the repo root beyond a thin convenience `Makefile` (s
 ### Configure (run once from an out-of-tree build dir)
 
 ```sh
-mkdir -p build_lvx && cd build_lvx && ../lvx-family/configure --enable-mdf --target=lvx
+mkdir -p build_lvx && cd build_lvx && ../lvx-family/configure --target=lvx
 ```
 
 (also documented in the top-level `HOWTO` file; `make configure` at the repo root runs the same thing into `build_lvx/`). Notable options, defined in `lvx-family/configure.ac`:
@@ -25,7 +25,7 @@ mkdir -p build_lvx && cd build_lvx && ../lvx-family/configure --enable-mdf --tar
 |---|---|
 | `--target=lvx` | Only supported target; selects `FAMILY=lvx`, `CORES=lvx_v1 lvx_v2`, and the default back-end list. Defaults to `lvx` if omitted. |
 | `--with-mds=<path>` | Path to the `MDS/` tree to build against; defaults to `<lvx-family>/../MDS`, i.e. the sibling `MDS/` in this repo. |
-| `--enable-mdf` | Enables the `MDD/MDF` merged-table step (tables merged across cores) after `MDD/MDE`. |
+| `--enable-mdf` | Enables the `MDD/MDF` merged-table step (tables merged across cores) after `MDD/MDE`. **On by default**; pass `--disable-mdf` to turn it off. |
 | `--enable-avp` | Adds `AVP` to the enabled back-ends (auto-tests). |
 | `--with-arch-path` | Overrides `ARCHDIR` (defaults to the `lvx-family` checkout itself). |
 

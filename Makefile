@@ -4,7 +4,7 @@ BUILD_DIR := build_lvx
 
 # Run the first line of HOWTO, which sets up the build tree from scratch.
 conf:
-	mkdir -p $(BUILD_DIR) && cd $(BUILD_DIR) && ../lvx-family/configure --enable-mdf --target=lvx
+	mkdir -p $(BUILD_DIR) && cd $(BUILD_DIR) && ../lvx-family/configure --target=lvx
 
 all check refs:
 	$(MAKE) -C $(BUILD_DIR) $@
