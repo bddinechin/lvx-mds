@@ -126,7 +126,7 @@ diff: $(mach_gbuinfo_diffs) $(mach_tests_diffs) diff_gbu
 # reference tree, not against an external binutils/gdb checkout.
 check: $(mach_gbuinfo_diffs) $(mach_tests_diffs)
 
-refs: $(mach_gbuinfo_refs) $(mach_tests_refs) install
+refs: $(mach_gbuinfo_refs) $(mach_tests_refs)
 
 %.ref:
 	mkdir -p $(dir $(REFDIR)/BE/GBU/$*)
