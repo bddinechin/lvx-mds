@@ -54,6 +54,7 @@ echo -e "NEWLIBDIR=\t$NEWLIBDIR"
 echo -e "LLVMDIR=\t$LLVMDIR"
 echo -e "ISSDIR=\t$ISSDIR"
 echo -e "LAODIR=\t$LAODIR"
+echo -e "GEM5DIR=\t$GEM5DIR"
 echo -e "TEXDIR=\t$TEXDIR"
 echo -e "MDF_ENABLED=\t$MDF_ENABLED"
 
@@ -75,6 +76,7 @@ AC_SUBST(GCCDIR)
 AC_SUBST(NEWLIBDIR)
 AC_SUBST(LLVMDIR)
 AC_SUBST(LAODIR)
+AC_SUBST(GEM5DIR)
 AC_SUBST(TEXDIR)
 AC_SUBST(HWTESTDIR)
 AC_SUBST(MDF_ENABLED)
@@ -181,7 +183,7 @@ AC_SUBST(MDT_names)
 AC_CONFIG_FILES([Makefile Makerules FE/Makerules MDD/Makerules BE/Makerules \
   DOC/Makefile FE/YAML/Makefile MDD/MDE/Makefile MDD/MDF/Makefile \
   BE/GBU/Makefile BE/GDB/Makefile BE/GCC/Makefile BE/MPPADL/Makefile \
-  BE/LAO/Makefile BE/TEX/Makefile BE/LIBC/Makefile
+  BE/LAO/Makefile BE/TEX/Makefile BE/LIBC/Makefile BE/AVP/Makefile BE/GEM5/Makefile
 ])
 AC_OUTPUT
 

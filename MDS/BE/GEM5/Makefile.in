@@ -1,0 +1,50 @@
+GEM5_prefix:=@GEM5DIR@
+include	../../Makerules
+include	../Makerules
+PERLBIN:=	$(MDSDIR)/BE/GEM5/BIN
+TEMPLATE:=	$(MDSDIR)/BE/GEM5/TEMPLATE
+MANIFEST:=	$(ARCHDIR)/BE/GEM5/shim-helpers
+
+# The LVX variant the gem5 port targets, and where BE/LAO left its output.
+GEM5_CORE:=	lvx_v1
+LAO_OUT:=	../LAO/$(GEM5_CORE)
+
+# BE/LAO tuples + decode consumed verbatim by the gem5 build.
+LAO_COPY:=	Decode.c Behavior.tuple Opcode.tuple Register.tuple \
+		Operand.tuple RegClass.tuple Immediate.tuple
+
+# Glue delivered on top: the panic-stub file (generated) plus the two static
+# integration files (behavior.c, MDT/MDT_.h templates).
+GEM5_products:=	helper_stubs.inc
+
+# Install destination inside the lvx-gem5 checkout.
+gem5_gen_dir:=	$(GEM5_prefix)/src/arch/lvx/generated
+
+all: $(GEM5_products)
+
+helper_stubs.inc: $(PERLBIN)/helper-stubs.pl $(MANIFEST) $(LAO_OUT)/Behavior.tuple
+	$(PERL) $(PERLINC) $(PERLBIN)/helper-stubs.pl $(MANIFEST) $(LAO_OUT)/Behavior.tuple > $@ || $(ABORT)
+
+install: all
+	$(INSTALL) -d $(gem5_gen_dir) $(gem5_gen_dir)/MDT
+	$(INSTALL) -m 644 helper_stubs.inc      $(gem5_gen_dir)/helper_stubs.inc
+	$(INSTALL) -m 644 $(TEMPLATE)/behavior.c $(gem5_gen_dir)/behavior.c
+	$(INSTALL) -m 644 $(TEMPLATE)/MDT_.h      $(gem5_gen_dir)/MDT/MDT_.h
+	for f in $(LAO_COPY); do \
+	  $(INSTALL) -m 644 $(LAO_OUT)/$$f $(gem5_gen_dir)/$$f || exit 1; \
+	done
+
+diff: $(addsuffix .diff, $(GEM5_products))
+%.diff:
+	$(DIFF) $* $(REFDIR)/BE/GEM5/$*
+
+check: $(addsuffix .check, $(GEM5_products))
+%.check:
+	$(DIFF) $* $(REFDIR)/BE/GEM5/$*
+
+refs: $(addsuffix .refs, $(GEM5_products))
+%.refs:
+	mkdir -p $(dir $(REFDIR)/BE/GEM5/$*)
+	cp $* $(REFDIR)/BE/GEM5/$*
+
+cleanfiles= $(GEM5_products)

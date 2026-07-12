@@ -33,6 +33,9 @@ MDD/MDF-all: MDD/MDE-all
 
 $(addsuffix -all, $(BEDIRS)): $(BE_DEP)
 
+# BE/GEM5 consumes BE/LAO's generated tuples, so it must run after LAO.
+BE/GEM5-all: BE/LAO-all
+
 help:
 	@cat	$(srcdir)/README
 

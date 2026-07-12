@@ -622,6 +622,7 @@ FAMDIR
 HWTESTDIR
 TEXDIR
 AVPDIR
+GEM5DIR
 LLVMDIR
 NEWLIBDIR
 GCCDIR
@@ -690,6 +691,7 @@ with_o64_prefix
 with_gcc_prefix
 with_newlib_prefix
 with_llvm_prefix
+with_gem5_prefix
 with_avp_prefix
 with_tex_valid_prefix
 with_hwtest_valid_prefix
@@ -1333,6 +1335,7 @@ Optional Packages:
   --with-gcc-prefix       Set GCC prefix for install
   --with-newlib-prefix    Set NEWLIB prefix for install
   --with-llvm-prefix      Set LLVM prefix for install
+  --with-gem5-prefix      Set GEM5 prefix for install
   --with-avp-prefix       Set AVP prefix for install
   --with-tex-valid-prefix Set TEX valid prefix for install
   --with-hwtest-valid-prefix
@@ -1812,7 +1815,7 @@ case $target_alias in
     family="lvx"
     target="^target^"
     with_cores="lvx_v1 lvx_v2"
-    enable_tools="TEX GBU GDB GCC LAO LIBC"
+    enable_tools="TEX GBU GDB GCC LAO LIBC GEM5"
     tdesc_namespace="org.lvx"
     ;;
   *)
@@ -1823,7 +1826,7 @@ if test -z "$enable_tools"; then
   enable_tools=""
 fi
 if test "$enable_tools" == "yes"; then
-  enable_tools="TEX GBU GDB GCC LAO LIBC"
+  enable_tools="TEX GBU GDB GCC LAO LIBC GEM5"
 fi
 
 # Check whether --enable-avp was given.
@@ -1976,6 +1979,17 @@ then :
   withval=$with_llvm_prefix; LLVMDIR="$with_llvm_prefix"
 else $as_nop
   LLVMDIR="$ABSPATH/BE"
+fi
+
+
+
+
+# Check whether --with-gem5_prefix was given.
+if test ${with_gem5_prefix+y}
+then :
+  withval=$with_gem5_prefix; GEM5DIR="$with_gem5_prefix"
+else $as_nop
+  GEM5DIR="$ABSPATH/BE"
 fi
 
 
@@ -3178,7 +3192,7 @@ function run_with_config()
     FAMDIR="$FAMDIR" FAMILY="$FAMILY" CORES="$CORES" MDF_ENABLED="$MDF_ENABLED"\
     TOOLS="$TOOLS" FEDIR="$FEDIR" TDESC_NAMESPACE="$TDESC_NAMESPACE" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \
-    GCCDIR="$GCCDIR" NEWLIBDIR="$NEWLIBDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
+    GCCDIR="$GCCDIR" NEWLIBDIR="$NEWLIBDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" GEM5DIR="$GEM5DIR" \
     TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"
 }
 run_with_config echo $with_mds/configure

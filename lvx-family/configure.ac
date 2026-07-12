@@ -30,7 +30,7 @@ case $target_alias in
     family="lvx"
     target="^target^"
     with_cores="lvx_v1 lvx_v2"
-    enable_tools="TEX GBU GDB GCC LAO LIBC"
+    enable_tools="TEX GBU GDB GCC LAO LIBC GEM5"
     tdesc_namespace="org.lvx"
     ;;
   *)
@@ -41,7 +41,7 @@ if test -z "$enable_tools"; then
   enable_tools=""
 fi
 if test "$enable_tools" == "yes"; then
-  enable_tools="TEX GBU GDB GCC LAO LIBC"
+  enable_tools="TEX GBU GDB GCC LAO LIBC GEM5"
 fi
 
 AC_ARG_ENABLE([avp],
@@ -137,6 +137,12 @@ AC_ARG_WITH([llvm_prefix],
   [LLVMDIR="$ABSPATH/BE"])
 AC_SUBST(LLVMDIR)
 
+AC_ARG_WITH([gem5_prefix],
+  [AS_HELP_STRING([--with-gem5-prefix],[Set GEM5 prefix for install])],
+  [GEM5DIR="$with_gem5_prefix"],
+  [GEM5DIR="$ABSPATH/BE"])
+AC_SUBST(GEM5DIR)
+
 AC_ARG_WITH([avp_prefix],
   [AS_HELP_STRING([--with-avp-prefix],[Set AVP prefix for install])],
   [AVPDIR="$with_avp_prefix"],
@@ -171,7 +177,7 @@ function run_with_config()
     FAMDIR="$FAMDIR" FAMILY="$FAMILY" CORES="$CORES" MDF_ENABLED="$MDF_ENABLED"\
     TOOLS="$TOOLS" FEDIR="$FEDIR" TDESC_NAMESPACE="$TDESC_NAMESPACE" \
     GDBDIR="$GDBDIR" BINUTILSDIR="$BINUTILSDIR" MPPADLDIR="$MPPADLDIR" \
-    GCCDIR="$GCCDIR" NEWLIBDIR="$NEWLIBDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" \
+    GCCDIR="$GCCDIR" NEWLIBDIR="$NEWLIBDIR" ISSDIR="$ISSDIR" LLVMDIR="$LLVMDIR" LAODIR="$LAODIR" GEM5DIR="$GEM5DIR" \
     TEXDIR="$TEXDIR" HWTESTDIR="$HWTESTDIR"
 }
 run_with_config echo $with_mds/configure

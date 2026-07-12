@@ -1,0 +1,15 @@
+# Operator helpers implemented by the LVX gem5 runtime shim (shim.cc) rather
+# than left as panic stubs. BE/GEM5 excludes these from helper_stubs.inc so the
+# shim definitions are the ones that link.
+#
+# This is the one gem5-policy input to BE/GEM5 (family-specific): it records
+# which MDS behavior helpers the hand-written shim provides. The core operand/
+# register/storage helpers (operandRead, operandFromRegFile_*, readFromStorage_*
+# ...) are NOT declared in Behavior.tuple at all, so they never appear as stubs
+# and need not be listed here.
+#
+# One helper name per line; blank lines and #-comments ignored.
+MEM_load
+MEM_store
+syscall
+branch_info
