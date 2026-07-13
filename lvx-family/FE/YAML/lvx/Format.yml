@@ -917,8 +917,8 @@ Macro:
         (WRITE.result1_1 (READ.64[1].result1))
         (WRITE.result1_2 (SHL (READ.64[2].result1) (CONST.64)))
         (WRITE.result1_3 (SHL (READ.64[3].result1) (CONST.64)))
-        (COMMIT.E3.%1:0 (APPLY.insert_128 (READ.argument1_0) (IOR (READ.result1_0) (READ.result1_2)) (READ.hindex)))
-        (COMMIT.E3.%1:1 (APPLY.insert_128 (READ.argument1_1) (IOR (READ.result1_1) (READ.result1_3)) (READ.hindex))))
+        (COMMIT.E3.%1:0 (APPLY.256.insert_128 (READ.argument1_0) (IOR (READ.result1_0) (READ.result1_2)) (READ.hindex)))
+        (COMMIT.E3.%1:1 (APPLY.256.insert_128 (READ.argument1_1) (IOR (READ.result1_1) (READ.result1_3)) (READ.hindex))))
 
   - ID: LVQBO
     execution: &executionLVQBO |
@@ -969,10 +969,10 @@ Macro:
         (WRITE.result1_1 (SHR (READ.result1) (CONST.64)))
         (WRITE.result1_2 (SHR (READ.result1) (CONST.128)))
         (WRITE.result1_3 (SHR (READ.result1) (CONST.192)))
-        (COMMIT.E3.%1:0 (APPLY.insert_64 (READ.argument1_0) (READ.result1_0) (READ.qindex)))
-        (COMMIT.E3.%1:1 (APPLY.insert_64 (READ.argument1_1) (READ.result1_1) (READ.qindex)))
-        (COMMIT.E3.%1:2 (APPLY.insert_64 (READ.argument1_2) (READ.result1_2) (READ.qindex)))
-        (COMMIT.E3.%1:3 (APPLY.insert_64 (READ.argument1_3) (READ.result1_3) (READ.qindex))))
+        (COMMIT.E3.%1:0 (APPLY.256.insert_64 (READ.argument1_0) (READ.result1_0) (READ.qindex)))
+        (COMMIT.E3.%1:1 (APPLY.256.insert_64 (READ.argument1_1) (READ.result1_1) (READ.qindex)))
+        (COMMIT.E3.%1:2 (APPLY.256.insert_64 (READ.argument1_2) (READ.result1_2) (READ.qindex)))
+        (COMMIT.E3.%1:3 (APPLY.256.insert_64 (READ.argument1_3) (READ.result1_3) (READ.qindex))))
 
   - ID: SBO
     execution: &executionSBO |
@@ -1570,8 +1570,8 @@ Macro:
         (WRITE.result1_1 (READ.64[1].result1))
         (WRITE.result1_2 (SHL (READ.64[2].result1) (CONST.64)))
         (WRITE.result1_3 (SHL (READ.64[3].result1) (CONST.64)))
-        (COMMIT.E3.%1:0 (APPLY.insert_128 (READ.argument1_0) (IOR (READ.result1_0) (READ.result1_2)) (READ.hindex)))
-        (COMMIT.E3.%1:1 (APPLY.insert_128 (READ.argument1_1) (IOR (READ.result1_1) (READ.result1_3)) (READ.hindex))))
+        (COMMIT.E3.%1:0 (APPLY.256.insert_128 (READ.argument1_0) (IOR (READ.result1_0) (READ.result1_2)) (READ.hindex)))
+        (COMMIT.E3.%1:1 (APPLY.256.insert_128 (READ.argument1_1) (IOR (READ.result1_1) (READ.result1_3)) (READ.hindex))))
 
   - ID: LVPMBO
     execution: &executionLVPMBO |
@@ -1663,8 +1663,8 @@ Macro:
         (WRITE.result1_1 (READ.64[1].result1))
         (WRITE.result1_2 (SHL (READ.64[2].result1) (CONST.64)))
         (WRITE.result1_3 (SHL (READ.64[3].result1) (CONST.64)))
-        (COMMIT.E3.%1:0 (APPLY.insert_128 (READ.argument1_0) (IOR (READ.result1_0) (READ.result1_2)) (READ.hindex)))
-        (COMMIT.E3.%1:1 (APPLY.insert_128 (READ.argument1_1) (IOR (READ.result1_1) (READ.result1_3)) (READ.hindex))))
+        (COMMIT.E3.%1:0 (APPLY.256.insert_128 (READ.argument1_0) (IOR (READ.result1_0) (READ.result1_2)) (READ.hindex)))
+        (COMMIT.E3.%1:1 (APPLY.256.insert_128 (READ.argument1_1) (IOR (READ.result1_1) (READ.result1_3)) (READ.hindex))))
 
   - ID: LVQMB
     execution: &executionLVQMB |
@@ -1789,10 +1789,10 @@ Macro:
         (WRITE.result1_1 (SHR (READ.result1) (CONST.64)))
         (WRITE.result1_2 (SHR (READ.result1) (CONST.128)))
         (WRITE.result1_3 (SHR (READ.result1) (CONST.192)))
-        (COMMIT.E3.%1:0 (APPLY.insert_64 (READ.argument1_0) (READ.result1_0) (READ.qindex)))
-        (COMMIT.E3.%1:1 (APPLY.insert_64 (READ.argument1_1) (READ.result1_1) (READ.qindex)))
-        (COMMIT.E3.%1:2 (APPLY.insert_64 (READ.argument1_2) (READ.result1_2) (READ.qindex)))
-        (COMMIT.E3.%1:3 (APPLY.insert_64 (READ.argument1_3) (READ.result1_3) (READ.qindex))))
+        (COMMIT.E3.%1:0 (APPLY.256.insert_64 (READ.argument1_0) (READ.result1_0) (READ.qindex)))
+        (COMMIT.E3.%1:1 (APPLY.256.insert_64 (READ.argument1_1) (READ.result1_1) (READ.qindex)))
+        (COMMIT.E3.%1:2 (APPLY.256.insert_64 (READ.argument1_2) (READ.result1_2) (READ.qindex)))
+        (COMMIT.E3.%1:3 (APPLY.256.insert_64 (READ.argument1_3) (READ.result1_3) (READ.qindex))))
 
   - ID: LVQMBO
     execution: &executionLVQMBO |
@@ -1922,10 +1922,10 @@ Macro:
         (WRITE.result1_1 (SHR (READ.result1) (CONST.64)))
         (WRITE.result1_2 (SHR (READ.result1) (CONST.128)))
         (WRITE.result1_3 (SHR (READ.result1) (CONST.192)))
-        (COMMIT.E3.%1:0 (APPLY.insert_64 (READ.argument1_0) (READ.result1_0) (READ.qindex)))
-        (COMMIT.E3.%1:1 (APPLY.insert_64 (READ.argument1_1) (READ.result1_1) (READ.qindex)))
-        (COMMIT.E3.%1:2 (APPLY.insert_64 (READ.argument1_2) (READ.result1_2) (READ.qindex)))
-        (COMMIT.E3.%1:3 (APPLY.insert_64 (READ.argument1_3) (READ.result1_3) (READ.qindex))))
+        (COMMIT.E3.%1:0 (APPLY.256.insert_64 (READ.argument1_0) (READ.result1_0) (READ.qindex)))
+        (COMMIT.E3.%1:1 (APPLY.256.insert_64 (READ.argument1_1) (READ.result1_1) (READ.qindex)))
+        (COMMIT.E3.%1:2 (APPLY.256.insert_64 (READ.argument1_2) (READ.result1_2) (READ.qindex)))
+        (COMMIT.E3.%1:3 (APPLY.256.insert_64 (READ.argument1_3) (READ.result1_3) (READ.qindex))))
 
   - ID: XP2RBB
     execution: &executionXP2RBB |
@@ -1941,10 +1941,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP2RBB |
@@ -1964,13 +1964,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -1990,10 +1990,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP2RBBO |
@@ -2016,13 +2016,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2040,10 +2040,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       XVR[where] = result1;
       stage CR:
     behavior: &behaviorXP4RBB |
@@ -2063,13 +2063,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2089,10 +2089,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP4RBBO |
@@ -2115,13 +2115,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2139,10 +2139,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP8RBB |
@@ -2162,13 +2162,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2188,10 +2188,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP8RBBO |
@@ -2214,13 +2214,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2238,10 +2238,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP16RBB |
@@ -2261,13 +2261,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2287,10 +2287,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP16RBBO |
@@ -2313,13 +2313,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2337,10 +2337,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP32RBB |
@@ -2360,13 +2360,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2386,10 +2386,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP32RBBO |
@@ -2412,13 +2412,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2436,10 +2436,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP64RBB |
@@ -2459,13 +2459,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -2485,10 +2485,10 @@ Macro:
       stage E1:
       new argument1 = XVR[where];
       new bytemask = (1 << %0.MemorySize) - 1;
-      new targetbytes = bits2bytes(bytemask) << shift;
+      new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
       CS.XMF = 1;
       @Instruction
-      result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+      result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
       stage CR:
       XVR[where] = result1;
     behavior: &behaviorXP64RBBO |
@@ -2511,13 +2511,13 @@ Macro:
         (WRITE.bytemask
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
-          (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift)))
+          (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
-            (AND (SHL (READ.result1) (READ.shift)) (READ.targetbytes))
-            (AND (READ.argument1) (NOT (READ.targetbytes)))))
+            (AND (ZX.256 (SHL (READ.result1) (READ.shift))) (READ.targetbytes))
+            (AND (READ.argument1) (ZX.256 (NOT (READ.targetbytes))))))
         (STORE.CR
           (AGGL.XVR (READ.where) (CONST.1)) (I2F.256 (READ.result1))))
 
@@ -3442,8 +3442,8 @@ Macro:
         (WRITE.result1_1 (READ.64[1].result1))
         (WRITE.result1_2 (SHL (READ.64[2].result1) (CONST.64)))
         (WRITE.result1_3 (SHL (READ.64[3].result1) (CONST.64)))
-        (COMMIT.E3.%1:0 (APPLY.insert_128 (READ.argument1_0) (IOR (READ.result1_0) (READ.result1_2)) (READ.hindex)))
-        (COMMIT.E3.%1:1 (APPLY.insert_128 (READ.argument1_1) (IOR (READ.result1_1) (READ.result1_3)) (READ.hindex))))
+        (COMMIT.E3.%1:0 (APPLY.256.insert_128 (READ.argument1_0) (IOR (READ.result1_0) (READ.result1_2)) (READ.hindex)))
+        (COMMIT.E3.%1:1 (APPLY.256.insert_128 (READ.argument1_1) (IOR (READ.result1_1) (READ.result1_3)) (READ.hindex))))
 
   - ID: LVQBI
     execution: &executionLVQBI |
@@ -3503,10 +3503,10 @@ Macro:
         (WRITE.result1_1 (SHR (READ.result1) (CONST.64)))
         (WRITE.result1_2 (SHR (READ.result1) (CONST.128)))
         (WRITE.result1_3 (SHR (READ.result1) (CONST.192)))
-        (COMMIT.E3.%1:0 (APPLY.insert_64 (READ.argument1_0) (READ.result1_0) (READ.qindex)))
-        (COMMIT.E3.%1:1 (APPLY.insert_64 (READ.argument1_1) (READ.result1_1) (READ.qindex)))
-        (COMMIT.E3.%1:2 (APPLY.insert_64 (READ.argument1_2) (READ.result1_2) (READ.qindex)))
-        (COMMIT.E3.%1:3 (APPLY.insert_64 (READ.argument1_3) (READ.result1_3) (READ.qindex))))
+        (COMMIT.E3.%1:0 (APPLY.256.insert_64 (READ.argument1_0) (READ.result1_0) (READ.qindex)))
+        (COMMIT.E3.%1:1 (APPLY.256.insert_64 (READ.argument1_1) (READ.result1_1) (READ.qindex)))
+        (COMMIT.E3.%1:2 (APPLY.256.insert_64 (READ.argument1_2) (READ.result1_2) (READ.qindex)))
+        (COMMIT.E3.%1:3 (APPLY.256.insert_64 (READ.argument1_3) (READ.result1_3) (READ.qindex))))
 
   - ID: SSBI
     execution: &executionSSBI |
@@ -17753,7 +17753,7 @@ Format:
         (WRITE.frs1 (ACCESS.RR.%2))
         (WRITE.frm (APPLY.3.decode_riscv_float_rounding_mode (READ.frm)))
         (IF
-          (EQ (APPLY.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
+          (EQ (APPLY.1.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
           (THROW.RR.OPCODE)
           (SEQ
             (MACRO.Instruction)
@@ -17799,7 +17799,7 @@ Format:
         (WRITE.frs1 (ACCESS.RR.%2))
         (WRITE.frm (APPLY.3.decode_riscv_float_rounding_mode (READ.frm)))
         (IF
-          (EQ (APPLY.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
+          (EQ (APPLY.1.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
           (THROW.RR.OPCODE)
           (SEQ
             (MACRO.Instruction)
@@ -17843,7 +17843,7 @@ Format:
         (WRITE.frs1 (ACCESS.RR.%2))
         (WRITE.frm (APPLY.3.decode_riscv_float_rounding_mode (READ.frm)))
         (IF
-          (EQ (APPLY.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
+          (EQ (APPLY.1.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
           (THROW.RR.OPCODE)
           (SEQ
             (MACRO.Instruction)
@@ -17948,7 +17948,7 @@ Format:
         (WRITE.frs1 (ACCESS.RR.%2))
         (WRITE.frm (APPLY.3.decode_riscv_float_rounding_mode (READ.frm)))
         (IF
-          (EQ (APPLY.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
+          (EQ (APPLY.1.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
           (THROW.RR.OPCODE)
           (SEQ
             (MACRO.Instruction)
@@ -18065,7 +18065,7 @@ Format:
         (WRITE.rs1 (ACCESS.RR.%2))
         (WRITE.frm (APPLY.3.decode_riscv_float_rounding_mode (READ.frm)))
         (IF
-          (EQ (APPLY.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
+          (EQ (APPLY.1.check_float_rounding_mode_trap (READ.frm)) (CONST.0))
           (THROW.RR.OPCODE)
           (SEQ
             (MACRO.Instruction)

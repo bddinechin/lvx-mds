@@ -119,37 +119,57 @@ The Behavior → Sail translation is close to mechanical for the arithmetic core
 the stage/bundle model becomes an explicitly *generated* bundle sequencer in Sail.
 
 
-## 3. The Int256 box is load-bearing, not merely sufficient
+## 3. Where the Int256 box was load-bearing
 
-Two places where the unbounded-integer semantics is not actually unbounded — the
-description's meaning depends on the container being exactly 256 bits. Both were
-found by the width pass; neither is a bug today, and both are undocumented.
+Two places where the unbounded-integer semantics was not actually unbounded — the
+description's meaning depended on the container being exactly 256 bits, and said so
+nowhere. Both were found by the width pass. **The second is now fixed; the first is
+not.**
 
-**`SHR` is a logical shift.** It generates `Int256_shru`, so on a negative operand
-the result is `(x mod 2²⁵⁶) >> n` — not a function of `x` alone. The ISA *relies*
-on this: `sraw` is `(SHR (SX.32 x) n)`, and its low 32 bits come out right only
-because the sign extension runs all the way to the top of the container and the
-store truncates back. Correct, and box-dependent. 25 instruction families do it
-(`sraw`/`srad`/`srsw`/`srsd`/`avgw`/`avgrw`/`extfs`/`sxbd`/`sxhd`/`sxwd` and the
-packed forms). Worth either renaming the operator to say what it is (`SHRU`) or
-defining `SHR` as arithmetic and adding a separate logical form.
+**`SHR` is a logical shift, and this is still true.** It generates `Int256_shru`,
+so on a negative operand the result is `(x mod 2²⁵⁶) >> n` — not a function of `x`
+alone. The ISA *relies* on this: `sraw` is `(SHR (SX.32 x) n)`, and its low 32 bits
+come out right only because the sign extension runs all the way to the top of the
+container and the store truncates back. Correct, and box-dependent. 25 instruction
+families do it (`sraw`/`srad`/`srsw`/`srsd`/`avgw`/`avgrw`/`extfs`/`sxbd`/`sxhd`/
+`sxwd` and the packed forms), and `Width.pm` reports each as `shr-negative`. Worth
+either renaming the operator to say what it is (`SHRU`) or defining `SHR` as
+arithmetic and adding a separate logical form. **Until then, the container width is
+part of the architecture.**
 
-**Byte-lane placement overflows the box on purpose.** The `lvx_v2` extension
-preloads (`xplb`/`xplh`/`xplw`/`xpld`/`xplq`/`xplo`) and `xaccesso`/`xaligno`
-place a byte mask at a variable offset inside a 256-bit `XVR`:
+**Byte-lane placement overflowed the box on purpose — now it says so.** The `lvx_v2`
+extension preloads (`xplb`/`xplh`/`xplw`/`xpld`/`xplq`/`xplo`) and
+`xaccesso`/`xaligno` place a byte mask at a variable offset inside a 256-bit `XVR`:
 
 ```
 new shift = (target & 31) * 8;                    /* 0 .. 248 */
-new targetbytes = bits2bytes(bytemask) << shift;  /* up to 2^504 */
+new targetbytes = bits2bytes(bytemask) << shift;  /* up to 2^504! */
 result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
 ```
 
 `bits2bytes` is declared `APPLY.256`, so shifting it left by up to 248 needs 504
-bits. The description says nothing about what happens to them; `Int256_shl` drops
-them, which is what makes the instruction behave correctly — the bytes that fall
-off the top of the register are meant to fall off. **The truncation is the
-semantics.** That is fine, but it means a `Behavior` → Sail export, or any change
-to the container width, silently changes what these instructions do.
+bits. `Int256_shl` dropped them, which is what made the instruction behave
+correctly — the bytes that fall off the top of the register are *meant* to fall off.
+**The truncation was the semantics, and the description did not mention it.**
+
+Every one of those sites now carries an explicit `ZX.256` (and `_ZX_256` on the
+`execution:` side), so the description states the truncation it depends on instead
+of leaving it to the container:
+
+```
+new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
+result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
+```
+
+The generated ISS C is unchanged in meaning — `Int256_zx(x, 256)` is the identity
+on the container, and width-256 coercions were already being emitted (323 of them),
+so this asks nothing new of the runtime. What changed is that the *description* is
+now true on its own terms, which is what makes a Sail export (§2) possible at all.
+
+Note `~targetbytes` needed the same treatment, for a subtler reason: on a value
+that uses all 256 bits, the mathematical `~x = -x-1` is not representable
+(`~(2²⁵⁶-1) = -2²⁵⁶`), because a bitwise complement of an unbounded integer has no
+meaning without a width. `ZX.256(NOT x)` supplies the width.
 
 
 ## 4. Floating point: why the helpers are the real gap
@@ -266,80 +286,96 @@ mistake (this pass made it first, and it produced 22 false alarms):
 
 | Diagnostic | Fatal | Meaning |
 |---|---|---|
+| `box` | yes | A value does not fit the 256-bit container and no coercion says it should be truncated, so `Int256_` truncates it silently. |
 | `signed` | yes | A sign-reading operator is applied to a value outside the signed 256-bit range, so `Int256_` misreads it. |
 | `section` | yes | A `Section` access (`w[i]`) reaches past the end of the container: `w × (i+1) > 256`. These are the two `die`s that were commented out in `codegen_read`/`codegen_write`. |
 | `extent` | yes | A `STORE`'s `BitField` width disagrees with the width its `Location` implies, or an `F2I.w` disagrees with the `BitField` it reads. |
-| `box` | **no** | A value does not fit the container, so `Int256_` truncates it. See below. |
 | `shr-negative` | no | `SHR` on an operand not provably non-negative — box-dependent, §3. |
-| `apply-nowidth` | no | An `APPLY` with no declared result width; its value cannot be bounded. |
 | `read-partial` | no | A variable read on a path where it was not written. |
 | `read-unknown` | no | A variable read with no reaching `WRITE` at all. |
 
-**`box` is the headline check and it is deliberately not fatal.** The `lvx_v2`
-byte-lane instructions of §3 *rely* on 256-bit truncation, so a fatal `box` would
-have failed the build on the day the pass landed — and a check that does that is a
-check that gets switched off. It reports the inventory instead; `WIDTH_CHECK=strict`
-promotes it to an error for when the ISA is ready to be held to it. The fatal set is
-empty on the current ISA, so any *new* violation of it fails the build.
+**The fatal set is clean on the current ISA, so any new violation fails the build.**
 
-The pass deliberately does **not** flag truncation into a narrower container
-(`I2F.64` of a 65-bit sum, say). Wraparound at the destination width is how the ISA
-is defined — `addw` really does compute a 65-bit sum and keep 64 bits — so flagging
-it would be pure noise. A lint for *unintended* truncation would need an explicit
-annotation to distinguish the two; that is a separate proposal.
+An overflow that is then *truncated* is not reported, and must not be: the ring
+operations (`+ - * << & | ^ ~`) commute with truncation, exactly as C's unsigned
+arithmetic does, so `ZX.256(SHL(x, n))` is precisely what `Int256_shl` computes even
+though the mathematical `x << n` needs 504 bits. The pass tracks a *truncation
+context* down through the ring operators and stops at the ones that read the value
+rather than its low bits (`SHR`, `DIV`, comparisons, the bit counters). This is what
+makes an explicit `ZX.256` an actual fix rather than decoration.
 
-### What it found on its first run
+Likewise it does **not** flag truncation into a narrower container (`I2F.64` of a
+65-bit sum). Wraparound at the destination width is how the ISA is defined — `addw`
+really does compute a 65-bit sum and keep 64 bits — so flagging it would be noise. A
+lint for *unintended* truncation would need an annotation to tell the two apart.
 
-| | `lvx_v1` | `lvx_v2` |
+### What it found, and what is left
+
+| | first run | now |
 |---|---|---|
-| `box` | 0 | 840 (8 instructions, §3) |
-| `shr-negative` | 16 | 73 |
-| `apply-nowidth` | 14 | 30 |
-| `read-partial` | 42 | 114 |
-| `read-unknown` | 0 | **1** |
+| `box` | 840 (8 `lvx_v2` instructions) | **0** — the truncation is written down (§3) |
+| `apply-nowidth` | 44 | **0** — the width is mandatory (below) |
+| `shr-negative` | 89 | 89 — real, unfixed (§3) |
+| `read-partial` | 156 | 156 — benign (below) |
+| `read-unknown` | 1 | **1** — a real bug (below) |
 
-- **`read-unknown` is a real bug.** `FNARROWDWQ` reads `ziplanes`, but its format
-  `ALU_FWQWR` declares the `ziplanes` encoding field and then **omits it from
-  `operands:`**, using the `GWRF` behavior (which never writes it) instead of
-  `GWRFL` (which does). Its half-word twin `ALU_FHQWR`/`FNARROWWHQ` does it right.
-  So `fnarrowdwq` reads an uninitialized variable, the encoding bit is not
-  decodable as a modifier, and nothing anywhere fails. Copy-paste, caught on the
-  first run.
+- **`APPLY` now requires a width.** The widthless production was removed from
+  `DOC/Behavior.y`, so a helper that does not declare its result width is a syntax
+  error rather than a value nothing can bound. That flushed out nine helpers:
+  `insert_64`/`insert_128` (256 — they return the `XVR` they insert a lane into),
+  `get`/`wfxl`/`wfxm`/`waitit` (64 — an SFR), `check_float_rounding_mode_trap` (1 —
+  a predicate), and, tellingly, **`f32_add` and `f32_sub` in `faddwc`/`fsbfwc`**
+  (32). The FP gap of §4 was not only missing bodies: two FP operators did not
+  declare how wide their result was. `lvx_v1`'s generated C is byte-identical after
+  this — `APPLY`'s width never reached `CodeGen`, it only ever reached the checker.
+
+- **`read-unknown` is a real bug, left unfixed on purpose.** `FNARROWDWQ` reads
+  `ziplanes`, but its format `ALU_FWQWR` declares the `ziplanes` encoding field and
+  then **omits it from `operands:`**, using the `GWRF` behavior (which never writes
+  it) instead of `GWRFL` (which does). Its half-word twin `ALU_FHQWR`/`FNARROWWHQ`
+  does it right. So `fnarrowdwq` reads an uninitialised variable, the encoding bit
+  is not decodable as a modifier, and nothing anywhere fails. Copy-paste, caught on
+  the pass's first run. Fixing it changes the opcode table, and `lvx_v2` is not
+  finished, so it waits.
 
 - **`read-partial`** is mostly benign: `product` in every `mul`/`madd` is written
-  under three exhaustive guards (`widemult == 0/1/2`) that the analysis cannot see
-  are exhaustive. Worth knowing, not worth fixing.
-
-- **`apply-nowidth`** names the helpers whose result width the description does not
-  give: `insert_64`, `get`, `wfxl`, `wfxm`, `waitit` — and, tellingly, **`f32_add`
-  and `f32_sub` in `faddwc`/`fsbfwc`**. The FP gap of §4 is not only about missing
-  bodies; two FP operators do not even declare how wide their result is.
+  under three guards (`widemult == 0/1/2`) that are exhaustive over the legal
+  modifier values, which the analysis cannot know. Worth knowing, not worth fixing.
 
 
 ## 6. What to do, in order
 
-0. **Landed: static width checking** (§5). It is the pass that *verifies* the
-   256-bit implementation is sound for every operator — including the ML operators
-   not yet written. It is also a prerequisite for anything else here: Sail's type
-   checker will reject width-sloppy code, so the work has to be done regardless,
-   and doing it inside Behavior first means finding the bugs on home ground.
+**Done.**
 
-1. **Fix `ALU_FWQWR`** (§5). One-line ISA-description bug, found by the pass.
+0. **Static width checking** (§5). The pass that *verifies* the 256-bit
+   implementation is sound for every operator — including the ML operators not yet
+   written. It is also the prerequisite for everything below: Sail's type checker
+   will reject width-sloppy code, so the work has to be done regardless, and doing
+   it inside Behavior first means finding the bugs on home ground.
 
-2. **Close the helper gap** (§4). Make FP operators flag-returning, and specify the
+1. **`APPLY`'s width is mandatory** (§5). A helper that does not say how wide its
+   result is cannot be bounded, and nothing downstream of it can be checked.
+
+2. **The byte-lane truncation is written down** (§3). `ZX.256` where the `lvx_v2`
+   extension instructions used to rely on `Int256_shl` dropping what overflowed.
+
+**Next.**
+
+3. **Close the helper gap** (§4). Make FP operators flag-returning, and specify the
    FP and SIMD semantics in Behavior rather than in per-target C. This is the actual
    bottleneck for ISS retargeting, and it is independent of any Sail decision. Start
    with the exact dot-product operators — they are the ones no library can give you,
-   and they are the ones the width pass can now prove fit (or not). Give `f32_add`
-   and `f32_sub` a declared width on the way past.
+   and they are the ones the width pass can now prove fit, or not.
 
-3. **Write down the box dependences** (§3), and preferably remove them: rename
-   `SHR` to say it is logical, and make the byte-lane instructions mask explicitly
-   rather than relying on `Int256_shl` to drop what overflows. Until then, the
-   container width is part of the architecture and is documented nowhere.
+4. **Fix `SHR`** (§3) — the last place the container width leaks into the meaning of
+   the description. Rename it to say it is logical, or define it as arithmetic and
+   add a separate logical form.
 
-4. **Add a Sail emitter as a back-end** (§2). Not a migration. A model whose FP is
+5. **Fix `ALU_FWQWR`** (§5), once `lvx_v2` is settled enough for the opcode table to
+   move.
+
+6. **Add a Sail emitter as a back-end** (§2). Not a migration. A model whose FP is
    defined in terms of integer arithmetic exports to Sail *better* than an
-   IEEE-primitive model would, because there is no primitive to map. Note this is
-   blocked in practice on (3): the box dependences do not survive translation to a
+   IEEE-primitive model would, because there is no primitive to map. In practice
+   this is gated on (3) and (4): a box dependence does not survive translation to a
    language whose integers really are unbounded.

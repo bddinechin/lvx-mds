@@ -314,7 +314,7 @@ if (wfxl_check_access(@1, @2)) {
 (SEQ
   (IF (TEST.wfxl_check_access (METHOD.%1) (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxl (METHOD.%1) (ZX.64 (READ.argument2))))
+      (APPLY.64.wfxl (METHOD.%1) (ZX.64 (READ.argument2))))
     (SKIP)))
 </Behavior></Instruction>
 <Instruction
@@ -334,7 +334,7 @@ if (wfxm_check_access(@1, @2)) {
 (SEQ
   (IF (TEST.wfxm_check_access (METHOD.%1) (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxm (METHOD.%1) (ZX.64 (READ.argument2))))
+      (APPLY.64.wfxm (METHOD.%1) (ZX.64 (READ.argument2))))
     (SKIP)))
 </Behavior></Instruction>
 <Instruction
@@ -352,7 +352,7 @@ if (get_check_access(@2, @1)) {
 </Execution><Behavior>
 (IF (TEST.get_check_access (METHOD.%2) (METHOD.%1))
   (WRITE.result1
-    (APPLY.get (METHOD.%2) (ZX.64 (READ.argument2))))
+    (APPLY.64.get (METHOD.%2) (ZX.64 (READ.argument2))))
   (SKIP))
 </Behavior></Instruction>
 <Instruction
@@ -370,7 +370,7 @@ if (get_check_access(index, @1)) {
 </Execution><Behavior>
 (IF (TEST.get_check_access (READ.index) (METHOD.%1))
   (WRITE.result1
-    (APPLY.get
+    (APPLY.64.get
       (READ.index) (F2I.64 (LOAD.RR (AGGL.SFR (READ.index) (CONST.1))))))
   (SKIP))
 </Behavior></Instruction>
@@ -437,7 +437,7 @@ new result1 = waitit(ormask, andmask);
   (WRITE.andmask
     (READ.32[1].argument1))
   (WRITE.result1
-    (APPLY.waitit (READ.ormask) (READ.andmask)))
+    (APPLY.64.waitit (READ.ormask) (READ.andmask)))
   (COMMIT.RR.%1 (READ.result1)))
 </Behavior></Instruction>
 <Instruction
@@ -7824,12 +7824,12 @@ if (imultiply) {
       (CONST.0x80000000)
       (CONST.0)))
   (WRITE.32[0].result1
-    (APPLY.f32_add
+    (APPLY.32.f32_add
       (READ.RM)
       (READ.32[0].argument2)
       (READ.32[0].argument3)))
   (WRITE.32[1].result1
-    (APPLY.f32_add
+    (APPLY.32.f32_add
       (READ.RM)
       (XOR (READ.32[1].argument2)
            (READ.fconj))
@@ -7866,12 +7866,12 @@ if (imultiply) {
       (CONST.0x80000000)
       (CONST.0)))
   (WRITE.32[0].result1
-    (APPLY.f32_sub
+    (APPLY.32.f32_sub
       (READ.RM)
       (READ.32[0].argument3)
       (READ.32[0].argument2)))
   (WRITE.32[1].result1
-    (APPLY.f32_sub
+    (APPLY.32.f32_sub
       (READ.RM)
       (READ.32[1].argument3)
       (XOR (READ.32[1].argument2)

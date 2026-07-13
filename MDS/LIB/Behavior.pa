@@ -1049,10 +1049,14 @@ sub CONST {
 
 sub APPLY {
     my ($width, $name, @arguments) = @_;
+    # The width is the width of the bit pattern the helper returns, and the caller
+    # decides how to read it: lwz is (ZX.32 (APPLY.32.MEM_load ...)) and lws is
+    # (SX.32 ...) of the very same APPLY.  It is mandatory -- without it the value
+    # cannot be bounded at all, so nothing downstream can be checked.
+    &Error('APPLY has no width', @_) unless $width;
     my $attributes = $arguments[-1];
     if (ref $attributes eq 'HASH') { pop @arguments; }
-    elsif ($width) { $attributes = { WIDTH=>$width }; }
-    else { $attributes = { }; }
+    else { $attributes = { WIDTH=>$width }; }
     $$attributes{TYPE} = 'Integer';
     return [ 'APPLY', $width, $name, @arguments, $attributes ];
 }
@@ -3262,9 +3266,6 @@ return $_[0];
 
 #rule Integer -> '(' PROPERTY '.' Ident '.' Proxy Abstract ')'
 &PROPERTY($_[3], $_[5], $_[6]);
-
-#rule Integer -> '(' APPLY '.' Ident Arguments Abstract ')'
-&APPLY(0, $_[3], @{$_[4]}, $_[5]);
 
 #rule Integer -> '(' APPLY '.' Width '.' Ident Arguments Abstract ')'
 &APPLY($_[3], $_[5], @{$_[6]}, $_[7]);

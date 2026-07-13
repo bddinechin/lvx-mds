@@ -37,27 +37,23 @@ use Width;
 # BE/LAO hands to Behavior::CodeGen.  What is checked here is what becomes C.
 #
 # Diagnostics whose kind is in %WidthFatal are errors: the generated C does not
-# implement the description, and nothing in the current ISA provokes them, so a
-# new one is a regression.  The rest are warnings -- they are a standing property
-# of the ISA rather than a mistake in it -- and are summarized, not listed, so a
+# implement the description.  The current ISA provokes none of them, so a new one
+# is a regression and fails the build.  The rest are warnings -- standing properties
+# of the ISA rather than mistakes in it -- and are summarized, not listed, so a
 # routine build does not shout.
 #
-# 'box' is deliberately NOT fatal, even though it is the headline check.  The
-# extension-preload formats (XP*RBB) and XACCESSO/XALIGNO place a byte-lane mask
-# at a variable offset inside a 256-bit XVR -- shift = (target & 31) * 8, so up to
-# 248 -- and rely on Int256_ dropping the bytes that fall off the top of the
-# register.  The container width is load-bearing there, not merely sufficient.
-# That is worth knowing and worth listing, but it is not a bug, and a check that
-# failed the build on the day it landed is a check that gets switched off.  So it
-# reports the inventory; WIDTH_CHECK=strict promotes it to an error for when the
-# ISA is ready to be held to it.  See DOC/Behavior.md.
+# 'box' is the headline: no value may exceed the 256-bit Int256_ container unless
+# a coercion says so.  It is clean because the truncation the ISA relies on is now
+# *written down*: the extension preloads (XP*RBB) and XACCESSO/XALIGNO place a
+# byte-lane mask at a variable offset inside a 256-bit XVR and depend on the bytes
+# that fall off the top being dropped, and they now say so with an explicit ZX.256
+# rather than leaving it to Int256_ to do silently.
 #
 # WIDTH_CHECK=verbose lists every diagnostic; =warn keeps the errors from failing
 # the build; =off skips the pass.
 #
 my $WidthCheck = $ENV{WIDTH_CHECK} || 'error';
-my %WidthFatal = map { $_ => 1 } qw(signed section extent internal);
-$WidthFatal{box} = 1 if $WidthCheck eq 'strict';
+my %WidthFatal = map { $_ => 1 } qw(box signed section extent internal);
 my %WidthCounts;
 my $WidthErrors = 0;
 

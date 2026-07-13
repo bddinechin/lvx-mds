@@ -64,7 +64,6 @@ Integer
 	| '(' INDEX '.' Variable Abstract ')'
 	| '(' ACCESS '.' Stage '.' Proxy Abstract ')'
 	| '(' PROPERTY '.' Ident '.' Proxy Abstract ')'
-	| '(' APPLY '.' Ident Arguments Abstract ')'
 	| '(' APPLY '.' Width '.' Ident Arguments Abstract ')'
 	| '(' F2I '.' Width BitField Abstract ')'
 	| '(' SX '.' Width Integer Abstract ')'

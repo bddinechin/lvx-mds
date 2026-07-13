@@ -12960,10 +12960,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13001,10 +13001,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13042,10 +13042,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13081,10 +13081,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13122,10 +13122,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13163,10 +13163,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13202,10 +13202,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13243,10 +13243,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13284,10 +13284,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13323,10 +13323,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13364,10 +13364,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13405,10 +13405,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13444,10 +13444,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13485,10 +13485,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13526,10 +13526,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13565,10 +13565,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13606,10 +13606,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13647,10 +13647,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 1;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13688,10 +13688,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13729,10 +13729,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13770,10 +13770,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13809,10 +13809,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13850,10 +13850,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13891,10 +13891,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13930,10 +13930,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -13971,10 +13971,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14012,10 +14012,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14051,10 +14051,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14092,10 +14092,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14133,10 +14133,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14172,10 +14172,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14213,10 +14213,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14254,10 +14254,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14293,10 +14293,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14334,10 +14334,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14375,10 +14375,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 255;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14416,10 +14416,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14457,10 +14457,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14498,10 +14498,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14537,10 +14537,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14578,10 +14578,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14619,10 +14619,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14658,10 +14658,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14699,10 +14699,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14740,10 +14740,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14779,10 +14779,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14820,10 +14820,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14861,10 +14861,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14900,10 +14900,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14941,10 +14941,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -14982,10 +14982,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15021,10 +15021,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15062,10 +15062,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15103,10 +15103,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 3;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15144,10 +15144,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15185,10 +15185,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15226,10 +15226,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15265,10 +15265,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15306,10 +15306,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15347,10 +15347,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15386,10 +15386,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15427,10 +15427,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15468,10 +15468,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15507,10 +15507,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15548,10 +15548,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15589,10 +15589,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15628,10 +15628,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15669,10 +15669,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15710,10 +15710,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15749,10 +15749,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15790,10 +15790,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15831,10 +15831,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 4294967295;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15872,10 +15872,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15913,10 +15913,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15954,10 +15954,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -15993,10 +15993,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16034,10 +16034,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16075,10 +16075,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16114,10 +16114,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16155,10 +16155,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16196,10 +16196,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16235,10 +16235,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16276,10 +16276,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16317,10 +16317,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16356,10 +16356,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16397,10 +16397,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16438,10 +16438,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16477,10 +16477,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16518,10 +16518,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16559,10 +16559,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 65535;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16600,10 +16600,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16641,10 +16641,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16682,10 +16682,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16721,10 +16721,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16762,10 +16762,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16803,10 +16803,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16842,10 +16842,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16883,10 +16883,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16924,10 +16924,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -16963,10 +16963,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -17004,10 +17004,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -17045,10 +17045,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -17084,10 +17084,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -17125,10 +17125,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -17166,10 +17166,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -17205,10 +17205,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -17246,10 +17246,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -17287,10 +17287,10 @@ stage RR:
 stage E1:
   new argument1 = XVR[where];
   new bytemask = 15;
-  new targetbytes = bits2bytes(bytemask) << shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) << shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF & bytemask, variant, dri);
-  result1 = ((result1 << shift) & targetbytes) | (argument1 & ~targetbytes);
+  result1 = (_ZX_256(result1 << shift) & targetbytes) | (argument1 & _ZX_256(~targetbytes));
 stage CR:
   XVR[where] = result1;
 \end{lstlisting}}
@@ -43561,7 +43561,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43596,7 +43596,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43631,7 +43631,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43666,7 +43666,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43701,7 +43701,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43736,7 +43736,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43773,7 +43773,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43808,7 +43808,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43843,7 +43843,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43878,7 +43878,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43913,7 +43913,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;
@@ -43948,7 +43948,7 @@ stage RR:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) >> shift) | (_ZX_256(result1_1) << (256 - shift));
+    result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
   }
 stage E1:
   CS.XMF = 1;

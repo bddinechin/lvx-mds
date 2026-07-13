@@ -581,7 +581,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxl
+      (APPLY.64.wfxl
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -633,7 +633,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxl
+      (APPLY.64.wfxl
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -685,7 +685,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxl
+      (APPLY.64.wfxl
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -737,7 +737,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxm
+      (APPLY.64.wfxm
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -789,7 +789,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxm
+      (APPLY.64.wfxm
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -841,7 +841,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxm
+      (APPLY.64.wfxm
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -890,7 +890,7 @@ stage 2:
       (METHOD.%2)
       (METHOD.%1))
     (WRITE.result1
-      (APPLY.get
+      (APPLY.64.get
         (METHOD.%2)
         (ZX.64
           (READ.argument2))))
@@ -939,7 +939,7 @@ stage 2:
       (METHOD.%2)
       (METHOD.%1))
     (WRITE.result1
-      (APPLY.get
+      (APPLY.64.get
         (METHOD.%2)
         (ZX.64
           (READ.argument2))))
@@ -990,7 +990,7 @@ stage 2:
       (READ.index)
       (METHOD.%1))
     (WRITE.result1
-      (APPLY.get
+      (APPLY.64.get
         (READ.index)
         (F2I.64
           (LOAD.1
@@ -1459,7 +1459,7 @@ stage 1:
   (WRITE.andmask
     (READ.32[1].argument1))
   (WRITE.result1
-    (APPLY.waitit
+    (APPLY.64.waitit
       (READ.ormask)
       (READ.andmask)))
   (STORE.1
@@ -48878,12 +48878,12 @@ stage 5:
       (CONST.2147483648)
       (CONST.0)))
   (WRITE.32[0].result1
-    (APPLY.f32_add
+    (APPLY.32.f32_add
       (READ.RM)
       (READ.32[0].argument2)
       (READ.32[0].argument3)))
   (WRITE.32[1].result1
-    (APPLY.f32_add
+    (APPLY.32.f32_add
       (READ.RM)
       (XOR
         (READ.32[1].argument2)
@@ -48979,12 +48979,12 @@ stage 5:
       (CONST.2147483648)
       (CONST.0)))
   (WRITE.32[0].result1
-    (APPLY.f32_sub
+    (APPLY.32.f32_sub
       (READ.RM)
       (READ.32[0].argument3)
       (READ.32[0].argument2)))
   (WRITE.32[1].result1
-    (APPLY.f32_sub
+    (APPLY.32.f32_sub
       (READ.RM)
       (READ.32[1].argument3)
       (XOR

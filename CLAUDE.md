@@ -234,25 +234,34 @@ interpretation over integer intervals, run from `MDD/MDE/BIN/Opcode.pl` on each
 opcode's Behavior tree right after `Expand`, i.e. on exactly the tree that lands in
 `Opcode.table` and that `BE/LAO` hands to `CodeGen`. What it sees is what becomes C.
 
-It is read-only: it changes no generated file (all 455 reference files are
-byte-identical with it in place). It costs about 25% on the MDE step.
+It is read-only — it changes no generated file — and costs about 25% on the MDE step.
 
 | `WIDTH_CHECK` | Effect |
 |---|---|
-| unset / `error` | Default. Fatal on `signed`/`section`/`extent`/`internal`; the rest are counted in a one-line summary per core. |
+| unset / `error` | Default. Fatal on `box`/`signed`/`section`/`extent`/`internal`; the rest are counted in a one-line summary per core. |
 | `verbose` | List every diagnostic, not just the fatal ones. |
-| `strict` | Also make `box` fatal. **This currently fails** — see below. |
 | `warn` | Never fail the build. |
 | `off` | Skip the pass. |
 
-**The fatal set is empty on the current ISA, so any new violation of it fails the
-build.** `box` is not in it, deliberately: the `lvx_v2` byte-lane instructions
-(`xpl*`, `xaccesso`, `xaligno`) *rely* on `Int256_` truncating a mask shifted up to
-248 bits left, and `SHR` generates `Int256_shru`, on which `sraw`/`srad`/`avgw`/…
-rely for their sign bits. **The 256-bit container is load-bearing, not merely
-sufficient** — that is a real property of this ISA, it is documented nowhere else,
-and it is what a `Behavior` → Sail export would break. `Behavior.md` §3 has the
-details.
+**The fatal set is clean on the current ISA, so any new violation fails the build.**
+Two consequences worth knowing before you touch a `behavior:`:
+
+- **`APPLY` must declare a result width.** The widthless production is gone from
+  `DOC/Behavior.y`, so `(APPLY.f32_add ...)` is a syntax error and
+  `(APPLY.32.f32_add ...)` is not. Without it the value cannot be bounded and
+  nothing downstream of it can be checked.
+- **Truncation must be written down.** An overflow that a coercion then truncates is
+  fine and is not reported (the ring operations `+ - * << & | ^ ~` commute with
+  truncation), but an overflow that just falls off the end of `Int256_` is an error.
+  The `lvx_v2` byte-lane instructions (`xpl*`, `xaccesso`, `xaligno`) genuinely do
+  place a mask shifted up to 248 bits left inside a 256-bit `XVR` and depend on the
+  excess being dropped — they now say so with an explicit `ZX.256`.
+
+**One box dependence remains and is not checkable away:** `SHR` generates
+`Int256_shru`, a *logical* shift, and `sraw`/`srad`/`avgw`/… rely on it shifting in
+the container's sign bits. 89 sites, reported as `shr-negative`. Until `SHR` is
+renamed or redefined, **the 256-bit container width is part of the architecture**.
+`Behavior.md` §3 has the details.
 
 ## Key source files
 

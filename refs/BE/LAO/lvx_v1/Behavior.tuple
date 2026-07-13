@@ -648,7 +648,7 @@ execute_lvx_v1_WFXL_systemT2_registerZ_simple(void *this, OperandDecoded *decode
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxl
+      (APPLY.64.wfxl
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -718,7 +718,7 @@ execute_lvx_v1_WFXM_systemT2_registerZ_simple(void *this, OperandDecoded *decode
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxm
+      (APPLY.64.wfxm
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -788,7 +788,7 @@ execute_lvx_v1_GET_registerZ_systemS2_simple(void *this, OperandDecoded *decoded
       (METHOD.%2)
       (METHOD.%1))
     (WRITE.result1
-      (APPLY.get
+      (APPLY.64.get
         (METHOD.%2)
         (ZX.64
           (READ.argument2))))
@@ -859,7 +859,7 @@ execute_lvx_v1_IGET_registerZ_simple(void *this, OperandDecoded *decoded, Proces
       (READ.index)
       (METHOD.%1))
     (WRITE.result1
-      (APPLY.get
+      (APPLY.64.get
         (READ.index)
         (F2I.64
           (LOAD.1
@@ -1127,7 +1127,7 @@ execute_lvx_v1_WAITIT_registerZ_simple(void *this, OperandDecoded *decoded, Proc
   (WRITE.andmask
     (READ.32[1].argument1))
   (WRITE.result1
-    (APPLY.waitit
+    (APPLY.64.waitit
       (READ.ormask)
       (READ.andmask)))
   (STORE.1
@@ -66605,12 +66605,12 @@ execute_lvx_v1_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
       (CONST.2147483648)
       (CONST.0)))
   (WRITE.32[0].result1
-    (APPLY.f32_add
+    (APPLY.32.f32_add
       (READ.RM)
       (READ.32[0].argument2)
       (READ.32[0].argument3)))
   (WRITE.32[1].result1
-    (APPLY.f32_add
+    (APPLY.32.f32_add
       (READ.RM)
       (XOR
         (READ.32[1].argument2)
@@ -66776,12 +66776,12 @@ execute_lvx_v1_FSBFWC_conjugate_imultiply_floatmode_registerW_registerZ_register
       (CONST.2147483648)
       (CONST.0)))
   (WRITE.32[0].result1
-    (APPLY.f32_sub
+    (APPLY.32.f32_sub
       (READ.RM)
       (READ.32[0].argument3)
       (READ.32[0].argument2)))
   (WRITE.32[1].result1
-    (APPLY.f32_sub
+    (APPLY.32.f32_sub
       (READ.RM)
       (READ.32[1].argument3)
       (XOR

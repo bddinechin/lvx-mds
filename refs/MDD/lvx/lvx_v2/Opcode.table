@@ -581,7 +581,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxl
+      (APPLY.64.wfxl
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -633,7 +633,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxl
+      (APPLY.64.wfxl
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -685,7 +685,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxl
+      (APPLY.64.wfxl
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -737,7 +737,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxm
+      (APPLY.64.wfxm
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -789,7 +789,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxm
+      (APPLY.64.wfxm
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -841,7 +841,7 @@ stage 5:
       (METHOD.%1)
       (METHOD.%2))
     (WRITE.result1
-      (APPLY.wfxm
+      (APPLY.64.wfxm
         (METHOD.%1)
         (ZX.64
           (READ.argument2))))
@@ -890,7 +890,7 @@ stage 2:
       (METHOD.%2)
       (METHOD.%1))
     (WRITE.result1
-      (APPLY.get
+      (APPLY.64.get
         (METHOD.%2)
         (ZX.64
           (READ.argument2))))
@@ -939,7 +939,7 @@ stage 2:
       (METHOD.%2)
       (METHOD.%1))
     (WRITE.result1
-      (APPLY.get
+      (APPLY.64.get
         (METHOD.%2)
         (ZX.64
           (READ.argument2))))
@@ -990,7 +990,7 @@ stage 2:
       (READ.index)
       (METHOD.%1))
     (WRITE.result1
-      (APPLY.get
+      (APPLY.64.get
         (READ.index)
         (F2I.64
           (LOAD.1
@@ -1459,7 +1459,7 @@ stage 1:
   (WRITE.andmask
     (READ.32[1].argument1))
   (WRITE.result1
-    (APPLY.waitit
+    (APPLY.64.waitit
       (READ.ormask)
       (READ.andmask)))
   (STORE.1
@@ -4750,7 +4750,7 @@ stage 4:
       (METHOD.%3:0)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_0)
         (READ.result1_0)
         (READ.qindex))))
@@ -4759,7 +4759,7 @@ stage 4:
       (METHOD.%3:1)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_1)
         (READ.result1_1)
         (READ.qindex))))
@@ -4768,7 +4768,7 @@ stage 4:
       (METHOD.%3:2)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_2)
         (READ.result1_2)
         (READ.qindex))))
@@ -4777,7 +4777,7 @@ stage 4:
       (METHOD.%3:3)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_3)
         (READ.result1_3)
         (READ.qindex)))))
@@ -4910,7 +4910,7 @@ stage 4:
       (METHOD.%3:0)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_0)
         (READ.result1_0)
         (READ.qindex))))
@@ -4919,7 +4919,7 @@ stage 4:
       (METHOD.%3:1)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_1)
         (READ.result1_1)
         (READ.qindex))))
@@ -4928,7 +4928,7 @@ stage 4:
       (METHOD.%3:2)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_2)
         (READ.result1_2)
         (READ.qindex))))
@@ -4937,7 +4937,7 @@ stage 4:
       (METHOD.%3:3)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_3)
         (READ.result1_3)
         (READ.qindex)))))
@@ -5070,7 +5070,7 @@ stage 4:
       (METHOD.%3:0)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_0)
         (READ.result1_0)
         (READ.qindex))))
@@ -5079,7 +5079,7 @@ stage 4:
       (METHOD.%3:1)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_1)
         (READ.result1_1)
         (READ.qindex))))
@@ -5088,7 +5088,7 @@ stage 4:
       (METHOD.%3:2)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_2)
         (READ.result1_2)
         (READ.qindex))))
@@ -5097,7 +5097,7 @@ stage 4:
       (METHOD.%3:3)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_3)
         (READ.result1_3)
         (READ.qindex)))))
@@ -5333,7 +5333,7 @@ stage 2:
       (METHOD.%3:0)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_0)
         (READ.result1_0)
         (READ.qindex))))
@@ -5342,7 +5342,7 @@ stage 2:
       (METHOD.%3:1)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_1)
         (READ.result1_1)
         (READ.qindex))))
@@ -5351,7 +5351,7 @@ stage 2:
       (METHOD.%3:2)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_2)
         (READ.result1_2)
         (READ.qindex))))
@@ -5360,7 +5360,7 @@ stage 2:
       (METHOD.%3:3)
       (CONST.1))
     (I2F.256
-      (APPLY.insert_64
+      (APPLY.256.insert_64
         (READ.argument1_3)
         (READ.result1_3)
         (READ.qindex)))))
@@ -5392,10 +5392,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -5447,10 +5447,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -5468,14 +5469,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -5512,10 +5515,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -5574,10 +5577,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -5595,14 +5599,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -5639,10 +5645,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -5701,10 +5707,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -5722,14 +5729,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -5764,10 +5773,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
   XVR[where] = result1;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-buffer4Reg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-variant"
@@ -5818,10 +5827,11 @@ stage 2:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -5839,14 +5849,16 @@ stage 2:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -5883,10 +5895,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -5945,10 +5957,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -5966,14 +5979,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -6010,10 +6025,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -6072,10 +6087,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -6093,14 +6109,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -6135,10 +6153,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -6190,10 +6208,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -6211,14 +6230,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -6255,10 +6276,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -6317,10 +6338,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -6338,14 +6360,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -6382,10 +6406,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -6444,10 +6468,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -6465,14 +6490,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -6507,10 +6534,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -6562,10 +6589,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -6583,14 +6611,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -6627,10 +6657,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -6689,10 +6719,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -6710,14 +6741,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -6754,10 +6787,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -6816,10 +6849,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -6837,14 +6871,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -6879,10 +6915,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -6934,10 +6970,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -6955,14 +6992,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -6999,10 +7038,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -7061,10 +7100,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -7082,14 +7122,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -7126,10 +7168,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -7188,10 +7230,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -7209,14 +7252,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -7251,10 +7296,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -7306,10 +7351,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -7327,14 +7373,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -7371,10 +7419,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -7433,10 +7481,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -7454,14 +7503,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -7498,10 +7549,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x1 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -7560,10 +7611,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.1))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -7581,14 +7633,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -7623,10 +7677,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -7678,10 +7732,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -7699,14 +7754,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -7743,10 +7800,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -7805,10 +7862,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -7826,14 +7884,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -7870,10 +7930,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -7932,10 +7992,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -7953,14 +8014,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -7995,10 +8058,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
   XVR[where] = result1;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-buffer4Reg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-variant"
@@ -8049,10 +8112,11 @@ stage 2:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -8070,14 +8134,16 @@ stage 2:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -8114,10 +8180,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -8176,10 +8242,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -8197,14 +8264,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -8241,10 +8310,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -8303,10 +8372,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -8324,14 +8394,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -8366,10 +8438,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -8421,10 +8493,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -8442,14 +8515,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -8486,10 +8561,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -8548,10 +8623,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -8569,14 +8645,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -8613,10 +8691,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -8675,10 +8753,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -8696,14 +8775,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -8738,10 +8819,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -8793,10 +8874,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -8814,14 +8896,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -8858,10 +8942,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -8920,10 +9004,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -8941,14 +9026,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -8985,10 +9072,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -9047,10 +9134,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -9068,14 +9156,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -9110,10 +9200,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -9165,10 +9255,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -9186,14 +9277,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -9230,10 +9323,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -9292,10 +9385,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -9313,14 +9407,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -9357,10 +9453,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -9419,10 +9515,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -9440,14 +9537,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -9482,10 +9581,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -9537,10 +9636,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -9558,14 +9658,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -9602,10 +9704,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -9664,10 +9766,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -9685,14 +9788,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -9729,10 +9834,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0x3 &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -9791,10 +9896,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.3))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -9812,14 +9918,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -9854,10 +9962,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -9909,10 +10017,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -9930,14 +10039,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -9974,10 +10085,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -10036,10 +10147,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -10057,14 +10169,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -10101,10 +10215,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -10163,10 +10277,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -10184,14 +10299,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -10226,10 +10343,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
   XVR[where] = result1;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-buffer4Reg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-variant"
@@ -10280,10 +10397,11 @@ stage 2:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -10301,14 +10419,16 @@ stage 2:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -10345,10 +10465,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -10407,10 +10527,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -10428,14 +10549,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -10472,10 +10595,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -10534,10 +10657,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -10555,14 +10679,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -10597,10 +10723,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -10652,10 +10778,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -10673,14 +10800,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -10717,10 +10846,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -10779,10 +10908,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -10800,14 +10930,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -10844,10 +10976,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -10906,10 +11038,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -10927,14 +11060,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -10969,10 +11104,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -11024,10 +11159,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -11045,14 +11181,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -11089,10 +11227,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -11151,10 +11289,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -11172,14 +11311,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -11216,10 +11357,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -11278,10 +11419,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -11299,14 +11441,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -11341,10 +11485,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -11396,10 +11540,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -11417,14 +11562,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -11461,10 +11608,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -11523,10 +11670,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -11544,14 +11692,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -11588,10 +11738,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -11650,10 +11800,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -11671,14 +11822,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -11713,10 +11866,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -11768,10 +11921,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -11789,14 +11943,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -11833,10 +11989,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -11895,10 +12051,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -11916,14 +12073,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -11960,10 +12119,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -12022,10 +12181,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.15))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -12043,14 +12203,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -12085,10 +12247,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -12140,10 +12302,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -12161,14 +12324,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -12205,10 +12370,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -12267,10 +12432,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -12288,14 +12454,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -12332,10 +12500,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -12394,10 +12562,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -12415,14 +12584,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -12457,10 +12628,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
   XVR[where] = result1;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-buffer4Reg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-variant"
@@ -12511,10 +12682,11 @@ stage 2:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -12532,14 +12704,16 @@ stage 2:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -12576,10 +12750,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -12638,10 +12812,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -12659,14 +12834,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -12703,10 +12880,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -12765,10 +12942,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -12786,14 +12964,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -12828,10 +13008,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -12883,10 +13063,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -12904,14 +13085,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -12948,10 +13131,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -13010,10 +13193,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -13031,14 +13215,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -13075,10 +13261,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -13137,10 +13323,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -13158,14 +13345,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -13200,10 +13389,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -13255,10 +13444,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -13276,14 +13466,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -13320,10 +13512,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -13382,10 +13574,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -13403,14 +13596,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -13447,10 +13642,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -13509,10 +13704,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -13530,14 +13726,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -13572,10 +13770,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -13627,10 +13825,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -13648,14 +13847,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -13692,10 +13893,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -13754,10 +13955,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -13775,14 +13977,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -13819,10 +14023,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -13881,10 +14085,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -13902,14 +14107,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -13944,10 +14151,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -13999,10 +14206,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -14020,14 +14228,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -14064,10 +14274,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -14126,10 +14336,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -14147,14 +14358,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -14191,10 +14404,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -14253,10 +14466,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.255))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -14274,14 +14488,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -14316,10 +14532,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -14371,10 +14587,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -14392,14 +14609,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -14436,10 +14655,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -14498,10 +14717,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -14519,14 +14739,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -14563,10 +14785,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -14625,10 +14847,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -14646,14 +14869,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -14688,10 +14913,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
   XVR[where] = result1;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-buffer4Reg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-variant"
@@ -14742,10 +14967,11 @@ stage 2:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -14763,14 +14989,16 @@ stage 2:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -14807,10 +15035,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -14869,10 +15097,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -14890,14 +15119,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -14934,10 +15165,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -14996,10 +15227,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -15017,14 +15249,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -15059,10 +15293,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -15114,10 +15348,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -15135,14 +15370,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -15179,10 +15416,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -15241,10 +15478,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -15262,14 +15500,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -15306,10 +15546,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -15368,10 +15608,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -15389,14 +15630,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -15431,10 +15674,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -15486,10 +15729,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -15507,14 +15751,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -15551,10 +15797,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -15613,10 +15859,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -15634,14 +15881,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -15678,10 +15927,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -15740,10 +15989,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -15761,14 +16011,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -15803,10 +16055,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -15858,10 +16110,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -15879,14 +16132,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -15923,10 +16178,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -15985,10 +16240,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -16006,14 +16262,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -16050,10 +16308,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -16112,10 +16370,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -16133,14 +16392,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -16175,10 +16436,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -16230,10 +16491,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -16251,14 +16513,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -16295,10 +16559,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -16357,10 +16621,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -16378,14 +16643,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -16422,10 +16689,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -16484,10 +16751,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.65535))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -16505,14 +16773,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -16547,10 +16817,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -16602,10 +16872,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -16623,14 +16894,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -16667,10 +16940,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -16729,10 +17002,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -16750,14 +17024,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -16794,10 +17070,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -16856,10 +17132,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -16877,14 +17154,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -16919,10 +17198,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
   XVR[where] = result1;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-buffer4Reg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-variant"
@@ -16973,10 +17252,11 @@ stage 2:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -16994,14 +17274,16 @@ stage 2:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -17038,10 +17320,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -17100,10 +17382,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -17121,14 +17404,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -17165,10 +17450,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -17227,10 +17512,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -17248,14 +17534,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -17290,10 +17578,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -17345,10 +17633,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -17366,14 +17655,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -17410,10 +17701,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -17472,10 +17763,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -17493,14 +17785,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -17537,10 +17831,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -17599,10 +17893,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -17620,14 +17915,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -17662,10 +17959,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -17717,10 +18014,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -17738,14 +18036,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -17782,10 +18082,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -17844,10 +18144,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -17865,14 +18166,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -17909,10 +18212,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -17971,10 +18274,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -17992,14 +18296,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -18034,10 +18340,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -18089,10 +18395,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -18110,14 +18417,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -18154,10 +18463,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -18216,10 +18525,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -18237,14 +18547,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -18281,10 +18593,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -18343,10 +18655,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -18364,14 +18677,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -18406,10 +18721,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -18461,10 +18776,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -18482,14 +18798,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -18526,10 +18844,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -18588,10 +18906,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -18609,14 +18928,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -18653,10 +18974,10 @@ stage 1:
 stage 2:
   new argument1 = XVR[where];
   new bytemask = (1 &lt;&lt; %0.MemorySize) - 1;
-  new targetbytes = bits2bytes(bytemask) &lt;&lt; shift;
+  new targetbytes = _ZX_256(bits2bytes(bytemask) &lt;&lt; shift);
   CS.XMF = 1;
   new result1 = MEM.load(address, 0xFFFFFFFF &amp; bytemask, variant, dri);
-  result1 = ((result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; ~targetbytes);
+  result1 = (_ZX_256(result1 &lt;&lt; shift) &amp; targetbytes) | (argument1 &amp; _ZX_256(~targetbytes));
 stage 4:
   XVR[where] = result1;
 </Execution><Behavior
@@ -18715,10 +19036,11 @@ stage 4:
   (WRITE.bytemask
     (CONST.4294967295))
   (WRITE.targetbytes
-    (SHL
-      (APPLY.256.bits2bytes
-        (READ.bytemask))
-      (READ.shift)))
+    (ZX.256
+      (SHL
+        (APPLY.256.bits2bytes
+          (READ.bytemask))
+        (READ.shift))))
   (STORE.2
     (AGGL.CS
       (CONST.24)
@@ -18736,14 +19058,16 @@ stage 4:
   (WRITE.result1
     (IOR
       (AND
-        (SHL
-          (READ.result1)
-          (READ.shift))
+        (ZX.256
+          (SHL
+            (READ.result1)
+            (READ.shift)))
         (READ.targetbytes))
       (AND
         (READ.argument1)
-        (NOT
-          (READ.targetbytes)))))
+        (ZX.256
+          (NOT
+            (READ.targetbytes))))))
   (STORE.4
     (AGGL.XVR
       (READ.where)
@@ -93742,12 +94066,12 @@ stage 5:
       (CONST.2147483648)
       (CONST.0)))
   (WRITE.32[0].result1
-    (APPLY.f32_add
+    (APPLY.32.f32_add
       (READ.RM)
       (READ.32[0].argument2)
       (READ.32[0].argument3)))
   (WRITE.32[1].result1
-    (APPLY.f32_add
+    (APPLY.32.f32_add
       (READ.RM)
       (XOR
         (READ.32[1].argument2)
@@ -93843,12 +94167,12 @@ stage 5:
       (CONST.2147483648)
       (CONST.0)))
   (WRITE.32[0].result1
-    (APPLY.f32_sub
+    (APPLY.32.f32_sub
       (READ.RM)
       (READ.32[0].argument3)
       (READ.32[0].argument2)))
   (WRITE.32[1].result1
-    (APPLY.f32_sub
+    (APPLY.32.f32_sub
       (READ.RM)
       (READ.32[1].argument3)
       (XOR
@@ -94711,7 +95035,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -94783,12 +95107,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -94831,7 +95156,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -94903,12 +95228,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -94951,7 +95277,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -95023,12 +95349,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -95071,7 +95398,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -95143,12 +95470,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -95191,7 +95519,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -95263,12 +95591,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -95311,7 +95640,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -95381,12 +95710,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -95477,7 +95807,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -95549,12 +95879,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -95597,7 +95928,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -95669,12 +96000,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -95717,7 +96049,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -95789,12 +96121,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -95837,7 +96170,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -95909,12 +96242,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -95957,7 +96291,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -96029,12 +96363,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS
@@ -96077,7 +96412,7 @@ stage 1:
   new result1_1 = XVR[where_1];
   new result1 = result1_0;
   if (shift) {
-    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | (_ZX_256(result1_1) &lt;&lt; (256 - shift));
+    result1 = (_ZX_256(result1_0) &gt;&gt; shift) | _ZX_256(_ZX_256(result1_1) &lt;&lt; (256 - shift));
   }
 stage 2:
   CS.XMF = 1;
@@ -96147,12 +96482,13 @@ stage 4:
           (ZX.256
             (READ.result1_0))
           (READ.shift))
-        (SHL
-          (ZX.256
-            (READ.result1_1))
-          (SUB
-            (CONST.256)
-            (READ.shift)))))
+        (ZX.256
+          (SHL
+            (ZX.256
+              (READ.result1_1))
+            (SUB
+              (CONST.256)
+              (READ.shift))))))
     (SKIP))
   (STORE.2
     (AGGL.CS

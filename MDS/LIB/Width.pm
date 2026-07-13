@@ -178,14 +178,32 @@ sub _swidth {			# minimal signed width holding the interval, undef past the box
 # The representability check, applied to every Integer node as it is evaluated.
 # This is the one that answers "is 256 bits enough".
 #
+# $trunc is the truncation context: the width this node's value is about to be cut
+# down to, or undef if nothing cuts it.  An overflow that is then truncated to no
+# more than BOX bits is harmless, and must not be reported -- the ring operations
+# (+ - * << & | ^ ~) all commute with truncation, exactly as C's unsigned
+# arithmetic does, so the low w bits of the true result and of the truncated one
+# agree.  ZX.256(SHL(x, n)) is therefore *exactly* what Int256_shl computes, even
+# though the mathematical x << n needs 504 bits; the description is right and the
+# generated C implements it.  Only _trunc() (below) sets this, and only the ring
+# operations pass it down -- SHR, DIV, comparisons and the counting operators all
+# read the value rather than its low bits, so an overflow that reaches one of them
+# is real and is reported.
+#
 sub _box {
-    my ($lo, $hi, $what) = @_;
+    my ($lo, $hi, $what, $trunc) = @_;
     return ($lo, $hi) unless defined $lo && defined $hi;
     if ($lo < -_pow2($BOX - 1) || $hi > _pow2($BOX) - 1 || $hi - $lo >= _pow2($BOX)) {
-        my $width = _swidth($lo, $hi);
-        _report('box', "$what does not fit the $BOX-bit container"
-          . ' (' . (defined $width ? "$width signed bits" : "over $BOX bits")
-          . "), so Int256_ truncates it: [$lo, $hi]");
+        unless (defined $trunc && $trunc <= $BOX) {
+            my $width = _swidth($lo, $hi);
+            _report('box', "$what does not fit the $BOX-bit container"
+              . ' (' . (defined $width ? "$width signed bits" : "over $BOX bits")
+              . "), so Int256_ truncates it: [$lo, $hi]");
+        }
+        # Keep the intervals of a truncated computation from running away: nothing
+        # past a couple of container widths tells us anything the coercion above
+        # will not overwrite anyway.
+        return (undef, undef) if $lo < -_pow2(2 * $BOX) || $hi > _pow2(2 * $BOX);
     }
     return ($lo, $hi);
 }
@@ -252,7 +270,7 @@ sub _field {
     if ($operator eq 'LOAD') {
         return _location($this->[2], $env, 'LOAD');
     } elsif ($operator eq 'I2F') {
-        _int($this->[2], $env);		# for its own checks; I2F truncates by design
+        _int($this->[2], $env, $this->[1]);	# I2F truncates to its width by design
         return $this->[1];
     }
     _report('internal', "unexpected BitField operator $operator");
@@ -263,7 +281,7 @@ sub _field {
 # The interval of an Integer node.
 #
 sub _int {
-    my ($this, $env) = @_;
+    my ($this, $env, $trunc) = @_;
     confess "not a node" unless ref $this eq 'ARRAY';
     my $operator = $this->[0];
     my ($lo, $hi) = (undef, undef);
@@ -325,17 +343,21 @@ sub _int {
     } elsif ($operator eq 'SX') {
         # SX reinterprets bit width-1 as the sign; it does not read the container's
         # own sign, so a wide unsigned value is not misread here -- only truncated,
-        # which is what SX is for.
-        _int($this->[2], $env);
+        # which is what SX is for.  Hence it truncates its operand.
+        _int($this->[2], $env, _trunc($this->[1], $trunc));
         ($lo, $hi) = _signed($this->[1]);
+
+    } elsif ($operator eq 'ZX') {
+        _int($this->[2], $env, _trunc($this->[1], $trunc));
+        ($lo, $hi) = _unsigned($this->[1]);
 
     } elsif ($operator eq 'SAT') {
         # SAT clamps against the signed width-bit range, so it does compare the
-        # whole value and does read the container's sign.
+        # whole value: it reads the container's sign and does NOT truncate.
         _needsigned(_int($this->[2], $env), $operator);
         ($lo, $hi) = _signed($this->[1]);
 
-    } elsif ($operator eq 'ZX' || $operator eq 'SATU' || $operator eq 'SWAP') {
+    } elsif ($operator eq 'SATU' || $operator eq 'SWAP') {
         _int($this->[2], $env);
         ($lo, $hi) = _unsigned($this->[1]);
 
@@ -354,18 +376,18 @@ sub _int {
         ($lo, $hi) = (_big(0), _big(1));
 
     } elsif ($operator eq 'SELECT') {
-        _value($this->[1], $env);
-        my ($lo1, $hi1) = _int($this->[2], $env);
-        my ($lo2, $hi2) = _int($this->[3], $env);
+        _value($this->[1], $env);		# the condition is not truncated
+        my ($lo1, $hi1) = _int($this->[2], $env, $trunc);
+        my ($lo2, $hi2) = _int($this->[3], $env, $trunc);
         ($lo, $hi) = _join($lo1, $hi1, $lo2, $hi2);
 
     } elsif ($operator eq 'NEG') {
-        my ($l, $h) = _int($this->[1], $env);
-        _needsigned($l, $h, $operator);
+        my ($l, $h) = _int($this->[1], $env, $trunc);
+        _needsigned($l, $h, $operator) unless defined $trunc;
         ($lo, $hi) = (defined $h ? -$h : undef, defined $l ? -$l : undef);
 
     } elsif ($operator eq 'NOT') {			# two's complement: ~x = -x-1
-        my ($l, $h) = _int($this->[1], $env);
+        my ($l, $h) = _int($this->[1], $env, $trunc);
         ($lo, $hi) = (defined $h ? -$h - 1 : undef, defined $l ? -$l - 1 : undef);
 
     } elsif ($operator eq 'ABS') {
@@ -378,20 +400,39 @@ sub _int {
         }
 
     } else {
-        ($lo, $hi) = _binary($this, $env);
+        ($lo, $hi) = _binary($this, $env, $trunc);
     }
 
-    return _box($lo, $hi, $operator);
+    return _box($lo, $hi, $operator, $trunc);
+}
+
+#
+# Narrow a truncation context to $width.  A coercion to $width discards everything
+# above bit $width-1, so its operand is truncated to $width regardless of whatever
+# wider truncation was already in force.
+#
+sub _trunc {
+    my ($width, $trunc) = @_;
+    return $trunc unless $width;
+    return (defined $trunc && $trunc < $width) ? $trunc : $width;
 }
 
 #
 # The binary arithmetic and bitwise operators.
 #
+my %Ring = map { $_ => 1 } qw(ADD SUB MUL AND IOR XOR);
+
 sub _binary {
-    my ($this, $env) = @_;
+    my ($this, $env, $trunc) = @_;
     my $operator = $this->[0];
-    my ($l1, $h1) = _int($this->[1], $env);
-    my ($l2, $h2) = _int($this->[2], $env);
+
+    # A ring operation commutes with truncation, so its operands inherit the
+    # context.  SHL does too, but only in its value -- the shift amount has to be
+    # exact.  Everything else (SHR, DIV, REM, MOD, MIN, MAX) reads the value rather
+    # than its low bits, so an overflow reaching it is real: no context passes down.
+    my $inner = $Ring{$operator} ? $trunc : undef;
+    my ($l1, $h1) = _int($this->[1], $env, $operator eq 'SHL' ? $trunc : $inner);
+    my ($l2, $h2) = _int($this->[2], $env, $inner);
 
     if ($operator eq 'ADD') {
         return (_add($l1, $l2), _add($h1, $h2));
@@ -426,7 +467,7 @@ sub _binary {
         return defined $magnitude ? (-$magnitude, $magnitude) : (undef, undef);
 
     } elsif ($operator eq 'SHL') {
-        return _shl($l1, $h1, $l2, $h2);
+        return _shl($l1, $h1, $l2, $h2, $trunc);
 
     } elsif ($operator eq 'SHR') {
         return _shr($l1, $h1, $l2, $h2);
@@ -457,7 +498,7 @@ sub _products {
 }
 
 sub _shl {
-    my ($l1, $h1, $l2, $h2) = @_;
+    my ($l1, $h1, $l2, $h2, $trunc) = @_;
     if (!defined $l2 || $l2 < 0) {
         _report('shift', 'SHL by an amount that may be negative');
         return (undef, undef);
@@ -469,8 +510,10 @@ sub _shl {
     if ($h2 > $BOX) {
         # Never evaluate 2^h2 for an h2 that is merely *bounded* -- a shift by a
         # 64-bit register is bounded by 2^64-1, and _pow2 of that eats the machine.
-        # Anything shifted that far leaves the container anyway.
-        _report('box', "SHL by up to $h2 leaves the $BOX-bit container");
+        # Anything shifted that far leaves the container; under a truncation that is
+        # fine (the bits were going to be discarded), otherwise it is an overflow.
+        _report('box', "SHL by up to $h2 leaves the $BOX-bit container")
+          unless defined $trunc && $trunc <= $BOX;
         return (undef, undef);
     }
     ($l2, $h2) = ($l2->numify(), $h2->numify());
@@ -507,8 +550,14 @@ sub _shr {
           . " sign bits of the ${BOX}-bit container, so the result depends on it");
         return _unsigned($BOX - $l2);
     }
-    return (defined $l1 ? $l1->copy()->bdiv(_pow2($h2))->bfloor() : undef,
-            defined $h1 ? $h1->copy()->bdiv(_pow2($l2))->bfloor() : undef);
+    # brsft, not bdiv.  BitString.pm has `use bignum`, which globally sets
+    # Math::BigInt->upgrade('Math::BigFloat') -- so bdiv upgrades to a float and
+    # rounds to div_scale (40) significant digits, and (2^256-1) >> 0 comes back as
+    # 2^256 and change.  Every other operation here is exact and stays in BigInt;
+    # division is the only one that can go inexact, so it is the only one to avoid.
+    # The operand is non-negative on this path, so a bit shift is the floor divide.
+    return (defined $l1 ? $l1->copy()->brsft($h2) : undef,
+            defined $h1 ? $h1->copy()->brsft($l2) : undef);
 }
 
 sub _bitwise {
