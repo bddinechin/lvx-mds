@@ -1,3 +1,5 @@
+# Generated from DOC/MDD.dtd by BIN/dtd2pm.pl -- DO NOT EDIT.
+# Regenerate with: make -f Maintainer MDD.pm && mv MDD.pm LIB/
 package MDD;
 $CORE = $ENV{CORE};
 $FAMILY =  $ENV{FAMILY};

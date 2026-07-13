@@ -7,20 +7,25 @@ my $DTD = ParseDTDFile $ARGV[0];
 #use Data::Dumper;
 #print STDERR Dumper($DTD);
 
+my $dtd = $ARGV[0];
+print << "EOT";
+# Generated from $dtd by BIN/dtd2pm.pl -- DO NOT EDIT.
+# Regenerate with: make -f Maintainer MDD.pm && mv MDD.pm LIB/
+EOT
 print << 'EOT';
 package MDD;
 $CORE = $ENV{CORE};
 $FAMILY =  $ENV{FAMILY};
 sub ID {
-  my ($type, $name) = @_;
-  return undef unless defined $name;
-  join '-', ($type, $CORE, $name);
+    my ($type, $name) = @_;
+    return undef unless defined $name;
+    join '-', ($type, $CORE, $name);
 }
 sub IDs {
-  my ($type, $names) = @_;
-  return undef unless defined $names;
-  my @names = ref $names? @{$names}: (split ' ', $names);
-  [ map { &ID($type, $_) } @names ];
+    my ($type, $names) = @_;
+    return undef unless defined $names;
+    my @names = ref $names? @{$names}: (split ' ', $names);
+    [ map { &ID($type, $_) } @names ];
 }
 
 EOT
@@ -31,6 +36,7 @@ foreach my $element (sort keys %{$DTD}) {
 print << 'EOT';
 
 1;
+# vim: set ts=4 sw=4 et:
 EOT
 
 sub process {
@@ -48,24 +54,24 @@ EOT
         my $default = $attributes->{$attribute}->[2] || 'undef';
         #print STDERR "ATTRIBUTE $attribute:\t$type\t$option\n";
         #print STDERR Dumper($$attributes{$attribute});
-        print "  $attribute=>\t[ '$type', '$option', '$default' ],\n";
+        print "    $attribute=>\t[ '$type', '$option', '$default' ],\n";
     }
-    print ");\n";
+    print "  );\n";
     print << 'EOT';
 sub attlist { return \%ATTLIST; }
 @table = ();
 @noname = ();
 sub enter {
-  my ($self) = @_;
-  my $ID = $self->{ATTRIBUTES}->{ID};
-  if (defined $ID) {
-    my $name = (split '-', $ID)[2];
-    if (defined $name) {
-      push @table, $self
-    } else {
-      push @noname, $self
+    my ($self) = @_;
+    my $ID = $self->{ATTRIBUTES}->{ID};
+    if (defined $ID) {
+        my $name = (split '-', $ID)[2];
+        if (defined $name) {
+            push @table, $self
+        } else {
+            push @noname, $self
+        }
     }
-  }
 }
 
 EOT
