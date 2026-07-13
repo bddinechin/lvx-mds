@@ -88,15 +88,15 @@ Several files under `MDS/` that look hand-written are **generated**, and are reg
 | Generated file | From | By | Needs |
 |---|---|---|---|
 | `MDS/LIB/MDD.pm` | `MDS/DOC/MDD.dtd` | `BIN/dtd2pm.pl` | — |
-| `MDS/LIB/Behavior.pm` | `LIB/Behavior.pa` + `DOC/Behavior.y` | `bison -v` + `BIN/yaxcc.pl` | **bison 2.7** |
-| `MDS/LIB/Execution.pm` | `LIB/Execution.pa` + `DOC/Execution.y` | same | **bison 2.7** |
-| `MDS/LIB/Takumi.pm` | `LIB/Takumi.pa` + `DOC/Takumi.y` | same | **bison 2.7** |
+| `MDS/LIB/Behavior.pm` | `LIB/Behavior.pa` + `DOC/Behavior.y` | `bison -v` + `BIN/yaxcc.pl` | any bison (2.x or 3.x) |
+| `MDS/LIB/Execution.pm` | `LIB/Execution.pa` + `DOC/Execution.y` | same | any bison (2.x or 3.x) |
+| `MDS/LIB/Takumi.pm` | `LIB/Takumi.pa` + `DOC/Takumi.y` | same | any bison (2.x or 3.x) |
 | `MDS/configure` | `MDS/configure.ac` | `autoconf` | **autoconf 2.71** |
 
-`MDS/GNU-VERSIONS` pins **bison 2.7** and **autoconf 2.71**, and the `Maintainer`'s `all` target enforces it. Those pins are real, not stale:
+`MDS/GNU-VERSIONS` records the reference versions (**bison 3.8**, **autoconf 2.71**) and the `Maintainer`'s `all` target diffs the installed ones against it. Only the autoconf pin is load-bearing:
 
-- **bison 3.x silently produces a broken parser.** Bison 3 renamed `$empty` to a literal `ε` in its `.output`, and `yaxcc.pl`'s rule matcher does not recognize it, so it fails to attach semantic actions — rules quietly become `undef;` instead of their action. It does not fail loudly. Neither version is packaged by modern distros; build 2.7 from source (its gnulib `lib/fseterr.c` needs a one-line patch for glibc ≥ 2.28, which no longer defines `_IO_ftrylockfile`).
-- **autoconf 2.72 rewrites the whole `configure`** (~280 lines of boilerplate), burying the real change.
+- **autoconf 2.72 rewrites the whole `configure`** (~280 lines of boilerplate), burying the real change. This one still matters.
+- **bison version no longer matters.** `yaxcc.pl` normalizes the empty-rule annotation, so bison 2.x and 3.x both regenerate the committed `*.pm` byte-identically. It used to matter, and failed *silently*: bison 3 stopped writing `/* empty */` and yaxcc did not recognize the replacement, so an empty rule kept its annotation — which meant it no longer matched its `#rule` tag (losing the semantic action, leaving `undef;`) and counted as one symbol instead of none (wrong rule length). Note bison 3 spells it **two** ways depending on the locale — a UTF-8 `ε` under e.g. `LC_ALL=C.UTF-8`, `%empty` otherwise — so both are normalized, along with 2.x's `/* empty */`. If you teach the grammars anything new, keep that normalization honest: this is the failure mode that does not announce itself.
 
 Two rules when touching this:
 

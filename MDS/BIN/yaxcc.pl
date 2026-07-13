@@ -90,7 +90,16 @@ while (<Y>) {
     /^[Ss]tate (\d+)$/ and $state = $1, next;
     if ($grammar) {
         # We are reading the grammar rules.
-        s/\/\*\s*empty\s*\*\//\$empty/;		# Normalize /* empty */ annotation.
+        # Normalize the empty rule annotation to $empty, which is the form the
+        # parsing-actions files use in their #rule tags. Bison spells it three
+        # ways: /* empty */ up to 2.x, then from 3.x on either a UTF-8 epsilon
+        # or %empty, depending on whether the locale can represent the epsilon.
+        # Getting this wrong is quiet: the rule keeps its annotation, so it no
+        # longer matches its #rule tag and silently loses its semantic action,
+        # and it counts as one symbol instead of none, so its length is wrong.
+        s/\/\*\s*empty\s*\*\//\$empty/;		# Bison 2.x.
+        s/\xce\xb5/\$empty/;			# Bison 3.x, UTF-8 locale (U+03B5).
+        s/%empty/\$empty/;			# Bison 3.x, otherwise.
         my ($ruleno, $rhs, $lhs);
         # Rules and reductions are converses, so the
         # rule's left side is the reduction's result.
