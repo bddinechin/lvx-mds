@@ -79,7 +79,7 @@ Build order between `DOC`/`FE/YAML`/`MDD/MDE`/`MDD/MDF` is a strict chain (each 
 cd lvx-family && autoconf   # or: cd MDS && autoconf
 ```
 
-**Use autoconf 2.71**, the version `MDS/GNU-VERSIONS` pins: the committed `configure` scripts were generated with it, and regenerating with anything else rewrites the whole script (2.72 produces ~280 lines of boilerplate churn) and buries whatever you actually changed. See "Generated files and their toolchain pins" below.
+Both `configure` scripts are generated with **autoconf 2.72** (what `MDS/GNU-VERSIONS` records). Regenerating with a different autoconf still works, but rewrites ~300 lines of its own boilerplate — see "Generated files and their toolchain pins" below.
 
 ## Generated files and their toolchain pins
 
@@ -91,11 +91,11 @@ Several files under `MDS/` that look hand-written are **generated**, and are reg
 | `MDS/LIB/Behavior.pm` | `LIB/Behavior.pa` + `DOC/Behavior.y` | `bison -v` + `BIN/yaxcc.pl` | any bison (2.x or 3.x) |
 | `MDS/LIB/Execution.pm` | `LIB/Execution.pa` + `DOC/Execution.y` | same | any bison (2.x or 3.x) |
 | `MDS/LIB/Takumi.pm` | `LIB/Takumi.pa` + `DOC/Takumi.y` | same | any bison (2.x or 3.x) |
-| `MDS/configure` | `MDS/configure.ac` | `autoconf` | **autoconf 2.71** |
+| `MDS/configure`, `lvx-family/configure` | the matching `configure.ac` | `autoconf` | any autoconf (2.71 or 2.72) |
 
-`MDS/GNU-VERSIONS` records the reference versions (**bison 3.8**, **autoconf 2.71**) and the `Maintainer`'s `all` target diffs the installed ones against it. Only the autoconf pin is load-bearing:
+`MDS/GNU-VERSIONS` records the reference versions (**bison 3.8**, **autoconf 2.72**) and the `Maintainer`'s `all` target diffs the installed ones against it. Neither is load-bearing any more — both used to be, and the history is worth knowing:
 
-- **autoconf 2.72 rewrites the whole `configure`** (~280 lines of boilerplate), burying the real change. This one still matters.
+- **autoconf version no longer matters.** The `configure` scripts were regenerated with 2.72. Going between 2.71 and 2.72 rewrites ~300 lines of each, but it is all autoconf's own codegen (2.72 replaced the `else $as_nop` idiom with `else case e in #( e) … ;; esac`); every one of the 74 substituted values is unchanged and the configure-generated build files come out byte-identical. If you regenerate with a *different* autoconf than the one that produced the committed scripts, expect that churn and check the substitutions rather than the diff size.
 - **bison version no longer matters.** `yaxcc.pl` normalizes the empty-rule annotation, so bison 2.x and 3.x both regenerate the committed `*.pm` byte-identically. It used to matter, and failed *silently*: bison 3 stopped writing `/* empty */` and yaxcc did not recognize the replacement, so an empty rule kept its annotation — which meant it no longer matched its `#rule` tag (losing the semantic action, leaving `undef;`) and counted as one symbol instead of none (wrong rule length). Note bison 3 spells it **two** ways depending on the locale — a UTF-8 `ε` under e.g. `LC_ALL=C.UTF-8`, `%empty` otherwise — so both are normalized, along with 2.x's `/* empty */`. If you teach the grammars anything new, keep that normalization honest: this is the failure mode that does not announce itself.
 
 Two rules when touching this:
