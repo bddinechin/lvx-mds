@@ -220,6 +220,40 @@ Install destinations (`make -C BE/LIBC install`, needs `--with-newlib-prefix` an
 
 Like `BE/GBU`, `BE/LIBC` has a `diff`/`refs`/`check` cycle against a committed reference tree at `lvx-family/BE/LIBC/lvx/`, separate from the actual `install` into the sibling repos.
 
+## Behavior and the static width check
+
+`MDS/DOC/Behavior.md` is the design note on the Behavior language: what it is, how
+it stands against Sail/ASL/nML, why floating point is still 100-odd opaque C
+helpers, and what to do about it. Read it before touching `LIB/Behavior.pa`.
+
+The short version of the part that affects everyday work: Behavior's values are
+**unbounded mathematical integers**, but `Behavior::CodeGen` emits C over a fixed
+256-bit `Int256_`. "256 bits suffice" is therefore a *claim* about every operator
+in the description, and `MDS/LIB/Width.pm` is the pass that checks it — an abstract
+interpretation over integer intervals, run from `MDD/MDE/BIN/Opcode.pl` on each
+opcode's Behavior tree right after `Expand`, i.e. on exactly the tree that lands in
+`Opcode.table` and that `BE/LAO` hands to `CodeGen`. What it sees is what becomes C.
+
+It is read-only: it changes no generated file (all 455 reference files are
+byte-identical with it in place). It costs about 25% on the MDE step.
+
+| `WIDTH_CHECK` | Effect |
+|---|---|
+| unset / `error` | Default. Fatal on `signed`/`section`/`extent`/`internal`; the rest are counted in a one-line summary per core. |
+| `verbose` | List every diagnostic, not just the fatal ones. |
+| `strict` | Also make `box` fatal. **This currently fails** — see below. |
+| `warn` | Never fail the build. |
+| `off` | Skip the pass. |
+
+**The fatal set is empty on the current ISA, so any new violation of it fails the
+build.** `box` is not in it, deliberately: the `lvx_v2` byte-lane instructions
+(`xpl*`, `xaccesso`, `xaligno`) *rely* on `Int256_` truncating a mask shifted up to
+248 bits left, and `SHR` generates `Int256_shru`, on which `sraw`/`srad`/`avgw`/…
+rely for their sign bits. **The 256-bit container is load-bearing, not merely
+sufficient** — that is a real property of this ISA, it is documented nowhere else,
+and it is what a `Behavior` → Sail export would break. `Behavior.md` §3 has the
+details.
+
 ## Key source files
 
 - **`HOWTO`** — the canonical one-shot build recipe.

@@ -27,6 +27,65 @@ use MDS;
 use BitString;
 use Execution;
 use Behavior;
+use Width;
+
+#
+# Static width checking of the expanded Behavior of every Opcode (see
+# DOC/Behavior.md).  This is the only place where the tree is complete: the
+# proxies have been Expand(ed) into the concrete LOAD/STORE and SX/ZX that the
+# operands imply, so it is the same tree that goes into Opcode.table and that
+# BE/LAO hands to Behavior::CodeGen.  What is checked here is what becomes C.
+#
+# Diagnostics whose kind is in %WidthFatal are errors: the generated C does not
+# implement the description, and nothing in the current ISA provokes them, so a
+# new one is a regression.  The rest are warnings -- they are a standing property
+# of the ISA rather than a mistake in it -- and are summarized, not listed, so a
+# routine build does not shout.
+#
+# 'box' is deliberately NOT fatal, even though it is the headline check.  The
+# extension-preload formats (XP*RBB) and XACCESSO/XALIGNO place a byte-lane mask
+# at a variable offset inside a 256-bit XVR -- shift = (target & 31) * 8, so up to
+# 248 -- and rely on Int256_ dropping the bytes that fall off the top of the
+# register.  The container width is load-bearing there, not merely sufficient.
+# That is worth knowing and worth listing, but it is not a bug, and a check that
+# failed the build on the day it landed is a check that gets switched off.  So it
+# reports the inventory; WIDTH_CHECK=strict promotes it to an error for when the
+# ISA is ready to be held to it.  See DOC/Behavior.md.
+#
+# WIDTH_CHECK=verbose lists every diagnostic; =warn keeps the errors from failing
+# the build; =off skips the pass.
+#
+my $WidthCheck = $ENV{WIDTH_CHECK} || 'error';
+my %WidthFatal = map { $_ => 1 } qw(signed section extent internal);
+$WidthFatal{box} = 1 if $WidthCheck eq 'strict';
+my %WidthCounts;
+my $WidthErrors = 0;
+
+sub widthCheck {
+    my ($tree, $context) = @_;
+    return if $WidthCheck eq 'off';
+    foreach my $diagnostic (&Width::check($tree, $context)) {
+        my $kind = $diagnostic->{kind};
+        $WidthCounts{$kind}++;
+        my $fatal = $WidthFatal{$kind};
+        print STDERR &Width::text($diagnostic), "\n"
+          if $fatal || $WidthCheck eq 'verbose';
+        $WidthErrors++ if $fatal;
+    }
+}
+
+END {
+    return if $? || $WidthCheck eq 'off';
+    my @kinds = sort keys %WidthCounts;
+    if (@kinds) {
+        print STDERR "Behavior width check: ",
+          (join ', ', map { "$WidthCounts{$_} $_" } @kinds), "\n";
+    }
+    if ($WidthErrors && $WidthCheck ne 'warn') {
+        print STDERR "Behavior width check failed with $WidthErrors error(s).\n";
+        $? = 1;
+    }
+}
 
 #
 # Build a table of forced operands for Synthetic Instructions.
@@ -222,6 +281,7 @@ sub behavior {
    #print STDERR "Normalized $instructionID:", &Pretty($tree, "  ", 1) if $dump;
     ($tree, $actions) = &Expand($tree, $AccessTable, $CommitTable, 'METHOD', \%replaceTable, 0);
     #print STDERR "Expanded $instructionID:", &Pretty($tree, "  ") if $dump;
+    &widthCheck($tree, "$instructionID $formatID");
     &Behavior::Symbol();
     map { $AccessTable->{$_} = $CommitTable->{$_} = undef } (@proxies, keys %$forced);
     $behavior = &MDS::make("Behavior", {
