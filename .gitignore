@@ -1,0 +1,21 @@
+# Out-of-tree build directory: lvx-family/configure builds into it, and the
+# top-level lvx-csw Makefile's `make config` puts it here.
+/build_lvx/
+
+# autoconf byproducts, dropped next to each configure.ac (MDS/ and lvx-family/).
+# autom4te.cache in particular records absolute paths to the autoconf that was
+# run, so it is not something to commit.
+autom4te.cache/
+configure~
+
+# Byproducts of `make -f Maintainer`, which regenerates the parsers and MDD.pm
+# at the MDS/ root and then moves them into MDS/LIB/. The tracked copies are the
+# ones under MDS/LIB/; these are the transients left behind if a run is
+# interrupted. Anchored to MDS/ so the real MDS/*/*.pm sources are untouched.
+/MDS/*.pm
+/MDS/*.output
+/MDS/*.tab.c
+/MDS/*.rules
+
+# Editor and tool backups.
+*~
