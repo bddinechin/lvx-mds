@@ -13,8 +13,11 @@ open(INPUT, "<", $ARGV[0]) || die "can't open $ARGV[0]\n";
 local $/;
 my $Load = Load(<INPUT>);
 my $Register = $$Load{Register};
+my $RegClass = $$Load{RegClass};
 
-my %RegFile; map { push @{$RegFile{$$_{regFile}}}, $_ }
+# A Register names the RegClass its register file has become, so go through it
+# to group the Register(s) under the name of that file.
+my %RegFile; map { push @{$RegFile{$$RegClass{$$_{regFile}}{regFileName}}}, $_ }
   sort { $$a{dwarfId} <=> $$b{dwarfId} }
   grep {defined $$_{dwarfId}} values %{$Register};
 

@@ -1,31 +1,44 @@
 
 <RegClass
   ID=	"RegClass-lvx_v1-"
-  regFile=	"RegFile-lvx_v1-"
+  regFile=	"RegClass-lvx_v1-"
   registers=	"Register-lvx_v1-"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-systemReg"
-  regFile=	"RegFile-lvx_v1-SFR"
+  nativeTypes=	"NativeType-lvx_v1-Int32 NativeType-lvx_v1-UInt32 NativeType-lvx_v1-Int64 NativeType-lvx_v1-UInt64"
+  regFile=	"RegClass-lvx_v1-systemReg"
+  regFileName=	"SFR"
+  regFileNumber=	"0"
   registers=	"Register-lvx_v1-PC Register-lvx_v1-PS Register-lvx_v1-PCR Register-lvx_v1-RA Register-lvx_v1-CS Register-lvx_v1-CSIT Register-lvx_v1-AESPC Register-lvx_v1-LS Register-lvx_v1-LE Register-lvx_v1-LC Register-lvx_v1-IPE Register-lvx_v1-MEN Register-lvx_v1-PMC Register-lvx_v1-PM0 Register-lvx_v1-PM1 Register-lvx_v1-PM2 Register-lvx_v1-PM3 Register-lvx_v1-PMSA Register-lvx_v1-TCR Register-lvx_v1-T0V Register-lvx_v1-T1V Register-lvx_v1-T0R Register-lvx_v1-T1R Register-lvx_v1-WDV Register-lvx_v1-WDR Register-lvx_v1-ILE Register-lvx_v1-ILL Register-lvx_v1-ILR Register-lvx_v1-MMC Register-lvx_v1-TEL Register-lvx_v1-TEH Register-lvx_v1-IXC Register-lvx_v1-SYO Register-lvx_v1-HTO Register-lvx_v1-ITO Register-lvx_v1-DO Register-lvx_v1-MO Register-lvx_v1-PSO Register-lvx_v1-TPCM0 Register-lvx_v1-TPCM1 Register-lvx_v1-DC Register-lvx_v1-DBA0 Register-lvx_v1-DBA1 Register-lvx_v1-DWA0 Register-lvx_v1-DWA1 Register-lvx_v1-MES Register-lvx_v1-WS Register-lvx_v1-DC0 Register-lvx_v1-DC1 Register-lvx_v1-DC2 Register-lvx_v1-DC3 Register-lvx_v1-DBA2 Register-lvx_v1-DBA3 Register-lvx_v1-DWA2 Register-lvx_v1-DWA3 Register-lvx_v1-TPCM2 Register-lvx_v1-TPCMC Register-lvx_v1-PM4 Register-lvx_v1-PM5 Register-lvx_v1-PM6 Register-lvx_v1-PM7 Register-lvx_v1-PMC2 Register-lvx_v1-SRHPC Register-lvx_v1-FRCC Register-lvx_v1-SPC_PL0 Register-lvx_v1-SPC_PL1 Register-lvx_v1-SPC_PL2 Register-lvx_v1-SPC_PL3 Register-lvx_v1-SPS_PL0 Register-lvx_v1-SPS_PL1 Register-lvx_v1-SPS_PL2 Register-lvx_v1-SPS_PL3 Register-lvx_v1-EA_PL0 Register-lvx_v1-EA_PL1 Register-lvx_v1-EA_PL2 Register-lvx_v1-EA_PL3 Register-lvx_v1-EV_PL0 Register-lvx_v1-EV_PL1 Register-lvx_v1-EV_PL2 Register-lvx_v1-EV_PL3 Register-lvx_v1-SR_PL0 Register-lvx_v1-SR_PL1 Register-lvx_v1-SR_PL2 Register-lvx_v1-SR_PL3 Register-lvx_v1-ES_PL0 Register-lvx_v1-ES_PL1 Register-lvx_v1-ES_PL2 Register-lvx_v1-ES_PL3 Register-lvx_v1-SID_PL0 Register-lvx_v1-SID_PL1 Register-lvx_v1-SID_PL2 Register-lvx_v1-SID_PL3 Register-lvx_v1-SR1_PL0 Register-lvx_v1-SR1_PL1 Register-lvx_v1-SR1_PL2 Register-lvx_v1-SR1_PL3 Register-lvx_v1-SYOW Register-lvx_v1-HTOW Register-lvx_v1-ITOW Register-lvx_v1-DOW Register-lvx_v1-MOW Register-lvx_v1-PSOW Register-lvx_v1-RES102 Register-lvx_v1-RES103 Register-lvx_v1-TPCC_PL0 Register-lvx_v1-TPCC_PL1 Register-lvx_v1-TPCC_PL2 Register-lvx_v1-TPCC_PL3 Register-lvx_v1-RES108 Register-lvx_v1-RES109 Register-lvx_v1-RES110 Register-lvx_v1-RES111 Register-lvx_v1-RES112 Register-lvx_v1-RES113 Register-lvx_v1-RES114 Register-lvx_v1-RES115 Register-lvx_v1-RES116 Register-lvx_v1-RES117 Register-lvx_v1-RES118 Register-lvx_v1-RES119 Register-lvx_v1-RES120 Register-lvx_v1-RES121 Register-lvx_v1-RES122 Register-lvx_v1-RES123 Register-lvx_v1-RES124 Register-lvx_v1-RES125 Register-lvx_v1-RES126 Register-lvx_v1-RES127 Register-lvx_v1-SPC Register-lvx_v1-RES129 Register-lvx_v1-RES130 Register-lvx_v1-RES131 Register-lvx_v1-SPS Register-lvx_v1-RES133 Register-lvx_v1-RES134 Register-lvx_v1-RES135 Register-lvx_v1-EA Register-lvx_v1-RES137 Register-lvx_v1-RES138 Register-lvx_v1-RES139 Register-lvx_v1-EV Register-lvx_v1-RES141 Register-lvx_v1-RES142 Register-lvx_v1-RES143 Register-lvx_v1-SR Register-lvx_v1-RES145 Register-lvx_v1-RES146 Register-lvx_v1-RES147 Register-lvx_v1-ES Register-lvx_v1-RES149 Register-lvx_v1-RES150 Register-lvx_v1-RES151 Register-lvx_v1-SID Register-lvx_v1-RES153 Register-lvx_v1-RES154 Register-lvx_v1-RES155 Register-lvx_v1-SR1 Register-lvx_v1-RES157 Register-lvx_v1-RES158 Register-lvx_v1-RES159 Register-lvx_v1-RES160 Register-lvx_v1-RES161 Register-lvx_v1-RES162 Register-lvx_v1-RES163 Register-lvx_v1-RES164 Register-lvx_v1-RES165 Register-lvx_v1-RES166 Register-lvx_v1-RES167 Register-lvx_v1-TPCC Register-lvx_v1-RES169 Register-lvx_v1-RES170 Register-lvx_v1-RES171 Register-lvx_v1-RES172 Register-lvx_v1-RES173 Register-lvx_v1-RES174 Register-lvx_v1-RES175 Register-lvx_v1-RES176 Register-lvx_v1-RES177 Register-lvx_v1-RES178 Register-lvx_v1-RES179 Register-lvx_v1-RES180 Register-lvx_v1-RES181 Register-lvx_v1-RES182 Register-lvx_v1-RES183 Register-lvx_v1-RES184 Register-lvx_v1-RES185 Register-lvx_v1-RES186 Register-lvx_v1-RES187 Register-lvx_v1-RES188 Register-lvx_v1-RES189 Register-lvx_v1-RES190 Register-lvx_v1-RES191 Register-lvx_v1-RES192 Register-lvx_v1-RES193 Register-lvx_v1-RES194 Register-lvx_v1-RES195 Register-lvx_v1-RES196 Register-lvx_v1-RES197 Register-lvx_v1-RES198 Register-lvx_v1-RES199 Register-lvx_v1-RES200 Register-lvx_v1-RES201 Register-lvx_v1-RES202 Register-lvx_v1-RES203 Register-lvx_v1-RES204 Register-lvx_v1-RES205 Register-lvx_v1-RES206 Register-lvx_v1-RES207 Register-lvx_v1-RES208 Register-lvx_v1-RES209 Register-lvx_v1-RES210 Register-lvx_v1-RES211 Register-lvx_v1-RES212 Register-lvx_v1-RES213 Register-lvx_v1-RES214 Register-lvx_v1-RES215 Register-lvx_v1-RES216 Register-lvx_v1-RES217 Register-lvx_v1-RES218 Register-lvx_v1-RES219 Register-lvx_v1-RES220 Register-lvx_v1-RES221 Register-lvx_v1-RES222 Register-lvx_v1-RES223 Register-lvx_v1-RES224 Register-lvx_v1-RES225 Register-lvx_v1-RES226 Register-lvx_v1-RES227 Register-lvx_v1-RES228 Register-lvx_v1-RES229 Register-lvx_v1-RES230 Register-lvx_v1-RES231 Register-lvx_v1-RES232 Register-lvx_v1-RES233 Register-lvx_v1-RES234 Register-lvx_v1-RES235 Register-lvx_v1-RES236 Register-lvx_v1-RES237 Register-lvx_v1-RES238 Register-lvx_v1-RES239 Register-lvx_v1-RES240 Register-lvx_v1-RES241 Register-lvx_v1-RES242 Register-lvx_v1-RES243 Register-lvx_v1-RES244 Register-lvx_v1-RES245 Register-lvx_v1-RES246 Register-lvx_v1-RES247 Register-lvx_v1-RES248 Register-lvx_v1-RES249 Register-lvx_v1-RES250 Register-lvx_v1-RES251 Register-lvx_v1-RES252 Register-lvx_v1-RES253 Register-lvx_v1-RES254 Register-lvx_v1-RES255 Register-lvx_v1-VSFR0 Register-lvx_v1-VSFR1 Register-lvx_v1-VSFR2 Register-lvx_v1-VSFR3 Register-lvx_v1-VSFR4 Register-lvx_v1-VSFR5 Register-lvx_v1-VSFR6 Register-lvx_v1-VSFR7 Register-lvx_v1-VSFR8 Register-lvx_v1-VSFR9 Register-lvx_v1-VSFR10 Register-lvx_v1-VSFR11 Register-lvx_v1-VSFR12 Register-lvx_v1-VSFR13 Register-lvx_v1-VSFR14 Register-lvx_v1-VSFR15 Register-lvx_v1-VSFR16 Register-lvx_v1-VSFR17 Register-lvx_v1-VSFR18 Register-lvx_v1-VSFR19 Register-lvx_v1-VSFR20 Register-lvx_v1-VSFR21 Register-lvx_v1-VSFR22 Register-lvx_v1-VSFR23 Register-lvx_v1-VSFR24 Register-lvx_v1-VSFR25 Register-lvx_v1-VSFR26 Register-lvx_v1-VSFR27 Register-lvx_v1-VSFR28 Register-lvx_v1-VSFR29 Register-lvx_v1-VSFR30 Register-lvx_v1-VSFR31 Register-lvx_v1-VSFR32 Register-lvx_v1-VSFR33 Register-lvx_v1-VSFR34 Register-lvx_v1-VSFR35 Register-lvx_v1-VSFR36 Register-lvx_v1-VSFR37 Register-lvx_v1-VSFR38 Register-lvx_v1-VSFR39 Register-lvx_v1-VSFR40 Register-lvx_v1-VSFR41 Register-lvx_v1-VSFR42 Register-lvx_v1-VSFR43 Register-lvx_v1-VSFR44 Register-lvx_v1-VSFR45 Register-lvx_v1-VSFR46 Register-lvx_v1-VSFR47 Register-lvx_v1-VSFR48 Register-lvx_v1-VSFR49 Register-lvx_v1-VSFR50 Register-lvx_v1-VSFR51 Register-lvx_v1-VSFR52 Register-lvx_v1-VSFR53 Register-lvx_v1-VSFR54 Register-lvx_v1-VSFR55 Register-lvx_v1-VSFR56 Register-lvx_v1-VSFR57 Register-lvx_v1-VSFR58 Register-lvx_v1-VSFR59 Register-lvx_v1-VSFR60 Register-lvx_v1-VSFR61 Register-lvx_v1-VSFR62 Register-lvx_v1-VSFR63 Register-lvx_v1-VSFR64 Register-lvx_v1-VSFR65 Register-lvx_v1-VSFR66 Register-lvx_v1-VSFR67 Register-lvx_v1-VSFR68 Register-lvx_v1-VSFR69 Register-lvx_v1-VSFR70 Register-lvx_v1-VSFR71 Register-lvx_v1-VSFR72 Register-lvx_v1-VSFR73 Register-lvx_v1-VSFR74 Register-lvx_v1-VSFR75 Register-lvx_v1-VSFR76 Register-lvx_v1-VSFR77 Register-lvx_v1-VSFR78 Register-lvx_v1-VSFR79 Register-lvx_v1-VSFR80 Register-lvx_v1-VSFR81 Register-lvx_v1-VSFR82 Register-lvx_v1-VSFR83 Register-lvx_v1-VSFR84 Register-lvx_v1-VSFR85 Register-lvx_v1-VSFR86 Register-lvx_v1-VSFR87 Register-lvx_v1-VSFR88 Register-lvx_v1-VSFR89 Register-lvx_v1-VSFR90 Register-lvx_v1-VSFR91 Register-lvx_v1-VSFR92 Register-lvx_v1-VSFR93 Register-lvx_v1-VSFR94 Register-lvx_v1-VSFR95 Register-lvx_v1-VSFR96 Register-lvx_v1-VSFR97 Register-lvx_v1-VSFR98 Register-lvx_v1-VSFR99 Register-lvx_v1-VSFR100 Register-lvx_v1-VSFR101 Register-lvx_v1-VSFR102 Register-lvx_v1-VSFR103 Register-lvx_v1-VSFR104 Register-lvx_v1-VSFR105 Register-lvx_v1-VSFR106 Register-lvx_v1-VSFR107 Register-lvx_v1-VSFR108 Register-lvx_v1-VSFR109 Register-lvx_v1-VSFR110 Register-lvx_v1-VSFR111 Register-lvx_v1-VSFR112 Register-lvx_v1-VSFR113 Register-lvx_v1-VSFR114 Register-lvx_v1-VSFR115 Register-lvx_v1-VSFR116 Register-lvx_v1-VSFR117 Register-lvx_v1-VSFR118 Register-lvx_v1-VSFR119 Register-lvx_v1-VSFR120 Register-lvx_v1-VSFR121 Register-lvx_v1-VSFR122 Register-lvx_v1-VSFR123 Register-lvx_v1-VSFR124 Register-lvx_v1-VSFR125 Register-lvx_v1-VSFR126 Register-lvx_v1-VSFR127 Register-lvx_v1-VSFR128 Register-lvx_v1-VSFR129 Register-lvx_v1-VSFR130 Register-lvx_v1-VSFR131 Register-lvx_v1-VSFR132 Register-lvx_v1-VSFR133 Register-lvx_v1-VSFR134 Register-lvx_v1-VSFR135 Register-lvx_v1-VSFR136 Register-lvx_v1-VSFR137 Register-lvx_v1-VSFR138 Register-lvx_v1-VSFR139 Register-lvx_v1-VSFR140 Register-lvx_v1-VSFR141 Register-lvx_v1-VSFR142 Register-lvx_v1-VSFR143 Register-lvx_v1-VSFR144 Register-lvx_v1-VSFR145 Register-lvx_v1-VSFR146 Register-lvx_v1-VSFR147 Register-lvx_v1-VSFR148 Register-lvx_v1-VSFR149 Register-lvx_v1-VSFR150 Register-lvx_v1-VSFR151 Register-lvx_v1-VSFR152 Register-lvx_v1-VSFR153 Register-lvx_v1-VSFR154 Register-lvx_v1-VSFR155 Register-lvx_v1-VSFR156 Register-lvx_v1-VSFR157 Register-lvx_v1-VSFR158 Register-lvx_v1-VSFR159 Register-lvx_v1-VSFR160 Register-lvx_v1-VSFR161 Register-lvx_v1-VSFR162 Register-lvx_v1-VSFR163 Register-lvx_v1-VSFR164 Register-lvx_v1-VSFR165 Register-lvx_v1-VSFR166 Register-lvx_v1-VSFR167 Register-lvx_v1-VSFR168 Register-lvx_v1-VSFR169 Register-lvx_v1-VSFR170 Register-lvx_v1-VSFR171 Register-lvx_v1-VSFR172 Register-lvx_v1-VSFR173 Register-lvx_v1-VSFR174 Register-lvx_v1-VSFR175 Register-lvx_v1-VSFR176 Register-lvx_v1-VSFR177 Register-lvx_v1-VSFR178 Register-lvx_v1-VSFR179 Register-lvx_v1-VSFR180 Register-lvx_v1-VSFR181 Register-lvx_v1-VSFR182 Register-lvx_v1-VSFR183 Register-lvx_v1-VSFR184 Register-lvx_v1-VSFR185 Register-lvx_v1-VSFR186 Register-lvx_v1-VSFR187 Register-lvx_v1-VSFR188 Register-lvx_v1-VSFR189 Register-lvx_v1-VSFR190 Register-lvx_v1-VSFR191 Register-lvx_v1-VSFR192 Register-lvx_v1-VSFR193 Register-lvx_v1-VSFR194 Register-lvx_v1-VSFR195 Register-lvx_v1-VSFR196 Register-lvx_v1-VSFR197 Register-lvx_v1-VSFR198 Register-lvx_v1-VSFR199 Register-lvx_v1-VSFR200 Register-lvx_v1-VSFR201 Register-lvx_v1-VSFR202 Register-lvx_v1-VSFR203 Register-lvx_v1-VSFR204 Register-lvx_v1-VSFR205 Register-lvx_v1-VSFR206 Register-lvx_v1-VSFR207 Register-lvx_v1-VSFR208 Register-lvx_v1-VSFR209 Register-lvx_v1-VSFR210 Register-lvx_v1-VSFR211 Register-lvx_v1-VSFR212 Register-lvx_v1-VSFR213 Register-lvx_v1-VSFR214 Register-lvx_v1-VSFR215 Register-lvx_v1-VSFR216 Register-lvx_v1-VSFR217 Register-lvx_v1-VSFR218 Register-lvx_v1-VSFR219 Register-lvx_v1-VSFR220 Register-lvx_v1-VSFR221 Register-lvx_v1-VSFR222 Register-lvx_v1-VSFR223 Register-lvx_v1-VSFR224 Register-lvx_v1-VSFR225 Register-lvx_v1-VSFR226 Register-lvx_v1-VSFR227 Register-lvx_v1-VSFR228 Register-lvx_v1-VSFR229 Register-lvx_v1-VSFR230 Register-lvx_v1-VSFR231 Register-lvx_v1-VSFR232 Register-lvx_v1-VSFR233 Register-lvx_v1-VSFR234 Register-lvx_v1-VSFR235 Register-lvx_v1-VSFR236 Register-lvx_v1-VSFR237 Register-lvx_v1-VSFR238 Register-lvx_v1-VSFR239 Register-lvx_v1-VSFR240 Register-lvx_v1-VSFR241 Register-lvx_v1-VSFR242 Register-lvx_v1-VSFR243 Register-lvx_v1-VSFR244 Register-lvx_v1-VSFR245 Register-lvx_v1-VSFR246 Register-lvx_v1-VSFR247 Register-lvx_v1-VSFR248 Register-lvx_v1-VSFR249 Register-lvx_v1-VSFR250 Register-lvx_v1-VSFR251 Register-lvx_v1-VSFR252 Register-lvx_v1-VSFR253 Register-lvx_v1-VSFR254 Register-lvx_v1-VSFR255"
   what=	"System Function Registers"
+  width=	"64"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-singleReg"
-  regFile=	"RegFile-lvx_v1-GPR"
+  nativeTypes=	"NativeType-lvx_v1-Int32 NativeType-lvx_v1-UInt32 NativeType-lvx_v1-Float32 NativeType-lvx_v1-Int64 NativeType-lvx_v1-UInt64 NativeType-lvx_v1-Float64"
+  regFile=	"RegClass-lvx_v1-singleReg"
+  regFileName=	"GPR"
+  regFileNumber=	"1"
   registers=	"Register-lvx_v1-R0 Register-lvx_v1-R1 Register-lvx_v1-R2 Register-lvx_v1-R3 Register-lvx_v1-R4 Register-lvx_v1-R5 Register-lvx_v1-R6 Register-lvx_v1-R7 Register-lvx_v1-R8 Register-lvx_v1-R9 Register-lvx_v1-R10 Register-lvx_v1-R11 Register-lvx_v1-R12 Register-lvx_v1-R13 Register-lvx_v1-R14 Register-lvx_v1-R15 Register-lvx_v1-R16 Register-lvx_v1-R17 Register-lvx_v1-R18 Register-lvx_v1-R19 Register-lvx_v1-R20 Register-lvx_v1-R21 Register-lvx_v1-R22 Register-lvx_v1-R23 Register-lvx_v1-R24 Register-lvx_v1-R25 Register-lvx_v1-R26 Register-lvx_v1-R27 Register-lvx_v1-R28 Register-lvx_v1-R29 Register-lvx_v1-R30 Register-lvx_v1-R31 Register-lvx_v1-R32 Register-lvx_v1-R33 Register-lvx_v1-R34 Register-lvx_v1-R35 Register-lvx_v1-R36 Register-lvx_v1-R37 Register-lvx_v1-R38 Register-lvx_v1-R39 Register-lvx_v1-R40 Register-lvx_v1-R41 Register-lvx_v1-R42 Register-lvx_v1-R43 Register-lvx_v1-R44 Register-lvx_v1-R45 Register-lvx_v1-R46 Register-lvx_v1-R47 Register-lvx_v1-R48 Register-lvx_v1-R49 Register-lvx_v1-R50 Register-lvx_v1-R51 Register-lvx_v1-R52 Register-lvx_v1-R53 Register-lvx_v1-R54 Register-lvx_v1-R55 Register-lvx_v1-R56 Register-lvx_v1-R57 Register-lvx_v1-R58 Register-lvx_v1-R59 Register-lvx_v1-R60 Register-lvx_v1-R61 Register-lvx_v1-R62 Register-lvx_v1-R63"
   what=	"General-Purpose Registers"
+  width=	"64"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-pairedReg"
-  regFile=	"RegFile-lvx_v1-PGR"
+  multi=	"RegClass-lvx_v1-singleReg RegClass-lvx_v1-singleReg"
+  nativeTypes=	"NativeType-lvx_v1-Int128 NativeType-lvx_v1-UInt128 NativeType-lvx_v1-Float128"
+  regFile=	"RegClass-lvx_v1-pairedReg"
+  regFileName=	"PGR"
+  regFileNumber=	"2"
   registers=	"Register-lvx_v1-P0 Register-lvx_v1-P2 Register-lvx_v1-P4 Register-lvx_v1-P6 Register-lvx_v1-P8 Register-lvx_v1-P10 Register-lvx_v1-P12 Register-lvx_v1-P14 Register-lvx_v1-P16 Register-lvx_v1-P18 Register-lvx_v1-P20 Register-lvx_v1-P22 Register-lvx_v1-P24 Register-lvx_v1-P26 Register-lvx_v1-P28 Register-lvx_v1-P30 Register-lvx_v1-P32 Register-lvx_v1-P34 Register-lvx_v1-P36 Register-lvx_v1-P38 Register-lvx_v1-P40 Register-lvx_v1-P42 Register-lvx_v1-P44 Register-lvx_v1-P46 Register-lvx_v1-P48 Register-lvx_v1-P50 Register-lvx_v1-P52 Register-lvx_v1-P54 Register-lvx_v1-P56 Register-lvx_v1-P58 Register-lvx_v1-P60 Register-lvx_v1-P62"
   what=	"Paired General Registers"
+  width=	"128"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-pairedReg.0"
   bias=	"0"
-  regFile=	"RegFile-lvx_v1-GPR"
+  regFile=	"RegClass-lvx_v1-singleReg"
   registers=	"Register-lvx_v1-R0 Register-lvx_v1-R2 Register-lvx_v1-R4 Register-lvx_v1-R6 Register-lvx_v1-R8 Register-lvx_v1-R10 Register-lvx_v1-R12 Register-lvx_v1-R14 Register-lvx_v1-R16 Register-lvx_v1-R18 Register-lvx_v1-R20 Register-lvx_v1-R22 Register-lvx_v1-R24 Register-lvx_v1-R26 Register-lvx_v1-R28 Register-lvx_v1-R30 Register-lvx_v1-R32 Register-lvx_v1-R34 Register-lvx_v1-R36 Register-lvx_v1-R38 Register-lvx_v1-R40 Register-lvx_v1-R42 Register-lvx_v1-R44 Register-lvx_v1-R46 Register-lvx_v1-R48 Register-lvx_v1-R50 Register-lvx_v1-R52 Register-lvx_v1-R54 Register-lvx_v1-R56 Register-lvx_v1-R58 Register-lvx_v1-R60 Register-lvx_v1-R62"
   shift=	"1"
   what=	"Paired General Registers Multi 0"
@@ -33,21 +46,26 @@
 <RegClass
   ID=	"RegClass-lvx_v1-pairedReg.1"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-GPR"
+  regFile=	"RegClass-lvx_v1-singleReg"
   registers=	"Register-lvx_v1-R1 Register-lvx_v1-R3 Register-lvx_v1-R5 Register-lvx_v1-R7 Register-lvx_v1-R9 Register-lvx_v1-R11 Register-lvx_v1-R13 Register-lvx_v1-R15 Register-lvx_v1-R17 Register-lvx_v1-R19 Register-lvx_v1-R21 Register-lvx_v1-R23 Register-lvx_v1-R25 Register-lvx_v1-R27 Register-lvx_v1-R29 Register-lvx_v1-R31 Register-lvx_v1-R33 Register-lvx_v1-R35 Register-lvx_v1-R37 Register-lvx_v1-R39 Register-lvx_v1-R41 Register-lvx_v1-R43 Register-lvx_v1-R45 Register-lvx_v1-R47 Register-lvx_v1-R49 Register-lvx_v1-R51 Register-lvx_v1-R53 Register-lvx_v1-R55 Register-lvx_v1-R57 Register-lvx_v1-R59 Register-lvx_v1-R61 Register-lvx_v1-R63"
   shift=	"1"
   what=	"Paired General Registers Multi 1"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-quadReg"
-  regFile=	"RegFile-lvx_v1-QGR"
+  multi=	"RegClass-lvx_v1-singleReg RegClass-lvx_v1-singleReg RegClass-lvx_v1-singleReg RegClass-lvx_v1-singleReg"
+  nativeTypes=	"NativeType-lvx_v1-Int128x2 NativeType-lvx_v1-UInt128x2"
+  regFile=	"RegClass-lvx_v1-quadReg"
+  regFileName=	"QGR"
+  regFileNumber=	"3"
   registers=	"Register-lvx_v1-Q0 Register-lvx_v1-Q4 Register-lvx_v1-Q8 Register-lvx_v1-Q12 Register-lvx_v1-Q16 Register-lvx_v1-Q20 Register-lvx_v1-Q24 Register-lvx_v1-Q28 Register-lvx_v1-Q32 Register-lvx_v1-Q36 Register-lvx_v1-Q40 Register-lvx_v1-Q44 Register-lvx_v1-Q48 Register-lvx_v1-Q52 Register-lvx_v1-Q56 Register-lvx_v1-Q60"
   what=	"Quadruple General Registers"
+  width=	"256"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-quadReg.0"
   bias=	"0"
-  regFile=	"RegFile-lvx_v1-GPR"
+  regFile=	"RegClass-lvx_v1-singleReg"
   registers=	"Register-lvx_v1-R0 Register-lvx_v1-R4 Register-lvx_v1-R8 Register-lvx_v1-R12 Register-lvx_v1-R16 Register-lvx_v1-R20 Register-lvx_v1-R24 Register-lvx_v1-R28 Register-lvx_v1-R32 Register-lvx_v1-R36 Register-lvx_v1-R40 Register-lvx_v1-R44 Register-lvx_v1-R48 Register-lvx_v1-R52 Register-lvx_v1-R56 Register-lvx_v1-R60"
   shift=	"2"
   what=	"Quadruple General Registers Multi 0"
@@ -55,7 +73,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-quadReg.1"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-GPR"
+  regFile=	"RegClass-lvx_v1-singleReg"
   registers=	"Register-lvx_v1-R1 Register-lvx_v1-R5 Register-lvx_v1-R9 Register-lvx_v1-R13 Register-lvx_v1-R17 Register-lvx_v1-R21 Register-lvx_v1-R25 Register-lvx_v1-R29 Register-lvx_v1-R33 Register-lvx_v1-R37 Register-lvx_v1-R41 Register-lvx_v1-R45 Register-lvx_v1-R49 Register-lvx_v1-R53 Register-lvx_v1-R57 Register-lvx_v1-R61"
   shift=	"2"
   what=	"Quadruple General Registers Multi 1"
@@ -63,7 +81,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-quadReg.2"
   bias=	"2"
-  regFile=	"RegFile-lvx_v1-GPR"
+  regFile=	"RegClass-lvx_v1-singleReg"
   registers=	"Register-lvx_v1-R2 Register-lvx_v1-R6 Register-lvx_v1-R10 Register-lvx_v1-R14 Register-lvx_v1-R18 Register-lvx_v1-R22 Register-lvx_v1-R26 Register-lvx_v1-R30 Register-lvx_v1-R34 Register-lvx_v1-R38 Register-lvx_v1-R42 Register-lvx_v1-R46 Register-lvx_v1-R50 Register-lvx_v1-R54 Register-lvx_v1-R58 Register-lvx_v1-R62"
   shift=	"2"
   what=	"Quadruple General Registers Multi 2"
@@ -71,69 +89,106 @@
 <RegClass
   ID=	"RegClass-lvx_v1-quadReg.3"
   bias=	"3"
-  regFile=	"RegFile-lvx_v1-GPR"
+  regFile=	"RegClass-lvx_v1-singleReg"
   registers=	"Register-lvx_v1-R3 Register-lvx_v1-R7 Register-lvx_v1-R11 Register-lvx_v1-R15 Register-lvx_v1-R19 Register-lvx_v1-R23 Register-lvx_v1-R27 Register-lvx_v1-R31 Register-lvx_v1-R35 Register-lvx_v1-R39 Register-lvx_v1-R43 Register-lvx_v1-R47 Register-lvx_v1-R51 Register-lvx_v1-R55 Register-lvx_v1-R59 Register-lvx_v1-R63"
   shift=	"2"
   what=	"Quadruple General Registers Multi 3"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-buffer2Reg"
-  regFile=	"RegFile-lvx_v1-X2R"
+  nativeTypes=	"NativeType-lvx_v1-Void"
+  regFile=	"RegClass-lvx_v1-buffer2Reg"
+  regFileName=	"X2R"
+  regFileNumber=	"9"
   registers=	"Register-lvx_v1-G0 Register-lvx_v1-G1 Register-lvx_v1-G2 Register-lvx_v1-G3 Register-lvx_v1-G4 Register-lvx_v1-G5 Register-lvx_v1-G6 Register-lvx_v1-G7 Register-lvx_v1-G8 Register-lvx_v1-G9 Register-lvx_v1-G10 Register-lvx_v1-G11 Register-lvx_v1-G12 Register-lvx_v1-G13 Register-lvx_v1-G14 Register-lvx_v1-G15 Register-lvx_v1-G16 Register-lvx_v1-G17 Register-lvx_v1-G18 Register-lvx_v1-G19 Register-lvx_v1-G20 Register-lvx_v1-G21 Register-lvx_v1-G22 Register-lvx_v1-G23 Register-lvx_v1-G24 Register-lvx_v1-G25 Register-lvx_v1-G26 Register-lvx_v1-G27 Register-lvx_v1-G28 Register-lvx_v1-G29 Register-lvx_v1-G30 Register-lvx_v1-G31"
   what=	"Extension 2-Register Buffer"
+  width=	"0"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-buffer4Reg"
-  regFile=	"RegFile-lvx_v1-X4R"
+  nativeTypes=	"NativeType-lvx_v1-Void"
+  regFile=	"RegClass-lvx_v1-buffer4Reg"
+  regFileName=	"X4R"
+  regFileNumber=	"10"
   registers=	"Register-lvx_v1-H0 Register-lvx_v1-H1 Register-lvx_v1-H2 Register-lvx_v1-H3 Register-lvx_v1-H4 Register-lvx_v1-H5 Register-lvx_v1-H6 Register-lvx_v1-H7 Register-lvx_v1-H8 Register-lvx_v1-H9 Register-lvx_v1-H10 Register-lvx_v1-H11 Register-lvx_v1-H12 Register-lvx_v1-H13 Register-lvx_v1-H14 Register-lvx_v1-H15"
   what=	"Extension 4-Register Buffer"
+  width=	"0"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-buffer8Reg"
-  regFile=	"RegFile-lvx_v1-X8R"
+  nativeTypes=	"NativeType-lvx_v1-Void"
+  regFile=	"RegClass-lvx_v1-buffer8Reg"
+  regFileName=	"X8R"
+  regFileNumber=	"11"
   registers=	"Register-lvx_v1-I0 Register-lvx_v1-I1 Register-lvx_v1-I2 Register-lvx_v1-I3 Register-lvx_v1-I4 Register-lvx_v1-I5 Register-lvx_v1-I6 Register-lvx_v1-I7"
   what=	"Extension 8-Register Buffer"
+  width=	"0"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-buffer16Reg"
-  regFile=	"RegFile-lvx_v1-X16R"
+  nativeTypes=	"NativeType-lvx_v1-Void"
+  regFile=	"RegClass-lvx_v1-buffer16Reg"
+  regFileName=	"X16R"
+  regFileNumber=	"12"
   registers=	"Register-lvx_v1-J0 Register-lvx_v1-J1 Register-lvx_v1-J2 Register-lvx_v1-J3"
   what=	"Extension 16-Register Buffer"
+  width=	"0"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-buffer32Reg"
-  regFile=	"RegFile-lvx_v1-X32R"
+  nativeTypes=	"NativeType-lvx_v1-Void"
+  regFile=	"RegClass-lvx_v1-buffer32Reg"
+  regFileName=	"X32R"
+  regFileNumber=	"13"
   registers=	"Register-lvx_v1-K0 Register-lvx_v1-K1"
   what=	"Extension 32-Register Buffer"
+  width=	"0"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-buffer64Reg"
-  regFile=	"RegFile-lvx_v1-X64R"
+  nativeTypes=	"NativeType-lvx_v1-Void"
+  regFile=	"RegClass-lvx_v1-buffer64Reg"
+  regFileName=	"X64R"
+  regFileNumber=	"14"
   registers=	"Register-lvx_v1-L0"
   what=	"Extension 64-Register Buffer"
+  width=	"0"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-mainReg"
-  regFile=	"RegFile-lvx_v1-RV_BIR"
+  nativeTypes=	"NativeType-lvx_v1-Int32 NativeType-lvx_v1-UInt32 NativeType-lvx_v1-Int64 NativeType-lvx_v1-UInt64"
+  regFile=	"RegClass-lvx_v1-mainReg"
+  regFileName=	"RV_BIR"
+  regFileNumber=	"15"
   registers=	"Register-lvx_v1-X0 Register-lvx_v1-X1 Register-lvx_v1-X2 Register-lvx_v1-X3 Register-lvx_v1-X4 Register-lvx_v1-X5 Register-lvx_v1-X6 Register-lvx_v1-X7 Register-lvx_v1-X8 Register-lvx_v1-X9 Register-lvx_v1-X10 Register-lvx_v1-X11 Register-lvx_v1-X12 Register-lvx_v1-X13 Register-lvx_v1-X14 Register-lvx_v1-X15 Register-lvx_v1-X16 Register-lvx_v1-X17 Register-lvx_v1-X18 Register-lvx_v1-X19 Register-lvx_v1-X20 Register-lvx_v1-X21 Register-lvx_v1-X22 Register-lvx_v1-X23 Register-lvx_v1-X24 Register-lvx_v1-X25 Register-lvx_v1-X26 Register-lvx_v1-X27 Register-lvx_v1-X28 Register-lvx_v1-X29 Register-lvx_v1-X30 Register-lvx_v1-X31"
   what=	"RISC-V Base Integer Registers"
+  width=	"64"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-floatReg"
-  regFile=	"RegFile-lvx_v1-RV_FPR"
+  nativeTypes=	"NativeType-lvx_v1-Int32 NativeType-lvx_v1-UInt32 NativeType-lvx_v1-Int64 NativeType-lvx_v1-UInt64"
+  regFile=	"RegClass-lvx_v1-floatReg"
+  regFileName=	"RV_FPR"
+  regFileNumber=	"16"
   registers=	"Register-lvx_v1-F0 Register-lvx_v1-F1 Register-lvx_v1-F2 Register-lvx_v1-F3 Register-lvx_v1-F4 Register-lvx_v1-F5 Register-lvx_v1-F6 Register-lvx_v1-F7 Register-lvx_v1-F8 Register-lvx_v1-F9 Register-lvx_v1-F10 Register-lvx_v1-F11 Register-lvx_v1-F12 Register-lvx_v1-F13 Register-lvx_v1-F14 Register-lvx_v1-F15 Register-lvx_v1-F16 Register-lvx_v1-F17 Register-lvx_v1-F18 Register-lvx_v1-F19 Register-lvx_v1-F20 Register-lvx_v1-F21 Register-lvx_v1-F22 Register-lvx_v1-F23 Register-lvx_v1-F24 Register-lvx_v1-F25 Register-lvx_v1-F26 Register-lvx_v1-F27 Register-lvx_v1-F28 Register-lvx_v1-F29 Register-lvx_v1-F30 Register-lvx_v1-F31"
   what=	"RISC-V Floating-Point Registers"
+  width=	"64"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-mainRegPair"
-  regFile=	"RegFile-lvx_v1-RV_BIRP"
+  multi=	"RegClass-lvx_v1-mainReg RegClass-lvx_v1-mainReg"
+  nativeTypes=	"NativeType-lvx_v1-Int128 NativeType-lvx_v1-UInt128"
+  regFile=	"RegClass-lvx_v1-mainRegPair"
+  regFileName=	"RV_BIRP"
+  regFileNumber=	"17"
   registers=	"Register-lvx_v1-X0X0 Register-lvx_v1-X2X3 Register-lvx_v1-X4X5 Register-lvx_v1-X6X7 Register-lvx_v1-X8X9 Register-lvx_v1-X10X11 Register-lvx_v1-X12X13 Register-lvx_v1-X14X15 Register-lvx_v1-X16X17 Register-lvx_v1-X18X19 Register-lvx_v1-X20X21 Register-lvx_v1-X22X23 Register-lvx_v1-X24X25 Register-lvx_v1-X26X27 Register-lvx_v1-X28X29 Register-lvx_v1-X30X31"
   what=	"RISC-V Base Integer Register Pairs"
+  width=	"128"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-mainRegPair.0"
   bias=	"0"
-  regFile=	"RegFile-lvx_v1-RV_BIR"
+  regFile=	"RegClass-lvx_v1-mainReg"
   registers=	"Register-lvx_v1-X0 Register-lvx_v1-X2 Register-lvx_v1-X4 Register-lvx_v1-X6 Register-lvx_v1-X8 Register-lvx_v1-X10 Register-lvx_v1-X12 Register-lvx_v1-X14 Register-lvx_v1-X16 Register-lvx_v1-X18 Register-lvx_v1-X20 Register-lvx_v1-X22 Register-lvx_v1-X24 Register-lvx_v1-X26 Register-lvx_v1-X28 Register-lvx_v1-X30"
   shift=	"1"
   what=	"RISC-V Base Integer Register Pairs Multi 0"
@@ -141,44 +196,44 @@
 <RegClass
   ID=	"RegClass-lvx_v1-mainRegPair.1"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-RV_BIR"
+  regFile=	"RegClass-lvx_v1-mainReg"
   registers=	"Register-lvx_v1-X1 Register-lvx_v1-X3 Register-lvx_v1-X5 Register-lvx_v1-X7 Register-lvx_v1-X9 Register-lvx_v1-X11 Register-lvx_v1-X13 Register-lvx_v1-X15 Register-lvx_v1-X17 Register-lvx_v1-X19 Register-lvx_v1-X21 Register-lvx_v1-X23 Register-lvx_v1-X25 Register-lvx_v1-X27 Register-lvx_v1-X29 Register-lvx_v1-X31"
   shift=	"1"
   what=	"RISC-V Base Integer Register Pairs Multi 1"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-aloneReg"
-  regFile=	"RegFile-lvx_v1-SFR"
+  regFile=	"RegClass-lvx_v1-systemReg"
   registers=	"Register-lvx_v1-MMC Register-lvx_v1-PS Register-lvx_v1-SYOW Register-lvx_v1-HTOW Register-lvx_v1-ITOW Register-lvx_v1-DOW Register-lvx_v1-MOW Register-lvx_v1-PSOW Register-lvx_v1-SPS Register-lvx_v1-SPS_PL0 Register-lvx_v1-SPS_PL1 Register-lvx_v1-SPS_PL2 Register-lvx_v1-SPS_PL3"
   what=	"RegClas Implying Alone in Bundle"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-onlyraReg"
-  regFile=	"RegFile-lvx_v1-SFR"
+  regFile=	"RegClass-lvx_v1-systemReg"
   registers=	"Register-lvx_v1-RA"
   what=	"Singleton RegClas with RA"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-onlygetReg"
-  regFile=	"RegFile-lvx_v1-SFR"
+  regFile=	"RegClass-lvx_v1-systemReg"
   registers=	"Register-lvx_v1-PC Register-lvx_v1-PS Register-lvx_v1-PCR Register-lvx_v1-RA Register-lvx_v1-CS Register-lvx_v1-CSIT Register-lvx_v1-AESPC Register-lvx_v1-LS Register-lvx_v1-LE Register-lvx_v1-LC Register-lvx_v1-IPE Register-lvx_v1-MEN Register-lvx_v1-PMC Register-lvx_v1-PM0 Register-lvx_v1-PM1 Register-lvx_v1-PM2 Register-lvx_v1-PM3 Register-lvx_v1-PMSA Register-lvx_v1-TCR Register-lvx_v1-T0V Register-lvx_v1-T1V Register-lvx_v1-T0R Register-lvx_v1-T1R Register-lvx_v1-WDV Register-lvx_v1-WDR Register-lvx_v1-ILE Register-lvx_v1-ILL Register-lvx_v1-ILR Register-lvx_v1-MMC Register-lvx_v1-TEL Register-lvx_v1-TEH Register-lvx_v1-IXC Register-lvx_v1-SYO Register-lvx_v1-HTO Register-lvx_v1-ITO Register-lvx_v1-DO Register-lvx_v1-MO Register-lvx_v1-PSO Register-lvx_v1-TPCM0 Register-lvx_v1-TPCM1 Register-lvx_v1-DC Register-lvx_v1-DBA0 Register-lvx_v1-DBA1 Register-lvx_v1-DWA0 Register-lvx_v1-DWA1 Register-lvx_v1-MES Register-lvx_v1-WS Register-lvx_v1-DC0 Register-lvx_v1-DC1 Register-lvx_v1-DC2 Register-lvx_v1-DC3 Register-lvx_v1-DBA2 Register-lvx_v1-DBA3 Register-lvx_v1-DWA2 Register-lvx_v1-DWA3 Register-lvx_v1-TPCM2 Register-lvx_v1-TPCMC Register-lvx_v1-PM4 Register-lvx_v1-PM5 Register-lvx_v1-PM6 Register-lvx_v1-PM7 Register-lvx_v1-PMC2 Register-lvx_v1-SRHPC Register-lvx_v1-FRCC Register-lvx_v1-SPC_PL0 Register-lvx_v1-SPC_PL1 Register-lvx_v1-SPC_PL2 Register-lvx_v1-SPC_PL3 Register-lvx_v1-SPS_PL0 Register-lvx_v1-SPS_PL1 Register-lvx_v1-SPS_PL2 Register-lvx_v1-SPS_PL3 Register-lvx_v1-EA_PL0 Register-lvx_v1-EA_PL1 Register-lvx_v1-EA_PL2 Register-lvx_v1-EA_PL3 Register-lvx_v1-EV_PL0 Register-lvx_v1-EV_PL1 Register-lvx_v1-EV_PL2 Register-lvx_v1-EV_PL3 Register-lvx_v1-SR_PL0 Register-lvx_v1-SR_PL1 Register-lvx_v1-SR_PL2 Register-lvx_v1-SR_PL3 Register-lvx_v1-ES_PL0 Register-lvx_v1-ES_PL1 Register-lvx_v1-ES_PL2 Register-lvx_v1-ES_PL3 Register-lvx_v1-SID_PL0 Register-lvx_v1-SID_PL1 Register-lvx_v1-SID_PL2 Register-lvx_v1-SID_PL3 Register-lvx_v1-SR1_PL0 Register-lvx_v1-SR1_PL1 Register-lvx_v1-SR1_PL2 Register-lvx_v1-SR1_PL3 Register-lvx_v1-TPCC_PL0 Register-lvx_v1-TPCC_PL1 Register-lvx_v1-TPCC_PL2 Register-lvx_v1-TPCC_PL3 Register-lvx_v1-SPC Register-lvx_v1-SPS Register-lvx_v1-EA Register-lvx_v1-EV Register-lvx_v1-SR Register-lvx_v1-ES Register-lvx_v1-SID Register-lvx_v1-SR1 Register-lvx_v1-TPCC Register-lvx_v1-VSFR0 Register-lvx_v1-VSFR1 Register-lvx_v1-VSFR2 Register-lvx_v1-VSFR3 Register-lvx_v1-VSFR4 Register-lvx_v1-VSFR5 Register-lvx_v1-VSFR6 Register-lvx_v1-VSFR7 Register-lvx_v1-VSFR8 Register-lvx_v1-VSFR9 Register-lvx_v1-VSFR10 Register-lvx_v1-VSFR11 Register-lvx_v1-VSFR12 Register-lvx_v1-VSFR13 Register-lvx_v1-VSFR14 Register-lvx_v1-VSFR15 Register-lvx_v1-VSFR16 Register-lvx_v1-VSFR17 Register-lvx_v1-VSFR18 Register-lvx_v1-VSFR19 Register-lvx_v1-VSFR20 Register-lvx_v1-VSFR21 Register-lvx_v1-VSFR22 Register-lvx_v1-VSFR23 Register-lvx_v1-VSFR24 Register-lvx_v1-VSFR25 Register-lvx_v1-VSFR26 Register-lvx_v1-VSFR27 Register-lvx_v1-VSFR28 Register-lvx_v1-VSFR29 Register-lvx_v1-VSFR30 Register-lvx_v1-VSFR31 Register-lvx_v1-VSFR32 Register-lvx_v1-VSFR33 Register-lvx_v1-VSFR34 Register-lvx_v1-VSFR35 Register-lvx_v1-VSFR36 Register-lvx_v1-VSFR37 Register-lvx_v1-VSFR38 Register-lvx_v1-VSFR39 Register-lvx_v1-VSFR40 Register-lvx_v1-VSFR41 Register-lvx_v1-VSFR42 Register-lvx_v1-VSFR43 Register-lvx_v1-VSFR44 Register-lvx_v1-VSFR45 Register-lvx_v1-VSFR46 Register-lvx_v1-VSFR47 Register-lvx_v1-VSFR48 Register-lvx_v1-VSFR49 Register-lvx_v1-VSFR50 Register-lvx_v1-VSFR51 Register-lvx_v1-VSFR52 Register-lvx_v1-VSFR53 Register-lvx_v1-VSFR54 Register-lvx_v1-VSFR55 Register-lvx_v1-VSFR56 Register-lvx_v1-VSFR57 Register-lvx_v1-VSFR58 Register-lvx_v1-VSFR59 Register-lvx_v1-VSFR60 Register-lvx_v1-VSFR61 Register-lvx_v1-VSFR62 Register-lvx_v1-VSFR63 Register-lvx_v1-VSFR64 Register-lvx_v1-VSFR65 Register-lvx_v1-VSFR66 Register-lvx_v1-VSFR67 Register-lvx_v1-VSFR68 Register-lvx_v1-VSFR69 Register-lvx_v1-VSFR70 Register-lvx_v1-VSFR71 Register-lvx_v1-VSFR72 Register-lvx_v1-VSFR73 Register-lvx_v1-VSFR74 Register-lvx_v1-VSFR75 Register-lvx_v1-VSFR76 Register-lvx_v1-VSFR77 Register-lvx_v1-VSFR78 Register-lvx_v1-VSFR79 Register-lvx_v1-VSFR80 Register-lvx_v1-VSFR81 Register-lvx_v1-VSFR82 Register-lvx_v1-VSFR83 Register-lvx_v1-VSFR84 Register-lvx_v1-VSFR85 Register-lvx_v1-VSFR86 Register-lvx_v1-VSFR87 Register-lvx_v1-VSFR88 Register-lvx_v1-VSFR89 Register-lvx_v1-VSFR90 Register-lvx_v1-VSFR91 Register-lvx_v1-VSFR92 Register-lvx_v1-VSFR93 Register-lvx_v1-VSFR94 Register-lvx_v1-VSFR95 Register-lvx_v1-VSFR96 Register-lvx_v1-VSFR97 Register-lvx_v1-VSFR98 Register-lvx_v1-VSFR99 Register-lvx_v1-VSFR100 Register-lvx_v1-VSFR101 Register-lvx_v1-VSFR102 Register-lvx_v1-VSFR103 Register-lvx_v1-VSFR104 Register-lvx_v1-VSFR105 Register-lvx_v1-VSFR106 Register-lvx_v1-VSFR107 Register-lvx_v1-VSFR108 Register-lvx_v1-VSFR109 Register-lvx_v1-VSFR110 Register-lvx_v1-VSFR111 Register-lvx_v1-VSFR112 Register-lvx_v1-VSFR113 Register-lvx_v1-VSFR114 Register-lvx_v1-VSFR115 Register-lvx_v1-VSFR116 Register-lvx_v1-VSFR117 Register-lvx_v1-VSFR118 Register-lvx_v1-VSFR119 Register-lvx_v1-VSFR120 Register-lvx_v1-VSFR121 Register-lvx_v1-VSFR122 Register-lvx_v1-VSFR123 Register-lvx_v1-VSFR124 Register-lvx_v1-VSFR125 Register-lvx_v1-VSFR126 Register-lvx_v1-VSFR127 Register-lvx_v1-VSFR128 Register-lvx_v1-VSFR129 Register-lvx_v1-VSFR130 Register-lvx_v1-VSFR131 Register-lvx_v1-VSFR132 Register-lvx_v1-VSFR133 Register-lvx_v1-VSFR134 Register-lvx_v1-VSFR135 Register-lvx_v1-VSFR136 Register-lvx_v1-VSFR137 Register-lvx_v1-VSFR138 Register-lvx_v1-VSFR139 Register-lvx_v1-VSFR140 Register-lvx_v1-VSFR141 Register-lvx_v1-VSFR142 Register-lvx_v1-VSFR143 Register-lvx_v1-VSFR144 Register-lvx_v1-VSFR145 Register-lvx_v1-VSFR146 Register-lvx_v1-VSFR147 Register-lvx_v1-VSFR148 Register-lvx_v1-VSFR149 Register-lvx_v1-VSFR150 Register-lvx_v1-VSFR151 Register-lvx_v1-VSFR152 Register-lvx_v1-VSFR153 Register-lvx_v1-VSFR154 Register-lvx_v1-VSFR155 Register-lvx_v1-VSFR156 Register-lvx_v1-VSFR157 Register-lvx_v1-VSFR158 Register-lvx_v1-VSFR159 Register-lvx_v1-VSFR160 Register-lvx_v1-VSFR161 Register-lvx_v1-VSFR162 Register-lvx_v1-VSFR163 Register-lvx_v1-VSFR164 Register-lvx_v1-VSFR165 Register-lvx_v1-VSFR166 Register-lvx_v1-VSFR167 Register-lvx_v1-VSFR168 Register-lvx_v1-VSFR169 Register-lvx_v1-VSFR170 Register-lvx_v1-VSFR171 Register-lvx_v1-VSFR172 Register-lvx_v1-VSFR173 Register-lvx_v1-VSFR174 Register-lvx_v1-VSFR175 Register-lvx_v1-VSFR176 Register-lvx_v1-VSFR177 Register-lvx_v1-VSFR178 Register-lvx_v1-VSFR179 Register-lvx_v1-VSFR180 Register-lvx_v1-VSFR181 Register-lvx_v1-VSFR182 Register-lvx_v1-VSFR183 Register-lvx_v1-VSFR184 Register-lvx_v1-VSFR185 Register-lvx_v1-VSFR186 Register-lvx_v1-VSFR187 Register-lvx_v1-VSFR188 Register-lvx_v1-VSFR189 Register-lvx_v1-VSFR190 Register-lvx_v1-VSFR191 Register-lvx_v1-VSFR192 Register-lvx_v1-VSFR193 Register-lvx_v1-VSFR194 Register-lvx_v1-VSFR195 Register-lvx_v1-VSFR196 Register-lvx_v1-VSFR197 Register-lvx_v1-VSFR198 Register-lvx_v1-VSFR199 Register-lvx_v1-VSFR200 Register-lvx_v1-VSFR201 Register-lvx_v1-VSFR202 Register-lvx_v1-VSFR203 Register-lvx_v1-VSFR204 Register-lvx_v1-VSFR205 Register-lvx_v1-VSFR206 Register-lvx_v1-VSFR207 Register-lvx_v1-VSFR208 Register-lvx_v1-VSFR209 Register-lvx_v1-VSFR210 Register-lvx_v1-VSFR211 Register-lvx_v1-VSFR212 Register-lvx_v1-VSFR213 Register-lvx_v1-VSFR214 Register-lvx_v1-VSFR215 Register-lvx_v1-VSFR216 Register-lvx_v1-VSFR217 Register-lvx_v1-VSFR218 Register-lvx_v1-VSFR219 Register-lvx_v1-VSFR220 Register-lvx_v1-VSFR221 Register-lvx_v1-VSFR222 Register-lvx_v1-VSFR223 Register-lvx_v1-VSFR224 Register-lvx_v1-VSFR225 Register-lvx_v1-VSFR226 Register-lvx_v1-VSFR227 Register-lvx_v1-VSFR228 Register-lvx_v1-VSFR229 Register-lvx_v1-VSFR230 Register-lvx_v1-VSFR231 Register-lvx_v1-VSFR232 Register-lvx_v1-VSFR233 Register-lvx_v1-VSFR234 Register-lvx_v1-VSFR235 Register-lvx_v1-VSFR236 Register-lvx_v1-VSFR237 Register-lvx_v1-VSFR238 Register-lvx_v1-VSFR239 Register-lvx_v1-VSFR240 Register-lvx_v1-VSFR241 Register-lvx_v1-VSFR242 Register-lvx_v1-VSFR243 Register-lvx_v1-VSFR244 Register-lvx_v1-VSFR245 Register-lvx_v1-VSFR246 Register-lvx_v1-VSFR247 Register-lvx_v1-VSFR248 Register-lvx_v1-VSFR249 Register-lvx_v1-VSFR250 Register-lvx_v1-VSFR251 Register-lvx_v1-VSFR252 Register-lvx_v1-VSFR253 Register-lvx_v1-VSFR254 Register-lvx_v1-VSFR255"
   what=	"Only GET System Registers"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-onlysetReg"
-  regFile=	"RegFile-lvx_v1-SFR"
+  regFile=	"RegClass-lvx_v1-systemReg"
   registers=	"Register-lvx_v1-PS Register-lvx_v1-PCR Register-lvx_v1-RA Register-lvx_v1-CS Register-lvx_v1-CSIT Register-lvx_v1-AESPC Register-lvx_v1-LS Register-lvx_v1-LE Register-lvx_v1-LC Register-lvx_v1-IPE Register-lvx_v1-MEN Register-lvx_v1-PMC Register-lvx_v1-PM0 Register-lvx_v1-PM1 Register-lvx_v1-PM2 Register-lvx_v1-PM3 Register-lvx_v1-PMSA Register-lvx_v1-TCR Register-lvx_v1-T0V Register-lvx_v1-T1V Register-lvx_v1-T0R Register-lvx_v1-T1R Register-lvx_v1-WDV Register-lvx_v1-WDR Register-lvx_v1-ILE Register-lvx_v1-ILL Register-lvx_v1-ILR Register-lvx_v1-MMC Register-lvx_v1-TEL Register-lvx_v1-TEH Register-lvx_v1-IXC Register-lvx_v1-TPCM0 Register-lvx_v1-TPCM1 Register-lvx_v1-DC Register-lvx_v1-DBA0 Register-lvx_v1-DBA1 Register-lvx_v1-DWA0 Register-lvx_v1-DWA1 Register-lvx_v1-MES Register-lvx_v1-WS Register-lvx_v1-DC0 Register-lvx_v1-DC1 Register-lvx_v1-DC2 Register-lvx_v1-DC3 Register-lvx_v1-DBA2 Register-lvx_v1-DBA3 Register-lvx_v1-DWA2 Register-lvx_v1-DWA3 Register-lvx_v1-TPCM2 Register-lvx_v1-TPCMC Register-lvx_v1-PM4 Register-lvx_v1-PM5 Register-lvx_v1-PM6 Register-lvx_v1-PM7 Register-lvx_v1-PMC2 Register-lvx_v1-SRHPC Register-lvx_v1-FRCC Register-lvx_v1-SPC_PL0 Register-lvx_v1-SPC_PL1 Register-lvx_v1-SPC_PL2 Register-lvx_v1-SPC_PL3 Register-lvx_v1-SPS_PL0 Register-lvx_v1-SPS_PL1 Register-lvx_v1-SPS_PL2 Register-lvx_v1-SPS_PL3 Register-lvx_v1-EA_PL0 Register-lvx_v1-EA_PL1 Register-lvx_v1-EA_PL2 Register-lvx_v1-EA_PL3 Register-lvx_v1-EV_PL0 Register-lvx_v1-EV_PL1 Register-lvx_v1-EV_PL2 Register-lvx_v1-EV_PL3 Register-lvx_v1-SR_PL0 Register-lvx_v1-SR_PL1 Register-lvx_v1-SR_PL2 Register-lvx_v1-SR_PL3 Register-lvx_v1-ES_PL0 Register-lvx_v1-ES_PL1 Register-lvx_v1-ES_PL2 Register-lvx_v1-ES_PL3 Register-lvx_v1-SID_PL0 Register-lvx_v1-SID_PL1 Register-lvx_v1-SID_PL2 Register-lvx_v1-SID_PL3 Register-lvx_v1-SR1_PL0 Register-lvx_v1-SR1_PL1 Register-lvx_v1-SR1_PL2 Register-lvx_v1-SR1_PL3 Register-lvx_v1-TPCC_PL0 Register-lvx_v1-TPCC_PL1 Register-lvx_v1-TPCC_PL2 Register-lvx_v1-TPCC_PL3 Register-lvx_v1-SPC Register-lvx_v1-SPS Register-lvx_v1-EA Register-lvx_v1-EV Register-lvx_v1-SR Register-lvx_v1-ES Register-lvx_v1-SID Register-lvx_v1-SR1 Register-lvx_v1-TPCC Register-lvx_v1-VSFR0 Register-lvx_v1-VSFR1 Register-lvx_v1-VSFR2 Register-lvx_v1-VSFR3 Register-lvx_v1-VSFR4 Register-lvx_v1-VSFR5 Register-lvx_v1-VSFR6 Register-lvx_v1-VSFR7 Register-lvx_v1-VSFR8 Register-lvx_v1-VSFR9 Register-lvx_v1-VSFR10 Register-lvx_v1-VSFR11 Register-lvx_v1-VSFR12 Register-lvx_v1-VSFR13 Register-lvx_v1-VSFR14 Register-lvx_v1-VSFR15 Register-lvx_v1-VSFR16 Register-lvx_v1-VSFR17 Register-lvx_v1-VSFR18 Register-lvx_v1-VSFR19 Register-lvx_v1-VSFR20 Register-lvx_v1-VSFR21 Register-lvx_v1-VSFR22 Register-lvx_v1-VSFR23 Register-lvx_v1-VSFR24 Register-lvx_v1-VSFR25 Register-lvx_v1-VSFR26 Register-lvx_v1-VSFR27 Register-lvx_v1-VSFR28 Register-lvx_v1-VSFR29 Register-lvx_v1-VSFR30 Register-lvx_v1-VSFR31 Register-lvx_v1-VSFR32 Register-lvx_v1-VSFR33 Register-lvx_v1-VSFR34 Register-lvx_v1-VSFR35 Register-lvx_v1-VSFR36 Register-lvx_v1-VSFR37 Register-lvx_v1-VSFR38 Register-lvx_v1-VSFR39 Register-lvx_v1-VSFR40 Register-lvx_v1-VSFR41 Register-lvx_v1-VSFR42 Register-lvx_v1-VSFR43 Register-lvx_v1-VSFR44 Register-lvx_v1-VSFR45 Register-lvx_v1-VSFR46 Register-lvx_v1-VSFR47 Register-lvx_v1-VSFR48 Register-lvx_v1-VSFR49 Register-lvx_v1-VSFR50 Register-lvx_v1-VSFR51 Register-lvx_v1-VSFR52 Register-lvx_v1-VSFR53 Register-lvx_v1-VSFR54 Register-lvx_v1-VSFR55 Register-lvx_v1-VSFR56 Register-lvx_v1-VSFR57 Register-lvx_v1-VSFR58 Register-lvx_v1-VSFR59 Register-lvx_v1-VSFR60 Register-lvx_v1-VSFR61 Register-lvx_v1-VSFR62 Register-lvx_v1-VSFR63 Register-lvx_v1-VSFR64 Register-lvx_v1-VSFR65 Register-lvx_v1-VSFR66 Register-lvx_v1-VSFR67 Register-lvx_v1-VSFR68 Register-lvx_v1-VSFR69 Register-lvx_v1-VSFR70 Register-lvx_v1-VSFR71 Register-lvx_v1-VSFR72 Register-lvx_v1-VSFR73 Register-lvx_v1-VSFR74 Register-lvx_v1-VSFR75 Register-lvx_v1-VSFR76 Register-lvx_v1-VSFR77 Register-lvx_v1-VSFR78 Register-lvx_v1-VSFR79 Register-lvx_v1-VSFR80 Register-lvx_v1-VSFR81 Register-lvx_v1-VSFR82 Register-lvx_v1-VSFR83 Register-lvx_v1-VSFR84 Register-lvx_v1-VSFR85 Register-lvx_v1-VSFR86 Register-lvx_v1-VSFR87 Register-lvx_v1-VSFR88 Register-lvx_v1-VSFR89 Register-lvx_v1-VSFR90 Register-lvx_v1-VSFR91 Register-lvx_v1-VSFR92 Register-lvx_v1-VSFR93 Register-lvx_v1-VSFR94 Register-lvx_v1-VSFR95 Register-lvx_v1-VSFR96 Register-lvx_v1-VSFR97 Register-lvx_v1-VSFR98 Register-lvx_v1-VSFR99 Register-lvx_v1-VSFR100 Register-lvx_v1-VSFR101 Register-lvx_v1-VSFR102 Register-lvx_v1-VSFR103 Register-lvx_v1-VSFR104 Register-lvx_v1-VSFR105 Register-lvx_v1-VSFR106 Register-lvx_v1-VSFR107 Register-lvx_v1-VSFR108 Register-lvx_v1-VSFR109 Register-lvx_v1-VSFR110 Register-lvx_v1-VSFR111 Register-lvx_v1-VSFR112 Register-lvx_v1-VSFR113 Register-lvx_v1-VSFR114 Register-lvx_v1-VSFR115 Register-lvx_v1-VSFR116 Register-lvx_v1-VSFR117 Register-lvx_v1-VSFR118 Register-lvx_v1-VSFR119 Register-lvx_v1-VSFR120 Register-lvx_v1-VSFR121 Register-lvx_v1-VSFR122 Register-lvx_v1-VSFR123 Register-lvx_v1-VSFR124 Register-lvx_v1-VSFR125 Register-lvx_v1-VSFR126 Register-lvx_v1-VSFR127 Register-lvx_v1-VSFR128 Register-lvx_v1-VSFR129 Register-lvx_v1-VSFR130 Register-lvx_v1-VSFR131 Register-lvx_v1-VSFR132 Register-lvx_v1-VSFR133 Register-lvx_v1-VSFR134 Register-lvx_v1-VSFR135 Register-lvx_v1-VSFR136 Register-lvx_v1-VSFR137 Register-lvx_v1-VSFR138 Register-lvx_v1-VSFR139 Register-lvx_v1-VSFR140 Register-lvx_v1-VSFR141 Register-lvx_v1-VSFR142 Register-lvx_v1-VSFR143 Register-lvx_v1-VSFR144 Register-lvx_v1-VSFR145 Register-lvx_v1-VSFR146 Register-lvx_v1-VSFR147 Register-lvx_v1-VSFR148 Register-lvx_v1-VSFR149 Register-lvx_v1-VSFR150 Register-lvx_v1-VSFR151 Register-lvx_v1-VSFR152 Register-lvx_v1-VSFR153 Register-lvx_v1-VSFR154 Register-lvx_v1-VSFR155 Register-lvx_v1-VSFR156 Register-lvx_v1-VSFR157 Register-lvx_v1-VSFR158 Register-lvx_v1-VSFR159 Register-lvx_v1-VSFR160 Register-lvx_v1-VSFR161 Register-lvx_v1-VSFR162 Register-lvx_v1-VSFR163 Register-lvx_v1-VSFR164 Register-lvx_v1-VSFR165 Register-lvx_v1-VSFR166 Register-lvx_v1-VSFR167 Register-lvx_v1-VSFR168 Register-lvx_v1-VSFR169 Register-lvx_v1-VSFR170 Register-lvx_v1-VSFR171 Register-lvx_v1-VSFR172 Register-lvx_v1-VSFR173 Register-lvx_v1-VSFR174 Register-lvx_v1-VSFR175 Register-lvx_v1-VSFR176 Register-lvx_v1-VSFR177 Register-lvx_v1-VSFR178 Register-lvx_v1-VSFR179 Register-lvx_v1-VSFR180 Register-lvx_v1-VSFR181 Register-lvx_v1-VSFR182 Register-lvx_v1-VSFR183 Register-lvx_v1-VSFR184 Register-lvx_v1-VSFR185 Register-lvx_v1-VSFR186 Register-lvx_v1-VSFR187 Register-lvx_v1-VSFR188 Register-lvx_v1-VSFR189 Register-lvx_v1-VSFR190 Register-lvx_v1-VSFR191 Register-lvx_v1-VSFR192 Register-lvx_v1-VSFR193 Register-lvx_v1-VSFR194 Register-lvx_v1-VSFR195 Register-lvx_v1-VSFR196 Register-lvx_v1-VSFR197 Register-lvx_v1-VSFR198 Register-lvx_v1-VSFR199 Register-lvx_v1-VSFR200 Register-lvx_v1-VSFR201 Register-lvx_v1-VSFR202 Register-lvx_v1-VSFR203 Register-lvx_v1-VSFR204 Register-lvx_v1-VSFR205 Register-lvx_v1-VSFR206 Register-lvx_v1-VSFR207 Register-lvx_v1-VSFR208 Register-lvx_v1-VSFR209 Register-lvx_v1-VSFR210 Register-lvx_v1-VSFR211 Register-lvx_v1-VSFR212 Register-lvx_v1-VSFR213 Register-lvx_v1-VSFR214 Register-lvx_v1-VSFR215 Register-lvx_v1-VSFR216 Register-lvx_v1-VSFR217 Register-lvx_v1-VSFR218 Register-lvx_v1-VSFR219 Register-lvx_v1-VSFR220 Register-lvx_v1-VSFR221 Register-lvx_v1-VSFR222 Register-lvx_v1-VSFR223 Register-lvx_v1-VSFR224 Register-lvx_v1-VSFR225 Register-lvx_v1-VSFR226 Register-lvx_v1-VSFR227 Register-lvx_v1-VSFR228 Register-lvx_v1-VSFR229 Register-lvx_v1-VSFR230 Register-lvx_v1-VSFR231 Register-lvx_v1-VSFR232 Register-lvx_v1-VSFR233 Register-lvx_v1-VSFR234 Register-lvx_v1-VSFR235 Register-lvx_v1-VSFR236 Register-lvx_v1-VSFR237 Register-lvx_v1-VSFR238 Register-lvx_v1-VSFR239 Register-lvx_v1-VSFR240 Register-lvx_v1-VSFR241 Register-lvx_v1-VSFR242 Register-lvx_v1-VSFR243 Register-lvx_v1-VSFR244 Register-lvx_v1-VSFR245 Register-lvx_v1-VSFR246 Register-lvx_v1-VSFR247 Register-lvx_v1-VSFR248 Register-lvx_v1-VSFR249 Register-lvx_v1-VSFR250 Register-lvx_v1-VSFR251 Register-lvx_v1-VSFR252 Register-lvx_v1-VSFR253 Register-lvx_v1-VSFR254 Register-lvx_v1-VSFR255"
   what=	"Only SET System Registers without PS"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-onlyfxReg"
-  regFile=	"RegFile-lvx_v1-SFR"
+  regFile=	"RegClass-lvx_v1-systemReg"
   registers=	"Register-lvx_v1-PCR Register-lvx_v1-CS Register-lvx_v1-CSIT Register-lvx_v1-IPE Register-lvx_v1-MEN Register-lvx_v1-PMC Register-lvx_v1-TCR Register-lvx_v1-ILE Register-lvx_v1-ILL Register-lvx_v1-ILR Register-lvx_v1-MMC Register-lvx_v1-TEL Register-lvx_v1-TEH Register-lvx_v1-DC Register-lvx_v1-IXC Register-lvx_v1-MES Register-lvx_v1-WS Register-lvx_v1-DC0 Register-lvx_v1-DC1 Register-lvx_v1-DC2 Register-lvx_v1-DC3 Register-lvx_v1-PMC2 Register-lvx_v1-SPS_PL0 Register-lvx_v1-SPS_PL1 Register-lvx_v1-SPS_PL2 Register-lvx_v1-SPS_PL3 Register-lvx_v1-ES_PL0 Register-lvx_v1-ES_PL1 Register-lvx_v1-ES_PL2 Register-lvx_v1-ES_PL3 Register-lvx_v1-SPS Register-lvx_v1-ES Register-lvx_v1-TPCC_PL0 Register-lvx_v1-TPCC_PL1 Register-lvx_v1-TPCC_PL2 Register-lvx_v1-TPCC_PL3 Register-lvx_v1-TPCC"
   what=	"Only FX System Registers without PS"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-worddRegE"
-  regFile=	"RegFile-lvx_v1-GPR"
+  regFile=	"RegClass-lvx_v1-singleReg"
   registers=	"Register-lvx_v1-R0 Register-lvx_v1-R2 Register-lvx_v1-R4 Register-lvx_v1-R6 Register-lvx_v1-R8 Register-lvx_v1-R10 Register-lvx_v1-R12 Register-lvx_v1-R14 Register-lvx_v1-R16 Register-lvx_v1-R18 Register-lvx_v1-R20 Register-lvx_v1-R22 Register-lvx_v1-R24 Register-lvx_v1-R26 Register-lvx_v1-R28 Register-lvx_v1-R30 Register-lvx_v1-R32 Register-lvx_v1-R34 Register-lvx_v1-R36 Register-lvx_v1-R38 Register-lvx_v1-R40 Register-lvx_v1-R42 Register-lvx_v1-R44 Register-lvx_v1-R46 Register-lvx_v1-R48 Register-lvx_v1-R50 Register-lvx_v1-R52 Register-lvx_v1-R54 Register-lvx_v1-R56 Register-lvx_v1-R58 Register-lvx_v1-R60 Register-lvx_v1-R62"
   shift=	"1"
   what=	"Accelerator Registers Even Numbered"
@@ -186,34 +241,42 @@
 <RegClass
   ID=	"RegClass-lvx_v1-worddRegO"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-GPR"
+  regFile=	"RegClass-lvx_v1-singleReg"
   registers=	"Register-lvx_v1-R1 Register-lvx_v1-R3 Register-lvx_v1-R5 Register-lvx_v1-R7 Register-lvx_v1-R9 Register-lvx_v1-R11 Register-lvx_v1-R13 Register-lvx_v1-R15 Register-lvx_v1-R17 Register-lvx_v1-R19 Register-lvx_v1-R21 Register-lvx_v1-R23 Register-lvx_v1-R25 Register-lvx_v1-R27 Register-lvx_v1-R29 Register-lvx_v1-R31 Register-lvx_v1-R33 Register-lvx_v1-R35 Register-lvx_v1-R37 Register-lvx_v1-R39 Register-lvx_v1-R41 Register-lvx_v1-R43 Register-lvx_v1-R45 Register-lvx_v1-R47 Register-lvx_v1-R49 Register-lvx_v1-R51 Register-lvx_v1-R53 Register-lvx_v1-R55 Register-lvx_v1-R57 Register-lvx_v1-R59 Register-lvx_v1-R61 Register-lvx_v1-R63"
   shift=	"1"
   what=	"Accelerator Registers Odd Numbered"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-onlyswapReg"
-  regFile=	"RegFile-lvx_v1-SFR"
+  regFile=	"RegClass-lvx_v1-systemReg"
   registers=	"Register-lvx_v1-PC Register-lvx_v1-PCR Register-lvx_v1-RA Register-lvx_v1-CS Register-lvx_v1-CSIT Register-lvx_v1-AESPC Register-lvx_v1-LS Register-lvx_v1-LE Register-lvx_v1-LC Register-lvx_v1-IPE Register-lvx_v1-MEN Register-lvx_v1-PMC Register-lvx_v1-PM0 Register-lvx_v1-PM1 Register-lvx_v1-PM2 Register-lvx_v1-PM3 Register-lvx_v1-PMSA Register-lvx_v1-TCR Register-lvx_v1-T0V Register-lvx_v1-T1V Register-lvx_v1-T0R Register-lvx_v1-T1R Register-lvx_v1-WDV Register-lvx_v1-WDR Register-lvx_v1-ILE Register-lvx_v1-ILL Register-lvx_v1-ILR Register-lvx_v1-MMC Register-lvx_v1-TEL Register-lvx_v1-TEH Register-lvx_v1-IXC Register-lvx_v1-SYO Register-lvx_v1-HTO Register-lvx_v1-ITO Register-lvx_v1-DO Register-lvx_v1-MO Register-lvx_v1-PSO Register-lvx_v1-TPCM0 Register-lvx_v1-TPCM1 Register-lvx_v1-DC Register-lvx_v1-DBA0 Register-lvx_v1-DBA1 Register-lvx_v1-DWA0 Register-lvx_v1-DWA1 Register-lvx_v1-MES Register-lvx_v1-WS Register-lvx_v1-DC0 Register-lvx_v1-DC1 Register-lvx_v1-DC2 Register-lvx_v1-DC3 Register-lvx_v1-DBA2 Register-lvx_v1-DBA3 Register-lvx_v1-DWA2 Register-lvx_v1-DWA3 Register-lvx_v1-TPCM2 Register-lvx_v1-TPCMC Register-lvx_v1-PM4 Register-lvx_v1-PM5 Register-lvx_v1-PM6 Register-lvx_v1-PM7 Register-lvx_v1-PMC2 Register-lvx_v1-SRHPC Register-lvx_v1-FRCC Register-lvx_v1-SPC_PL0 Register-lvx_v1-SPC_PL1 Register-lvx_v1-SPC_PL2 Register-lvx_v1-SPC_PL3 Register-lvx_v1-SPS_PL0 Register-lvx_v1-SPS_PL1 Register-lvx_v1-SPS_PL2 Register-lvx_v1-SPS_PL3 Register-lvx_v1-EA_PL0 Register-lvx_v1-EA_PL1 Register-lvx_v1-EA_PL2 Register-lvx_v1-EA_PL3 Register-lvx_v1-EV_PL0 Register-lvx_v1-EV_PL1 Register-lvx_v1-EV_PL2 Register-lvx_v1-EV_PL3 Register-lvx_v1-SR_PL0 Register-lvx_v1-SR_PL1 Register-lvx_v1-SR_PL2 Register-lvx_v1-SR_PL3 Register-lvx_v1-ES_PL0 Register-lvx_v1-ES_PL1 Register-lvx_v1-ES_PL2 Register-lvx_v1-ES_PL3 Register-lvx_v1-SID_PL0 Register-lvx_v1-SID_PL1 Register-lvx_v1-SID_PL2 Register-lvx_v1-SID_PL3 Register-lvx_v1-SR1_PL0 Register-lvx_v1-SR1_PL1 Register-lvx_v1-SR1_PL2 Register-lvx_v1-SR1_PL3 Register-lvx_v1-SYOW Register-lvx_v1-HTOW Register-lvx_v1-ITOW Register-lvx_v1-DOW Register-lvx_v1-MOW Register-lvx_v1-PSOW Register-lvx_v1-RES102 Register-lvx_v1-RES103 Register-lvx_v1-TPCC_PL0 Register-lvx_v1-TPCC_PL1 Register-lvx_v1-TPCC_PL2 Register-lvx_v1-TPCC_PL3 Register-lvx_v1-RES108 Register-lvx_v1-RES109 Register-lvx_v1-RES110 Register-lvx_v1-RES111 Register-lvx_v1-RES112 Register-lvx_v1-RES113 Register-lvx_v1-RES114 Register-lvx_v1-RES115 Register-lvx_v1-RES116 Register-lvx_v1-RES117 Register-lvx_v1-RES118 Register-lvx_v1-RES119 Register-lvx_v1-RES120 Register-lvx_v1-RES121 Register-lvx_v1-RES122 Register-lvx_v1-RES123 Register-lvx_v1-RES124 Register-lvx_v1-RES125 Register-lvx_v1-RES126 Register-lvx_v1-RES127 Register-lvx_v1-SPC Register-lvx_v1-RES129 Register-lvx_v1-RES130 Register-lvx_v1-RES131 Register-lvx_v1-SPS Register-lvx_v1-RES133 Register-lvx_v1-RES134 Register-lvx_v1-RES135 Register-lvx_v1-EA Register-lvx_v1-RES137 Register-lvx_v1-RES138 Register-lvx_v1-RES139 Register-lvx_v1-EV Register-lvx_v1-RES141 Register-lvx_v1-RES142 Register-lvx_v1-RES143 Register-lvx_v1-SR Register-lvx_v1-RES145 Register-lvx_v1-RES146 Register-lvx_v1-RES147 Register-lvx_v1-ES Register-lvx_v1-RES149 Register-lvx_v1-RES150 Register-lvx_v1-RES151 Register-lvx_v1-SID Register-lvx_v1-RES153 Register-lvx_v1-RES154 Register-lvx_v1-RES155 Register-lvx_v1-SR1 Register-lvx_v1-RES157 Register-lvx_v1-RES158 Register-lvx_v1-RES159 Register-lvx_v1-RES160 Register-lvx_v1-RES161 Register-lvx_v1-RES162 Register-lvx_v1-RES163 Register-lvx_v1-RES164 Register-lvx_v1-RES165 Register-lvx_v1-RES166 Register-lvx_v1-RES167 Register-lvx_v1-TPCC Register-lvx_v1-RES169 Register-lvx_v1-RES170 Register-lvx_v1-RES171 Register-lvx_v1-RES172 Register-lvx_v1-RES173 Register-lvx_v1-RES174 Register-lvx_v1-RES175 Register-lvx_v1-RES176 Register-lvx_v1-RES177 Register-lvx_v1-RES178 Register-lvx_v1-RES179 Register-lvx_v1-RES180 Register-lvx_v1-RES181 Register-lvx_v1-RES182 Register-lvx_v1-RES183 Register-lvx_v1-RES184 Register-lvx_v1-RES185 Register-lvx_v1-RES186 Register-lvx_v1-RES187 Register-lvx_v1-RES188 Register-lvx_v1-RES189 Register-lvx_v1-RES190 Register-lvx_v1-RES191 Register-lvx_v1-RES192 Register-lvx_v1-RES193 Register-lvx_v1-RES194 Register-lvx_v1-RES195 Register-lvx_v1-RES196 Register-lvx_v1-RES197 Register-lvx_v1-RES198 Register-lvx_v1-RES199 Register-lvx_v1-RES200 Register-lvx_v1-RES201 Register-lvx_v1-RES202 Register-lvx_v1-RES203 Register-lvx_v1-RES204 Register-lvx_v1-RES205 Register-lvx_v1-RES206 Register-lvx_v1-RES207 Register-lvx_v1-RES208 Register-lvx_v1-RES209 Register-lvx_v1-RES210 Register-lvx_v1-RES211 Register-lvx_v1-RES212 Register-lvx_v1-RES213 Register-lvx_v1-RES214 Register-lvx_v1-RES215 Register-lvx_v1-RES216 Register-lvx_v1-RES217 Register-lvx_v1-RES218 Register-lvx_v1-RES219 Register-lvx_v1-RES220 Register-lvx_v1-RES221 Register-lvx_v1-RES222 Register-lvx_v1-RES223 Register-lvx_v1-RES224 Register-lvx_v1-RES225 Register-lvx_v1-RES226 Register-lvx_v1-RES227 Register-lvx_v1-RES228 Register-lvx_v1-RES229 Register-lvx_v1-RES230 Register-lvx_v1-RES231 Register-lvx_v1-RES232 Register-lvx_v1-RES233 Register-lvx_v1-RES234 Register-lvx_v1-RES235 Register-lvx_v1-RES236 Register-lvx_v1-RES237 Register-lvx_v1-RES238 Register-lvx_v1-RES239 Register-lvx_v1-RES240 Register-lvx_v1-RES241 Register-lvx_v1-RES242 Register-lvx_v1-RES243 Register-lvx_v1-RES244 Register-lvx_v1-RES245 Register-lvx_v1-RES246 Register-lvx_v1-RES247 Register-lvx_v1-RES248 Register-lvx_v1-RES249 Register-lvx_v1-RES250 Register-lvx_v1-RES251 Register-lvx_v1-RES252 Register-lvx_v1-RES253 Register-lvx_v1-RES254 Register-lvx_v1-RES255 Register-lvx_v1-VSFR0 Register-lvx_v1-VSFR1 Register-lvx_v1-VSFR2 Register-lvx_v1-VSFR3 Register-lvx_v1-VSFR4 Register-lvx_v1-VSFR5 Register-lvx_v1-VSFR6 Register-lvx_v1-VSFR7 Register-lvx_v1-VSFR8 Register-lvx_v1-VSFR9 Register-lvx_v1-VSFR10 Register-lvx_v1-VSFR11 Register-lvx_v1-VSFR12 Register-lvx_v1-VSFR13 Register-lvx_v1-VSFR14 Register-lvx_v1-VSFR15 Register-lvx_v1-VSFR16 Register-lvx_v1-VSFR17 Register-lvx_v1-VSFR18 Register-lvx_v1-VSFR19 Register-lvx_v1-VSFR20 Register-lvx_v1-VSFR21 Register-lvx_v1-VSFR22 Register-lvx_v1-VSFR23 Register-lvx_v1-VSFR24 Register-lvx_v1-VSFR25 Register-lvx_v1-VSFR26 Register-lvx_v1-VSFR27 Register-lvx_v1-VSFR28 Register-lvx_v1-VSFR29 Register-lvx_v1-VSFR30 Register-lvx_v1-VSFR31 Register-lvx_v1-VSFR32 Register-lvx_v1-VSFR33 Register-lvx_v1-VSFR34 Register-lvx_v1-VSFR35 Register-lvx_v1-VSFR36 Register-lvx_v1-VSFR37 Register-lvx_v1-VSFR38 Register-lvx_v1-VSFR39 Register-lvx_v1-VSFR40 Register-lvx_v1-VSFR41 Register-lvx_v1-VSFR42 Register-lvx_v1-VSFR43 Register-lvx_v1-VSFR44 Register-lvx_v1-VSFR45 Register-lvx_v1-VSFR46 Register-lvx_v1-VSFR47 Register-lvx_v1-VSFR48 Register-lvx_v1-VSFR49 Register-lvx_v1-VSFR50 Register-lvx_v1-VSFR51 Register-lvx_v1-VSFR52 Register-lvx_v1-VSFR53 Register-lvx_v1-VSFR54 Register-lvx_v1-VSFR55 Register-lvx_v1-VSFR56 Register-lvx_v1-VSFR57 Register-lvx_v1-VSFR58 Register-lvx_v1-VSFR59 Register-lvx_v1-VSFR60 Register-lvx_v1-VSFR61 Register-lvx_v1-VSFR62 Register-lvx_v1-VSFR63 Register-lvx_v1-VSFR64 Register-lvx_v1-VSFR65 Register-lvx_v1-VSFR66 Register-lvx_v1-VSFR67 Register-lvx_v1-VSFR68 Register-lvx_v1-VSFR69 Register-lvx_v1-VSFR70 Register-lvx_v1-VSFR71 Register-lvx_v1-VSFR72 Register-lvx_v1-VSFR73 Register-lvx_v1-VSFR74 Register-lvx_v1-VSFR75 Register-lvx_v1-VSFR76 Register-lvx_v1-VSFR77 Register-lvx_v1-VSFR78 Register-lvx_v1-VSFR79 Register-lvx_v1-VSFR80 Register-lvx_v1-VSFR81 Register-lvx_v1-VSFR82 Register-lvx_v1-VSFR83 Register-lvx_v1-VSFR84 Register-lvx_v1-VSFR85 Register-lvx_v1-VSFR86 Register-lvx_v1-VSFR87 Register-lvx_v1-VSFR88 Register-lvx_v1-VSFR89 Register-lvx_v1-VSFR90 Register-lvx_v1-VSFR91 Register-lvx_v1-VSFR92 Register-lvx_v1-VSFR93 Register-lvx_v1-VSFR94 Register-lvx_v1-VSFR95 Register-lvx_v1-VSFR96 Register-lvx_v1-VSFR97 Register-lvx_v1-VSFR98 Register-lvx_v1-VSFR99 Register-lvx_v1-VSFR100 Register-lvx_v1-VSFR101 Register-lvx_v1-VSFR102 Register-lvx_v1-VSFR103 Register-lvx_v1-VSFR104 Register-lvx_v1-VSFR105 Register-lvx_v1-VSFR106 Register-lvx_v1-VSFR107 Register-lvx_v1-VSFR108 Register-lvx_v1-VSFR109 Register-lvx_v1-VSFR110 Register-lvx_v1-VSFR111 Register-lvx_v1-VSFR112 Register-lvx_v1-VSFR113 Register-lvx_v1-VSFR114 Register-lvx_v1-VSFR115 Register-lvx_v1-VSFR116 Register-lvx_v1-VSFR117 Register-lvx_v1-VSFR118 Register-lvx_v1-VSFR119 Register-lvx_v1-VSFR120 Register-lvx_v1-VSFR121 Register-lvx_v1-VSFR122 Register-lvx_v1-VSFR123 Register-lvx_v1-VSFR124 Register-lvx_v1-VSFR125 Register-lvx_v1-VSFR126 Register-lvx_v1-VSFR127 Register-lvx_v1-VSFR128 Register-lvx_v1-VSFR129 Register-lvx_v1-VSFR130 Register-lvx_v1-VSFR131 Register-lvx_v1-VSFR132 Register-lvx_v1-VSFR133 Register-lvx_v1-VSFR134 Register-lvx_v1-VSFR135 Register-lvx_v1-VSFR136 Register-lvx_v1-VSFR137 Register-lvx_v1-VSFR138 Register-lvx_v1-VSFR139 Register-lvx_v1-VSFR140 Register-lvx_v1-VSFR141 Register-lvx_v1-VSFR142 Register-lvx_v1-VSFR143 Register-lvx_v1-VSFR144 Register-lvx_v1-VSFR145 Register-lvx_v1-VSFR146 Register-lvx_v1-VSFR147 Register-lvx_v1-VSFR148 Register-lvx_v1-VSFR149 Register-lvx_v1-VSFR150 Register-lvx_v1-VSFR151 Register-lvx_v1-VSFR152 Register-lvx_v1-VSFR153 Register-lvx_v1-VSFR154 Register-lvx_v1-VSFR155 Register-lvx_v1-VSFR156 Register-lvx_v1-VSFR157 Register-lvx_v1-VSFR158 Register-lvx_v1-VSFR159 Register-lvx_v1-VSFR160 Register-lvx_v1-VSFR161 Register-lvx_v1-VSFR162 Register-lvx_v1-VSFR163 Register-lvx_v1-VSFR164 Register-lvx_v1-VSFR165 Register-lvx_v1-VSFR166 Register-lvx_v1-VSFR167 Register-lvx_v1-VSFR168 Register-lvx_v1-VSFR169 Register-lvx_v1-VSFR170 Register-lvx_v1-VSFR171 Register-lvx_v1-VSFR172 Register-lvx_v1-VSFR173 Register-lvx_v1-VSFR174 Register-lvx_v1-VSFR175 Register-lvx_v1-VSFR176 Register-lvx_v1-VSFR177 Register-lvx_v1-VSFR178 Register-lvx_v1-VSFR179 Register-lvx_v1-VSFR180 Register-lvx_v1-VSFR181 Register-lvx_v1-VSFR182 Register-lvx_v1-VSFR183 Register-lvx_v1-VSFR184 Register-lvx_v1-VSFR185 Register-lvx_v1-VSFR186 Register-lvx_v1-VSFR187 Register-lvx_v1-VSFR188 Register-lvx_v1-VSFR189 Register-lvx_v1-VSFR190 Register-lvx_v1-VSFR191 Register-lvx_v1-VSFR192 Register-lvx_v1-VSFR193 Register-lvx_v1-VSFR194 Register-lvx_v1-VSFR195 Register-lvx_v1-VSFR196 Register-lvx_v1-VSFR197 Register-lvx_v1-VSFR198 Register-lvx_v1-VSFR199 Register-lvx_v1-VSFR200 Register-lvx_v1-VSFR201 Register-lvx_v1-VSFR202 Register-lvx_v1-VSFR203 Register-lvx_v1-VSFR204 Register-lvx_v1-VSFR205 Register-lvx_v1-VSFR206 Register-lvx_v1-VSFR207 Register-lvx_v1-VSFR208 Register-lvx_v1-VSFR209 Register-lvx_v1-VSFR210 Register-lvx_v1-VSFR211 Register-lvx_v1-VSFR212 Register-lvx_v1-VSFR213 Register-lvx_v1-VSFR214 Register-lvx_v1-VSFR215 Register-lvx_v1-VSFR216 Register-lvx_v1-VSFR217 Register-lvx_v1-VSFR218 Register-lvx_v1-VSFR219 Register-lvx_v1-VSFR220 Register-lvx_v1-VSFR221 Register-lvx_v1-VSFR222 Register-lvx_v1-VSFR223 Register-lvx_v1-VSFR224 Register-lvx_v1-VSFR225 Register-lvx_v1-VSFR226 Register-lvx_v1-VSFR227 Register-lvx_v1-VSFR228 Register-lvx_v1-VSFR229 Register-lvx_v1-VSFR230 Register-lvx_v1-VSFR231 Register-lvx_v1-VSFR232 Register-lvx_v1-VSFR233 Register-lvx_v1-VSFR234 Register-lvx_v1-VSFR235 Register-lvx_v1-VSFR236 Register-lvx_v1-VSFR237 Register-lvx_v1-VSFR238 Register-lvx_v1-VSFR239 Register-lvx_v1-VSFR240 Register-lvx_v1-VSFR241 Register-lvx_v1-VSFR242 Register-lvx_v1-VSFR243 Register-lvx_v1-VSFR244 Register-lvx_v1-VSFR245 Register-lvx_v1-VSFR246 Register-lvx_v1-VSFR247 Register-lvx_v1-VSFR248 Register-lvx_v1-VSFR249 Register-lvx_v1-VSFR250 Register-lvx_v1-VSFR251 Register-lvx_v1-VSFR252 Register-lvx_v1-VSFR253 Register-lvx_v1-VSFR254 Register-lvx_v1-VSFR255"
   what=	"Only SWAP System Registers without PS"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-xworddReg"
-  regFile=	"RegFile-lvx_v1-XCR"
+  nativeTypes=	"NativeType-lvx_v1-Int64 NativeType-lvx_v1-UInt64"
+  regFile=	"RegClass-lvx_v1-xworddReg"
+  regFileName=	"XCR"
+  regFileNumber=	"4"
   registers=	"Register-lvx_v1-C0 Register-lvx_v1-C1 Register-lvx_v1-C2 Register-lvx_v1-C3 Register-lvx_v1-C4 Register-lvx_v1-C5 Register-lvx_v1-C6 Register-lvx_v1-C7 Register-lvx_v1-C8 Register-lvx_v1-C9 Register-lvx_v1-C10 Register-lvx_v1-C11 Register-lvx_v1-C12 Register-lvx_v1-C13 Register-lvx_v1-C14 Register-lvx_v1-C15 Register-lvx_v1-C16 Register-lvx_v1-C17 Register-lvx_v1-C18 Register-lvx_v1-C19 Register-lvx_v1-C20 Register-lvx_v1-C21 Register-lvx_v1-C22 Register-lvx_v1-C23 Register-lvx_v1-C24 Register-lvx_v1-C25 Register-lvx_v1-C26 Register-lvx_v1-C27 Register-lvx_v1-C28 Register-lvx_v1-C29 Register-lvx_v1-C30 Register-lvx_v1-C31 Register-lvx_v1-C32 Register-lvx_v1-C33 Register-lvx_v1-C34 Register-lvx_v1-C35 Register-lvx_v1-C36 Register-lvx_v1-C37 Register-lvx_v1-C38 Register-lvx_v1-C39 Register-lvx_v1-C40 Register-lvx_v1-C41 Register-lvx_v1-C42 Register-lvx_v1-C43 Register-lvx_v1-C44 Register-lvx_v1-C45 Register-lvx_v1-C46 Register-lvx_v1-C47 Register-lvx_v1-C48 Register-lvx_v1-C49 Register-lvx_v1-C50 Register-lvx_v1-C51 Register-lvx_v1-C52 Register-lvx_v1-C53 Register-lvx_v1-C54 Register-lvx_v1-C55 Register-lvx_v1-C56 Register-lvx_v1-C57 Register-lvx_v1-C58 Register-lvx_v1-C59 Register-lvx_v1-C60 Register-lvx_v1-C61 Register-lvx_v1-C62 Register-lvx_v1-C63 Register-lvx_v1-C64 Register-lvx_v1-C65 Register-lvx_v1-C66 Register-lvx_v1-C67 Register-lvx_v1-C68 Register-lvx_v1-C69 Register-lvx_v1-C70 Register-lvx_v1-C71 Register-lvx_v1-C72 Register-lvx_v1-C73 Register-lvx_v1-C74 Register-lvx_v1-C75 Register-lvx_v1-C76 Register-lvx_v1-C77 Register-lvx_v1-C78 Register-lvx_v1-C79 Register-lvx_v1-C80 Register-lvx_v1-C81 Register-lvx_v1-C82 Register-lvx_v1-C83 Register-lvx_v1-C84 Register-lvx_v1-C85 Register-lvx_v1-C86 Register-lvx_v1-C87 Register-lvx_v1-C88 Register-lvx_v1-C89 Register-lvx_v1-C90 Register-lvx_v1-C91 Register-lvx_v1-C92 Register-lvx_v1-C93 Register-lvx_v1-C94 Register-lvx_v1-C95 Register-lvx_v1-C96 Register-lvx_v1-C97 Register-lvx_v1-C98 Register-lvx_v1-C99 Register-lvx_v1-C100 Register-lvx_v1-C101 Register-lvx_v1-C102 Register-lvx_v1-C103 Register-lvx_v1-C104 Register-lvx_v1-C105 Register-lvx_v1-C106 Register-lvx_v1-C107 Register-lvx_v1-C108 Register-lvx_v1-C109 Register-lvx_v1-C110 Register-lvx_v1-C111 Register-lvx_v1-C112 Register-lvx_v1-C113 Register-lvx_v1-C114 Register-lvx_v1-C115 Register-lvx_v1-C116 Register-lvx_v1-C117 Register-lvx_v1-C118 Register-lvx_v1-C119 Register-lvx_v1-C120 Register-lvx_v1-C121 Register-lvx_v1-C122 Register-lvx_v1-C123 Register-lvx_v1-C124 Register-lvx_v1-C125 Register-lvx_v1-C126 Register-lvx_v1-C127 Register-lvx_v1-C128 Register-lvx_v1-C129 Register-lvx_v1-C130 Register-lvx_v1-C131 Register-lvx_v1-C132 Register-lvx_v1-C133 Register-lvx_v1-C134 Register-lvx_v1-C135 Register-lvx_v1-C136 Register-lvx_v1-C137 Register-lvx_v1-C138 Register-lvx_v1-C139 Register-lvx_v1-C140 Register-lvx_v1-C141 Register-lvx_v1-C142 Register-lvx_v1-C143 Register-lvx_v1-C144 Register-lvx_v1-C145 Register-lvx_v1-C146 Register-lvx_v1-C147 Register-lvx_v1-C148 Register-lvx_v1-C149 Register-lvx_v1-C150 Register-lvx_v1-C151 Register-lvx_v1-C152 Register-lvx_v1-C153 Register-lvx_v1-C154 Register-lvx_v1-C155 Register-lvx_v1-C156 Register-lvx_v1-C157 Register-lvx_v1-C158 Register-lvx_v1-C159 Register-lvx_v1-C160 Register-lvx_v1-C161 Register-lvx_v1-C162 Register-lvx_v1-C163 Register-lvx_v1-C164 Register-lvx_v1-C165 Register-lvx_v1-C166 Register-lvx_v1-C167 Register-lvx_v1-C168 Register-lvx_v1-C169 Register-lvx_v1-C170 Register-lvx_v1-C171 Register-lvx_v1-C172 Register-lvx_v1-C173 Register-lvx_v1-C174 Register-lvx_v1-C175 Register-lvx_v1-C176 Register-lvx_v1-C177 Register-lvx_v1-C178 Register-lvx_v1-C179 Register-lvx_v1-C180 Register-lvx_v1-C181 Register-lvx_v1-C182 Register-lvx_v1-C183 Register-lvx_v1-C184 Register-lvx_v1-C185 Register-lvx_v1-C186 Register-lvx_v1-C187 Register-lvx_v1-C188 Register-lvx_v1-C189 Register-lvx_v1-C190 Register-lvx_v1-C191 Register-lvx_v1-C192 Register-lvx_v1-C193 Register-lvx_v1-C194 Register-lvx_v1-C195 Register-lvx_v1-C196 Register-lvx_v1-C197 Register-lvx_v1-C198 Register-lvx_v1-C199 Register-lvx_v1-C200 Register-lvx_v1-C201 Register-lvx_v1-C202 Register-lvx_v1-C203 Register-lvx_v1-C204 Register-lvx_v1-C205 Register-lvx_v1-C206 Register-lvx_v1-C207 Register-lvx_v1-C208 Register-lvx_v1-C209 Register-lvx_v1-C210 Register-lvx_v1-C211 Register-lvx_v1-C212 Register-lvx_v1-C213 Register-lvx_v1-C214 Register-lvx_v1-C215 Register-lvx_v1-C216 Register-lvx_v1-C217 Register-lvx_v1-C218 Register-lvx_v1-C219 Register-lvx_v1-C220 Register-lvx_v1-C221 Register-lvx_v1-C222 Register-lvx_v1-C223 Register-lvx_v1-C224 Register-lvx_v1-C225 Register-lvx_v1-C226 Register-lvx_v1-C227 Register-lvx_v1-C228 Register-lvx_v1-C229 Register-lvx_v1-C230 Register-lvx_v1-C231 Register-lvx_v1-C232 Register-lvx_v1-C233 Register-lvx_v1-C234 Register-lvx_v1-C235 Register-lvx_v1-C236 Register-lvx_v1-C237 Register-lvx_v1-C238 Register-lvx_v1-C239 Register-lvx_v1-C240 Register-lvx_v1-C241 Register-lvx_v1-C242 Register-lvx_v1-C243 Register-lvx_v1-C244 Register-lvx_v1-C245 Register-lvx_v1-C246 Register-lvx_v1-C247 Register-lvx_v1-C248 Register-lvx_v1-C249 Register-lvx_v1-C250 Register-lvx_v1-C251 Register-lvx_v1-C252 Register-lvx_v1-C253 Register-lvx_v1-C254 Register-lvx_v1-C255"
   what=	"Extension Word Double Registers"
+  width=	"64"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-xwordqReg"
   multi=	"RegClass-lvx_v1-xworddReg RegClass-lvx_v1-xworddReg"
-  regFile=	"RegFile-lvx_v1-XBR"
+  nativeTypes=	"NativeType-lvx_v1-Int128 NativeType-lvx_v1-UInt128"
+  regFile=	"RegClass-lvx_v1-xwordqReg"
+  regFileName=	"XBR"
+  regFileNumber=	"5"
   registers=	"Register-lvx_v1-B0 Register-lvx_v1-B1 Register-lvx_v1-B2 Register-lvx_v1-B3 Register-lvx_v1-B4 Register-lvx_v1-B5 Register-lvx_v1-B6 Register-lvx_v1-B7 Register-lvx_v1-B8 Register-lvx_v1-B9 Register-lvx_v1-B10 Register-lvx_v1-B11 Register-lvx_v1-B12 Register-lvx_v1-B13 Register-lvx_v1-B14 Register-lvx_v1-B15 Register-lvx_v1-B16 Register-lvx_v1-B17 Register-lvx_v1-B18 Register-lvx_v1-B19 Register-lvx_v1-B20 Register-lvx_v1-B21 Register-lvx_v1-B22 Register-lvx_v1-B23 Register-lvx_v1-B24 Register-lvx_v1-B25 Register-lvx_v1-B26 Register-lvx_v1-B27 Register-lvx_v1-B28 Register-lvx_v1-B29 Register-lvx_v1-B30 Register-lvx_v1-B31 Register-lvx_v1-B32 Register-lvx_v1-B33 Register-lvx_v1-B34 Register-lvx_v1-B35 Register-lvx_v1-B36 Register-lvx_v1-B37 Register-lvx_v1-B38 Register-lvx_v1-B39 Register-lvx_v1-B40 Register-lvx_v1-B41 Register-lvx_v1-B42 Register-lvx_v1-B43 Register-lvx_v1-B44 Register-lvx_v1-B45 Register-lvx_v1-B46 Register-lvx_v1-B47 Register-lvx_v1-B48 Register-lvx_v1-B49 Register-lvx_v1-B50 Register-lvx_v1-B51 Register-lvx_v1-B52 Register-lvx_v1-B53 Register-lvx_v1-B54 Register-lvx_v1-B55 Register-lvx_v1-B56 Register-lvx_v1-B57 Register-lvx_v1-B58 Register-lvx_v1-B59 Register-lvx_v1-B60 Register-lvx_v1-B61 Register-lvx_v1-B62 Register-lvx_v1-B63 Register-lvx_v1-B64 Register-lvx_v1-B65 Register-lvx_v1-B66 Register-lvx_v1-B67 Register-lvx_v1-B68 Register-lvx_v1-B69 Register-lvx_v1-B70 Register-lvx_v1-B71 Register-lvx_v1-B72 Register-lvx_v1-B73 Register-lvx_v1-B74 Register-lvx_v1-B75 Register-lvx_v1-B76 Register-lvx_v1-B77 Register-lvx_v1-B78 Register-lvx_v1-B79 Register-lvx_v1-B80 Register-lvx_v1-B81 Register-lvx_v1-B82 Register-lvx_v1-B83 Register-lvx_v1-B84 Register-lvx_v1-B85 Register-lvx_v1-B86 Register-lvx_v1-B87 Register-lvx_v1-B88 Register-lvx_v1-B89 Register-lvx_v1-B90 Register-lvx_v1-B91 Register-lvx_v1-B92 Register-lvx_v1-B93 Register-lvx_v1-B94 Register-lvx_v1-B95 Register-lvx_v1-B96 Register-lvx_v1-B97 Register-lvx_v1-B98 Register-lvx_v1-B99 Register-lvx_v1-B100 Register-lvx_v1-B101 Register-lvx_v1-B102 Register-lvx_v1-B103 Register-lvx_v1-B104 Register-lvx_v1-B105 Register-lvx_v1-B106 Register-lvx_v1-B107 Register-lvx_v1-B108 Register-lvx_v1-B109 Register-lvx_v1-B110 Register-lvx_v1-B111 Register-lvx_v1-B112 Register-lvx_v1-B113 Register-lvx_v1-B114 Register-lvx_v1-B115 Register-lvx_v1-B116 Register-lvx_v1-B117 Register-lvx_v1-B118 Register-lvx_v1-B119 Register-lvx_v1-B120 Register-lvx_v1-B121 Register-lvx_v1-B122 Register-lvx_v1-B123 Register-lvx_v1-B124 Register-lvx_v1-B125 Register-lvx_v1-B126 Register-lvx_v1-B127"
   what=	"Extension Word Quadruple Registers"
+  width=	"128"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-xwordqReg.0"
   bias=	"0"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C0 Register-lvx_v1-C2 Register-lvx_v1-C4 Register-lvx_v1-C6 Register-lvx_v1-C8 Register-lvx_v1-C10 Register-lvx_v1-C12 Register-lvx_v1-C14 Register-lvx_v1-C16 Register-lvx_v1-C18 Register-lvx_v1-C20 Register-lvx_v1-C22 Register-lvx_v1-C24 Register-lvx_v1-C26 Register-lvx_v1-C28 Register-lvx_v1-C30 Register-lvx_v1-C32 Register-lvx_v1-C34 Register-lvx_v1-C36 Register-lvx_v1-C38 Register-lvx_v1-C40 Register-lvx_v1-C42 Register-lvx_v1-C44 Register-lvx_v1-C46 Register-lvx_v1-C48 Register-lvx_v1-C50 Register-lvx_v1-C52 Register-lvx_v1-C54 Register-lvx_v1-C56 Register-lvx_v1-C58 Register-lvx_v1-C60 Register-lvx_v1-C62 Register-lvx_v1-C64 Register-lvx_v1-C66 Register-lvx_v1-C68 Register-lvx_v1-C70 Register-lvx_v1-C72 Register-lvx_v1-C74 Register-lvx_v1-C76 Register-lvx_v1-C78 Register-lvx_v1-C80 Register-lvx_v1-C82 Register-lvx_v1-C84 Register-lvx_v1-C86 Register-lvx_v1-C88 Register-lvx_v1-C90 Register-lvx_v1-C92 Register-lvx_v1-C94 Register-lvx_v1-C96 Register-lvx_v1-C98 Register-lvx_v1-C100 Register-lvx_v1-C102 Register-lvx_v1-C104 Register-lvx_v1-C106 Register-lvx_v1-C108 Register-lvx_v1-C110 Register-lvx_v1-C112 Register-lvx_v1-C114 Register-lvx_v1-C116 Register-lvx_v1-C118 Register-lvx_v1-C120 Register-lvx_v1-C122 Register-lvx_v1-C124 Register-lvx_v1-C126 Register-lvx_v1-C128 Register-lvx_v1-C130 Register-lvx_v1-C132 Register-lvx_v1-C134 Register-lvx_v1-C136 Register-lvx_v1-C138 Register-lvx_v1-C140 Register-lvx_v1-C142 Register-lvx_v1-C144 Register-lvx_v1-C146 Register-lvx_v1-C148 Register-lvx_v1-C150 Register-lvx_v1-C152 Register-lvx_v1-C154 Register-lvx_v1-C156 Register-lvx_v1-C158 Register-lvx_v1-C160 Register-lvx_v1-C162 Register-lvx_v1-C164 Register-lvx_v1-C166 Register-lvx_v1-C168 Register-lvx_v1-C170 Register-lvx_v1-C172 Register-lvx_v1-C174 Register-lvx_v1-C176 Register-lvx_v1-C178 Register-lvx_v1-C180 Register-lvx_v1-C182 Register-lvx_v1-C184 Register-lvx_v1-C186 Register-lvx_v1-C188 Register-lvx_v1-C190 Register-lvx_v1-C192 Register-lvx_v1-C194 Register-lvx_v1-C196 Register-lvx_v1-C198 Register-lvx_v1-C200 Register-lvx_v1-C202 Register-lvx_v1-C204 Register-lvx_v1-C206 Register-lvx_v1-C208 Register-lvx_v1-C210 Register-lvx_v1-C212 Register-lvx_v1-C214 Register-lvx_v1-C216 Register-lvx_v1-C218 Register-lvx_v1-C220 Register-lvx_v1-C222 Register-lvx_v1-C224 Register-lvx_v1-C226 Register-lvx_v1-C228 Register-lvx_v1-C230 Register-lvx_v1-C232 Register-lvx_v1-C234 Register-lvx_v1-C236 Register-lvx_v1-C238 Register-lvx_v1-C240 Register-lvx_v1-C242 Register-lvx_v1-C244 Register-lvx_v1-C246 Register-lvx_v1-C248 Register-lvx_v1-C250 Register-lvx_v1-C252 Register-lvx_v1-C254"
   shift=	"1"
   what=	"Extension Word Quadruple Registers Multi 0"
@@ -221,7 +284,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordqReg.1"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C1 Register-lvx_v1-C3 Register-lvx_v1-C5 Register-lvx_v1-C7 Register-lvx_v1-C9 Register-lvx_v1-C11 Register-lvx_v1-C13 Register-lvx_v1-C15 Register-lvx_v1-C17 Register-lvx_v1-C19 Register-lvx_v1-C21 Register-lvx_v1-C23 Register-lvx_v1-C25 Register-lvx_v1-C27 Register-lvx_v1-C29 Register-lvx_v1-C31 Register-lvx_v1-C33 Register-lvx_v1-C35 Register-lvx_v1-C37 Register-lvx_v1-C39 Register-lvx_v1-C41 Register-lvx_v1-C43 Register-lvx_v1-C45 Register-lvx_v1-C47 Register-lvx_v1-C49 Register-lvx_v1-C51 Register-lvx_v1-C53 Register-lvx_v1-C55 Register-lvx_v1-C57 Register-lvx_v1-C59 Register-lvx_v1-C61 Register-lvx_v1-C63 Register-lvx_v1-C65 Register-lvx_v1-C67 Register-lvx_v1-C69 Register-lvx_v1-C71 Register-lvx_v1-C73 Register-lvx_v1-C75 Register-lvx_v1-C77 Register-lvx_v1-C79 Register-lvx_v1-C81 Register-lvx_v1-C83 Register-lvx_v1-C85 Register-lvx_v1-C87 Register-lvx_v1-C89 Register-lvx_v1-C91 Register-lvx_v1-C93 Register-lvx_v1-C95 Register-lvx_v1-C97 Register-lvx_v1-C99 Register-lvx_v1-C101 Register-lvx_v1-C103 Register-lvx_v1-C105 Register-lvx_v1-C107 Register-lvx_v1-C109 Register-lvx_v1-C111 Register-lvx_v1-C113 Register-lvx_v1-C115 Register-lvx_v1-C117 Register-lvx_v1-C119 Register-lvx_v1-C121 Register-lvx_v1-C123 Register-lvx_v1-C125 Register-lvx_v1-C127 Register-lvx_v1-C129 Register-lvx_v1-C131 Register-lvx_v1-C133 Register-lvx_v1-C135 Register-lvx_v1-C137 Register-lvx_v1-C139 Register-lvx_v1-C141 Register-lvx_v1-C143 Register-lvx_v1-C145 Register-lvx_v1-C147 Register-lvx_v1-C149 Register-lvx_v1-C151 Register-lvx_v1-C153 Register-lvx_v1-C155 Register-lvx_v1-C157 Register-lvx_v1-C159 Register-lvx_v1-C161 Register-lvx_v1-C163 Register-lvx_v1-C165 Register-lvx_v1-C167 Register-lvx_v1-C169 Register-lvx_v1-C171 Register-lvx_v1-C173 Register-lvx_v1-C175 Register-lvx_v1-C177 Register-lvx_v1-C179 Register-lvx_v1-C181 Register-lvx_v1-C183 Register-lvx_v1-C185 Register-lvx_v1-C187 Register-lvx_v1-C189 Register-lvx_v1-C191 Register-lvx_v1-C193 Register-lvx_v1-C195 Register-lvx_v1-C197 Register-lvx_v1-C199 Register-lvx_v1-C201 Register-lvx_v1-C203 Register-lvx_v1-C205 Register-lvx_v1-C207 Register-lvx_v1-C209 Register-lvx_v1-C211 Register-lvx_v1-C213 Register-lvx_v1-C215 Register-lvx_v1-C217 Register-lvx_v1-C219 Register-lvx_v1-C221 Register-lvx_v1-C223 Register-lvx_v1-C225 Register-lvx_v1-C227 Register-lvx_v1-C229 Register-lvx_v1-C231 Register-lvx_v1-C233 Register-lvx_v1-C235 Register-lvx_v1-C237 Register-lvx_v1-C239 Register-lvx_v1-C241 Register-lvx_v1-C243 Register-lvx_v1-C245 Register-lvx_v1-C247 Register-lvx_v1-C249 Register-lvx_v1-C251 Register-lvx_v1-C253 Register-lvx_v1-C255"
   shift=	"1"
   what=	"Extension Word Quadruple Registers Multi 1"
@@ -229,14 +292,18 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordoReg"
   multi=	"RegClass-lvx_v1-xworddReg RegClass-lvx_v1-xworddReg RegClass-lvx_v1-xworddReg RegClass-lvx_v1-xworddReg"
-  regFile=	"RegFile-lvx_v1-XVR"
+  nativeTypes=	"NativeType-lvx_v1-Int128x2 NativeType-lvx_v1-UInt128x2"
+  regFile=	"RegClass-lvx_v1-xwordoReg"
+  regFileName=	"XVR"
+  regFileNumber=	"6"
   registers=	"Register-lvx_v1-A0 Register-lvx_v1-A1 Register-lvx_v1-A2 Register-lvx_v1-A3 Register-lvx_v1-A4 Register-lvx_v1-A5 Register-lvx_v1-A6 Register-lvx_v1-A7 Register-lvx_v1-A8 Register-lvx_v1-A9 Register-lvx_v1-A10 Register-lvx_v1-A11 Register-lvx_v1-A12 Register-lvx_v1-A13 Register-lvx_v1-A14 Register-lvx_v1-A15 Register-lvx_v1-A16 Register-lvx_v1-A17 Register-lvx_v1-A18 Register-lvx_v1-A19 Register-lvx_v1-A20 Register-lvx_v1-A21 Register-lvx_v1-A22 Register-lvx_v1-A23 Register-lvx_v1-A24 Register-lvx_v1-A25 Register-lvx_v1-A26 Register-lvx_v1-A27 Register-lvx_v1-A28 Register-lvx_v1-A29 Register-lvx_v1-A30 Register-lvx_v1-A31 Register-lvx_v1-A32 Register-lvx_v1-A33 Register-lvx_v1-A34 Register-lvx_v1-A35 Register-lvx_v1-A36 Register-lvx_v1-A37 Register-lvx_v1-A38 Register-lvx_v1-A39 Register-lvx_v1-A40 Register-lvx_v1-A41 Register-lvx_v1-A42 Register-lvx_v1-A43 Register-lvx_v1-A44 Register-lvx_v1-A45 Register-lvx_v1-A46 Register-lvx_v1-A47 Register-lvx_v1-A48 Register-lvx_v1-A49 Register-lvx_v1-A50 Register-lvx_v1-A51 Register-lvx_v1-A52 Register-lvx_v1-A53 Register-lvx_v1-A54 Register-lvx_v1-A55 Register-lvx_v1-A56 Register-lvx_v1-A57 Register-lvx_v1-A58 Register-lvx_v1-A59 Register-lvx_v1-A60 Register-lvx_v1-A61 Register-lvx_v1-A62 Register-lvx_v1-A63"
   what=	"Extension Word Octuple Registers"
+  width=	"256"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-xwordoReg.0"
   bias=	"0"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C0 Register-lvx_v1-C4 Register-lvx_v1-C8 Register-lvx_v1-C12 Register-lvx_v1-C16 Register-lvx_v1-C20 Register-lvx_v1-C24 Register-lvx_v1-C28 Register-lvx_v1-C32 Register-lvx_v1-C36 Register-lvx_v1-C40 Register-lvx_v1-C44 Register-lvx_v1-C48 Register-lvx_v1-C52 Register-lvx_v1-C56 Register-lvx_v1-C60 Register-lvx_v1-C64 Register-lvx_v1-C68 Register-lvx_v1-C72 Register-lvx_v1-C76 Register-lvx_v1-C80 Register-lvx_v1-C84 Register-lvx_v1-C88 Register-lvx_v1-C92 Register-lvx_v1-C96 Register-lvx_v1-C100 Register-lvx_v1-C104 Register-lvx_v1-C108 Register-lvx_v1-C112 Register-lvx_v1-C116 Register-lvx_v1-C120 Register-lvx_v1-C124 Register-lvx_v1-C128 Register-lvx_v1-C132 Register-lvx_v1-C136 Register-lvx_v1-C140 Register-lvx_v1-C144 Register-lvx_v1-C148 Register-lvx_v1-C152 Register-lvx_v1-C156 Register-lvx_v1-C160 Register-lvx_v1-C164 Register-lvx_v1-C168 Register-lvx_v1-C172 Register-lvx_v1-C176 Register-lvx_v1-C180 Register-lvx_v1-C184 Register-lvx_v1-C188 Register-lvx_v1-C192 Register-lvx_v1-C196 Register-lvx_v1-C200 Register-lvx_v1-C204 Register-lvx_v1-C208 Register-lvx_v1-C212 Register-lvx_v1-C216 Register-lvx_v1-C220 Register-lvx_v1-C224 Register-lvx_v1-C228 Register-lvx_v1-C232 Register-lvx_v1-C236 Register-lvx_v1-C240 Register-lvx_v1-C244 Register-lvx_v1-C248 Register-lvx_v1-C252"
   shift=	"2"
   what=	"Extension Word Octuple Registers Multi 0"
@@ -244,7 +311,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordoReg.1"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C1 Register-lvx_v1-C5 Register-lvx_v1-C9 Register-lvx_v1-C13 Register-lvx_v1-C17 Register-lvx_v1-C21 Register-lvx_v1-C25 Register-lvx_v1-C29 Register-lvx_v1-C33 Register-lvx_v1-C37 Register-lvx_v1-C41 Register-lvx_v1-C45 Register-lvx_v1-C49 Register-lvx_v1-C53 Register-lvx_v1-C57 Register-lvx_v1-C61 Register-lvx_v1-C65 Register-lvx_v1-C69 Register-lvx_v1-C73 Register-lvx_v1-C77 Register-lvx_v1-C81 Register-lvx_v1-C85 Register-lvx_v1-C89 Register-lvx_v1-C93 Register-lvx_v1-C97 Register-lvx_v1-C101 Register-lvx_v1-C105 Register-lvx_v1-C109 Register-lvx_v1-C113 Register-lvx_v1-C117 Register-lvx_v1-C121 Register-lvx_v1-C125 Register-lvx_v1-C129 Register-lvx_v1-C133 Register-lvx_v1-C137 Register-lvx_v1-C141 Register-lvx_v1-C145 Register-lvx_v1-C149 Register-lvx_v1-C153 Register-lvx_v1-C157 Register-lvx_v1-C161 Register-lvx_v1-C165 Register-lvx_v1-C169 Register-lvx_v1-C173 Register-lvx_v1-C177 Register-lvx_v1-C181 Register-lvx_v1-C185 Register-lvx_v1-C189 Register-lvx_v1-C193 Register-lvx_v1-C197 Register-lvx_v1-C201 Register-lvx_v1-C205 Register-lvx_v1-C209 Register-lvx_v1-C213 Register-lvx_v1-C217 Register-lvx_v1-C221 Register-lvx_v1-C225 Register-lvx_v1-C229 Register-lvx_v1-C233 Register-lvx_v1-C237 Register-lvx_v1-C241 Register-lvx_v1-C245 Register-lvx_v1-C249 Register-lvx_v1-C253"
   shift=	"2"
   what=	"Extension Word Octuple Registers Multi 1"
@@ -252,7 +319,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordoReg.2"
   bias=	"2"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C2 Register-lvx_v1-C6 Register-lvx_v1-C10 Register-lvx_v1-C14 Register-lvx_v1-C18 Register-lvx_v1-C22 Register-lvx_v1-C26 Register-lvx_v1-C30 Register-lvx_v1-C34 Register-lvx_v1-C38 Register-lvx_v1-C42 Register-lvx_v1-C46 Register-lvx_v1-C50 Register-lvx_v1-C54 Register-lvx_v1-C58 Register-lvx_v1-C62 Register-lvx_v1-C66 Register-lvx_v1-C70 Register-lvx_v1-C74 Register-lvx_v1-C78 Register-lvx_v1-C82 Register-lvx_v1-C86 Register-lvx_v1-C90 Register-lvx_v1-C94 Register-lvx_v1-C98 Register-lvx_v1-C102 Register-lvx_v1-C106 Register-lvx_v1-C110 Register-lvx_v1-C114 Register-lvx_v1-C118 Register-lvx_v1-C122 Register-lvx_v1-C126 Register-lvx_v1-C130 Register-lvx_v1-C134 Register-lvx_v1-C138 Register-lvx_v1-C142 Register-lvx_v1-C146 Register-lvx_v1-C150 Register-lvx_v1-C154 Register-lvx_v1-C158 Register-lvx_v1-C162 Register-lvx_v1-C166 Register-lvx_v1-C170 Register-lvx_v1-C174 Register-lvx_v1-C178 Register-lvx_v1-C182 Register-lvx_v1-C186 Register-lvx_v1-C190 Register-lvx_v1-C194 Register-lvx_v1-C198 Register-lvx_v1-C202 Register-lvx_v1-C206 Register-lvx_v1-C210 Register-lvx_v1-C214 Register-lvx_v1-C218 Register-lvx_v1-C222 Register-lvx_v1-C226 Register-lvx_v1-C230 Register-lvx_v1-C234 Register-lvx_v1-C238 Register-lvx_v1-C242 Register-lvx_v1-C246 Register-lvx_v1-C250 Register-lvx_v1-C254"
   shift=	"2"
   what=	"Extension Word Octuple Registers Multi 2"
@@ -260,7 +327,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordoReg.3"
   bias=	"3"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C3 Register-lvx_v1-C7 Register-lvx_v1-C11 Register-lvx_v1-C15 Register-lvx_v1-C19 Register-lvx_v1-C23 Register-lvx_v1-C27 Register-lvx_v1-C31 Register-lvx_v1-C35 Register-lvx_v1-C39 Register-lvx_v1-C43 Register-lvx_v1-C47 Register-lvx_v1-C51 Register-lvx_v1-C55 Register-lvx_v1-C59 Register-lvx_v1-C63 Register-lvx_v1-C67 Register-lvx_v1-C71 Register-lvx_v1-C75 Register-lvx_v1-C79 Register-lvx_v1-C83 Register-lvx_v1-C87 Register-lvx_v1-C91 Register-lvx_v1-C95 Register-lvx_v1-C99 Register-lvx_v1-C103 Register-lvx_v1-C107 Register-lvx_v1-C111 Register-lvx_v1-C115 Register-lvx_v1-C119 Register-lvx_v1-C123 Register-lvx_v1-C127 Register-lvx_v1-C131 Register-lvx_v1-C135 Register-lvx_v1-C139 Register-lvx_v1-C143 Register-lvx_v1-C147 Register-lvx_v1-C151 Register-lvx_v1-C155 Register-lvx_v1-C159 Register-lvx_v1-C163 Register-lvx_v1-C167 Register-lvx_v1-C171 Register-lvx_v1-C175 Register-lvx_v1-C179 Register-lvx_v1-C183 Register-lvx_v1-C187 Register-lvx_v1-C191 Register-lvx_v1-C195 Register-lvx_v1-C199 Register-lvx_v1-C203 Register-lvx_v1-C207 Register-lvx_v1-C211 Register-lvx_v1-C215 Register-lvx_v1-C219 Register-lvx_v1-C223 Register-lvx_v1-C227 Register-lvx_v1-C231 Register-lvx_v1-C235 Register-lvx_v1-C239 Register-lvx_v1-C243 Register-lvx_v1-C247 Register-lvx_v1-C251 Register-lvx_v1-C255"
   shift=	"2"
   what=	"Extension Word Octuple Registers Multi 3"
@@ -268,14 +335,18 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordxReg"
   multi=	"RegClass-lvx_v1-xwordoReg RegClass-lvx_v1-xwordoReg"
-  regFile=	"RegFile-lvx_v1-XTR"
+  nativeTypes=	"NativeType-lvx_v1-Int128x4 NativeType-lvx_v1-UInt128x4"
+  regFile=	"RegClass-lvx_v1-xwordxReg"
+  regFileName=	"XTR"
+  regFileNumber=	"7"
   registers=	"Register-lvx_v1-T0 Register-lvx_v1-T1 Register-lvx_v1-T2 Register-lvx_v1-T3 Register-lvx_v1-T4 Register-lvx_v1-T5 Register-lvx_v1-T6 Register-lvx_v1-T7 Register-lvx_v1-T8 Register-lvx_v1-T9 Register-lvx_v1-T10 Register-lvx_v1-T11 Register-lvx_v1-T12 Register-lvx_v1-T13 Register-lvx_v1-T14 Register-lvx_v1-T15 Register-lvx_v1-T16 Register-lvx_v1-T17 Register-lvx_v1-T18 Register-lvx_v1-T19 Register-lvx_v1-T20 Register-lvx_v1-T21 Register-lvx_v1-T22 Register-lvx_v1-T23 Register-lvx_v1-T24 Register-lvx_v1-T25 Register-lvx_v1-T26 Register-lvx_v1-T27 Register-lvx_v1-T28 Register-lvx_v1-T29 Register-lvx_v1-T30 Register-lvx_v1-T31"
   what=	"Extension Word Hexadecuple Register"
+  width=	"512"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-xwordxReg.0"
   bias=	"0"
-  regFile=	"RegFile-lvx_v1-XVR"
+  regFile=	"RegClass-lvx_v1-xwordoReg"
   registers=	"Register-lvx_v1-A0 Register-lvx_v1-A2 Register-lvx_v1-A4 Register-lvx_v1-A6 Register-lvx_v1-A8 Register-lvx_v1-A10 Register-lvx_v1-A12 Register-lvx_v1-A14 Register-lvx_v1-A16 Register-lvx_v1-A18 Register-lvx_v1-A20 Register-lvx_v1-A22 Register-lvx_v1-A24 Register-lvx_v1-A26 Register-lvx_v1-A28 Register-lvx_v1-A30 Register-lvx_v1-A32 Register-lvx_v1-A34 Register-lvx_v1-A36 Register-lvx_v1-A38 Register-lvx_v1-A40 Register-lvx_v1-A42 Register-lvx_v1-A44 Register-lvx_v1-A46 Register-lvx_v1-A48 Register-lvx_v1-A50 Register-lvx_v1-A52 Register-lvx_v1-A54 Register-lvx_v1-A56 Register-lvx_v1-A58 Register-lvx_v1-A60 Register-lvx_v1-A62"
   shift=	"1"
   what=	"Extension Word Hexadecuple Register Multi 0"
@@ -283,7 +354,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordxReg.1"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-XVR"
+  regFile=	"RegClass-lvx_v1-xwordoReg"
   registers=	"Register-lvx_v1-A1 Register-lvx_v1-A3 Register-lvx_v1-A5 Register-lvx_v1-A7 Register-lvx_v1-A9 Register-lvx_v1-A11 Register-lvx_v1-A13 Register-lvx_v1-A15 Register-lvx_v1-A17 Register-lvx_v1-A19 Register-lvx_v1-A21 Register-lvx_v1-A23 Register-lvx_v1-A25 Register-lvx_v1-A27 Register-lvx_v1-A29 Register-lvx_v1-A31 Register-lvx_v1-A33 Register-lvx_v1-A35 Register-lvx_v1-A37 Register-lvx_v1-A39 Register-lvx_v1-A41 Register-lvx_v1-A43 Register-lvx_v1-A45 Register-lvx_v1-A47 Register-lvx_v1-A49 Register-lvx_v1-A51 Register-lvx_v1-A53 Register-lvx_v1-A55 Register-lvx_v1-A57 Register-lvx_v1-A59 Register-lvx_v1-A61 Register-lvx_v1-A63"
   shift=	"1"
   what=	"Extension Word Hexadecuple Register Multi 1"
@@ -291,14 +362,18 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordvReg"
   multi=	"RegClass-lvx_v1-xwordoReg RegClass-lvx_v1-xwordoReg RegClass-lvx_v1-xwordoReg RegClass-lvx_v1-xwordoReg"
-  regFile=	"RegFile-lvx_v1-XMR"
+  nativeTypes=	"NativeType-lvx_v1-Int128x8 NativeType-lvx_v1-UInt128x8"
+  regFile=	"RegClass-lvx_v1-xwordvReg"
+  regFileName=	"XMR"
+  regFileNumber=	"8"
   registers=	"Register-lvx_v1-M0 Register-lvx_v1-M1 Register-lvx_v1-M2 Register-lvx_v1-M3 Register-lvx_v1-M4 Register-lvx_v1-M5 Register-lvx_v1-M6 Register-lvx_v1-M7 Register-lvx_v1-M8 Register-lvx_v1-M9 Register-lvx_v1-M10 Register-lvx_v1-M11 Register-lvx_v1-M12 Register-lvx_v1-M13 Register-lvx_v1-M14 Register-lvx_v1-M15"
   what=	"Extension Word Vector Registers"
+  width=	"1024"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-xwordvReg.0"
   bias=	"0"
-  regFile=	"RegFile-lvx_v1-XVR"
+  regFile=	"RegClass-lvx_v1-xwordoReg"
   registers=	"Register-lvx_v1-A0 Register-lvx_v1-A4 Register-lvx_v1-A8 Register-lvx_v1-A12 Register-lvx_v1-A16 Register-lvx_v1-A20 Register-lvx_v1-A24 Register-lvx_v1-A28 Register-lvx_v1-A32 Register-lvx_v1-A36 Register-lvx_v1-A40 Register-lvx_v1-A44 Register-lvx_v1-A48 Register-lvx_v1-A52 Register-lvx_v1-A56 Register-lvx_v1-A60"
   shift=	"2"
   what=	"Extension Word Vector Registers Multi 0"
@@ -306,7 +381,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordvReg.1"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-XVR"
+  regFile=	"RegClass-lvx_v1-xwordoReg"
   registers=	"Register-lvx_v1-A1 Register-lvx_v1-A5 Register-lvx_v1-A9 Register-lvx_v1-A13 Register-lvx_v1-A17 Register-lvx_v1-A21 Register-lvx_v1-A25 Register-lvx_v1-A29 Register-lvx_v1-A33 Register-lvx_v1-A37 Register-lvx_v1-A41 Register-lvx_v1-A45 Register-lvx_v1-A49 Register-lvx_v1-A53 Register-lvx_v1-A57 Register-lvx_v1-A61"
   shift=	"2"
   what=	"Extension Word Vector Registers Multi 1"
@@ -314,7 +389,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordvReg.2"
   bias=	"2"
-  regFile=	"RegFile-lvx_v1-XVR"
+  regFile=	"RegClass-lvx_v1-xwordoReg"
   registers=	"Register-lvx_v1-A2 Register-lvx_v1-A6 Register-lvx_v1-A10 Register-lvx_v1-A14 Register-lvx_v1-A18 Register-lvx_v1-A22 Register-lvx_v1-A26 Register-lvx_v1-A30 Register-lvx_v1-A34 Register-lvx_v1-A38 Register-lvx_v1-A42 Register-lvx_v1-A46 Register-lvx_v1-A50 Register-lvx_v1-A54 Register-lvx_v1-A58 Register-lvx_v1-A62"
   shift=	"2"
   what=	"Extension Word Vector Registers Multi 2"
@@ -322,7 +397,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordvReg.3"
   bias=	"3"
-  regFile=	"RegFile-lvx_v1-XVR"
+  regFile=	"RegClass-lvx_v1-xwordoReg"
   registers=	"Register-lvx_v1-A3 Register-lvx_v1-A7 Register-lvx_v1-A11 Register-lvx_v1-A15 Register-lvx_v1-A19 Register-lvx_v1-A23 Register-lvx_v1-A27 Register-lvx_v1-A31 Register-lvx_v1-A35 Register-lvx_v1-A39 Register-lvx_v1-A43 Register-lvx_v1-A47 Register-lvx_v1-A51 Register-lvx_v1-A55 Register-lvx_v1-A59 Register-lvx_v1-A63"
   shift=	"2"
   what=	"Extension Word Vector Registers Multi 3"
@@ -330,7 +405,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordqRegE"
   multi=	"RegClass-lvx_v1-xworddReg RegClass-lvx_v1-xworddReg"
-  regFile=	"RegFile-lvx_v1-XBR"
+  regFile=	"RegClass-lvx_v1-xwordqReg"
   registers=	"Register-lvx_v1-B0 Register-lvx_v1-B2 Register-lvx_v1-B4 Register-lvx_v1-B6 Register-lvx_v1-B8 Register-lvx_v1-B10 Register-lvx_v1-B12 Register-lvx_v1-B14 Register-lvx_v1-B16 Register-lvx_v1-B18 Register-lvx_v1-B20 Register-lvx_v1-B22 Register-lvx_v1-B24 Register-lvx_v1-B26 Register-lvx_v1-B28 Register-lvx_v1-B30 Register-lvx_v1-B32 Register-lvx_v1-B34 Register-lvx_v1-B36 Register-lvx_v1-B38 Register-lvx_v1-B40 Register-lvx_v1-B42 Register-lvx_v1-B44 Register-lvx_v1-B46 Register-lvx_v1-B48 Register-lvx_v1-B50 Register-lvx_v1-B52 Register-lvx_v1-B54 Register-lvx_v1-B56 Register-lvx_v1-B58 Register-lvx_v1-B60 Register-lvx_v1-B62 Register-lvx_v1-B64 Register-lvx_v1-B66 Register-lvx_v1-B68 Register-lvx_v1-B70 Register-lvx_v1-B72 Register-lvx_v1-B74 Register-lvx_v1-B76 Register-lvx_v1-B78 Register-lvx_v1-B80 Register-lvx_v1-B82 Register-lvx_v1-B84 Register-lvx_v1-B86 Register-lvx_v1-B88 Register-lvx_v1-B90 Register-lvx_v1-B92 Register-lvx_v1-B94 Register-lvx_v1-B96 Register-lvx_v1-B98 Register-lvx_v1-B100 Register-lvx_v1-B102 Register-lvx_v1-B104 Register-lvx_v1-B106 Register-lvx_v1-B108 Register-lvx_v1-B110 Register-lvx_v1-B112 Register-lvx_v1-B114 Register-lvx_v1-B116 Register-lvx_v1-B118 Register-lvx_v1-B120 Register-lvx_v1-B122 Register-lvx_v1-B124 Register-lvx_v1-B126"
   shift=	"1"
   what=	"Block Registers Even Numbered"
@@ -338,7 +413,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordqRegE.0"
   bias=	"0"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C0 Register-lvx_v1-C2 Register-lvx_v1-C4 Register-lvx_v1-C6 Register-lvx_v1-C8 Register-lvx_v1-C10 Register-lvx_v1-C12 Register-lvx_v1-C14 Register-lvx_v1-C16 Register-lvx_v1-C18 Register-lvx_v1-C20 Register-lvx_v1-C22 Register-lvx_v1-C24 Register-lvx_v1-C26 Register-lvx_v1-C28 Register-lvx_v1-C30 Register-lvx_v1-C32 Register-lvx_v1-C34 Register-lvx_v1-C36 Register-lvx_v1-C38 Register-lvx_v1-C40 Register-lvx_v1-C42 Register-lvx_v1-C44 Register-lvx_v1-C46 Register-lvx_v1-C48 Register-lvx_v1-C50 Register-lvx_v1-C52 Register-lvx_v1-C54 Register-lvx_v1-C56 Register-lvx_v1-C58 Register-lvx_v1-C60 Register-lvx_v1-C62 Register-lvx_v1-C64 Register-lvx_v1-C66 Register-lvx_v1-C68 Register-lvx_v1-C70 Register-lvx_v1-C72 Register-lvx_v1-C74 Register-lvx_v1-C76 Register-lvx_v1-C78 Register-lvx_v1-C80 Register-lvx_v1-C82 Register-lvx_v1-C84 Register-lvx_v1-C86 Register-lvx_v1-C88 Register-lvx_v1-C90 Register-lvx_v1-C92 Register-lvx_v1-C94 Register-lvx_v1-C96 Register-lvx_v1-C98 Register-lvx_v1-C100 Register-lvx_v1-C102 Register-lvx_v1-C104 Register-lvx_v1-C106 Register-lvx_v1-C108 Register-lvx_v1-C110 Register-lvx_v1-C112 Register-lvx_v1-C114 Register-lvx_v1-C116 Register-lvx_v1-C118 Register-lvx_v1-C120 Register-lvx_v1-C122 Register-lvx_v1-C124 Register-lvx_v1-C126 Register-lvx_v1-C128 Register-lvx_v1-C130 Register-lvx_v1-C132 Register-lvx_v1-C134 Register-lvx_v1-C136 Register-lvx_v1-C138 Register-lvx_v1-C140 Register-lvx_v1-C142 Register-lvx_v1-C144 Register-lvx_v1-C146 Register-lvx_v1-C148 Register-lvx_v1-C150 Register-lvx_v1-C152 Register-lvx_v1-C154 Register-lvx_v1-C156 Register-lvx_v1-C158 Register-lvx_v1-C160 Register-lvx_v1-C162 Register-lvx_v1-C164 Register-lvx_v1-C166 Register-lvx_v1-C168 Register-lvx_v1-C170 Register-lvx_v1-C172 Register-lvx_v1-C174 Register-lvx_v1-C176 Register-lvx_v1-C178 Register-lvx_v1-C180 Register-lvx_v1-C182 Register-lvx_v1-C184 Register-lvx_v1-C186 Register-lvx_v1-C188 Register-lvx_v1-C190 Register-lvx_v1-C192 Register-lvx_v1-C194 Register-lvx_v1-C196 Register-lvx_v1-C198 Register-lvx_v1-C200 Register-lvx_v1-C202 Register-lvx_v1-C204 Register-lvx_v1-C206 Register-lvx_v1-C208 Register-lvx_v1-C210 Register-lvx_v1-C212 Register-lvx_v1-C214 Register-lvx_v1-C216 Register-lvx_v1-C218 Register-lvx_v1-C220 Register-lvx_v1-C222 Register-lvx_v1-C224 Register-lvx_v1-C226 Register-lvx_v1-C228 Register-lvx_v1-C230 Register-lvx_v1-C232 Register-lvx_v1-C234 Register-lvx_v1-C236 Register-lvx_v1-C238 Register-lvx_v1-C240 Register-lvx_v1-C242 Register-lvx_v1-C244 Register-lvx_v1-C246 Register-lvx_v1-C248 Register-lvx_v1-C250 Register-lvx_v1-C252 Register-lvx_v1-C254"
   shift=	"1"
   what=	"Block Registers Even Numbered Multi 0"
@@ -346,7 +421,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordqRegE.1"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C1 Register-lvx_v1-C3 Register-lvx_v1-C5 Register-lvx_v1-C7 Register-lvx_v1-C9 Register-lvx_v1-C11 Register-lvx_v1-C13 Register-lvx_v1-C15 Register-lvx_v1-C17 Register-lvx_v1-C19 Register-lvx_v1-C21 Register-lvx_v1-C23 Register-lvx_v1-C25 Register-lvx_v1-C27 Register-lvx_v1-C29 Register-lvx_v1-C31 Register-lvx_v1-C33 Register-lvx_v1-C35 Register-lvx_v1-C37 Register-lvx_v1-C39 Register-lvx_v1-C41 Register-lvx_v1-C43 Register-lvx_v1-C45 Register-lvx_v1-C47 Register-lvx_v1-C49 Register-lvx_v1-C51 Register-lvx_v1-C53 Register-lvx_v1-C55 Register-lvx_v1-C57 Register-lvx_v1-C59 Register-lvx_v1-C61 Register-lvx_v1-C63 Register-lvx_v1-C65 Register-lvx_v1-C67 Register-lvx_v1-C69 Register-lvx_v1-C71 Register-lvx_v1-C73 Register-lvx_v1-C75 Register-lvx_v1-C77 Register-lvx_v1-C79 Register-lvx_v1-C81 Register-lvx_v1-C83 Register-lvx_v1-C85 Register-lvx_v1-C87 Register-lvx_v1-C89 Register-lvx_v1-C91 Register-lvx_v1-C93 Register-lvx_v1-C95 Register-lvx_v1-C97 Register-lvx_v1-C99 Register-lvx_v1-C101 Register-lvx_v1-C103 Register-lvx_v1-C105 Register-lvx_v1-C107 Register-lvx_v1-C109 Register-lvx_v1-C111 Register-lvx_v1-C113 Register-lvx_v1-C115 Register-lvx_v1-C117 Register-lvx_v1-C119 Register-lvx_v1-C121 Register-lvx_v1-C123 Register-lvx_v1-C125 Register-lvx_v1-C127 Register-lvx_v1-C129 Register-lvx_v1-C131 Register-lvx_v1-C133 Register-lvx_v1-C135 Register-lvx_v1-C137 Register-lvx_v1-C139 Register-lvx_v1-C141 Register-lvx_v1-C143 Register-lvx_v1-C145 Register-lvx_v1-C147 Register-lvx_v1-C149 Register-lvx_v1-C151 Register-lvx_v1-C153 Register-lvx_v1-C155 Register-lvx_v1-C157 Register-lvx_v1-C159 Register-lvx_v1-C161 Register-lvx_v1-C163 Register-lvx_v1-C165 Register-lvx_v1-C167 Register-lvx_v1-C169 Register-lvx_v1-C171 Register-lvx_v1-C173 Register-lvx_v1-C175 Register-lvx_v1-C177 Register-lvx_v1-C179 Register-lvx_v1-C181 Register-lvx_v1-C183 Register-lvx_v1-C185 Register-lvx_v1-C187 Register-lvx_v1-C189 Register-lvx_v1-C191 Register-lvx_v1-C193 Register-lvx_v1-C195 Register-lvx_v1-C197 Register-lvx_v1-C199 Register-lvx_v1-C201 Register-lvx_v1-C203 Register-lvx_v1-C205 Register-lvx_v1-C207 Register-lvx_v1-C209 Register-lvx_v1-C211 Register-lvx_v1-C213 Register-lvx_v1-C215 Register-lvx_v1-C217 Register-lvx_v1-C219 Register-lvx_v1-C221 Register-lvx_v1-C223 Register-lvx_v1-C225 Register-lvx_v1-C227 Register-lvx_v1-C229 Register-lvx_v1-C231 Register-lvx_v1-C233 Register-lvx_v1-C235 Register-lvx_v1-C237 Register-lvx_v1-C239 Register-lvx_v1-C241 Register-lvx_v1-C243 Register-lvx_v1-C245 Register-lvx_v1-C247 Register-lvx_v1-C249 Register-lvx_v1-C251 Register-lvx_v1-C253 Register-lvx_v1-C255"
   shift=	"1"
   what=	"Block Registers Even Numbered Multi 1"
@@ -355,7 +430,7 @@
   ID=	"RegClass-lvx_v1-xwordqRegO"
   bias=	"1"
   multi=	"RegClass-lvx_v1-xworddReg RegClass-lvx_v1-xworddReg"
-  regFile=	"RegFile-lvx_v1-XBR"
+  regFile=	"RegClass-lvx_v1-xwordqReg"
   registers=	"Register-lvx_v1-B1 Register-lvx_v1-B3 Register-lvx_v1-B5 Register-lvx_v1-B7 Register-lvx_v1-B9 Register-lvx_v1-B11 Register-lvx_v1-B13 Register-lvx_v1-B15 Register-lvx_v1-B17 Register-lvx_v1-B19 Register-lvx_v1-B21 Register-lvx_v1-B23 Register-lvx_v1-B25 Register-lvx_v1-B27 Register-lvx_v1-B29 Register-lvx_v1-B31 Register-lvx_v1-B33 Register-lvx_v1-B35 Register-lvx_v1-B37 Register-lvx_v1-B39 Register-lvx_v1-B41 Register-lvx_v1-B43 Register-lvx_v1-B45 Register-lvx_v1-B47 Register-lvx_v1-B49 Register-lvx_v1-B51 Register-lvx_v1-B53 Register-lvx_v1-B55 Register-lvx_v1-B57 Register-lvx_v1-B59 Register-lvx_v1-B61 Register-lvx_v1-B63 Register-lvx_v1-B65 Register-lvx_v1-B67 Register-lvx_v1-B69 Register-lvx_v1-B71 Register-lvx_v1-B73 Register-lvx_v1-B75 Register-lvx_v1-B77 Register-lvx_v1-B79 Register-lvx_v1-B81 Register-lvx_v1-B83 Register-lvx_v1-B85 Register-lvx_v1-B87 Register-lvx_v1-B89 Register-lvx_v1-B91 Register-lvx_v1-B93 Register-lvx_v1-B95 Register-lvx_v1-B97 Register-lvx_v1-B99 Register-lvx_v1-B101 Register-lvx_v1-B103 Register-lvx_v1-B105 Register-lvx_v1-B107 Register-lvx_v1-B109 Register-lvx_v1-B111 Register-lvx_v1-B113 Register-lvx_v1-B115 Register-lvx_v1-B117 Register-lvx_v1-B119 Register-lvx_v1-B121 Register-lvx_v1-B123 Register-lvx_v1-B125 Register-lvx_v1-B127"
   shift=	"1"
   what=	"Block Registers Odd Numbered"
@@ -363,7 +438,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordqRegO.0"
   bias=	"0"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C0 Register-lvx_v1-C2 Register-lvx_v1-C4 Register-lvx_v1-C6 Register-lvx_v1-C8 Register-lvx_v1-C10 Register-lvx_v1-C12 Register-lvx_v1-C14 Register-lvx_v1-C16 Register-lvx_v1-C18 Register-lvx_v1-C20 Register-lvx_v1-C22 Register-lvx_v1-C24 Register-lvx_v1-C26 Register-lvx_v1-C28 Register-lvx_v1-C30 Register-lvx_v1-C32 Register-lvx_v1-C34 Register-lvx_v1-C36 Register-lvx_v1-C38 Register-lvx_v1-C40 Register-lvx_v1-C42 Register-lvx_v1-C44 Register-lvx_v1-C46 Register-lvx_v1-C48 Register-lvx_v1-C50 Register-lvx_v1-C52 Register-lvx_v1-C54 Register-lvx_v1-C56 Register-lvx_v1-C58 Register-lvx_v1-C60 Register-lvx_v1-C62 Register-lvx_v1-C64 Register-lvx_v1-C66 Register-lvx_v1-C68 Register-lvx_v1-C70 Register-lvx_v1-C72 Register-lvx_v1-C74 Register-lvx_v1-C76 Register-lvx_v1-C78 Register-lvx_v1-C80 Register-lvx_v1-C82 Register-lvx_v1-C84 Register-lvx_v1-C86 Register-lvx_v1-C88 Register-lvx_v1-C90 Register-lvx_v1-C92 Register-lvx_v1-C94 Register-lvx_v1-C96 Register-lvx_v1-C98 Register-lvx_v1-C100 Register-lvx_v1-C102 Register-lvx_v1-C104 Register-lvx_v1-C106 Register-lvx_v1-C108 Register-lvx_v1-C110 Register-lvx_v1-C112 Register-lvx_v1-C114 Register-lvx_v1-C116 Register-lvx_v1-C118 Register-lvx_v1-C120 Register-lvx_v1-C122 Register-lvx_v1-C124 Register-lvx_v1-C126 Register-lvx_v1-C128 Register-lvx_v1-C130 Register-lvx_v1-C132 Register-lvx_v1-C134 Register-lvx_v1-C136 Register-lvx_v1-C138 Register-lvx_v1-C140 Register-lvx_v1-C142 Register-lvx_v1-C144 Register-lvx_v1-C146 Register-lvx_v1-C148 Register-lvx_v1-C150 Register-lvx_v1-C152 Register-lvx_v1-C154 Register-lvx_v1-C156 Register-lvx_v1-C158 Register-lvx_v1-C160 Register-lvx_v1-C162 Register-lvx_v1-C164 Register-lvx_v1-C166 Register-lvx_v1-C168 Register-lvx_v1-C170 Register-lvx_v1-C172 Register-lvx_v1-C174 Register-lvx_v1-C176 Register-lvx_v1-C178 Register-lvx_v1-C180 Register-lvx_v1-C182 Register-lvx_v1-C184 Register-lvx_v1-C186 Register-lvx_v1-C188 Register-lvx_v1-C190 Register-lvx_v1-C192 Register-lvx_v1-C194 Register-lvx_v1-C196 Register-lvx_v1-C198 Register-lvx_v1-C200 Register-lvx_v1-C202 Register-lvx_v1-C204 Register-lvx_v1-C206 Register-lvx_v1-C208 Register-lvx_v1-C210 Register-lvx_v1-C212 Register-lvx_v1-C214 Register-lvx_v1-C216 Register-lvx_v1-C218 Register-lvx_v1-C220 Register-lvx_v1-C222 Register-lvx_v1-C224 Register-lvx_v1-C226 Register-lvx_v1-C228 Register-lvx_v1-C230 Register-lvx_v1-C232 Register-lvx_v1-C234 Register-lvx_v1-C236 Register-lvx_v1-C238 Register-lvx_v1-C240 Register-lvx_v1-C242 Register-lvx_v1-C244 Register-lvx_v1-C246 Register-lvx_v1-C248 Register-lvx_v1-C250 Register-lvx_v1-C252 Register-lvx_v1-C254"
   shift=	"1"
   what=	"Block Registers Odd Numbered Multi 0"
@@ -371,14 +446,14 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xwordqRegO.1"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C1 Register-lvx_v1-C3 Register-lvx_v1-C5 Register-lvx_v1-C7 Register-lvx_v1-C9 Register-lvx_v1-C11 Register-lvx_v1-C13 Register-lvx_v1-C15 Register-lvx_v1-C17 Register-lvx_v1-C19 Register-lvx_v1-C21 Register-lvx_v1-C23 Register-lvx_v1-C25 Register-lvx_v1-C27 Register-lvx_v1-C29 Register-lvx_v1-C31 Register-lvx_v1-C33 Register-lvx_v1-C35 Register-lvx_v1-C37 Register-lvx_v1-C39 Register-lvx_v1-C41 Register-lvx_v1-C43 Register-lvx_v1-C45 Register-lvx_v1-C47 Register-lvx_v1-C49 Register-lvx_v1-C51 Register-lvx_v1-C53 Register-lvx_v1-C55 Register-lvx_v1-C57 Register-lvx_v1-C59 Register-lvx_v1-C61 Register-lvx_v1-C63 Register-lvx_v1-C65 Register-lvx_v1-C67 Register-lvx_v1-C69 Register-lvx_v1-C71 Register-lvx_v1-C73 Register-lvx_v1-C75 Register-lvx_v1-C77 Register-lvx_v1-C79 Register-lvx_v1-C81 Register-lvx_v1-C83 Register-lvx_v1-C85 Register-lvx_v1-C87 Register-lvx_v1-C89 Register-lvx_v1-C91 Register-lvx_v1-C93 Register-lvx_v1-C95 Register-lvx_v1-C97 Register-lvx_v1-C99 Register-lvx_v1-C101 Register-lvx_v1-C103 Register-lvx_v1-C105 Register-lvx_v1-C107 Register-lvx_v1-C109 Register-lvx_v1-C111 Register-lvx_v1-C113 Register-lvx_v1-C115 Register-lvx_v1-C117 Register-lvx_v1-C119 Register-lvx_v1-C121 Register-lvx_v1-C123 Register-lvx_v1-C125 Register-lvx_v1-C127 Register-lvx_v1-C129 Register-lvx_v1-C131 Register-lvx_v1-C133 Register-lvx_v1-C135 Register-lvx_v1-C137 Register-lvx_v1-C139 Register-lvx_v1-C141 Register-lvx_v1-C143 Register-lvx_v1-C145 Register-lvx_v1-C147 Register-lvx_v1-C149 Register-lvx_v1-C151 Register-lvx_v1-C153 Register-lvx_v1-C155 Register-lvx_v1-C157 Register-lvx_v1-C159 Register-lvx_v1-C161 Register-lvx_v1-C163 Register-lvx_v1-C165 Register-lvx_v1-C167 Register-lvx_v1-C169 Register-lvx_v1-C171 Register-lvx_v1-C173 Register-lvx_v1-C175 Register-lvx_v1-C177 Register-lvx_v1-C179 Register-lvx_v1-C181 Register-lvx_v1-C183 Register-lvx_v1-C185 Register-lvx_v1-C187 Register-lvx_v1-C189 Register-lvx_v1-C191 Register-lvx_v1-C193 Register-lvx_v1-C195 Register-lvx_v1-C197 Register-lvx_v1-C199 Register-lvx_v1-C201 Register-lvx_v1-C203 Register-lvx_v1-C205 Register-lvx_v1-C207 Register-lvx_v1-C209 Register-lvx_v1-C211 Register-lvx_v1-C213 Register-lvx_v1-C215 Register-lvx_v1-C217 Register-lvx_v1-C219 Register-lvx_v1-C221 Register-lvx_v1-C223 Register-lvx_v1-C225 Register-lvx_v1-C227 Register-lvx_v1-C229 Register-lvx_v1-C231 Register-lvx_v1-C233 Register-lvx_v1-C235 Register-lvx_v1-C237 Register-lvx_v1-C239 Register-lvx_v1-C241 Register-lvx_v1-C243 Register-lvx_v1-C245 Register-lvx_v1-C247 Register-lvx_v1-C249 Register-lvx_v1-C251 Register-lvx_v1-C253 Register-lvx_v1-C255"
   shift=	"1"
   what=	"Block Registers Odd Numbered Multi 1"
 />
 <RegClass
   ID=	"RegClass-lvx_v1-xworddReg0M4"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C0 Register-lvx_v1-C4 Register-lvx_v1-C8 Register-lvx_v1-C12 Register-lvx_v1-C16 Register-lvx_v1-C20 Register-lvx_v1-C24 Register-lvx_v1-C28 Register-lvx_v1-C32 Register-lvx_v1-C36 Register-lvx_v1-C40 Register-lvx_v1-C44 Register-lvx_v1-C48 Register-lvx_v1-C52 Register-lvx_v1-C56 Register-lvx_v1-C60 Register-lvx_v1-C64 Register-lvx_v1-C68 Register-lvx_v1-C72 Register-lvx_v1-C76 Register-lvx_v1-C80 Register-lvx_v1-C84 Register-lvx_v1-C88 Register-lvx_v1-C92 Register-lvx_v1-C96 Register-lvx_v1-C100 Register-lvx_v1-C104 Register-lvx_v1-C108 Register-lvx_v1-C112 Register-lvx_v1-C116 Register-lvx_v1-C120 Register-lvx_v1-C124 Register-lvx_v1-C128 Register-lvx_v1-C132 Register-lvx_v1-C136 Register-lvx_v1-C140 Register-lvx_v1-C144 Register-lvx_v1-C148 Register-lvx_v1-C152 Register-lvx_v1-C156 Register-lvx_v1-C160 Register-lvx_v1-C164 Register-lvx_v1-C168 Register-lvx_v1-C172 Register-lvx_v1-C176 Register-lvx_v1-C180 Register-lvx_v1-C184 Register-lvx_v1-C188 Register-lvx_v1-C192 Register-lvx_v1-C196 Register-lvx_v1-C200 Register-lvx_v1-C204 Register-lvx_v1-C208 Register-lvx_v1-C212 Register-lvx_v1-C216 Register-lvx_v1-C220 Register-lvx_v1-C224 Register-lvx_v1-C228 Register-lvx_v1-C232 Register-lvx_v1-C236 Register-lvx_v1-C240 Register-lvx_v1-C244 Register-lvx_v1-C248 Register-lvx_v1-C252"
   shift=	"2"
   what=	"Coprocessor Registers 0 Modulo 4"
@@ -386,7 +461,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xworddReg1M4"
   bias=	"1"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C1 Register-lvx_v1-C5 Register-lvx_v1-C9 Register-lvx_v1-C13 Register-lvx_v1-C17 Register-lvx_v1-C21 Register-lvx_v1-C25 Register-lvx_v1-C29 Register-lvx_v1-C33 Register-lvx_v1-C37 Register-lvx_v1-C41 Register-lvx_v1-C45 Register-lvx_v1-C49 Register-lvx_v1-C53 Register-lvx_v1-C57 Register-lvx_v1-C61 Register-lvx_v1-C65 Register-lvx_v1-C69 Register-lvx_v1-C73 Register-lvx_v1-C77 Register-lvx_v1-C81 Register-lvx_v1-C85 Register-lvx_v1-C89 Register-lvx_v1-C93 Register-lvx_v1-C97 Register-lvx_v1-C101 Register-lvx_v1-C105 Register-lvx_v1-C109 Register-lvx_v1-C113 Register-lvx_v1-C117 Register-lvx_v1-C121 Register-lvx_v1-C125 Register-lvx_v1-C129 Register-lvx_v1-C133 Register-lvx_v1-C137 Register-lvx_v1-C141 Register-lvx_v1-C145 Register-lvx_v1-C149 Register-lvx_v1-C153 Register-lvx_v1-C157 Register-lvx_v1-C161 Register-lvx_v1-C165 Register-lvx_v1-C169 Register-lvx_v1-C173 Register-lvx_v1-C177 Register-lvx_v1-C181 Register-lvx_v1-C185 Register-lvx_v1-C189 Register-lvx_v1-C193 Register-lvx_v1-C197 Register-lvx_v1-C201 Register-lvx_v1-C205 Register-lvx_v1-C209 Register-lvx_v1-C213 Register-lvx_v1-C217 Register-lvx_v1-C221 Register-lvx_v1-C225 Register-lvx_v1-C229 Register-lvx_v1-C233 Register-lvx_v1-C237 Register-lvx_v1-C241 Register-lvx_v1-C245 Register-lvx_v1-C249 Register-lvx_v1-C253"
   shift=	"2"
   what=	"Coprocessor Registers 1 Modulo 4"
@@ -394,7 +469,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xworddReg2M4"
   bias=	"2"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C2 Register-lvx_v1-C6 Register-lvx_v1-C10 Register-lvx_v1-C14 Register-lvx_v1-C18 Register-lvx_v1-C22 Register-lvx_v1-C26 Register-lvx_v1-C30 Register-lvx_v1-C34 Register-lvx_v1-C38 Register-lvx_v1-C42 Register-lvx_v1-C46 Register-lvx_v1-C50 Register-lvx_v1-C54 Register-lvx_v1-C58 Register-lvx_v1-C62 Register-lvx_v1-C66 Register-lvx_v1-C70 Register-lvx_v1-C74 Register-lvx_v1-C78 Register-lvx_v1-C82 Register-lvx_v1-C86 Register-lvx_v1-C90 Register-lvx_v1-C94 Register-lvx_v1-C98 Register-lvx_v1-C102 Register-lvx_v1-C106 Register-lvx_v1-C110 Register-lvx_v1-C114 Register-lvx_v1-C118 Register-lvx_v1-C122 Register-lvx_v1-C126 Register-lvx_v1-C130 Register-lvx_v1-C134 Register-lvx_v1-C138 Register-lvx_v1-C142 Register-lvx_v1-C146 Register-lvx_v1-C150 Register-lvx_v1-C154 Register-lvx_v1-C158 Register-lvx_v1-C162 Register-lvx_v1-C166 Register-lvx_v1-C170 Register-lvx_v1-C174 Register-lvx_v1-C178 Register-lvx_v1-C182 Register-lvx_v1-C186 Register-lvx_v1-C190 Register-lvx_v1-C194 Register-lvx_v1-C198 Register-lvx_v1-C202 Register-lvx_v1-C206 Register-lvx_v1-C210 Register-lvx_v1-C214 Register-lvx_v1-C218 Register-lvx_v1-C222 Register-lvx_v1-C226 Register-lvx_v1-C230 Register-lvx_v1-C234 Register-lvx_v1-C238 Register-lvx_v1-C242 Register-lvx_v1-C246 Register-lvx_v1-C250 Register-lvx_v1-C254"
   shift=	"2"
   what=	"Coprocessor Registers 2 Modulo 4"
@@ -402,7 +477,7 @@
 <RegClass
   ID=	"RegClass-lvx_v1-xworddReg3M4"
   bias=	"3"
-  regFile=	"RegFile-lvx_v1-XCR"
+  regFile=	"RegClass-lvx_v1-xworddReg"
   registers=	"Register-lvx_v1-C3 Register-lvx_v1-C7 Register-lvx_v1-C11 Register-lvx_v1-C15 Register-lvx_v1-C19 Register-lvx_v1-C23 Register-lvx_v1-C27 Register-lvx_v1-C31 Register-lvx_v1-C35 Register-lvx_v1-C39 Register-lvx_v1-C43 Register-lvx_v1-C47 Register-lvx_v1-C51 Register-lvx_v1-C55 Register-lvx_v1-C59 Register-lvx_v1-C63 Register-lvx_v1-C67 Register-lvx_v1-C71 Register-lvx_v1-C75 Register-lvx_v1-C79 Register-lvx_v1-C83 Register-lvx_v1-C87 Register-lvx_v1-C91 Register-lvx_v1-C95 Register-lvx_v1-C99 Register-lvx_v1-C103 Register-lvx_v1-C107 Register-lvx_v1-C111 Register-lvx_v1-C115 Register-lvx_v1-C119 Register-lvx_v1-C123 Register-lvx_v1-C127 Register-lvx_v1-C131 Register-lvx_v1-C135 Register-lvx_v1-C139 Register-lvx_v1-C143 Register-lvx_v1-C147 Register-lvx_v1-C151 Register-lvx_v1-C155 Register-lvx_v1-C159 Register-lvx_v1-C163 Register-lvx_v1-C167 Register-lvx_v1-C171 Register-lvx_v1-C175 Register-lvx_v1-C179 Register-lvx_v1-C183 Register-lvx_v1-C187 Register-lvx_v1-C191 Register-lvx_v1-C195 Register-lvx_v1-C199 Register-lvx_v1-C203 Register-lvx_v1-C207 Register-lvx_v1-C211 Register-lvx_v1-C215 Register-lvx_v1-C219 Register-lvx_v1-C223 Register-lvx_v1-C227 Register-lvx_v1-C231 Register-lvx_v1-C235 Register-lvx_v1-C239 Register-lvx_v1-C243 Register-lvx_v1-C247 Register-lvx_v1-C251 Register-lvx_v1-C255"
   shift=	"2"
   what=	"Coprocessor Registers 3 Modulo 4"

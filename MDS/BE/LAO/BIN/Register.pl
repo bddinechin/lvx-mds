@@ -123,7 +123,7 @@ foreach my $regClass (@RegClass::table) {
 my %regFileIDs;
 my %registerNumber;
 my $registerNumber = 0;
-foreach my $regFile (@RegFile::table) {
+foreach my $regFile (&MDS::regFiles()) {
     my $regFileID = $regFile->attribute("ID");
     my @registers = $regFile->access("registers");
     my @cores;
@@ -140,7 +140,7 @@ foreach my $regFile (@RegFile::table) {
             my $processorName = $processorNames{$core};
             die "$registerID in $regFileIDs{$registerID}{$core} and $regFileID"
               if(defined $regFileIDs{$registerID}{$processorName});
-            $regFileIDs{$registerID}{$processorName} = $regFile->fullName('_');
+            $regFileIDs{$registerID}{$processorName} = $regFile->regFileFullName('_');
             $registerNumber{$registerID}{$processorName} = $registerNumber++;
         }
     }

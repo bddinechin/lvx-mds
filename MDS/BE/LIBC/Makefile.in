@@ -10,7 +10,7 @@ vpath %.pl $(PERLBIN)
 cleanfiles=	$(LIBC_products) $(LIBC_xml) *.xml
 
 LIBC_xml:=	$(addsuffix /LIBC.xml, $(FAMILY))
-LIBC_input:=	Register.table RegField.table RegFile.table Convention.table
+LIBC_input:=	Register.table RegField.table RegClass.table Convention.table
 
 LIBC_files:= registers.h jmpbuf.h
 LIBC_products:= $(addprefix $(FAMILY)/, $(LIBC_files))

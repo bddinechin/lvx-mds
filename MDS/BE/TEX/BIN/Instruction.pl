@@ -18,7 +18,6 @@ local $/;
 my $Load = Load(<INPUT>);
 my $Register = $$Load{Register};
 my $RegClass = $$Load{RegClass};
-my $RegFile = $$Load{RegFile};
 my $Immediate = $$Load{Immediate};
 my $Modifier = $$Load{Modifier};
 my $Operand = $$Load{Operand};
@@ -952,7 +951,7 @@ foreach my $operand_type (sort keys %operands_list) {
         foreach my $operand_class (sort keys %operand_classes) {
             my $operands = $operand_classes{$operand_class};
             my $regclass = $$RegClass{$operand_class};
-            my $regfile = $$RegFile{$$regclass{regFile}};
+            my $regfile = $$RegClass{$$regclass{regFile}};
             my $width = $$regfile{width};
             print  "$operand_class & ". join(", ", sort(@{$operands})) ." & $width \\\\\n";
         }
@@ -963,7 +962,7 @@ foreach my $operand_type (sort keys %operands_list) {
 
         foreach my $operand_class (sort keys %operand_classes) {
             my $regclass = $$RegClass{$operand_class};
-            my $regfileID = $$RegFile{$$regclass{regFile}}{ID};
+            my $regfileID = $$RegClass{$$regclass{regFile}}{regFileName};
             my $registers = $$regclass{registers};
 
             print "{\\scriptsize\n";

@@ -101,10 +101,10 @@ sub printRegisters {
     my $core_uc = uc($core);
 
     my %regfiles;
-    foreach my  $regfile (@RegFile::table) {
-        push @{$regfiles{$regfile->name()}}, $regfile;
+    foreach my  $regfile (&MDS::regFiles()) {
+        push @{$regfiles{$regfile->regFileName()}}, $regfile;
     }
-    my @sorted_regfiles = get_sorted_regfilenames($FAMILY, \@RegFile::table);
+    my @sorted_regfiles = get_sorted_regfilenames($FAMILY, [ &MDS::regFiles() ]);
 
     #    foreach my $processor (@Processor::table) {
     # Regfiles
@@ -1414,7 +1414,6 @@ sub clearMDSTables {
     @Operand::table = ();
     @Processor::table = ();
     @RegClass::table = ();
-    @RegFile::table = ();
     @Register::table = ();
     @RegMask::table = ();
     @Relocation::table = ();

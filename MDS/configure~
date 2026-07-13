@@ -621,7 +621,6 @@ MDD_names
 MDF_ENABLED
 HWTESTDIR
 TEXDIR
-GEM5DIR
 LAODIR
 LLVMDIR
 NEWLIBDIR
@@ -2181,10 +2180,8 @@ echo -e "NEWLIBDIR=\t$NEWLIBDIR"
 echo -e "LLVMDIR=\t$LLVMDIR"
 echo -e "ISSDIR=\t$ISSDIR"
 echo -e "LAODIR=\t$LAODIR"
-echo -e "GEM5DIR=\t$GEM5DIR"
 echo -e "TEXDIR=\t$TEXDIR"
 echo -e "MDF_ENABLED=\t$MDF_ENABLED"
-
 
 
 
@@ -2214,6 +2211,7 @@ MDD_names=" \
   Storage.table \
   RegField.table \
   Register.table \
+  RegFile.table \
   BitField.table \
   Operand.table \
   Modifier.table \
@@ -2251,6 +2249,7 @@ MDE_names=" \
   Bundle.table \
   Operator.table \
   Opcode.X.table \
+  RegFile.X.table \
   Register.X.table \
 "
 
@@ -2265,8 +2264,10 @@ MDT_names=" \
   Immediate.table \
   Relocation.table \
   RegField.table \
+  RegFile.table \
   Register.table \
   RegClass.table \
+  RegFile.X.table \
   Register.X.table \
   RegMask.table \
   Convention.table \
@@ -2297,7 +2298,7 @@ MDT_names=" \
 "
 
 
-ac_config_files="$ac_config_files Makefile Makerules FE/Makerules MDD/Makerules BE/Makerules DOC/Makefile FE/YAML/Makefile MDD/MDE/Makefile MDD/MDF/Makefile BE/GBU/Makefile BE/GDB/Makefile BE/GCC/Makefile BE/MPPADL/Makefile BE/LAO/Makefile BE/TEX/Makefile BE/LIBC/Makefile BE/AVP/Makefile BE/GEM5/Makefile"
+ac_config_files="$ac_config_files Makefile Makerules FE/Makerules MDD/Makerules BE/Makerules DOC/Makefile FE/YAML/Makefile MDD/MDE/Makefile MDD/MDF/Makefile BE/GBU/Makefile BE/GDB/Makefile BE/GCC/Makefile BE/MPPADL/Makefile BE/LAO/Makefile BE/TEX/Makefile BE/LIBC/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -3016,8 +3017,6 @@ do
     "BE/LAO/Makefile") CONFIG_FILES="$CONFIG_FILES BE/LAO/Makefile" ;;
     "BE/TEX/Makefile") CONFIG_FILES="$CONFIG_FILES BE/TEX/Makefile" ;;
     "BE/LIBC/Makefile") CONFIG_FILES="$CONFIG_FILES BE/LIBC/Makefile" ;;
-    "BE/AVP/Makefile") CONFIG_FILES="$CONFIG_FILES BE/AVP/Makefile" ;;
-    "BE/GEM5/Makefile") CONFIG_FILES="$CONFIG_FILES BE/GEM5/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

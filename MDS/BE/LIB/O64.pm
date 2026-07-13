@@ -541,7 +541,7 @@ sub make_register_classes_from_registers {
     }
 
     my %reg2regfile;
-    foreach my $regfile (@RegFile::table) {
+    foreach my $regfile (&MDS::regFiles()) {
         map { $reg2regfile{$_} = $regfile; } split(' ',$regfile->attribute("registers"));
     }
 

@@ -37,7 +37,7 @@ foreach my $register (@Register::table) {
     my $dwarfId = $register->attribute("dwarfId");
     next unless defined $dwarfId;
     my ($regFile) = $register->access("regFile");
-    next if $regFile->name() =~ /RV_/;
+    next if $regFile->regFileName() =~ /RV_/;
     $Register{$dwarfId} = $register;
 }
 my @Registers = map {$Register{$_}} sort { $a <=> $b } keys %Register;

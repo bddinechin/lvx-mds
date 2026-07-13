@@ -14,17 +14,20 @@ my ($name,$path,$suffix) = fileparse($ARGV[0]);
 
 local $/;
 my $Load = Load(<INPUT>);
-my $RegFile = $$Load{RegFile};
+my $RegClass = $$Load{RegClass};
 my $Register = $$Load{Register};
 
-# Order the RegFile(s) by increasing number.
-my @RegFile = sort { $$a{number} <=> $$b{number} } values %{$RegFile};
+# The register files are the RegClass(es) carrying a regFileName. Order them by
+# increasing regFileNumber, which is the order they are declared in.
+my @RegFile = sort {
+    $$a{regFileNumber} <=> $$b{regFileNumber}
+  } grep { defined $$_{regFileName} } values %{$RegClass};
 #print STDERR Dumper(@RegFile);
 
 # Emit the LaTeX code on STDOUT.
 foreach my $regFile (@RegFile) {
     #print STDERR Dumper($regFile);
-    my $ID = $$regFile{ID};
+    my $ID = $$regFile{regFileName};
     open(FILE, '>', "${path}RegFile-$ID.tex") || die $!;
     my $registers = $$regFile{registers};
     print FILE << 'EOT';

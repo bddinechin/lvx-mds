@@ -794,11 +794,15 @@ sub IDs { &MDD::IDs("RegClass", $_[0]) }
     bias=>	[ 'NMTOKEN', '#IMPLIED', 'undef' ],
     multi=>	[ 'IDREFS', '#IMPLIED', 'undef' ],
     names=>	[ 'CDATA', '#IMPLIED', 'undef' ],
+    nativeTypes=>	[ 'IDREFS', '#IMPLIED', 'undef' ],
     processors=>	[ 'IDREFS', '#IMPLIED', 'undef' ],
     regFile=>	[ 'IDREF', '#REQUIRED', 'undef' ],
+    regFileName=>	[ 'NMTOKEN', '#IMPLIED', 'undef' ],
+    regFileNumber=>	[ 'NMTOKEN', '#IMPLIED', 'undef' ],
     registers=>	[ 'IDREFS', '#REQUIRED', 'undef' ],
     shift=>	[ 'NMTOKEN', '#IMPLIED', 'undef' ],
     what=>	[ 'CDATA', '#IMPLIED', 'undef' ],
+    width=>	[ 'NMTOKEN', '#IMPLIED', 'undef' ],
   );
 sub attlist { return \%ATTLIST; }
 @table = ();
@@ -828,36 +832,6 @@ sub IDs { &MDD::IDs("RegField", $_[0]) }
     rerrors=>	[ 'NMTOKENS', '#IMPLIED', 'undef' ],
     reset=>	[ 'NMTOKEN', '#IMPLIED', 'undef' ],
     werrors=>	[ 'NMTOKENS', '#IMPLIED', 'undef' ],
-    what=>	[ 'CDATA', '#IMPLIED', 'undef' ],
-    width=>	[ 'NMTOKEN', '#REQUIRED', 'undef' ],
-  );
-sub attlist { return \%ATTLIST; }
-@table = ();
-@noname = ();
-sub enter {
-    my ($self) = @_;
-    my $ID = $self->{ATTRIBUTES}->{ID};
-    if (defined $ID) {
-        my $name = (split '-', $ID)[2];
-        if (defined $name) {
-            push @table, $self
-        } else {
-            push @noname, $self
-        }
-    }
-}
-
-package RegFile;
-@ISA = ( "MDS" );
-sub ID { &MDD::ID("RegFile", $_[0]) }
-sub IDs { &MDD::IDs("RegFile", $_[0]) }
-%ATTLIST = (
-    ID=>	[ 'ID', '#REQUIRED', 'undef' ],
-    multi=>	[ 'IDREFS', '#IMPLIED', 'undef' ],
-    nativeTypes=>	[ 'IDREFS', '#REQUIRED', 'undef' ],
-    processors=>	[ 'IDREFS', '#IMPLIED', 'undef' ],
-    regClass=>	[ 'IDREF', '#REQUIRED', 'undef' ],
-    registers=>	[ 'IDREFS', '#REQUIRED', 'undef' ],
     what=>	[ 'CDATA', '#IMPLIED', 'undef' ],
     width=>	[ 'NMTOKEN', '#REQUIRED', 'undef' ],
   );

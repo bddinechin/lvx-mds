@@ -3,5 +3,5 @@
   ID=	"RegMask-lvx-"
   count=	"0"
   first=	"0"
-  regFile=	"RegFile-lvx-"
+  regFile=	"RegClass-lvx-"
 />

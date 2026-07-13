@@ -105,7 +105,7 @@ sub printRegisters {
     my %regfiles_family = map { $_ => 1 } get_family_regfilenames($FAMILY);
 
     my $regfile_idx = 0;
-    foreach my $regfile_name (get_sorted_regfilenames($FAMILY, \@RegFile::table)) {
+    foreach my $regfile_name (get_sorted_regfilenames($FAMILY, [ &MDS::regFiles() ])) {
         if (exists($regfiles_family{$regfile_name})) {
             print "#define ${core_uc}_REGFILE_FIRST_${regfile_name} ${FAMILY}_REGFILE_FIRST_${regfile_name}\n";
             print "#define ${core_uc}_REGFILE_LAST_${regfile_name} ${FAMILY}_REGFILE_LAST_${regfile_name}\n";
@@ -599,7 +599,6 @@ sub clearMDSTables {
     @Operand::table = ();
     @Processor::table = ();
     @RegClass::table = ();
-    @RegFile::table = ();
     @Register::table = ();
     @RegMask::table = ();
     @Relocation::table = ();

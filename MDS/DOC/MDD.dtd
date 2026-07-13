@@ -157,10 +157,11 @@
 <!--
   <dfn>Register</dfn> Architectural register. Aliases between Register(s) are
   detected by overlapping <code>storage</code>.
-  A Register belongs to one RegFile at most. Sharing
-  between RegFile(s) is achieved by defining two Register(s) that alias through
-  the underlying Storage. Register(s) with constant value should be referring
-  to Constant Storage. Register(s) which are not part of a RegFile can only
+  A Register belongs to one register file at most, that is, to one RegClass
+  carrying a <code>regFileName</code>. Sharing between register files is
+  achieved by defining two Register(s) that alias through the underlying
+  Storage. Register(s) with constant value should be referring to Constant
+  Storage. Register(s) which are not part of a register file can only
   correspond to Register Operand(s), they cannot belong to a RegClass.
 -->
 <!ELEMENT Register EMPTY>
@@ -183,14 +184,16 @@
 <!--
   <description>
     <term>storage</term> The underlying Storage for this Register.
-    <term>regFile</term> The RegFile of this Register.
+    <term>regFile</term> The register file of this Register, that is, the
+      RegClass carrying the <code>regFileName</code> it belongs to.
     <term>addresses</term> The Storage cell addresses for this Register.
     <term>fields</term> RegField(s) contained in this Register if any.
     <term>owners</term> Bit field(s) owner(s) of this bitfield: access rights.
     <term>names</term> White-separated list of valid assembly names.
     <term>raccess</term> Read support (NONE or GET if present).
     <term>waccess</term> Write support (NONE or SET or WFX if present).
-    <term>width</term> Bit-width of the Register(s), may override one in RegFile.
+    <term>width</term> Bit-width of the Register(s), may override the one in
+      the register file.
     <term>reset</term> Reset value if any.
     <term>dwarfId</term> DWARF identity if any.
     <term>processors</term> Processors that contains this <code>Register</code>.
@@ -198,35 +201,13 @@
 -->
 
 <!--
-  <dfn>RegFile</dfn> A RegFile is an ordered set of Register(s) that have the
-  same capabilities for holding NativeType(s) and data transfers. The
-  Register(s) of a RegFile can have different underlying Storage. The main
-  purpose of RegFile is to define a local number of Register(s) starting at
-  zero. This local Register number is the natural value used to represent
-  a Register in a RegClass. Use of single-Register RegClass(es) is deprecated.
-  Instead, a Register method should be used in Operand(s).
--->
-<!ELEMENT RegFile  EMPTY>
-<!ATTLIST RegFile
-  ID		ID		#REQUIRED
-  what		CDATA		#IMPLIED
-  width		NMTOKEN		#REQUIRED
-  regClass	IDREF		#REQUIRED
-  registers	IDREFS		#REQUIRED
-  multi		IDREFS		#IMPLIED
-  nativeTypes	IDREFS		#REQUIRED
-  processors	IDREFS		#IMPLIED
->
-<!--
-  <description>
-    <term>width</term> Default bit-width of the Register(s) in this RegFile. If zero,
-      indicates the RegFile may be used as buffer so there is no definite access size.
-    <term>regClass</term> The RegClass with same <code>registers</code> as this RegFile.
-    <term>registers</term> The Register(s) of this RegFile.
-    <term>multi</term> FIXME! Attribute moved to RegClass.
-    <term>nativeTypes</term> List of NativeType(s) possibly held by this RegFile.
-    <term>processors</term> Processors that contains this <code>RegFile</code>.
-  </description>
+  The RegFile element used to be declared here. A RegFile was an ordered set of
+  Register(s) with the same capabilities for holding NativeType(s), and it was
+  paired one-to-one with the RegClass that had the same <code>registers</code>.
+  That pairing was pure redundancy, so the two are now a single RegClass: a
+  RegClass that is a register file is the one carrying <code>regFileName</code>,
+  <code>width</code> and <code>nativeTypes</code>, and it refers to itself
+  through <code>regFile</code>. See the RegClass declaration below.
 -->
 
 <!--
@@ -410,22 +391,46 @@
   <code>regFile</code> provides the local numbering of this RegClass
   <code>registers</code>. Beyond the operand encoding issues, a RegClass is also
   used to constrain register allocation in compilers.
+
+  A RegClass is also what used to be a separate RegFile element: a RegClass is
+  a register file when it carries <code>regFileName</code>, in which case it
+  also carries the <code>width</code> and <code>nativeTypes</code> of that file
+  and its <code>regFile</code> refers to itself. Such a RegClass is an ordered
+  set of Register(s) with the same capabilities for holding NativeType(s), and
+  it defines the local, zero-based numbering that the other RegClass(es) index
+  into. Every other RegClass is a view of one register file: a subset of its
+  <code>registers</code>, selected by <code>shift</code> and <code>bias</code>.
+  Use of single-Register RegClass(es) is deprecated. Instead, a Register method
+  should be used in Operand(s).
 -->
 <!ELEMENT RegClass EMPTY>
 <!ATTLIST RegClass
   ID		ID		#REQUIRED
   what		CDATA		#IMPLIED
   regFile	IDREF		#REQUIRED
+  regFileName	NMTOKEN		#IMPLIED
+  regFileNumber	NMTOKEN		#IMPLIED
   registers	IDREFS		#REQUIRED
   multi		IDREFS		#IMPLIED
   names		CDATA		#IMPLIED
   shift	NMTOKEN		#IMPLIED
   bias		NMTOKEN		#IMPLIED
+  width		NMTOKEN		#IMPLIED
+  nativeTypes	IDREFS		#IMPLIED
   processors	IDREFS		#IMPLIED
 >
 <!--
   <description>
-    <term>regFile</term> The base RegFile of this RegClass.
+    <term>regFile</term> The RegClass that is the register file of this
+      RegClass, that is, the one providing the local numbering its
+      <code>registers</code> are indexed by. A RegClass that is itself a
+      register file refers to itself here.
+    <term>regFileName</term> Name of the register file, present if and only if
+      this RegClass is a register file. This is the name the back-ends emit,
+      and it is independent from the RegClass name.
+    <term>regFileNumber</term> Declaration order of the register file, present
+      if and only if this RegClass is a register file. Back-ends emit the
+      register files in this order.
     <term>registers</term> The Register(s) of this RegClass.
       These registers must belong to the <code>regFile</code>.
     <term>multi</term> The RegClass(es) used to form the tuples of this RegClass.
@@ -433,6 +438,12 @@
       those supplied by the Register(s) must be overridden.
     <term>shift</term> Left shift to apply to the encoded value if any.
     <term>bias</term> Bias to apply to the shifted encoded value if any.
+    <term>width</term> Default bit-width of the Register(s) in this register
+      file, present if and only if this RegClass is a register file. If zero,
+      indicates the file may be used as a buffer so there is no definite
+      access size.
+    <term>nativeTypes</term> List of NativeType(s) possibly held by this
+      register file, present if and only if this RegClass is a register file.
     <term>processors</term> Processors that contains this <code>RegClass</code>.
   </description>
 -->
@@ -454,9 +465,10 @@
 >
 <!--
   <description>
-    <term>regFile</term> The underlying RegFile of this RegMask.
+    <term>regFile</term> The underlying register file of this RegMask, that
+      is, the RegClass carrying its <code>regFileName</code>.
     <term>first</term> The index of the first Register of the underlying
-      RegFile that is a valid Register for this RegMask (zero based).
+      register file that is a valid Register for this RegMask (zero based).
     <term>count</term> The number of Registers that are part of this RegMask.
   </description>
 -->

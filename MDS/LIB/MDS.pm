@@ -426,6 +426,57 @@ sub proxies {
     return @proxies;
 }
 
+#
+# Get the RegClass(es) that are register files, in register file order. A
+# RegClass is a register file when it carries a regFileName, which also means
+# that it carries the width and the nativeTypes of that file and that it refers
+# to itself through regFile. These used to be a RegFile element of their own,
+# so this is what replaces @RegFile::table.
+#
+sub regFiles {
+    return sort {
+        $a->attribute("regFileNumber") <=> $b->attribute("regFileNumber")
+      } grep { $_->isRegFile() } @RegClass::table;
+}
+
+package RegClass;
+
+#
+# Whether this RegClass is a register file rather than a view of one.
+#
+sub isRegFile {
+    my $self = shift;
+    return defined $self->attribute("regFileName");
+}
+
+#
+# Get the name of the register file this RegClass is, as the back-ends emit it.
+# It is unrelated to the name of the RegClass, so it cannot be derived from the
+# ID the way MDS::name does it.
+#
+sub regFileName {
+    my $self = shift;
+    my $char = shift;
+    my $name = $self->attribute("regFileName");
+    return undef unless defined $name;
+    $name =~ s/\W/$char/g if (defined $char);
+    return $name;
+}
+
+#
+# Get the full name of the register file this RegClass is, in the same shape as
+# MDS::fullName gives for the other elements.
+#
+sub regFileFullName {
+    my $self = shift;
+    my $char = shift;
+    my $name = $self->attribute("regFileName");
+    return undef unless defined $name;
+    my $full = join $char, ($self->core(), $name);
+    $full =~ s/\W/$char/g;
+    return $full;
+}
+
 1;
 
 # vim: set ts=4 sw=4 et:

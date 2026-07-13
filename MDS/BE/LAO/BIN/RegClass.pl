@@ -91,7 +91,7 @@ foreach my $register (@Register::table) {
 $registerNumber = undef;
 
 my %regFileIDs;
-foreach my $regFile (@RegFile::table) {
+foreach my $regFile (&MDS::regFiles()) {
     my $regFileID = $regFile->attribute("ID");
     my @registers = $regFile->access("registers");
     $$regFile{LOWNUMBER} = $registers[0]{NUMBER};
@@ -104,7 +104,7 @@ foreach my $regClass (@RegClass::table) {
     my $shift = $regClass->attribute("shift") || 0;
     my $bias = $regClass->attribute("bias") || 0;
     my $ID = $regClass->fullName('_');
-    my $regFileName = $regFile->fullName('_');
+    my $regFileName = $regFile->regFileFullName('_');
     my $REGFILE = "REGFILE($regFileName)";
     my @registerNames = map {$_->fullName('_')} @registers;
     my $registerNames = join ' ', map {"REGISTER($_)"} @registerNames;

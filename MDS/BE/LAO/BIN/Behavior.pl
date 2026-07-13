@@ -66,12 +66,12 @@ foreach my $storage (@Storage::table) {
     }
 }
 
-foreach my $regFile (@RegFile::table) {
-    my $name = $regFile->name();
+foreach my $regFile (&MDS::regFiles()) {
+    my $name = $regFile->regFileName();
     my $width = $regFile->attribute("width");
 
     # Used in Behavior.pm: CodeGen to get storage/regfile width
-    &Behavior::Storage($regFile->name(), { WIDTH=>$width });
+    &Behavior::Storage($regFile->regFileName(), { WIDTH=>$width });
 }
 
 my %helpers;

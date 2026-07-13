@@ -102,7 +102,7 @@ open my $XML, "<", $ARGV[0];
 &MDS::parse($XML);
 close $XML;
 
-&Test::initRegFile(@RegFile::table);
+&Test::initRegFile(&MDS::regFiles());
 &Test::initRegClass(@RegClass::table);
 &Test::initModifier(@Modifier::table);
 &Test::initImmediate(@Immediate::table);

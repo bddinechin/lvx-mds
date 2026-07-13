@@ -20,7 +20,7 @@ $max_multi = 0
 $max_dwarf = 0
 
 $registers.values.each do |reg|
-  next if /RV_/.match(reg.regfile)
+  next if reg.regfile and /RV_/.match($regfiles[reg.regfile].name)
   $max_dwarf = [ $max_dwarf, reg.dwarf_id ].max if reg.dwarf_id
   next if reg.width == 0
   next if not reg.regfile
@@ -87,7 +87,7 @@ $processors.each do |processor_id, processor|
   $regs = {}
   
   $registers.each do |reg_id, reg|
-    next if /RV_/.match(reg.regfile)
+    next if reg.regfile and /RV_/.match($regfiles[reg.regfile].name)
     next if reg.width == 0
     $regs[reg.name] = {} if(not $regs.has_key?(reg.name))
     reg.processors.each do |proc|

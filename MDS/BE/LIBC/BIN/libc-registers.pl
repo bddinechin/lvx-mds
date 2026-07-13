@@ -76,7 +76,7 @@ EOT
 my @Registers;
 foreach my $register (@Register::table) {
     my ($regFile) = $register->access("regFile");
-    next unless defined $regFile && $regFile->name() eq "SFR";
+    next unless defined $regFile && $regFile->regFileName() eq "SFR";
     my $dwarfId = $register->attribute("dwarfId");
     next unless defined $dwarfId;
     my $names = $register->attribute("names") || '';

@@ -148,10 +148,6 @@ sub method {
             return "&Register::ID(\"$method{Register}\")";
             last SWITCH;
           };
-        defined $method{RegFile} and do {
-            return "&RegFile::ID(\"$method{RegFile}\")";
-            last SWITCH;
-          };
         defined $method{RegMask} and do {
             return "&RegMask::ID(\"$method{RegMask}\")";
             last SWITCH;
@@ -573,43 +569,28 @@ sub RegClass {
     my $ID = &attribute($entry, "ID");
     my $what = &attribute($entry, "what");
     my $regFile = &attribute($entry, "regFile");
+    my $regFileName = &attribute($entry, "regFileName");
+    my $regFileNumber = &attribute($entry, "regFileNumber");
     my $registers = &attribute($entry, "registers");
     my $multi = &attribute($entry, "multi");
     my $names = &attribute($entry, "names");
     my $shift = &attribute($entry, "shift");
     my $bias = &attribute($entry, "bias");
+    my $width = &attribute($entry, "width");
+    my $nativeTypes = &attribute($entry, "nativeTypes");
     print <<"EOT";
 print MDS::make("RegClass", {
   ID=>          &RegClass::ID($ID),
   what=>        $what,
-  regFile=>     &RegFile::ID($regFile),
+  regFile=>     &RegClass::ID($regFile),
+  regFileName=> $regFileName,
+  regFileNumber=> $regFileNumber,
   registers=>   &Register::IDs($registers),
   multi=>       &RegClass::IDs($multi),
   names=>       $names,
   shift=>       $shift,
   bias=>        $bias,
-})->emit();\n
-EOT
-}
-
-
-sub RegFile {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $width = &attribute($entry, "width");
-    my $regClass = &attribute($entry, "regClass");
-    my $registers = &attribute($entry, "registers");
-    my $multi = &attribute($entry, "multi"); # TODO: remove this.
-    my $nativeTypes = &attribute($entry, "nativeTypes");
-    print <<"EOT";
-print MDS::make("RegFile", {
-  ID=>          &RegFile::ID($ID),
-  what=>        $what,
   width=>       $width,
-  regClass=>    &RegClass::ID($regClass),
-  registers=>   &Register::IDs($registers),
-  multi=>       &RegClass::IDs($multi),
   nativeTypes=> &NativeType::IDs($nativeTypes),
 })->emit();\n
 EOT
@@ -662,7 +643,7 @@ print MDS::make("Register", {
   ID=>          &Register::ID($ID),
   what=>        $what,
   storage=>     &Storage::ID($storage),
-  regFile=>     &RegFile::ID($regfile),
+  regFile=>     &RegClass::ID($regfile),
   addresses=>   $addresses,
   fields=>      &RegField::IDs($fields),
   owners=>      &RegField::IDs($owners),
@@ -687,7 +668,7 @@ sub RegMask {
 print MDS::make("RegMask", {
   ID=>          &RegMask::ID($ID),
   what=>        $what,
-  regFile=>     &RegFile::ID($regFile),
+  regFile=>     &RegClass::ID($regFile),
   first=>       $first,
   count=>       $count,
 })->emit();\n

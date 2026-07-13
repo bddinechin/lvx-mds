@@ -48,8 +48,8 @@ ${copyrights}
 #else /*RegFile*/
 EOT
 
-foreach my $regFile (@RegFile::table) {
-    my $ID = $regFile->fullName('_');
+foreach my $regFile (&MDS::regFiles()) {
+    my $ID = $regFile->regFileFullName('_');
     my $width = $regFile->attribute("width");
     my $WIDTH = "WIDTH($width)";
     my @registers = $regFile->access("registers");

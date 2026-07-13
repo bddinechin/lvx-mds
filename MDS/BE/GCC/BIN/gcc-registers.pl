@@ -93,7 +93,7 @@ foreach my $register (@Register::table) {
     }
     if (defined $Register{$name}) {
         if (($Register{$name}{REGNO} != $dwarfId) ||
-            ($Register{$name}{REGFILE}->name() ne $regFile->name())) {
+            ($Register{$name}{REGFILE}->regFileName() ne $regFile->regFileName())) {
             print STDERR "Error: " . $register->attribute("ID") . " differs from " .
               $Register{$name}{REGISTER}->attribute("ID") . "\n";
             die;
@@ -116,10 +116,10 @@ my @RegisterNames = map { $Register{$_}{NAME} }
 # Build the list of RegClass(es) in canonical GCC order (DWARF).
 # First, only pick from RegClass(es) which are full RegFile(s).
 my %RegClass;
-foreach my $regFile (@RegFile::table) {
-    my $name = $regFile->name();
+foreach my $regFile (&MDS::regFiles()) {
+    my $name = $regFile->regFileName();
     next if $name =~ /^RV_/; # Skip RISV-V register files.
-    my ($regClass) = $regFile->access("regClass");
+    my $regClass = $regFile;
     my @registers = grep {
         $Register{$_->name()}
       } $regClass->access("registers");
@@ -149,7 +149,7 @@ foreach my $regFile (@RegFile::table) {
             ($multiRegClass) = $multiRegFile->access("multi");
             ($multiRegFile) = $multiRegClass->access("regFile");
         }
-        my $multiName = $multiRegFile->name();
+        my $multiName = $multiRegFile->regFileName();
         if ($RegClass{$multiName} && !$RegClass{$name}) {
             $order = $RegClass{$multiName}{ORDER} + $width;
             #my ($step, $count) = (scalar @multi, 0);
@@ -175,7 +175,7 @@ foreach my $regClass (@RegClass::table) {
     }
     if (defined $name && !$RegClass{$name}) {
         my ($regFile) = $regClass->access("regFile");
-        my $regFileName = $regFile->name();
+        my $regFileName = $regFile->regFileName();
         my $order = $RegClass{$regFileName}{ORDER} + 1;
         my @registers = grep {
             $Register{$_->name()}
@@ -514,7 +514,7 @@ sub printValues {
     foreach my $entry (map {$Register{$_}} @RegisterNames) {
         last if $count >= $RegCount;
         my $name = $$entry{NAME};
-        my $regFileName = $$entry{REGFILE}->name();
+        my $regFileName = $$entry{REGFILE}->regFileName();
         print " \\\n" if $count && $count%8 == 0;
         my $value = $nameSet{$name};
         $value = ($regFileName eq 'SFR') unless defined $value;

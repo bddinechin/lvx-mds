@@ -89,7 +89,6 @@ MDD_names=" \
   Storage.table \
   RegField.table \
   Register.table \
-  RegFile.table \
   BitField.table \
   Operand.table \
   Modifier.table \
@@ -129,7 +128,6 @@ MDE_names=" \
   Bundle.table \
   Operator.table \
   Opcode.X.table \
-  RegFile.X.table \
   Register.X.table \
 "
 AC_SUBST(MDE_names)
@@ -146,10 +144,8 @@ MDT_names=" \
   Immediate.table \
   Relocation.table \
   RegField.table \
-  RegFile.table \
   Register.table \
   RegClass.table \
-  RegFile.X.table \
   Register.X.table \
   RegMask.table \
   Convention.table \

@@ -46,7 +46,7 @@ sub get_sorted_regfiles {
 
     # All family registers must exists in every core otherwise
     # it will break later (files will not be coherents)
-    my %regfiles = map { uc($_->name()) => $_ } @regfiles;
+    my %regfiles = map { uc($_->regFileName()) => $_ } @regfiles;
     foreach my $regfile_name (@family_regfilenames) {
         if (! exists $regfiles{$regfile_name}) {
             die "Fatal error: Family regfiles '$regfile_name' is missing";
@@ -57,7 +57,7 @@ sub get_sorted_regfiles {
     # add remaining regfiles from the description
     my @regfilenames_core = ();
     foreach my $regfile (@regfiles) {
-        my $regfile_name = $regfile->name();
+        my $regfile_name = $regfile->regFileName();
         if (! exists $family_regfilenames{$regfile_name}) {
             push (@regfilenames_core, $regfile_name);
         }
@@ -75,7 +75,7 @@ sub get_sorted_regfilenames {
     my $regfiles = shift;
     my @regfiles = get_sorted_regfiles($family, $regfiles);
 
-    my @regfilenames = map { uc($_->name()) } @regfiles;
+    my @regfilenames = map { uc($_->regFileName()) } @regfiles;
     return @regfilenames;
 }
 

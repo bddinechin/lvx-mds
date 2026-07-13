@@ -3054,8 +3054,8 @@ sub yyinit {
             &Storage($name, { KIND=>$kind, WIDTH=>$width });
         }
     }
-    foreach my $regFile (@RegFile::table) {
-        my $name = $regFile->name();
+    foreach my $regFile (&MDS::regFiles()) {
+        my $name = $regFile->regFileName();
         my $width = $regFile->attribute("width");
         &Storage($name, { WIDTH=>$width });
         my @registers = $regFile->access("registers");

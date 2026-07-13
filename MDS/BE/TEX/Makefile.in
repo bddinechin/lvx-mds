@@ -5,7 +5,6 @@ PERLBIN:=	$(MDSDIR)/BE/TEX/BIN
 ymlnames:=	$(addsuffix .yml, \
   RegField \
   Register \
-  RegFile \
   RegClass \
   Immediate \
   Modifier \

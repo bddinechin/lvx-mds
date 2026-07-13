@@ -53,7 +53,7 @@ foreach my $register (@Register::table) {
     $$register{NUMBER} = $Register__++;
 }
 
-foreach my $regFile (@RegFile::table) {
+foreach my $regFile (&MDS::regFiles()) {
     my @registers = $regFile->access("registers");
     foreach my $register (@registers) {
         my $registerNumber = $$register{NUMBER};
@@ -76,7 +76,7 @@ foreach my $regMask (@RegMask::table) {
     my $first = $regMask->attribute("first");
     my $count = $regMask->attribute("count");
     my $ID = $regMask->fullName('_');
-    my $regFileName = $regFile->fullName('_');
+    my $regFileName = $regFile->regFileFullName('_');
     my @regFileRegisters = $regFile->access("registers");
     die "Illegal first $first for $ID" if $first >= @regFileRegisters;
     die "Illegal count $count for $ID" if $first+$count > @regFileRegisters;

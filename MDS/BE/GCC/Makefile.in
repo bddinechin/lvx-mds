@@ -14,7 +14,7 @@ cleanfiles=	$(GCC_products) $(GCC_xml) $(GCC_check) *.xml
 GCC_xml:=	$(addsuffix /GCC.xml, $(FAMILY))
 GCC_input:=	Operator.table Instruction.table Format.table Operand.table \
 	Immediate.table RegClass.table Register.table Modifier.table \
-	Builtin.table NativeType.table RegFile.table Processor.table \
+	Builtin.table NativeType.table Processor.table \
 	Storage.table Convention.table Scheduling.table
 
 GCC_files:= $(FAMILY)-registers.h $(FAMILY)-registers.md

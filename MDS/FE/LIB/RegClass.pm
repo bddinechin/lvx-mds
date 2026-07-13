@@ -23,7 +23,7 @@ use MDS;
 
 print MDS::make("RegClass", {
         ID=>	&RegClass::ID(""),
-        regFile=>	&RegFile::ID(""),
+        regFile=>	&RegClass::ID(""),
         registers=>	&Register::ID(""),
     })->emit();
 

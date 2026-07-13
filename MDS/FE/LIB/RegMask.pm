@@ -23,7 +23,7 @@ use MDS;
 
 print MDS::make("RegMask", {
         ID=>	&RegMask::ID(""),
-        regFile=>	&RegFile::ID(""),
+        regFile=>	&RegClass::ID(""),
         first=>	0,
         count=>	0,
     })->emit();

@@ -415,7 +415,12 @@ sub multiRegClasses {
     }
 }
 
-# Process the RegFile section.
+# Process the RegFile section. A RegFile is not a table of its own anymore: it
+# is the RegClass that has the same registers, so what is collected here is
+# stamped onto that RegClass by &unifyRegFiles below. Until then, the regFile
+# attribute of Register(s) and RegClass(es) holds a register file name, not the
+# ID of the RegClass that file has become.
+my %RegFileInfo;
 my $RegFile_number = 0;
 foreach my $regFile (@{$$Description{RegFile}}) {
     my $what = $$regFile{what};
@@ -426,9 +431,9 @@ foreach my $regFile (@{$$Description{RegFile}}) {
     my ($startDwarfId, $lastDwarfId) = split /\.\./, $dwarfIds if defined $dwarfIds;
     $RegisterDwarfId = $startDwarfId;
     my $shortName = $$regFile{shortName};
-    die "RegFile $ID already exists" if exists $Section{RegFile}{$ID};
-    $Section{RegFile}{$ID}{what} = $what;
-    $Section{RegFile}{$ID}{number} = $RegFile_number++;
+    die "RegFile $ID already exists" if exists $RegFileInfo{$ID};
+    $RegFileInfo{$ID}{what} = $what;
+    $RegFileInfo{$ID}{number} = $RegFile_number++;
     my $registers = $$regFile{registers} || die "Missing registers for RegFile $ID";
     my $index = 0;
     my @RegFile_registers;
@@ -440,26 +445,26 @@ foreach my $regFile (@{$$Description{RegFile}}) {
             push @RegFile_registers, $RegisterID;
         }
     }
-    $Section{RegFile}{$ID}{width} = $width;
-    $Section{RegFile}{$ID}{registers} = \@RegFile_registers;
-    $Section{RegFile}{$ID}{nativeTypes} = [ @{$$regFile{nativeTypes}} ];
+    $RegFileInfo{$ID}{width} = $width;
+    $RegFileInfo{$ID}{registers} = \@RegFile_registers;
+    $RegFileInfo{$ID}{nativeTypes} = [ @{$$regFile{nativeTypes}} ];
     # Legacy multi on RegFile
     my $multi = $$regFile{multi};
     if ($multi) {
         die "RegFile\@multi requires RegFile\@regClass in $ID" unless $$regFile{regClass};
-        $Section{RegFile}{$ID}{multi} = $multi;
+        $RegFileInfo{$ID}{multi} = $multi;
     }
     # Make the RegClass corresponding to this RegFile.
     my $regClassID = $$regFile{regClass};
     if ($regClassID) {
         die "RegClass $regClassID already exists" if exists $Section{RegClass}{$regClassID};
         #print STDERR "Make RegClass $regClassID for RegFile $ID\n";
-        $Section{RegFile}{$ID}{regClass} = $regClassID;
+        $RegFileInfo{$ID}{regClass} = $regClassID;
         #print STDERR "creating regclass $regClassID from regfile $ID\n";
         $Section{RegClass}{$regClassID}{what} = $what;
         $Section{RegClass}{$regClassID}{number} = $RegClass_number++;
         $Section{RegClass}{$regClassID}{regFile} = $ID;
-        $Section{RegClass}{$regClassID}{registers} = $Section{RegFile}{$ID}{registers};
+        $Section{RegClass}{$regClassID}{registers} = $RegFileInfo{$ID}{registers};
         my $multi = $$regFile{multi};
         if (defined $multi) {
             #print STDERR "\tRegFile $ID has multi\n";
@@ -525,16 +530,18 @@ foreach my $regClass (@{$$Description{RegClass}}) {
         }
     }
     $Section{RegClass}{$ID}{regFile} = $regFileID;
-    unless (defined $Section{RegFile}{$regFileID}{regClass}) {
+    unless (defined $RegFileInfo{$regFileID}{regClass}) {
         # This the canonical RegClass for $regFileID.
-        $Section{RegFile}{$regFileID}{regClass} = $ID;
+        $RegFileInfo{$regFileID}{regClass} = $ID;
     }
     # Process multi.
-    my $multi = $$regClass{multi} || $Section{RegFile}{$regFileID}{multi};
+    my $multi = $$regClass{multi} || $RegFileInfo{$regFileID}{multi};
     if (defined $multi) {
         #print STDERR "\tRegClass $ID has multi\n";
         $Section{RegClass}{$ID}{multi} = $multi;
-        $Section{RegFile}{$regFileID}{multi} = $multi; # TODO: remove this.
+        # Carry the tuple decomposition on the register file, so that the other
+        # RegClass(es) that are views of that same file inherit it just above.
+        $RegFileInfo{$regFileID}{multi} = $multi;
         &multiRegClasses($ID, $regFileID, $multi);
     }
     $Section{RegClass}{$ID}{registers} = $registers;
@@ -557,6 +564,40 @@ foreach my $regClass (@{$$Description{RegClass}}) {
         die "Unrecogized execution $execution in RegClass $ID" if $execution;
     } else { die "Unrecognized execution '$execution'"; }
 }
+
+# Unify the RegFile(s) into the RegClass(es). Each register file is the RegClass
+# that has the same registers, so stamp the register file name, width and native
+# types onto that RegClass, which is what makes it a register file, and make it
+# refer to itself through regFile. Then rewrite the regFile of every Register and
+# RegClass, which up to here named a register file, to name that RegClass.
+sub unifyRegFiles {
+    my %RegFileClass;
+    foreach my $fileID (sort keys %RegFileInfo) {
+        my $regClassID = $RegFileInfo{$fileID}{regClass}
+          or die "No RegClass has the registers of RegFile $fileID";
+        my $regClass = $Section{RegClass}{$regClassID};
+        my $registers = $RegFileInfo{$fileID}{registers};
+        die "RegClass $regClassID is not all of RegFile $fileID"
+          unless @{$$regClass{registers}} == @{$registers};
+        $RegFileClass{$fileID} = $regClassID;
+        $$regClass{regFileName} = $fileID;
+        $$regClass{regFileNumber} = $RegFileInfo{$fileID}{number};
+        $$regClass{width} = $RegFileInfo{$fileID}{width};
+        $$regClass{nativeTypes} = $RegFileInfo{$fileID}{nativeTypes};
+        # The tuple decomposition used to be carried by the RegFile as well.
+        $$regClass{multi} = $RegFileInfo{$fileID}{multi}
+          if defined $RegFileInfo{$fileID}{multi} and not defined $$regClass{multi};
+    }
+    foreach my $section (qw(RegClass Register)) {
+        foreach my $ID (sort keys %{$Section{$section}}) {
+            my $fileID = $Section{$section}{$ID}{regFile};
+            next unless defined $fileID;
+            $Section{$section}{$ID}{regFile} = $RegFileClass{$fileID}
+              or die "$section $ID belongs to unknown RegFile $fileID";
+        }
+    }
+}
+&unifyRegFiles();
 
 # Process the Immediate section.
 my $Immediate_number = 0;
@@ -835,12 +876,12 @@ sub operand {
             die "Field $field does not exists" unless defined $Section{BitField}{$field};
         }
         $Section{Operand}{$operandID}{fields} = $fields;
-        # Create the Operand(s) implied by the multi RegClass(es).
+        # Create the Operand(s) implied by the multi RegClass(es). The RegClass
+        # carries the tuple decomposition of its register file since the two
+        # were unified, so there is no RegFile left to fall back on here.
         if ($methodType eq 'RegClass') {
             #print STDERR "OPERANDS for $methodID\t";
-            my $regFileID = $Section{RegClass}{$methodID}{regFile};
-            #print STDERR "$regFileID\t";
-            my $multi = $Section{RegClass}{$methodID}{multi} || $Section{RegFile}{$regFileID}{multi};
+            my $multi = $Section{RegClass}{$methodID}{multi};
             if (defined $multi) {
                 #print STDERR "has multi\n";
                 my $index = 0;
@@ -1439,7 +1480,7 @@ foreach my $fixup (@Fixup) {
 my @Tables = qw(
   BitField Bundling Convention Encoding Format Generic Immediate Instruction
   Modifier NativeType Operand Pattern Platform Processor RegClass RegField
-  RegFile Register RegMask Relocation Reservation Resource Scheduling Simulated
+  Register RegMask Relocation Reservation Resource Scheduling Simulated
   Storage Dispersal Synthetic Template Builtin
   );
 

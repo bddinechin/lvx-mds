@@ -708,29 +708,42 @@ module Mds
     end
   end
 
+  # A register file is a RegClass carrying a regFileName: that RegClass is the
+  # one holding the width and the native types of the file, and it is its own
+  # regclass. The name of the file is unrelated to the name of the RegClass, so
+  # it replaces the name Mds derives from the ID.
   class RegFile < Mds
-    attr_reader :width, :regclass, :registers, :native_types, :processors, :multi
+    attr_reader :width, :regclass, :registers, :native_types, :processors, :multi, :number
 
     def initialize(description, id, what, processors, width,
-                   regclass, registers, native_types, multi)
+                   regclass, registers, native_types, multi, regfile_name, number)
       @width        = width.to_i
       @regclass     = regclass
       @registers    = registers
       @native_types = native_types
       @multi        = multi
+      @number       = number.to_i
       super(description,id,what,processors)
+      @name         = regfile_name
     end
 
     def self.ID(name)
-      Mds.ID("RegFile",name)
+      Mds.ID("RegClass",name)
     end
     def self.extract (description, document)
       regfiles = MdsOrderedHash.new
-      document.elements.each("RegFile") do |element|
+      elements = []
+      document.elements.each("RegClass") do |element|
+        next if element.attributes["regFileName"] == nil
+        elements.push element
+      end
+      # Emit the register files in the order they are declared in.
+      elements.sort_by { |e| e.attributes["regFileNumber"].to_i }.each do |element|
         id           = element.attributes["ID"]
         what         = element.attributes["what"]
         width        = element.attributes["width"]
-        regclass     = element.attributes["regClass"]
+        regfile_name = element.attributes["regFileName"]
+        number       = element.attributes["regFileNumber"]
         registers    = element.attributes["registers"].split(' ')
         native_types = element.attributes["nativeTypes"].split(' ')
         processors   = element.attributes["processors"]
@@ -738,10 +751,10 @@ module Mds
         multi        = multi.split(' ') if multi
 
         next if id == nil || id[-1..-1] == "-"
-        #next if /RV_/.match(id)
 
         regfiles[id] = RegFile.create(description, id, what, processors, width,
-                                      regclass, registers, native_types, multi)
+                                      id, registers, native_types, multi,
+                                      regfile_name, number)
       end
 
       return regfiles

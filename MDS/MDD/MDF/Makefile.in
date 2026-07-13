@@ -21,7 +21,7 @@ cleanfiles=	$(MDT_tables) $(MDT_xml) $(MDC_tables) $(MDC_xml) $(MDF_check) *.pl 
 MDS_diff:=	$(addsuffix /MDS.diff, $(FAMILY))
 MDS_refs:=	$(addsuffix /MDS.refs, $(FAMILY))
 
-Behavior.input:=	Storage.table RegField.table Register.table RegFile.table Processor.table
+Behavior.input:=	Storage.table RegField.table Register.table RegClass.table Processor.table
 
 all:	Begin.xml End.xml MDT.pl
 	mkdir -p ../$(FAMILY)
@@ -121,7 +121,6 @@ endef
 $(eval $(call generate,Pattern))
 $(eval $(call generate,Template))
 $(eval $(call generate_for_cyclic_dependencies,Register))
-$(eval $(call generate_for_cyclic_dependencies,RegFile))
 $(eval $(call generate_for_cyclic_dependencies,Synthetic))
 $(eval $(call generate_for_cyclic_dependencies,Instruction))
 $(eval $(call generate_for_cyclic_dependencies,Opcode))

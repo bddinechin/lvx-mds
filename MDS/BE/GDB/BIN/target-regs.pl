@@ -57,13 +57,13 @@ foreach my $core (@cores) {
     print "\nstruct reg_desc ${core}_mds_registers_description[] = {\n";
 
     my $regno = 0;
-    foreach my $regFile (get_sorted_regfiles($FAMILY, \@RegFile::table)) {
+    foreach my $regFile (get_sorted_regfiles($FAMILY, [ &MDS::regFiles() ])) {
         my @processors = $regFile->access("processors");
         my @local_cores = map { $_->core(); } @processors;
         my $count = scalar(grep {/$core/} @local_cores);
         next if $count == 0;
 
-        my $regFileName = $regFile->name();
+        my $regFileName = $regFile->regFileName();
         next if $regFileName =~ /RV_/;
 
         my @registers = $regFile->access("registers");
@@ -116,13 +116,13 @@ foreach my $core (@cores) {
     print "\nint ${core}_mds_registers_size[] = {";
 
     my $count = 0;
-    foreach my $regFile (@RegFile::table) {
+    foreach my $regFile (&MDS::regFiles()) {
         my @processors = $regFile->access("processors");
         my @local_cores = map { $_->core(); } @processors;
         my $core_count = scalar(grep {/$core/} @local_cores);
         next if $core_count == 0;
 
-        my $regFileName = $regFile->name();
+        my $regFileName = $regFile->regFileName();
         next if $regFileName =~ /RV_/;
 
         my @registers = $regFile->access("registers");

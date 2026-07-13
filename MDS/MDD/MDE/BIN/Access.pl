@@ -97,7 +97,7 @@ sub processRegClass {
     my $regClassID = $regClass->attribute("ID");
     my ($regFile) = $regClass->access("regFile");
     my $width = $regFile->attribute("width");
-    my $regFileName = $regFile->name();
+    my $regFileName = $regFile->regFileName();
     my @registers = $regClass->access("registers");
     my $load = &LOAD('_', &AGGL($regFileName, &METHOD("%0"), &CONST(1)));
     my $f2i = &F2I($width, $load);

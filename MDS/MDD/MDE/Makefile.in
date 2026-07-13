@@ -31,17 +31,17 @@ endef
 
 $(foreach CORE,$(CORES),$(eval $(call generate,$(CORE))))
 
-Synthetic.X.input:=	Storage.table RegFile.table Format.table Instruction.table Synthetic.table
+Synthetic.X.input:=	Storage.table RegClass.table Format.table Instruction.table Synthetic.table
 %Synthetic.X.core.xml: $(addprefix %, $(Synthetic.X.input))
 	@echo "Building $@"
 	@cat Begin.xml $(addprefix $(dir $*), $(Synthetic.X.input)) End.xml > $@	|| $(ABORT)
 
-Instruction.X.input:=	Operand.table Encoding.table Format.table Pattern.table BitField.table Storage.table RegFile.table Instruction.table Synthetic.table Synthetic.X.table
+Instruction.X.input:=	Operand.table Encoding.table Format.table Pattern.table BitField.table Storage.table RegClass.table Instruction.table Synthetic.table Synthetic.X.table
 %Instruction.X.core.xml: $(addprefix %, $(Instruction.X.input))
 	@echo "Building $@"
 	@cat Begin.xml $(addprefix $(dir $*), $(Instruction.X.input)) End.xml > $@	|| $(ABORT)
 
-Access.input:=	Storage.table RegFile.table $(Method.input) Scheduling.table Processor.table
+Access.input:=	Storage.table $(Method.input) Scheduling.table Processor.table
 %Access.core.xml: $(addprefix %, $(Access.input))
 	@echo "Building $@"
 	@cat Begin.xml $(addprefix $(dir $*), $(Access.input)) End.xml > $@	|| $(ABORT)
@@ -51,16 +51,12 @@ Pattern.X.input:=	Template.table Dispersal.table Synthetic.table Synthetic.X.tab
 	@echo "Building $@"
 	@cat Begin.xml $(addprefix $(dir $*), $(Pattern.X.input)) End.xml > $@	|| $(ABORT)
 
-Opcode.input:=	Storage.table RegFile.table $(Method.input) Access.table $(Encode.input) Instruction.table Instruction.X.table Synthetic.table Synthetic.X.table Scheduling.table Processor.table
+Opcode.input:=	Storage.table $(Method.input) Access.table $(Encode.input) Instruction.table Instruction.X.table Synthetic.table Synthetic.X.table Scheduling.table Processor.table
 %Opcode.core.xml: $(addprefix %, $(Opcode.input))
 	@echo "Building $@"
 	@cat Begin.xml $(addprefix $(dir $*), $(Opcode.input)) End.xml > $@	|| $(ABORT)
 
 %Opcode.X.core.xml:
-	@echo "Building $@"
-	@cat Begin.xml End.xml > $@	|| $(ABORT)
-
-%RegFile.X.core.xml:
 	@echo "Building $@"
 	@cat Begin.xml End.xml > $@	|| $(ABORT)
 
@@ -83,7 +79,7 @@ Bundle.input:=	Template.table Template.X.table Dispersal.table Bundling.table
 	@echo "Building $@"
 	@cat Begin.xml $(addprefix $(dir $*), $(Bundle.input)) End.xml > $@	|| $(ABORT)
 
-Operator.input:=	Storage.table RegFile.table $(Method.input) Instruction.table Synthetic.table Synthetic.X.table Instruction.X.table Opcode.table Simulated.table Generic.table Scheduling.table Processor.table Encoding.table
+Operator.input:=	Storage.table $(Method.input) Instruction.table Synthetic.table Synthetic.X.table Instruction.X.table Opcode.table Simulated.table Generic.table Scheduling.table Processor.table Encoding.table
 %Operator.core.xml: $(addprefix %, $(Operator.input))
 	@echo "Building $@"
 	@cat Begin.xml $(addprefix $(dir $*), $(Operator.input)) End.xml > $@	|| $(ABORT)
