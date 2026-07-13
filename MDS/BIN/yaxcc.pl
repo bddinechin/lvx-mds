@@ -136,7 +136,7 @@ while (<Y>) {
         my ($lhs, $rhs) = /\s*(\S+)\s+(.*)$/;
         $lhs =~ s/^\'(\\?.)\'$/$1/ ||
           $lhs =~ s/^\"([^"]+)\"$/$1/;		# CG: handling of "..." tokens
-        $lhs =~ s/\$défaut/\$default/;
+        $lhs =~ s/\$dï¿½faut/\$default/;
         if ($rhs =~ /^shift, and go to state (\d+)$/) {
             $act{$state,$lhs} = "shift $1";
         } elsif ($rhs =~ /^reduce using rule (\d+)/) {
@@ -218,7 +218,11 @@ our @act = (
 EOT
 
 my $state = -1;
-foreach my $k (sort { my ($A, $B) = map {/^(\d+)/} ($a, $b); $A <=> $B } (keys %act)) {
+# Sort on the state number, then on the symbol, so that the emitted tables are
+# reproducible: sorting on the state alone leaves entries within a state in
+# Perl hash order, which is randomized per process since Perl 5.18.
+foreach my $k (sort { my ($A, $SA) = split(' ', $a, 2); my ($B, $SB) = split(' ', $b, 2);
+                      $A <=> $B or $SA cmp $SB } (keys %act)) {
     my ($s, $r) = split(' ', $k);
     my ($a, $d) = (split(' ', $act{$k}), 'undef');
     if ($state != $s) {

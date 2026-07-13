@@ -90,15 +90,15 @@ Christophe Guillon
 my $Stage;
 my $Substage;
 sub stage {
-  my ($stage_substage) = @_;
-  $stage_substage =~ /^((\d+))?(_(\d+))?/;
-  ($Stage, $Substage) = ($2, $4);
+    my ($stage_substage) = @_;
+    $stage_substage =~ /^((\d+))?(_(\d+))?/;
+    ($Stage, $Substage) = ($2, $4);
 }
 
 my %names_to_ignore = ( LOCK_ADDRESS => 1 );
 sub ignore_name {
-  my $name = shift;
-  return exists $names_to_ignore{$name};
+    my $name = shift;
+    return exists $names_to_ignore{$name};
 }
 
 #
@@ -109,131 +109,133 @@ our $yylval = undef;
 our @yylval = ();
 our $yylkeep = 8;
 sub yylval {
-  $yylkeep =  shift;
-  if (defined $yylkeep) {
-    shift @yylval while @yylval > $yylkeep;
-  }
-  map { "'$_' " } @yylval;
+    $yylkeep =  shift;
+    if (defined $yylkeep) {
+        shift @yylval while @yylval > $yylkeep;
+    }
+    map { "'$_' " } @yylval;
 }
 
 our @yyin = ();
 sub yyin {
-  while (@_) {
-    my $buffer = shift;
-    push @yyin, grep {length($_)} split ' ', $buffer;
-  }
+    while (@_) {
+        my $buffer = shift;
+        push @yyin, grep {length($_)} split ' ', $buffer;
+    }
 }
 
 sub yyflush {
-  @yyin = ();
-  @yylval = ();
+    @yyin = ();
+    @yylval = ();
 }
 
 my $yytree;
 sub yytree {
-  return $yytree;
+    return $yytree;
 }
 
 sub yylex {
-  my $token;
-  return '' unless (@yyin);
-  my $value = shift @yyin;
-  #%token BINNUM HEXNUM DECNUM SYMNUM IDENT
-  #%token IF ELSE THROW DbgThrow REPEAT FROM FOR
-  #%token NOT INT OR XOR AND
-  if ($value =~ s/^(0x[0-9a-fA-F]+)//) {
-    ($token, $yylval) = ('HEXNUM', $1);
-    $yylval = oct($yylval) if $yylval =~ /^0/;
-  } elsif ($value =~ s/^(0b[01]+)//) {
-    ($token, $yylval) = ('BINNUM', $1);
-    $yylval = oct($yylval) if $yylval =~ /^0/;
-  } elsif ($value =~ s/^(\-?\d+)//) {
-    ($token, $yylval) = ('DECNUM', $1);
-  } elsif ($value =~ s/^(IF|ELSE|THROW|DbgThrow|REPEAT|FROM|FOR|NOT|INT|OR|XOR|AND)\b//) {
-    ($token, $yylval) = ($1, $1);
-  } elsif ($value =~ s/^stage_((\d+)?_(\d+))?\b//) {
-    ($token, $yylval) = ('STAGE', $1);
-  } elsif ($value =~ s/^([a-zA-Z_]\w*)//) {
-    ($token, $yylval) = ('IDENT', $1);
-    $token = 'SYMNUM' if defined &Constant($yylval);
-  } elsif ($value =~ s/^((\>\>)|(\<\<)|([<>=!]=)|(\W))//) {
-    ($token, $yylval) = ($1, $1);
-  } else {
-    croak "unrecognized token: $value";
-  }
-  unshift @yyin, $value if length($value);
-  if (defined $yylkeep) {
-    push @yylval, $yylval;
-    shift @yylval if @yylval > $yylkeep;
-  }
-  $token;
+    my $token;
+    return '' unless (@yyin);
+    my $value = shift @yyin;
+    #%token BINNUM HEXNUM DECNUM SYMNUM IDENT
+    #%token IF ELSE THROW DbgThrow REPEAT FROM FOR
+    #%token NOT INT OR XOR AND
+    if ($value =~ s/^(0x[0-9a-fA-F]+)//) {
+        ($token, $yylval) = ('HEXNUM', $1);
+        $yylval = oct($yylval) if $yylval =~ /^0/;
+    } elsif ($value =~ s/^(0b[01]+)//) {
+        ($token, $yylval) = ('BINNUM', $1);
+        $yylval = oct($yylval) if $yylval =~ /^0/;
+    } elsif ($value =~ s/^(\-?\d+)//) {
+        ($token, $yylval) = ('DECNUM', $1);
+    } elsif ($value =~ s/^(IF|ELSE|THROW|DbgThrow|REPEAT|FROM|FOR|NOT|INT|OR|XOR|AND)\b//) {
+        ($token, $yylval) = ($1, $1);
+    } elsif ($value =~ s/^stage_((\d+)?_(\d+))?\b//) {
+        ($token, $yylval) = ('STAGE', $1);
+    } elsif ($value =~ s/^([a-zA-Z_]\w*)//) {
+        ($token, $yylval) = ('IDENT', $1);
+        $token = 'SYMNUM' if defined &Constant($yylval);
+    } elsif ($value =~ s/^((\>\>)|(\<\<)|([<>=!]=)|(\W))//) {
+        ($token, $yylval) = ($1, $1);
+    } else {
+        croak "unrecognized token: $value";
+    }
+    unshift @yyin, $value if length($value);
+    if (defined $yylkeep) {
+        push @yylval, $yylval;
+        shift @yylval if @yylval > $yylkeep;
+    }
+    $token;
 }
 
 # Map Takumi function names.
 my %yyfunc = (
-  CountLeadingZeros=> [ 'CLZ', 32, { TYPE=>'Integer'} ],
-  #IDivIeee=> [ 'DIVI' ],
-  #UIDivIeee=> [ 'DIVU' ],
-  #IRemIeee=> [ 'REMI' ],
-  #UIRemIeee=> [ 'REMU' ],
-  IsCRegSpace=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDBreakHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDBreakLoadHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDBreakStoreHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDBreakPrefetchHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDebugDBreakLoadHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDebugDBreakStoreHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  IsDebugDBreakPrefetchHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
-  ReadCheckMemory=> [ 'SKIP', { } ],
-  ReadCheckLockMemory=> [ 'SKIP', { } ],
-  DisReadCheckMemory=> [ 'SKIP', { } ],
-  WriteCheckMemory=> [ 'SKIP', { } ],
-  WriteCheckLockMemory=> [ 'SKIP', { } ],
-  PrefetchCheckMemory=> [ 'SKIP', { } ],
-  PurgeAddressCheckMemory=> [ 'SKIP', { } ],
-  PurgeInvalidateAddressCheckMemory=> [ 'SKIP', { } ],
-  AbortWriteMemory_=> [ 'SKIP', { } ],
-);
+    CountLeadingZeros=> [ 'CLZ', 32, { TYPE=>'Integer'} ],
+    #IDivIeee=> [ 'DIVI' ],
+    #UIDivIeee=> [ 'DIVU' ],
+    #IRemIeee=> [ 'REMI' ],
+    #UIRemIeee=> [ 'REMU' ],
+    IsCRegSpace=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDBreakHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDBreakLoadHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDBreakStoreHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDBreakPrefetchHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDebugDBreakLoadHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDebugDBreakStoreHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    IsDebugDBreakPrefetchHit=> [ 'FALSE', { TYPE=>'Boolean' } ],
+    ReadCheckMemory=> [ 'SKIP', { } ],
+    ReadCheckLockMemory=> [ 'SKIP', { } ],
+    DisReadCheckMemory=> [ 'SKIP', { } ],
+    WriteCheckMemory=> [ 'SKIP', { } ],
+    WriteCheckLockMemory=> [ 'SKIP', { } ],
+    PrefetchCheckMemory=> [ 'SKIP', { } ],
+    PurgeAddressCheckMemory=> [ 'SKIP', { } ],
+    PurgeInvalidateAddressCheckMemory=> [ 'SKIP', { } ],
+    AbortWriteMemory_=> [ 'SKIP', { } ],
+  );
 sub yyfunc {
-  my ($name, @arguments) = @_;
-  my $yyfunc = $yyfunc{$name};
-  if (defined $yyfunc) {
-    my @yyfunc = @{$yyfunc};
-    splice @yyfunc, -1, 0, @arguments;
-    $yyfunc = \@yyfunc;
-  }
-  return $yyfunc;
+    my ($name, @arguments) = @_;
+    my $yyfunc = $yyfunc{$name};
+    if (defined $yyfunc) {
+        my @yyfunc = @{$yyfunc};
+        splice @yyfunc, -1, 0, @arguments;
+        $yyfunc = \@yyfunc;
+    }
+    return $yyfunc;
 }
 
 sub substitute_repeat_var {
-  my ($this, $name, $value) = @_;
-  if (ref $this eq 'ARRAY') {
-    if ($this->[0] eq 'READ') {
-      if ($this->[1] eq $name) {
-        return &CONST($value);
-      }
+    my ($this, $name, $value) = @_;
+    if (ref $this eq 'ARRAY') {
+        if ($this->[0] eq 'READ') {
+            if ($this->[1] eq $name) {
+                return &CONST($value);
+            }
+        }
+        my @that; map {
+            push @that, &substitute_repeat_var($_, $name, $value);
+          } @{$this};
+        return \@that;
+    } elsif (ref $this eq 'HASH') {
+        my %that = %{$this};
+        return \%that;
+    } elsif (!ref $this) {
+        return $this;
     }
-    my @that; map {
-      push @that, &substitute_repeat_var($_, $name, $value);
-    } @{$this};
-    return \@that;
-  } elsif (ref $this eq 'HASH') {
-    my %that = %{$this};
-    return \%that;
-  } elsif (!ref $this) {
-    return $this;
-  }
-  return undef;
+    return undef;
 }
 
 sub do_repeat {
-  my ($name, $from, $count, $step, $body) = @_;
-  my @values = map { $from + ($step * $_); } (0..$count-1);
-  my @body = map { &substitute_repeat_var ($body, $name, $_) ; } @values;
-  return &SEQ(@body);
+    my ($name, $from, $count, $step, $body) = @_;
+    my @values = map { $from + ($step * $_); } (0..$count-1);
+    my @body = map { &substitute_repeat_var ($body, $name, $_) ; } @values;
+    return &SEQ(@body);
 }
 
 my @Accesses;
+
+# vim: set ts=4 sw=4 et:
 
 # generating or using semantic actions from 
 our @sem = (
@@ -281,27 +283,27 @@ my ($name, $start, $count) = @{$_[0]};
 my $symbol = &Behavior::Symbol($name);
 my $storage = &Behavior::Storage($name);
 if (&ignore_name ($name)) {
-  return &SKIP();
+    return &SKIP();
 } elsif (defined $symbol) {
-  my $stage = defined $symbol->{STAGES}? $symbol->{STAGES}->[-1]: $Stage;
-  if (defined $start && defined $count) {
-    return &STORE($stage, &AGGL($name, $start, $count), $_[2]);
-  } elsif (defined $symbol->{KIND} && $symbol->{KIND} eq 'Register') {
-    my ($storage, $address, $extent) = ($symbol->{STORAGE}, $symbol->{ADDRESS}, $symbol->{EXTENT});
-    return &STORE($stage, &AGGL($storage, &CONST($address), &CONST($extent)), $_[2]);
-  }
-  my $proxy = $symbol->{PROXY};
-  if (defined $proxy) {
-    die "Multiple commits to proxy $proxy" if defined $proxy->{COMMITS};
-    &Symbol($proxy, { EXTEND=>$extend, WIDTH=>$symbol->{WIDTH}, COMMITS=>1 });
-    return &SEQ(&WRITE($name, $_[2]), &COMMIT($stage, $proxy, &READ($name)));
-  }
-  &WRITE($name, $_[2]);
+    my $stage = defined $symbol->{STAGES}? $symbol->{STAGES}->[-1]: $Stage;
+    if (defined $start && defined $count) {
+        return &STORE($stage, &AGGL($name, $start, $count), $_[2]);
+    } elsif (defined $symbol->{KIND} && $symbol->{KIND} eq 'Register') {
+        my ($storage, $address, $extent) = ($symbol->{STORAGE}, $symbol->{ADDRESS}, $symbol->{EXTENT});
+        return &STORE($stage, &AGGL($storage, &CONST($address), &CONST($extent)), $_[2]);
+    }
+    my $proxy = $symbol->{PROXY};
+    if (defined $proxy) {
+        die "Multiple commits to proxy $proxy" if defined $proxy->{COMMITS};
+        &Symbol($proxy, { EXTEND=>$extend, WIDTH=>$symbol->{WIDTH}, COMMITS=>1 });
+        return &SEQ(&WRITE($name, $_[2]), &COMMIT($stage, $proxy, &READ($name)));
+    }
+    &WRITE($name, $_[2]);
 } elsif (defined $storage) {
-  my $stage = defined $storage->{STAGES}? $storage->{STAGES}->[-1]: $Stage;
-  $start = &CONST(0) unless defined $start;
-  $count = &CONST(1) unless defined $count;
-  return &STORE($stage, &AGGL($name, $start, $count), $_[2]);
+    my $stage = defined $storage->{STAGES}? $storage->{STAGES}->[-1]: $Stage;
+    $start = &CONST(0) unless defined $start;
+    $count = &CONST(1) unless defined $count;
+    return &STORE($stage, &AGGL($name, $start, $count), $_[2]);
 } else { croak "Write unknown variable $name"; }
 },
 # rule 8
@@ -310,61 +312,61 @@ sub {
 my ($name, @arguments) = ($_[0], @{$_[2]});
 my $mem_stage = $Stage;
 if ($name =~ /^ReadMemory_(\d+)_$/) {
-  my ($width, $address) = ($1, @arguments);
-  &Symbol('mem_response', { WIDTH=>$width });
-  my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
-  return &WRITE('mem_response', $load);
+    my ($width, $address) = ($1, @arguments);
+    &Symbol('mem_response', { WIDTH=>$width });
+    my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
+    return &WRITE('mem_response', $load);
 } elsif ($name =~ /^DisReadMemory_(\d+)_$/) {
-  my ($width, $address) = ($1, @arguments);
-  &Symbol('mem_response', { WIDTH=>$width });
-  my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
-  my $probe = &PROBE($mem_stage, &AGGL('MEM', &Clone($address), &CONST($width/8)));
-  my $writeOK = &WRITE('mem_response', $load);
-  my $writeKO = &WRITE('mem_response', &CONST(0));
-  return &IF($probe, $writeOK, $writeKO);
+    my ($width, $address) = ($1, @arguments);
+    &Symbol('mem_response', { WIDTH=>$width });
+    my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
+    my $probe = &PROBE($mem_stage, &AGGL('MEM', &Clone($address), &CONST($width/8)));
+    my $writeOK = &WRITE('mem_response', $load);
+    my $writeKO = &WRITE('mem_response', &CONST(0));
+    return &IF($probe, $writeOK, $writeKO);
 } elsif ($name =~ /^ReadLockMemory_(\d+)_$/) {
-  my ($width, $address) = ($1, @arguments);
-  &Symbol('mem_response', { WIDTH=>$width });
-  my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
+    my ($width, $address) = ($1, @arguments);
+    &Symbol('mem_response', { WIDTH=>$width });
+    my $load = &LOAD($mem_stage, &AGGL('MEM', $address, &CONST($width/8)));
 #  my $lock_value = &IOR(&Clone($address), &CONST(1));
 #  my $lock = &STORE($mem_stage, &AGGL('LOCK_ADDRESS', &CONST('LOCKED'), &CONST(32)), &I2F(&CONST(32), $lock_value));
-  my $write = &WRITE('mem_response', $load);
-#  return &SEQ($write, $lock);
-  return $write;
+    my $write = &WRITE('mem_response', $load);
+    #  return &SEQ($write, $lock);
+    return $write;
 } elsif ($name  =~ /^ReadMemMultiple_(\d+)_$/) {
-  my ($width, $address, $count) = ($1, @arguments);
-  &Symbol('mem_read_queue', { TYPE=>'Integer' });
-  my $extent = &MUL($count, &CONST($width/8));
-  my $load = &LOAD($mem_stage, &AGGL('MEM', $address, $extent));
-  my $field = &F2I(&MUL(&Clone($count), &CONST($width)), $load);
-  return &WRITE('mem_read_queue', $field);
+    my ($width, $address, $count) = ($1, @arguments);
+    &Symbol('mem_read_queue', { TYPE=>'Integer' });
+    my $extent = &MUL($count, &CONST($width/8));
+    my $load = &LOAD($mem_stage, &AGGL('MEM', $address, $extent));
+    my $field = &F2I(&MUL(&Clone($count), &CONST($width)), $load);
+    return &WRITE('mem_read_queue', $field);
 } elsif ($name =~ /^ReadMemResponseMultiple_(\d+)_$/) {
-  my $width = $1;
-  &Symbol('mem_read_queue', { TYPE=>'Integer' });
-  my $read = &READ('mem_read_queue');
-  return &EFFECT($mem_stage, 'ReadMultiple', &CONST($width), $read, @arguments);
+    my $width = $1;
+    &Symbol('mem_read_queue', { TYPE=>'Integer' });
+    my $read = &READ('mem_read_queue');
+    return &EFFECT($mem_stage, 'ReadMultiple', &CONST($width), $read, @arguments);
 } elsif ($name =~ /^WriteMemory_(\d+)_$/) {
-  my ($width, $address, $value) = ($1, @arguments);
-  return &STORE($mem_stage, &AGGL('MEM', $address, &CONST($width/8)), $value);
+    my ($width, $address, $value) = ($1, @arguments);
+    return &STORE($mem_stage, &AGGL('MEM', $address, &CONST($width/8)), $value);
 } elsif ($name =~ /^WriteLockMemory_(\d+)_$/) {
-  my ($width, $address, $value) = ($1, @arguments);
-  my $store = &STORE($mem_stage, 'MEM', &AGGL($address, &CONST($width/8)), $value);
+    my ($width, $address, $value) = ($1, @arguments);
+    my $store = &STORE($mem_stage, 'MEM', &AGGL($address, &CONST($width/8)), $value);
 #  my $unlock = &STORE($mem_stage, &AGGL('LOCK_ADDRESS', &CONST('LOCKED'), &CONST(1)), &I2F(&CONST(1), &CONST(0)));
 #  return &SEQ($store, $unlock);
-  return $store;
+    return $store;
 } elsif ($name =~ /^WriteMemMultiple_(\d+)_$/) {
-  my ($width, $address, $count, @value) = ($1, @arguments);
-  my $value = &APPLY('WriteMultiple', &CONST($width), $count, @value);
-  my $extent = &MUL(&Clone($count), &CONST($width/8));
-  my $field = &I2F(&MUL(&Clone($count), &CONST($width)), $value);
-  return &STORE($mem_stage, &AGGL('MEM', $address, $extent), $field);
+    my ($width, $address, $count, @value) = ($1, @arguments);
+    my $value = &APPLY('WriteMultiple', &CONST($width), $count, @value);
+    my $extent = &MUL(&Clone($count), &CONST($width/8));
+    my $field = &I2F(&MUL(&Clone($count), &CONST($width)), $value);
+    return &STORE($mem_stage, &AGGL('MEM', $address, $extent), $field);
 } else {
-  my $yyfunc;
-  if ($name =~ /^(\w+)_(\d+)_$/ &&
-      defined ($yyfunc = &yyfunc($1, $2, @arguments)) ||
-      defined ($yyfunc = &yyfunc($name, @arguments))) {
-    return $yyfunc;
-  }
+    my $yyfunc;
+    if ($name =~ /^(\w+)_(\d+)_$/ &&
+        defined ($yyfunc = &yyfunc($1, $2, @arguments)) ||
+        defined ($yyfunc = &yyfunc($name, @arguments))) {
+        return $yyfunc;
+    }
 }
 &EFFECT($Stage, $name, @arguments);
 },
@@ -445,40 +447,40 @@ my ($name, $start, $count) = @{$_[0]};
 my $symbol = &Behavior::Symbol($name);
 my $storage = &Behavior::Storage($name);
 if (defined $symbol) {
-  my ($extend, $width) = ($symbol->{EXTEND}, $symbol->{WIDTH});
-  my $stage = defined $symbol->{STAGES}? $symbol->{STAGES}->[0]: $Stage;
-  if (defined $start && defined $count) {
-    die "FIXME! Likely broken, never used code!";
-  } elsif (defined $symbol->{KIND} && $symbol->{KIND} eq 'Register') {
-    my ($storage, $address, $extent) = ($symbol->{STORAGE}, $symbol->{ADDRESS}, $symbol->{EXTENT});
-    my $load = &LOAD($stage, &AGGL($storage, &CONST($address), &CONST($extent)));
-    my $f2i = &F2I(&CONST($width), $load);
-    return &ZX($width, $f2i) if $extend eq 'ZX';
-    return &SX($width, $f2i) if $extend eq 'SX';
-    croak "Invalid EXTEND $extend for $name";
-  } else {
-    my $proxy = $symbol->{PROXY};
-    if (defined $proxy) {
-      die "Multiple accesses to proxy $proxy" if defined $proxy->{ACCESSES};
-      &Symbol($proxy, { EXTEND=>$extend, WIDTH=>$width, ACCESSES=>1 });
-      push @Accesses, &WRITE($name, &{"Behavior::$extend"}($width, &ACCESS($stage, $proxy)));
+    my ($extend, $width) = ($symbol->{EXTEND}, $symbol->{WIDTH});
+    my $stage = defined $symbol->{STAGES}? $symbol->{STAGES}->[0]: $Stage;
+    if (defined $start && defined $count) {
+        die "FIXME! Likely broken, never used code!";
+    } elsif (defined $symbol->{KIND} && $symbol->{KIND} eq 'Register') {
+        my ($storage, $address, $extent) = ($symbol->{STORAGE}, $symbol->{ADDRESS}, $symbol->{EXTENT});
+        my $load = &LOAD($stage, &AGGL($storage, &CONST($address), &CONST($extent)));
+        my $f2i = &F2I(&CONST($width), $load);
+        return &ZX($width, $f2i) if $extend eq 'ZX';
+        return &SX($width, $f2i) if $extend eq 'SX';
+        croak "Invalid EXTEND $extend for $name";
+    } else {
+        my $proxy = $symbol->{PROXY};
+        if (defined $proxy) {
+            die "Multiple accesses to proxy $proxy" if defined $proxy->{ACCESSES};
+            &Symbol($proxy, { EXTEND=>$extend, WIDTH=>$width, ACCESSES=>1 });
+            push @Accesses, &WRITE($name, &{"Behavior::$extend"}($width, &ACCESS($stage, $proxy)));
+        }
+        return &READ($name);
     }
-    return &READ($name);
-  }
 } elsif (defined $storage) {
-#  if ($name eq 'PSW'
-#      && defined $start
-#      && defined &Behavior::Storage("DEBUG_MODE")
-#      && $start == &Behavior::Storage("DEBUG_MODE")) {
-  if ($name eq 'PSW'
-      && $start->[0] eq 'CONST'
-      && $start->[1] eq 'DEBUG_MODE') {
-    return &CONST(0);
-  }
-  my $stage = defined $storage->{STAGES}? $storage->{STAGES}->[0]: $Stage;
-  $start = &CONST(0) unless defined $start;
-  $count = &CONST(1) unless defined $count;
-  return &LOAD($stage, &AGGL($name, $start, $count));
+    #  if ($name eq 'PSW'
+    #      && defined $start
+    #      && defined &Behavior::Storage("DEBUG_MODE")
+    #      && $start == &Behavior::Storage("DEBUG_MODE")) {
+    if ($name eq 'PSW'
+        && $start->[0] eq 'CONST'
+        && $start->[1] eq 'DEBUG_MODE') {
+        return &CONST(0);
+    }
+    my $stage = defined $storage->{STAGES}? $storage->{STAGES}->[0]: $Stage;
+    $start = &CONST(0) unless defined $start;
+    $count = &CONST(1) unless defined $count;
+    return &LOAD($stage, &AGGL($name, $start, $count));
 } else { croak "Read unknown variable $name"; }
 },
 # rule 24
@@ -486,53 +488,53 @@ if (defined $symbol) {
 sub {
 my ($name, @arguments) = ($_[0], @{$_[2]});
 if ($name eq 'Bit') {
-  my $start = $arguments[1];
-  my $shr = &SHR($arguments[0], $start);
-  return &ZX(1, $shr);
+    my $start = $arguments[1];
+    my $shr = &SHR($arguments[0], $start);
+    return &ZX(1, $shr);
 } elsif ($name eq 'BitsOf') {
-  my $start = $arguments[1];
-  my $width = $arguments[2]->[1];
-  my $shr = &SHR($arguments[0], $start);
-  return &ZX($width, $shr);
+    my $start = $arguments[1];
+    my $width = $arguments[2]->[1];
+    my $shr = &SHR($arguments[0], $start);
+    return &ZX($width, $shr);
 } elsif ($name eq 'Register') {
-  return &ZX(32, $arguments[0]);
+    return &ZX(32, $arguments[0]);
 } elsif ($name =~ /^ZeroExtend_(\d+)_$/) {
-  return &ZX($1, $arguments[0]);
+    return &ZX($1, $arguments[0]);
 } elsif ($name =~ /^SignExtend_(\d+)_$/) {
-  return &SX($1, $arguments[0]);
+    return &SX($1, $arguments[0]);
 } elsif ($name =~ /^Saturate_(\d+)_$/) {
-  return &SAT($1, $arguments[0]);
+    return &SAT($1, $arguments[0]);
 } elsif ($name =~ /^Overflow_(\d+)_$/) {
-  return &NE(&SAT($1, $arguments[0]), $arguments[0]);
+    return &NE(&SAT($1, $arguments[0]), $arguments[0]);
 } elsif ($name =~ /^UnsignedExtract_(\d+)_$/) {
-  my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
-  return &ZX($width, &SHR($value, &MUL($idx, &CONST($width))));
+    my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
+    return &ZX($width, &SHR($value, &MUL($idx, &CONST($width))));
 } elsif ($name =~ /^SignedExtract_(\d+)_$/) {
-  my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
-  return &SX($width, &SHR($value, &MUL($idx, &CONST($width))));
+    my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
+    return &SX($width, &SHR($value, &MUL($idx, &CONST($width))));
 } elsif ($name =~ /^MaskAndShift_(\d+)_$/) {
-  my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
-  return &SHL(&ZX($width, $value), &MUL($idx, &CONST($width)));
+    my ($width, $value, $idx) = ($1, $arguments[0], $arguments[1]);
+    return &SHL(&ZX($width, $value), &MUL($idx, &CONST($width)));
 } elsif ($name =~ /^RotateRight_(\d+)_$/) {
-  my $width = $1;
-  my $value = $arguments[0];
-  my $count = $arguments[1];
-  return &ROR($width, $value, $count);
+    my $width = $1;
+    my $value = $arguments[0];
+    my $count = $arguments[1];
+    return &ROR($width, $value, $count);
 } elsif ($name =~ /^ReadMemResponse(_(\d+)_)?$/) {
-  &Symbol('mem_response', { WIDTH=>$1 });
-  return &READ('mem_response');
+    &Symbol('mem_response', { WIDTH=>$1 });
+    return &READ('mem_response');
 } elsif ($name =~ /^ReadMemResponseMultiple_(\d+)_$/) {
-  my $width = $1;
-  &Symbol('mem_read_queue', { TYPE=>'Integer' });
-  my $read = &READ('mem_read_queue');
-  return &APPLY('ReadMultiple', &CONST($width), $read, @arguments);
+    my $width = $1;
+    &Symbol('mem_read_queue', { TYPE=>'Integer' });
+    my $read = &READ('mem_read_queue');
+    return &APPLY('ReadMultiple', &CONST($width), $read, @arguments);
 } else {
-  my $yyfunc;
-  if ($name =~ /^(\w+)_(\d+)_$/ &&
-      defined ($yyfunc = &yyfunc($1, $2, @arguments)) ||
-      defined ($yyfunc = &yyfunc($name, @arguments))) {
-    return $yyfunc;
-  }
+    my $yyfunc;
+    if ($name =~ /^(\w+)_(\d+)_$/ &&
+        defined ($yyfunc = &yyfunc($1, $2, @arguments)) ||
+        defined ($yyfunc = &yyfunc($name, @arguments))) {
+        return $yyfunc;
+    }
 }
 &APPLY($name, @arguments);
 },
@@ -695,31 +697,31 @@ sub {
 
 our @act = (
 {# state 0
+  '$default'=>['reduce','2'],
   'statements'=>['goto','2'],
   'takumi'=>['goto','1'],
-  '$default'=>['reduce','2'],
 },
 {# state 1
   '$end'=>['shift','3'],
 },
 {# state 2
-  'statement'=>['goto','10'],
-  'IDENT'=>['shift','4'],
-  'variable'=>['goto','11'],
-  'IF'=>['shift','6'],
-  'THROW'=>['shift','7'],
-  'STAGE'=>['shift','5'],
   '$default'=>['reduce','1'],
-  'REPEAT'=>['shift','9'],
   'DbgThrow'=>['shift','8'],
+  'IDENT'=>['shift','4'],
+  'IF'=>['shift','6'],
+  'REPEAT'=>['shift','9'],
+  'STAGE'=>['shift','5'],
+  'THROW'=>['shift','7'],
+  'statement'=>['goto','10'],
+  'variable'=>['goto','11'],
 },
 {# state 3
   '$default'=>['accept','undef'],
 },
 {# state 4
   '$default'=>['reduce','16'],
-  '['=>['shift','13'],
   '('=>['shift','12'],
+  '['=>['shift','13'],
 },
 {# state 5
   '$default'=>['reduce','4'],
@@ -743,59 +745,59 @@ our @act = (
   '='=>['shift','18'],
 },
 {# state 12
-  'nested_expression'=>['goto','31'],
+  '$default'=>['reduce','30'],
+  '('=>['shift','26'],
+  '-'=>['shift','28'],
   'BINNUM'=>['shift','19'],
   'DECNUM'=>['shift','21'],
-  'IDENT'=>['shift','23'],
-  '$default'=>['reduce','30'],
-  'INT'=>['shift','25'],
-  'variable'=>['goto','29'],
   'HEXNUM'=>['shift','20'],
-  'opt_arguments'=>['goto','33'],
-  '~'=>['shift','27'],
-  'expression'=>['goto','30'],
+  'IDENT'=>['shift','23'],
+  'INT'=>['shift','25'],
+  'NOT'=>['shift','24'],
+  'SYMNUM'=>['shift','22'],
   'argument'=>['goto','35'],
   'arguments'=>['goto','34'],
-  'operator1'=>['goto','36'],
-  'NOT'=>['shift','24'],
-  'SYMNUM'=>['shift','22'],
   'constant'=>['goto','32'],
-  '-'=>['shift','28'],
-  '('=>['shift','26'],
+  'expression'=>['goto','30'],
+  'nested_expression'=>['goto','31'],
+  'operator1'=>['goto','36'],
+  'opt_arguments'=>['goto','33'],
+  'variable'=>['goto','29'],
+  '~'=>['shift','27'],
 },
 {# state 13
-  'expression'=>['goto','37'],
-  '~'=>['shift','27'],
-  'operator1'=>['goto','36'],
-  'SYMNUM'=>['shift','22'],
-  'NOT'=>['shift','24'],
   '('=>['shift','26'],
-  'constant'=>['goto','32'],
   '-'=>['shift','28'],
   'BINNUM'=>['shift','19'],
-  'nested_expression'=>['goto','31'],
   'DECNUM'=>['shift','21'],
-  'INT'=>['shift','25'],
-  'IDENT'=>['shift','23'],
-  'variable'=>['goto','29'],
   'HEXNUM'=>['shift','20'],
+  'IDENT'=>['shift','23'],
+  'INT'=>['shift','25'],
+  'NOT'=>['shift','24'],
+  'SYMNUM'=>['shift','22'],
+  'constant'=>['goto','32'],
+  'expression'=>['goto','37'],
+  'nested_expression'=>['goto','31'],
+  'operator1'=>['goto','36'],
+  'variable'=>['goto','29'],
+  '~'=>['shift','27'],
 },
 {# state 14
-  'expression'=>['goto','38'],
-  '~'=>['shift','27'],
-  'operator1'=>['goto','36'],
   '('=>['shift','26'],
-  'constant'=>['goto','32'],
   '-'=>['shift','28'],
-  'SYMNUM'=>['shift','22'],
-  'NOT'=>['shift','24'],
   'BINNUM'=>['shift','19'],
-  'nested_expression'=>['goto','31'],
-  'INT'=>['shift','25'],
-  'IDENT'=>['shift','23'],
   'DECNUM'=>['shift','21'],
   'HEXNUM'=>['shift','20'],
+  'IDENT'=>['shift','23'],
+  'INT'=>['shift','25'],
+  'NOT'=>['shift','24'],
+  'SYMNUM'=>['shift','22'],
+  'constant'=>['goto','32'],
+  'expression'=>['goto','38'],
+  'nested_expression'=>['goto','31'],
+  'operator1'=>['goto','36'],
   'variable'=>['goto','29'],
+  '~'=>['shift','27'],
 },
 {# state 15
   'IDENT'=>['shift','39'],
@@ -807,21 +809,21 @@ our @act = (
   'FROM'=>['shift','41'],
 },
 {# state 18
-  'expression'=>['goto','42'],
-  '~'=>['shift','27'],
-  'operator1'=>['goto','36'],
   '('=>['shift','26'],
   '-'=>['shift','28'],
-  'constant'=>['goto','32'],
-  'SYMNUM'=>['shift','22'],
-  'NOT'=>['shift','24'],
   'BINNUM'=>['shift','19'],
-  'nested_expression'=>['goto','31'],
-  'INT'=>['shift','25'],
-  'IDENT'=>['shift','23'],
   'DECNUM'=>['shift','21'],
   'HEXNUM'=>['shift','20'],
+  'IDENT'=>['shift','23'],
+  'INT'=>['shift','25'],
+  'NOT'=>['shift','24'],
+  'SYMNUM'=>['shift','22'],
+  'constant'=>['goto','32'],
+  'expression'=>['goto','42'],
+  'nested_expression'=>['goto','31'],
+  'operator1'=>['goto','36'],
   'variable'=>['goto','29'],
+  '~'=>['shift','27'],
 },
 {# state 19
   '$default'=>['reduce','28'],
@@ -847,21 +849,21 @@ our @act = (
   '$default'=>['reduce','38'],
 },
 {# state 26
-  'expression'=>['goto','44'],
-  '~'=>['shift','27'],
-  'operator1'=>['goto','36'],
-  'SYMNUM'=>['shift','22'],
-  'NOT'=>['shift','24'],
   '('=>['shift','26'],
   '-'=>['shift','28'],
-  'constant'=>['goto','32'],
   'BINNUM'=>['shift','19'],
-  'nested_expression'=>['goto','31'],
   'DECNUM'=>['shift','21'],
-  'INT'=>['shift','25'],
-  'IDENT'=>['shift','23'],
-  'variable'=>['goto','29'],
   'HEXNUM'=>['shift','20'],
+  'IDENT'=>['shift','23'],
+  'INT'=>['shift','25'],
+  'NOT'=>['shift','24'],
+  'SYMNUM'=>['shift','22'],
+  'constant'=>['goto','32'],
+  'expression'=>['goto','44'],
+  'nested_expression'=>['goto','31'],
+  'operator1'=>['goto','36'],
+  'variable'=>['goto','29'],
+  '~'=>['shift','27'],
 },
 {# state 27
   '$default'=>['reduce','35'],
@@ -876,25 +878,25 @@ our @act = (
   '$default'=>['reduce','34'],
 },
 {# state 31
+  '!='=>['shift','59'],
+  '$default'=>['reduce','19'],
+  '&'=>['shift','51'],
   '*'=>['shift','50'],
+  '+'=>['shift','49'],
+  '-'=>['shift','48'],
+  '<'=>['shift','60'],
   '<<'=>['shift','55'],
   '<='=>['shift','57'],
-  '$default'=>['reduce','19'],
-  '<'=>['shift','60'],
-  '|'=>['shift','52'],
-  '+'=>['shift','49'],
-  '!='=>['shift','59'],
-  '>>'=>['shift','54'],
-  'XOR'=>['shift','46'],
-  'AND'=>['shift','47'],
-  '&'=>['shift','51'],
-  '^'=>['shift','53'],
   '=='=>['shift','58'],
   '>'=>['shift','61'],
-  'OR'=>['shift','45'],
   '>='=>['shift','56'],
+  '>>'=>['shift','54'],
+  'AND'=>['shift','47'],
+  'OR'=>['shift','45'],
+  'XOR'=>['shift','46'],
+  '^'=>['shift','53'],
   'operator2'=>['goto','62'],
-  '-'=>['shift','48'],
+  '|'=>['shift','52'],
 },
 {# state 32
   '$default'=>['reduce','22'],
@@ -910,15 +912,15 @@ our @act = (
   '$default'=>['reduce','32'],
 },
 {# state 36
-  'HEXNUM'=>['shift','20'],
-  'variable'=>['goto','29'],
-  'IDENT'=>['shift','23'],
-  'DECNUM'=>['shift','21'],
-  'BINNUM'=>['shift','19'],
-  'nested_expression'=>['goto','65'],
   '('=>['shift','26'],
-  'constant'=>['goto','32'],
+  'BINNUM'=>['shift','19'],
+  'DECNUM'=>['shift','21'],
+  'HEXNUM'=>['shift','20'],
+  'IDENT'=>['shift','23'],
   'SYMNUM'=>['shift','22'],
+  'constant'=>['goto','32'],
+  'nested_expression'=>['goto','65'],
+  'variable'=>['goto','29'],
 },
 {# state 37
   'FOR'=>['shift','66'],
@@ -944,25 +946,25 @@ our @act = (
   ';'=>['shift','72'],
 },
 {# state 43
-  'argument'=>['goto','35'],
-  'expression'=>['goto','30'],
-  '~'=>['shift','27'],
-  'arguments'=>['goto','34'],
-  'operator1'=>['goto','36'],
-  'constant'=>['goto','32'],
-  '-'=>['shift','28'],
-  '('=>['shift','26'],
-  'SYMNUM'=>['shift','22'],
-  'NOT'=>['shift','24'],
-  'nested_expression'=>['goto','31'],
-  'BINNUM'=>['shift','19'],
-  'IDENT'=>['shift','23'],
   '$default'=>['reduce','30'],
-  'INT'=>['shift','25'],
+  '('=>['shift','26'],
+  '-'=>['shift','28'],
+  'BINNUM'=>['shift','19'],
   'DECNUM'=>['shift','21'],
   'HEXNUM'=>['shift','20'],
+  'IDENT'=>['shift','23'],
+  'INT'=>['shift','25'],
+  'NOT'=>['shift','24'],
+  'SYMNUM'=>['shift','22'],
+  'argument'=>['goto','35'],
+  'arguments'=>['goto','34'],
+  'constant'=>['goto','32'],
+  'expression'=>['goto','30'],
+  'nested_expression'=>['goto','31'],
+  'operator1'=>['goto','36'],
   'opt_arguments'=>['goto','73'],
   'variable'=>['goto','29'],
+  '~'=>['shift','27'],
 },
 {# state 44
   ')'=>['shift','74'],
@@ -1019,72 +1021,72 @@ our @act = (
   '$default'=>['reduce','55'],
 },
 {# state 62
-  'nested_expression'=>['goto','75'],
+  '('=>['shift','26'],
   'BINNUM'=>['shift','19'],
-  'IDENT'=>['shift','23'],
   'DECNUM'=>['shift','21'],
   'HEXNUM'=>['shift','20'],
-  'variable'=>['goto','29'],
-  'constant'=>['goto','32'],
-  '('=>['shift','26'],
+  'IDENT'=>['shift','23'],
   'SYMNUM'=>['shift','22'],
+  'constant'=>['goto','32'],
+  'nested_expression'=>['goto','75'],
+  'variable'=>['goto','29'],
 },
 {# state 63
   ';'=>['shift','76'],
 },
 {# state 64
-  '~'=>['shift','27'],
-  'expression'=>['goto','30'],
-  'argument'=>['goto','77'],
-  'operator1'=>['goto','36'],
-  'NOT'=>['shift','24'],
-  'SYMNUM'=>['shift','22'],
   '('=>['shift','26'],
-  'constant'=>['goto','32'],
   '-'=>['shift','28'],
   'BINNUM'=>['shift','19'],
-  'nested_expression'=>['goto','31'],
   'DECNUM'=>['shift','21'],
-  'INT'=>['shift','25'],
-  'IDENT'=>['shift','23'],
-  'variable'=>['goto','29'],
   'HEXNUM'=>['shift','20'],
+  'IDENT'=>['shift','23'],
+  'INT'=>['shift','25'],
+  'NOT'=>['shift','24'],
+  'SYMNUM'=>['shift','22'],
+  'argument'=>['goto','77'],
+  'constant'=>['goto','32'],
+  'expression'=>['goto','30'],
+  'nested_expression'=>['goto','31'],
+  'operator1'=>['goto','36'],
+  'variable'=>['goto','29'],
+  '~'=>['shift','27'],
 },
 {# state 65
   '$default'=>['reduce','21'],
 },
 {# state 66
-  'variable'=>['goto','29'],
-  'HEXNUM'=>['shift','20'],
+  '('=>['shift','26'],
+  '-'=>['shift','28'],
+  'BINNUM'=>['shift','19'],
   'DECNUM'=>['shift','21'],
+  'HEXNUM'=>['shift','20'],
   'IDENT'=>['shift','23'],
   'INT'=>['shift','25'],
-  'nested_expression'=>['goto','31'],
-  'BINNUM'=>['shift','19'],
   'NOT'=>['shift','24'],
   'SYMNUM'=>['shift','22'],
   'constant'=>['goto','32'],
-  '-'=>['shift','28'],
-  '('=>['shift','26'],
-  'operator1'=>['goto','36'],
-  '~'=>['shift','27'],
   'expression'=>['goto','78'],
+  'nested_expression'=>['goto','31'],
+  'operator1'=>['goto','36'],
+  'variable'=>['goto','29'],
+  '~'=>['shift','27'],
 },
 {# state 67
   '$default'=>['reduce','17'],
 },
 {# state 68
-  '{'=>['shift','79'],
-  'STAGE'=>['shift','5'],
-  'statement'=>['goto','80'],
-  'IF'=>['shift','6'],
-  'block_or_statement'=>['goto','81'],
-  'block'=>['goto','82'],
   'DbgThrow'=>['shift','8'],
-  'REPEAT'=>['shift','9'],
   'IDENT'=>['shift','4'],
-  'variable'=>['goto','11'],
+  'IF'=>['shift','6'],
+  'REPEAT'=>['shift','9'],
+  'STAGE'=>['shift','5'],
   'THROW'=>['shift','7'],
+  'block'=>['goto','82'],
+  'block_or_statement'=>['goto','81'],
+  'statement'=>['goto','80'],
+  'variable'=>['goto','11'],
+  '{'=>['shift','79'],
 },
 {# state 69
   ';'=>['shift','83'],
@@ -1117,8 +1119,8 @@ our @act = (
   ']'=>['shift','87'],
 },
 {# state 79
-  'statements'=>['goto','88'],
   '$default'=>['reduce','2'],
+  'statements'=>['goto','88'],
 },
 {# state 80
   '$default'=>['reduce','13'],
@@ -1137,9 +1139,9 @@ our @act = (
   '$default'=>['reduce','10'],
 },
 {# state 85
-  'HEXNUM'=>['shift','20'],
-  'DECNUM'=>['shift','21'],
   'BINNUM'=>['shift','19'],
+  'DECNUM'=>['shift','21'],
+  'HEXNUM'=>['shift','20'],
   'SYMNUM'=>['shift','22'],
   'constant'=>['goto','90'],
 },
@@ -1150,42 +1152,42 @@ our @act = (
   '$default'=>['reduce','18'],
 },
 {# state 88
-  'IF'=>['shift','6'],
-  'statement'=>['goto','10'],
-  'STAGE'=>['shift','5'],
-  'REPEAT'=>['shift','9'],
-  'IDENT'=>['shift','4'],
   'DbgThrow'=>['shift','8'],
+  'IDENT'=>['shift','4'],
+  'IF'=>['shift','6'],
+  'REPEAT'=>['shift','9'],
+  'STAGE'=>['shift','5'],
   'THROW'=>['shift','7'],
-  '}'=>['shift','91'],
+  'statement'=>['goto','10'],
   'variable'=>['goto','11'],
+  '}'=>['shift','91'],
 },
 {# state 89
-  'variable'=>['goto','11'],
+  'DbgThrow'=>['shift','8'],
+  'IDENT'=>['shift','4'],
+  'IF'=>['shift','6'],
+  'REPEAT'=>['shift','9'],
+  'STAGE'=>['shift','5'],
   'THROW'=>['shift','7'],
   'block'=>['goto','82'],
-  'IDENT'=>['shift','4'],
-  'REPEAT'=>['shift','9'],
-  'DbgThrow'=>['shift','8'],
-  'statement'=>['goto','80'],
-  'STAGE'=>['shift','5'],
-  'IF'=>['shift','6'],
   'block_or_statement'=>['goto','92'],
+  'statement'=>['goto','80'],
+  'variable'=>['goto','11'],
   '{'=>['shift','79'],
 },
 {# state 90
-  'block'=>['goto','82'],
-  'REPEAT'=>['shift','9'],
-  'IDENT'=>['shift','4'],
   'DbgThrow'=>['shift','8'],
-  'variable'=>['goto','11'],
-  'THROW'=>['shift','7'],
-  '{'=>['shift','79'],
-  'statement'=>['goto','80'],
-  'STAGE'=>['shift','5'],
-  'block_or_statement'=>['goto','94'],
+  'IDENT'=>['shift','4'],
   'IF'=>['shift','6'],
+  'REPEAT'=>['shift','9'],
+  'STAGE'=>['shift','5'],
   'STEP'=>['shift','93'],
+  'THROW'=>['shift','7'],
+  'block'=>['goto','82'],
+  'block_or_statement'=>['goto','94'],
+  'statement'=>['goto','80'],
+  'variable'=>['goto','11'],
+  '{'=>['shift','79'],
 },
 {# state 91
   '$default'=>['reduce','15'],
@@ -1197,24 +1199,24 @@ our @act = (
   'BINNUM'=>['shift','19'],
   'DECNUM'=>['shift','21'],
   'HEXNUM'=>['shift','20'],
-  'constant'=>['goto','95'],
   'SYMNUM'=>['shift','22'],
+  'constant'=>['goto','95'],
 },
 {# state 94
   '$default'=>['reduce','11'],
 },
 {# state 95
-  'statement'=>['goto','80'],
-  'STAGE'=>['shift','5'],
-  'block_or_statement'=>['goto','96'],
+  'DbgThrow'=>['shift','8'],
+  'IDENT'=>['shift','4'],
   'IF'=>['shift','6'],
-  '{'=>['shift','79'],
-  'variable'=>['goto','11'],
+  'REPEAT'=>['shift','9'],
+  'STAGE'=>['shift','5'],
   'THROW'=>['shift','7'],
   'block'=>['goto','82'],
-  'REPEAT'=>['shift','9'],
-  'IDENT'=>['shift','4'],
-  'DbgThrow'=>['shift','8'],
+  'block_or_statement'=>['goto','96'],
+  'statement'=>['goto','80'],
+  'variable'=>['goto','11'],
+  '{'=>['shift','79'],
 },
 {# state 96
   '$default'=>['reduce','12'],
@@ -1286,5 +1288,6 @@ sub yyparse {
   }
 }
 #    END py-skel.pl
+# vim: set ts=4 sw=4 et:
 
 1;

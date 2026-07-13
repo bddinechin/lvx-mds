@@ -3179,8 +3179,8 @@ $yytree = $_[0];
 #rule Command -> '(' EFFECT '.' Stage '.' Ident Arguments ')'
 &EFFECT($_[3], $_[5], @{$_[6]})
 
-  #rule Command -> '(' STORE '.' Stage Location BitField ')'
-  &STORE($_[3], $_[4], $_[5]);
+#rule Command -> '(' STORE '.' Stage Location BitField ')'
+&STORE($_[3], $_[4], $_[5]);
 
 #rule Command -> '(' STORE '.' Stage Location BitField Mask ')'
 &STORE($_[3], $_[4], $_[5], $_[6]);

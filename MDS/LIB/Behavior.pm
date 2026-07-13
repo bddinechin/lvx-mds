@@ -37,7 +37,7 @@ our @EXPORT = qw(
   F2I I2F B2I I2B SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL NOTL ANDL IORL XORL MIN MAX NOT NEG ABS
   SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX ABS NE EQ GT LE GE LT TRUE FALSE TEST
   UNDEF CONST METHOD APPLY EFFECT THROW WRITE READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB
-);
+  );
 
 # Defined when checking.
 our $yycheck = '';
@@ -45,913 +45,913 @@ our $yycheck = '';
 our $ignore_errors = 0;
 our $partial_initialization = 0;
 sub Error {
-  &confess(Dumper(@_)) unless ($ignore_errors);
+    &confess(Dumper(@_)) unless ($ignore_errors);
 }
 
 # Constant table.
 my %Constant;
 sub Constant {
-  my $name = shift;
-  my $values = shift;
-  unless (defined $name) {
-    %Constant = ();
-    return;
-  }
-  if (defined $values) {
-    $Constant{$name} = $values;
-  }
-  return $Constant{$name};
+    my $name = shift;
+    my $values = shift;
+    unless (defined $name) {
+        %Constant = ();
+        return;
+    }
+    if (defined $values) {
+        $Constant{$name} = $values;
+    }
+    return $Constant{$name};
 }
 
 # Storage table.
 my %Storage;
 sub Storage {
-  my $name = shift;
-  my $entry = shift;
-  unless (defined $name) {
-    %Storage = ();
-    return;
-  }
-  if (defined $entry) {
-    unless (exists $Storage{$name}) {
-      $Storage{$name} = { };
+    my $name = shift;
+    my $entry = shift;
+    unless (defined $name) {
+        %Storage = ();
+        return;
     }
-    while (my ($key, $value) = each %{$entry}) {
-      $Storage{$name}->{$key} = $value;
+    if (defined $entry) {
+        unless (exists $Storage{$name}) {
+            $Storage{$name} = { };
+        }
+        while (my ($key, $value) = each %{$entry}) {
+            $Storage{$name}->{$key} = $value;
+        }
     }
-  }
-  return $Storage{$name};
+    return $Storage{$name};
 }
 
 # Symbol table.
 my %Symbol;
 sub Symbol {
-  my $name = shift;
-  my $entry = shift;
-  unless (defined $name) {
-    %Symbol = ();
-    return;
-  }
-  if (defined $entry) {
-    unless (exists $Symbol{$name}) {
-      $Symbol{$name} = { };
+    my $name = shift;
+    my $entry = shift;
+    unless (defined $name) {
+        %Symbol = ();
+        return;
     }
-    while (my ($key, $value) = each %{$entry}) {
-      $Symbol{$name}->{$key} = $value;
+    if (defined $entry) {
+        unless (exists $Symbol{$name}) {
+            $Symbol{$name} = { };
+        }
+        while (my ($key, $value) = each %{$entry}) {
+            $Symbol{$name}->{$key} = $value;
+        }
     }
-  }
-  return $Symbol{$name};
+    return $Symbol{$name};
 }
 
 sub castF {
-  my ($field) = @_;
-  my $attributes = $field->[-1];
-  ref $attributes eq 'HASH' or &Error('castF', @_);
-  unless ($partial_initialization) {
-    $field->[-1]->{TYPE} eq 'BitField' or &Error('castF', @_);
-  }
-  return $field;
+    my ($field) = @_;
+    my $attributes = $field->[-1];
+    ref $attributes eq 'HASH' or &Error('castF', @_);
+    unless ($partial_initialization) {
+        $field->[-1]->{TYPE} eq 'BitField' or &Error('castF', @_);
+    }
+    return $field;
 }
 
 sub castI {
-  my ($value) = @_;
-  my $attributes = $value->[-1];
-  if ($attributes->{TYPE} eq 'Boolean') {
-    $value = &B2I($value);
-  } elsif ($attributes->{TYPE} eq 'BitField') {
-    my $width = $attributes->{WIDTH};
-    $value = &ZX($width, &F2I($width, $value));
-  }
-  $value->[-1]->{TYPE} eq 'Integer' or &Error('castI', @_);
-  return $value;
+    my ($value) = @_;
+    my $attributes = $value->[-1];
+    if ($attributes->{TYPE} eq 'Boolean') {
+        $value = &B2I($value);
+    } elsif ($attributes->{TYPE} eq 'BitField') {
+        my $width = $attributes->{WIDTH};
+        $value = &ZX($width, &F2I($width, $value));
+    }
+    $value->[-1]->{TYPE} eq 'Integer' or &Error('castI', @_);
+    return $value;
 }
 
 sub castB {
-  my ($value) = @_;
-  my $attributes = $value->[-1];
-  if ($attributes->{TYPE} ne 'Boolean') {
-    $value = &I2B(&castI($value));
-  }
-  $value->[-1]->{TYPE} eq 'Boolean' or &Error('castB', @_);
-  return $value;
+    my ($value) = @_;
+    my $attributes = $value->[-1];
+    if ($attributes->{TYPE} ne 'Boolean') {
+        $value = &I2B(&castI($value));
+    }
+    $value->[-1]->{TYPE} eq 'Boolean' or &Error('castB', @_);
+    return $value;
 }
 
 sub mustB {
-  my ($value) = @_;
-  my $attributes = $value->[-1];
-  ref $attributes eq 'HASH' or &Error('mustB', @_);
-  if (   defined $attributes->{TYPE}
-      && $attributes->{TYPE} eq 'Boolean') {
-    return $value;
-  }
-  return undef;
+    my ($value) = @_;
+    my $attributes = $value->[-1];
+    ref $attributes eq 'HASH' or &Error('mustB', @_);
+    if (   defined $attributes->{TYPE}
+        && $attributes->{TYPE} eq 'Boolean') {
+        return $value;
+    }
+    return undef;
 }
 
 sub integer {
-  use integer;
-  my ($value) = @_;
-  if (   $value =~ /^[+-]?\d+\z/) {
-    return 0+$value;
-  }
-  if (   $value =~ /^0x[0-9A-F]+\z/i
-      || $value =~ /0b[01]+\z/i) {
-    return 0+oct($value);
-  }
-  return undef;
+    use integer;
+    my ($value) = @_;
+    if (   $value =~ /^[+-]?\d+\z/) {
+        return 0+$value;
+    }
+    if (   $value =~ /^0x[0-9A-F]+\z/i
+        || $value =~ /0b[01]+\z/i) {
+        return 0+oct($value);
+    }
+    return undef;
 }
 
 sub constant {
-  my ($value) = @_;
-  my $attributes = $value->[-1];
-  ref $attributes eq 'HASH' or &Error('constant', @_);
-  if (   $value->[0] eq 'CONST'
-      && $value->[-1]->{TYPE} eq 'Integer') {
-      $value->[1] = oct($value->[1]) if($value->[1] =~ /^0/);
-      return 0+$value->[1];
-  }
-  return undef;
+    my ($value) = @_;
+    my $attributes = $value->[-1];
+    ref $attributes eq 'HASH' or &Error('constant', @_);
+    if (   $value->[0] eq 'CONST'
+        && $value->[-1]->{TYPE} eq 'Integer') {
+        $value->[1] = oct($value->[1]) if($value->[1] =~ /^0/);
+        return 0+$value->[1];
+    }
+    return undef;
 }
 
 sub powerof2 {
-  use integer;
-  my ($value) = @_;
-  return undef unless defined $value;
-  my $powerof2 = 0;
-  return -1 if ($value & ($value - 1)) != 0;
-  $value >>= 1;
-  while ($value != 0) {
-    $powerof2++;
+    use integer;
+    my ($value) = @_;
+    return undef unless defined $value;
+    my $powerof2 = 0;
+    return -1 if ($value & ($value - 1)) != 0;
     $value >>= 1;
-  }
-  return $powerof2;
+    while ($value != 0) {
+        $powerof2++;
+        $value >>= 1;
+    }
+    return $powerof2;
 }
 
 sub attributes1II {
-  use integer;
-  my ($operator, $value1, $attributes) = @_;
-  ref $attributes eq 'HASH' or &Error(@_);
-  my $attributes1 = $value1->[-1];
-  ref $attributes1 eq 'HASH' or &Error('attributes1II', @_);
-  # TODO: use attributes1;
-  my $constant1 = &constant($value1);
-  if (defined $constant1) {
-    if ($operator eq 'NOT') {
-      $attributes->{EVAL} = &CONST(~$constant1);
-    } elsif ($operator eq 'NEG') {
-      $attributes->{EVAL} = &CONST(-$constant1);
-    } else {
-print STDERR "Missed foldI($operator, $constant1)\n";
+    use integer;
+    my ($operator, $value1, $attributes) = @_;
+    ref $attributes eq 'HASH' or &Error(@_);
+    my $attributes1 = $value1->[-1];
+    ref $attributes1 eq 'HASH' or &Error('attributes1II', @_);
+    # TODO: use attributes1;
+    my $constant1 = &constant($value1);
+    if (defined $constant1) {
+        if ($operator eq 'NOT') {
+            $attributes->{EVAL} = &CONST(~$constant1);
+        } elsif ($operator eq 'NEG') {
+            $attributes->{EVAL} = &CONST(-$constant1);
+        } else {
+            print STDERR "Missed foldI($operator, $constant1)\n";
+        }
     }
-  }
-  $$attributes{TYPE} = 'Integer';
+    $$attributes{TYPE} = 'Integer';
 }
 
 sub attributes1BB {
-  use integer;
-  my ($operator, $value1, $attributes) = @_;
-  ref $attributes eq 'HASH' or &Error(@_);
-  my $attributes1 = $value1->[-1];
-  ref $attributes1 eq 'HASH' or &Error('attributes1BB', @_);
-  # TODO: use attributes1;
-  my $constant1; $constant1 = $value1->[0] if $value1->[0] =~ /^(TRUE|FALSE)$/;
-  if (defined $constant1) {
-    if ($operator =~ /^(NOTL)$/) {
-      $attributes->{EVAL} = &TRUE({}) if ($constant1 eq 'FALSE');
-      $attributes->{EVAL} = &FALSE({}) if ($constant1 eq 'TRUE');
-    } else {
-print STDERR "Missed foldB($operator, $constant1)\n";
+    use integer;
+    my ($operator, $value1, $attributes) = @_;
+    ref $attributes eq 'HASH' or &Error(@_);
+    my $attributes1 = $value1->[-1];
+    ref $attributes1 eq 'HASH' or &Error('attributes1BB', @_);
+    # TODO: use attributes1;
+    my $constant1; $constant1 = $value1->[0] if $value1->[0] =~ /^(TRUE|FALSE)$/;
+    if (defined $constant1) {
+        if ($operator =~ /^(NOTL)$/) {
+            $attributes->{EVAL} = &TRUE({}) if ($constant1 eq 'FALSE');
+            $attributes->{EVAL} = &FALSE({}) if ($constant1 eq 'TRUE');
+        } else {
+            print STDERR "Missed foldB($operator, $constant1)\n";
+        }
     }
-  }
-  $constant1 = &constant($value1);
-  if (defined $constant1) {
-print STDERR "Missed foldB($operator, $constant1)\n";
-  }
-  $$attributes{TYPE} = 'Boolean';
+    $constant1 = &constant($value1);
+    if (defined $constant1) {
+        print STDERR "Missed foldB($operator, $constant1)\n";
+    }
+    $$attributes{TYPE} = 'Boolean';
 }
 
 sub attributes2II {
-  use integer;
-  my ($operator, $value1, $value2, $attributes) = @_;
-  ref $attributes eq 'HASH' or &Error(@_);
-  my $attributes1 = $value1->[-1];
-  ref $attributes1 eq 'HASH' or &Error('attributes2II', @_);
-  # TODO: use attributes1;
-  my $attributes2 = $value2->[-1];
-  ref $attributes2 eq 'HASH' or &Error('attributes2II', @_);
-  # TODO: use attributes2;
-  my $constant1 = &constant($value1);
-  my $constant2 = &constant($value2);
-  if (defined $constant1 && defined $constant2) {
-    my $val = undef;
-    for ($operator) {
-      $val = /^ADD$/ ? ($constant1 + $constant2) :
-             /^SUB$/ ? ($constant1 - $constant2) :
-             /^IOR$/ ? ($constant1 | $constant2) :
-             /^AND$/ ? ($constant1 & $constant2) :
-             /^SHL$/ ? ($constant1 << $constant2) :
-             /^SHR$/ ? (($constant1 > 0) ? ($constant1 >> $constant2) : undef) :
-             /^MUL$/ ? ($constant1 * $constant2) :
-                       undef;
+    use integer;
+    my ($operator, $value1, $value2, $attributes) = @_;
+    ref $attributes eq 'HASH' or &Error(@_);
+    my $attributes1 = $value1->[-1];
+    ref $attributes1 eq 'HASH' or &Error('attributes2II', @_);
+    # TODO: use attributes1;
+    my $attributes2 = $value2->[-1];
+    ref $attributes2 eq 'HASH' or &Error('attributes2II', @_);
+    # TODO: use attributes2;
+    my $constant1 = &constant($value1);
+    my $constant2 = &constant($value2);
+    if (defined $constant1 && defined $constant2) {
+        my $val = undef;
+        for ($operator) {
+            $val = /^ADD$/ ? ($constant1 + $constant2) :
+              /^SUB$/ ? ($constant1 - $constant2) :
+              /^IOR$/ ? ($constant1 | $constant2) :
+              /^AND$/ ? ($constant1 & $constant2) :
+              /^SHL$/ ? ($constant1 << $constant2) :
+/^SHR$/ ? (($constant1 > 0) ? ($constant1 >> $constant2) : undef) :
+              /^MUL$/ ? ($constant1 * $constant2) :
+              undef;
+        }
+        if (defined $val) {
+            $attributes->{EVAL} = &CONST($val);
+        } elsif ($operator =~ /^(DIV|REM|SHR)$/ && $constant1 == 0) {
+            $attributes->{EVAL} = &CONST(0);
+        } elsif ($operator =~ /^SHR$/ && $constant2 == 0) {
+            $attributes->{EVAL} = $value1;
+        } else {
+            #print STDERR "Missed foldI($operator, $constant1, $constant2)\n";
+        }
+    } elsif (defined $constant1) {
+        if ($operator =~ /^(IOR)$/ && $constant1 == 0) {
+            $attributes->{EVAL} = $value2;
+        } elsif ($operator =~ /^(MUL|DIV|REM|SHR|SHL|AND)$/ && $constant1 == 0) {
+            $attributes->{EVAL} = &CONST(0);
+        } elsif ($operator =~ /^(SUB)$/ && $constant1 == 0) {
+            $attributes->{EVAL} = &NEG($value2);
+        } else {
+            #print STDERR "Missed foldI($operator, $constant1, 'Integer')\n";
+        }
+    } elsif (defined $constant2) {
+        if ($operator =~ /^(ADD|SUB|SHR|SHL|IOR)$/ && $constant2 == 0) {
+            $attributes->{EVAL} = $value1;
+        } elsif ($operator =~ /^(MUL|AND)$/ && $constant2 == 0) {
+            $attributes->{EVAL} = &CONST(0);
+        } elsif ($operator eq 'SHR' && $value1->[0] =~ /^(ZX)$/) {
+            my $subwidth = $value1->[1];
+            $attributes->{EVAL} = &CONST(0) if $subwidth <= $constant2;
+        } else {
+            #print STDERR "Missed foldI($operator, 'Integer', $constant2)\n";
+        }
     }
-    if (defined $val) {
-      $attributes->{EVAL} = &CONST($val);
-    } elsif ($operator =~ /^(DIV|REM|SHR)$/ && $constant1 == 0) {
-      $attributes->{EVAL} = &CONST(0);
-    } elsif ($operator =~ /^SHR$/ && $constant2 == 0) {
-      $attributes->{EVAL} = $value1;
-    } else {
-#print STDERR "Missed foldI($operator, $constant1, $constant2)\n";
-    }
-  } elsif (defined $constant1) {
-    if ($operator =~ /^(IOR)$/ && $constant1 == 0) {
-      $attributes->{EVAL} = $value2;
-    } elsif ($operator =~ /^(MUL|DIV|REM|SHR|SHL|AND)$/ && $constant1 == 0) {
-      $attributes->{EVAL} = &CONST(0);
-    } elsif ($operator =~ /^(SUB)$/ && $constant1 == 0) {
-      $attributes->{EVAL} = &NEG($value2);
-    } else {
-#print STDERR "Missed foldI($operator, $constant1, 'Integer')\n";
-    }
-  } elsif (defined $constant2) {
-    if ($operator =~ /^(ADD|SUB|SHR|SHL|IOR)$/ && $constant2 == 0) {
-      $attributes->{EVAL} = $value1;
-    } elsif ($operator =~ /^(MUL|AND)$/ && $constant2 == 0) {
-      $attributes->{EVAL} = &CONST(0);
-    } elsif ($operator eq 'SHR' && $value1->[0] =~ /^(ZX)$/) {
-      my $subwidth = $value1->[1];
-      $attributes->{EVAL} = &CONST(0) if $subwidth <= $constant2;
-    } else {
-#print STDERR "Missed foldI($operator, 'Integer', $constant2)\n";
-    }
-  }
-  $$attributes{TYPE} = 'Integer';
+    $$attributes{TYPE} = 'Integer';
 }
 
 sub attributes2IB {
-  my ($operator, $value1, $value2, $attributes) = @_;
-  ref $attributes eq 'HASH' or &Error(@_);
-  my $attributes1 = $value1->[-1];
-  ref $attributes1 eq 'HASH' or &Error('attributes2IB', @_);
-  # TODO: use attributes1;
-  my $attributes2 = $value2->[-1];
-  ref $attributes2 eq 'HASH' or &Error('attributes2IB', @_);
-  # TODO: use attributes2;
-  my $constant1 = &constant($value1);
-  my $constant2 = &constant($value2);
-  if (defined $constant1 && defined $constant2) {
-    my $val = undef;
-    for ($operator) {
-      $val = /^EQ$/ ? ($constant1 == $constant2) :
-             /^NE$/ ? ($constant1 != $constant2) :
-             /^GT$/ ? ($constant1 > $constant2)  :
-             /^LE$/ ? ($constant1 <= $constant2) :
-             /^GE$/ ? ($constant1 >= $constant2) :
-             /^LT$/ ? ($constant1 < $constant2)  :
-                      undef;
+    my ($operator, $value1, $value2, $attributes) = @_;
+    ref $attributes eq 'HASH' or &Error(@_);
+    my $attributes1 = $value1->[-1];
+    ref $attributes1 eq 'HASH' or &Error('attributes2IB', @_);
+    # TODO: use attributes1;
+    my $attributes2 = $value2->[-1];
+    ref $attributes2 eq 'HASH' or &Error('attributes2IB', @_);
+    # TODO: use attributes2;
+    my $constant1 = &constant($value1);
+    my $constant2 = &constant($value2);
+    if (defined $constant1 && defined $constant2) {
+        my $val = undef;
+        for ($operator) {
+            $val = /^EQ$/ ? ($constant1 == $constant2) :
+              /^NE$/ ? ($constant1 != $constant2) :
+              /^GT$/ ? ($constant1 > $constant2)  :
+              /^LE$/ ? ($constant1 <= $constant2) :
+              /^GE$/ ? ($constant1 >= $constant2) :
+              /^LT$/ ? ($constant1 < $constant2)  :
+              undef;
+        }
+        if (defined $val) {
+            $attributes->{EVAL} = ($val ? &TRUE({}) : &FALSE({}));
+        } else {
+            print STDERR "Missed foldB($operator, $constant1, $constant2)\n";
+        }
     }
-    if (defined $val) {
-      $attributes->{EVAL} = ($val ? &TRUE({}) : &FALSE({}));
-    } else {
-print STDERR "Missed foldB($operator, $constant1, $constant2)\n";
-    }
-  }
-  $$attributes{TYPE} = 'Boolean';
+    $$attributes{TYPE} = 'Boolean';
 }
 
 sub attributes2BB {
-  my ($operator, $value1, $value2, $attributes) = @_;
-  ref $attributes eq 'HASH' or &Error(@_);
-  my $attributes1 = $value1->[-1];
-  ref $attributes1 eq 'HASH' or &Error('attributes2BB', @_);
-  # TODO: use attributes1;
-  my $attributes2 = $value2->[-1];
-  ref $attributes2 eq 'HASH' or &Error('attributes2BB', @_);
-  # TODO: use attributes2;
-  my $constant1; $constant1 = $value1->[0] if $value1->[0] =~ /^(TRUE|FALSE)$/;
-  my $constant2; $constant2 = $value2->[0] if $value2->[0] =~ /^(TRUE|FALSE)$/;
-  if (defined $constant1 && defined $constant2) {
-    if ($operator eq 'ANDL') {
-       $attributes->{EVAL} = $value2 if $constant1 eq 'TRUE';
-       $attributes->{EVAL} = &FALSE({}) if $constant1 eq 'FALSE';
-    } elsif ($operator eq 'IORL') {
-       $attributes->{EVAL} = &TRUE({}) if $constant1 eq 'TRUE';
-       $attributes->{EVAL} = $value2 if $constant1 eq 'FALSE';
-    } else {
-print STDERR "Missed foldB($operator, $constant1, $constant2)\n";
+    my ($operator, $value1, $value2, $attributes) = @_;
+    ref $attributes eq 'HASH' or &Error(@_);
+    my $attributes1 = $value1->[-1];
+    ref $attributes1 eq 'HASH' or &Error('attributes2BB', @_);
+    # TODO: use attributes1;
+    my $attributes2 = $value2->[-1];
+    ref $attributes2 eq 'HASH' or &Error('attributes2BB', @_);
+    # TODO: use attributes2;
+    my $constant1; $constant1 = $value1->[0] if $value1->[0] =~ /^(TRUE|FALSE)$/;
+    my $constant2; $constant2 = $value2->[0] if $value2->[0] =~ /^(TRUE|FALSE)$/;
+    if (defined $constant1 && defined $constant2) {
+        if ($operator eq 'ANDL') {
+            $attributes->{EVAL} = $value2 if $constant1 eq 'TRUE';
+            $attributes->{EVAL} = &FALSE({}) if $constant1 eq 'FALSE';
+        } elsif ($operator eq 'IORL') {
+            $attributes->{EVAL} = &TRUE({}) if $constant1 eq 'TRUE';
+            $attributes->{EVAL} = $value2 if $constant1 eq 'FALSE';
+        } else {
+            print STDERR "Missed foldB($operator, $constant1, $constant2)\n";
+        }
+    } elsif (defined $constant1) {
+        if ($operator eq 'ANDL') {
+            $attributes->{EVAL} = $value2 if $constant1 eq 'TRUE';
+            $attributes->{EVAL} = &FALSE({}) if $constant1 eq 'FALSE';
+        } elsif ($operator eq 'IORL') {
+            $attributes->{EVAL} = &TRUE({}) if $constant1 eq 'TRUE';
+            $attributes->{EVAL} = $value2 if $constant1 eq 'FALSE';
+        } else {
+            print STDERR "Missed foldB($operator, $constant1, 'Boolean')\n";
+        }
+    } elsif (defined $constant2) {
+        if ($operator eq 'ANDL') {
+            $attributes->{EVAL} = $value1 if $constant2 eq 'TRUE';
+            $attributes->{EVAL} = &FALSE({}) if $constant2 eq 'FALSE';
+        } elsif ($operator eq 'IORL') {
+            $attributes->{EVAL} = &TRUE({}) if $constant2 eq 'TRUE';
+            $attributes->{EVAL} = $value1 if $constant2 eq 'FALSE';
+        } else {
+            print STDERR "Missed foldB($operator, 'Boolean', $constant2)\n";
+        }
     }
-  } elsif (defined $constant1) {
-    if ($operator eq 'ANDL') {
-       $attributes->{EVAL} = $value2 if $constant1 eq 'TRUE';
-       $attributes->{EVAL} = &FALSE({}) if $constant1 eq 'FALSE';
-    } elsif ($operator eq 'IORL') {
-       $attributes->{EVAL} = &TRUE({}) if $constant1 eq 'TRUE';
-       $attributes->{EVAL} = $value2 if $constant1 eq 'FALSE';
-    } else {
-print STDERR "Missed foldB($operator, $constant1, 'Boolean')\n";
+    $constant1 = &constant($value1);
+    $constant2 = &constant($value2);
+    if (defined $constant1 && defined $constant2) {
+        print STDERR "Missed foldB($operator, $constant1, $constant2)\n";
+    } elsif (defined $constant1) {
+        print STDERR "Missed foldB($operator, $constant1, 'Boolean')\n";
+    } elsif (defined $constant2) {
+        print STDERR "Missed foldB($operator, 'Boolean', $constant2)\n";
     }
-  } elsif (defined $constant2) {
-    if ($operator eq 'ANDL') {
-       $attributes->{EVAL} = $value1 if $constant2 eq 'TRUE';
-       $attributes->{EVAL} = &FALSE({}) if $constant2 eq 'FALSE';
-    } elsif ($operator eq 'IORL') {
-       $attributes->{EVAL} = &TRUE({}) if $constant2 eq 'TRUE';
-       $attributes->{EVAL} = $value1 if $constant2 eq 'FALSE';
-    } else {
-print STDERR "Missed foldB($operator, 'Boolean', $constant2)\n";
-    }
-  }
-  $constant1 = &constant($value1);
-  $constant2 = &constant($value2);
-  if (defined $constant1 && defined $constant2) {
-print STDERR "Missed foldB($operator, $constant1, $constant2)\n";
-  } elsif (defined $constant1) {
-print STDERR "Missed foldB($operator, $constant1, 'Boolean')\n";
-  } elsif (defined $constant2) {
-print STDERR "Missed foldB($operator, 'Boolean', $constant2)\n";
-  }
-  $$attributes{TYPE} = 'Boolean';
+    $$attributes{TYPE} = 'Boolean';
 }
 
 sub OP1II {
-  my ($operator, $code, $value1, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $value1 = &castI($value1) or &Error($operator, @_);
-  &attributes1II($operator, $value1, $attributes);
-  return $attributes->{EVAL} if defined $attributes->{EVAL};
-  $attributes->{CODE} = $code;
-  return [ $operator, $value1, $attributes ];
+    my ($operator, $code, $value1, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $value1 = &castI($value1) or &Error($operator, @_);
+    &attributes1II($operator, $value1, $attributes);
+    return $attributes->{EVAL} if defined $attributes->{EVAL};
+    $attributes->{CODE} = $code;
+    return [ $operator, $value1, $attributes ];
 }
 
 sub OP1BB {
-  my ($operator, $code, $value1, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $value1 = &castB($value1) or &Error($operator, @_);
-  &attributes1BB($operator, $value1, $attributes);
-  return $attributes->{EVAL} if defined $attributes->{EVAL};
-  $attributes->{CODE} = $code;
-  return [ $operator, $value1, $attributes ];
+    my ($operator, $code, $value1, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $value1 = &castB($value1) or &Error($operator, @_);
+    &attributes1BB($operator, $value1, $attributes);
+    return $attributes->{EVAL} if defined $attributes->{EVAL};
+    $attributes->{CODE} = $code;
+    return [ $operator, $value1, $attributes ];
 }
 
 sub OP2II {
-  my ($operator, $code, $value1, $value2, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $value1 = &castI($value1) and $value2 = &castI($value2) or &Error($operator, @_);
-  &attributes2II($operator, $value1, $value2, $attributes);
-  return $attributes->{EVAL} if defined $attributes->{EVAL};
-  $attributes->{CODE} = $code;
-  return [ $operator, $value1, $value2, $attributes ];
+    my ($operator, $code, $value1, $value2, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $value1 = &castI($value1) and $value2 = &castI($value2) or &Error($operator, @_);
+    &attributes2II($operator, $value1, $value2, $attributes);
+    return $attributes->{EVAL} if defined $attributes->{EVAL};
+    $attributes->{CODE} = $code;
+    return [ $operator, $value1, $value2, $attributes ];
 }
 
 sub OP2IB {
-  my ($operator, $code, $value1, $value2, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $value1 = &castI($value1) and $value2 = &castI($value2) or &Error($operator, @_);
-  &attributes2IB($operator, $value1, $value2, $attributes);
-  return $attributes->{EVAL} if defined $attributes->{EVAL};
-  $attributes->{CODE} = $code;
-  return [ $operator, $value1, $value2, $attributes ];
+    my ($operator, $code, $value1, $value2, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $value1 = &castI($value1) and $value2 = &castI($value2) or &Error($operator, @_);
+    &attributes2IB($operator, $value1, $value2, $attributes);
+    return $attributes->{EVAL} if defined $attributes->{EVAL};
+    $attributes->{CODE} = $code;
+    return [ $operator, $value1, $value2, $attributes ];
 }
 
 sub OP2BB {
-  my ($operator, $code, $value1, $value2, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $value1 = &castB($value1) and $value2 = &castB($value2) or &Error($operator, @_);
-  &attributes2BB($operator, $value1, $value2, $attributes);
-  return $attributes->{EVAL} if defined $attributes->{EVAL};
-  $attributes->{CODE} = $code;
-  return [ $operator, $value1, $value2, $attributes ];
+    my ($operator, $code, $value1, $value2, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $value1 = &castB($value1) and $value2 = &castB($value2) or &Error($operator, @_);
+    &attributes2BB($operator, $value1, $value2, $attributes);
+    return $attributes->{EVAL} if defined $attributes->{EVAL};
+    $attributes->{CODE} = $code;
+    return [ $operator, $value1, $value2, $attributes ];
 }
 
 sub F2I {
-  my ($width, $field, $attributes) = @_;
-  !ref $width or &Error('F2I', @_);
-  $field = &castF($field) or &Error('F2I', @_);
-  $attributes = { } unless defined $attributes;
-  $$attributes{WIDTH} = $width;
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{CODE} = \&F2I;
-  return [ 'F2I', $width, $field, $attributes ];
+    my ($width, $field, $attributes) = @_;
+    !ref $width or &Error('F2I', @_);
+    $field = &castF($field) or &Error('F2I', @_);
+    $attributes = { } unless defined $attributes;
+    $$attributes{WIDTH} = $width;
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{CODE} = \&F2I;
+    return [ 'F2I', $width, $field, $attributes ];
 }
 
 sub I2F {
-  my ($width, $value) = @_;
-  !ref $width or &Error('I2F', @_);
-  $value = &castI($value) or &Error('I2F', @_);
-  if (defined &integer($width) && $value->[0] =~ /^(SX|ZX)$/) {
-    my $subwidth = $value->[1];
-    $value = $value->[2] if $subwidth >= $width;
-  }
-  # [SC] Test for unnecessarily guarded shift, and remove the guard.
-  # Match:
-  #   (I2F.n (SELECT
-  #           (GT (P1) (CONST n-1))
-  #           (SHR (Q1) (CONST n-1))
-  #           (SHR (Q2) (P2))))
-  #   where P1 == P2
-  #   and   Q1 == Q2 == (SX.n (exp))
-  # and replace with:
-  #    (I2F.n (SHR (Q2) (P2)))
-  if (   defined &integer($width)
-      && $value->[0] eq 'SELECT'
-      && $value->[1]->[0] eq 'GT'
-      && $value->[2]->[0] eq 'SHR'
-      && $value->[3]->[0] eq 'SHR') {
-    my $p1 = $value->[1]->[1];
-    my $k1 = &constant($value->[1]->[2]);
-    my $q1 = $value->[2]->[1];
-    my $k2 = &constant($value->[2]->[2]);
-    my $q2 = $value->[3]->[1];
-    my $p2 = $value->[3]->[2];
-    if (   defined $k1 && $k1 == $width - 1
-        && defined $k2 && $k2 == $k1
-        && &Same($p1, $p2)
-        && &Same($q1, $q2)
-        && $q1->[0] eq 'SX'
-        && $q1->[1] == $width) {
-      $value = $value->[3];
+    my ($width, $value) = @_;
+    !ref $width or &Error('I2F', @_);
+    $value = &castI($value) or &Error('I2F', @_);
+    if (defined &integer($width) && $value->[0] =~ /^(SX|ZX)$/) {
+        my $subwidth = $value->[1];
+        $value = $value->[2] if $subwidth >= $width;
     }
-  }        
-  # [SC] Test for unnecessarily guarded shift, and remove the guard.
-  # Match:
-  #   (I2F.n (SELECT
-  #           (GT (P1) (CONST n-1))
-  #           (CONST 0)
-  #           (SHL (Q1) (P2))))
-  #   where P1 == P2
-  # and replace with:
-  #    (I2F.n (SHL (Q1) (P2)))
-  if (   defined &integer($width)
-      && $value->[0] eq 'SELECT'
-      && $value->[1]->[0] eq 'GT'
-      && $value->[3]->[0] eq 'SHL') {
-    my $p1 = $value->[1]->[1];
-    my $k1 = &constant($value->[1]->[2]);
-    my $k2 = &constant($value->[2]);
-    my $q1 = $value->[3]->[1];
-    my $p2 = $value->[3]->[2];
-    if (   defined $k1 && $k1 == $width - 1
-        && defined $k2 && $k2 == 0
-        && &Same($p1, $p2)) {
-        $value = $value->[3];
+    # [SC] Test for unnecessarily guarded shift, and remove the guard.
+    # Match:
+    #   (I2F.n (SELECT
+    #           (GT (P1) (CONST n-1))
+    #           (SHR (Q1) (CONST n-1))
+    #           (SHR (Q2) (P2))))
+    #   where P1 == P2
+    #   and   Q1 == Q2 == (SX.n (exp))
+    # and replace with:
+    #    (I2F.n (SHR (Q2) (P2)))
+    if (   defined &integer($width)
+        && $value->[0] eq 'SELECT'
+        && $value->[1]->[0] eq 'GT'
+        && $value->[2]->[0] eq 'SHR'
+        && $value->[3]->[0] eq 'SHR') {
+        my $p1 = $value->[1]->[1];
+        my $k1 = &constant($value->[1]->[2]);
+        my $q1 = $value->[2]->[1];
+        my $k2 = &constant($value->[2]->[2]);
+        my $q2 = $value->[3]->[1];
+        my $p2 = $value->[3]->[2];
+        if (   defined $k1 && $k1 == $width - 1
+            && defined $k2 && $k2 == $k1
+            && &Same($p1, $p2)
+            && &Same($q1, $q2)
+            && $q1->[0] eq 'SX'
+            && $q1->[1] == $width) {
+            $value = $value->[3];
+        }
     }
-  }
-  my $attributes = { TYPE=>'BitField', WIDTH=>$width, CODE=>\&I2F };
-  return [ 'I2F', $width, $value, $attributes ];
+    # [SC] Test for unnecessarily guarded shift, and remove the guard.
+    # Match:
+    #   (I2F.n (SELECT
+    #           (GT (P1) (CONST n-1))
+    #           (CONST 0)
+    #           (SHL (Q1) (P2))))
+    #   where P1 == P2
+    # and replace with:
+    #    (I2F.n (SHL (Q1) (P2)))
+    if (   defined &integer($width)
+        && $value->[0] eq 'SELECT'
+        && $value->[1]->[0] eq 'GT'
+        && $value->[3]->[0] eq 'SHL') {
+        my $p1 = $value->[1]->[1];
+        my $k1 = &constant($value->[1]->[2]);
+        my $k2 = &constant($value->[2]);
+        my $q1 = $value->[3]->[1];
+        my $p2 = $value->[3]->[2];
+        if (   defined $k1 && $k1 == $width - 1
+            && defined $k2 && $k2 == 0
+            && &Same($p1, $p2)) {
+            $value = $value->[3];
+        }
+    }
+    my $attributes = { TYPE=>'BitField', WIDTH=>$width, CODE=>\&I2F };
+    return [ 'I2F', $width, $value, $attributes ];
 }
 
 sub B2I {
-  my ($value, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $value = &castB($value) or &Error('B2I', @_);
-  if ($value->[0] eq 'TRUE') {
-    return &CONST(1);
-  } elsif ($value->[0] eq 'FALSE') {
-    return &CONST(0);
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = 1;
-  $$attributes{CODE} = \&B2I;
-  return [ 'B2I', $value, $attributes ];
+    my ($value, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $value = &castB($value) or &Error('B2I', @_);
+    if ($value->[0] eq 'TRUE') {
+        return &CONST(1);
+    } elsif ($value->[0] eq 'FALSE') {
+        return &CONST(0);
+    }
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = 1;
+    $$attributes{CODE} = \&B2I;
+    return [ 'B2I', $value, $attributes ];
 }
 
 sub I2B {
-  my ($value, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $value = &castI($value) or &Error('I2B', @_);
-  if ($value->[0] eq 'B2I') {
-    return $value->[1];
-  } else {
-    my $constant = &constant($value);
-    if (defined $constant) {
-      if ($constant == 0) {
-        return &FALSE();
-      } else {
-        return &TRUE();
-      }
+    my ($value, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $value = &castI($value) or &Error('I2B', @_);
+    if ($value->[0] eq 'B2I') {
+        return $value->[1];
+    } else {
+        my $constant = &constant($value);
+        if (defined $constant) {
+            if ($constant == 0) {
+                return &FALSE();
+            } else {
+                return &TRUE();
+            }
+        }
     }
-  }
-  $$attributes{TYPE} = 'Boolean';
-  $$attributes{WIDTH} = 1;
-  $$attributes{CODE} = \&I2B;
-  return [ 'I2B', $value, $attributes ];
+    $$attributes{TYPE} = 'Boolean';
+    $$attributes{WIDTH} = 1;
+    $$attributes{CODE} = \&I2B;
+    return [ 'I2B', $value, $attributes ];
 }
 
 sub SX {
-  my ($width, $value, $attributes) = @_;
-  !ref $width or &Error('SX', @_);
-  $value = &castI($value) or &Error('SX', @_);
-  $attributes = { } unless defined $attributes;
-  my $constant = &constant($value);
-  if (defined $constant) {
-    my $newwidth = $value->[-1]->{WIDTH} + 1;
-    $newwidth = $width if $newwidth > $width;
-    if ($constant == 0 || $constant == -1) {
-      return &CONST($constant);
-    } elsif ($newwidth < 32) {
-      my $signbit = 1 << ($newwidth - 1);
-      my $signbits = $signbit - 1;
-      if ($constant & $signbit) {
-        return &CONST($constant | ~$signbits);
-      } else {
-        return &CONST($constant & $signbits);
-      }
-    } else {
-print STDERR "Missed foldI(SX, $constant) width = $width newwidth = $newwidth\n";
-    }
-  } elsif ($value->[0] =~ /^(SX)$/) {
-    my $subwidth = $value->[1];
-    $value->[1] = $width if $subwidth > $width;
-    return $value;
-  } elsif ($value->[0] =~ /^(ZX)$/) {
-    my $subwidth = $value->[1];
-    if ($subwidth >= $width) {
-      my ($op, $code);
-      ($op, $code) = ('SX', \&SX) if $value->[0] eq 'ZX';
-      $value->[0] = $op;
-      $value->[1] = $width;
-      $value->[3]{CODE} = $code;
-      $value->[3]{WIDTH} = $width;
-      return $value;
-    }
-  } elsif ($value->[0] eq 'SHR') {
-    my $shr_value = $value->[1];
-    my $shr_constant = &constant($value->[2]);
-    if (defined $shr_constant) {
-      if ($shr_value->[0] =~ /^(SX)$/) {
-        my $newwidth = $width + $shr_constant;
-        my $subwidth = $shr_value->[1];
-        $shr_value->[1] = $newwidth if $subwidth > $newwidth;
-        return $value;
-      }
-      elsif ($shr_value->[0] =~ /^(ZX)$/) {
-        my $newwidth = $width + $shr_constant;
-        my $subwidth = $shr_value->[1];
-        if ($subwidth >= $newwidth) {
-          my ($op, $code);
-          ($op, $code) = ('SX', \&SX) if $shr_value->[0] eq 'ZX';
-          $shr_value->[0] = $op;
-          $shr_value->[1] = $newwidth;
-          $shr_value->[3]{CODE} = $code;
-          $shr_value->[3]{WIDTH} = $newwidth;
-          return $value;
+    my ($width, $value, $attributes) = @_;
+    !ref $width or &Error('SX', @_);
+    $value = &castI($value) or &Error('SX', @_);
+    $attributes = { } unless defined $attributes;
+    my $constant = &constant($value);
+    if (defined $constant) {
+        my $newwidth = $value->[-1]->{WIDTH} + 1;
+        $newwidth = $width if $newwidth > $width;
+        if ($constant == 0 || $constant == -1) {
+            return &CONST($constant);
+        } elsif ($newwidth < 32) {
+            my $signbit = 1 << ($newwidth - 1);
+            my $signbits = $signbit - 1;
+            if ($constant & $signbit) {
+                return &CONST($constant | ~$signbits);
+            } else {
+                return &CONST($constant & $signbits);
+            }
+        } else {
+            print STDERR "Missed foldI(SX, $constant) width = $width newwidth = $newwidth\n";
         }
-      }
+    } elsif ($value->[0] =~ /^(SX)$/) {
+        my $subwidth = $value->[1];
+        $value->[1] = $width if $subwidth > $width;
+        return $value;
+    } elsif ($value->[0] =~ /^(ZX)$/) {
+        my $subwidth = $value->[1];
+        if ($subwidth >= $width) {
+            my ($op, $code);
+            ($op, $code) = ('SX', \&SX) if $value->[0] eq 'ZX';
+            $value->[0] = $op;
+            $value->[1] = $width;
+            $value->[3]{CODE} = $code;
+            $value->[3]{WIDTH} = $width;
+            return $value;
+        }
+    } elsif ($value->[0] eq 'SHR') {
+        my $shr_value = $value->[1];
+        my $shr_constant = &constant($value->[2]);
+        if (defined $shr_constant) {
+            if ($shr_value->[0] =~ /^(SX)$/) {
+                my $newwidth = $width + $shr_constant;
+                my $subwidth = $shr_value->[1];
+                $shr_value->[1] = $newwidth if $subwidth > $newwidth;
+                return $value;
+            }
+            elsif ($shr_value->[0] =~ /^(ZX)$/) {
+                my $newwidth = $width + $shr_constant;
+                my $subwidth = $shr_value->[1];
+                if ($subwidth >= $newwidth) {
+                    my ($op, $code);
+                    ($op, $code) = ('SX', \&SX) if $shr_value->[0] eq 'ZX';
+                    $shr_value->[0] = $op;
+                    $shr_value->[1] = $newwidth;
+                    $shr_value->[3]{CODE} = $code;
+                    $shr_value->[3]{WIDTH} = $newwidth;
+                    return $value;
+                }
+            }
+        }
+    } elsif ($value->[0] eq 'SHL') {
+        my $shl_value = $value->[1];
+        my $shl_constant = &constant($value->[2]);
+        if (defined $shl_constant && $shl_constant >= $width) {
+            return &CONST(0);
+        }
+    } elsif ($value->[0] eq 'SELECT') {
+        return &SELECT($value->[1],
+            &SX($width, $value->[2]),
+            &SX($width, $value->[3]));
     }
-  } elsif ($value->[0] eq 'SHL') {
-    my $shl_value = $value->[1];
-    my $shl_constant = &constant($value->[2]);
-    if (defined $shl_constant && $shl_constant >= $width) {
-      return &CONST(0);
-    }
-  } elsif ($value->[0] eq 'SELECT') {
-    return &SELECT($value->[1],
-                   &SX($width, $value->[2]),
-                   &SX($width, $value->[3]));
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&SX;
-  return [ 'SX', $width, $value, $attributes ];
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&SX;
+    return [ 'SX', $width, $value, $attributes ];
 }
 
 sub ZX {
-  my ($width, $value, $attributes) = @_;
-  !ref $width or &Error('ZX', @_);
-  $value = &castI($value) or &Error('ZX', @_);
-  $attributes = { } unless defined $attributes;
-  my $constant = &constant($value);
-  if (defined $constant) {
-    my $newwidth = $value->[-1]->{WIDTH};
-    $newwidth = $width if $newwidth > $width;
-    if ($constant == 0) {
-      return &CONST($constant);
-    } elsif ($newwidth < 32) {
-      return &CONST($constant & ~(~0 << $newwidth));
-    } elsif ($constant == -1) {
-      if ($width < 32) {
-        return &CONST((1<<$width) - 1);
-      }
-      if ($width == 32) {
-        return &CONST(0xffffffff);
-      }
-      print STDERR "Missed foldI(ZX, $constant) width = $width newwidth = $newwidth\n";
-    } else {
-      print STDERR "Missed foldI(ZX, $constant) width = $width newwidth = $newwidth\n";
-    }
-  } elsif ($value->[0] =~ /^(ZX)$/) {
-    my $subwidth = $value->[1];
-    $value->[1] = $width if $subwidth > $width;
-    return $value;
-  } elsif ($value->[0] =~ /^(SX)$/) {
-    my $subwidth = $value->[1];
-    if ($subwidth >= $width) {
-      my ($op, $code);
-      ($op, $code) = ('ZX', \&ZX) if $value->[0] eq 'SX';
-      $value->[0] = $op;
-      $value->[1] = $width;
-      $value->[3]{CODE} = $code;
-      $value->[3]{WIDTH} = $width;
-      return $value;
-    }
-  } elsif ($value->[0] eq 'SHR') {
-    my $shr_value = $value->[1];
-    my $shr_constant = &constant($value->[2]);
-    if (defined $shr_constant) {
-      if ($shr_value->[0] =~ /^(ZX)$/) {
-        my $newwidth = $width + $shr_constant;
-        my $subwidth = $shr_value->[1];
-        $shr_value->[1] = $newwidth if $subwidth > $newwidth;
-        return $value;
-      }
-      elsif ($shr_value->[0] =~ /^(SX)$/) {
-        my $newwidth = $width + $shr_constant;
-        my $subwidth = $shr_value->[1];
-        if ($subwidth >= $newwidth) {
-          my ($op, $code);
-          ($op, $code) = ('ZX', \&ZX) if $shr_value->[0] eq 'SX';
-          $shr_value->[0] = $op;
-          $shr_value->[1] = $newwidth;
-          $shr_value->[3]{CODE} = $code;
-          $shr_value->[3]{WIDTH} = $newwidth;
-          return $value;
+    my ($width, $value, $attributes) = @_;
+    !ref $width or &Error('ZX', @_);
+    $value = &castI($value) or &Error('ZX', @_);
+    $attributes = { } unless defined $attributes;
+    my $constant = &constant($value);
+    if (defined $constant) {
+        my $newwidth = $value->[-1]->{WIDTH};
+        $newwidth = $width if $newwidth > $width;
+        if ($constant == 0) {
+            return &CONST($constant);
+        } elsif ($newwidth < 32) {
+            return &CONST($constant & ~(~0 << $newwidth));
+        } elsif ($constant == -1) {
+            if ($width < 32) {
+                return &CONST((1<<$width) - 1);
+            }
+            if ($width == 32) {
+                return &CONST(0xffffffff);
+            }
+            print STDERR "Missed foldI(ZX, $constant) width = $width newwidth = $newwidth\n";
+        } else {
+            print STDERR "Missed foldI(ZX, $constant) width = $width newwidth = $newwidth\n";
         }
-      }
+    } elsif ($value->[0] =~ /^(ZX)$/) {
+        my $subwidth = $value->[1];
+        $value->[1] = $width if $subwidth > $width;
+        return $value;
+    } elsif ($value->[0] =~ /^(SX)$/) {
+        my $subwidth = $value->[1];
+        if ($subwidth >= $width) {
+            my ($op, $code);
+            ($op, $code) = ('ZX', \&ZX) if $value->[0] eq 'SX';
+            $value->[0] = $op;
+            $value->[1] = $width;
+            $value->[3]{CODE} = $code;
+            $value->[3]{WIDTH} = $width;
+            return $value;
+        }
+    } elsif ($value->[0] eq 'SHR') {
+        my $shr_value = $value->[1];
+        my $shr_constant = &constant($value->[2]);
+        if (defined $shr_constant) {
+            if ($shr_value->[0] =~ /^(ZX)$/) {
+                my $newwidth = $width + $shr_constant;
+                my $subwidth = $shr_value->[1];
+                $shr_value->[1] = $newwidth if $subwidth > $newwidth;
+                return $value;
+            }
+            elsif ($shr_value->[0] =~ /^(SX)$/) {
+                my $newwidth = $width + $shr_constant;
+                my $subwidth = $shr_value->[1];
+                if ($subwidth >= $newwidth) {
+                    my ($op, $code);
+                    ($op, $code) = ('ZX', \&ZX) if $shr_value->[0] eq 'SX';
+                    $shr_value->[0] = $op;
+                    $shr_value->[1] = $newwidth;
+                    $shr_value->[3]{CODE} = $code;
+                    $shr_value->[3]{WIDTH} = $newwidth;
+                    return $value;
+                }
+            }
+        }
+    } elsif ($value->[0] eq 'SHL') {
+        my $shl_value = $value->[1];
+        my $shl_constant = &constant($value->[2]);
+        if (defined $shl_constant && $shl_constant >= $width) {
+            return &CONST(0);
+        }
+    } elsif ($value->[0] eq 'SELECT') {
+        return &SELECT($value->[1],
+            &ZX($width, $value->[2]),
+            &ZX($width, $value->[3]));
     }
-  } elsif ($value->[0] eq 'SHL') {
-    my $shl_value = $value->[1];
-    my $shl_constant = &constant($value->[2]);
-    if (defined $shl_constant && $shl_constant >= $width) {
-      return &CONST(0);
-    }
-  } elsif ($value->[0] eq 'SELECT') {
-    return &SELECT($value->[1],
-                   &ZX($width, $value->[2]),
-                   &ZX($width, $value->[3]));
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&ZX;
-  return [ 'ZX', $width, $value, $attributes ];
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&ZX;
+    return [ 'ZX', $width, $value, $attributes ];
 }
 
 sub SAT {
-  my ($width, $value, $attributes) = @_;
-  !ref $width or &Error('SAT', @_);
-  $value = &castI($value) or &Error('SAT', @_);
-  $attributes = { } unless defined $attributes;
-  my $constant = &constant($value);
-  if (defined $constant) {
-      print STDERR "Missed foldI(SAT, $constant)\n";
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&SAT;
-  return [ 'SAT', $width, $value, $attributes ];
+    my ($width, $value, $attributes) = @_;
+    !ref $width or &Error('SAT', @_);
+    $value = &castI($value) or &Error('SAT', @_);
+    $attributes = { } unless defined $attributes;
+    my $constant = &constant($value);
+    if (defined $constant) {
+        print STDERR "Missed foldI(SAT, $constant)\n";
+    }
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&SAT;
+    return [ 'SAT', $width, $value, $attributes ];
 }
 
 sub SATU {
-  my ($width, $value, $attributes) = @_;
-  !ref $width or &Error('SATU', @_);
-  $value = &castI($value) or &Error('SATU', @_);
-  $attributes = { } unless defined $attributes;
-  my $constant = &constant($value);
-  if (defined $constant) {
-      print STDERR "Missed foldI(SATU, $constant)\n";
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&SATU;
-  return [ 'SATU', $width, $value, $attributes ];
+    my ($width, $value, $attributes) = @_;
+    !ref $width or &Error('SATU', @_);
+    $value = &castI($value) or &Error('SATU', @_);
+    $attributes = { } unless defined $attributes;
+    my $constant = &constant($value);
+    if (defined $constant) {
+        print STDERR "Missed foldI(SATU, $constant)\n";
+    }
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&SATU;
+    return [ 'SATU', $width, $value, $attributes ];
 }
 
 sub CLZ {
-  my ($width, $value, $attributes) = @_;
-  !ref $width or &Error('CLZ', @_);
-  $value = &castI($value) or &Error('CLZ', @_);
-  $attributes = { } unless defined $attributes;
-  my $constant = &constant($value);
-  if (defined $constant) {
-      print STDERR "Missed foldI(CLZ, $constant)\n";
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&CLZ;
-  return [ 'CLZ', $width, $value, $attributes ];
+    my ($width, $value, $attributes) = @_;
+    !ref $width or &Error('CLZ', @_);
+    $value = &castI($value) or &Error('CLZ', @_);
+    $attributes = { } unless defined $attributes;
+    my $constant = &constant($value);
+    if (defined $constant) {
+        print STDERR "Missed foldI(CLZ, $constant)\n";
+    }
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&CLZ;
+    return [ 'CLZ', $width, $value, $attributes ];
 }
 
 sub CLS {
-  my ($width, $value, $attributes) = @_;
-  !ref $width or &Error('CLS', @_);
-  $value = &castI($value) or &Error('CLS', @_);
-  $attributes = { } unless defined $attributes;
-  my $constant = &constant($value);
-  if (defined $constant) {
-      print STDERR "Missed foldI(CLS, $constant)\n";
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&CLS;
-  return [ 'CLS', $width, $value, $attributes ];
+    my ($width, $value, $attributes) = @_;
+    !ref $width or &Error('CLS', @_);
+    $value = &castI($value) or &Error('CLS', @_);
+    $attributes = { } unless defined $attributes;
+    my $constant = &constant($value);
+    if (defined $constant) {
+        print STDERR "Missed foldI(CLS, $constant)\n";
+    }
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&CLS;
+    return [ 'CLS', $width, $value, $attributes ];
 }
 
 sub CTZ {
-  my ($width, $value, $attributes) = @_;
-  !ref $width or &Error('CTZ', @_);
-  $value = &castI($value) or &Error('CTZ', @_);
-  $attributes = { } unless defined $attributes;
-  my $constant = &constant($value);
-  if (defined $constant) {
-      print STDERR "Missed foldI(CTZ, $constant)\n";
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&CTZ;
-  return [ 'CTZ', $width, $value, $attributes ];
+    my ($width, $value, $attributes) = @_;
+    !ref $width or &Error('CTZ', @_);
+    $value = &castI($value) or &Error('CTZ', @_);
+    $attributes = { } unless defined $attributes;
+    my $constant = &constant($value);
+    if (defined $constant) {
+        print STDERR "Missed foldI(CTZ, $constant)\n";
+    }
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&CTZ;
+    return [ 'CTZ', $width, $value, $attributes ];
 }
 
 sub CBS {
-  my ($width, $value, $attributes) = @_;
-  !ref $width or &Error('CBS', @_);
-  $value = &castI($value) or &Error('CBS', @_);
-  $attributes = { } unless defined $attributes;
-  my $constant = &constant($value);
-  if (defined $constant) {
-      print STDERR "Missed foldI(CBS, $constant)\n";
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&CBS;
-  return [ 'CBS', $width, $value, $attributes ];
+    my ($width, $value, $attributes) = @_;
+    !ref $width or &Error('CBS', @_);
+    $value = &castI($value) or &Error('CBS', @_);
+    $attributes = { } unless defined $attributes;
+    my $constant = &constant($value);
+    if (defined $constant) {
+        print STDERR "Missed foldI(CBS, $constant)\n";
+    }
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&CBS;
+    return [ 'CBS', $width, $value, $attributes ];
 }
 
 sub SWAP {
-  my ($width, $value, $attributes) = @_;
-  !ref $width or &Error('SWAP', @_);
-  $value = &castI($value) or &Error('SWAP', @_);
-  $attributes = { } unless defined $attributes;
-  my $constant = &constant($value);
-  if (defined $constant) {
-      print STDERR "Missed foldI(SWAP, $constant)\n";
-  }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&SWAP;
-  return [ 'SWAP', $width, $value, $attributes ];
+    my ($width, $value, $attributes) = @_;
+    !ref $width or &Error('SWAP', @_);
+    $value = &castI($value) or &Error('SWAP', @_);
+    $attributes = { } unless defined $attributes;
+    my $constant = &constant($value);
+    if (defined $constant) {
+        print STDERR "Missed foldI(SWAP, $constant)\n";
+    }
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&SWAP;
+    return [ 'SWAP', $width, $value, $attributes ];
 }
 
 sub ROR {
-  my ($width, $value, $count, $attributes) = @_;
-  !ref $width or &Error('ROR', @_);
-  $value = &castI($value) or &Error('ROR', @_);
-  $attributes = { } unless defined $attributes;
-  $count = &castI($count) or &Error('ROR', @_);
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&ROR;
-  return [ 'ROR', $width, $value, $count, $attributes ];
+    my ($width, $value, $count, $attributes) = @_;
+    !ref $width or &Error('ROR', @_);
+    $value = &castI($value) or &Error('ROR', @_);
+    $attributes = { } unless defined $attributes;
+    $count = &castI($count) or &Error('ROR', @_);
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&ROR;
+    return [ 'ROR', $width, $value, $count, $attributes ];
 }
 
 sub ROL {
-  my ($width, $value, $count, $attributes) = @_;
-  !ref $width or &Error('ROL', @_);
-  $value = &castI($value) or &Error('ROL', @_);
-  $attributes = { } unless defined $attributes;
-  $count = &castI($count) or &Error('ROL', @_);
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width;
-  $$attributes{CODE} = \&ROL;
-  return [ 'ROL', $width, $value, $count, $attributes ];
+    my ($width, $value, $count, $attributes) = @_;
+    !ref $width or &Error('ROL', @_);
+    $value = &castI($value) or &Error('ROL', @_);
+    $attributes = { } unless defined $attributes;
+    $count = &castI($count) or &Error('ROL', @_);
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width;
+    $$attributes{CODE} = \&ROL;
+    return [ 'ROL', $width, $value, $count, $attributes ];
 }
 
 sub SELECT {
-  my ($cond, $left, $right, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $cond = &castB($cond) or &Error('SELECT', @_);
-  $left = &castI($left) or &Error('SELECT', @_);
-  $right = &castI($right) or &Error('SELECT', @_);
-  if ($cond->[0] eq 'FALSE') {
-    return $right;
-  } elsif ($cond->[0] eq 'TRUE') {
-    return $left;
-  #BD3 FIXME!} elsif (&Same($left, $right)) {
-  #BD3 FIXME!  return $left;
-  }
-  # [SC] Extremely labored test for a sign-extend expressed
-  # as a select.
-  #  Match
-  #     (SELECT
-  #       (I2B (AND (ZX.x (T)) (CONST k)))
-  #       (IOR (ZX.y (T2)) (CONST k2))
-  #       (ZX.z (T3)))
-  #    where T == T2 == T3
-  #    and   k = 2**n
-  #    and   k2 = -(2**n)
-  #    and   x >= n
-  #    and   y >= n
-  #    and   z == n
-  #  as a sign-extend from bit n, and replace with:
-  #       (SX.n+1 (T))
-  if ($cond->[0] eq 'I2B') {
-    if ($cond->[1]->[0] eq 'AND') {
-      my $and = $cond->[1];
-      my $k = &constant($and->[2]);
-      if ($and->[1]->[0] eq 'ZX') {
-        my $f2u = $and->[1];
-        my $x = $f2u->[1];
-        my $T = $f2u->[2];
-        if ($left->[0] eq 'IOR') {
-          my $k2 = &constant($left->[2]);
-          if ($left->[1]->[0] eq 'ZX') {
-            my $f2u2 = $left->[1];
-            my $y = $f2u2->[1];
-            my $T2 = $f2u2->[2];
-            if ($right->[0] eq 'ZX') {
-              my $z = $right->[1];
-              my $T3 = $right->[2];
-              my $n = (defined $k) ? &powerof2($k) : -1;
-              if (   &Same($T, $T2)
-                  && &Same($T, $T3)
-                  && $n > 0
-                  && defined $k2
-                  && &powerof2(-$k2) == $n
-                  && $x >= $n
-                  && $y >= $n
-                  && $z == $n) {
-                return &SX($n+1, $T);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  # [SC] Test for unnecessarily guarded shift,
-  # expressed as a select.
-  #  Match
-  #    (SELECT
-  #      (GT (Q1) (CONST 0))
-  #      (SHR (P1) (Q2))
-  #      (P2))
-  #    where P1 == P2
-  #          Q1 == Q2 == ZX.x (exp)
-  #  and return
-  #    (SHR (P1) (Q2))
-  # Rationale:
-  #    ZX.x (exp) is >= 0
-  #    so the GT is true only when ZX.x (exp) is 0
-  #    but in this case  SHR (P) (CONST 0) is equivalent to (P).
-  if (   $cond->[0] eq 'GT'
-      && $cond->[1]->[0] =~ /^(ZX)$/) {
-    my $q1 = $cond->[1];
-    my $k1 = &constant($cond->[2]);
-    if ($left->[0] eq 'SHR') {
-      my $p1 = $left->[1];
-      my $q2 = $left->[2];
-      my $p2 = $right;
-      if (   defined $k1
-          && $k1 == 0
-          && &Same($q1, $q2)
-          && &Same($p1, $p2)) {
-        return $left;
-      }
-    }
-  }
-  # [SC] Another test for unnecessarily guarded shift.
-  #   Match
-  #     (SELECT
-  #       (GT (Q1) (CONST n-1))
-  #       (CONST 0)
-  #       (SHR (ZX.n (P)) (Q2)))
-  #   where Q1 == Q2
-  #   and return
-  #     (SHR (ZX.n (P)) (Q2)).
-  if (   $cond->[0] eq 'GT'
-      && $right->[0] eq 'SHR'
-      && $right->[1]->[0] eq 'ZX') {
-    my $q1 = $cond->[1];
-    my $k1 = &constant($cond->[2]);
-    my $k2 = $right->[1]->[1];
-    my $q2 = $right->[2];
-    if (   defined $k1
-        && $k1 == $k2 - 1
-        && &Same($q1, $q2)) {
+    my ($cond, $left, $right, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $cond = &castB($cond) or &Error('SELECT', @_);
+    $left = &castI($left) or &Error('SELECT', @_);
+    $right = &castI($right) or &Error('SELECT', @_);
+    if ($cond->[0] eq 'FALSE') {
         return $right;
+    } elsif ($cond->[0] eq 'TRUE') {
+        return $left;
+        #BD3 FIXME!} elsif (&Same($left, $right)) {
+        #BD3 FIXME!  return $left;
     }
-  }
-  my $right_attributes = $right->[-1];
-  my $left_attributes = $left->[-1];
-  my $right_width = $$right_attributes{WIDTH};
-  my $left_width = $$left_attributes{WIDTH};
-  my $width = undef;
-  if (defined $right_width) {
-    if (defined $left_width) {
-      $width = $right_width > $left_width? $right_width: $left_width;
-    } else { $width = $right_width }
-  } else { $width = $left_width }
-  $$attributes{TYPE} = 'Integer';
-  $$attributes{WIDTH} = $width if defined $width;
-  $$attributes{CODE} = \&SELECT;
-  return [ 'SELECT', $cond, $left, $right, $attributes ];
+    # [SC] Extremely labored test for a sign-extend expressed
+    # as a select.
+    #  Match
+    #     (SELECT
+    #       (I2B (AND (ZX.x (T)) (CONST k)))
+    #       (IOR (ZX.y (T2)) (CONST k2))
+    #       (ZX.z (T3)))
+    #    where T == T2 == T3
+    #    and   k = 2**n
+    #    and   k2 = -(2**n)
+    #    and   x >= n
+    #    and   y >= n
+    #    and   z == n
+    #  as a sign-extend from bit n, and replace with:
+    #       (SX.n+1 (T))
+    if ($cond->[0] eq 'I2B') {
+        if ($cond->[1]->[0] eq 'AND') {
+            my $and = $cond->[1];
+            my $k = &constant($and->[2]);
+            if ($and->[1]->[0] eq 'ZX') {
+                my $f2u = $and->[1];
+                my $x = $f2u->[1];
+                my $T = $f2u->[2];
+                if ($left->[0] eq 'IOR') {
+                    my $k2 = &constant($left->[2]);
+                    if ($left->[1]->[0] eq 'ZX') {
+                        my $f2u2 = $left->[1];
+                        my $y = $f2u2->[1];
+                        my $T2 = $f2u2->[2];
+                        if ($right->[0] eq 'ZX') {
+                            my $z = $right->[1];
+                            my $T3 = $right->[2];
+                            my $n = (defined $k) ? &powerof2($k) : -1;
+                            if (   &Same($T, $T2)
+                                && &Same($T, $T3)
+                                && $n > 0
+                                && defined $k2
+                                && &powerof2(-$k2) == $n
+                                && $x >= $n
+                                && $y >= $n
+                                && $z == $n) {
+                                return &SX($n+1, $T);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    # [SC] Test for unnecessarily guarded shift,
+    # expressed as a select.
+    #  Match
+    #    (SELECT
+    #      (GT (Q1) (CONST 0))
+    #      (SHR (P1) (Q2))
+    #      (P2))
+    #    where P1 == P2
+    #          Q1 == Q2 == ZX.x (exp)
+    #  and return
+    #    (SHR (P1) (Q2))
+    # Rationale:
+    #    ZX.x (exp) is >= 0
+    #    so the GT is true only when ZX.x (exp) is 0
+    #    but in this case  SHR (P) (CONST 0) is equivalent to (P).
+    if (   $cond->[0] eq 'GT'
+        && $cond->[1]->[0] =~ /^(ZX)$/) {
+        my $q1 = $cond->[1];
+        my $k1 = &constant($cond->[2]);
+        if ($left->[0] eq 'SHR') {
+            my $p1 = $left->[1];
+            my $q2 = $left->[2];
+            my $p2 = $right;
+            if (   defined $k1
+                && $k1 == 0
+                && &Same($q1, $q2)
+                && &Same($p1, $p2)) {
+                return $left;
+            }
+        }
+    }
+    # [SC] Another test for unnecessarily guarded shift.
+    #   Match
+    #     (SELECT
+    #       (GT (Q1) (CONST n-1))
+    #       (CONST 0)
+    #       (SHR (ZX.n (P)) (Q2)))
+    #   where Q1 == Q2
+    #   and return
+    #     (SHR (ZX.n (P)) (Q2)).
+    if (   $cond->[0] eq 'GT'
+        && $right->[0] eq 'SHR'
+        && $right->[1]->[0] eq 'ZX') {
+        my $q1 = $cond->[1];
+        my $k1 = &constant($cond->[2]);
+        my $k2 = $right->[1]->[1];
+        my $q2 = $right->[2];
+        if (   defined $k1
+            && $k1 == $k2 - 1
+            && &Same($q1, $q2)) {
+            return $right;
+        }
+    }
+    my $right_attributes = $right->[-1];
+    my $left_attributes = $left->[-1];
+    my $right_width = $$right_attributes{WIDTH};
+    my $left_width = $$left_attributes{WIDTH};
+    my $width = undef;
+    if (defined $right_width) {
+        if (defined $left_width) {
+            $width = $right_width > $left_width? $right_width: $left_width;
+        } else { $width = $right_width }
+    } else { $width = $left_width }
+    $$attributes{TYPE} = 'Integer';
+    $$attributes{WIDTH} = $width if defined $width;
+    $$attributes{CODE} = \&SELECT;
+    return [ 'SELECT', $cond, $left, $right, $attributes ];
 }
 
 sub ADD { &OP2II('ADD', \&ADD, @_) }
@@ -973,29 +973,29 @@ sub NEG { &OP1II('NEG', \&NEG, @_) }
 sub ABS { &OP1II('ABS', \&ABS, @_) }
 
 sub TRUE {
-  my ($attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $$attributes{TYPE} = 'Boolean';
-  $$attributes{WIDTH} = 1;
-  return [ 'TRUE', $attributes ];
+    my ($attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $$attributes{TYPE} = 'Boolean';
+    $$attributes{WIDTH} = 1;
+    return [ 'TRUE', $attributes ];
 }
 
 sub FALSE {
-  my ($attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $$attributes{TYPE} = 'Boolean';
-  $$attributes{WIDTH} = 1;
-  return [ 'FALSE', $attributes ];
+    my ($attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $$attributes{TYPE} = 'Boolean';
+    $$attributes{WIDTH} = 1;
+    return [ 'FALSE', $attributes ];
 }
 
 sub TEST {
-  my ($name, @arguments) = @_;
-  my $attributes = $arguments[-1];
-  if (ref $attributes eq 'HASH') { pop @arguments; }
-  else { $attributes = { }; }
-  $$attributes{TYPE} = 'Boolean';
-  $$attributes{WIDTH} = 1;
-  return [ 'TEST', $name, @arguments, $attributes ];
+    my ($name, @arguments) = @_;
+    my $attributes = $arguments[-1];
+    if (ref $attributes eq 'HASH') { pop @arguments; }
+    else { $attributes = { }; }
+    $$attributes{TYPE} = 'Boolean';
+    $$attributes{WIDTH} = 1;
+    return [ 'TEST', $name, @arguments, $attributes ];
 }
 
 sub NE { &OP2IB('NE', \&NE, @_) }
@@ -1012,257 +1012,257 @@ sub IORL { &OP2BB('IORL', \&IORL, @_) }
 sub XORL { &OP2BB('XORL', \&XORL, @_) }
 
 sub UNDEF {
-  my ($attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $$attributes{TYPE} = 'Integer';
-  return [ 'UNDEF', $attributes ];
+    my ($attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $$attributes{TYPE} = 'Integer';
+    return [ 'UNDEF', $attributes ];
 }
 
 sub METHOD {
-  my ($proxy, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $$attributes{TYPE} = 'Integer';
-  return [ 'METHOD', $proxy, $attributes ];
+    my ($proxy, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $$attributes{TYPE} = 'Integer';
+    return [ 'METHOD', $proxy, $attributes ];
 }
 
 sub CONST {
-  my $width = 32;
-  my ($value, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  my $repr = 'DECIMAL';
-  if ($value =~ /^0x/) {
-    $repr = 'HEXADECIMAL';
-  } elsif ($value =~ /^0b/) {
-    $repr = 'BINARY';
-  } elsif ($value =~ /^0/) {
-    $repr = 'OCTAL';
-  }
-  $value = oct $value if $value =~ /^0/;
-  if ($value =~ /[^-+\d]/) {
-    $attributes = { TYPE=>'Symbolic', WIDTH=>$width };
-  } else {
-    # HACK ALERT: assume unsigned constant!
-    my $mask = -1;
-    for ($width = 0; $mask != 0; $mask <<= 1, $width++) {
-      last if ($value & ~$mask) == $value;
+    my $width = 32;
+    my ($value, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    my $repr = 'DECIMAL';
+    if ($value =~ /^0x/) {
+        $repr = 'HEXADECIMAL';
+    } elsif ($value =~ /^0b/) {
+        $repr = 'BINARY';
+    } elsif ($value =~ /^0/) {
+        $repr = 'OCTAL';
     }
-    $attributes = { TYPE=>'Integer', WIDTH=>$width, REPR=>$repr };
-    if(-($value+0) == 0x80000000) { $value = "0x80000000"; }
-  }
-  return [ 'CONST', $value, $attributes ];
+    $value = oct $value if $value =~ /^0/;
+    if ($value =~ /[^-+\d]/) {
+        $attributes = { TYPE=>'Symbolic', WIDTH=>$width };
+    } else {
+        # HACK ALERT: assume unsigned constant!
+        my $mask = -1;
+        for ($width = 0; $mask != 0; $mask <<= 1, $width++) {
+            last if ($value & ~$mask) == $value;
+        }
+        $attributes = { TYPE=>'Integer', WIDTH=>$width, REPR=>$repr };
+        if(-($value+0) == 0x80000000) { $value = "0x80000000"; }
+    }
+    return [ 'CONST', $value, $attributes ];
 }
 
 sub APPLY {
-  my ($width, $name, @arguments) = @_;
-  my $attributes = $arguments[-1];
-  if (ref $attributes eq 'HASH') { pop @arguments; }
-  elsif ($width) { $attributes = { WIDTH=>$width }; }
-  else { $attributes = { }; }
-  $$attributes{TYPE} = 'Integer';
-  return [ 'APPLY', $width, $name, @arguments, $attributes ];
+    my ($width, $name, @arguments) = @_;
+    my $attributes = $arguments[-1];
+    if (ref $attributes eq 'HASH') { pop @arguments; }
+    elsif ($width) { $attributes = { WIDTH=>$width }; }
+    else { $attributes = { }; }
+    $$attributes{TYPE} = 'Integer';
+    return [ 'APPLY', $width, $name, @arguments, $attributes ];
 }
 
 sub THROW {
-  my ($stage, $name, @arguments) = @_;
-  return [ 'THROW', $stage, $name, @arguments ];
+    my ($stage, $name, @arguments) = @_;
+    return [ 'THROW', $stage, $name, @arguments ];
 }
 
 sub EFFECT {
-  my ($stage, $name, @arguments) = @_;
-  return [ 'EFFECT', $stage, $name, @arguments ];
+    my ($stage, $name, @arguments) = @_;
+    return [ 'EFFECT', $stage, $name, @arguments ];
 }
 
 sub READ {
-  my ($section, $name, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  my $symbol = $Symbol{$name};
-  &Error("READ unknown symbol", @_) if ref $symbol ne 'HASH';
-  $$attributes{TYPE} = 'Integer';
-  return [ 'READ', $section, $name, $attributes ];
+    my ($section, $name, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    my $symbol = $Symbol{$name};
+    &Error("READ unknown symbol", @_) if ref $symbol ne 'HASH';
+    $$attributes{TYPE} = 'Integer';
+    return [ 'READ', $section, $name, $attributes ];
 }
 
 sub WRITE {
-  my ($section, $name, $expression) = @_;
-  my $symbol = $Symbol{$name};
-  &Error("WRITE unknown symbol", @_) if ref $symbol ne 'HASH';
-  return [ 'WRITE', $section, $name, &castI($expression) ];
+    my ($section, $name, $expression) = @_;
+    my $symbol = $Symbol{$name};
+    &Error("WRITE unknown symbol", @_) if ref $symbol ne 'HASH';
+    return [ 'WRITE', $section, $name, &castI($expression) ];
 }
 
 sub INDEX {
-  my (@arguments) = @_;
-  return [ 'INDEX', @arguments ];
+    my (@arguments) = @_;
+    return [ 'INDEX', @arguments ];
 }
 
 sub ACCESS {
-  my ($stage, $proxy, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  &Error("ACCESS unknown proxy", @_) if ref $Symbol{$proxy} ne 'HASH';
-  $$attributes{TYPE} = 'Integer';
-  return [ 'ACCESS', $stage, $proxy, $attributes ];
+    my ($stage, $proxy, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    &Error("ACCESS unknown proxy", @_) if ref $Symbol{$proxy} ne 'HASH';
+    $$attributes{TYPE} = 'Integer';
+    return [ 'ACCESS', $stage, $proxy, $attributes ];
 }
 
 sub PROPERTY {
-  my ($ident, $name, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  &Error("PROPERTY unknown proxy", @_) if ref $Symbol{$name} ne 'HASH';
-  my $value = $Symbol{$name}->{$ident} || 0;
-  #&Error("PROPERTY $name.$ident unknown") unless defined $value;
-  $$attributes{TYPE} = 'Integer';
-  return [ 'CONST', $value, $attributes ];
+    my ($ident, $name, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    &Error("PROPERTY unknown proxy", @_) if ref $Symbol{$name} ne 'HASH';
+    my $value = $Symbol{$name}->{$ident} || 0;
+    #&Error("PROPERTY $name.$ident unknown") unless defined $value;
+    $$attributes{TYPE} = 'Integer';
+    return [ 'CONST', $value, $attributes ];
 }
 
 sub COMMIT {
-  my ($stage, $proxy, $expression, $mask) = @_;
-  &Error("COMMIT unknown proxy", @_) if ref $Symbol{$proxy} ne 'HASH';
-  return [ 'COMMIT', $stage, $proxy, &castI($expression) ] unless defined $mask;
-  return [ 'COMMIT', $stage, $proxy, &castI($expression), $mask ];
+    my ($stage, $proxy, $expression, $mask) = @_;
+    &Error("COMMIT unknown proxy", @_) if ref $Symbol{$proxy} ne 'HASH';
+    return [ 'COMMIT', $stage, $proxy, &castI($expression) ] unless defined $mask;
+    return [ 'COMMIT', $stage, $proxy, &castI($expression), $mask ];
 }
 
 sub LOAD {
-  my ($stage, $location) = @_;
-  $stage = "_" unless defined $stage;
-  my $name = $$location[1];
-  my $extent = $$location[3];
-  my $cells = ($$extent[0] eq 'CONST')? $$extent[1]: 0;
-  my $width = $Storage{$name}->{WIDTH};
-  my $attributes = {};
-  unless ($partial_initialization) {
-    $attributes = { TYPE=>'BitField', WIDTH=>$cells*$width };
-  }
-  return [ 'LOAD', $stage, $location, $attributes ];
+    my ($stage, $location) = @_;
+    $stage = "_" unless defined $stage;
+    my $name = $$location[1];
+    my $extent = $$location[3];
+    my $cells = ($$extent[0] eq 'CONST')? $$extent[1]: 0;
+    my $width = $Storage{$name}->{WIDTH};
+    my $attributes = {};
+    unless ($partial_initialization) {
+        $attributes = { TYPE=>'BitField', WIDTH=>$cells*$width };
+    }
+    return [ 'LOAD', $stage, $location, $attributes ];
 }
 
 sub STORE {
-  my ($stage, $location, $field, $mask) = @_;
-  $stage = "_" unless defined $stage;
-  my $name = $$location[1];
-  my $extent = $$location[3];
-  my $width = $Storage{$name}->{WIDTH};
-  unless ($partial_initialization) {
-    if ($field->[-1]->{TYPE} ne 'BitField') {
-      my $cells = ($$extent[0] eq 'CONST')? $$extent[1]: 0;
-      my $width = $cells*$width;
-      $field = &I2F($width, &castI($field));
+    my ($stage, $location, $field, $mask) = @_;
+    $stage = "_" unless defined $stage;
+    my $name = $$location[1];
+    my $extent = $$location[3];
+    my $width = $Storage{$name}->{WIDTH};
+    unless ($partial_initialization) {
+        if ($field->[-1]->{TYPE} ne 'BitField') {
+            my $cells = ($$extent[0] eq 'CONST')? $$extent[1]: 0;
+            my $width = $cells*$width;
+            $field = &I2F($width, &castI($field));
+        }
     }
-  }
-  return [ 'STORE', $stage, $location, $field ] unless defined $mask;
-  return [ 'STORE', $stage, $location, $field, $mask ];
+    return [ 'STORE', $stage, $location, $field ] unless defined $mask;
+    return [ 'STORE', $stage, $location, $field, $mask ];
 }
 
 sub PROBE {
-  my ($stage, $location, $attributes) = @_;
-  $attributes = { } unless defined $attributes;
-  $stage = "_" unless defined $stage;
-  my $name = $$location[1];
-  $$attributes{TYPE} = 'Boolean';
-  return [ 'PROBE', $stage, $location, $attributes ];
+    my ($stage, $location, $attributes) = @_;
+    $attributes = { } unless defined $attributes;
+    $stage = "_" unless defined $stage;
+    my $name = $$location[1];
+    $$attributes{TYPE} = 'Boolean';
+    return [ 'PROBE', $stage, $location, $attributes ];
 }
 
 sub AGGL {
-  my ($storage, $address, $extent) = @_;
-  &Error("PROBE unknown storage", @_) if ref $Storage{$storage} ne 'HASH';
-  my $width = $Storage{$storage}->{WIDTH};
-  &Error("$storage width undefined", @_) unless defined $width;
-  return [ 'AGGL', $storage, $address, $extent ];
+    my ($storage, $address, $extent) = @_;
+    &Error("PROBE unknown storage", @_) if ref $Storage{$storage} ne 'HASH';
+    my $width = $Storage{$storage}->{WIDTH};
+    &Error("$storage width undefined", @_) unless defined $width;
+    return [ 'AGGL', $storage, $address, $extent ];
 }
 
 sub AGGB {
-  my ($storage, $address, $extent) = @_;
-  &Error("PROBE unknown storage", @_) if ref $Storage{$storage} ne 'HASH';
-  my $width = $Storage{$storage}->{WIDTH};
-  &Error("$storage width undefined", @_) unless defined $width;
-  return [ 'AGGB', $storage, $address, $extent ];
+    my ($storage, $address, $extent) = @_;
+    &Error("PROBE unknown storage", @_) if ref $Storage{$storage} ne 'HASH';
+    my $width = $Storage{$storage}->{WIDTH};
+    &Error("$storage width undefined", @_) unless defined $width;
+    return [ 'AGGB', $storage, $address, $extent ];
 }
 
 sub MACRO {
-  my (@arguments) = @_;
-  return [ 'MACRO', @arguments ];
+    my (@arguments) = @_;
+    return [ 'MACRO', @arguments ];
 }
 
 sub FOR {
-  my (@arguments) = @_;
-  my $ident = $arguments[0];
-  my $range = $arguments[1];
-  my $contents = &SEQ($arguments[2]);
-  return [ 'FOR', $ident, $range, @{$contents} ];
+    my (@arguments) = @_;
+    my $ident = $arguments[0];
+    my $range = $arguments[1];
+    my $contents = &SEQ($arguments[2]);
+    return [ 'FOR', $ident, $range, @{$contents} ];
 }
 
 sub RANGE {
-  my (@arguments) = @_;
-  my ($begin, $end, $step) = @arguments;
-  if ($step == 0) {
-    die "Malformed range: step is zero.";
-  } elsif (($end - $begin) / $step < 0) {
-    die "Malformed range: $end will never be reached.";
-  } elsif (($end - $begin) % $step != 0) {
-    die "Malformed range: $end - $begin not a multiple of $step."
-  }
-  return [ 'RANGE', @arguments ];
+    my (@arguments) = @_;
+    my ($begin, $end, $step) = @arguments;
+    if ($step == 0) {
+        die "Malformed range: step is zero.";
+    } elsif (($end - $begin) / $step < 0) {
+        die "Malformed range: $end will never be reached.";
+    } elsif (($end - $begin) % $step != 0) {
+        die "Malformed range: $end - $begin not a multiple of $step."
+    }
+    return [ 'RANGE', @arguments ];
 }
 
 sub SECTION {
-  my (@arguments) = @_;
-  if (scalar @arguments == 2) {
-    return [ 'SECTION', $arguments[0], $arguments[1] ];
-  } else {
-    return [ 'SECTION', $arguments[1], 0 ];
-  }
+    my (@arguments) = @_;
+    if (scalar @arguments == 2) {
+        return [ 'SECTION', $arguments[0], $arguments[1] ];
+    } else {
+        return [ 'SECTION', $arguments[1], 0 ];
+    }
 }
 
 sub SKIP {
-  my (@arguments) = @_;
-  return [ 'SKIP', @arguments ];
+    my (@arguments) = @_;
+    return [ 'SKIP', @arguments ];
 }
 
 sub CANCEL {
-  return [ 'CANCEL' ];
+    return [ 'CANCEL' ];
 }
 
 sub SEQ {
-  my @contents; map {
-    if (ref $_ eq 'ARRAY' && $_->[0] eq 'SEQ') {
-      push @contents, @{$_}[1 .. @{$_}-1];
-    } else {
-      push @contents, $_;
+    my @contents; map {
+        if (ref $_ eq 'ARRAY' && $_->[0] eq 'SEQ') {
+            push @contents, @{$_}[1 .. @{$_}-1];
+        } else {
+            push @contents, $_;
+        }
+      } grep {
+        ref $_ ne 'ARRAY' || $_->[0] ne 'SKIP'
+      } @_;
+    if (@contents == 0) {
+        return &SKIP();
+    } elsif (@contents == 1) {
+        return $contents[0];
     }
-  } grep {
-    ref $_ ne 'ARRAY' || $_->[0] ne 'SKIP'
-  } @_;
-  if (@contents == 0) {
-    return &SKIP();
-  } elsif (@contents == 1) {
-    return $contents[0];
-  }
-  return [ 'SEQ', @contents ];
+    return [ 'SEQ', @contents ];
 }
 
 sub IF {
-  my ($test, $then, $else) = @_;
-  $test = &castB($test) or &Error('IF', @_);
-  if ($then->[0] eq 'SKIP' && $else->[0] eq 'SKIP') {
-    return &SKIP();
-  } elsif ($test->[0] eq 'FALSE') {
-    return $else;
-  } elsif ($test->[0] eq 'TRUE') {
-    return $then;
-  } elsif (&Same($then, $else)) {
-    return $then;
-  }
-  if ($then->[0] eq 'SEQ' && $else->[0] eq 'SEQ') {
-    # Try to extract a common suffix from the $then and $else sequences.
-    my @then = @{$then}[1 .. @{$then}-1];
-    my @else = @{$else}[1 .. @{$else}-1];
-    my @same;
-    while (@then > 1 && @else > 1 && &Same($then[-1], $else[-1])) {
-      my $same = pop @then; pop @else;
-      unshift @same, $same;
+    my ($test, $then, $else) = @_;
+    $test = &castB($test) or &Error('IF', @_);
+    if ($then->[0] eq 'SKIP' && $else->[0] eq 'SKIP') {
+        return &SKIP();
+    } elsif ($test->[0] eq 'FALSE') {
+        return $else;
+    } elsif ($test->[0] eq 'TRUE') {
+        return $then;
+    } elsif (&Same($then, $else)) {
+        return $then;
     }
-    if (@same) {
-      my $if = [ 'IF', $test, &SEQ(@then), &SEQ(@else) ];
-      return &SEQ($if, @same);
+    if ($then->[0] eq 'SEQ' && $else->[0] eq 'SEQ') {
+        # Try to extract a common suffix from the $then and $else sequences.
+        my @then = @{$then}[1 .. @{$then}-1];
+        my @else = @{$else}[1 .. @{$else}-1];
+        my @same;
+        while (@then > 1 && @else > 1 && &Same($then[-1], $else[-1])) {
+            my $same = pop @then; pop @else;
+            unshift @same, $same;
+        }
+        if (@same) {
+            my $if = [ 'IF', $test, &SEQ(@then), &SEQ(@else) ];
+            return &SEQ($if, @same);
+        }
     }
-  }
-  return [ 'IF', $test, $then, $else ];
+    return [ 'IF', $test, $then, $else ];
 }
 
 #
@@ -1272,394 +1272,394 @@ sub IF {
 #    moved to lhs.
 #
 sub treeRank {
-  my ($tree) = @_;
-  if ($tree->[0] eq 'METHOD') {
-    # Method trees always rank >= 32768.
-    # Higher ranks for lower proxies.
-    my $proxy = substr $tree->[1], 1, 1;
-    return ((128 - $proxy) << 16);
-  } else {
-    my $result = 1;
-    if ($tree->[0] eq 'CONST' &&
-        $tree->[-1]->{TYPE} eq 'Integer') {
-      $result = abs(&constant($tree));
-      $result = 32767 if $result > 32767;
+    my ($tree) = @_;
+    if ($tree->[0] eq 'METHOD') {
+        # Method trees always rank >= 32768.
+        # Higher ranks for lower proxies.
+        my $proxy = substr $tree->[1], 1, 1;
+        return ((128 - $proxy) << 16);
     } else {
-      if ($tree->[0] =~ /^(SX|ZX)$/) {
-        $result = $tree->[1];
-      }
-      foreach my $child (grep { ref $_ eq 'ARRAY' } @{$tree}) {
-        $result += &treeRank($child);
-      }
+        my $result = 1;
+        if ($tree->[0] eq 'CONST' &&
+            $tree->[-1]->{TYPE} eq 'Integer') {
+            $result = abs(&constant($tree));
+            $result = 32767 if $result > 32767;
+        } else {
+            if ($tree->[0] =~ /^(SX|ZX)$/) {
+                $result = $tree->[1];
+            }
+            foreach my $child (grep { ref $_ eq 'ARRAY' } @{$tree}) {
+                $result += &treeRank($child);
+            }
+        }
+        return $result;
     }
-    return $result;
-  }
 }
 
 #
 # Build a list of operands of a given operator.
 #
 sub operandsOf {
-  my @result;
-  my ($code, $tree) = @_;
-  if (defined $tree->[-1]->{CODE} && $tree->[-1]->{CODE} == $code) {
-    @result = ( &operandsOf($code, $tree->[1]), &operandsOf($code, $tree->[2]) );
-  } else {
-    @result = ( $tree );
-  }
-  return @result;
+    my @result;
+    my ($code, $tree) = @_;
+    if (defined $tree->[-1]->{CODE} && $tree->[-1]->{CODE} == $code) {
+        @result = ( &operandsOf($code, $tree->[1]), &operandsOf($code, $tree->[2]) );
+    } else {
+        @result = ( $tree );
+    }
+    return @result;
 }
 
 #
 # Commute the given syntax tree so that low METHOD proxy numbers appear first.
 #
 sub Commute {
-  my ($tree) = @_;
-  # Recursive Commute.
-  my @arguments = map {
-    $_ = ref $_ eq 'ARRAY'? &Commute($_): $_;
-  } @{$tree}[1 .. @{$tree}-1];
-  if ($tree->[0] =~ /^(ADD|MUL|AND|IOR|XOR|MIN|MAX|ANDL|IORL|XORL)$/) {
-    my $code = $tree->[-1]->{CODE};
-    my @opds = sort { &treeRank($b) <=> &treeRank($a); } &operandsOf($code, $tree);
-    foreach my $opd (@opds) {
-#print STDERR "Rank ", &Pretty($opd, " "),"  = ";
-#printf STDERR "%x\n", &treeRank($opd);
+    my ($tree) = @_;
+    # Recursive Commute.
+    my @arguments = map {
+        $_ = ref $_ eq 'ARRAY'? &Commute($_): $_;
+      } @{$tree}[1 .. @{$tree}-1];
+    if ($tree->[0] =~ /^(ADD|MUL|AND|IOR|XOR|MIN|MAX|ANDL|IORL|XORL)$/) {
+        my $code = $tree->[-1]->{CODE};
+        my @opds = sort { &treeRank($b) <=> &treeRank($a); } &operandsOf($code, $tree);
+        foreach my $opd (@opds) {
+            #print STDERR "Rank ", &Pretty($opd, " "),"  = ";
+            #printf STDERR "%x\n", &treeRank($opd);
+        }
+        $tree = shift @opds;
+        foreach my $opd (@opds) {
+            $tree = &$code($tree, $opd);
+        }
+    } elsif ($tree->[0] =~ /^(NE|EQ|GT|LE|GE|LT)$/) {
+        my ($tree_1, $tree_2) = ($tree->[1], $tree->[2]);
+        my ($rank_1, $rank_2) = (&treeRank($tree_1), &treeRank($tree_2));
+        if ($rank_1 lt $rank_2) {
+            $tree->[1] = $tree_2;
+            $tree->[2] = $tree_1;
+            if    ($tree->[0] eq 'GT') { $tree->[0] = 'LT' }
+            elsif ($tree->[0] eq 'LE') { $tree->[0] = 'GE' }
+            elsif ($tree->[0] eq 'GE') { $tree->[0] = 'LE' }
+            elsif ($tree->[0] eq 'LT') { $tree->[0] = 'GT' }
+            #print STDERR "Commuted $tree->[0]!\n";
+        }
+    } elsif ($tree->[0] eq 'SELECT') {
+        my ($tree_1, $tree_2, $tree_3) = ($tree->[1], $tree->[2], $tree->[3]);
+        if ($tree_1->[0] =~ /^(NE|EQ|GT|LE|GE|LT)$/) {
+            my ($rank_2, $rank_3) = (&treeRank($tree_2), &treeRank($tree_3));
+            if ($rank_2 lt $rank_3) {
+                $tree->[2] = $tree_3;
+                $tree->[3] = $tree_2;
+                if    ($tree_1->[0] eq 'GT') { $tree_1->[0] = 'LE' }
+                elsif ($tree_1->[0] eq 'LE') { $tree_1->[0] = 'GT' }
+                elsif ($tree_1->[0] eq 'GE') { $tree_1->[0] = 'LT' }
+                elsif ($tree_1->[0] eq 'LT') { $tree_1->[0] = 'GE' }
+                elsif ($tree_1->[0] eq 'EQ') { $tree_1->[0] = 'NE' }
+                elsif ($tree_1->[0] eq 'NE') { $tree_1->[0] = 'EQ' }
+                #print STDERR "Commuted $tree->[0]!\n";
+            }
+        }
     }
-    $tree = shift @opds;
-    foreach my $opd (@opds) {
-      $tree = &$code($tree, $opd);
-    }
-  } elsif ($tree->[0] =~ /^(NE|EQ|GT|LE|GE|LT)$/) {
-    my ($tree_1, $tree_2) = ($tree->[1], $tree->[2]);
-    my ($rank_1, $rank_2) = (&treeRank($tree_1), &treeRank($tree_2));
-    if ($rank_1 lt $rank_2) {
-      $tree->[1] = $tree_2;
-      $tree->[2] = $tree_1;
-      if    ($tree->[0] eq 'GT') { $tree->[0] = 'LT' }
-      elsif ($tree->[0] eq 'LE') { $tree->[0] = 'GE' }
-      elsif ($tree->[0] eq 'GE') { $tree->[0] = 'LE' }
-      elsif ($tree->[0] eq 'LT') { $tree->[0] = 'GT' }
-#print STDERR "Commuted $tree->[0]!\n";
-    }
-  } elsif ($tree->[0] eq 'SELECT') {
-    my ($tree_1, $tree_2, $tree_3) = ($tree->[1], $tree->[2], $tree->[3]);
-    if ($tree_1->[0] =~ /^(NE|EQ|GT|LE|GE|LT)$/) {
-      my ($rank_2, $rank_3) = (&treeRank($tree_2), &treeRank($tree_3));
-      if ($rank_2 lt $rank_3) {
-        $tree->[2] = $tree_3;
-        $tree->[3] = $tree_2;
-        if    ($tree_1->[0] eq 'GT') { $tree_1->[0] = 'LE' }
-        elsif ($tree_1->[0] eq 'LE') { $tree_1->[0] = 'GT' }
-        elsif ($tree_1->[0] eq 'GE') { $tree_1->[0] = 'LT' }
-        elsif ($tree_1->[0] eq 'LT') { $tree_1->[0] = 'GE' }
-        elsif ($tree_1->[0] eq 'EQ') { $tree_1->[0] = 'NE' }
-        elsif ($tree_1->[0] eq 'NE') { $tree_1->[0] = 'EQ' }
-#print STDERR "Commuted $tree->[0]!\n";
-      }
-    }
-  }
-  return $tree;
+    return $tree;
 }
 
 #
 # True if the two given syntax trees have the same contents.
 #
 sub Same {
-  my ($this, $that) = @_;
-  if (ref $this eq ref $that) {
-    if (ref $this eq 'ARRAY') {
-      my @this = grep { ref $_ ne 'HASH' } @{$this};
-      my @that = grep { ref $_ ne 'HASH' } @{$that};
-      while (@this && @that) {
-        my $this = shift @this;
-        my $that = shift @that;
-        return 0 unless &Same($this, $that);
-      }
-      return (@this == @that);
-    } elsif (!ref $this) {
-      return ($this eq $that);
+    my ($this, $that) = @_;
+    if (ref $this eq ref $that) {
+        if (ref $this eq 'ARRAY') {
+            my @this = grep { ref $_ ne 'HASH' } @{$this};
+            my @that = grep { ref $_ ne 'HASH' } @{$that};
+            while (@this && @that) {
+                my $this = shift @this;
+                my $that = shift @that;
+                return 0 unless &Same($this, $that);
+            }
+            return (@this == @that);
+        } elsif (!ref $this) {
+            return ($this eq $that);
+        }
+        return 1;
     }
-    return 1;
-  }
-  return 0;
+    return 0;
 }
 
 #
 # Reorder the given syntax tree according to the stages.
 #
 sub Reorder {
-  my ($tree) = @_;
-  if (ref $tree eq 'ARRAY') {
-    # Save attributes if any.
-    my $attributes = undef;
-    if (ref $tree->[-1] eq 'HASH') {
-      $attributes = pop @{$tree};
+    my ($tree) = @_;
+    if (ref $tree eq 'ARRAY') {
+        # Save attributes if any.
+        my $attributes = undef;
+        if (ref $tree->[-1] eq 'HASH') {
+            $attributes = pop @{$tree};
+        }
+        # Special processing of SEQ.
+        if ($tree->[0] eq 'SEQ') {
+            # Sinks the COMMIT(s).
+            my %proxy;
+            my @commits = grep {
+                !$proxy{$_->[2]}++;
+              } sort {
+                $a->[1] <=> $b->[1]
+              } grep {
+                ref $_ eq 'ARRAY' && $_->[0] eq 'COMMIT'
+              } @{$tree};
+            my @newtree = map {
+                $_ = &Reorder($_)
+              } grep {
+                ref $_ ne 'ARRAY' || $_->[0] ne 'COMMIT'
+              } @{$tree};
+            $tree = [ @newtree, @commits ];
+        }
+        # Restore attributes if any.
+        if (defined $attributes) {
+            push @{$tree}, $attributes;
+        }
     }
-    # Special processing of SEQ.
-    if ($tree->[0] eq 'SEQ') {
-      # Sinks the COMMIT(s).
-      my %proxy;
-      my @commits = grep {
-        !$proxy{$_->[2]}++;
-      } sort {
-        $a->[1] <=> $b->[1]
-      } grep {
-        ref $_ eq 'ARRAY' && $_->[0] eq 'COMMIT'
-      } @{$tree};
-      my @newtree = map {
-        $_ = &Reorder($_)
-      } grep { 
-        ref $_ ne 'ARRAY' || $_->[0] ne 'COMMIT'
-      } @{$tree};
-      $tree = [ @newtree, @commits ];
-    }
-    # Restore attributes if any.
-    if (defined $attributes) {
-      push @{$tree}, $attributes;
-    }
-  }
-  return $tree;
+    return $tree;
 }
 
 #
 # Normalize the given syntax tree using PruneWrite.
 #
 sub Normalize {
-  my ($tree) = @_;
-  ($tree) = &PruneWrite($tree);
-  return $tree;
+    my ($tree) = @_;
+    ($tree) = &PruneWrite($tree);
+    return $tree;
 }
 
 #
 # Prune WRITE statements that are not used.
 #
 sub PruneWrite {
-  my ($tree, $uses) = @_;
-  &Error('PruneWrite', $tree, $uses) unless ref $tree eq 'ARRAY';
-  if (ref $uses) { $uses = { %$uses } }
-  else { $uses = { } }
-  # Save attributes if any.
-  my $attributes = undef;
-  if (ref $tree->[-1] eq 'HASH') {
-    $attributes = pop @{$tree};
-  }
-  # Process tree.
-  if ($tree->[0] eq 'IF') {
-    # IF: union the uses of children.
-    my ($test, $uses1) = &PruneWrite($tree->[1], $uses);
-    my ($then, $uses2) = &PruneWrite($tree->[2], $uses);
-    my ($else, $uses3) = &PruneWrite($tree->[3], $uses);
-    $tree->[1] = $test;
-    $tree->[2] = $then;
-    $tree->[3] = $else;
-    $uses = { %$uses1, %$uses2, %$uses3 };
-  } elsif ($tree->[0] eq 'WRITE' && !length($tree->[1])) {
-    # WRITE: remove name from uses, change to SKIP if no uses.
-    my $name = $tree->[2];
-    my $value = $tree->[3];
-    if (defined $$uses{$name}) {
-      $$uses{$name} = undef;
-      ($value, $uses) = &PruneWrite($value, $uses);
-      $tree->[3] = $value;
-    } else {
-      $tree = &SKIP();
+    my ($tree, $uses) = @_;
+    &Error('PruneWrite', $tree, $uses) unless ref $tree eq 'ARRAY';
+    if (ref $uses) { $uses = { %$uses } }
+    else { $uses = { } }
+    # Save attributes if any.
+    my $attributes = undef;
+    if (ref $tree->[-1] eq 'HASH') {
+        $attributes = pop @{$tree};
     }
-  } elsif ($tree->[0] eq 'READ') {
-    # READ: add name to uses.
-    my $name = $tree->[2];
-    ++$$uses{$name};
-  } else {
-    # PruneWrite non-IF children in reverse order.
-    my @newtree = reverse map {
-      my $child = $_;
-      if (ref $child eq 'ARRAY') {
-        ($child, $uses) = &PruneWrite($child, $uses);
-      }
-      $child;
-    } reverse @{$tree};
-    $tree = [ @newtree ];
-  }
-  # Restore attributes if any.
-  if (defined $attributes) {
-    push @{$tree}, $attributes;
-  }
-  return ($tree, $uses);
+    # Process tree.
+    if ($tree->[0] eq 'IF') {
+        # IF: union the uses of children.
+        my ($test, $uses1) = &PruneWrite($tree->[1], $uses);
+        my ($then, $uses2) = &PruneWrite($tree->[2], $uses);
+        my ($else, $uses3) = &PruneWrite($tree->[3], $uses);
+        $tree->[1] = $test;
+        $tree->[2] = $then;
+        $tree->[3] = $else;
+        $uses = { %$uses1, %$uses2, %$uses3 };
+    } elsif ($tree->[0] eq 'WRITE' && !length($tree->[1])) {
+        # WRITE: remove name from uses, change to SKIP if no uses.
+        my $name = $tree->[2];
+        my $value = $tree->[3];
+        if (defined $$uses{$name}) {
+            $$uses{$name} = undef;
+            ($value, $uses) = &PruneWrite($value, $uses);
+            $tree->[3] = $value;
+        } else {
+            $tree = &SKIP();
+        }
+    } elsif ($tree->[0] eq 'READ') {
+        # READ: add name to uses.
+        my $name = $tree->[2];
+        ++$$uses{$name};
+    } else {
+        # PruneWrite non-IF children in reverse order.
+        my @newtree = reverse map {
+            my $child = $_;
+            if (ref $child eq 'ARRAY') {
+                ($child, $uses) = &PruneWrite($child, $uses);
+            }
+            $child;
+          } reverse @{$tree};
+        $tree = [ @newtree ];
+    }
+    # Restore attributes if any.
+    if (defined $attributes) {
+        push @{$tree}, $attributes;
+    }
+    return ($tree, $uses);
 }
 
 #
 # Simplify the given syntax tree.
 #
 sub Simplify {
-  my ($tree) = @_;
-  # Simplify children.
-  my @arguments = map {
-    $_ = ref $_ eq 'ARRAY'? &Simplify($_): $_;
-  } @{$tree}[1 .. @{$tree}-1];
-  my $attributes = $tree->[-1];
-  # Reinterpret the operators for constant folding etc.
-  if (ref $attributes eq 'HASH') {
-    my $code = $attributes->{CODE};
-    $tree = &$code(@arguments) if defined $code;
-  }
-  if ($tree->[0] eq 'SEQ') {
-    # Processing a SEQ.
-    # Try to merge IF statements with common test.
-    my $prev_if;
-    map {
-      if (ref $_ eq 'ARRAY') {
-        if ($_->[0] eq 'IF') {
-          if (defined $prev_if && &Same($prev_if->[1], $_->[1])) {
-            $_->[2] = &Simplify(&SEQ($prev_if->[2], $_->[2]));
-            $_->[3] = &Simplify(&SEQ($prev_if->[3], $_->[3]));
-            $prev_if->[0] = 'SKIP';
-          }
-          $prev_if = $_;
-        } elsif ($_->[0] ne 'SKIP') {
-          $prev_if = undef;
-        }
-      } else {
-        $prev_if = undef;
-      }
-    } @{$tree};
-    $tree = &SEQ(@{$tree}[1 .. @{$tree}-1]);
-  } elsif ($tree->[0] eq 'IF') {
-    # Processing a IF.
-    my ($test, $then, $else) = ($tree->[1], $tree->[2], $tree->[3]);
-    if ($then->[0] eq 'STORE' && $else->[0] eq 'STORE' &&
-        !defined($then->[4]) && !defined($else->[4]) &&
-        $then->[1] eq $else->[1] && &Same($then->[2], $else->[2]) &&
-        $then->[3]->[0] eq 'I2F' && $else->[3]->[0] eq 'I2F' &&
-        &Same($then->[3]->[1], $else->[3]->[1])) {
-      # Convert IF into SELECT.  Note that SELECT works on Integers: move I2F
-      # outside SELECT to keep with STORE.
-      my $select = &SELECT(&Clone($test), $then->[3]->[2], $else->[3]->[2]);
-      my $field = &I2F($then->[3]->[1], $select);
-      $tree = &STORE($then->[1], $then->[2], $field);
-    } else {
-      # Try to convert prefix and/or suffix of sequence into SELECTs.
-      my @then = $then->[0] eq 'SEQ' ? @{$then}[1 .. @{$then}-1] : ($then);
-      my @else = $else->[0] eq 'SEQ' ? @{$else}[1 .. @{$else}-1] : ($else);
-      my (@prefix, @suffix);
-      while (@then && @else) {
-        my ($thenI, $elseI) = ($then[0], $else[0]);
-        if ($thenI->[0] eq 'WRITE' && $elseI->[0] eq 'WRITE' &&
-            $thenI->[1] eq $elseI->[1] && $thenI->[2] eq $elseI->[2]) {
-          my $select = &SELECT(&Clone($test), $thenI->[3], $elseI->[3]);
-          push @prefix, &WRITE($thenI->[1], $thenI->[2], $select);
-          shift @then; shift @else; next;
-        }
-        last;
-      }
-      while (@then && @else) {
-        my ($thenI, $elseI) = ($then[-1], $else[-1]);
-        if ($thenI->[0] eq 'WRITE' && $elseI->[0] eq 'WRITE' &&
-            $thenI->[1] eq $elseI->[1] && $thenI->[2] eq $elseI->[2]) {
-          my $select = &SELECT(&Clone($test), $thenI->[3], $elseI->[3]);
-          unshift @suffix, &WRITE($thenI->[1], $thenI->[2], $select);
-          pop @then; pop @else; next;
-        }
-        last;
-      }
-      my $if = &IF($test, &SEQ(@then), &SEQ(@else));
-      $tree = &SEQ(@prefix, $if, @suffix);
+    my ($tree) = @_;
+    # Simplify children.
+    my @arguments = map {
+        $_ = ref $_ eq 'ARRAY'? &Simplify($_): $_;
+      } @{$tree}[1 .. @{$tree}-1];
+    my $attributes = $tree->[-1];
+    # Reinterpret the operators for constant folding etc.
+    if (ref $attributes eq 'HASH') {
+        my $code = $attributes->{CODE};
+        $tree = &$code(@arguments) if defined $code;
     }
-  }
-  return $tree;
+    if ($tree->[0] eq 'SEQ') {
+        # Processing a SEQ.
+        # Try to merge IF statements with common test.
+        my $prev_if;
+        map {
+            if (ref $_ eq 'ARRAY') {
+                if ($_->[0] eq 'IF') {
+                    if (defined $prev_if && &Same($prev_if->[1], $_->[1])) {
+                        $_->[2] = &Simplify(&SEQ($prev_if->[2], $_->[2]));
+                        $_->[3] = &Simplify(&SEQ($prev_if->[3], $_->[3]));
+                        $prev_if->[0] = 'SKIP';
+                    }
+                    $prev_if = $_;
+                } elsif ($_->[0] ne 'SKIP') {
+                    $prev_if = undef;
+                }
+            } else {
+                $prev_if = undef;
+            }
+          } @{$tree};
+        $tree = &SEQ(@{$tree}[1 .. @{$tree}-1]);
+    } elsif ($tree->[0] eq 'IF') {
+        # Processing a IF.
+        my ($test, $then, $else) = ($tree->[1], $tree->[2], $tree->[3]);
+        if ($then->[0] eq 'STORE' && $else->[0] eq 'STORE' &&
+            !defined($then->[4]) && !defined($else->[4]) &&
+            $then->[1] eq $else->[1] && &Same($then->[2], $else->[2]) &&
+            $then->[3]->[0] eq 'I2F' && $else->[3]->[0] eq 'I2F' &&
+            &Same($then->[3]->[1], $else->[3]->[1])) {
+         # Convert IF into SELECT.  Note that SELECT works on Integers: move I2F
+         # outside SELECT to keep with STORE.
+            my $select = &SELECT(&Clone($test), $then->[3]->[2], $else->[3]->[2]);
+            my $field = &I2F($then->[3]->[1], $select);
+            $tree = &STORE($then->[1], $then->[2], $field);
+        } else {
+            # Try to convert prefix and/or suffix of sequence into SELECTs.
+            my @then = $then->[0] eq 'SEQ' ? @{$then}[1 .. @{$then}-1] : ($then);
+            my @else = $else->[0] eq 'SEQ' ? @{$else}[1 .. @{$else}-1] : ($else);
+            my (@prefix, @suffix);
+            while (@then && @else) {
+                my ($thenI, $elseI) = ($then[0], $else[0]);
+                if ($thenI->[0] eq 'WRITE' && $elseI->[0] eq 'WRITE' &&
+                    $thenI->[1] eq $elseI->[1] && $thenI->[2] eq $elseI->[2]) {
+                    my $select = &SELECT(&Clone($test), $thenI->[3], $elseI->[3]);
+                    push @prefix, &WRITE($thenI->[1], $thenI->[2], $select);
+                    shift @then; shift @else; next;
+                }
+                last;
+            }
+            while (@then && @else) {
+                my ($thenI, $elseI) = ($then[-1], $else[-1]);
+                if ($thenI->[0] eq 'WRITE' && $elseI->[0] eq 'WRITE' &&
+                    $thenI->[1] eq $elseI->[1] && $thenI->[2] eq $elseI->[2]) {
+                    my $select = &SELECT(&Clone($test), $thenI->[3], $elseI->[3]);
+                    unshift @suffix, &WRITE($thenI->[1], $thenI->[2], $select);
+                    pop @then; pop @else; next;
+                }
+                last;
+            }
+            my $if = &IF($test, &SEQ(@then), &SEQ(@else));
+            $tree = &SEQ(@prefix, $if, @suffix);
+        }
+    }
+    return $tree;
 }
 
 #
 # Check a syntax tree for structural invariants.
 #
 my %Expression = (
-  UNDEF=>'Integer',
-  METHOD=>'Integer',
-  CONST=>'Integer',
-  READ=>'Integer',
-  ACCESS=>'Integer',
-  PROPERTY=>'Integer',
-  APPLY=>'Integer',
-  F2I=>'Integer',
-  SX=>'Integer',
-  ZX=>'Integer',
-  SAT=>'Integer',
-  SATU=>'Integer',
-  CLZ=>'Integer',
-  CLS=>'Integer',
-  CTZ=>'Integer',
-  CBS=>'Integer',
-  SWAP=>'Integer',
-  ROR=>'Integer',
-  ROL=>'Integer',
-  SELECT=>'Integer',
-  ADD=>'Integer',
-  SUB=>'Integer',
-  MUL=>'Integer',
-  DIV=>'Integer',
-  REM=>'Integer',
-  MOD=>'Integer',
-  SHR=>'Integer',
-  SHL=>'Integer',
-  AND=>'Integer',
-  IOR=>'Integer',
-  XOR=>'Integer',
-  MIN=>'Integer',
-  MAX=>'Integer',
-  NOT=>'Integer',
-  NEG=>'Integer',
-  ABS=>'Integer',
-  B2I=>'Integer',
-  TRUE=>'Boolean',
-  FALSE=>'Boolean',
-  TEST=>'Boolean',
-  NE=>'Boolean',
-  EQ=>'Boolean',
-  GT=>'Boolean',
-  LE=>'Boolean',
-  GE=>'Boolean',
-  LT=>'Boolean',
-  ANDL=>'Boolean',
-  IORL=>'Boolean',
-  XORL=>'Boolean',
-  PROBE=>'Boolean',
-  NOTL=>'Boolean',
-  I2B=>'Boolean',
-);
+    UNDEF=>'Integer',
+    METHOD=>'Integer',
+    CONST=>'Integer',
+    READ=>'Integer',
+    ACCESS=>'Integer',
+    PROPERTY=>'Integer',
+    APPLY=>'Integer',
+    F2I=>'Integer',
+    SX=>'Integer',
+    ZX=>'Integer',
+    SAT=>'Integer',
+    SATU=>'Integer',
+    CLZ=>'Integer',
+    CLS=>'Integer',
+    CTZ=>'Integer',
+    CBS=>'Integer',
+    SWAP=>'Integer',
+    ROR=>'Integer',
+    ROL=>'Integer',
+    SELECT=>'Integer',
+    ADD=>'Integer',
+    SUB=>'Integer',
+    MUL=>'Integer',
+    DIV=>'Integer',
+    REM=>'Integer',
+    MOD=>'Integer',
+    SHR=>'Integer',
+    SHL=>'Integer',
+    AND=>'Integer',
+    IOR=>'Integer',
+    XOR=>'Integer',
+    MIN=>'Integer',
+    MAX=>'Integer',
+    NOT=>'Integer',
+    NEG=>'Integer',
+    ABS=>'Integer',
+    B2I=>'Integer',
+    TRUE=>'Boolean',
+    FALSE=>'Boolean',
+    TEST=>'Boolean',
+    NE=>'Boolean',
+    EQ=>'Boolean',
+    GT=>'Boolean',
+    LE=>'Boolean',
+    GE=>'Boolean',
+    LT=>'Boolean',
+    ANDL=>'Boolean',
+    IORL=>'Boolean',
+    XORL=>'Boolean',
+    PROBE=>'Boolean',
+    NOTL=>'Boolean',
+    I2B=>'Boolean',
+  );
 sub Check {
-  my ($this) = @_;
-  if (ref $this eq 'ARRAY') {
-    my $operator = $this->[0];
-    # Check each Expression has an Abstract.
-    if ($Expression{$operator}) {
-      my $abstract = $this->[-1];
-      unless (ref $abstract eq 'HASH') {
-        confess "Missing Abstract:\n", Dumper($this);
-      }
+    my ($this) = @_;
+    if (ref $this eq 'ARRAY') {
+        my $operator = $this->[0];
+        # Check each Expression has an Abstract.
+        if ($Expression{$operator}) {
+            my $abstract = $this->[-1];
+            unless (ref $abstract eq 'HASH') {
+                confess "Missing Abstract:\n", Dumper($this);
+            }
+        }
+        map { &Check($_) } @{$this};
     }
-    map { &Check($_) } @{$this};
-  }
 }
 
 #
 # Clone a syntax tree with optional node replacement.
 #
 sub Clone {
-  my ($this, $node, $replace) = @_;
-  if (ref $this eq 'ARRAY') {
-    if (defined $node && $node eq $this->[0]) {
-      return $replace;
+    my ($this, $node, $replace) = @_;
+    if (ref $this eq 'ARRAY') {
+        if (defined $node && $node eq $this->[0]) {
+            return $replace;
+        }
+        my @that; map {
+            push @that, &Clone($_, $node, $replace);
+          } @{$this};
+        return \@that;
+    } elsif (ref $this eq 'HASH') {
+        my %that = %{$this};
+        return \%that;
+    } elsif (!ref $this) {
+        return $this;
     }
-    my @that; map {
-      push @that, &Clone($_, $node, $replace);
-    } @{$this};
-    return \@that;
-  } elsif (ref $this eq 'HASH') {
-    my %that = %{$this};
-    return \%that;
-  } elsif (!ref $this) {
-    return $this;
-  }
-  return undef;
+    return undef;
 }
 
 #
@@ -1668,198 +1668,198 @@ sub Clone {
 my %renamePhi;
 my %renameRefs;
 sub Rename {
-  my ($tree) = @_;
-  %renamePhi = ();
-  %renameRefs = ();
-  my $counter = 0;
-  &rename($tree, { }, \$counter);
-  return $tree;
+    my ($tree) = @_;
+    %renamePhi = ();
+    %renameRefs = ();
+    my $counter = 0;
+    &rename($tree, { }, \$counter);
+    return $tree;
 }
 
 sub rename {
-  my ($this, $reachingVals, $counter) = @_;
-  return { } if ref $this ne 'ARRAY';
-  my %localDefs = ();
-  if ($this->[0] eq 'READ') {
-    my $name = $this->[2];
-    my $temp = $reachingVals->{$name};
-    &renameUse($this, $temp) if defined $temp;
-  } elsif ($this->[0] eq 'WRITE' && !length($this->[1])) {
-    my $name = $this->[2];
-    my $rhsDefs = &rename($this->[3], $reachingVals, $counter);
-    die "Unexpected rhs expression" if scalar keys %{$rhsDefs};
-    my $oldTemp = $localDefs{$name};
-    &renameKill($oldTemp) if defined $oldTemp;
-    my $newTemp = sprintf("__r%03d", ++$$counter);
-    $reachingVals->{$name} = $newTemp;
-    push @{$renameRefs{$newTemp}}, $this;
-    $localDefs{$name} = $newTemp;
-  } elsif ($this->[0] eq 'SEQ') {
-    map {
-      my $seqDefs = &rename($_, $reachingVals, $counter);
-      while (my ($name, $seqTemp) = each %{$seqDefs}) {
-        my $oldTemp = $localDefs{$name} unless defined $renamePhi{$seqTemp};
+    my ($this, $reachingVals, $counter) = @_;
+    return { } if ref $this ne 'ARRAY';
+    my %localDefs = ();
+    if ($this->[0] eq 'READ') {
+        my $name = $this->[2];
+        my $temp = $reachingVals->{$name};
+        &renameUse($this, $temp) if defined $temp;
+    } elsif ($this->[0] eq 'WRITE' && !length($this->[1])) {
+        my $name = $this->[2];
+        my $rhsDefs = &rename($this->[3], $reachingVals, $counter);
+        die "Unexpected rhs expression" if scalar keys %{$rhsDefs};
+        my $oldTemp = $localDefs{$name};
         &renameKill($oldTemp) if defined $oldTemp;
-        $localDefs{$name} = $seqTemp;
-      }
-    } @{$this};
-  } elsif ($this->[0] eq 'IF') {
-    my %reachingValsTHEN = %{$reachingVals};
-    my %reachingValsELSE = %{$reachingVals};
-    my $ifDefs = &rename($this->[1], $reachingVals, $counter);
-    my $thenDefs = &rename($this->[2], \%reachingValsTHEN, $counter);
-    my $elseDefs = &rename($this->[3], \%reachingValsELSE, $counter);
-    die "Unexpected if expression" if scalar keys %{$ifDefs};
-    foreach my $name (sort keys %{$thenDefs}) {
-      my $thenTemp = $thenDefs->{$name};
-      my $elseTemp = $elseDefs->{$name};
-      if (defined $elseTemp && !defined $renamePhi{$elseTemp}) {
-        my $oldTemp = $localDefs{$name} unless defined $renamePhi{$thenTemp};
-        &renameKill($oldTemp) if defined $oldTemp;
-      }
-      my $newTemp = sprintf("__r%03d", ++$$counter);
-      if (defined $elseTemp) {
-        $renamePhi{$newTemp} = [ $thenTemp, $elseTemp ];
-        delete $elseDefs->{$name};
-      } else {
-        my $oldTemp = $reachingVals->{$name};
-        push @{$renamePhi{$newTemp}}, $oldTemp if defined $oldTemp;
-        push @{$renamePhi{$newTemp}}, $thenTemp;
-      }
-      $reachingVals->{$name} = $newTemp;
-      $localDefs{$name} = $newTemp;
+        my $newTemp = sprintf("__r%03d", ++$$counter);
+        $reachingVals->{$name} = $newTemp;
+        push @{$renameRefs{$newTemp}}, $this;
+        $localDefs{$name} = $newTemp;
+    } elsif ($this->[0] eq 'SEQ') {
+        map {
+            my $seqDefs = &rename($_, $reachingVals, $counter);
+            while (my ($name, $seqTemp) = each %{$seqDefs}) {
+                my $oldTemp = $localDefs{$name} unless defined $renamePhi{$seqTemp};
+                &renameKill($oldTemp) if defined $oldTemp;
+                $localDefs{$name} = $seqTemp;
+            }
+          } @{$this};
+    } elsif ($this->[0] eq 'IF') {
+        my %reachingValsTHEN = %{$reachingVals};
+        my %reachingValsELSE = %{$reachingVals};
+        my $ifDefs = &rename($this->[1], $reachingVals, $counter);
+        my $thenDefs = &rename($this->[2], \%reachingValsTHEN, $counter);
+        my $elseDefs = &rename($this->[3], \%reachingValsELSE, $counter);
+        die "Unexpected if expression" if scalar keys %{$ifDefs};
+        foreach my $name (sort keys %{$thenDefs}) {
+            my $thenTemp = $thenDefs->{$name};
+            my $elseTemp = $elseDefs->{$name};
+            if (defined $elseTemp && !defined $renamePhi{$elseTemp}) {
+                my $oldTemp = $localDefs{$name} unless defined $renamePhi{$thenTemp};
+                &renameKill($oldTemp) if defined $oldTemp;
+            }
+            my $newTemp = sprintf("__r%03d", ++$$counter);
+            if (defined $elseTemp) {
+                $renamePhi{$newTemp} = [ $thenTemp, $elseTemp ];
+                delete $elseDefs->{$name};
+            } else {
+                my $oldTemp = $reachingVals->{$name};
+                push @{$renamePhi{$newTemp}}, $oldTemp if defined $oldTemp;
+                push @{$renamePhi{$newTemp}}, $thenTemp;
+            }
+            $reachingVals->{$name} = $newTemp;
+            $localDefs{$name} = $newTemp;
+        }
+        foreach my $name (sort keys %{$elseDefs}) {
+            my $elseTemp = $elseDefs->{$name};
+            die "Unexpected behavior" if defined $thenDefs->{$name};
+            my $oldTemp = $reachingVals->{$name};
+            my $newTemp = sprintf("__r%03d", ++$$counter);
+            push @{$renamePhi{$newTemp}}, $oldTemp if defined $oldTemp;
+            push @{$renamePhi{$newTemp}}, $elseTemp;
+            $reachingVals->{$name} = $newTemp;
+            $localDefs{$name} = $newTemp;
+        }
+    } else {
+        map {
+            my $exprDefs = &rename($_, $reachingVals, $counter);
+            die "Unexpected expression" if scalar keys %{$exprDefs};
+          } @{$this};
     }
-    foreach my $name (sort keys %{$elseDefs}) {
-      my $elseTemp = $elseDefs->{$name};
-      die "Unexpected behavior" if defined $thenDefs->{$name};
-      my $oldTemp = $reachingVals->{$name};
-      my $newTemp = sprintf("__r%03d", ++$$counter);
-      push @{$renamePhi{$newTemp}}, $oldTemp if defined $oldTemp;
-      push @{$renamePhi{$newTemp}}, $elseTemp;
-      $reachingVals->{$name} = $newTemp;
-      $localDefs{$name} = $newTemp;
-    }
-  } else {
-    map {
-      my $exprDefs = &rename($_, $reachingVals, $counter);
-      die "Unexpected expression" if scalar keys %{$exprDefs};
-    } @{$this};
-  }
-  return \%localDefs;
+    return \%localDefs;
 }
 
 sub renameUse {
-  my ($this, $temp) = @_;
-  &renamePhiUse($temp) if defined $renamePhi{$temp};
-  push @{$renameRefs{$temp}}, $this;
+    my ($this, $temp) = @_;
+    &renamePhiUse($temp) if defined $renamePhi{$temp};
+    push @{$renameRefs{$temp}}, $this;
 }
 
 sub renamePhiUse {
-  my ($temp) = @_;
-  map {
-    &renamePhiUse($_) if defined $renamePhi{$_};
-    push @{$renameRefs{$temp}}, @{$renameRefs{$_}} if defined $renameRefs{$_};
-    delete $renameRefs{$_};
-  } @{$renamePhi{$temp}};
-  delete $renamePhi{$temp};
+    my ($temp) = @_;
+    map {
+        &renamePhiUse($_) if defined $renamePhi{$_};
+        push @{$renameRefs{$temp}}, @{$renameRefs{$_}} if defined $renameRefs{$_};
+        delete $renameRefs{$_};
+      } @{$renamePhi{$temp}};
+    delete $renamePhi{$temp};
 }
 
 sub renameKill {
-  my ($temp) = @_;
-  if (defined $renamePhi{$temp}) {
-    map {
-      &renameKill($_);
-      delete $renameRefs{$_};
-    } @{$renamePhi{$temp}};
-    delete $renamePhi{$temp};
-  } else {
-    map { $_->[1] = $temp; } @{$renameRefs{$temp}};
-    delete $renameRefs{$temp};
-  }
+    my ($temp) = @_;
+    if (defined $renamePhi{$temp}) {
+        map {
+            &renameKill($_);
+            delete $renameRefs{$_};
+          } @{$renamePhi{$temp}};
+        delete $renamePhi{$temp};
+    } else {
+        map { $_->[1] = $temp; } @{$renameRefs{$temp}};
+        delete $renameRefs{$temp};
+    }
 }
 
 #
 # Expand the ACCESS and COMMIT nodes.
 #
 sub Expand {
-  my ($this, $accessTable, $commitTable, $node, $replace) = @_;
-  croak "Expand needs a Behavior parse tree" if ref $this ne 'ARRAY';
-  croak "Expand needs an access table" if ref $accessTable ne 'HASH';
-  croak "Expand needs a commit table" if ref $commitTable ne 'HASH';
-  croak "Expand needs a replace table" if defined $node && ref $replace ne 'HASH';
-  my $actions = { };
-  if ($this->[0] ne 'SEQ') {
-    my $wrap = [ $this ];
-    &expand($wrap, $accessTable, $commitTable, $node, $replace, $actions);
-    $this = $wrap->[0];
-  } else {
-    &expand($this, $accessTable, $commitTable, $node, $replace, $actions);
-  }
-  return (&Simplify($this), $actions);
+    my ($this, $accessTable, $commitTable, $node, $replace) = @_;
+    croak "Expand needs a Behavior parse tree" if ref $this ne 'ARRAY';
+    croak "Expand needs an access table" if ref $accessTable ne 'HASH';
+    croak "Expand needs a commit table" if ref $commitTable ne 'HASH';
+    croak "Expand needs a replace table" if defined $node && ref $replace ne 'HASH';
+    my $actions = { };
+    if ($this->[0] ne 'SEQ') {
+        my $wrap = [ $this ];
+        &expand($wrap, $accessTable, $commitTable, $node, $replace, $actions);
+        $this = $wrap->[0];
+    } else {
+        &expand($this, $accessTable, $commitTable, $node, $replace, $actions);
+    }
+    return (&Simplify($this), $actions);
 }
 
 sub expand {
-  my ($this, $accessTable, $commitTable, $node, $replace, $actions) = @_;
-  return if ref $this ne 'ARRAY';
-  my $index = 0;
-  foreach my $child (@{$this}) {
-    if (ref $child eq 'ARRAY') {
-      if ($child->[0] eq 'ACCESS') {
-        my $stage = $child->[1];
-        my $proxy = $child->[2];
-        my $expand = $accessTable->{$proxy};
-        if (defined $expand) {
-          if (defined $node && defined $replace->{$proxy}) {
-            $expand = &Clone($expand, $node, $replace->{$proxy});
-          } else {
-            $expand = &Clone($expand);
-          }
-          if (   $expand->[0] =~ /^(F2I)$/
-              && $expand->[2]->[0] eq 'LOAD') {
-            $expand->[2]->[1] = $stage;
-          }
-          $this->[$index] = $expand;
-          $actions->{$proxy}->{ACCESS} = $stage;
-        } else { die "Missing ACCESS expand for $proxy" }
-      } elsif ($child->[0] eq 'COMMIT') {
-        my $stage = $child->[1];
-        my $proxy = $child->[2];
-        my $value = $child->[3];
-        my $mask = $child->[4];
-        my $expand = $commitTable->{$proxy};
-        if (defined $expand) {
-          if (defined $node && defined $replace->{$proxy}) {
-            $expand = &Clone($expand, $node, $replace->{$proxy});
-          } else {
-            $expand = &Clone($expand);
-          }
-          if ($expand->[0] eq 'STORE') {
-            $expand->[1] = $stage;
-            my $field = $expand->[3];
-            if ($field->[0] eq 'I2F') {
-              my $width = $field->[1];
-              $expand->[3] = &I2F($width, $value);
-            } else {
-              &Error("Expecting I2F in COMMIT expansion", $expand);
+    my ($this, $accessTable, $commitTable, $node, $replace, $actions) = @_;
+    return if ref $this ne 'ARRAY';
+    my $index = 0;
+    foreach my $child (@{$this}) {
+        if (ref $child eq 'ARRAY') {
+            if ($child->[0] eq 'ACCESS') {
+                my $stage = $child->[1];
+                my $proxy = $child->[2];
+                my $expand = $accessTable->{$proxy};
+                if (defined $expand) {
+                    if (defined $node && defined $replace->{$proxy}) {
+                        $expand = &Clone($expand, $node, $replace->{$proxy});
+                    } else {
+                        $expand = &Clone($expand);
+                    }
+                    if (   $expand->[0] =~ /^(F2I)$/
+                        && $expand->[2]->[0] eq 'LOAD') {
+                        $expand->[2]->[1] = $stage;
+                    }
+                    $this->[$index] = $expand;
+                    $actions->{$proxy}->{ACCESS} = $stage;
+                } else { die "Missing ACCESS expand for $proxy" }
+            } elsif ($child->[0] eq 'COMMIT') {
+                my $stage = $child->[1];
+                my $proxy = $child->[2];
+                my $value = $child->[3];
+                my $mask = $child->[4];
+                my $expand = $commitTable->{$proxy};
+                if (defined $expand) {
+                    if (defined $node && defined $replace->{$proxy}) {
+                        $expand = &Clone($expand, $node, $replace->{$proxy});
+                    } else {
+                        $expand = &Clone($expand);
+                    }
+                    if ($expand->[0] eq 'STORE') {
+                        $expand->[1] = $stage;
+                        my $field = $expand->[3];
+                        if ($field->[0] eq 'I2F') {
+                            my $width = $field->[1];
+                            $expand->[3] = &I2F($width, $value);
+                        } else {
+                            &Error("Expecting I2F in COMMIT expansion", $expand);
+                        }
+                        $expand->[4] = $mask if defined $mask;
+                        $actions->{$proxy}->{COMMIT} = $stage;
+                    } elsif ($expand->[0] =~ /^SKIP/) {
+                    } else {
+                        &Error("Unxepected $expand->[0] in COMMIT expansion", $expand);
+                    }
+                    $this->[$index] = $expand;
+                } else { die "Missing COMMIT expand for $proxy" }
+            } elsif ($child->[0] eq 'METHOD') {
+                my $proxy = $child->[1];
+                $actions->{$proxy}->{METHOD} = -1;
             }
-            $expand->[4] = $mask if defined $mask;
-            $actions->{$proxy}->{COMMIT} = $stage;
-          } elsif ($expand->[0] =~ /^SKIP/) {
-          } else {
-            &Error("Unxepected $expand->[0] in COMMIT expansion", $expand);
-          }
-          $this->[$index] = $expand;
-        } else { die "Missing COMMIT expand for $proxy" }
-      } elsif ($child->[0] eq 'METHOD') {
-        my $proxy = $child->[1];
-        $actions->{$proxy}->{METHOD} = -1;
-      }
+        }
+        $index++;
     }
-    $index++;
-  }
-  map {
-    &expand($_, $accessTable, $commitTable, $node, $replace, $actions);
-  } @{$this};
+    map {
+        &expand($_, $accessTable, $commitTable, $node, $replace, $actions);
+      } @{$this};
 }
 
 #
@@ -1871,108 +1871,108 @@ my %parallel_reads;
 my $if_count;
 
 sub Parallel {
-  my ($tree, $opcodeID) = @_;
-  %parallel_reads = ();
-  $if_count = 0;
-  &if_count($tree);
-  if ($if_count < 8) {
-    $tree = &parallel($tree, {});
-    $tree = &remove_dead_writes($tree);
-    $tree = &propagate_conditions($tree, [], []);
-    return &Commute(&Simplify($tree));
-  }
-  print STDERR "IF count=$if_count,\tskip Parallel($opcodeID)\n";
-  return $tree;
+    my ($tree, $opcodeID) = @_;
+    %parallel_reads = ();
+    $if_count = 0;
+    &if_count($tree);
+    if ($if_count < 8) {
+        $tree = &parallel($tree, {});
+        $tree = &remove_dead_writes($tree);
+        $tree = &propagate_conditions($tree, [], []);
+        return &Commute(&Simplify($tree));
+    }
+    print STDERR "IF count=$if_count,\tskip Parallel($opcodeID)\n";
+    return $tree;
 }
 
 sub if_count {
-  my ($this) = @_;
-  return if ref $this ne 'ARRAY';
-  if ($this->[0] eq 'IF') {
-    $if_count++;
-  }
-  map { &if_count($_) } @$this;
+    my ($this) = @_;
+    return if ref $this ne 'ARRAY';
+    if ($this->[0] eq 'IF') {
+        $if_count++;
+    }
+    map { &if_count($_) } @$this;
 }
 
 sub parallel {
-  my ($this, $reachingVals) = @_;
-  return $this if ref $this ne 'ARRAY';
-  if ($this->[0] eq 'READ') {
-    my $Variable = $this->[2];
-    my $value = $$reachingVals{$Variable};
-    if (defined $value) {
-      return &Clone($value);
+    my ($this, $reachingVals) = @_;
+    return $this if ref $this ne 'ARRAY';
+    if ($this->[0] eq 'READ') {
+        my $Variable = $this->[2];
+        my $value = $$reachingVals{$Variable};
+        if (defined $value) {
+            return &Clone($value);
+        } else {
+            $parallel_reads{$Variable}++;
+        }
+    } elsif ($this->[0] eq 'WRITE' && !length($this->[1])) {
+        $this->[3] = &parallel($this->[3], $reachingVals);
+        $$reachingVals{$this->[2]} = $this->[3];
+    } elsif ($this->[0] eq 'IF') {
+        $this->[1] = &parallel($this->[1], $reachingVals);
+        my %savedReachingVals = %$reachingVals;
+        my %thenReachingVals = %savedReachingVals;
+        $this->[2] = &parallel($this->[2], \%thenReachingVals);
+        my %elseReachingVals = %savedReachingVals;
+        $this->[3] = &parallel($this->[3], \%elseReachingVals);
+        foreach my $variable (uniq (keys %thenReachingVals, keys %elseReachingVals)) {
+            my $thenval = $thenReachingVals{$variable} || &UNDEF();
+            my $elseval = $elseReachingVals{$variable} || &UNDEF();
+            $$reachingVals{$variable} = &SELECT($this->[1], $thenval, $elseval);
+        }
     } else {
-      $parallel_reads{$Variable}++;
+        @$this = map { &parallel($_, $reachingVals) } @$this;
     }
-  } elsif ($this->[0] eq 'WRITE' && !length($this->[1])) {
-    $this->[3] = &parallel($this->[3], $reachingVals);
-    $$reachingVals{$this->[2]} = $this->[3];
-  } elsif ($this->[0] eq 'IF') {
-    $this->[1] = &parallel($this->[1], $reachingVals);
-    my %savedReachingVals = %$reachingVals;
-    my %thenReachingVals = %savedReachingVals;
-    $this->[2] = &parallel($this->[2], \%thenReachingVals);
-    my %elseReachingVals = %savedReachingVals;
-    $this->[3] = &parallel($this->[3], \%elseReachingVals);
-    foreach my $variable (uniq (keys %thenReachingVals, keys %elseReachingVals)) {
-      my $thenval = $thenReachingVals{$variable} || &UNDEF();
-      my $elseval = $elseReachingVals{$variable} || &UNDEF();
-      $$reachingVals{$variable} = &SELECT($this->[1], $thenval, $elseval);
-    }
-  } else {
-    @$this = map { &parallel($_, $reachingVals) } @$this;
-  }
-  return $this;
+    return $this;
 }
 
 sub remove_dead_writes {
-  my ($this) = @_;
-  # Remove from THIS any WRITES to names that are not in LIVE_NAMES.
-  return $this if ref $this ne 'ARRAY';
-  @$this = map {
-    &remove_dead_writes($_);
-  } @$this;
-  if ($this->[0] eq 'WRITE') {
-    my $Section = $this->[1];
-    my $Variable = $this->[2];
-    my $parallel_reads = $parallel_reads{$Variable} || 0;
-    if ($Section eq "" and $parallel_reads == 0) {
-      return &SKIP();
+    my ($this) = @_;
+    # Remove from THIS any WRITES to names that are not in LIVE_NAMES.
+    return $this if ref $this ne 'ARRAY';
+    @$this = map {
+        &remove_dead_writes($_);
+      } @$this;
+    if ($this->[0] eq 'WRITE') {
+        my $Section = $this->[1];
+        my $Variable = $this->[2];
+        my $parallel_reads = $parallel_reads{$Variable} || 0;
+        if ($Section eq "" and $parallel_reads == 0) {
+            return &SKIP();
+        }
     }
-  }
-  return $this;
-}    
+    return $this;
+}
 
 sub propagate_conditions {
-  my ($this, $true_conds, $false_conds) = @_;
-  # Propagate conditions down the tree, resolving tests where possible.
-  return $this if ref $this ne 'ARRAY';
-  if ($this->[0] =~ /^(SELECT|IF)$/) {
-    $this->[1] = &propagate_conditions($this->[1], $true_conds, $false_conds);
-    my $test = $this->[1];
-    push @$true_conds, $test;
-    $this->[2] = &propagate_conditions($this->[2], $true_conds, $false_conds);
-    pop @$true_conds;
-    push @$false_conds, $test;
-    $this->[3] = &propagate_conditions($this->[3], $true_conds, $false_conds);
-    pop @$false_conds;
-    foreach my $cond (@$true_conds) {
-      return $this->[2] if (&Same($cond, $test));
+    my ($this, $true_conds, $false_conds) = @_;
+    # Propagate conditions down the tree, resolving tests where possible.
+    return $this if ref $this ne 'ARRAY';
+    if ($this->[0] =~ /^(SELECT|IF)$/) {
+        $this->[1] = &propagate_conditions($this->[1], $true_conds, $false_conds);
+        my $test = $this->[1];
+        push @$true_conds, $test;
+        $this->[2] = &propagate_conditions($this->[2], $true_conds, $false_conds);
+        pop @$true_conds;
+        push @$false_conds, $test;
+        $this->[3] = &propagate_conditions($this->[3], $true_conds, $false_conds);
+        pop @$false_conds;
+        foreach my $cond (@$true_conds) {
+            return $this->[2] if (&Same($cond, $test));
+        }
+        foreach my $cond (@$false_conds) {
+            return $this->[3] if (&Same($cond, $test));
+        }
+    } else {
+        @$this = map { &propagate_conditions($_, $true_conds, $false_conds) } @$this;
     }
-    foreach my $cond (@$false_conds) {
-      return $this->[3] if (&Same($cond, $test));
-    }
-  } else {
-    @$this = map { &propagate_conditions($_, $true_conds, $false_conds) } @$this;
-  }
-  return $this;
+    return $this;
 }
 
 sub uniq {
-  my %h;
-  map { $h{$_}++; } @_;
-  return keys %h;
+    my %h;
+    map { $h{$_}++; } @_;
+    return keys %h;
 }
 
 #
@@ -1981,95 +1981,95 @@ sub uniq {
 # are used to compute the summary properties of Operator(s) and Parameter(s).
 #
 sub Collate {
-  my ($tree) = @_;
-  my $collate = [ ];
-  &collate($tree, [ ], $collate);
-  return $collate;
+    my ($tree) = @_;
+    my $collate = [ ];
+    &collate($tree, [ ], $collate);
+    return $collate;
 }
 
 sub collate {
-  my ($tree, $path, $collate) = @_;
-  my ($index, @value) = (0);
-  map {
-    if (ref $_ eq 'ARRAY') {
-      my $value = join '.', @value;
-      push @{$path}, $value."[$index]";
-      &collate($_, $path, $collate);
-      pop @{$path};
-      $index++;
-    } elsif (!ref $_) {
-      push @value, $_;
-    }
-  } @{$tree};
-  my $value = join '.', @value;
-  my @path = grep {
-    !/^(F2I|I2F|B2I|I2B)/
-  } (@{$path}, $value);
-  push @{$collate}, [ @path ];
+    my ($tree, $path, $collate) = @_;
+    my ($index, @value) = (0);
+    map {
+        if (ref $_ eq 'ARRAY') {
+            my $value = join '.', @value;
+            push @{$path}, $value."[$index]";
+            &collate($_, $path, $collate);
+            pop @{$path};
+            $index++;
+        } elsif (!ref $_) {
+            push @value, $_;
+        }
+      } @{$tree};
+    my $value = join '.', @value;
+    my @path = grep {
+        !/^(F2I|I2F|B2I|I2B)/
+      } (@{$path}, $value);
+    push @{$collate}, [ @path ];
 }
 
 #
 # Pretty output of the syntax tree.
 #
 sub Pretty {
-  my ($this, $spacing, $print_attributes) = @_;
-  $spacing = "\t" unless defined $spacing;
-  $print_attributes = 0 unless defined $print_attributes;
-  my @result = ( "\n" );
-  &pretty(\@result, $this, $spacing, 1, $print_attributes);
-  push @result, "\n";
-  return @result;
+    my ($this, $spacing, $print_attributes) = @_;
+    $spacing = "\t" unless defined $spacing;
+    $print_attributes = 0 unless defined $print_attributes;
+    my @result = ( "\n" );
+    &pretty(\@result, $this, $spacing, 1, $print_attributes);
+    push @result, "\n";
+    return @result;
 }
 
 sub pretty {
-  my ($pretty, $this, $spacing, $nesting, $print_attributes) = @_;
-  my $omit_1 = $$this[0] =~ /\b(APPLY|READ|WRITE)\b/;
-  my $indent = $spacing x $nesting;
+    my ($pretty, $this, $spacing, $nesting, $print_attributes) = @_;
+    my $omit_1 = $$this[0] =~ /\b(APPLY|READ|WRITE)\b/;
+    my $indent = $spacing x $nesting;
 
-  my $sep = "";
-  push @$pretty, "(";
-  my $index = 0;
-  foreach my $item (@{$this}) {
-    if (ref $item eq 'ARRAY') {
-      my @items = @{$item};
-      if ($items[0] eq 'SECTION') {
-        push @$pretty, "." . $items[1] . "[";
-        if (ref $items[2] eq 'ARRAY') {
-          &pretty($pretty, $items[2], $spacing, $nesting+1);
-        } else {
-          if (defined $items[2]) {
-            push @$pretty, $items[2];
-          } else {
-            push @$pretty, "0";
-          }
+    my $sep = "";
+    push @$pretty, "(";
+    my $index = 0;
+    foreach my $item (@{$this}) {
+        if (ref $item eq 'ARRAY') {
+            my @items = @{$item};
+            if ($items[0] eq 'SECTION') {
+                push @$pretty, "." . $items[1] . "[";
+                if (ref $items[2] eq 'ARRAY') {
+                    &pretty($pretty, $items[2], $spacing, $nesting+1);
+                } else {
+                    if (defined $items[2]) {
+                        push @$pretty, $items[2];
+                    } else {
+                        push @$pretty, "0";
+                    }
+                }
+                push @$pretty, "]";
+                next
+            }
+            push @$pretty, "\n", $indent;
+            &pretty($pretty, $item, $spacing, $nesting+1);
+            $sep = " ";
+        } elsif ($print_attributes and ref $item eq 'HASH'
+            and $$item{TYPE} =~ /^(Integer|Boolean)$/) {
+            my @keys = grep {!ref $$item{$_}} keys %{$item};
+            if (@keys) {
+                my $sep = '';
+                push @$pretty, "(*";
+                foreach my $key (sort @keys) {
+                    push @$pretty, $sep, $key, ':', $$item{$key};
+                    $sep = ',';
+                }
+                push @$pretty, "*)";
+            }
+        } elsif (!ref $item) {
+            unless ($index == 1 && $omit_1 && !$item) {
+                push @$pretty, $sep, $item;
+                $sep = ".";
+            }
         }
-        push @$pretty, "]";
-        next
-      }
-      push @$pretty, "\n", $indent;
-      &pretty($pretty, $item, $spacing, $nesting+1);
-      $sep = " ";
-    } elsif ($print_attributes and ref $item eq 'HASH'
-             and $$item{TYPE} =~ /^(Integer|Boolean)$/) {
-      my @keys = grep {!ref $$item{$_}} keys %{$item};
-      if (@keys) {
-         my $sep = '';
-         push @$pretty, "(*";
-         foreach my $key (sort @keys) {
-           push @$pretty, $sep, $key, ':', $$item{$key};
-           $sep = ',';
-         }
-         push @$pretty, "*)";
-      }
-    } elsif (!ref $item) {
-      unless ($index == 1 && $omit_1 && !$item) {
-        push @$pretty, $sep, $item;
-        $sep = ".";
-      }
+        $index++;
     }
-    $index++;
-  }
-  push @$pretty, ")";
+    push @$pretty, ")";
 }
 
 #
@@ -2084,18 +2084,18 @@ my $CodeGen_Statics;
 my $CodeGen_Spacing;
 
 sub CodeGen {
-  my ($this, $_opcode, $_helpers, $_proxies, $_operands, $_statics, $_spacing) = @_;
-  my @pretty = ( "\n" );
-  my %context;
-  $CodeGen_Opcode = $_opcode;
-  $CodeGen_Helpers = $_helpers;
-  $CodeGen_Proxies = $_proxies;
-  $CodeGen_Operands = $_operands;
-  $CodeGen_Statics = $_statics;
-  $CodeGen_Spacing = $_spacing || "\t";
-  &codegen($this, \@pretty, 1, \%context);
-  $pretty[-1] .= ";";
-  return @pretty;
+    my ($this, $_opcode, $_helpers, $_proxies, $_operands, $_statics, $_spacing) = @_;
+    my @pretty = ( "\n" );
+    my %context;
+    $CodeGen_Opcode = $_opcode;
+    $CodeGen_Helpers = $_helpers;
+    $CodeGen_Proxies = $_proxies;
+    $CodeGen_Operands = $_operands;
+    $CodeGen_Statics = $_statics;
+    $CodeGen_Spacing = $_spacing || "\t";
+    &codegen($this, \@pretty, 1, \%context);
+    $pretty[-1] .= ";";
+    return @pretty;
 }
 
 sub signature {
@@ -2157,13 +2157,13 @@ sub signature {
 }
 
 my %codegen_member = (
-  1=> 'bits',
-  8=> 'bytes',
-  16=> 'hwords',
-  32=> 'words',
-  64=> 'dwords',
-  128=> 'qwords',
-);
+    1=> 'bits',
+    8=> 'bytes',
+    16=> 'hwords',
+    32=> 'words',
+    64=> 'dwords',
+    128=> 'qwords',
+  );
 
 sub codegen_read {
     use integer;
@@ -2172,39 +2172,39 @@ sub codegen_read {
     my @section = @{$section_ref};
     my ($width, $index) = ($section[1], $section[2]);
     if (ref $index eq 'ARRAY') {
-      my @idx = @{$index};
-      my %cont = %{$context};
-      if ($idx[0] eq 'INDEX') {
-        $need_conv = 0;
-        my $var = $idx[1];
-        if (exists $cont{$var}) {
-          $index = $cont{$var};
-        } else {
-          die "variable $var not bound";
+        my @idx = @{$index};
+        my %cont = %{$context};
+        if ($idx[0] eq 'INDEX') {
+            $need_conv = 0;
+            my $var = $idx[1];
+            if (exists $cont{$var}) {
+                $index = $cont{$var};
+            } else {
+                die "variable $var not bound";
+            }
         }
-      }
     }
     die "Invalid READ section '@section'" unless defined $width and defined $index;
     die "Invalid READ width in '@section'" unless defined $codegen_member{$width};
-    # die "Out-of-bounds READ index in '@section'" unless $width*($index+1) <= 256;
+ # die "Out-of-bounds READ index in '@section'" unless $width*($index+1) <= 256;
     my ($open, $close) = ('[', ']');
     my $codegen_access = $codegen_member{$width};
     if ($width < 8) {
-      $open = '_';
-      $close = '';
-      $width = 8;
+        $open = '_';
+        $close = '';
+        $width = 8;
     }
     if (ref $index eq 'ARRAY') {
-      my $res .= ".$codegen_access$open";
-      my @pretty = ( "" );
-      &codegen($index, \@pretty, 0, $context);
-      $res .= "Int256_toUInt$width(" if $need_conv;
-      $res .= join '', @pretty;
-      $res .= ")" if $need_conv;
-      $res .= "$close)";
-      return ("Int256_fromUInt$width(", $res);
+        my $res .= ".$codegen_access$open";
+        my @pretty = ( "" );
+        &codegen($index, \@pretty, 0, $context);
+        $res .= "Int256_toUInt$width(" if $need_conv;
+        $res .= join '', @pretty;
+        $res .= ")" if $need_conv;
+        $res .= "$close)";
+        return ("Int256_fromUInt$width(", $res);
     } else {
-      return ("Int256_fromUInt$width(", ".$codegen_access${open}$index${close})");
+        return ("Int256_fromUInt$width(", ".$codegen_access${open}$index${close})");
     }
 }
 
@@ -2215,39 +2215,39 @@ sub codegen_write {
     my $need_conv = 1;
     my ($width, $index) = ($section[1], $section[2]);
     if (ref $index eq 'ARRAY') {
-      my @idx = @{$index};
-      my %cont = %{$context};
-      if ($idx[0] eq 'INDEX') {
-        $need_conv = 0;
-        my $var = $idx[1];
-        if (exists $cont{$var}) {
-          $index = $cont{$var};
-        } else {
-          die "variable $var not bound";
+        my @idx = @{$index};
+        my %cont = %{$context};
+        if ($idx[0] eq 'INDEX') {
+            $need_conv = 0;
+            my $var = $idx[1];
+            if (exists $cont{$var}) {
+                $index = $cont{$var};
+            } else {
+                die "variable $var not bound";
+            }
         }
-      }
     }
     die "Invalid WRITE section '@section'" unless defined $width and defined $index;
     die "Invalid WRITE width in '@section'" unless defined $codegen_member{$width};
-    # die "Out-of-bounds WRITE index in '@section'" unless $width*($index+1) <= 256;
+# die "Out-of-bounds WRITE index in '@section'" unless $width*($index+1) <= 256;
     my ($open, $close) = ('[', ']');
     my $codegen_access = $codegen_member{$width};
     if ($width < 8) {
-      $open = '_';
-      $close = '';
-      $width = 8;
+        $open = '_';
+        $close = '';
+        $width = 8;
     }
     if (ref $index eq 'ARRAY') {
-      my $res .= ".$codegen_access$open";
-      my @pretty = ( "" );
-      &codegen($index, \@pretty, 0, $context);
-      $res .= "Int256_toUInt$width(" if $need_conv;
-      $res .= join '', @pretty;
-      $res .= ")" if $need_conv;
-      $res .= "$close";
-      return ($res, ".$codegen_access${open}0${close}");
+        my $res .= ".$codegen_access$open";
+        my @pretty = ( "" );
+        &codegen($index, \@pretty, 0, $context);
+        $res .= "Int256_toUInt$width(" if $need_conv;
+        $res .= join '', @pretty;
+        $res .= ")" if $need_conv;
+        $res .= "$close";
+        return ($res, ".$codegen_access${open}0${close}");
     } else {
-      return (".$codegen_access${open}$index${close}", ".$codegen_access${open}0${close}");
+        return (".$codegen_access${open}$index${close}", ".$codegen_access${open}0${close}");
     }
 }
 
@@ -2268,707 +2268,708 @@ sub codegen_mask {
 }
 
 sub codegen {
-  use integer;
-  my ($this, $pretty, $nesting, $context) = @_;
-  my $indent = $CodeGen_Spacing x $nesting;
-  my $indent_incremented = $indent . $CodeGen_Spacing;
-  &confess("Undefined operator") if (!defined $$this[0]);
-  SWITCH: {
-    $$this[0] =~ /^SX$/ and do {
-        # SX Constant Integer
-        push(@$pretty, "${indent}Int256_sx(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, $$this[1]");
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^F2I$/ and do {
-        # F2I Extent BitField
-        push(@$pretty, "${indent}Int256_zx(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, $$this[1]");
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^I2F$/ and do {
-        # I2F Extent Integer
-        push(@$pretty, "${indent}Int256_zx(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, $$this[1]");
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^I2B$/ and do {
-        # I2B Integer
-        push(@$pretty, "${indent}Int256_toBool(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^B2I$/ and do {
-        # B2I Boolean
-        push(@$pretty, "${indent}Int256_fromBool(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^ZX$/ and do {
-        # ZX Constant Integer
-        push(@$pretty, "${indent}Int256_zx(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, $$this[1]");
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^SAT$/ and do {
-        # SAT Constant Integer 
-        push(@$pretty, "${indent}Int256_sat(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}, $$this[1])");
-        last SWITCH;
-    };
-    $$this[0] =~ /^SATU$/ and do {
-        # SATU Constant Integer 
-        push(@$pretty, "${indent}Int256_satu(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}, $$this[1])");
-        last SWITCH;
-    };
-    $$this[0] =~ /^CLZ$/ and do {
-        # CLZ Constant Integer 
-        # Count Leading Zero: CLZ.8 00010011 = 3, CLZ.8 00000000 = 8, CLZ.8 11111111 = 0
-        push(@$pretty, "${indent}Int256_fromUInt32(Int256_clz(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, $$this[1]");
-        push(@$pretty, "${indent}))");
-        last SWITCH;
-    };
-    $$this[0] =~ /^CLS$/ and do {
-        # CLS Constant Integer 
-        # Count Leading Sign: CLS.8 00010011 = 2, CLS.8 11110011 = 3, CLS.8 00000000 = 7, CLS.8 11111111 = 7
-        push(@$pretty, "${indent}Int256_fromUInt32(Int256_cls(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, $$this[1]");
-        push(@$pretty, "${indent}))");
-        last SWITCH;
-    };
-    $$this[0] =~ /^CTZ$/ and do {
-        # CTZ Constant Integer 
-        # Count Trailing Zero: CTZ.8 01001100 = 2, CTZ.8 00000000 = 8, CTZ.8 11111111 = 0
-        push(@$pretty, "${indent}Int256_fromUInt32(Int256_ctz(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, $$this[1]");
-        push(@$pretty, "${indent}))");
-        last SWITCH;
-    };
-    $$this[0] =~ /^CBS$/ and do {
-        # CBS Constant Integer 
-        # Count Bit Set (Population count)
-        push(@$pretty, "${indent}Int256_fromUInt32(Int256_cbs(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, $$this[1]");
-        push(@$pretty, "${indent}))");
-        last SWITCH;
-    };
-    $$this[0] =~ /^SWAP$/ and do {
-        # SWAP Constant Integer
-        push(@$pretty, "${indent}Int256_swap(");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, $$this[1]");
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^ROR$/ and do {
-        # ROR Constant Integer Integer
-        push(@$pretty, "${indent}Int256_ror(");
-        push(@$pretty, "${indent_incremented}$$this[1], ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[3], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^ROL$/ and do {
-        # ROL Constant Integer Integer
-        push(@$pretty, "${indent}Int256_rol(");
-        push(@$pretty, "${indent_incremented}$$this[1], ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[3], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^IORL$/ and do {
-        push(@$pretty, "${indent}(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented} || ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^ANDL$/ and do {
-        push(@$pretty, "${indent}(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented} && ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^XORL$/ and do {
-        # $$this[0] Boolean Boolean
-        push(@$pretty, "${indent}(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented} ^ ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^NOTL$/ and do {
-        # NOTL Boolean
-        push(@$pretty, "${indent}!(");
-        &codegen($$this[1], $pretty, $nesting, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^NOT$/ and do {
-        # NOT Integer
-        push(@$pretty, "${indent}Int256_not(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^NEG$/ and do {
-        # NEG Integer
-        push(@$pretty, "${indent}Int256_neg(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^ABS$/ and do {
-        # ABS Integer
-        push(@$pretty, "${indent}Int256_abs(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^SELECT$/ and do {
-        # SELECT Boolean IntegerTrue IntegerFalse
-        push(@$pretty, "(");
-        &codegen($$this[1], $pretty, $nesting, $context);
-        push(@$pretty, "${indent}?");
-        &codegen($$this[2], $pretty, $nesting, $context);
-        push(@$pretty, "${indent}:");
-        &codegen($$this[3], $pretty, $nesting, $context);
-        push(@$pretty, ")");
-        last SWITCH;
-    };
-    $$this[0] =~ /^ADD$/ and do {
-        push(@$pretty, "${indent}Int256_add(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^SUB$/ and do {
-        push(@$pretty, "${indent}Int256_sub(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^AND$/ and do {
-        push(@$pretty, "${indent}Int256_and(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^IOR$/ and do {
-        push(@$pretty, "${indent}Int256_or(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^XOR$/ and do {
-        push(@$pretty, "${indent}Int256_xor(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^MUL$/ and do {
-        push(@$pretty, "${indent}Int256_mul(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^SHR$/ and do {
-        push(@$pretty, "${indent}Int256_shru(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^SHL$/ and do {
-        push(@$pretty, "${indent}Int256_shl(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^DIV$/ and do {
-        push(@$pretty, "${indent}Int256_div(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^REM$/ and do {
-        # $$this[0] Integer Integer
-        push(@$pretty, "${indent}Int256_rem(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^MOD$/ and do {
-        # $$this[0] Integer Integer
-        push(@$pretty, "${indent}Int256_mod(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^MIN$/ and do {
-        # MIN Integer Integer
-        push(@$pretty, "${indent}Int256_cmp(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}) > 0");
-        push(@$pretty, "${indent}?");
-        &codegen($$this[2], $pretty, $nesting, $context);
-        push(@$pretty, "${indent}:");
-        &codegen($$this[1], $pretty, $nesting, $context);
-        last SWITCH;
-    };
-    $$this[0] =~ /^MAX$/ and do {
-        # MAX Integer Integer
-        push(@$pretty, "${indent}Int256_cmp(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}) > 0");
-        push(@$pretty, "${indent}?");
-        &codegen($$this[1], $pretty, $nesting, $context);
-        push(@$pretty, "${indent}:");
-        &codegen($$this[2], $pretty, $nesting, $context);
-        last SWITCH;
-    };
-    $$this[0] =~ /^NE$/ and do {
-        push(@$pretty, "${indent}Int256_cmp(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}) != 0");
-        last SWITCH;
-    };
-    $$this[0] =~ /^EQ$/ and do {
-        push(@$pretty, "${indent}Int256_cmp(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}) == 0");
-        last SWITCH;
-    };
-    $$this[0] =~ /^GT$/ and do {
-        push(@$pretty, "${indent}Int256_cmp(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}) > 0");
-        last SWITCH;
-    };
-    $$this[0] =~ /^LT$/ and do {
-        push(@$pretty, "${indent}Int256_cmp(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}) < 0");
-        last SWITCH;
-    };
-    $$this[0] =~ /^GE$/ and do {
-        push(@$pretty, "${indent}Int256_cmp(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}) >= 0");
-        last SWITCH;
-    };
-    $$this[0] =~ /^LE$/ and do {
-        push(@$pretty, "${indent}Int256_cmp(");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented}, ");
-        &codegen($$this[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent}) <= 0");
-        last SWITCH;
-    };
-    $$this[0] =~ /^TRUE$/ and do {
-        push(@$pretty, "${indent}true");
-        last SWITCH;
-    };
-    $$this[0] =~ /^FALSE$/ and do {
-        push(@$pretty, "${indent}false");
-        last SWITCH;
-    };
-    $$this[0] =~ /^UNDEF$/ and do {
-        my $int256_undef = "int256_undef";
-        $$CodeGen_Operands{UNDEF}{$int256_undef}++;
-        last SWITCH;
-    };
-    $$this[0] =~ /^CONST$/ and do {
-        my $cst0;
-        if($$this[1] =~ /^[\-0-9]+$/) {
-            use bigint;
-            my $value = sprintf("%#x%08xLL", ($$this[1] >> 32) & 0xffffffff, $$this[1] & 0xffffffff);
-            if($$this[1]>>32 == 0) {
-                $value = sprintf("%#xLL", $$this[1] & 0xffffffff);
-            }
-            push(@$pretty, "${indent}Int256_fromUInt64($value)");
-        } else {
-            # SYMBOLIC CONSTANT
-            $cst0 = $$this[1];
-            $$CodeGen_Operands{ENUM}{IDENT}{$cst0}++;
-            push(@$pretty, "${indent}$cst0");
-        }
-        last SWITCH;
-    };
-    $$this[0] =~ /^METHOD$/ and do {
-        my $proxy = $$this[1];
-        $proxy =~ /%([0-9]+)(:(\d+))?/ or die "Expecting proxy instead of $$this[1]";
-        # Only generate access to RegClass encoded index. Immediate still be accessed through operands.
-        if($$CodeGen_Proxies{$proxy}{METHOD} eq "RegClass") {
-            my $where = $$CodeGen_Proxies{$proxy}{WHERE};
-            push(@$pretty, "${indent}Int256_fromInt64($where)");
-        } else {
-            my $index = $$CodeGen_Proxies{$proxy}{INDEX};
-            push(@$pretty, "${indent}HELPER(operandRead)(this, $index)");
-        }
-        last SWITCH;
-    };
-    $$this[0] =~ /^TEST$/ and do {
-        &signature($this, $pretty, $nesting, $context);
-        last SWITCH;
-    };
-    $$this[0] =~ /^APPLY$/ and do {
-        # APPLY Width Ident Arguments
-        &signature($this, $pretty, $nesting, $context);
-        last SWITCH;
-    };
-    $$this[0] =~ /^EFFECT$/ and do {
-        # EFFECT Stage Ident Arguments
-        &signature($this, $pretty, $nesting, $context);
-        last SWITCH;
-    };
-    $$this[0] =~ /^THROW$/ and do {
-        # THROW Ident
-        &signature($this, $pretty, $nesting, $context);
-        last SWITCH;
-    };
-    $$this[0] =~ /^WRITE$/ and do {
-        # WRITE Section Variable Integer
-        my $Section = $$this[1];
-        my $Variable = $$this[2];
-        my $Integer = $$this[3];
-        $$CodeGen_Operands{INT256}{$Variable} = 1;
-        if ($Section) {
-            my ($prefix, $suffix) = &codegen_write($Section, $context);
-            push(@$pretty, "${indent}${Variable}$prefix = (");
-            &codegen($Integer, $pretty, $nesting + 1, $context);
-            push(@$pretty, ")${indent}$suffix");
-        } else {
-            push(@$pretty, "${indent}$Variable = ");
-            &codegen($Integer, $pretty, $nesting + 1, $context);
-        }
-        last SWITCH;
-    };
-    $$this[0] =~ /^COMMIT$/ and do {
-        # COMMIT Stage Proxy Integer
-        confess "$$this[0]: Not yet implemented";
-        last SWITCH;
-    };
-    $$this[0] =~ /^READ$/ and do {
-        # READ Section Variable
-        my $Section = $$this[1];
-        my $Variable = $$this[2];
-        if ($Section) {
-            my ($prefix, $suffix) = &codegen_read($Section, $context);
-            push(@$pretty, "${indent}$prefix$Variable$suffix");
-        } else {
-            push(@$pretty, "${indent}$Variable");
-        }
-        last SWITCH;
-    };
-    $$this[0] =~ /^ACCESS$/ and do {
-        # ACCESS Stage Proxy
-        confess "$$this[0]: Not yet implemented";
-        last SWITCH;
-    };
-    $$this[0] =~ /^STORE$/ and do {
-        # STORE Stage Location BitField Mask
-        my $Stage    = $$this[1];
-        my $Location = $$this[2];
-        my $BitField = $$this[3];
-        my $Mask = $$this[4];
-        if (defined $Storage{$$Location[1]}->{KIND}
-            and $Storage{$$Location[1]}->{KIND} eq "Memory") {
-            confess "Masked STORE not supported" if defined $Mask;
-            push(@$pretty, "${indent}HELPER(store_$$Location[1])(this${indent_incremented}, ");
-            &codegen($$Location[3], $pretty, $nesting + 1, $context);
-            push(@$pretty, "${indent_incremented}, ");
-            &codegen($$Location[2], $pretty, $nesting + 1, $context);
-            push(@$pretty, "${indent_incremented}, ");
-            &codegen($BitField, $pretty, $nesting + 1, $context);
+    use integer;
+    my ($this, $pretty, $nesting, $context) = @_;
+    my $indent = $CodeGen_Spacing x $nesting;
+    my $indent_incremented = $indent . $CodeGen_Spacing;
+    &confess("Undefined operator") if (!defined $$this[0]);
+    SWITCH: {
+        $$this[0] =~ /^SX$/ and do {
+            # SX Constant Integer
+            push(@$pretty, "${indent}Int256_sx(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent})");
-            $$CodeGen_Operands{ENUM}{MEMORY}{$$Location[1]}++;
-        } else {
-            my $address = $$Location[2][1];
-            my $extent = $$Location[3][1];
-            my $width = $Storage{$$Location[1]}->{WIDTH};
-            if ($$Location[2][0] ne "CONST") {
-                confess "Extent is not 1 and address not constant" unless $extent == 1;
-                if ($$Location[2][0] eq "METHOD") {
-                    my $proxy = $$Location[2][1];
-                    $proxy =~ /%([0-9]+)(:(\d+))?/ or die "Expecting proxy instead of $$Location[2][1]";
-                    my ($rank, $multi, $bias) = ($1, $2, $3);
-                    my $index = $$CodeGen_Proxies{$proxy}{INDEX};
-                    $$CodeGen_Operands{WRITE}{$proxy}{REGFILE} = $$Location[1];
-                    $$CodeGen_Operands{WRITE}{$proxy}{STAGE} = $Stage;
-                    if (defined $Mask) {
-                        confess "STORE mask not constant" if $Mask->[0] ne 'CONST';
-                        my ($static_name, $static_value) = &codegen_mask("static", $Mask->[1]);
-                        unless (defined $$CodeGen_Statics{$static_name}) {
-                            $$CodeGen_Statics{$static_name} = $static_value;
+            last SWITCH;
+          };
+        $$this[0] =~ /^F2I$/ and do {
+            # F2I Extent BitField
+            push(@$pretty, "${indent}Int256_zx(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, $$this[1]");
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^I2F$/ and do {
+            # I2F Extent Integer
+            push(@$pretty, "${indent}Int256_zx(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, $$this[1]");
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^I2B$/ and do {
+            # I2B Integer
+            push(@$pretty, "${indent}Int256_toBool(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^B2I$/ and do {
+            # B2I Boolean
+            push(@$pretty, "${indent}Int256_fromBool(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^ZX$/ and do {
+            # ZX Constant Integer
+            push(@$pretty, "${indent}Int256_zx(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, $$this[1]");
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^SAT$/ and do {
+            # SAT Constant Integer 
+            push(@$pretty, "${indent}Int256_sat(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}, $$this[1])");
+            last SWITCH;
+          };
+        $$this[0] =~ /^SATU$/ and do {
+            # SATU Constant Integer 
+            push(@$pretty, "${indent}Int256_satu(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}, $$this[1])");
+            last SWITCH;
+          };
+        $$this[0] =~ /^CLZ$/ and do {
+# CLZ Constant Integer 
+# Count Leading Zero: CLZ.8 00010011 = 3, CLZ.8 00000000 = 8, CLZ.8 11111111 = 0
+            push(@$pretty, "${indent}Int256_fromUInt32(Int256_clz(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, $$this[1]");
+            push(@$pretty, "${indent}))");
+            last SWITCH;
+          };
+        $$this[0] =~ /^CLS$/ and do {
+# CLS Constant Integer 
+# Count Leading Sign: CLS.8 00010011 = 2, CLS.8 11110011 = 3, CLS.8 00000000 = 7, CLS.8 11111111 = 7
+            push(@$pretty, "${indent}Int256_fromUInt32(Int256_cls(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, $$this[1]");
+            push(@$pretty, "${indent}))");
+            last SWITCH;
+          };
+        $$this[0] =~ /^CTZ$/ and do {
+# CTZ Constant Integer 
+# Count Trailing Zero: CTZ.8 01001100 = 2, CTZ.8 00000000 = 8, CTZ.8 11111111 = 0
+            push(@$pretty, "${indent}Int256_fromUInt32(Int256_ctz(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, $$this[1]");
+            push(@$pretty, "${indent}))");
+            last SWITCH;
+          };
+        $$this[0] =~ /^CBS$/ and do {
+            # CBS Constant Integer 
+            # Count Bit Set (Population count)
+            push(@$pretty, "${indent}Int256_fromUInt32(Int256_cbs(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, $$this[1]");
+            push(@$pretty, "${indent}))");
+            last SWITCH;
+          };
+        $$this[0] =~ /^SWAP$/ and do {
+            # SWAP Constant Integer
+            push(@$pretty, "${indent}Int256_swap(");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, $$this[1]");
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^ROR$/ and do {
+            # ROR Constant Integer Integer
+            push(@$pretty, "${indent}Int256_ror(");
+            push(@$pretty, "${indent_incremented}$$this[1], ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[3], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^ROL$/ and do {
+            # ROL Constant Integer Integer
+            push(@$pretty, "${indent}Int256_rol(");
+            push(@$pretty, "${indent_incremented}$$this[1], ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[3], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^IORL$/ and do {
+            push(@$pretty, "${indent}(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented} || ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^ANDL$/ and do {
+            push(@$pretty, "${indent}(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented} && ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^XORL$/ and do {
+            # $$this[0] Boolean Boolean
+            push(@$pretty, "${indent}(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented} ^ ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^NOTL$/ and do {
+            # NOTL Boolean
+            push(@$pretty, "${indent}!(");
+            &codegen($$this[1], $pretty, $nesting, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^NOT$/ and do {
+            # NOT Integer
+            push(@$pretty, "${indent}Int256_not(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^NEG$/ and do {
+            # NEG Integer
+            push(@$pretty, "${indent}Int256_neg(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^ABS$/ and do {
+            # ABS Integer
+            push(@$pretty, "${indent}Int256_abs(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^SELECT$/ and do {
+            # SELECT Boolean IntegerTrue IntegerFalse
+            push(@$pretty, "(");
+            &codegen($$this[1], $pretty, $nesting, $context);
+            push(@$pretty, "${indent}?");
+            &codegen($$this[2], $pretty, $nesting, $context);
+            push(@$pretty, "${indent}:");
+            &codegen($$this[3], $pretty, $nesting, $context);
+            push(@$pretty, ")");
+            last SWITCH;
+          };
+        $$this[0] =~ /^ADD$/ and do {
+            push(@$pretty, "${indent}Int256_add(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^SUB$/ and do {
+            push(@$pretty, "${indent}Int256_sub(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^AND$/ and do {
+            push(@$pretty, "${indent}Int256_and(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^IOR$/ and do {
+            push(@$pretty, "${indent}Int256_or(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^XOR$/ and do {
+            push(@$pretty, "${indent}Int256_xor(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^MUL$/ and do {
+            push(@$pretty, "${indent}Int256_mul(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^SHR$/ and do {
+            push(@$pretty, "${indent}Int256_shru(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^SHL$/ and do {
+            push(@$pretty, "${indent}Int256_shl(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^DIV$/ and do {
+            push(@$pretty, "${indent}Int256_div(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^REM$/ and do {
+            # $$this[0] Integer Integer
+            push(@$pretty, "${indent}Int256_rem(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^MOD$/ and do {
+            # $$this[0] Integer Integer
+            push(@$pretty, "${indent}Int256_mod(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            last SWITCH;
+          };
+        $$this[0] =~ /^MIN$/ and do {
+            # MIN Integer Integer
+            push(@$pretty, "${indent}Int256_cmp(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}) > 0");
+            push(@$pretty, "${indent}?");
+            &codegen($$this[2], $pretty, $nesting, $context);
+            push(@$pretty, "${indent}:");
+            &codegen($$this[1], $pretty, $nesting, $context);
+            last SWITCH;
+          };
+        $$this[0] =~ /^MAX$/ and do {
+            # MAX Integer Integer
+            push(@$pretty, "${indent}Int256_cmp(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}) > 0");
+            push(@$pretty, "${indent}?");
+            &codegen($$this[1], $pretty, $nesting, $context);
+            push(@$pretty, "${indent}:");
+            &codegen($$this[2], $pretty, $nesting, $context);
+            last SWITCH;
+          };
+        $$this[0] =~ /^NE$/ and do {
+            push(@$pretty, "${indent}Int256_cmp(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}) != 0");
+            last SWITCH;
+          };
+        $$this[0] =~ /^EQ$/ and do {
+            push(@$pretty, "${indent}Int256_cmp(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}) == 0");
+            last SWITCH;
+          };
+        $$this[0] =~ /^GT$/ and do {
+            push(@$pretty, "${indent}Int256_cmp(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}) > 0");
+            last SWITCH;
+          };
+        $$this[0] =~ /^LT$/ and do {
+            push(@$pretty, "${indent}Int256_cmp(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}) < 0");
+            last SWITCH;
+          };
+        $$this[0] =~ /^GE$/ and do {
+            push(@$pretty, "${indent}Int256_cmp(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}) >= 0");
+            last SWITCH;
+          };
+        $$this[0] =~ /^LE$/ and do {
+            push(@$pretty, "${indent}Int256_cmp(");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent_incremented}, ");
+            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent}) <= 0");
+            last SWITCH;
+          };
+        $$this[0] =~ /^TRUE$/ and do {
+            push(@$pretty, "${indent}true");
+            last SWITCH;
+          };
+        $$this[0] =~ /^FALSE$/ and do {
+            push(@$pretty, "${indent}false");
+            last SWITCH;
+          };
+        $$this[0] =~ /^UNDEF$/ and do {
+            my $int256_undef = "int256_undef";
+            $$CodeGen_Operands{UNDEF}{$int256_undef}++;
+            last SWITCH;
+          };
+        $$this[0] =~ /^CONST$/ and do {
+            my $cst0;
+            if($$this[1] =~ /^[\-0-9]+$/) {
+                use bigint;
+                my $value = sprintf("%#x%08xLL", ($$this[1] >> 32) & 0xffffffff, $$this[1] & 0xffffffff);
+                if($$this[1]>>32 == 0) {
+                    $value = sprintf("%#xLL", $$this[1] & 0xffffffff);
+                }
+                push(@$pretty, "${indent}Int256_fromUInt64($value)");
+            } else {
+                # SYMBOLIC CONSTANT
+                $cst0 = $$this[1];
+                $$CodeGen_Operands{ENUM}{IDENT}{$cst0}++;
+                push(@$pretty, "${indent}$cst0");
+            }
+            last SWITCH;
+          };
+        $$this[0] =~ /^METHOD$/ and do {
+            my $proxy = $$this[1];
+            $proxy =~ /%([0-9]+)(:(\d+))?/ or die "Expecting proxy instead of $$this[1]";
+# Only generate access to RegClass encoded index. Immediate still be accessed through operands.
+            if($$CodeGen_Proxies{$proxy}{METHOD} eq "RegClass") {
+                my $where = $$CodeGen_Proxies{$proxy}{WHERE};
+                push(@$pretty, "${indent}Int256_fromInt64($where)");
+            } else {
+                my $index = $$CodeGen_Proxies{$proxy}{INDEX};
+                push(@$pretty, "${indent}HELPER(operandRead)(this, $index)");
+            }
+            last SWITCH;
+          };
+        $$this[0] =~ /^TEST$/ and do {
+            &signature($this, $pretty, $nesting, $context);
+            last SWITCH;
+          };
+        $$this[0] =~ /^APPLY$/ and do {
+            # APPLY Width Ident Arguments
+            &signature($this, $pretty, $nesting, $context);
+            last SWITCH;
+          };
+        $$this[0] =~ /^EFFECT$/ and do {
+            # EFFECT Stage Ident Arguments
+            &signature($this, $pretty, $nesting, $context);
+            last SWITCH;
+          };
+        $$this[0] =~ /^THROW$/ and do {
+            # THROW Ident
+            &signature($this, $pretty, $nesting, $context);
+            last SWITCH;
+          };
+        $$this[0] =~ /^WRITE$/ and do {
+            # WRITE Section Variable Integer
+            my $Section = $$this[1];
+            my $Variable = $$this[2];
+            my $Integer = $$this[3];
+            $$CodeGen_Operands{INT256}{$Variable} = 1;
+            if ($Section) {
+                my ($prefix, $suffix) = &codegen_write($Section, $context);
+                push(@$pretty, "${indent}${Variable}$prefix = (");
+                &codegen($Integer, $pretty, $nesting + 1, $context);
+                push(@$pretty, ")${indent}$suffix");
+            } else {
+                push(@$pretty, "${indent}$Variable = ");
+                &codegen($Integer, $pretty, $nesting + 1, $context);
+            }
+            last SWITCH;
+          };
+        $$this[0] =~ /^COMMIT$/ and do {
+            # COMMIT Stage Proxy Integer
+            confess "$$this[0]: Not yet implemented";
+            last SWITCH;
+          };
+        $$this[0] =~ /^READ$/ and do {
+            # READ Section Variable
+            my $Section = $$this[1];
+            my $Variable = $$this[2];
+            if ($Section) {
+                my ($prefix, $suffix) = &codegen_read($Section, $context);
+                push(@$pretty, "${indent}$prefix$Variable$suffix");
+            } else {
+                push(@$pretty, "${indent}$Variable");
+            }
+            last SWITCH;
+          };
+        $$this[0] =~ /^ACCESS$/ and do {
+            # ACCESS Stage Proxy
+            confess "$$this[0]: Not yet implemented";
+            last SWITCH;
+          };
+        $$this[0] =~ /^STORE$/ and do {
+            # STORE Stage Location BitField Mask
+            my $Stage    = $$this[1];
+            my $Location = $$this[2];
+            my $BitField = $$this[3];
+            my $Mask = $$this[4];
+            if (defined $Storage{$$Location[1]}->{KIND}
+                and $Storage{$$Location[1]}->{KIND} eq "Memory") {
+                confess "Masked STORE not supported" if defined $Mask;
+                push(@$pretty, "${indent}HELPER(store_$$Location[1])(this${indent_incremented}, ");
+                &codegen($$Location[3], $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent_incremented}, ");
+                &codegen($$Location[2], $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent_incremented}, ");
+                &codegen($BitField, $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent})");
+                $$CodeGen_Operands{ENUM}{MEMORY}{$$Location[1]}++;
+            } else {
+                my $address = $$Location[2][1];
+                my $extent = $$Location[3][1];
+                my $width = $Storage{$$Location[1]}->{WIDTH};
+                if ($$Location[2][0] ne "CONST") {
+                    confess "Extent is not 1 and address not constant" unless $extent == 1;
+                    if ($$Location[2][0] eq "METHOD") {
+                        my $proxy = $$Location[2][1];
+                        $proxy =~ /%([0-9]+)(:(\d+))?/ or die "Expecting proxy instead of $$Location[2][1]";
+                        my ($rank, $multi, $bias) = ($1, $2, $3);
+                        my $index = $$CodeGen_Proxies{$proxy}{INDEX};
+                        $$CodeGen_Operands{WRITE}{$proxy}{REGFILE} = $$Location[1];
+                        $$CodeGen_Operands{WRITE}{$proxy}{STAGE} = $Stage;
+                        if (defined $Mask) {
+                            confess "STORE mask not constant" if $Mask->[0] ne 'CONST';
+                            my ($static_name, $static_value) = &codegen_mask("static", $Mask->[1]);
+                            unless (defined $$CodeGen_Statics{$static_name}) {
+                                $$CodeGen_Statics{$static_name} = $static_value;
+                            }
+                            (my $mask_name = "mask" . $proxy) =~ s/\W/_/g;
+  #$$CodeGen_Operands{MASK}{$mask_name} = 1;
+  #push(@$pretty, "${indent}$mask_name = Int256_or($mask_name, $static_name);");
+                            push(@$pretty, "${indent}HELPER(operandFromValue)(this, $rank, $index, &$static_name, ");
+                            &codegen($BitField, $pretty, $nesting + 1, $context);
+                            push(@$pretty, "${indent})");
+                        } else {
+                            push(@$pretty, "${indent}HELPER(operandFromValue)(this, $rank, $index, 0, ");
+                            &codegen($BitField, $pretty, $nesting + 1, $context);
+                            push(@$pretty, "${indent})");
                         }
-                        (my $mask_name = "mask" . $proxy) =~ s/\W/_/g;
-                        #$$CodeGen_Operands{MASK}{$mask_name} = 1;
-                        #push(@$pretty, "${indent}$mask_name = Int256_or($mask_name, $static_name);");
-                        push(@$pretty, "${indent}HELPER(operandFromValue)(this, $rank, $index, &$static_name, ");
-                        &codegen($BitField, $pretty, $nesting + 1, $context);
-                        push(@$pretty, "${indent})");
                     } else {
-                        push(@$pretty, "${indent}HELPER(operandFromValue)(this, $rank, $index, 0, ");
+                        confess "Masked STORE not supported" if defined $Mask;
+                        push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, ");
+                        # Enable commit stage for this write to storage
+                        $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
+                        push(@$pretty, "${indent_incremented}Int256_toUInt32(");
+                        &codegen($$Location[2], $pretty, $nesting + 1, $context);
+                        push(@$pretty, "${indent}), 1, $width, ");
                         &codegen($BitField, $pretty, $nesting + 1, $context);
                         push(@$pretty, "${indent})");
                     }
                 } else {
                     confess "Masked STORE not supported" if defined $Mask;
-                    push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, ");
-		    # Enable commit stage for this write to storage
-		    $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
-                    push(@$pretty, "${indent_incremented}Int256_toUInt32(");
-                    &codegen($$Location[2], $pretty, $nesting + 1, $context);
-                    push(@$pretty, "${indent}), 1, $width, ");
-                    &codegen($BitField, $pretty, $nesting + 1, $context);
-                    push(@$pretty, "${indent})");
+                    if ($extent == 1) {
+                        push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, $address, 1, $width, ");
+                        # Enable commit stage for this write to storage
+                        $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
+                        &codegen($BitField, $pretty, $nesting + 1, $context);
+                        push(@$pretty, "${indent})");
+                        if($$Location[2][1] !~ /^[0-9\-]+$/) {
+                            $$CodeGen_Operands{ENUM}{IDENT}{$$Location[2][1]}++;
+                        }
+                    } else {
+                        if(not defined $Storage{$$Location[1]}->{WIDTH}) {
+                            confess "$$Location[1]: Storage width unknown";
+                        }
+                        if($$Location[2][1] !~ /^[0-9\-]+$/) {
+                            $$CodeGen_Operands{ENUM}{IDENT}{$$Location[2][1]}++;
+                        }
+                        confess "Storage wider than 256 bits" if $extent * $width > 256;
+                        push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, $address, $extent, $width, ");
+                        # Enable commit stage for this write to storage
+                        $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
+                        &codegen($BitField, $pretty, $nesting + 1, $context);
+                        push(@$pretty, "${indent})");
+                    }
                 }
+                $$CodeGen_Operands{ENUM}{REGISTER}{$$Location[1]}++;
+            }
+            last SWITCH;
+          };
+        $$this[0] =~ /^LOAD$/ and do {
+            # LOAD Stage Location
+            my $Stage    = $$this[1];
+            my $Location = $$this[2];
+            if (defined $Storage{$$Location[1]}->{KIND}
+                and $Storage{$$Location[1]}->{KIND} eq "Memory") {
+                push(@$pretty, "${indent}HELPER(load_$$Location[1])(this${indent_incremented}, ");
+                &codegen($$Location[3], $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent_incremented}, ");
+                &codegen($$Location[2], $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent})");
+                $$CodeGen_Operands{ENUM}{MEMORY}{$$Location[1]}++;
             } else {
-                confess "Masked STORE not supported" if defined $Mask;
-                if ($extent == 1) {
-                    push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, $address, 1, $width, ");
-		    # Enable commit stage for this write to storage
-		    $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
-                    &codegen($BitField, $pretty, $nesting + 1, $context);
-                    push(@$pretty, "${indent})");
-                    if($$Location[2][1] !~ /^[0-9\-]+$/) {
-                        $$CodeGen_Operands{ENUM}{IDENT}{$$Location[2][1]}++;
+                confess "LOAD extent is not constant for ".$CodeGen_Opcode->name() if($$Location[3][0] ne "CONST");
+                my $address = $$Location[2][1];
+                my $extent = $$Location[3][1];
+                my $width = $Storage{$$Location[1]}->{WIDTH};
+                if ($$Location[2][0] ne "CONST") {
+                    confess "Extent is not 1 and address not constant" unless $extent == 1;
+                    if ($$Location[2][0] eq "METHOD") {
+                        my $proxy = $$Location[2][1];
+                        $proxy =~ /%([0-9]+)(:(\d+))?/ or die "Expecting proxy instead of $$Location[2][1]";
+                        $$CodeGen_Operands{READ}{$proxy}{REGFILE} = $$Location[1];
+                        $$CodeGen_Operands{READ}{$proxy}{STAGE} = $Stage;
+                        my $index = $$CodeGen_Proxies{$proxy}{INDEX};
+                        push(@$pretty, "${indent}HELPER(operandRead)(this, $index)");
+                    } else {
+                        push(@$pretty, "${indent}HELPER(readFromStorage_$$Location[1])(this, $Stage, ");
+                        push(@$pretty, "${indent_incremented}Int256_toUInt32(");
+                        &codegen($$Location[2], $pretty, $nesting + 1, $context);
+                        push(@$pretty, "${indent}), 1, $width)");
                     }
                 } else {
-                    if(not defined $Storage{$$Location[1]}->{WIDTH}) {
-                        confess "$$Location[1]: Storage width unknown";
+                    if ($extent == 1) {
+                        push(@$pretty, "${indent}HELPER(readFromStorage_$$Location[1])(this, $Stage, $address, 1, $width)");
+                        if($$Location[2][1] !~ /^[0-9\-]+$/) {
+                            $$CodeGen_Operands{ENUM}{IDENT}{$address}++;
+                        }
+                    } else {
+                        if(not defined $Storage{$$Location[1]}->{WIDTH}) {
+                            confess "$$Location[1]: Storage width unknown";
+                        }
+                        if($$Location[2][1] !~ /^[0-9\-]+$/) {
+                            $$CodeGen_Operands{ENUM}{IDENT}{$$Location[2][1]}++;
+                        }
+                        confess "Storage wider than 256 bits" if $extent * $width > 256;
+                        push(@$pretty,
+"${indent_incremented}HELPER(readFromStorage_$$Location[1])(this, $Stage, $address, $extent, $width)");
                     }
-                    if($$Location[2][1] !~ /^[0-9\-]+$/) {
-                        $$CodeGen_Operands{ENUM}{IDENT}{$$Location[2][1]}++;
-                    }
-                    confess "Storage wider than 256 bits" if $extent * $width > 256;
-                    push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, $address, $extent, $width, ");
-		    # Enable commit stage for this write to storage
-		    $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
-                    &codegen($BitField, $pretty, $nesting + 1, $context);
-                    push(@$pretty, "${indent})");
                 }
+                $$CodeGen_Operands{ENUM}{REGISTER}{$$Location[1]}++;
             }
-            $$CodeGen_Operands{ENUM}{REGISTER}{$$Location[1]}++;
-        }
-        last SWITCH;
-    };
-    $$this[0] =~ /^LOAD$/ and do {
-        # LOAD Stage Location
-        my $Stage    = $$this[1];
-        my $Location = $$this[2];
-        if (defined $Storage{$$Location[1]}->{KIND}
-            and $Storage{$$Location[1]}->{KIND} eq "Memory") {
-            push(@$pretty, "${indent}HELPER(load_$$Location[1])(this${indent_incremented}, ");
+            last SWITCH;
+          };
+        $$this[0] =~ /^PROBE$/ and do {
+            # PROBE Stage Location
+            my $Location = $$this[2];
+            # Check if the change is correct.
+            # if (!(defined $Storage{$$Location[1]}->{KIND} and 
+            #         $Storage{$$Location[1]}->{KIND} eq "Memory")) {
+            #    confess "$$Location[1]: Not a memory storage"
+            # }
+            if (!(defined $Storage{$$Location[1]}->{KIND} and
+                    $Storage{$$Location[1]}->{KIND} eq "Memory")) {
+                $$CodeGen_Operands{ENUM}{MEMORY}{$$Location[1]}++;
+            }
+            else {
+                $$CodeGen_Operands{ENUM}{REGISTER}{$$Location[1]}++;
+            }
+            push(@$pretty, "${indent}HELPER(probe_$$Location[1])(this, ");
             &codegen($$Location[3], $pretty, $nesting + 1, $context);
-            push(@$pretty, "${indent_incremented}, ");
+            push(@$pretty, "${indent_incremented},");
             &codegen($$Location[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
-            $$CodeGen_Operands{ENUM}{MEMORY}{$$Location[1]}++;
-        } else {
-            confess "LOAD extent is not constant for ".$CodeGen_Opcode->name() if($$Location[3][0] ne "CONST");
-            my $address = $$Location[2][1];
-            my $extent = $$Location[3][1];
-            my $width = $Storage{$$Location[1]}->{WIDTH};
-            if ($$Location[2][0] ne "CONST") {
-                confess "Extent is not 1 and address not constant" unless $extent == 1;
-                if ($$Location[2][0] eq "METHOD") {
-                    my $proxy = $$Location[2][1];
-                    $proxy =~ /%([0-9]+)(:(\d+))?/ or die "Expecting proxy instead of $$Location[2][1]";
-                    $$CodeGen_Operands{READ}{$proxy}{REGFILE} = $$Location[1];
-                    $$CodeGen_Operands{READ}{$proxy}{STAGE} = $Stage;
-                    my $index = $$CodeGen_Proxies{$proxy}{INDEX};
-                    push(@$pretty, "${indent}HELPER(operandRead)(this, $index)");
-                } else {
-                    push(@$pretty, "${indent}HELPER(readFromStorage_$$Location[1])(this, $Stage, ");
-                    push(@$pretty, "${indent_incremented}Int256_toUInt32(");
-                    &codegen($$Location[2], $pretty, $nesting + 1, $context);
-                    push(@$pretty, "${indent}), 1, $width)");
-                }
-            } else {
-                if ($extent == 1) {
-                    push(@$pretty, "${indent}HELPER(readFromStorage_$$Location[1])(this, $Stage, $address, 1, $width)");
-                    if($$Location[2][1] !~ /^[0-9\-]+$/) {
-                        $$CodeGen_Operands{ENUM}{IDENT}{$address}++;
-                    }
-                } else {
-                    if(not defined $Storage{$$Location[1]}->{WIDTH}) {
-                        confess "$$Location[1]: Storage width unknown";
-                    }
-                    if($$Location[2][1] !~ /^[0-9\-]+$/) {
-                        $$CodeGen_Operands{ENUM}{IDENT}{$$Location[2][1]}++;
-                    }
-                    confess "Storage wider than 256 bits" if $extent * $width > 256;
-                    push(@$pretty, 
-                        "${indent_incremented}HELPER(readFromStorage_$$Location[1])(this, $Stage, $address, $extent, $width)");
-                }
+            last SWITCH;
+          };
+        $$this[0] =~ /^SKIP$/ and do {
+            # SKIP Arguments
+            last SWITCH;
+          };
+        $$this[0] =~ /^CANCEL$/ and do {
+            # CANCEL
+            push(@$pretty, "${indent}HELPER(cancel)(this);");
+            last SWITCH;
+          };
+        $$this[0] =~ /^SEQ$/ and do {
+            # SEQ Commands
+            for (my $i = 1; $i < @$this; $i++) {
+                &codegen($$this[$i], $pretty, $nesting, $context);
+                push(@$pretty, ";");
             }
-            $$CodeGen_Operands{ENUM}{REGISTER}{$$Location[1]}++;
-        }
-        last SWITCH;
-    };
-    $$this[0] =~ /^PROBE$/ and do {
-        # PROBE Stage Location
-        my $Location = $$this[2];
-        # Check if the change is correct.
-        # if (!(defined $Storage{$$Location[1]}->{KIND} and 
-        #         $Storage{$$Location[1]}->{KIND} eq "Memory")) {
-        #    confess "$$Location[1]: Not a memory storage"
-        # }
-        if (!(defined $Storage{$$Location[1]}->{KIND} and 
-                $Storage{$$Location[1]}->{KIND} eq "Memory")) {
-            $$CodeGen_Operands{ENUM}{MEMORY}{$$Location[1]}++;
-        }
-        else {
-            $$CodeGen_Operands{ENUM}{REGISTER}{$$Location[1]}++;
-        }
-        push(@$pretty, "${indent}HELPER(probe_$$Location[1])(this, ");
-        &codegen($$Location[3], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent_incremented},");
-        &codegen($$Location[2], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        last SWITCH;
-    };
-    $$this[0] =~ /^SKIP$/ and do {
-        # SKIP Arguments
-        last SWITCH;
-    };
-    $$this[0] =~ /^CANCEL$/ and do {
-        # CANCEL
-        push(@$pretty, "${indent}HELPER(cancel)(this);");
-        last SWITCH;
-    };
-    $$this[0] =~ /^SEQ$/ and do {
-        # SEQ Commands
-        for (my $i = 1; $i < @$this; $i++) {
-            &codegen($$this[$i], $pretty, $nesting, $context);
-            push(@$pretty, ";");
-        }
-        last SWITCH;
-    };
-    $$this[0] =~ /^IF$/ and do {
-        # IF Boolean Command Command
-        push(@$pretty, "${indent}if (");
-        &codegen($$this[1], $pretty, $nesting + 1, $context);
-        push(@$pretty, "${indent})");
-        push(@$pretty, "${indent}{");
-        &codegen($$this[2], $pretty, $nesting+1, $context);
-        push(@$pretty, "${indent_incremented};");
-        my @else = $$this[3][0];
-        if ($else[0] ne 'SKIP') {
-            push(@$pretty, "${indent}}");
-            push(@$pretty, "${indent}else {");
-            &codegen($$this[3], $pretty, $nesting+1, $context);
+            last SWITCH;
+          };
+        $$this[0] =~ /^IF$/ and do {
+            # IF Boolean Command Command
+            push(@$pretty, "${indent}if (");
+            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            push(@$pretty, "${indent})");
+            push(@$pretty, "${indent}{");
+            &codegen($$this[2], $pretty, $nesting+1, $context);
             push(@$pretty, "${indent_incremented};");
-        }
-        push(@$pretty, "${indent}}");
-        last SWITCH;
-    };
-    $$this[0] =~ /^AGGL$/ and do {
-        # AGGL Storage Address Extent
-        confess "Should not be here";
-        last SWITCH;
-    };
-    $$this[0] =~ /^AGGB$/ and do {
-        # AGGB Storage Address Extent
-        confess "Should not be here";
-        last SWITCH;
-    };
-    $$this[0] =~ /^FOR$/ and do {
-      my @for_node = @{$this};
-      my $var = $for_node[1];
-      my (undef, $begin, $end, $step) = @{$for_node[2]};
-      my %cont = %{$context};
-      my @cmds = splice @for_node, 3;
-      while (($step > 0 && $begin < $end) || ($step < 0 && $begin > $end)) {
-        if (exists $cont{$var}) {
-          die "variable $var already defined."
-        }
-        $cont{$var} = $begin;
-        foreach my $cmd (@cmds) {
-          &codegen($cmd, $pretty, $nesting+1, \%cont);
-          push @$pretty, ";";
-        }
-        delete $cont{$var};
-        $begin += $step;
-      }
-      last SWITCH;
-    };
-    $$this[0] =~ /^INDEX$/ and do {
-      my $var = $$this[1];
-      my %cont = %{$context};
-      if (exists $cont{$var}) {
-        push @$pretty, $cont{$var};
-      } else {
-          die "variable $var is unbound.";
-      }
-      last SWITCH;
-    };
-    confess "Unrecognized $$this[0]\n";
-  }
+            my @else = $$this[3][0];
+            if ($else[0] ne 'SKIP') {
+                push(@$pretty, "${indent}}");
+                push(@$pretty, "${indent}else {");
+                &codegen($$this[3], $pretty, $nesting+1, $context);
+                push(@$pretty, "${indent_incremented};");
+            }
+            push(@$pretty, "${indent}}");
+            last SWITCH;
+          };
+        $$this[0] =~ /^AGGL$/ and do {
+            # AGGL Storage Address Extent
+            confess "Should not be here";
+            last SWITCH;
+          };
+        $$this[0] =~ /^AGGB$/ and do {
+            # AGGB Storage Address Extent
+            confess "Should not be here";
+            last SWITCH;
+          };
+        $$this[0] =~ /^FOR$/ and do {
+            my @for_node = @{$this};
+            my $var = $for_node[1];
+            my (undef, $begin, $end, $step) = @{$for_node[2]};
+            my %cont = %{$context};
+            my @cmds = splice @for_node, 3;
+            while (($step > 0 && $begin < $end) || ($step < 0 && $begin > $end)) {
+                if (exists $cont{$var}) {
+                    die "variable $var already defined."
+                }
+                $cont{$var} = $begin;
+                foreach my $cmd (@cmds) {
+                    &codegen($cmd, $pretty, $nesting+1, \%cont);
+                    push @$pretty, ";";
+                }
+                delete $cont{$var};
+                $begin += $step;
+            }
+            last SWITCH;
+          };
+        $$this[0] =~ /^INDEX$/ and do {
+            my $var = $$this[1];
+            my %cont = %{$context};
+            if (exists $cont{$var}) {
+                push @$pretty, $cont{$var};
+            } else {
+                die "variable $var is unbound.";
+            }
+            last SWITCH;
+          };
+        confess "Unrecognized $$this[0]\n";
+    }
 }
+
 =head1 NAME
 
 Behavior -- Behavior language parser
@@ -3024,60 +3025,60 @@ Benoit Dupont de Dinechin
 #
 our %pipeline;
 sub yyinit {
-  foreach my $processor (@Processor::table) {
-    my @pipeline = split ' ', $processor->attribute("pipeline");
-    my @stages = split ' ', $processor->attribute("stages");
-                croak "pipeline names and stages lists mismatch" unless @pipeline == @stages;
-                while (@pipeline) {
-      my $name = shift @pipeline;
-                        my $stage = shift @stages;
-      my $contents = $pipeline{$name};
-      #print STDERR "pipeline($name) = $stage\n";
-      unless ($yycheck) {
-        croak "pipeline stage $name already defined as $contents" if defined $contents;
-      }
-      $pipeline{$name} = $stage;
+    foreach my $processor (@Processor::table) {
+        my @pipeline = split ' ', $processor->attribute("pipeline");
+        my @stages = split ' ', $processor->attribute("stages");
+        croak "pipeline names and stages lists mismatch" unless @pipeline == @stages;
+        while (@pipeline) {
+            my $name = shift @pipeline;
+            my $stage = shift @stages;
+            my $contents = $pipeline{$name};
+            #print STDERR "pipeline($name) = $stage\n";
+            unless ($yycheck) {
+                croak "pipeline stage $name already defined as $contents" if defined $contents;
+            }
+            $pipeline{$name} = $stage;
+        }
     }
-  }
-  foreach my $storage (@Storage::table) {
-    my $name = $storage->name();
-    my $kind = $storage->attribute("kind");
-    my $width = $storage->attribute("width");
-    if ($kind eq 'Constant') {
-      my $contents = $storage->contents();
-#print STDERR "Storage Constant($name) = $contents\n";
-      my $constant = &Constant($name);
-      croak "Storage Constant $name already defined" if defined $constant;
-      &Constant($name, $contents);
-    } else {
-      &Storage($name, { KIND=>$kind, WIDTH=>$width });
+    foreach my $storage (@Storage::table) {
+        my $name = $storage->name();
+        my $kind = $storage->attribute("kind");
+        my $width = $storage->attribute("width");
+        if ($kind eq 'Constant') {
+            my $contents = $storage->contents();
+            #print STDERR "Storage Constant($name) = $contents\n";
+            my $constant = &Constant($name);
+            croak "Storage Constant $name already defined" if defined $constant;
+            &Constant($name, $contents);
+        } else {
+            &Storage($name, { KIND=>$kind, WIDTH=>$width });
+        }
     }
-  }
-  foreach my $regFile (@RegFile::table) {
-    my $name = $regFile->name();
-    my $width = $regFile->attribute("width");
-    &Storage($name, { WIDTH=>$width });
-    my @registers = $regFile->access("registers");
-    my $index = 0;
-    foreach my $register (@registers) {
-      my $name = $register->name();
-      my $constant = &Constant($name);
-      croak "Register Constant $name already defined" if defined $constant;
-#print STDERR "Register Constant($name) = $index\n";
-      &Constant($name, $index);
-      $index++;
+    foreach my $regFile (@RegFile::table) {
+        my $name = $regFile->name();
+        my $width = $regFile->attribute("width");
+        &Storage($name, { WIDTH=>$width });
+        my @registers = $regFile->access("registers");
+        my $index = 0;
+        foreach my $register (@registers) {
+            my $name = $register->name();
+            my $constant = &Constant($name);
+            croak "Register Constant $name already defined" if defined $constant;
+            #print STDERR "Register Constant($name) = $index\n";
+            &Constant($name, $index);
+            $index++;
+        }
     }
-  }
-  foreach my $regField (@RegField::table) {
-    my $name = $regField->name();
-    my $constant = &Constant($name);
-    my $offset = $regField->attribute("offset");
-    if (defined $constant and $constant != $offset and $name ne "PCR_CAR") {
-      croak "RegField Constant $name already defined";
+    foreach my $regField (@RegField::table) {
+        my $name = $regField->name();
+        my $constant = &Constant($name);
+        my $offset = $regField->attribute("offset");
+        if (defined $constant and $constant != $offset and $name ne "PCR_CAR") {
+            croak "RegField Constant $name already defined";
+        }
+        #print STDERR "RegField Constant($name) = $offset\n";
+        &Constant($name, $offset);
     }
-#print STDERR "RegField Constant($name) = $offset\n";
-    &Constant($name, $offset);
-  }
 }
 
 #
@@ -3089,84 +3090,86 @@ our @yylval = ();
 our $yykeep = 8;
 our $yylkeep;
 sub yylval {
-  $yylkeep = shift;
-  if (defined $yylkeep) {
-    shift @yylval while @yylval > $yylkeep;
-  }
-  map { "'$_' " } @yylval;
+    $yylkeep = shift;
+    if (defined $yylkeep) {
+        shift @yylval while @yylval > $yylkeep;
+    }
+    map { "'$_' " } @yylval;
 }
 
 our @yyin = ();
 sub yyin {
-  while (@_) {
-    my $buffer = shift;
-    push @yyin, grep {length($_)} split ' ', $buffer;
-  }
+    while (@_) {
+        my $buffer = shift;
+        push @yyin, grep {length($_)} split ' ', $buffer;
+    }
 }
 
 sub yyflush {
-  @yyin = ();
-  @yylval = ();
+    @yyin = ();
+    @yylval = ();
 }
 
 my $yytree;
 sub yytree {
-  return $yytree;
+    return $yytree;
 }
 
 our $yylast = '';
 sub yylex {
-  my $token;
-  return '' unless (@yyin);
-  my $value = shift @yyin;
+    my $token;
+    return '' unless (@yyin);
+    my $value = shift @yyin;
 #%token INTNUM SYMNUM IDENT PROXY
 #%token SEQ IF EFFECT STORE COMMIT WRITE THROW MACRO SKIP LOAD ACCESS READ PROBE AGGL AGGB
 #%token UNDEF PROPERTY CONST METHOD APPLY F2I SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL
 #%token SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX NOT NEG ABS B2I
 #%token TRUE FALSE TEST NE EQ GT LE GE LT ANDL IORL XORL NOTL I2B I2F
 #%token FOR INDEX RANGE
-  if ($value =~ s/^(0x[0-9a-fA-F]+)//) {
-    ($token, $yylval) = ('INTNUM', $1);
-    # $yylval = oct($yylval) if $yylval =~ /^0/;
-  } elsif ($value =~ s/^(0b[01]+)//) {
-    ($token, $yylval) = ('INTNUM', $1);
-    # $yylval = oct($yylval) if $yylval =~ /^0/;
-  } elsif ($value =~ s/^(\-?\d+)//) {
-    ($token, $yylval) = ('INTNUM', $1);
-  } elsif ($value =~ s/^(\%\d+(:\d+)?)//) {
-    ($token, $yylval) = ('PROXY', $1);
-  } elsif ($value =~ s/^([a-zA-Z_]\w*)//) {
-    if ($yylast eq '(') {
-      ($token, $yylval) = ($1, $1);
-    } else {
-      ($token, $yylval) = ('IDENT', $1);
-      if ($yylast eq 'CONST') {
-        $token = 'SYMNUM';
-        my $constant = &Constant($yylval);
-        if (defined $constant) {
-          if (!ref $constant) {
-            ($token, $yylval) = ('INTNUM', $constant);
-          }
-        } elsif (!$yycheck) {
-          &Error("Unknown symbolic constant $yylval");
+    if ($value =~ s/^(0x[0-9a-fA-F]+)//) {
+        ($token, $yylval) = ('INTNUM', $1);
+        # $yylval = oct($yylval) if $yylval =~ /^0/;
+    } elsif ($value =~ s/^(0b[01]+)//) {
+        ($token, $yylval) = ('INTNUM', $1);
+        # $yylval = oct($yylval) if $yylval =~ /^0/;
+    } elsif ($value =~ s/^(\-?\d+)//) {
+        ($token, $yylval) = ('INTNUM', $1);
+    } elsif ($value =~ s/^(\%\d+(:\d+)?)//) {
+        ($token, $yylval) = ('PROXY', $1);
+    } elsif ($value =~ s/^([a-zA-Z_]\w*)//) {
+        if ($yylast eq '(') {
+            ($token, $yylval) = ($1, $1);
+        } else {
+            ($token, $yylval) = ('IDENT', $1);
+            if ($yylast eq 'CONST') {
+                $token = 'SYMNUM';
+                my $constant = &Constant($yylval);
+                if (defined $constant) {
+                    if (!ref $constant) {
+                        ($token, $yylval) = ('INTNUM', $constant);
+                    }
+                } elsif (!$yycheck) {
+                    &Error("Unknown symbolic constant $yylval");
+                }
+            }
         }
-      }
+    } elsif ($value =~ s/^((\(\*)|(\*\))|(\W))//) {
+        ($token, $yylval) = ($1, $1);
+    } else {
+        croak "unrecognized token '$value'";
     }
-  } elsif ($value =~ s/^((\(\*)|(\*\))|(\W))//) {
-    ($token, $yylval) = ($1, $1);
-  } else {
-    croak "unrecognized token '$value'";
-  }
-  unshift @yyin, $value if length($value);
-  if (defined $yylkeep) {
-    push @yylval, $yylval;
-    shift @yylval if @yylval > $yylkeep;
-  }
-  $yylast = $token unless $token eq '.';
-  return $token;
+    unshift @yyin, $value if length($value);
+    if (defined $yylkeep) {
+        push @yylval, $yylval;
+        shift @yylval if @yylval > $yylkeep;
+    }
+    $yylast = $token unless $token eq '.';
+    return $token;
 }
 
 1;
+
+# vim: set ts=4 sw=4 et:
 
 # generating or using semantic actions from 
 our @sem = (
@@ -3694,22 +3697,22 @@ return $_[0];
 
 our @act = (
 {# state 0
-  'Command'=>['goto','3'],
-  'Behavior'=>['goto','2'],
   '('=>['shift','1'],
+  'Behavior'=>['goto','2'],
+  'Command'=>['goto','3'],
 },
 {# state 1
-  'SKIP'=>['shift','12'],
-  'IF'=>['shift','5'],
-  'SEQ'=>['shift','4'],
+  'CANCEL'=>['shift','13'],
+  'COMMIT'=>['shift','8'],
   'EFFECT'=>['shift','6'],
   'FOR'=>['shift','14'],
-  'WRITE'=>['shift','9'],
-  'STORE'=>['shift','7'],
-  'CANCEL'=>['shift','13'],
-  'THROW'=>['shift','10'],
+  'IF'=>['shift','5'],
   'MACRO'=>['shift','11'],
-  'COMMIT'=>['shift','8'],
+  'SEQ'=>['shift','4'],
+  'SKIP'=>['shift','12'],
+  'STORE'=>['shift','7'],
+  'THROW'=>['shift','10'],
+  'WRITE'=>['shift','9'],
 },
 {# state 2
   '$end'=>['shift','15'],
@@ -3718,13 +3721,13 @@ our @act = (
   '$default'=>['reduce','1'],
 },
 {# state 4
+  '('=>['shift','1'],
   'Command'=>['goto','16'],
   'Commands'=>['goto','17'],
-  '('=>['shift','1'],
 },
 {# state 5
-  'Boolean'=>['goto','19'],
   '('=>['shift','18'],
+  'Boolean'=>['goto','19'],
 },
 {# state 6
   '.'=>['shift','20'],
@@ -3745,8 +3748,8 @@ our @act = (
   '.'=>['shift','25'],
 },
 {# state 12
-  'Arguments'=>['goto','26'],
   '$default'=>['reduce','18'],
+  'Arguments'=>['goto','26'],
 },
 {# state 13
   ')'=>['shift','27'],
@@ -3761,60 +3764,60 @@ our @act = (
   '$default'=>['reduce','16'],
 },
 {# state 17
-  ')'=>['shift','29'],
   '('=>['shift','1'],
+  ')'=>['shift','29'],
   'Command'=>['goto','30'],
 },
 {# state 18
-  'TEST'=>['shift','34'],
-  'PROBE'=>['shift','31'],
-  'GE'=>['shift','39'],
-  'FALSE'=>['shift','33'],
-  'TRUE'=>['shift','32'],
   'ANDL'=>['shift','41'],
-  'I2B'=>['shift','45'],
-  'GT'=>['shift','37'],
   'EQ'=>['shift','36'],
-  'XORL'=>['shift','43'],
+  'FALSE'=>['shift','33'],
+  'GE'=>['shift','39'],
+  'GT'=>['shift','37'],
+  'I2B'=>['shift','45'],
+  'IORL'=>['shift','42'],
+  'LE'=>['shift','38'],
   'LT'=>['shift','40'],
   'NE'=>['shift','35'],
   'NOTL'=>['shift','44'],
-  'IORL'=>['shift','42'],
-  'LE'=>['shift','38'],
+  'PROBE'=>['shift','31'],
+  'TEST'=>['shift','34'],
+  'TRUE'=>['shift','32'],
+  'XORL'=>['shift','43'],
 },
 {# state 19
   '('=>['shift','1'],
   'Command'=>['goto','46'],
 },
 {# state 20
-  'Ident'=>['goto','50'],
   'IDENT'=>['shift','48'],
   'INTNUM'=>['shift','47'],
+  'Ident'=>['goto','50'],
   'Stage'=>['goto','49'],
 },
 {# state 21
-  'Stage'=>['goto','51'],
   'IDENT'=>['shift','48'],
   'INTNUM'=>['shift','47'],
   'Ident'=>['goto','50'],
+  'Stage'=>['goto','51'],
 },
 {# state 22
-  'Ident'=>['goto','50'],
   'IDENT'=>['shift','48'],
   'INTNUM'=>['shift','47'],
+  'Ident'=>['goto','50'],
   'Stage'=>['goto','52'],
 },
 {# state 23
-  'Ident'=>['goto','56'],
-  'Variable'=>['goto','55'],
-  'INTNUM'=>['shift','53'],
   'IDENT'=>['shift','48'],
+  'INTNUM'=>['shift','53'],
+  'Ident'=>['goto','56'],
   'Section'=>['goto','54'],
+  'Variable'=>['goto','55'],
 },
 {# state 24
-  'Ident'=>['goto','50'],
-  'INTNUM'=>['shift','47'],
   'IDENT'=>['shift','48'],
+  'INTNUM'=>['shift','47'],
+  'Ident'=>['goto','50'],
   'Stage'=>['goto','57'],
 },
 {# state 25
@@ -3822,17 +3825,17 @@ our @act = (
   'Ident'=>['goto','58'],
 },
 {# state 26
-  'Integer'=>['goto','61'],
+  '('=>['shift','59'],
   ')'=>['shift','60'],
   'Boolean'=>['goto','62'],
-  '('=>['shift','59'],
+  'Integer'=>['goto','61'],
 },
 {# state 27
   '$default'=>['reduce','15'],
 },
 {# state 28
-  'Ident'=>['goto','56'],
   'IDENT'=>['shift','48'],
+  'Ident'=>['goto','56'],
   'Variable'=>['goto','63'],
 },
 {# state 29
@@ -3862,16 +3865,16 @@ our @act = (
   'Integer'=>['goto','70'],
 },
 {# state 36
-  'Integer'=>['goto','71'],
   '('=>['shift','69'],
+  'Integer'=>['goto','71'],
 },
 {# state 37
   '('=>['shift','69'],
   'Integer'=>['goto','72'],
 },
 {# state 38
-  'Integer'=>['goto','73'],
   '('=>['shift','69'],
+  'Integer'=>['goto','73'],
 },
 {# state 39
   '('=>['shift','69'],
@@ -3882,16 +3885,16 @@ our @act = (
   'Integer'=>['goto','75'],
 },
 {# state 41
-  'Boolean'=>['goto','76'],
   '('=>['shift','18'],
+  'Boolean'=>['goto','76'],
 },
 {# state 42
-  'Boolean'=>['goto','77'],
   '('=>['shift','18'],
+  'Boolean'=>['goto','77'],
 },
 {# state 43
-  'Boolean'=>['goto','78'],
   '('=>['shift','18'],
+  'Boolean'=>['goto','78'],
 },
 {# state 44
   '('=>['shift','18'],
@@ -3902,8 +3905,8 @@ our @act = (
   'Integer'=>['goto','80'],
 },
 {# state 46
-  'Command'=>['goto','81'],
   '('=>['shift','1'],
+  'Command'=>['goto','81'],
 },
 {# state 47
   '$default'=>['reduce','100'],
@@ -3918,8 +3921,8 @@ our @act = (
   '$default'=>['reduce','101'],
 },
 {# state 51
-  'Location'=>['goto','84'],
   '('=>['shift','83'],
+  'Location'=>['goto','84'],
 },
 {# state 52
   '.'=>['shift','85'],
@@ -3944,59 +3947,59 @@ our @act = (
   ')'=>['shift','90'],
 },
 {# state 59
-  'PROPERTY'=>['shift','94'],
-  'XORL'=>['shift','43'],
-  'LT'=>['shift','40'],
-  'CLZ'=>['shift','103'],
-  'METHOD'=>['shift','96'],
-  'SX'=>['shift','99'],
-  'SAT'=>['shift','101'],
-  'REM'=>['shift','115'],
-  'MIN'=>['shift','122'],
-  'READ'=>['shift','92'],
-  'MOD'=>['shift','116'],
-  'EQ'=>['shift','36'],
-  'DIV'=>['shift','114'],
-  'ROL'=>['shift','109'],
-  'CTZ'=>['shift','105'],
-  'IORL'=>['shift','42'],
-  'B2I'=>['shift','127'],
-  'AND'=>['shift','119'],
-  'SHR'=>['shift','117'],
-  'LE'=>['shift','38'],
-  'NE'=>['shift','35'],
-  'NOTL'=>['shift','44'],
-  'ZX'=>['shift','100'],
-  'APPLY'=>['shift','97'],
-  'INDEX'=>['shift','128'],
-  'CONST'=>['shift','95'],
-  'GE'=>['shift','39'],
-  'NEG'=>['shift','126'],
-  'FALSE'=>['shift','33'],
+  'ABS'=>['shift','125'],
   'ACCESS'=>['shift','91'],
-  'SUB'=>['shift','112'],
+  'ADD'=>['shift','111'],
+  'AND'=>['shift','119'],
+  'ANDL'=>['shift','41'],
+  'APPLY'=>['shift','97'],
+  'B2I'=>['shift','127'],
   'CBS'=>['shift','106'],
+  'CLS'=>['shift','104'],
+  'CLZ'=>['shift','103'],
+  'CONST'=>['shift','95'],
+  'CTZ'=>['shift','105'],
+  'DIV'=>['shift','114'],
+  'EQ'=>['shift','36'],
+  'F2I'=>['shift','98'],
+  'FALSE'=>['shift','33'],
+  'GE'=>['shift','39'],
+  'GT'=>['shift','37'],
+  'I2B'=>['shift','45'],
+  'INDEX'=>['shift','128'],
+  'IOR'=>['shift','120'],
+  'IORL'=>['shift','42'],
+  'LE'=>['shift','38'],
+  'LT'=>['shift','40'],
+  'MAX'=>['shift','123'],
+  'METHOD'=>['shift','96'],
+  'MIN'=>['shift','122'],
+  'MOD'=>['shift','116'],
+  'MUL'=>['shift','113'],
+  'NE'=>['shift','35'],
+  'NEG'=>['shift','126'],
+  'NOT'=>['shift','124'],
+  'NOTL'=>['shift','44'],
+  'PROBE'=>['shift','31'],
+  'PROPERTY'=>['shift','94'],
+  'READ'=>['shift','92'],
+  'REM'=>['shift','115'],
+  'ROL'=>['shift','109'],
+  'ROR'=>['shift','108'],
+  'SAT'=>['shift','101'],
+  'SATU'=>['shift','102'],
   'SELECT'=>['shift','110'],
   'SHL'=>['shift','118'],
-  'XOR'=>['shift','121'],
-  'TEST'=>['shift','34'],
-  'F2I'=>['shift','98'],
-  'CLS'=>['shift','104'],
-  'PROBE'=>['shift','31'],
-  'ADD'=>['shift','111'],
-  'GT'=>['shift','37'],
-  'NOT'=>['shift','124'],
-  'ROR'=>['shift','108'],
-  'ABS'=>['shift','125'],
-  'MUL'=>['shift','113'],
-  'ANDL'=>['shift','41'],
-  'TRUE'=>['shift','32'],
+  'SHR'=>['shift','117'],
+  'SUB'=>['shift','112'],
   'SWAP'=>['shift','107'],
-  'I2B'=>['shift','45'],
-  'SATU'=>['shift','102'],
+  'SX'=>['shift','99'],
+  'TEST'=>['shift','34'],
+  'TRUE'=>['shift','32'],
   'UNDEF'=>['shift','93'],
-  'MAX'=>['shift','123'],
-  'IOR'=>['shift','120'],
+  'XOR'=>['shift','121'],
+  'XORL'=>['shift','43'],
+  'ZX'=>['shift','100'],
 },
 {# state 60
   '$default'=>['reduce','14'],
@@ -4008,19 +4011,19 @@ our @act = (
   '$default'=>['reduce','20'],
 },
 {# state 63
-  'Sequence'=>['goto','130'],
   '('=>['shift','129'],
+  'Sequence'=>['goto','130'],
 },
 {# state 64
-  'INTNUM'=>['shift','47'],
   'IDENT'=>['shift','48'],
+  'INTNUM'=>['shift','47'],
   'Ident'=>['goto','50'],
   'Stage'=>['goto','131'],
 },
 {# state 65
-  'IDENT'=>['shift','132'],
-  'Attributes'=>['goto','133'],
   'Attribute'=>['goto','134'],
+  'Attributes'=>['goto','133'],
+  'IDENT'=>['shift','132'],
 },
 {# state 66
   ')'=>['shift','135'],
@@ -4033,52 +4036,52 @@ our @act = (
   'Ident'=>['goto','137'],
 },
 {# state 69
-  'MIN'=>['shift','122'],
-  'READ'=>['shift','92'],
-  'MOD'=>['shift','116'],
-  'DIV'=>['shift','114'],
-  'ROL'=>['shift','109'],
-  'PROPERTY'=>['shift','94'],
-  'CLZ'=>['shift','103'],
-  'METHOD'=>['shift','96'],
-  'SX'=>['shift','99'],
-  'SAT'=>['shift','101'],
-  'REM'=>['shift','115'],
+  'ABS'=>['shift','125'],
+  'ACCESS'=>['shift','91'],
+  'ADD'=>['shift','111'],
+  'AND'=>['shift','119'],
   'APPLY'=>['shift','97'],
-  'ZX'=>['shift','100'],
-  'INDEX'=>['shift','128'],
+  'B2I'=>['shift','127'],
+  'CBS'=>['shift','106'],
+  'CLS'=>['shift','104'],
+  'CLZ'=>['shift','103'],
   'CONST'=>['shift','95'],
   'CTZ'=>['shift','105'],
-  'B2I'=>['shift','127'],
-  'AND'=>['shift','119'],
+  'DIV'=>['shift','114'],
+  'F2I'=>['shift','98'],
+  'INDEX'=>['shift','128'],
+  'IOR'=>['shift','120'],
+  'MAX'=>['shift','123'],
+  'METHOD'=>['shift','96'],
+  'MIN'=>['shift','122'],
+  'MOD'=>['shift','116'],
+  'MUL'=>['shift','113'],
+  'NEG'=>['shift','126'],
+  'NOT'=>['shift','124'],
+  'PROPERTY'=>['shift','94'],
+  'READ'=>['shift','92'],
+  'REM'=>['shift','115'],
+  'ROL'=>['shift','109'],
+  'ROR'=>['shift','108'],
+  'SAT'=>['shift','101'],
+  'SATU'=>['shift','102'],
+  'SELECT'=>['shift','110'],
+  'SHL'=>['shift','118'],
   'SHR'=>['shift','117'],
   'SUB'=>['shift','112'],
-  'CBS'=>['shift','106'],
-  'SELECT'=>['shift','110'],
-  'XOR'=>['shift','121'],
-  'SHL'=>['shift','118'],
-  'F2I'=>['shift','98'],
-  'CLS'=>['shift','104'],
-  'NEG'=>['shift','126'],
-  'ACCESS'=>['shift','91'],
   'SWAP'=>['shift','107'],
+  'SX'=>['shift','99'],
   'UNDEF'=>['shift','93'],
-  'SATU'=>['shift','102'],
-  'MAX'=>['shift','123'],
-  'IOR'=>['shift','120'],
-  'ADD'=>['shift','111'],
-  'ROR'=>['shift','108'],
-  'NOT'=>['shift','124'],
-  'ABS'=>['shift','125'],
-  'MUL'=>['shift','113'],
+  'XOR'=>['shift','121'],
+  'ZX'=>['shift','100'],
 },
 {# state 70
   '('=>['shift','69'],
   'Integer'=>['goto','138'],
 },
 {# state 71
-  'Integer'=>['goto','139'],
   '('=>['shift','69'],
+  'Integer'=>['goto','139'],
 },
 {# state 72
   '('=>['shift','69'],
@@ -4097,21 +4100,21 @@ our @act = (
   'Integer'=>['goto','143'],
 },
 {# state 76
-  'Boolean'=>['goto','144'],
   '('=>['shift','18'],
+  'Boolean'=>['goto','144'],
 },
 {# state 77
-  'Boolean'=>['goto','145'],
   '('=>['shift','18'],
+  'Boolean'=>['goto','145'],
 },
 {# state 78
-  'Boolean'=>['goto','146'],
   '('=>['shift','18'],
+  'Boolean'=>['goto','146'],
 },
 {# state 79
-  'Abstract'=>['goto','147'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','147'],
 },
 {# state 80
   '$default'=>['reduce','83'],
@@ -4122,12 +4125,12 @@ our @act = (
   ')'=>['shift','149'],
 },
 {# state 82
-  'Ident'=>['goto','150'],
   'IDENT'=>['shift','48'],
+  'Ident'=>['goto','150'],
 },
 {# state 83
-  'AGGL'=>['shift','151'],
   'AGGB'=>['shift','152'],
+  'AGGL'=>['shift','151'],
 },
 {# state 84
   '('=>['shift','153'],
@@ -4138,21 +4141,21 @@ our @act = (
   'Proxy'=>['goto','156'],
 },
 {# state 86
-  'Integer'=>['goto','158'],
   '('=>['shift','69'],
   'INTNUM'=>['shift','157'],
+  'Integer'=>['goto','158'],
 },
 {# state 87
+  'IDENT'=>['shift','48'],
   'Ident'=>['goto','56'],
   'Variable'=>['goto','159'],
-  'IDENT'=>['shift','48'],
 },
 {# state 88
   ')'=>['shift','160'],
 },
 {# state 89
-  'Ident'=>['goto','161'],
   'IDENT'=>['shift','48'],
+  'Ident'=>['goto','161'],
 },
 {# state 90
   '$default'=>['reduce','12'],
@@ -4164,9 +4167,9 @@ our @act = (
   '.'=>['shift','163'],
 },
 {# state 93
-  'Abstract'=>['goto','164'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','164'],
 },
 {# state 94
   '.'=>['shift','165'],
@@ -4217,32 +4220,32 @@ our @act = (
   '.'=>['shift','180'],
 },
 {# state 110
-  'Boolean'=>['goto','181'],
   '('=>['shift','18'],
+  'Boolean'=>['goto','181'],
 },
 {# state 111
-  'Integer'=>['goto','182'],
   '('=>['shift','69'],
+  'Integer'=>['goto','182'],
 },
 {# state 112
   '('=>['shift','69'],
   'Integer'=>['goto','183'],
 },
 {# state 113
-  'Integer'=>['goto','184'],
   '('=>['shift','69'],
+  'Integer'=>['goto','184'],
 },
 {# state 114
-  'Integer'=>['goto','185'],
   '('=>['shift','69'],
+  'Integer'=>['goto','185'],
 },
 {# state 115
-  'Integer'=>['goto','186'],
   '('=>['shift','69'],
+  'Integer'=>['goto','186'],
 },
 {# state 116
-  'Integer'=>['goto','187'],
   '('=>['shift','69'],
+  'Integer'=>['goto','187'],
 },
 {# state 117
   '('=>['shift','69'],
@@ -4253,8 +4256,8 @@ our @act = (
   'Integer'=>['goto','189'],
 },
 {# state 119
-  'Integer'=>['goto','190'],
   '('=>['shift','69'],
+  'Integer'=>['goto','190'],
 },
 {# state 120
   '('=>['shift','69'],
@@ -4265,8 +4268,8 @@ our @act = (
   'Integer'=>['goto','192'],
 },
 {# state 122
-  'Integer'=>['goto','193'],
   '('=>['shift','69'],
+  'Integer'=>['goto','193'],
 },
 {# state 123
   '('=>['shift','69'],
@@ -4295,9 +4298,9 @@ our @act = (
   'RANGE'=>['shift','200'],
 },
 {# state 130
-  'Commands'=>['goto','201'],
   '('=>['shift','1'],
   'Command'=>['goto','16'],
+  'Commands'=>['goto','201'],
 },
 {# state 131
   '('=>['shift','83'],
@@ -4320,12 +4323,12 @@ our @act = (
   '$default'=>['reduce','67'],
 },
 {# state 137
-  'Arguments'=>['goto','206'],
   '$default'=>['reduce','18'],
+  'Arguments'=>['goto','206'],
 },
 {# state 138
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','207'],
 },
 {# state 139
@@ -4334,24 +4337,24 @@ our @act = (
   'Abstract'=>['goto','208'],
 },
 {# state 140
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','209'],
 },
 {# state 141
-  'Abstract'=>['goto','210'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','210'],
 },
 {# state 142
-  'Abstract'=>['goto','211'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','211'],
 },
 {# state 143
-  'Abstract'=>['goto','212'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','212'],
 },
 {# state 144
   '$default'=>['reduce','83'],
@@ -4388,14 +4391,14 @@ our @act = (
   '.'=>['shift','220'],
 },
 {# state 153
-  'LOAD'=>['shift','221'],
   'I2F'=>['shift','222'],
+  'LOAD'=>['shift','221'],
 },
 {# state 154
-  'Mask'=>['goto','224'],
   '('=>['shift','69'],
   ')'=>['shift','223'],
   'Integer'=>['goto','225'],
+  'Mask'=>['goto','224'],
 },
 {# state 155
   '$default'=>['reduce','99'],
@@ -4418,21 +4421,21 @@ our @act = (
   '$default'=>['reduce','11'],
 },
 {# state 161
-  'Arguments'=>['goto','230'],
   '$default'=>['reduce','18'],
+  'Arguments'=>['goto','230'],
 },
 {# state 162
-  'Stage'=>['goto','231'],
-  'Ident'=>['goto','50'],
   'IDENT'=>['shift','48'],
   'INTNUM'=>['shift','47'],
+  'Ident'=>['goto','50'],
+  'Stage'=>['goto','231'],
 },
 {# state 163
   'IDENT'=>['shift','48'],
   'INTNUM'=>['shift','53'],
-  'Variable'=>['goto','233'],
   'Ident'=>['goto','56'],
   'Section'=>['goto','232'],
+  'Variable'=>['goto','233'],
 },
 {# state 164
   ')'=>['shift','234'],
@@ -4442,40 +4445,40 @@ our @act = (
   'Ident'=>['goto','235'],
 },
 {# state 166
+  'Constant'=>['goto','238'],
   'INTNUM'=>['shift','236'],
   'SYMNUM'=>['shift','237'],
-  'Constant'=>['goto','238'],
   'Section'=>['goto','239'],
 },
 {# state 167
-  'Proxy'=>['goto','240'],
   'PROXY'=>['shift','155'],
+  'Proxy'=>['goto','240'],
 },
 {# state 168
-  'Ident'=>['goto','243'],
   'IDENT'=>['shift','48'],
-  'Width'=>['goto','242'],
   'INTNUM'=>['shift','241'],
+  'Ident'=>['goto','243'],
+  'Width'=>['goto','242'],
 },
 {# state 169
-  'Width'=>['goto','244'],
   'INTNUM'=>['shift','241'],
+  'Width'=>['goto','244'],
 },
 {# state 170
   'INTNUM'=>['shift','241'],
   'Width'=>['goto','245'],
 },
 {# state 171
-  'Width'=>['goto','246'],
   'INTNUM'=>['shift','241'],
+  'Width'=>['goto','246'],
 },
 {# state 172
-  'Width'=>['goto','247'],
   'INTNUM'=>['shift','241'],
+  'Width'=>['goto','247'],
 },
 {# state 173
-  'Width'=>['goto','248'],
   'INTNUM'=>['shift','241'],
+  'Width'=>['goto','248'],
 },
 {# state 174
   'INTNUM'=>['shift','241'],
@@ -4490,44 +4493,44 @@ our @act = (
   'Width'=>['goto','251'],
 },
 {# state 177
-  'Width'=>['goto','252'],
   'INTNUM'=>['shift','241'],
+  'Width'=>['goto','252'],
 },
 {# state 178
-  'Width'=>['goto','253'],
   'INTNUM'=>['shift','241'],
+  'Width'=>['goto','253'],
 },
 {# state 179
-  'Width'=>['goto','254'],
   'INTNUM'=>['shift','241'],
+  'Width'=>['goto','254'],
 },
 {# state 180
   'INTNUM'=>['shift','241'],
   'Width'=>['goto','255'],
 },
 {# state 181
-  'Integer'=>['goto','256'],
   '('=>['shift','69'],
+  'Integer'=>['goto','256'],
 },
 {# state 182
   '('=>['shift','69'],
   'Integer'=>['goto','257'],
 },
 {# state 183
-  'Integer'=>['goto','258'],
   '('=>['shift','69'],
+  'Integer'=>['goto','258'],
 },
 {# state 184
-  'Integer'=>['goto','259'],
   '('=>['shift','69'],
+  'Integer'=>['goto','259'],
 },
 {# state 185
-  'Integer'=>['goto','260'],
   '('=>['shift','69'],
+  'Integer'=>['goto','260'],
 },
 {# state 186
-  'Integer'=>['goto','261'],
   '('=>['shift','69'],
+  'Integer'=>['goto','261'],
 },
 {# state 187
   '('=>['shift','69'],
@@ -4538,8 +4541,8 @@ our @act = (
   'Integer'=>['goto','263'],
 },
 {# state 189
-  'Integer'=>['goto','264'],
   '('=>['shift','69'],
+  'Integer'=>['goto','264'],
 },
 {# state 190
   '('=>['shift','69'],
@@ -4550,8 +4553,8 @@ our @act = (
   'Integer'=>['goto','266'],
 },
 {# state 192
-  'Integer'=>['goto','267'],
   '('=>['shift','69'],
+  'Integer'=>['goto','267'],
 },
 {# state 193
   '('=>['shift','69'],
@@ -4562,36 +4565,36 @@ our @act = (
   'Integer'=>['goto','269'],
 },
 {# state 195
-  'Abstract'=>['goto','270'],
   '$default'=>['reduce','83'],
   '(*'=>['shift','65'],
+  'Abstract'=>['goto','270'],
 },
 {# state 196
-  'Abstract'=>['goto','271'],
   '$default'=>['reduce','83'],
   '(*'=>['shift','65'],
+  'Abstract'=>['goto','271'],
 },
 {# state 197
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','272'],
 },
 {# state 198
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','273'],
 },
 {# state 199
-  'Variable'=>['goto','274'],
-  'Ident'=>['goto','56'],
   'IDENT'=>['shift','48'],
+  'Ident'=>['goto','56'],
+  'Variable'=>['goto','274'],
 },
 {# state 200
   '.'=>['shift','275'],
 },
 {# state 201
-  ')'=>['shift','276'],
   '('=>['shift','1'],
+  ')'=>['shift','276'],
   'Command'=>['goto','30'],
 },
 {# state 202
@@ -4601,10 +4604,10 @@ our @act = (
 },
 {# state 203
   'Constant'=>['goto','279'],
-  'Section'=>['goto','239'],
+  'IDENT'=>['shift','278'],
   'INTNUM'=>['shift','236'],
   'SYMNUM'=>['shift','237'],
-  'IDENT'=>['shift','278'],
+  'Section'=>['goto','239'],
 },
 {# state 204
   '$default'=>['reduce','84'],
@@ -4614,11 +4617,11 @@ our @act = (
   'IDENT'=>['shift','132'],
 },
 {# state 206
+  '$default'=>['reduce','83'],
   '('=>['shift','59'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','281'],
   'Boolean'=>['goto','62'],
-  '(*'=>['shift','65'],
-  '$default'=>['reduce','83'],
   'Integer'=>['goto','61'],
 },
 {# state 207
@@ -4661,13 +4664,13 @@ our @act = (
   'Integer'=>['goto','61'],
 },
 {# state 219
-  'Storage'=>['goto','292'],
   'IDENT'=>['shift','48'],
   'Ident'=>['goto','293'],
+  'Storage'=>['goto','292'],
 },
 {# state 220
-  'Ident'=>['goto','293'],
   'IDENT'=>['shift','48'],
+  'Ident'=>['goto','293'],
   'Storage'=>['goto','294'],
 },
 {# state 221
@@ -4688,8 +4691,8 @@ our @act = (
 {# state 226
   '('=>['shift','69'],
   ')'=>['shift','298'],
-  'Mask'=>['goto','299'],
   'Integer'=>['goto','225'],
+  'Mask'=>['goto','299'],
 },
 {# state 227
   '$default'=>['reduce','92'],
@@ -4701,9 +4704,9 @@ our @act = (
   ')'=>['shift','300'],
 },
 {# state 230
-  'Boolean'=>['goto','62'],
-  ')'=>['shift','301'],
   '('=>['shift','59'],
+  ')'=>['shift','301'],
+  'Boolean'=>['goto','62'],
   'Integer'=>['goto','61'],
 },
 {# state 231
@@ -4766,12 +4769,12 @@ our @act = (
   'Integer'=>['goto','312'],
 },
 {# state 247
-  'Integer'=>['goto','313'],
   '('=>['shift','69'],
+  'Integer'=>['goto','313'],
 },
 {# state 248
-  'Integer'=>['goto','314'],
   '('=>['shift','69'],
+  'Integer'=>['goto','314'],
 },
 {# state 249
   '('=>['shift','69'],
@@ -4786,8 +4789,8 @@ our @act = (
   'Integer'=>['goto','317'],
 },
 {# state 252
-  'Integer'=>['goto','318'],
   '('=>['shift','69'],
+  'Integer'=>['goto','318'],
 },
 {# state 253
   '('=>['shift','69'],
@@ -4806,39 +4809,39 @@ our @act = (
   'Integer'=>['goto','322'],
 },
 {# state 257
-  'Abstract'=>['goto','323'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','323'],
 },
 {# state 258
-  'Abstract'=>['goto','324'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','324'],
 },
 {# state 259
-  'Abstract'=>['goto','325'],
   '$default'=>['reduce','83'],
   '(*'=>['shift','65'],
+  'Abstract'=>['goto','325'],
 },
 {# state 260
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','326'],
 },
 {# state 261
-  'Abstract'=>['goto','327'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','327'],
 },
 {# state 262
-  'Abstract'=>['goto','328'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','328'],
 },
 {# state 263
-  'Abstract'=>['goto','329'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','329'],
 },
 {# state 264
   '$default'=>['reduce','83'],
@@ -4856,19 +4859,19 @@ our @act = (
   'Abstract'=>['goto','332'],
 },
 {# state 267
-  'Abstract'=>['goto','333'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','333'],
 },
 {# state 268
-  'Abstract'=>['goto','334'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','334'],
 },
 {# state 269
-  'Abstract'=>['goto','335'],
   '$default'=>['reduce','83'],
   '(*'=>['shift','65'],
+  'Abstract'=>['goto','335'],
 },
 {# state 270
   ')'=>['shift','336'],
@@ -4883,8 +4886,8 @@ our @act = (
   ')'=>['shift','339'],
 },
 {# state 274
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','340'],
 },
 {# state 275
@@ -4939,9 +4942,9 @@ our @act = (
   '$default'=>['reduce','5'],
 },
 {# state 292
-  'Integer'=>['goto','345'],
-  'Address'=>['goto','344'],
   '('=>['shift','69'],
+  'Address'=>['goto','344'],
+  'Integer'=>['goto','345'],
 },
 {# state 293
   '$default'=>['reduce','97'],
@@ -4952,14 +4955,14 @@ our @act = (
   'Integer'=>['goto','345'],
 },
 {# state 295
-  'Ident'=>['goto','50'],
-  'Stage'=>['goto','347'],
   'IDENT'=>['shift','48'],
   'INTNUM'=>['shift','47'],
+  'Ident'=>['goto','50'],
+  'Stage'=>['goto','347'],
 },
 {# state 296
-  'Width'=>['goto','348'],
   'INTNUM'=>['shift','241'],
+  'Width'=>['goto','348'],
 },
 {# state 297
   '$default'=>['reduce','7'],
@@ -4981,16 +4984,16 @@ our @act = (
   'Proxy'=>['goto','350'],
 },
 {# state 303
-  'Variable'=>['goto','351'],
-  'Ident'=>['goto','56'],
   'IDENT'=>['shift','48'],
+  'Ident'=>['goto','56'],
+  'Variable'=>['goto','351'],
 },
 {# state 304
   ')'=>['shift','352'],
 },
 {# state 305
-  'Proxy'=>['goto','353'],
   'PROXY'=>['shift','155'],
+  'Proxy'=>['goto','353'],
 },
 {# state 306
   ')'=>['shift','354'],
@@ -5003,32 +5006,32 @@ our @act = (
   'Ident'=>['goto','356'],
 },
 {# state 309
+  '$default'=>['reduce','83'],
   '('=>['shift','59'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','357'],
   'Boolean'=>['goto','62'],
-  '(*'=>['shift','65'],
-  '$default'=>['reduce','83'],
   'Integer'=>['goto','61'],
 },
 {# state 310
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','358'],
 },
 {# state 311
-  'Abstract'=>['goto','359'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','359'],
 },
 {# state 312
-  'Abstract'=>['goto','360'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','360'],
 },
 {# state 313
-  'Abstract'=>['goto','361'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','361'],
 },
 {# state 314
   '$default'=>['reduce','83'],
@@ -5046,19 +5049,19 @@ our @act = (
   'Abstract'=>['goto','364'],
 },
 {# state 317
-  'Abstract'=>['goto','365'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','365'],
 },
 {# state 318
-  'Abstract'=>['goto','366'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','366'],
 },
 {# state 319
-  'Abstract'=>['goto','367'],
   '$default'=>['reduce','83'],
   '(*'=>['shift','65'],
+  'Abstract'=>['goto','367'],
 },
 {# state 320
   '('=>['shift','69'],
@@ -5069,9 +5072,9 @@ our @act = (
   'Integer'=>['goto','369'],
 },
 {# state 322
-  'Abstract'=>['goto','370'],
   '$default'=>['reduce','83'],
   '(*'=>['shift','65'],
+  'Abstract'=>['goto','370'],
 },
 {# state 323
   ')'=>['shift','371'],
@@ -5151,32 +5154,32 @@ our @act = (
   'Integer'=>['goto','388'],
 },
 {# state 347
-  'Location'=>['goto','390'],
   '('=>['shift','83'],
+  'Location'=>['goto','390'],
 },
 {# state 348
-  'Integer'=>['goto','391'],
   '('=>['shift','69'],
+  'Integer'=>['goto','391'],
 },
 {# state 349
   '$default'=>['reduce','9'],
 },
 {# state 350
-  'Abstract'=>['goto','392'],
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
+  'Abstract'=>['goto','392'],
 },
 {# state 351
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','393'],
 },
 {# state 352
   '$default'=>['reduce','29'],
 },
 {# state 353
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','394'],
 },
 {# state 354
@@ -5223,8 +5226,8 @@ our @act = (
   ')'=>['shift','406'],
 },
 {# state 368
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','407'],
 },
 {# state 369
@@ -5308,9 +5311,9 @@ our @act = (
   ')'=>['shift','417'],
 },
 {# state 395
-  '(*'=>['shift','65'],
   '$default'=>['reduce','83'],
   '('=>['shift','59'],
+  '(*'=>['shift','65'],
   'Abstract'=>['goto','418'],
   'Boolean'=>['goto','62'],
   'Integer'=>['goto','61'],
@@ -5358,8 +5361,8 @@ our @act = (
   '$default'=>['reduce','48'],
 },
 {# state 410
-  '.'=>['shift','422'],
   ')'=>['shift','421'],
+  '.'=>['shift','422'],
 },
 {# state 411
   '$default'=>['reduce','21'],
@@ -5473,5 +5476,6 @@ sub yyparse {
   }
 }
 #    END py-skel.pl
+# vim: set ts=4 sw=4 et:
 
 1;
