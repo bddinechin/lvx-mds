@@ -257,17 +257,41 @@ to wire up and will catch real bugs in the Behavior FP specifications. It is a
 check on the semantics, not the semantics itself.
 
 
-## 5. The static width checking pass
+## 5. The width analysis
 
 `MDS/LIB/Width.pm`, run from `MDS/MDD/MDE/BIN/Opcode.pl` on each opcode's Behavior
 tree immediately after `Expand` — that is, on exactly the tree that is written to
 `Opcode.table` and that `BE/LAO/BIN/Behavior.pl` later hands to `CodeGen`. What the
 pass sees is what becomes C.
 
-It is an abstract interpretation over **integer intervals** (`Math::BigInt`), not a
-bit-width lattice: intervals are what answer the accumulator question, and they get
+It has two halves, which answer different questions.
+
+**Forward: an abstract interpretation over integer intervals** (`Math::BigInt`), not
+a bit-width lattice — intervals are what answer the accumulator question, and they get
 the sign cases right without the off-by-one traps that plague power-of-two bounds.
-See the module's own header for the rules.
+This says *how big a value can be*. It is what the checks below are built on.
+
+**Backward: a demanded-width analysis.** This says *how many of a value's low bits
+anyone actually looks at*, and it is not optional — the forward intervals alone cannot
+type the commonest expression in the ISA. `addw`'s `ADD` of two 64-bit registers is
+`[0, 2^65-2]`, which fits no native C type, yet the store keeps only its low 32 bits,
+so a 32-bit add would do. A node whose demand is *d* can be computed in any *d*-bit
+type whatever its interval, because the ring operations agree with the true result on
+their low *d* bits. So the usable width of a node is
+
+```
+    min(bits its interval needs, bits anyone demands)
+```
+
+and for `addw` that is `min(66, 32) = 32`. It runs over commands in reverse and
+top-down within expressions, and it **crosses variables** — which the forward
+truncation context deliberately does not. The load-bearing rule is one line: a `STORE`
+of `I2F.w` wants exactly *w* bits of what it stores.
+
+Helper arguments demand everything. That is sound and, measured, nearly free — §6
+settles a design question there that looked much more open than it was.
+
+Both halves are published in each Integer's `Abstract`; see §6.
 
 Two properties of the container have to be checked, and conflating them is a
 mistake (this pass made it first, and it produced 22 false alarms):
@@ -343,15 +367,114 @@ lint for *unintended* truncation would need an annotation to tell the two apart.
   modifier values, which the analysis cannot know. Worth knowing, not worth fixing.
 
 
-## 6. What to do, in order
+## 6. The abstract values, and unboxing the ISS
+
+The grammar attaches an **`Abstract`** to every Integer — `(*key:value,...*)`, parsed
+straight back into that node's attribute hash — and it was designed to hold exactly
+what §5 computes. It now does:
+
+```
+(WRITE.result1
+  (ADD
+    (READ.argument3(*dm:32,hi:18446744073709551615,lo:0*))
+    (READ.argument2(*dm:32,hi:18446744073709551615,lo:0*))(*dm:32,hi:36893488147419103230,lo:0*)))
+```
+
+`addw`'s sum can reach 2⁶⁵−2, and only 32 bits of it are ever looked at. Both facts
+are now *stated* in the description instead of implied.
+
+This is not decoration. The analysis runs in `MDD/MDE`, but `CodeGen` runs later in
+`BE/LAO` — **in a separate process, which re-parses the tree from `Opcode.table`** — so
+the abstract values either travel through the table or every back-end recomputes them.
+`Pretty`'s `$print_attributes` is therefore a key *filter* (a HASH ref publishes only
+the named keys): the attribute hash also carries the internal `TYPE`/`WIDTH`/`REPR`, and
+emitting those on every node would bloat the tables for nothing. A demand of 256 is
+suppressed (it says every bit is looked at, which is the default) and `CONST` carries
+no interval, its value being right there.
+
+### The type map
+
+With both halves of §5, and with `METHOD` bounded — an operand's *encoded* value, which
+for a register operand is an index into its file, `[0, 63]` for a GPR, something
+`Behavior::yyinit` already knew:
+
+| | forward only | + backward demand | genuinely needs `Int256_` |
+|---|---|---|---|
+| `lvx_v1` | 89.1% | **92.8%** | 7.2% |
+| `lvx_v2` | 81.1% | **83.3%** | 16.7% |
+
+So **93% of `lvx_v1`'s Integer nodes could be computed in a native C type.** Today
+every one of them is an `Int256_` — which in Kalray's implementation (`kvx-lao`,
+`LAO/CDT/BSL/Int256.c`) is a **32-byte union passed by value**, whose `Int256_add` is a
+four-limb `do`/`while` with branchy carry propagation, while `Int256_toUInt64` is just
+the low limb. Unboxing a 64-bit add replaces a branchy loop with one instruction and
+pays almost nothing at the boundary. That is where an ISS's speed lives.
+
+### Helper argument widths were not the missing piece
+
+It looked as though the backward analysis needed to know how many bits of each
+`APPLY`/`EFFECT` argument a helper actually uses — whether by annotating call sites with
+`Section` (`(READ.64[0].x)`) or by declaring helper signatures. Measured, it needs
+neither: **86% of helper arguments are already bounded by the coercion that produced
+them**, and the 290 that are not are genuinely 256-bit (XVR octuples, 128-bit products),
+which no declared width could narrow either. Treating every helper argument as ⊤ is
+sound and costs almost nothing.
+
+Do **not** overload `Section` for this. It means "lane *i* of a vector" — a fact about
+data layout, not about the consumer. It cannot express signedness. It must be repeated
+at all 705 call sites and is checkable at none. And, decisively, `(READ.64[0].x)` does
+not *annotate* a demand — it **truncates**, changing the value. Using it as an
+optimisation hint would smuggle implicit truncation back into the description, right
+after §3 got it out.
+
+**Helper signatures are worth having — for the calling convention, not the analysis.**
+Every helper takes and returns `Int256_`, and there are ~5000 helper calls in `lvx_v1`
+alone. Declared argument widths would let the generator emit
+
+```c
+uint32_t HELPER(f32_add)(void *this, uint8_t rm, uint32_t a, uint32_t b);
+```
+
+instead of four 32-byte unions. That boundary is a bigger prize than the arithmetic,
+and it is what would make the hand-written shim and soft-float code natural to write
+instead of forcing every implementer through `Int256_toUInt32` — which bears directly
+on the flag-returning FP operators and the exact dot product of §4. It is also the
+symmetric completion of the mandatory `APPLY` result width: `APPLY.32.f32_add` declares
+its result and says nothing about its operands.
+
+### How the codegen change is to be verified
+
+`MDS/BE/LAO/TEST/`. Every helper is replaced by a deterministic pure function of its
+arguments and every call folded into a trace hash, so an opcode's trace is a function
+of its inputs *and of every value the behaviour computed on the way*. Generate
+`Behavior.tuple` two ways, run all 870 opcodes, compare the traces. The oracle is
+Kalray's real `Int256_` arithmetic, fetched from `kvx-lao` and built by
+`extract-int256.sh`. No ISS, no gem5, no architectural model needed.
+
+It is mutation-tested, because a test that cannot fail is worth nothing: `Int256_add` →
+`Int256_sub` changes 347 of the 870 traces; a coercion width of 64 → 63 changes 666;
+8 → 7 changes 48. Wrong arithmetic and wrong width both show up, and the trace folds all
+four limbs of every `Int256_`, so a bug that corrupts only the high 192 bits — precisely
+what a careless unboxing does — cannot hide.
+
+Building the oracle also *demonstrated* two things §3 and §5 had only argued.
+`Int256_add(2^64-1, 2)` has `toUInt64 == 1`, exactly what a `uint64_t` add gives — the
+ring operations really do commute with truncation. And `shru(sx(-2^31,32),4)` has low 32
+bits `0xf8000000 == ((int32_t)0x80000000) >> 4`, which is the `sraw` idiom of §3.
+
+One incidental find: **`Int256_shr` — a true arithmetic shift — already exists in the
+runtime.** The `SHR` fix of §3 needs no new runtime support.
+
+
+## 7. What to do, in order
 
 **Done.**
 
-0. **Static width checking** (§5). The pass that *verifies* the 256-bit
+0. **The width analysis** (§5), forward and backward. It *verifies* that the 256-bit
    implementation is sound for every operator — including the ML operators not yet
-   written. It is also the prerequisite for everything below: Sail's type checker
-   will reject width-sloppy code, so the work has to be done regardless, and doing
-   it inside Behavior first means finding the bugs on home ground.
+   written — and it is the prerequisite for everything below. Sail's type checker will
+   reject width-sloppy code too, so the work has to be done regardless, and doing it
+   inside Behavior first means finding the bugs on home ground.
 
 1. **`APPLY`'s width is mandatory** (§5). A helper that does not say how wide its
    result is cannot be bounded, and nothing downstream of it can be checked.
@@ -359,23 +482,37 @@ lint for *unintended* truncation would need an annotation to tell the two apart.
 2. **The byte-lane truncation is written down** (§3). `ZX.256` where the `lvx_v2`
    extension instructions used to rely on `Int256_shl` dropping what overflowed.
 
+3. **The abstract values are published** (§6), and there is a differential test for
+   the generated C, with Kalray's real `Int256_` as its oracle.
+
 **Next.**
 
-3. **Close the helper gap** (§4). Make FP operators flag-returning, and specify the
-   FP and SIMD semantics in Behavior rather than in per-target C. This is the actual
+4. **Unbox `CodeGen`** (§6). 93% of `lvx_v1`'s Integer nodes could be a native C type;
+   all of them are a 32-byte union today. The type map is in the table, the safety net
+   is in `BE/LAO/TEST/`. This is the ISS speed-up, and it is now a mechanical change
+   with a decisive test rather than a speculative one.
+
+5. **Close the helper gap** (§4). Make the FP operators flag-returning and specify the
+   FP and SIMD semantics in Behavior rather than in per-target C. This is the real
    bottleneck for ISS retargeting, and it is independent of any Sail decision. Start
-   with the exact dot-product operators — they are the ones no library can give you,
-   and they are the ones the width pass can now prove fit, or not.
+   with the exact dot-product operators — no library can give you those, and they are
+   the ones the width analysis can now prove fit the container, or not. Doing (4) first
+   is worth it: the narrow prototypes it enables (§6) are what make these helpers
+   pleasant to write.
 
-4. **Fix `SHR`** (§3) — the last place the container width leaks into the meaning of
-   the description. Rename it to say it is logical, or define it as arithmetic and
-   add a separate logical form.
+6. **Give helpers a signature** (§6) — declared once in the machine description, like
+   `Storage`, and migrated the way `apply-nowidth` was (optional, warn, then mandatory).
+   Not for the analysis, which does not need it, but for the calling convention.
 
-5. **Fix `ALU_FWQWR`** (§5), once `lvx_v2` is settled enough for the opcode table to
+7. **Fix `SHR`** (§3) — the last place the container width leaks into the *meaning* of
+   the description. `Int256_shr` already exists in the runtime, so this costs nothing
+   but the rename and the sweep of the 89 sites.
+
+8. **Fix `ALU_FWQWR`** (§5), once `lvx_v2` is settled enough for the opcode table to
    move.
 
-6. **Add a Sail emitter as a back-end** (§2). Not a migration. A model whose FP is
+9. **Add a Sail emitter as a back-end** (§2). Not a migration. A model whose FP is
    defined in terms of integer arithmetic exports to Sail *better* than an
-   IEEE-primitive model would, because there is no primitive to map. In practice
-   this is gated on (3) and (4): a box dependence does not survive translation to a
+   IEEE-primitive model would, because there is no primitive to map. In practice this
+   is gated on (5) and (7): a box dependence does not survive translation into a
    language whose integers really are unbounded.

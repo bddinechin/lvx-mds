@@ -220,21 +220,42 @@ Install destinations (`make -C BE/LIBC install`, needs `--with-newlib-prefix` an
 
 Like `BE/GBU`, `BE/LIBC` has a `diff`/`refs`/`check` cycle against a committed reference tree at `lvx-family/BE/LIBC/lvx/`, separate from the actual `install` into the sibling repos.
 
-## Behavior and the static width check
+## Behavior, the width analysis, and the abstract values
 
 `MDS/DOC/Behavior.md` is the design note on the Behavior language: what it is, how
 it stands against Sail/ASL/nML, why floating point is still 100-odd opaque C
-helpers, and what to do about it. Read it before touching `LIB/Behavior.pa`.
+helpers, what the width analysis found, and what to do next. **Read it before
+touching `LIB/Behavior.pa`, `LIB/Width.pm`, or a `behavior:` in the YAML.**
 
 The short version of the part that affects everyday work: Behavior's values are
 **unbounded mathematical integers**, but `Behavior::CodeGen` emits C over a fixed
 256-bit `Int256_`. "256 bits suffice" is therefore a *claim* about every operator
-in the description, and `MDS/LIB/Width.pm` is the pass that checks it — an abstract
-interpretation over integer intervals, run from `MDD/MDE/BIN/Opcode.pl` on each
-opcode's Behavior tree right after `Expand`, i.e. on exactly the tree that lands in
-`Opcode.table` and that `BE/LAO` hands to `CodeGen`. What it sees is what becomes C.
+in the description, and `MDS/LIB/Width.pm` is the pass that checks it. It runs from
+`MDD/MDE/BIN/Opcode.pl` on each opcode's tree right after `Expand` — exactly the tree
+that lands in `Opcode.table` and that `BE/LAO` re-parses and hands to `CodeGen`. What
+it sees is what becomes C. It costs about 25% on the MDE step.
 
-It is read-only — it changes no generated file — and costs about 25% on the MDE step.
+It has two halves. **Forward**, an abstract interpretation over integer intervals:
+how big a value can be. **Backward**, a demanded-width analysis: how many of its low
+bits anyone looks at. Both are needed — `addw`'s `ADD` of two 64-bit registers is
+`[0, 2^65-2]`, which fits no native C type, but only its low 32 bits are ever stored.
+
+**Both are published in each Integer's `Abstract`** and land in `Opcode.table`:
+
+```
+(ADD (READ.argument3(*dm:32,hi:18446744073709551615,lo:0*))
+     (READ.argument2(*dm:32,hi:18446744073709551615,lo:0*))(*dm:32,hi:36893488147419103230,lo:0*))
+```
+
+`lo`/`hi` are the interval, `dm` the demanded width. The grammar parses them straight
+back into the node's attribute hash, which is how they reach `BE/LAO` — it runs in a
+separate process and would otherwise have to recompute them. `Pretty`'s third argument
+is a key filter (a HASH ref publishes only the named keys); `Opcode.pl` passes
+`{lo,hi,dm}`. Do not switch it on wholesale: the hash also carries `TYPE`/`WIDTH`/`REPR`.
+
+93% of `lvx_v1`'s Integer nodes could be a native C type; today all of them are a
+32-byte `Int256_` union passed by value. Unboxing `CodeGen` is the next step, and
+`MDS/BE/LAO/TEST/` is the differential test that makes it safe.
 
 | `WIDTH_CHECK` | Effect |
 |---|---|
@@ -261,7 +282,28 @@ Two consequences worth knowing before you touch a `behavior:`:
 `Int256_shru`, a *logical* shift, and `sraw`/`srad`/`avgw`/… rely on it shifting in
 the container's sign bits. 89 sites, reported as `shr-negative`. Until `SHR` is
 renamed or redefined, **the 256-bit container width is part of the architecture**.
-`Behavior.md` §3 has the details.
+`Behavior.md` §3 has the details. (`Int256_shr`, a true arithmetic shift, turns out
+to already exist in the runtime, so the fix needs no new runtime support.)
+
+## Testing the generated ISS C
+
+`MDS/BE/LAO/TEST/` is a **differential test for `BE/LAO`'s `Behavior.tuple`** — the
+operational semantics of every opcode compiled to C, i.e. the ISS. When the code
+generator changes, the question is not whether it still compiles but whether it still
+computes the same thing, and nothing else answers that.
+
+Every helper is replaced by a deterministic pure function of its arguments and every
+call folded into a trace hash, so an opcode's trace is a function of its inputs and of
+every value the behaviour computed on the way. Generate `Behavior.tuple` two ways, run
+all 870 opcodes, diff the traces. The oracle is **Kalray's real `Int256_` arithmetic**,
+fetched from `bddinechin/kvx-lao` (`LAO/CDT/BSL/Int256.c`) and built by
+`extract-int256.sh` — it is written in the XCC literate style, header and body in one
+file, so the script splits them and a plain `cc` builds it. No ISS, no gem5, no
+architectural model required. Mutation-tested; see its `README.md`.
+
+`Int256_` is a **32-byte union passed by value**, and `Int256_add` is a four-limb
+`do`/`while` with branchy carry propagation, while `Int256_toUInt64` is just the low
+limb. That is why unboxing is worth doing.
 
 ## Key source files
 
