@@ -1,0 +1,13 @@
+# Byproducts of the differential test (see README.md).  None of these are sources: the
+# Int256_ oracle is *fetched* from kvx-lao by extract-int256.sh so that it stays whatever
+# kvx-lao says it is, and everything else is generated from the core's own tables --
+# regs.inc/shims.inc from Behavior.tuple (genregs.py), bounds.inc from Opcode.table
+# (genbounds.py), opstubs.inc from the tuple's own prototypes (genstubs.py).  All three are
+# core-specific, which is exactly why none of them is checked in.
+/int256/
+/harness
+/opstubs.inc
+/regs.inc
+/shims.inc
+/bounds.inc
+/*.txt
