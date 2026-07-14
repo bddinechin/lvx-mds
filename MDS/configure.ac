@@ -87,6 +87,7 @@ MDD_names=" \
   Platform.table \
   NativeType.table \
   Storage.table \
+  Helper.table \
   RegField.table \
   Register.table \
   BitField.table \

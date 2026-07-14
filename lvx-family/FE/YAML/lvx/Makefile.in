@@ -11,7 +11,7 @@ DESCS:=$(addsuffix /Description.yml,$(DIRS))
 
 core_version=$(shell echo '$1' | sed -e 's/[a-zA-Z_]*\([0-9].*\)/\1/')
 
-YMLNAMES:= Builtin.yml Convention.yml Format.yml Generic.yml Immediate.yml Instruction.yml \
+YMLNAMES:= Builtin.yml Convention.yml Format.yml Generic.yml Helper.yml Immediate.yml Instruction.yml \
 	Modifier.yml NativeType.yml Platform.yml Processor.yml RegClass.yml RegField.yml \
 	RegFile.yml Relocation.yml Reservation.yml Resource.yml Scheduling.yml Simulated.yml \
 	Storage.yml Synthetic.yml

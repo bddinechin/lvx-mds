@@ -62,6 +62,25 @@ foreach my $storage (@{$$Description{Storage}}) {
     $Section{Storage}{$ID}{kind} = $kind;
 }
 
+# Process the Helper section: the signature of an operator helper (DOC/MDD.dtd).
+# Optional, and a helper with no entry keeps the old behaviour -- every argument the
+# whole container -- which is what makes the migration incremental.
+my $Helper_number = 0;
+foreach my $helper (@{$$Description{Helper}}) {
+    my $ID = $$helper{ID} || die "Missing ID for Helper";
+    die "Helper $ID already exists" if exists $Section{Helper}{$ID};
+    $Section{Helper}{$ID}{what} = $$helper{what};
+    $Section{Helper}{$ID}{number} = $Helper_number++;
+    my $result = $$helper{result};
+    $Section{Helper}{$ID}{result} = $result if defined $result;
+    my $arguments = $$helper{arguments};
+    if (defined $arguments) {
+        # A YAML list of widths, one per argument, in the order the Behavior passes them.
+        $Section{Helper}{$ID}{arguments} =
+          ref $arguments eq 'ARRAY' ? join(' ', @{$arguments}) : $arguments;
+    }
+}
+
 my %storage2register;
 
 # Get mapping between Storages and Registers
@@ -1481,7 +1500,7 @@ my @Tables = qw(
   BitField Bundling Convention Encoding Format Generic Immediate Instruction
   Modifier NativeType Operand Pattern Platform Processor RegClass RegField
   Register RegMask Relocation Reservation Resource Scheduling Simulated
-  Storage Dispersal Synthetic Template Builtin
+  Storage Dispersal Synthetic Template Builtin Helper
   );
 
 foreach my $table (@Tables) {

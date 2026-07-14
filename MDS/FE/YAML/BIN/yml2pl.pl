@@ -780,6 +780,23 @@ EOT
 }
 
 
+sub Helper {
+    my ($entry) = @_;
+    my $ID = &attribute($entry, "ID");
+    my $what = &attribute($entry, "what");
+    my $result = &attribute($entry, "result");
+    my $arguments = &attribute($entry, "arguments");
+    print <<"EOT";
+print MDS::make("Helper", {
+  ID=>          &Helper::ID($ID),
+  what=>        $what,
+  result=>      $result,
+  arguments=>   $arguments,
+})->emit();\n
+EOT
+}
+
+
 sub Storage {
     my ($entry) = @_;
     my $ID = &attribute($entry, "ID");

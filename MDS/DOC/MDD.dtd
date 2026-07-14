@@ -95,6 +95,47 @@
   similar way as in the CSDL system. The Storage specification is used to
   implement the architectural state in an execution engine such as simulator.
 -->
+<!--
+  <dfn>Helper</dfn> The signature of an operator helper: the hand-written C that a
+  Behavior APPLY, EFFECT, TEST or THROW calls out to.  There are ~137 of them and they
+  are where the floating-point, SIMD and atomic semantics live.
+
+  Behavior's values are unbounded integers and its implementation is a fixed 256-bit
+  box, so a helper took and returned an Int256_ -- a 32-byte union passed by value --
+  and the description said nothing about how wide its arguments really were.  That has
+  two costs.  The obvious one is the calling convention: there are thousands of helper
+  calls, and a native value handed to one has to be boxed back up on the way in.  The
+  less obvious one is that the width analysis (LIB/Width.pm) had to assume a helper
+  reads *every* bit of every argument, which is what keeps the branch-target ADD of
+  every branch instruction in a 256-bit container -- `branch_info` takes a program
+  counter, and the description had no way to say so.
+
+  So a Helper declares the width of each argument, in order, and optionally of its
+  result.  A width of 256 means the container, and is the same as saying nothing.
+
+  This is the symmetric completion of APPLY's mandatory result width: `APPLY.32.f32_add`
+  says how wide its result is and nothing about its operands.  The migration is the one
+  `apply-nowidth` used -- optional, then warned, then mandatory -- so a helper with no
+  Helper element keeps the old behaviour exactly.
+-->
+<!ELEMENT Helper EMPTY>
+<!ATTLIST Helper
+  ID		ID		#REQUIRED
+  what		CDATA		#IMPLIED
+  result	NMTOKEN		#IMPLIED
+  arguments	NMTOKENS	#IMPLIED
+>
+<!--
+  <description>
+    <term>result</term> Width in bits of the value the helper returns. Must agree with
+      the width every APPLY of it declares. Omitted for a helper that returns nothing
+      (an EFFECT or a THROW) or whose result stays in the container.
+    <term>arguments</term> Width in bits of each argument, in the order the Behavior
+      passes them, counting the ones it leaves UNDEF. Omitted arguments, and a width of
+      256, mean the container: the helper may read every bit.
+  </description>
+-->
+
 <!ELEMENT Storage (#PCDATA)>
 <!ATTLIST Storage
   ID		ID		#REQUIRED

@@ -56,6 +56,20 @@ EOT
 
 exit if $FAMILY eq 'arm';
 
+#
+# The operator helpers' signatures (DOC/MDD.dtd's Helper).  Without one a helper takes and
+# returns Int256_, exactly as all of them did, so a description that declares nothing gets
+# the generator it always got.
+#
+foreach my $helper (@Helper::table) {
+    my $name = $helper->name();
+    my $result = $helper->attribute("result");
+    my $arguments = $helper->attribute("arguments");
+    $Behavior::Signature{$name}{result} = $result if defined $result;
+    $Behavior::Signature{$name}{arguments} = [ split ' ', $arguments ]
+      if defined $arguments;
+}
+
 my %isMemory;
 my %isControl;
 foreach my $storage (@Storage::table) {

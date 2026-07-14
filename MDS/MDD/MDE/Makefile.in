@@ -51,7 +51,7 @@ Pattern.X.input:=	Template.table Dispersal.table Synthetic.table Synthetic.X.tab
 	@echo "Building $@"
 	@cat Begin.xml $(addprefix $(dir $*), $(Pattern.X.input)) End.xml > $@	|| $(ABORT)
 
-Opcode.input:=	Storage.table $(Method.input) Access.table $(Encode.input) Instruction.table Instruction.X.table Synthetic.table Synthetic.X.table Scheduling.table Processor.table
+Opcode.input:=	Storage.table Helper.table $(Method.input) Access.table $(Encode.input) Instruction.table Instruction.X.table Synthetic.table Synthetic.X.table Scheduling.table Processor.table
 %Opcode.core.xml: $(addprefix %, $(Opcode.input))
 	@echo "Building $@"
 	@cat Begin.xml $(addprefix $(dir $*), $(Opcode.input)) End.xml > $@	|| $(ABORT)

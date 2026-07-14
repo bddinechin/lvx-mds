@@ -1,0 +1,446 @@
+##
+## Helper.yml
+##
+## The signature of an operator helper: the hand-written C that a Behavior APPLY, EFFECT,
+## TEST or THROW calls out to.  See DOC/MDD.dtd's Helper element for the argument.
+##
+## `arguments` is the width in bits of each argument, in the order the behaviour passes
+## them, counting the ones it leaves UNDEF.  `result` is the width of what the helper
+## returns, and must agree with the width every APPLY of it declares.  A width of 256 is
+## the container, and saying it is the same as saying nothing.
+##
+## A helper with no entry here takes and returns Int256_ -- a 32-byte union passed by
+## value -- which is what all ~137 of them did.  So this file is a migration, not a
+## contract that must be complete: declare a helper when its widths are actually known,
+## and leave the rest alone.
+##
+## TWO THINGS TO KNOW BEFORE ADDING AN ENTRY.
+##
+## A declared width is a TRUNCATION, and it is the description saying so out loud.  If a
+## call site passes a value that needs more bits than the declaration allows, the extra
+## bits are dropped -- and that is the point for `branch_info`, whose second argument is a
+## program counter: the sum PC + signed_offset needs 66 bits and the architecture keeps 64.
+## `make -C MDD/MDE` reports every such site (WIDTH_CHECK=verbose lists them), so an entry
+## that truncates something you did not mean to truncate is not silent.
+##
+## A declared width is also a CLAIM ABOUT THE HELPER, and no test can check it for you.
+## The differential test in BE/LAO/TEST checks that the generator does what this file says;
+## it cannot check that what this file says is true of the C the helper is implemented in.
+## Declare only what the architecture actually guarantees.
+##
+
+Helper:
+  - ID: MEM_atomic_add
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_and
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_cas
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 256, 256, 8]
+
+  - ID: MEM_atomic_dus
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_eor
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_ior
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_load
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 8]
+
+  - ID: MEM_atomic_max
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_maxu
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_min
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_minu
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_store
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 64, 8]
+
+  - ID: MEM_atomic_swap
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 64, 256, 8]
+
+  - ID: MEM_dflushl
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64]
+
+  - ID: MEM_dflushlsw
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 64, 8]
+
+  - ID: MEM_dinvall
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64]
+
+  - ID: MEM_dinvallsw
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 64, 8]
+
+  - ID: MEM_dpurgel
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64]
+
+  - ID: MEM_dpurgelsw
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 64, 8]
+
+  - ID: MEM_dtouchl
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64]
+
+  - ID: MEM_fence
+    arguments: [8]
+
+  - ID: MEM_i1invals
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64]
+
+  - ID: MEM_load
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 8, 8]
+
+  - ID: MEM_store
+    what: the address is the low 64 bits of base plus a signed offset, which needs 66
+    arguments: [64, 256, 8, 256, 8]
+
+  - ID: _BMM_8
+    arguments: [64, 64]
+
+  - ID: _BMT_8
+    arguments: [64]
+
+  - ID: bcucond
+    arguments: [8, 64]
+
+  - ID: bits2bytes
+    arguments: [32]
+
+  - ID: blend
+    arguments: [8, 8, 64, 8]
+
+  - ID: branch_info
+    what: the target is the low 64 bits of PC plus a signed offset, which needs 66
+    arguments: [8, 64]
+
+  - ID: break
+    arguments: [8]
+
+  - ID: ccbcomp
+    arguments: [8, 64, 64]
+
+  - ID: crc32_be_u32
+    arguments: [32, 32]
+
+  - ID: decode_riscv_float_rounding_mode
+    arguments: [8]
+
+  - ID: f16_add
+    arguments: [8, 64, 64]
+
+  - ID: f16_classify
+    arguments: [64]
+
+  - ID: f16_div
+    arguments: [8, 64, 64]
+
+  - ID: f16_max
+    arguments: [64, 64]
+
+  - ID: f16_maxNum
+    arguments: [64, 64]
+
+  - ID: f16_min
+    arguments: [64, 64]
+
+  - ID: f16_minNum
+    arguments: [64, 64]
+
+  - ID: f16_mul
+    arguments: [8, 64, 64]
+
+  - ID: f16_mulAdd
+    arguments: [8, 64, 64, 64]
+
+  - ID: f16_mulnAdd
+    arguments: [8, 64, 64, 64]
+
+  - ID: f16_rint
+    arguments: [8, 64]
+
+  - ID: f16_sqrt
+    arguments: [8, 64]
+
+  - ID: f16_sub
+    arguments: [8, 64, 64]
+
+  - ID: f16_to_f32
+    arguments: [16]
+
+  - ID: f16_to_i16
+    arguments: [8, 16]
+
+  - ID: f16_to_ui16
+    arguments: [8, 16]
+
+  - ID: f32_add
+    arguments: [8, 64, 64]
+
+  - ID: f32_classify
+    arguments: [64]
+
+  - ID: f32_div
+    arguments: [8, 64, 64]
+
+  - ID: f32_fast_rec
+    arguments: [64]
+
+  - ID: f32_fast_rsqrt
+    arguments: [64]
+
+  - ID: f32_max
+    arguments: [64, 64]
+
+  - ID: f32_maxNum
+    arguments: [64, 64]
+
+  - ID: f32_min
+    arguments: [64, 64]
+
+  - ID: f32_minNum
+    arguments: [64, 64]
+
+  - ID: f32_mul
+    arguments: [8, 64, 64]
+
+  - ID: f32_mulAdd
+    arguments: [8, 64, 64, 64]
+
+  - ID: f32_mulnAdd
+    arguments: [8, 64, 64, 64]
+
+  - ID: f32_rint
+    arguments: [8, 64]
+
+  - ID: f32_sqrt
+    arguments: [8, 64]
+
+  - ID: f32_sub
+    arguments: [8, 64, 64]
+
+  - ID: f32_to_f16
+    arguments: [8, 32]
+
+  - ID: f32_to_f64
+    arguments: [32]
+
+  - ID: f32_to_i32
+    arguments: [8, 64]
+
+  - ID: f32_to_i64
+    arguments: [8, 64]
+
+  - ID: f32_to_ui32
+    arguments: [8, 64]
+
+  - ID: f32_to_ui64
+    arguments: [8, 64]
+
+  - ID: f64_add
+    arguments: [8, 64, 64]
+
+  - ID: f64_classify
+    arguments: [64]
+
+  - ID: f64_div
+    arguments: [8, 64, 64]
+
+  - ID: f64_fast_rec
+    arguments: [64]
+
+  - ID: f64_fast_rsqrt
+    arguments: [64]
+
+  - ID: f64_max
+    arguments: [64, 64]
+
+  - ID: f64_maxNum
+    arguments: [64, 64]
+
+  - ID: f64_min
+    arguments: [64, 64]
+
+  - ID: f64_minNum
+    arguments: [64, 64]
+
+  - ID: f64_mul
+    arguments: [8, 64, 64]
+
+  - ID: f64_mulAdd
+    arguments: [8, 64, 64, 64]
+
+  - ID: f64_mulnAdd
+    arguments: [8, 64, 64, 64]
+
+  - ID: f64_rint
+    arguments: [8, 64]
+
+  - ID: f64_sqrt
+    arguments: [8, 64]
+
+  - ID: f64_sub
+    arguments: [8, 64, 64]
+
+  - ID: f64_to_f32
+    arguments: [8, 64]
+
+  - ID: f64_to_i32
+    arguments: [8, 64]
+
+  - ID: f64_to_i64
+    arguments: [8, 64]
+
+  - ID: f64_to_ui32
+    arguments: [8, 64]
+
+  - ID: f64_to_ui64
+    arguments: [8, 64]
+
+  - ID: fconj_32_32
+    arguments: [64]
+
+  - ID: ffmac_32_32
+    arguments: [8, 64, 64, 64]
+
+  - ID: floatcomp_16
+    arguments: [8, 64, 64]
+
+  - ID: floatcomp_32
+    arguments: [8, 64, 64]
+
+  - ID: floatcomp_64
+    arguments: [8, 64, 64]
+
+  - ID: fmulc_32_32
+    arguments: [8, 64, 64]
+
+  - ID: get
+    arguments: [16, 64]
+
+  - ID: get_check_access
+    arguments: [16, 8]
+
+  - ID: guard
+    arguments: [8, 64, 8]
+
+  - ID: i16_to_f16
+    arguments: [8, 16]
+
+  - ID: i32_to_f32
+    arguments: [8, 64]
+
+  - ID: i32_to_f64
+    arguments: [8, 64]
+
+  - ID: i64_to_f32
+    arguments: [8, 64]
+
+  - ID: i64_to_f64
+    arguments: [8, 64]
+
+  - ID: idle
+    arguments: [8]
+
+  - ID: insert_64
+    arguments: [256, 256, 8]
+
+  - ID: intcomp_128
+    arguments: [8, 256, 256]
+
+  - ID: intcomp_16
+    arguments: [8, 16, 16]
+
+  - ID: intcomp_32
+    arguments: [8, 64, 64]
+
+  - ID: intcomp_64
+    arguments: [8, 64, 64]
+
+  - ID: intcomp_8
+    arguments: [8, 8, 8]
+
+  - ID: join_64_x4
+    arguments: [64, 64, 64, 64]
+
+  - ID: lanecond_16
+    arguments: [8, 16]
+
+  - ID: lanecond_32
+    arguments: [8, 32]
+
+  - ID: lanecond_8
+    arguments: [8, 8]
+
+  - ID: reflect_32
+    arguments: [32]
+
+  - ID: set_check_access
+    arguments: [16, 64, 8]
+
+  - ID: syncgroup
+    arguments: [16, 16, 16, 16]
+
+  - ID: syscall
+    arguments: [64]
+
+  - ID: ui16_to_f16
+    arguments: [8, 16]
+
+  - ID: ui32_to_f32
+    arguments: [8, 64]
+
+  - ID: ui32_to_f64
+    arguments: [8, 64]
+
+  - ID: ui64_to_f32
+    arguments: [8, 64]
+
+  - ID: ui64_to_f64
+    arguments: [8, 64]
+
+  - ID: waitit
+    arguments: [32, 32]
+
+  - ID: wfxl
+    arguments: [16, 64]
+
+  - ID: wfxl_check_access
+    arguments: [16, 8]
+
+  - ID: wfxm
+    arguments: [16, 64]
+
+  - ID: wfxm_check_access
+    arguments: [16, 8]
+

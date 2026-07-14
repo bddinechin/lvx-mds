@@ -883,12 +883,26 @@ sub _same {
 # WRITE kills that demand (it overwrites the value); a WRITE under an IF does not,
 # because the other path still sees the old one.
 #
-# Helper arguments demand everything.  That is sound, and measurement says it costs
-# almost nothing: 86% of helper arguments are already bounded by the coercion that
-# produced them, and the rest are genuinely 256-bit (XVR octuples, 128-bit products),
-# which no declared argument width could narrow either.
+# A helper argument demands what the helper's Helper element declares, and the whole
+# container if it declares nothing.  Assuming ⊤ for all of them -- which is what this did
+# before there was such an element -- is sound, but it is not free, and the measurement
+# that said it was nearly free was misread.  It counted an argument as unbounded whenever
+# _swidth could not fit it, and _swidth is the minimal *signed* width, so an ordinary
+# [0, 2^64-1] argument needs 65 bits and looks unbounded.  Strip that artifact and the
+# genuinely wide arguments are few and specific -- the MEM_* data, get/wfxl/wfxm,
+# intcomp_128 -- and the rest are plain 64-bit values.
+#
+# It matters most where it is least visible.  `branch_info` takes a program counter, so
+# demanding all 256 bits of it boxes the branch-target ADD -- PC plus a signed offset, a
+# 66-bit interval -- in every branch instruction in the ISA, while the STORE right beside
+# it already writes the truncation down.  See DOC/MDD.dtd's Helper element.
 #
 our %Demand;
+
+# name => [ width of each argument, in order ], from the Helper elements.  A helper that
+# is not in here, or an argument the entry does not reach, demands the whole container --
+# so a description that declares nothing behaves exactly as it did before.
+our %Signature;
 
 sub _dwant {			# a variable is read: it wants $bits of its low end
     my ($name, $bits) = @_;
@@ -976,9 +990,50 @@ sub _dexpr {
     } elsif ($operator eq 'F2I') {
         _dfield($this->[2]);
 
+    } elsif ($operator =~ /^(APPLY|EFFECT|TEST|THROW)$/) {
+        # A helper argument demands what the helper's signature says it does, and the
+        # whole container if the helper has no signature -- which is what every helper
+        # used to do, and is why the branch-target ADD of every branch instruction stayed
+        # in a 256-bit box: `branch_info` takes a program counter, and until there was a
+        # Helper element the description had no way to say so.  See DOC/MDD.dtd.
+        my $name = $operator eq 'TEST' ? $this->[1] : $this->[2];
+        my $first = $operator eq 'TEST' ? 2 : 3;
+        my $widths = $Signature{$name};
+        my $argument = 0;
+        for (my $i = $first; $i < @{$this}; $i++) {
+            my $child = $this->[$i];
+            # Count the arguments the way CodeGen's signature() counts them -- only the
+            # ARRAY children, so the trailing attribute hash does not shift the numbering.
+            # The two have to agree on which argument is which or a declared width lands on
+            # the wrong one, which is not a subtle failure but it is a silent one.
+            next unless ref $child eq 'ARRAY';
+            $argument++;
+            my $want = (ref $widths eq 'ARRAY') ? $widths->[$argument - 1] : undef;
+            # A declared width of BOX is the container, which is the same as declaring
+            # nothing -- it narrows nothing and it truncates nothing.
+            $want = undef if defined $want && $want >= $BOX;
+            if (defined $want) {
+                # A declared width narrower than the value is a TRUNCATION, and the point
+                # of declaring it is to say so: `branch_info` takes a program counter, and
+                # PC + a signed offset needs 66 bits while the architecture keeps 64.  It
+                # is not an error -- but it is the description asserting something, so it
+                # is reported rather than left to be discovered.
+                my $attributes = $child->[-1];
+                if (ref $attributes eq 'HASH') {
+                    my $needs = _swidth($attributes->{lo}, $attributes->{hi});
+                    _report('helper-truncates',
+                      "$name argument $argument is declared $want bits wide, but the value"
+                      . " needs " . (defined $needs ? $needs : "over $BOX")
+                      . " signed bits: the low $want are what the helper is given")
+                      if !defined $needs || $needs > $want + 1;
+                }
+            }
+            _dexpr($child, defined $want ? $want : $BOX);
+        }
+
     } else {
         # Everything else reads the whole value: SHR's amount, the comparisons,
-        # DIV/REM/MOD, MIN/MAX, SAT, the bit counters, and every helper argument.
+        # DIV/REM/MOD, MIN/MAX, SAT and the bit counters.
         foreach my $child (@{$this}) {
             _dexpr($child, $BOX) if ref $child eq 'ARRAY';
         }

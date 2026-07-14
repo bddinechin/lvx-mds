@@ -656,17 +656,47 @@ runtime.** The `SHR` fix of §3 needs no new runtime support.
    is worth it: the narrow prototypes it enables (§6) are what make these helpers
    pleasant to write.
 
-6. **Give helpers a signature** (§6) — declared once in the machine description, like
-   `Storage`, and migrated the way `apply-nowidth` was (optional, warn, then mandatory).
-   **This is now the next thing to do, and it is no longer only about the calling
-   convention.** With (4) landed it does three things at once, and the first two are
-   measured, not projected: it deletes the re-boxing at 4438 helper call sites (+1806
-   `Int256_from*64` is what (4) had to pay to hand a native value to a helper), it unboxes
-   the branch-address `ADD` in every branch (286 of the 362 that remain, 94.7% → 96.5%
-   overall), and only then does it also give the hand-written shim and soft-float code a
-   `uint32_t` to work with instead of forcing every implementer through `Int256_toUInt32`.
-   The generator already consults a helper-argument width table for exactly this; it
-   defaults to ⊤, so declaring the widths is a data change.
+6. **Helpers have a signature** (§6) — *done*. A `Helper` element in `MDD.dtd`, declared in
+   `lvx-family/FE/YAML/lvx/Helper.yml`, flowing through `Helper.table` to `Width.pm` in MDE
+   (so the demand narrows) and to `CodeGen` in `BE/LAO` (so the prototypes narrow). 130
+   helpers declared; a helper with no entry keeps the container, so the migration is
+   incremental and a description that declares nothing is byte-identical.
+
+   It does the two things (4) needed, and the second was the point:
+
+   | `lvx_v1` | boxed | unboxed | + signatures |
+   |---|---|---|---|
+   | `Int256_add` | 362 | 286 | **144** |
+   | arithmetic, total | 5957 | 1243 | **1094** |
+   | `Int256_from*64` (each builds a 32-byte union) | 1767 | 3573 | **2161** |
+   | `Int256_` parameters in helper prototypes | 602 | 602 | **42** |
+
+   `Int256_add` halves, exactly as predicted, because `branch_info` can now say it takes a
+   program counter. And the re-boxing that (4) had to pay at 4438 call sites is mostly gone:
+   `void HELPER(branch_info)(void *this, uint8_t opnd1, uint64_t opnd2)` where it was two
+   32-byte unions.
+
+   **The declarations are of two kinds, and only one of them is a claim.** 107 of the 130 are
+   *derived*: the width is the one the values already carry, so the declaration cannot
+   truncate and asserts nothing — it buys the calling convention and nothing else. The other
+   kind is a statement about the architecture, and there is exactly one of them here: **an
+   address and a program counter are 64 bits.** Every `MEM_*` helper takes its address first
+   and `branch_info` takes the PC second, and the value handed to them is base + a signed
+   offset, which needs 66 bits. The low 64 are what the hardware keeps, and the declaration is
+   the description finally saying so — the same unstated truncation §3 found in the byte-lane
+   instructions, in the place it actually costs something.
+
+   A declared width is therefore a truncation, and `Width.pm` reports every site where one
+   bites (`helper-truncates`, listed under `WIDTH_CHECK=verbose`). On the current ISA the
+   only ones are the addresses, which is the check that the claim above is the *only* claim
+   being made. It caught two mistakes while this was being written: an argument-numbering
+   skew between `Width.pm` and `CodeGen` that landed a declared width on the wrong argument,
+   and a handful of derived widths that were silently truncating unbounded values.
+
+   **And a declared width is a claim no test can check for you.** `BE/LAO/TEST` verifies that
+   the generator does what `Helper.yml` says (0/870 and 0/1453, boxed against unboxed with the
+   same signatures on both sides). It cannot verify that what `Helper.yml` says is true of the
+   C the helper is implemented in. That part is review.
 
 7. **Fix `SHR`** (§3) — the last place the container width leaks into the *meaning* of
    the description. `Int256_shr` already exists in the runtime, so this costs nothing

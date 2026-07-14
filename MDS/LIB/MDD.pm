@@ -447,6 +447,32 @@ sub enter {
     }
 }
 
+package Helper;
+@ISA = ( "MDS" );
+sub ID { &MDD::ID("Helper", $_[0]) }
+sub IDs { &MDD::IDs("Helper", $_[0]) }
+%ATTLIST = (
+    ID=>	[ 'ID', '#REQUIRED', 'undef' ],
+    arguments=>	[ 'NMTOKENS', '#IMPLIED', 'undef' ],
+    result=>	[ 'NMTOKEN', '#IMPLIED', 'undef' ],
+    what=>	[ 'CDATA', '#IMPLIED', 'undef' ],
+  );
+sub attlist { return \%ATTLIST; }
+@table = ();
+@noname = ();
+sub enter {
+    my ($self) = @_;
+    my $ID = $self->{ATTRIBUTES}->{ID};
+    if (defined $ID) {
+        my $name = (split '-', $ID)[2];
+        if (defined $name) {
+            push @table, $self
+        } else {
+            push @noname, $self
+        }
+    }
+}
+
 package Immediate;
 @ISA = ( "MDS" );
 sub ID { &MDD::ID("Immediate", $_[0]) }

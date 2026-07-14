@@ -439,6 +439,17 @@ sub renumber {
 &Behavior::yyinit();
 
 #
+# The operator helpers' signatures (DOC/MDD.dtd's Helper).  A helper that declares no
+# argument widths keeps demanding the whole container, exactly as every helper did before
+# the element existed, so a description that declares nothing is unaffected.
+#
+foreach my $helper (@Helper::table) {
+    my $arguments = $helper->attribute("arguments");
+    next unless defined $arguments;
+    $Width::Signature{$helper->name()} = [ split ' ', $arguments ];
+}
+
+#
 # Prepare the read and write Behavior for methods and tabulate by methodID.
 #
 my %AccessTable;

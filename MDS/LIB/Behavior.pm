@@ -40,6 +40,15 @@ our @EXPORT = qw(
   UNDEF CONST METHOD APPLY EFFECT THROW WRITE READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB
   );
 
+# The operator helpers' signatures, from the Helper elements (DOC/MDD.dtd), keyed by name:
+#   { result => <width>, arguments => [ <width>, ... ] }
+# A helper that declares nothing takes and returns Int256_, which is what all ~137 of them
+# did.  There are 4438 helper call sites in lvx_v1 alone, so this is where the unboxing is
+# actually cashed: a native value handed to an undeclared helper has to be boxed back up on
+# the way in, and Int256_toUInt64 is free while Int256_fromUInt64 builds a 32-byte union.
+# BE/LAO/BIN/Behavior.pl fills it from Helper.table.
+our %Signature;
+
 # Defined when checking.
 our $yycheck = '';
 
@@ -2153,6 +2162,13 @@ sub signature {
     # Those 2 confess should be equivalent.
     confess "Unable to find helper_name for $$this[0]" unless defined $helper_name;
     confess "Unable to find first argument position for $$this[0]" unless defined $first_arg_idx;
+    # The helper's declared signature, if it has one (DOC/MDD.dtd's Helper).  Without one
+    # every argument is an Int256_, which is what they all were.
+    my $arguments = $Signature{$helper_name}{arguments};
+    if ($$this[0] eq "APPLY") {
+        my $result = &_signature_result($helper_name);
+        $return_type = &cdecl($result) if defined $result;
+    }
     my $proto = "$return_type $helper_name(void *this";
     push @$pretty, "${indent}HELPER($helper_name)(this";
     my $opnd_id = 1;
@@ -2162,8 +2178,9 @@ sub signature {
         }
         if ($$this[$i][0] !~ /^UNDEF$/) {
             $$pretty[-1] .= ","; push(@$pretty, ${indent_incremented});
-            &codegen_boxed($$this[$i], $pretty, $nesting + 1, $context);
-            $proto .= ", Int256_ opnd$opnd_id";
+            my $want = &_signature_type($arguments, $opnd_id);
+            &codegen_operand($$this[$i], $want, $pretty, $nesting + 1, $context);
+            $proto .= ", " . &cdecl($want) . " opnd$opnd_id";
         }
         $opnd_id++;
     }
@@ -2344,6 +2361,24 @@ our $Unbox = 0;			# BE/LAO/BIN/Behavior.pl sets it; off = the old generator
 
 my $BOX = 256;
 
+# The C type of a declared width, or undef if the helper declared none.  A width of 256 is
+# the container, and saying so is the same as saying nothing.
+sub _signature_type {
+    my ($widths, $position) = @_;
+    return &_ctype_box() unless ref $widths eq 'ARRAY';
+    my $width = $widths->[$position - 1];
+    return &_ctype_box() unless defined $width && $width > 0 && $width <= 64;
+    return { W => &_ctype_native($width), S => 0, E => 1 };
+}
+
+sub _signature_result {
+    my ($name) = @_;
+    my $width = $Signature{$name}{result};
+    return undef unless defined $width;
+    return &_ctype_box() if $width > 64;
+    return { W => &_ctype_native($width), S => 0, E => 1 };
+}
+
 # The ring operations, and only these, may be computed in fewer bits than their
 # interval needs.  SELECT is here because it merely chooses between its arms.
 my %CodeGen_Ring = map { ($_ => 1) } qw(ADD SUB MUL AND IOR XOR NOT NEG SHL SELECT);
@@ -2506,9 +2541,21 @@ sub _ctype_rep {
 # The C type of an Integer node, from the abstract values on it.
 sub ctype {
     my ($this) = @_;
-    return _ctype_box() unless $Unbox;
     return _ctype_box() unless ref $this eq 'ARRAY' && defined $$this[0];
     my $operator = $$this[0];
+
+    # A helper's declared result applies whether or not the arithmetic is unboxed: the
+    # emission of an APPLY *is* the call, and the call returns what the signature says it
+    # returns.  The calling convention and the arithmetic are separate concerns, and
+    # keeping them separate is what makes the change checkable -- a boxed tuple built with
+    # the signatures and an unboxed one built with the same signatures share an ABI, so
+    # their traces can be compared.
+    if ($operator eq 'APPLY') {
+        my $result = &_signature_result($$this[2]);
+        return defined $result ? $result : _ctype_box();
+    }
+
+    return _ctype_box() unless $Unbox;
     return _ctype_box() unless $CodeGen_Native{$operator};
 
     # A coercion whose width has no native type (SX.128, ZX.256, F2I.256 -- the XVR
@@ -2529,6 +2576,14 @@ sub ctype {
         return _ctype_box() if $$this[1];		# a lane of the container
         my $type = $CodeGen_VarTypes{$$this[2]};
         return defined $type ? $type : _ctype_box();
+    } elsif ($operator eq 'APPLY') {
+        # An APPLY is whatever its helper RETURNS -- the emission is the call, so the type
+        # is the declared result and nothing else.  A helper that declares none keeps the
+        # container, which is what every one of them used to return.
+        my $result = &_signature_result($$this[2]);
+        return _ctype_box() unless defined $result;
+        return $result;
+
     } elsif ($operator eq 'SHL') {
         # `x << n` with n at or past the width of x is undefined in C, where
         # Int256_shl merely shifts everything out and gives zero.  The shift is done
@@ -2620,7 +2675,9 @@ sub cconv {
 # Emit a subexpression, converted to the type its consumer wants.
 sub codegen_operand {
     my ($this, $want, $pretty, $nesting, $context) = @_;
-    return &codegen($this, $pretty, $nesting, $context) unless $Unbox;
+    # Not gated on $Unbox: with the arithmetic boxed and a helper signature declared, the
+    # operand is an Int256_ and the argument is a uint32_t, and that conversion still has
+    # to happen.  With nothing declared every want is the container and this is a no-op.
     my $have = &ctype($this);
     my ($prefix, $suffix) = &cconv($have, $want);
     push(@$pretty, $prefix) if $prefix ne '';
