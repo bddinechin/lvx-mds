@@ -353,14 +353,23 @@ lint for *unintended* truncation would need an annotation to tell the two apart.
   declare how wide their result was. `lvx_v1`'s generated C is byte-identical after
   this — `APPLY`'s width never reached `CodeGen`, it only ever reached the checker.
 
-- **`read-unknown` is a real bug, left unfixed on purpose.** `FNARROWDWQ` reads
-  `ziplanes`, but its format `ALU_FWQWR` declares the `ziplanes` encoding field and
-  then **omits it from `operands:`**, using the `GWRF` behavior (which never writes
-  it) instead of `GWRFL` (which does). Its half-word twin `ALU_FHQWR`/`FNARROWWHQ`
-  does it right. So `fnarrowdwq` reads an uninitialised variable, the encoding bit
-  is not decodable as a modifier, and nothing anywhere fails. Copy-paste, caught on
-  the pass's first run. Fixing it changes the opcode table, and `lvx_v2` is not
-  finished, so it waits.
+- **`read-unknown` is a real bug, and it is worse than "nothing anywhere fails".**
+  `FNARROWDWQ` reads `ziplanes`, but its format `ALU_FWQWR` declares the `ziplanes`
+  encoding field and then **omits it from `operands:`**, using the `GWRF` behavior
+  (which never writes it) instead of `GWRFL` (which does). Its half-word twin
+  `ALU_FHQWR`/`FNARROWWHQ` does it right. Copy-paste, caught on the pass's first run.
+
+  What was not known when that was written: **`lvx_v2`'s generated C does not compile.**
+  A variable is declared from the `WRITE`s to it, so one that is only ever *read* is
+  never declared at all — `ziplanes` in `FNARROWDWQ`, and `argument3` in the four
+  `CMOVE*` forms, which is a second instance. 16 opcodes, 9 undeclared variables, and
+  the boxed C fails exactly as the unboxed C does. It is not a latent wrong answer; it
+  is a build failure the moment anyone targets `lvx_v2`'s ISS, and that nobody had hit
+  it is the evidence that **the `lvx_v2` tuple has never been compiled** — `BE/GEM5`
+  rides on `BE/LAO` for `lvx_v1` only. `BE/LAO/TEST/harness.c` declares both as
+  file-scope zeros so the two generations can be compared at all; that is a scaffold,
+  not a fix. Fixing it properly changes the opcode table, so it still waits — but it is
+  a blocker for `lvx_v2`, not a curiosity.
 
 - **`read-partial`** is mostly benign: `product` in every `mul`/`madd` is written
   under three guards (`widemult == 0/1/2`) that are exhaustive over the legal
@@ -442,6 +451,69 @@ on the flag-returning FP operators and the exact dot product of §4. It is also 
 symmetric completion of the mandatory `APPLY` result width: `APPLY.32.f32_add` declares
 its result and says nothing about its operands.
 
+### The rule is not uniform across operators, and that is the trap
+
+`min(rep, dm)` is not sound as a blanket rule, and the operator it breaks on is the
+one §3 already singles out. **`SHR` is not a ring operation.** The justification for
+typing a node by its demand — that the ring operations agree with the true result on
+their low *d* bits — is exactly the property `SHR` does not have: it reads the value,
+not its low bits. `Width.pm`'s own `_shr` says so, giving up and returning the
+interval of a logical shift of the whole container whenever the operand is not
+provably non-negative.
+
+So `sraw`'s `SHR` node carries `dm:32` over an interval of `[0, 2^256-1]`, and
+`min(rep, dm)` makes it a `uint32_t`. But a `uint32_t` `>>` is a **logical** shift,
+while the semantics is a logical shift of the value *sign-extended across the
+container*, whose low 32 bits are an **arithmetic** shift. For `x = 0x80000000`,
+`n = 4` that is `0x08000000` against the correct `0xf8000000` — which is the identity
+`shru(sx(-2^31,32),4)` that building the oracle demonstrated in the first place. All
+89 `shr-negative` sites (`sraw`/`srad`/`srsw`/`srsd`/`avgw`/`extfs`/`sxbd`/…) break,
+silently, and only in the sign bits. It is precisely the bug the trace hash was
+folded over all four limbs to catch.
+
+The fix is not to box `SHR`. It is to **type it by its demand and emit an arithmetic
+shift whenever its operand's reading is signed**, which is sound for a reason worth
+stating: `_dexpr` demands `d + shift` bits of that operand, so the operand's width is
+its interval's — it is *exact* — and sign-extending an exact value to any width
+recovers the true value. `Int256_shr`, a true arithmetic shift, already exists in the
+runtime for the boxed case.
+
+Every other value-reading operator (`DIV`/`REM`/`MOD`, the comparisons, `MIN`/`MAX`,
+`SAT`, the bit counters) gets exact operands for free, because `_dexpr` demands the
+whole value from them and `min(rep, dm)` is then `rep`. `SHR` is the only one whose
+operand demand is finite, and so the only one that has to be reasoned about.
+
+### Helper arguments *are* the missing piece for the hot path
+
+Measured against the published abstract values: **94.7%** of `lvx_v1`'s 16,993 Integer
+nodes are unboxable, and the 903 that are not are not what this section predicted.
+**286 are `ADD`, and roughly half of those are boxed for one reason: a helper argument
+demands ⊤.** The exemplar is every branch:
+
+```
+(WRITE.address (ADD (F2I.64 (LOAD PC)) (READ.argument1)))  ; a 66-bit interval
+(STORE.0 (AGGL.NPC …) (I2F.64 (READ.address)))            ; demands 64  ✓
+(EFFECT.0.branch_info (CONST.1) (READ.address))           ; demands 256 ✗
+```
+
+`address` is a program counter. The `STORE` already writes the truncation down — the
+emitted C says `Int256_zx(address, 64)`. Only `branch_info` wants all 256 bits, and
+it plainly does not. Declaring helper argument widths takes unboxing to **96.5%** and
+halves the boxed `ADD`s (286 → 144).
+
+So the claim above — that the unbounded helper arguments "are genuinely 256-bit (XVR
+octuples, 128-bit products), which no declared width could narrow either" — is wrong,
+and the measurement that produced it was misread: `_swidth` is minimal *signed* width,
+so an ordinary `[0, 2^64-1]` argument reports as **65 bits** and looks unbounded. Strip
+that artifact and the genuinely wide set is small and specific — the `MEM_*` load and
+atomic data arguments, `get`/`wfxl`/`wfxm`/`*_check_access`, and `intcomp_128`. Every
+`f32_*`/`f64_*`/`intcomp_32`/`intcomp_64` argument is an ordinary 64-bit value.
+
+Helper signatures are therefore not only for the calling convention. On the hot path —
+branches and addresses — they are load-bearing for the arithmetic too. The code
+generator consults a helper-argument width table for this reason; it defaults to ⊤, so
+declaring the widths later is a data change rather than another rewrite.
+
 ### How the codegen change is to be verified
 
 `MDS/BE/LAO/TEST/`. Every helper is replaced by a deterministic pure function of its
@@ -487,10 +559,94 @@ runtime.** The `SHR` fix of §3 needs no new runtime support.
 
 **Next.**
 
-4. **Unbox `CodeGen`** (§6). 93% of `lvx_v1`'s Integer nodes could be a native C type;
-   all of them are a 32-byte union today. The type map is in the table, the safety net
-   is in `BE/LAO/TEST/`. This is the ISS speed-up, and it is now a mechanical change
-   with a decisive test rather than a speculative one.
+4. **Unbox `CodeGen`** (§6) — *in progress*. 94.7% of `lvx_v1`'s Integer nodes could be
+   a native C type; all of them are a 32-byte union today. The type map is in the table,
+   the safety net is in `BE/LAO/TEST/`.
+
+   The type model (`ctype`/`cconv`/`codegen_operand` in `LIB/Behavior.pa`) is in, behind
+   `$Behavior::Unbox` (`BEHAVIOR_UNBOX=1` on `BE/LAO`). With the gate off the generator is
+   byte-identical, which is the checkpoint the rest is built on. `%CodeGen_Native` names
+   the operators whose native emission is implemented — it must name *exactly* those, since
+   `ctype` is what consumers believe and the emission is what they get, and a name without
+   a matching case is a type lie the C compiler will not catch. Anything not named there
+   stays an `Int256_` and has its operands converted at the boundary, so the rest can land
+   one operator at a time rather than in one leap.
+
+   **Done: the coercions (`SX`/`ZX`/`F2I`), `CONST`, `READ` with variable typing, `SHR`, the
+   ring operations, `SELECT`, `METHOD`, the comparisons, `MIN`/`MAX` and the bit counters.**
+   All 870 traces identical. `SAT`/`SATU`/`ABS`/`DIV`/`MOD` are left boxed: 96 sites between
+   them, and the natural native form duplicates the operand in a ternary, which would change
+   the sequence of helper calls inside it for nothing.
+
+   On `lvx_v1`, **the arithmetic goes 5957 → 1243 (−79%)**: 3646 `Int256_` variables become
+   1072, `Int256_cmp` and `Int256_sx` go to 0 and 1, `Int256_shl` 424 → 6, `Int256_zx`
+   3364 → 748.
+
+   **But that is not the whole cost, and the rest of it is the point.** Unboxing moves work
+   to the boundary, and the boundary grew:
+
+   | | boxed | unboxed | |
+   |---|---|---|---|
+   | arithmetic (four-limb loops, 256-bit shifts, `cmp`) | 5957 | **1243** | −4714 |
+   | `Int256_toUInt64` | 0 | 2861 | +2861, and free — it is the low limb |
+   | `Int256_from*64` | 1767 | **3573** | +1806, and *not* free — it builds a 32-byte union |
+
+   Taking a value out of the container costs nothing; putting one back costs four limb
+   stores. There are **4438 helper call sites** and every helper still takes and returns
+   `Int256_`, so every native value that reaches one is re-boxed. That is where the +1806
+   live. The trade is still strongly positive — a four-limb branchy `do`/`while` add for a
+   union construction — but **the unboxing is only half-cashed until helpers have narrow
+   signatures**, which is (6) below.
+
+   `Int256_add` barely moves (362 → 286) for the same reason, and it is the branch-address
+   story above: those 286 are boxed because a helper argument demands ⊤. Both facts point at
+   the same fix, from opposite ends — declared helper widths would unbox the branch ADD *and*
+   delete the re-boxing at the call. **(6) is no longer a nicety after (4); it is what makes
+   (4) pay.**
+
+   It is **not** the mechanical change this section originally called it. Three things had
+   to be reasoned about rather than transcribed:
+
+   - **`SHR`** breaks the blanket rule (§6). The emitter takes the shift's signedness from
+     its *operand*, which is sound only because that operand is exact — `ctype` boxes the
+     `SHR` when it is not. Forcing the shift logical (the careless unboxing) diverges
+     `SRAW`/`SRAD`, which is the check that the arithmetic-shift path is live.
+   - **C's integer promotions.** `uint8_t` and `uint16_t` promote to *`int`*, and a 16×16
+     `MUL` overflows it — signed overflow being undefined where the boxed code had none. A
+     ring operation is therefore computed in at least 32 unsigned bits and truncated back,
+     which is free: its low *W* bits depend only on its operands' low *W* bits.
+   - **Shift amounts.** `x << n` is undefined in C once *n* reaches the width of `x`, where
+     `Int256_shl` merely shifts everything out and gives zero. The shift is done in a type
+     wide enough for the largest amount, and boxed when no native type is.
+
+   **Verified on both cores: `lvx_v1` 0/870, `lvx_v2` 0/1453.** `lvx_v2` matters more than its
+   size suggests — it is where the 256-bit `XVR` octuples, the 128-bit products and the
+   byte-lane instructions of §3 live, so it has roughly twice the boxed nodes. Its arithmetic
+   goes 20441 → 4783 and 4042 of its 6886 variables become native.
+
+   Every divergence that ever appeared turned out to be a **bug in the harness, not the
+   generator**, and each is worth knowing because each is a way to fool oneself:
+
+   - it derived a read's value from the running trace hash, making it sensitive to C's
+     unspecified evaluation order of `a | b` (54 false failures on `lvx_v1`);
+   - it fed register operands as a plain `0..63`, which decodes to a *negative* register
+     index for most register files (19 more);
+   - and it fed operands outside the intervals the description proves for them — `lvx_v2`'s
+     `registerGl` is bounded `hi:0`, one register, and is then shifted `<< 6`, so a single
+     stray 1 overflows the `uint8_t` the analysis proved sufficient (58 on `lvx_v2`).
+
+   The last is the general lesson, and it cuts both ways: **the operand intervals are not
+   decoration, they are a precondition.** They are what licenses the narrow type, so a test
+   that steps outside them is not testing the generator, it is testing undefined behaviour.
+   `BE/LAO/TEST/genbounds.py` now reads them out of `Opcode.table` and draws every operand
+   from its own range. None of the fixes cost the harness any sensitivity.
+
+   The comparisons needed one idea of their own: `Int256_cmp` orders *sign-extended* values,
+   so a native comparison has to reproduce the ordering of the mathematical values, not of
+   their low bits. Both operands are read in the minimal type holding the **union** of their
+   intervals, with the signedness that union demands (`_ctype_join`). That works even when an
+   operand is still boxed — its low bits are its value, because a comparison demands the whole
+   value and its width is therefore its interval's.
 
 5. **Close the helper gap** (§4). Make the FP operators flag-returning and specify the
    FP and SIMD semantics in Behavior rather than in per-target C. This is the real
@@ -502,14 +658,23 @@ runtime.** The `SHR` fix of §3 needs no new runtime support.
 
 6. **Give helpers a signature** (§6) — declared once in the machine description, like
    `Storage`, and migrated the way `apply-nowidth` was (optional, warn, then mandatory).
-   Not for the analysis, which does not need it, but for the calling convention.
+   **This is now the next thing to do, and it is no longer only about the calling
+   convention.** With (4) landed it does three things at once, and the first two are
+   measured, not projected: it deletes the re-boxing at 4438 helper call sites (+1806
+   `Int256_from*64` is what (4) had to pay to hand a native value to a helper), it unboxes
+   the branch-address `ADD` in every branch (286 of the 362 that remain, 94.7% → 96.5%
+   overall), and only then does it also give the hand-written shim and soft-float code a
+   `uint32_t` to work with instead of forcing every implementer through `Int256_toUInt32`.
+   The generator already consults a helper-argument width table for exactly this; it
+   defaults to ⊤, so declaring the widths is a data change.
 
 7. **Fix `SHR`** (§3) — the last place the container width leaks into the *meaning* of
    the description. `Int256_shr` already exists in the runtime, so this costs nothing
    but the rename and the sweep of the 89 sites.
 
-8. **Fix `ALU_FWQWR`** (§5), once `lvx_v2` is settled enough for the opcode table to
-   move.
+8. **Fix `ALU_FWQWR`, and the `CMOVE*` `argument3`** (§5), once `lvx_v2` is settled enough
+   for the opcode table to move. This is now a **blocker for `lvx_v2`**, not a curiosity:
+   its generated C does not compile without them, so no `lvx_v2` ISS can be built at all.
 
 9. **Add a Sail emitter as a back-end** (§2). Not a migration. A model whose FP is
    defined in terms of integer arithmetic exports to Sail *better* than an

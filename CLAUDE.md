@@ -253,9 +253,65 @@ separate process and would otherwise have to recompute them. `Pretty`'s third ar
 is a key filter (a HASH ref publishes only the named keys); `Opcode.pl` passes
 `{lo,hi,dm}`. Do not switch it on wholesale: the hash also carries `TYPE`/`WIDTH`/`REPR`.
 
-93% of `lvx_v1`'s Integer nodes could be a native C type; today all of them are a
-32-byte `Int256_` union passed by value. Unboxing `CodeGen` is the next step, and
-`MDS/BE/LAO/TEST/` is the differential test that makes it safe.
+94.7% of `lvx_v1`'s Integer nodes could be a native C type; they used to all be a 32-byte
+`Int256_` union passed by value. **Unboxing `CodeGen` is in progress**, behind
+`$Behavior::Unbox` in `LIB/Behavior.pa` — set by `BEHAVIOR_UNBOX=1` on `BE/LAO`, and with
+the gate off the generator is byte-for-byte what it always was. `MDS/BE/LAO/TEST/` is the
+differential test that makes it safe. `%CodeGen_Native` names the operators whose native
+emission is implemented; anything else stays boxed and has its operands converted at the
+boundary, so the rest can land one operator at a time. **It must name exactly what
+`codegen` emits natively** — `ctype` is what the consumers believe and the emission is what
+they get, so a name in there without a matching case is a type lie that C will not catch.
+
+The coercions, `CONST`, `READ` with variable typing, `SHR`, the ring operations, `SELECT`,
+`METHOD`, the comparisons, `MIN`/`MAX` and the bit counters are done, with all 870 traces
+identical. The arithmetic goes **5957 → 1243** (`Int256_cmp` to 0, `Int256_sx` to 1,
+`Int256_shl` 424 → 6), and 2584 of the 3646 variables are now a native type.
+`SAT`/`SATU`/`ABS`/`DIV`/`MOD` stay boxed on purpose — 96 sites, and the native form would
+duplicate the operand in a ternary.
+
+**Verified on both cores** — `lvx_v1` 0/870, `lvx_v2` 0/1453 — and run both when you touch
+this: `lvx_v2` has the 256-bit `XVR` octuples and roughly twice the boxed nodes.
+
+**The unboxing is only half-cashed, and the next step is helper signatures.** Taking a value
+out of the container is free (`Int256_toUInt64` is the low limb); putting one back builds a
+32-byte union, and there are 4438 helper call sites, every one of which still takes
+`Int256_`. So `Int256_from*64` went **1767 → 3573**: that is what (4) pays to hand a native
+value to a helper. Declaring helper argument widths deletes that *and* unboxes the
+branch-address `ADD` (286 of the 362 `Int256_add` that remain). `Behavior.md` §6/§7.
+
+**`lvx_v2`'s generated C does not compile, and never did.** A variable is declared from the
+`WRITE`s to it, so one that is only ever *read* is never declared: `ziplanes` in `FNARROWDWQ`
+(the `read-unknown` bug `Behavior.md` §5 records) and `argument3` in the four `CMOVE*` forms
+(a second instance §5 does not mention). 16 opcodes, and the *boxed* C fails just as the
+unboxed does. That nobody had hit it is the evidence that the `lvx_v2` tuple has never been
+compiled — `BE/GEM5` rides on `BE/LAO` for `lvx_v1` only. It is a blocker for any `lvx_v2`
+ISS, not a curiosity.
+
+**The operand intervals are a precondition, not decoration.** They are what licenses the
+narrow C type, so anything driving the generated code — a test, an ISS, a fuzzer — must stay
+inside them. `lvx_v2`'s `registerGl` is bounded `hi:0` (it names exactly one register) and is
+then shifted `<< 6`: a single stray 1 overflows the `uint8_t` the analysis proved sufficient.
+Feeding operands a plausible-looking `0..63` "failed" 58 of 1453 opcodes that way, none of
+them a bug. `BE/LAO/TEST/genbounds.py` reads the real ranges out of `Opcode.table`.
+
+Two of the apparent regressions on the way were **bugs in the differential test, not the
+generator**: it derived a read's value from the running trace hash (making it sensitive to
+C's unspecified evaluation order of `a | b`, which no semantics depends on), and it fed
+register operands as a plain `0..63`, which decodes to a *negative* register index for three
+of the four register files and so breaks the very bound that lets `METHOD` have a narrow
+type. Both are fixed and cost no sensitivity — see `MDS/BE/LAO/TEST/README.md`. The lesson
+generalises: the harness has to stay inside the domain the description assumes.
+
+**The one trap, before you touch that emitter:** typing a node as `min(interval, demand)`
+is sound *only for the ring operations*, which commute with truncation. **`SHR` does
+not.** `sraw` is `(SHR (SX.32 x) n)` with a demand of 32, so the rule makes it a
+`uint32_t` — and a `uint32_t` `>>` is a *logical* shift, while the semantics is a logical
+shift of the value sign-extended across the container, whose low 32 bits are an
+*arithmetic* shift (`0x08000000` against the correct `0xf8000000`). It must be emitted as
+an arithmetic shift whenever its operand's reading is signed, which is sound because that
+operand is exact. Get it wrong and 89 instruction families are silently wrong in their
+sign bits only. `Behavior.md` §6 has the argument.
 
 | `WIDTH_CHECK` | Effect |
 |---|---|

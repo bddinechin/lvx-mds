@@ -27,6 +27,7 @@ package Behavior;
 use warnings FATAL => qw(uninitialized);
 use Carp qw(croak cluck confess);
 use Data::Dumper;
+use Math::BigInt;
 
 use strict;
 
@@ -2118,6 +2119,7 @@ sub CodeGen {
     $CodeGen_Operands = $_operands;
     $CodeGen_Statics = $_statics;
     $CodeGen_Spacing = $_spacing || "\t";
+    &vartypes($this);
     &codegen($this, \@pretty, 1, \%context);
     $pretty[-1] .= ";";
     return @pretty;
@@ -2160,7 +2162,7 @@ sub signature {
         }
         if ($$this[$i][0] !~ /^UNDEF$/) {
             $$pretty[-1] .= ","; push(@$pretty, ${indent_incremented});
-            &codegen($$this[$i], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[$i], $pretty, $nesting + 1, $context);
             $proto .= ", Int256_ opnd$opnd_id";
         }
         $opnd_id++;
@@ -2222,7 +2224,7 @@ sub codegen_read {
     if (ref $index eq 'ARRAY') {
         my $res .= ".$codegen_access$open";
         my @pretty = ( "" );
-        &codegen($index, \@pretty, 0, $context);
+        &codegen_boxed($index, \@pretty, 0, $context);
         $res .= "Int256_toUInt$width(" if $need_conv;
         $res .= join '', @pretty;
         $res .= ")" if $need_conv;
@@ -2265,7 +2267,7 @@ sub codegen_write {
     if (ref $index eq 'ARRAY') {
         my $res .= ".$codegen_access$open";
         my @pretty = ( "" );
-        &codegen($index, \@pretty, 0, $context);
+        &codegen_boxed($index, \@pretty, 0, $context);
         $res .= "Int256_toUInt$width(" if $need_conv;
         $res .= join '', @pretty;
         $res .= ")" if $need_conv;
@@ -2292,6 +2294,437 @@ sub codegen_mask {
     return ($mask_name, \@mask_value);
 }
 
+################################################################################
+#
+# The type model: giving an Integer a native C type instead of an Int256_.
+# DOC/Behavior.md section 6 is the argument; this is the implementation.
+#
+# Every Integer in the generated C is an Int256_ -- a 32-byte union passed by
+# value, whose Int256_add is a four-limb do/while with branchy carry propagation
+# and whose Int256_toUInt64 is just the low limb.  93% of them do not need to be.
+# LIB/Width.pm published, on every Integer node, the interval it can hold (lo, hi)
+# and how many of its low bits anyone looks at (dm); Opcode.table carries both, and
+# the grammar parses them back into the node's attribute hash, so they are here to
+# be read.  The usable width of a node is
+#
+#     min(bits its interval needs, bits anyone demands)
+#
+# and both halves are needed: addw's ADD of two 64-bit registers is [0, 2^65-2],
+# which fits no native type, but only its low 32 bits are ever stored, so it is a
+# uint32_t.
+#
+# A node of width W is held in a uint<W>_t containing its value modulo 2^W.  It is
+# EXACT when its interval fits in W bits -- then the mathematical value can be
+# recovered from the bits, read signed or unsigned as the interval says.
+#
+# THE RULE IS NOT UNIFORM ACROSS OPERATORS, and this is the trap.  "A node whose
+# demand is d can be computed in a d-bit type" holds because the ring operations
+# (+ - * << & | ^ ~) agree with the true result on their low d bits -- they commute
+# with truncation.  SHR does not.  It reads the value, not its low bits, and
+# Width.pm's own _shr says so: on an operand that is not provably non-negative it
+# gives up and returns the interval of a logical shift of the whole container.
+#
+# sraw is (SHR (SX.32 x) n) with dm 32, so min(rep, dm) would make it a uint32_t
+# and a uint32_t `>>` is a LOGICAL shift -- while the semantics is a logical shift
+# of the value sign-extended across the 256-bit container, whose low 32 bits are an
+# ARITHMETIC shift.  For x = 0x80000000, n = 4 that is 0x08000000 against the
+# correct 0xf8000000.  All 89 shr-negative sites (sraw/srad/srsw/srsd/avgw/extfs/
+# sxbd/...) break, silently and only in the sign bits.
+#
+# So SHR is typed by its demand like a ring operation, but EMITTED as an arithmetic
+# shift whenever its operand's reading is signed.  That is sound precisely because
+# the operand is exact: _dexpr demands d + shift bits of it, so its width is its
+# interval's, and sign-extending it to any width recovers the true value.
+#
+# Everything else that reads a value rather than its low bits -- DIV/REM/MOD, the
+# comparisons, MIN/MAX, SAT, the bit counters -- gets exact operands for free:
+# _dexpr demands the whole value from them, so min(rep, dm) is rep.
+#
+our $Unbox = 0;			# BE/LAO/BIN/Behavior.pl sets it; off = the old generator
+
+my $BOX = 256;
+
+# The ring operations, and only these, may be computed in fewer bits than their
+# interval needs.  SELECT is here because it merely chooses between its arms.
+my %CodeGen_Ring = map { ($_ => 1) } qw(ADD SUB MUL AND IOR XOR NOT NEG SHL SELECT);
+
+# The operators codegen can emit natively.  Anything else stays an Int256_, and its
+# operands are converted back to Int256_ at the boundary -- which is what makes this
+# safe to land incrementally: an operator not named here simply does not unbox.
+# THIS MUST NAME EXACTLY WHAT codegen EMITS NATIVELY.  ctype is what the consumers
+# believe; the emission is what they get, and a name in here without the matching
+# case below is a type lie that the C compiler will not catch.
+my %CodeGen_Native = map { ($_ => 1) } qw(
+  SHR SX ZX F2I CONST READ
+  ADD SUB MUL AND IOR XOR NOT NEG SHL SELECT
+  METHOD MIN MAX CLZ CLS CTZ CBS
+);
+
+# A variable's C type.  It is the type of what is written to it -- which is what makes
+# addw's result1 a uint32_t: its WRITE's right-hand side is the ADD whose demand is 32.
+# A variable touched through a Section is a vector (the lanes are .words[i] of the
+# container), so it stays an Int256_; so does one whose writes disagree, which is the
+# conservative reading of a variable written under an IF.
+my %CodeGen_VarTypes;
+
+sub vartypes {
+    my ($this) = @_;
+    %CodeGen_VarTypes = ();
+    return unless $Unbox;
+    # Two passes, and the order is not cosmetic.  A variable's type has to be settled
+    # before any ctype() that depends on it is asked for, and a lane access anywhere in
+    # the tree pins the variable to the container -- including one that appears after
+    # the WRITE whose right-hand side would otherwise have typed it.
+    &_vartypes_lanes($this);
+    &_vartypes_writes($this);
+}
+
+sub _vartypes_lanes {
+    my ($this) = @_;
+    return unless ref $this eq 'ARRAY' && defined $$this[0] && !ref $$this[0];
+    my $operator = $$this[0];
+    if (($operator eq 'WRITE' || $operator eq 'READ') && $$this[1]) {
+        $CodeGen_VarTypes{$$this[2]} = &_ctype_box();
+    }
+    foreach my $child (@$this) {
+        &_vartypes_lanes($child) if ref $child eq 'ARRAY';
+    }
+}
+
+sub _vartypes_writes {
+    my ($this) = @_;
+    return unless ref $this eq 'ARRAY' && defined $$this[0] && !ref $$this[0];
+    if ($$this[0] eq 'WRITE' && !$$this[1]) {
+        my ($Variable, $Integer) = @{$this}[2, 3];
+        my $known = $CodeGen_VarTypes{$Variable};
+        unless (defined $known && $$known{W} == $BOX) {
+            my $type = &ctype($Integer);
+            $CodeGen_VarTypes{$Variable} =
+              (!defined $known)             ? $type
+              : &_ctype_same($known, $type) ? $known
+              :                               &_ctype_box();
+        }
+    }
+    foreach my $child (@$this) {
+        &_vartypes_writes($child) if ref $child eq 'ARRAY';
+    }
+}
+
+sub _ctype_box { return { W => $BOX, S => 1, E => 1 }; }
+
+sub _ctype_native {		# the native width holding $bits
+    my ($bits) = @_;
+    foreach my $w (8, 16, 32, 64) {
+        return $w if $bits <= $w;
+    }
+    return $BOX;
+}
+
+sub _ctype_shift {		# the largest a shift amount can be, or undef
+    my ($this) = @_;
+    return undef unless ref $this eq 'ARRAY';
+    # A CONST carries no interval -- its value is right there, and a constant shift
+    # amount is much the commonest kind.  Without this every `<< 32` stays boxed.
+    return $$this[1] if $$this[0] eq 'CONST' && $$this[1] =~ /^\d+$/;
+    return undef unless ref $$this[-1] eq 'HASH';
+    return $$this[-1]{hi};
+}
+
+# The width a ring operation is computed in.  It is at least 32 because uint8_t and
+# uint16_t promote to *int*, and a 16x16 MUL overflows it -- signed overflow being
+# undefined where the boxed code had none.  Any width at or above the result's will
+# do: a ring operation's low W bits depend only on its operands' low W bits, which is
+# what lets the operands carry garbage above W and the result be truncated back.
+sub _ctype_ring {
+    my ($width, $atleast) = @_;
+    $atleast = 32 unless defined $atleast;
+    my $M = $width > $atleast ? $width : $atleast;
+    return &_ctype_native($M);
+}
+
+sub _ctype_bounds {		# a node's interval, or (undef, undef)
+    my ($this) = @_;
+    return (undef, undef) unless ref $this eq 'ARRAY';
+    if ($$this[0] eq 'CONST') {
+        return ($$this[1], $$this[1]) if $$this[1] =~ /^-?\d+$/;
+        return (undef, undef);
+    }
+    return (undef, undef) unless ref $$this[-1] eq 'HASH';
+    return ($$this[-1]{lo}, $$this[-1]{hi});
+}
+
+# The type two operands must both be read in to be COMPARED -- the minimal one holding
+# the union of their intervals, and the signedness that union has to be read with.
+# Int256_cmp orders sign-extended 256-bit values, so this has to reproduce the ordering
+# of the mathematical values, not of their low bits: a common type and one signedness.
+#
+# The operands are exact, whatever their own ctype says: _dexpr demands the whole value
+# from a comparison's operands, so their width is their interval's.  That is what lets a
+# boxed operand be compared natively too -- its low W bits are its value, and W is wide
+# enough for both by construction.
+sub _ctype_join {
+    my ($a, $b) = @_;
+    return undef unless $Unbox;
+    my ($lo1, $hi1) = &_ctype_bounds($a);
+    my ($lo2, $hi2) = &_ctype_bounds($b);
+    return undef unless defined $lo1 && defined $hi1 && defined $lo2 && defined $hi2;
+    my ($lo, $hi) = (Math::BigInt->new("$lo1"), Math::BigInt->new("$hi1"));
+    my $l2 = Math::BigInt->new("$lo2");
+    my $h2 = Math::BigInt->new("$hi2");
+    $lo = $l2 if $l2 < $lo;
+    $hi = $h2 if $h2 > $hi;
+    my ($W, $S) = &_ctype_rep($lo, $hi);
+    return undef if $W > 64;
+    return { W => $W, S => $S, E => 1 };
+}
+
+sub _ctype_mask {		# the low-$bits mask, as a literal of the type it masks
+    my ($bits, $width) = @_;
+    my $mask = Math::BigInt->new(2)->bpow($bits)->bsub(1);
+    return "UINT64_C($mask)" if $width == 64;
+    return "(uint${width}_t)UINT64_C($mask)";
+}
+
+# The minimal native width holding [lo,hi], and whether the bits must be read as
+# signed to recover the value.  A full-width unsigned datum is representable and is
+# simply not a signed number -- that distinction is Width.pm's, and it matters here
+# because it decides the C type a value-reading operator sees.
+sub _ctype_rep {
+    my ($lo, $hi) = @_;
+    return ($BOX, 1) unless defined $lo && defined $hi;
+    $lo = Math::BigInt->new("$lo");
+    $hi = Math::BigInt->new("$hi");
+    foreach my $w (8, 16, 32, 64) {
+        my $top = Math::BigInt->new(2)->bpow($w);
+        my $half = $top->copy()->bdiv(2);
+        return ($w, 0) if $lo >= 0 && $hi < $top;
+        return ($w, 1) if $lo >= -$half && $hi < $half;
+    }
+    return ($BOX, ($lo < 0) ? 1 : 0);
+}
+
+# The C type of an Integer node, from the abstract values on it.
+sub ctype {
+    my ($this) = @_;
+    return _ctype_box() unless $Unbox;
+    return _ctype_box() unless ref $this eq 'ARRAY' && defined $$this[0];
+    my $operator = $$this[0];
+    return _ctype_box() unless $CodeGen_Native{$operator};
+
+    # A coercion whose width has no native type (SX.128, ZX.256, F2I.256 -- the XVR
+    # octuples) has nothing to extend into or mask against, whatever its interval says.
+    return _ctype_box()
+      if $operator =~ /^(SX|ZX|F2I)$/ && $$this[1] > 64;
+
+    my ($lo, $hi, $dm);
+    if ($operator eq 'CONST') {
+        # A CONST carries no interval: its value is right there.  A symbolic one is
+        # an enum member of unknown value, so it does not unbox.
+        return _ctype_box() unless $$this[1] =~ /^[\-0-9]+$/;
+        ($lo, $hi) = ($$this[1], $$this[1]);
+    } elsif ($operator eq 'READ') {
+        # The emission of a plain READ *is* the variable, so its type is the
+        # variable's, not whatever this particular read happens to demand.  (It can
+        # only ever demand less: the variable's demand is the largest over its reads.)
+        return _ctype_box() if $$this[1];		# a lane of the container
+        my $type = $CodeGen_VarTypes{$$this[2]};
+        return defined $type ? $type : _ctype_box();
+    } elsif ($operator eq 'SHL') {
+        # `x << n` with n at or past the width of x is undefined in C, where
+        # Int256_shl merely shifts everything out and gives zero.  The shift is done
+        # in a type wide enough to hold the largest amount (see codegen), so all this
+        # has to rule out is an amount that no native type can take.
+        my $bound = &_ctype_shift($$this[2]);
+        return _ctype_box() unless defined $bound && $bound < 64;
+        my $attributes = $$this[-1];
+        return _ctype_box() unless ref $attributes eq 'HASH';
+        ($lo, $hi, $dm) = @{$attributes}{qw(lo hi dm)};
+    } elsif ($operator eq 'SHR') {
+        # SHR is typed by its demand like a ring operation, but only because it is
+        # emitted as an arithmetic shift when its operand is signed -- see codegen.
+        # That needs the operand natively, and needs the shift amount to stay inside
+        # the C type, since `x >> n` with n at or past the width is undefined where
+        # Int256_shru simply gives zero.
+        my $value = &ctype($$this[1]);
+        # Exactness is the whole justification: sign-extending the operand to any
+        # width recovers the true value only because its width is its interval's.
+        return _ctype_box() if $$value{W} == $BOX || !$$value{E};
+        my $bound = &_ctype_shift($$this[2]);
+        return _ctype_box() unless defined $bound && $bound < $$value{W};
+        my $attributes = $$this[-1];
+        return _ctype_box() unless ref $attributes eq 'HASH';
+        ($lo, $hi, $dm) = @{$attributes}{qw(lo hi dm)};
+    } else {
+        my $attributes = $$this[-1];
+        return _ctype_box() unless ref $attributes eq 'HASH';
+        ($lo, $hi, $dm) = @{$attributes}{qw(lo hi dm)};
+    }
+    $dm = $BOX unless defined $dm;
+
+    my ($rep, $signed) = _ctype_rep($lo, $hi);
+    my $width = $rep;
+    if ($CodeGen_Ring{$operator} || $operator eq 'SHR') {
+        # Truncation-safe: computing modulo 2^dm agrees on every bit anyone reads.
+        $width = $dm if $dm < $rep;
+    }
+    return _ctype_box() if $width > 64;
+
+    foreach my $w (8, 16, 32, 64) {
+        next if $w < $width;
+        # Exact when the interval still fits after the demand narrowed it: only then
+        # is the mathematical value recoverable from the bits.
+        return { W => $w, S => $signed, E => ($rep <= $w ? 1 : 0) };
+    }
+    return _ctype_box();
+}
+
+sub cdecl {
+    my ($type) = @_;
+    return $$type{W} == $BOX ? "Int256_" : "uint$$type{W}_t";
+}
+
+sub _ctype_same {
+    my ($a, $b) = @_;
+    return $$a{W} == $$b{W} && $$a{S} == $$b{S};
+}
+
+# The conversion wrapping a subexpression of type $from where $to is wanted.
+# Returned as (prefix, suffix) so it can bracket the existing push-based emission.
+sub cconv {
+    my ($from, $to) = @_;
+    return ('', '') if $$from{W} == $$to{W};
+
+    if ($$from{W} == $BOX) {			# Int256_ -> native: take the low limb
+        my $w = $$to{W};
+        return ($w == 64 ? "Int256_toUInt64(" : "(uint${w}_t)Int256_toUInt64(", ")");
+    }
+    if ($$to{W} == $BOX) {			# native -> Int256_
+        # An exact signed value must be sign-extended into the container, or the
+        # Int256_ holds a large positive number instead of a negative one, and every
+        # operator that reads the sign misreads it.
+        return ($$from{S} && $$from{E}
+                ? "Int256_fromInt64((int64_t)(int$$from{W}_t)("
+                : "Int256_fromUInt64((uint64_t)(", "))");
+    }
+    if ($$to{W} < $$from{W}) {			# narrowing: keep the low bits
+        return ("(uint$$to{W}_t)(", ")");
+    }
+    # Widening.  The operand is exact here (a node narrower than its consumer wants
+    # can only be one whose interval fits -- an inexact node's width is its demand,
+    # which is at least its consumer's), so sign- or zero-extend by its reading.
+    return ($$from{S} && $$from{E}
+            ? "(uint$$to{W}_t)(int$$to{W}_t)(int$$from{W}_t)("
+            : "(uint$$to{W}_t)(", ")");
+}
+
+# Emit a subexpression, converted to the type its consumer wants.
+sub codegen_operand {
+    my ($this, $want, $pretty, $nesting, $context) = @_;
+    return &codegen($this, $pretty, $nesting, $context) unless $Unbox;
+    my $have = &ctype($this);
+    my ($prefix, $suffix) = &cconv($have, $want);
+    push(@$pretty, $prefix) if $prefix ne '';
+    &codegen($this, $pretty, $nesting, $context);
+    push(@$pretty, $suffix) if $suffix ne '';
+}
+
+# An operand of an operator that has not been unboxed: it wants an Int256_.  Every
+# recursive emission in codegen goes through here, so a boxed operator keeps working
+# unchanged while its operands may be computed natively and converted at the edge.
+# It is a no-op with the gate off, and a no-op for Booleans, BitFields and commands,
+# whose ctype is the box anyway.
+sub codegen_boxed {
+    my ($this, $pretty, $nesting, $context) = @_;
+    return &codegen_operand($this, &_ctype_box(), $pretty, $nesting, $context);
+}
+
+# A binary ring operation, computed in $M bits and truncated back to its own width.
+# Returns false if it does not unbox, leaving the caller to emit the Int256_ form.
+sub codegen_ring2 {
+    my ($this, $operator, $pretty, $nesting, $context) = @_;
+    my $type = &ctype($this);
+    return 0 if $$type{W} == $BOX;
+    my $indent = $CodeGen_Spacing x $nesting;
+    my $indent_incremented = $indent . $CodeGen_Spacing;
+    my ($W, $M) = ($$type{W}, &_ctype_ring($$type{W}));
+    push(@$pretty, "${indent}(uint${W}_t)((uint${M}_t)(");
+    &codegen_operand($$this[1], { W=>$M, S=>0, E=>0 }, $pretty, $nesting + 1, $context);
+    push(@$pretty, "${indent_incremented}) $operator (uint${M}_t)(");
+    &codegen_operand($$this[2], { W=>$M, S=>0, E=>0 }, $pretty, $nesting + 1, $context);
+    push(@$pretty, "${indent}))");
+    return 1;
+}
+
+# A comparison, in the common type its two operands have to be read in.  The result is a
+# C bool, exactly as Int256_cmp(...) <op> 0 was, so nothing downstream changes.
+sub codegen_compare {
+    my ($this, $operator, $pretty, $nesting, $context) = @_;
+    my $type = &_ctype_join($$this[1], $$this[2]);
+    return 0 unless defined $type;
+    my $indent = $CodeGen_Spacing x $nesting;
+    my $indent_incremented = $indent . $CodeGen_Spacing;
+    my $C = $$type{S} ? "int$$type{W}_t" : "uint$$type{W}_t";
+    push(@$pretty, "${indent}(($C)(");
+    &codegen_operand($$this[1], $type, $pretty, $nesting + 1, $context);
+    push(@$pretty, "${indent_incremented}) $operator ($C)(");
+    &codegen_operand($$this[2], $type, $pretty, $nesting + 1, $context);
+    push(@$pretty, "${indent}))");
+    return 1;
+}
+
+# MIN/MAX: the comparison in the operands' common type, the result in its own.  The two
+# operands are emitted twice each, in the same order the Int256_cmp form emitted them --
+# a helper call in an operand happens as many times, and in the same sequence, as before.
+sub codegen_minmax {
+    my ($this, $first, $pretty, $nesting, $context) = @_;
+    my $type = &ctype($this);
+    my $join = &_ctype_join($$this[1], $$this[2]);
+    return 0 if $$type{W} == $BOX || !defined $join;
+    my $indent = $CodeGen_Spacing x $nesting;
+    my $indent_incremented = $indent . $CodeGen_Spacing;
+    my $C = $$join{S} ? "int$$join{W}_t" : "uint$$join{W}_t";
+    my ($then, $else) = $first ? (1, 2) : (2, 1);
+    push(@$pretty, "${indent}(uint$$type{W}_t)((($C)(");
+    &codegen_operand($$this[1], $join, $pretty, $nesting + 1, $context);
+    push(@$pretty, "${indent_incremented}) > ($C)(");
+    &codegen_operand($$this[2], $join, $pretty, $nesting + 1, $context);
+    push(@$pretty, "${indent}))");
+    push(@$pretty, "${indent}?");
+    &codegen_operand($$this[$then], $type, $pretty, $nesting, $context);
+    push(@$pretty, "${indent}:");
+    &codegen_operand($$this[$else], $type, $pretty, $nesting, $context);
+    push(@$pretty, ")");
+    return 1;
+}
+
+# CLZ/CLS/CTZ/CBS: the count is small, so only the Int256_fromUInt32 wrapper goes.  The
+# operand keeps the container -- the count is defined over the coercion width, and the
+# runtime already does it.
+sub codegen_count {
+    my ($this, $routine, $pretty, $nesting, $context) = @_;
+    my $type = &ctype($this);
+    return 0 if $$type{W} == $BOX;
+    my $indent = $CodeGen_Spacing x $nesting;
+    my $indent_incremented = $indent . $CodeGen_Spacing;
+    push(@$pretty, "${indent}(uint$$type{W}_t)$routine(");
+    &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
+    push(@$pretty, "${indent_incremented}, $$this[1]");
+    push(@$pretty, "${indent})");
+    return 1;
+}
+
+sub codegen_ring1 {
+    my ($this, $operator, $pretty, $nesting, $context) = @_;
+    my $type = &ctype($this);
+    return 0 if $$type{W} == $BOX;
+    my $indent = $CodeGen_Spacing x $nesting;
+    my ($W, $M) = ($$type{W}, &_ctype_ring($$type{W}));
+    push(@$pretty, "${indent}(uint${W}_t)($operator (uint${M}_t)(");
+    &codegen_operand($$this[1], { W=>$M, S=>0, E=>0 }, $pretty, $nesting + 1, $context);
+    push(@$pretty, "${indent}))");
+    return 1;
+}
+
 sub codegen {
     use integer;
     my ($this, $pretty, $nesting, $context) = @_;
@@ -2301,16 +2734,40 @@ sub codegen {
     SWITCH: {
         $$this[0] =~ /^SX$/ and do {
             # SX Constant Integer
+            my $type = &ctype($this);
+            if ($$type{W} != $BOX) {
+                # Sign-extend bit w-1 of the operand.  w is not always a native width
+                # (SX.29 exists), so it is done with a pair of shifts in a type wide
+                # enough to hold both the operand and the result.
+                my $w = $$this[1];
+                my $M = &_ctype_native($$type{W} > $w ? $$type{W} : $w);
+                push(@$pretty, "${indent}(uint$$type{W}_t)((int${M}_t)((uint${M}_t)(");
+                &codegen_operand($$this[2], { W=>$M, S=>0, E=>0 },
+                                 $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent_incremented}) << " . ($M - $w) . ") >> " . ($M - $w));
+                push(@$pretty, "${indent})");
+                last SWITCH;
+            }
             push(@$pretty, "${indent}Int256_sx(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^F2I$/ and do {
             # F2I Extent BitField
+            my $type = &ctype($this);
+            if ($$type{W} != $BOX) {
+                # The BitField is an Int256_ (a LOAD, or an I2F); take its low bits.
+                my $M = &_ctype_native($$type{W} > $$this[1] ? $$type{W} : $$this[1]);
+                push(@$pretty, "${indent}(uint$$type{W}_t)(Int256_toUInt64(");
+                &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent_incremented}) & " . &_ctype_mask($$this[1], $M));
+                push(@$pretty, "${indent})");
+                last SWITCH;
+            }
             push(@$pretty, "${indent}Int256_zx(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent})");
             last SWITCH;
@@ -2318,7 +2775,7 @@ sub codegen {
         $$this[0] =~ /^I2F$/ and do {
             # I2F Extent Integer
             push(@$pretty, "${indent}Int256_zx(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent})");
             last SWITCH;
@@ -2326,21 +2783,32 @@ sub codegen {
         $$this[0] =~ /^I2B$/ and do {
             # I2B Integer
             push(@$pretty, "${indent}Int256_toBool(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^B2I$/ and do {
             # B2I Boolean
             push(@$pretty, "${indent}Int256_fromBool(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^ZX$/ and do {
             # ZX Constant Integer
+            my $type = &ctype($this);
+            if ($$type{W} != $BOX) {
+                my $w = $$this[1];
+                my $M = &_ctype_native($$type{W} > $w ? $$type{W} : $w);
+                push(@$pretty, "${indent}(uint$$type{W}_t)((uint${M}_t)(");
+                &codegen_operand($$this[2], { W=>$M, S=>0, E=>0 },
+                                 $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent_incremented}) & " . &_ctype_mask($w, $M));
+                push(@$pretty, "${indent})");
+                last SWITCH;
+            }
             push(@$pretty, "${indent}Int256_zx(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent})");
             last SWITCH;
@@ -2348,22 +2816,23 @@ sub codegen {
         $$this[0] =~ /^SAT$/ and do {
             # SAT Constant Integer 
             push(@$pretty, "${indent}Int256_sat(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}, $$this[1])");
             last SWITCH;
           };
         $$this[0] =~ /^SATU$/ and do {
             # SATU Constant Integer 
             push(@$pretty, "${indent}Int256_satu(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}, $$this[1])");
             last SWITCH;
           };
         $$this[0] =~ /^CLZ$/ and do {
 # CLZ Constant Integer 
 # Count Leading Zero: CLZ.8 00010011 = 3, CLZ.8 00000000 = 8, CLZ.8 11111111 = 0
+            last SWITCH if &codegen_count($this, 'Int256_clz', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_fromUInt32(Int256_clz(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent}))");
             last SWITCH;
@@ -2371,8 +2840,9 @@ sub codegen {
         $$this[0] =~ /^CLS$/ and do {
 # CLS Constant Integer 
 # Count Leading Sign: CLS.8 00010011 = 2, CLS.8 11110011 = 3, CLS.8 00000000 = 7, CLS.8 11111111 = 7
+            last SWITCH if &codegen_count($this, 'Int256_cls', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_fromUInt32(Int256_cls(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent}))");
             last SWITCH;
@@ -2380,8 +2850,9 @@ sub codegen {
         $$this[0] =~ /^CTZ$/ and do {
 # CTZ Constant Integer 
 # Count Trailing Zero: CTZ.8 01001100 = 2, CTZ.8 00000000 = 8, CTZ.8 11111111 = 0
+            last SWITCH if &codegen_count($this, 'Int256_ctz', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_fromUInt32(Int256_ctz(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent}))");
             last SWITCH;
@@ -2389,8 +2860,9 @@ sub codegen {
         $$this[0] =~ /^CBS$/ and do {
             # CBS Constant Integer 
             # Count Bit Set (Population count)
+            last SWITCH if &codegen_count($this, 'Int256_cbs', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_fromUInt32(Int256_cbs(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent}))");
             last SWITCH;
@@ -2398,7 +2870,7 @@ sub codegen {
         $$this[0] =~ /^SWAP$/ and do {
             # SWAP Constant Integer
             push(@$pretty, "${indent}Int256_swap(");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, $$this[1]");
             push(@$pretty, "${indent})");
             last SWITCH;
@@ -2407,9 +2879,9 @@ sub codegen {
             # ROR Constant Integer Integer
             push(@$pretty, "${indent}Int256_ror(");
             push(@$pretty, "${indent_incremented}$$this[1], ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[3], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[3], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
@@ -2417,237 +2889,304 @@ sub codegen {
             # ROL Constant Integer Integer
             push(@$pretty, "${indent}Int256_rol(");
             push(@$pretty, "${indent_incremented}$$this[1], ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[3], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[3], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^IORL$/ and do {
             push(@$pretty, "${indent}(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented} || ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^ANDL$/ and do {
             push(@$pretty, "${indent}(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented} && ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^XORL$/ and do {
             # $$this[0] Boolean Boolean
             push(@$pretty, "${indent}(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented} ^ ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^NOTL$/ and do {
             # NOTL Boolean
             push(@$pretty, "${indent}!(");
-            &codegen($$this[1], $pretty, $nesting, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^NOT$/ and do {
             # NOT Integer
+            last SWITCH if &codegen_ring1($this, '~', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_not(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^NEG$/ and do {
             # NEG Integer
+            last SWITCH if &codegen_ring1($this, '-', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_neg(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^ABS$/ and do {
             # ABS Integer
             push(@$pretty, "${indent}Int256_abs(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^SELECT$/ and do {
             # SELECT Boolean IntegerTrue IntegerFalse
+            my $type = &ctype($this);
+            if ($$type{W} != $BOX) {
+                push(@$pretty, "${indent}(uint$$type{W}_t)(");
+                &codegen_boxed($$this[1], $pretty, $nesting, $context);
+                push(@$pretty, "${indent}?");
+                &codegen_operand($$this[2], $type, $pretty, $nesting, $context);
+                push(@$pretty, "${indent}:");
+                &codegen_operand($$this[3], $type, $pretty, $nesting, $context);
+                push(@$pretty, ")");
+                last SWITCH;
+            }
             push(@$pretty, "(");
-            &codegen($$this[1], $pretty, $nesting, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting, $context);
             push(@$pretty, "${indent}?");
-            &codegen($$this[2], $pretty, $nesting, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting, $context);
             push(@$pretty, "${indent}:");
-            &codegen($$this[3], $pretty, $nesting, $context);
+            &codegen_boxed($$this[3], $pretty, $nesting, $context);
             push(@$pretty, ")");
             last SWITCH;
           };
         $$this[0] =~ /^ADD$/ and do {
+            last SWITCH if &codegen_ring2($this, '+', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_add(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^SUB$/ and do {
+            last SWITCH if &codegen_ring2($this, '-', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_sub(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^AND$/ and do {
+            last SWITCH if &codegen_ring2($this, '&', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_and(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^IOR$/ and do {
+            last SWITCH if &codegen_ring2($this, '|', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_or(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^XOR$/ and do {
+            last SWITCH if &codegen_ring2($this, '^', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_xor(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^MUL$/ and do {
+            last SWITCH if &codegen_ring2($this, '*', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_mul(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^SHR$/ and do {
+            my $type = &ctype($this);
+            if ($$type{W} != $BOX) {
+                # THE one that is not a ring operation.  Int256_shru is a *logical*
+                # shift of the 256-bit container, so on a negative operand it shifts
+                # in the sign bits the container was extended with -- which is why
+                # sraw = (SHR (SX.32 x) n) comes out right.  A uint32_t `>>` would
+                # shift in zeros and quietly lose every sign bit.  The operand is
+                # exact here (ctype boxed it otherwise), so its sign extension into
+                # the shift's type recovers the true value, and the shift becomes an
+                # ARITHMETIC one exactly when the operand's reading is signed.
+                my $value = &ctype($$this[1]);
+                my $M = &_ctype_native($$type{W} > $$value{W} ? $$type{W} : $$value{W});
+                my $signed = $$value{S};
+                push(@$pretty, "${indent}(uint$$type{W}_t)((" .
+                     ($signed ? "int${M}_t" : "uint${M}_t") . ")(");
+                &codegen_operand($$this[1], { W=>$M, S=>$$value{S}, E=>$$value{E} },
+                                 $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent_incremented}) >> (");
+                &codegen_operand($$this[2], { W=>8, S=>0, E=>1 },
+                                 $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent}))");
+                last SWITCH;
+            }
             push(@$pretty, "${indent}Int256_shru(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^SHL$/ and do {
+            my $type = &ctype($this);
+            if ($$type{W} != $BOX) {
+                # Shifted in a type that can take the largest amount, then truncated:
+                # `x << n` is undefined in C once n reaches the width, and the low bits
+                # of the result are the same whatever wider type it is computed in.
+                my $bound = &_ctype_shift($$this[2]);
+                my $W = $$type{W};
+                my $M = &_ctype_ring($W, $bound + 1);
+                push(@$pretty, "${indent}(uint${W}_t)((uint${M}_t)(");
+                &codegen_operand($$this[1], { W=>$M, S=>0, E=>0 },
+                                 $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent_incremented}) << (");
+                &codegen_operand($$this[2], { W=>8, S=>0, E=>1 },
+                                 $pretty, $nesting + 1, $context);
+                push(@$pretty, "${indent}))");
+                last SWITCH;
+            }
             push(@$pretty, "${indent}Int256_shl(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^DIV$/ and do {
             push(@$pretty, "${indent}Int256_div(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^REM$/ and do {
             # $$this[0] Integer Integer
             push(@$pretty, "${indent}Int256_rem(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^MOD$/ and do {
             # $$this[0] Integer Integer
             push(@$pretty, "${indent}Int256_mod(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
         $$this[0] =~ /^MIN$/ and do {
             # MIN Integer Integer
+            last SWITCH if &codegen_minmax($this, 0, $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_cmp(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}) > 0");
             push(@$pretty, "${indent}?");
-            &codegen($$this[2], $pretty, $nesting, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting, $context);
             push(@$pretty, "${indent}:");
-            &codegen($$this[1], $pretty, $nesting, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting, $context);
             last SWITCH;
           };
         $$this[0] =~ /^MAX$/ and do {
             # MAX Integer Integer
+            last SWITCH if &codegen_minmax($this, 1, $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_cmp(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}) > 0");
             push(@$pretty, "${indent}?");
-            &codegen($$this[1], $pretty, $nesting, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting, $context);
             push(@$pretty, "${indent}:");
-            &codegen($$this[2], $pretty, $nesting, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting, $context);
             last SWITCH;
           };
         $$this[0] =~ /^NE$/ and do {
+            last SWITCH if &codegen_compare($this, '!=', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_cmp(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}) != 0");
             last SWITCH;
           };
         $$this[0] =~ /^EQ$/ and do {
+            last SWITCH if &codegen_compare($this, '==', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_cmp(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}) == 0");
             last SWITCH;
           };
         $$this[0] =~ /^GT$/ and do {
+            last SWITCH if &codegen_compare($this, '>', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_cmp(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}) > 0");
             last SWITCH;
           };
         $$this[0] =~ /^LT$/ and do {
+            last SWITCH if &codegen_compare($this, '<', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_cmp(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}) < 0");
             last SWITCH;
           };
         $$this[0] =~ /^GE$/ and do {
+            last SWITCH if &codegen_compare($this, '>=', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_cmp(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}) >= 0");
             last SWITCH;
           };
         $$this[0] =~ /^LE$/ and do {
+            last SWITCH if &codegen_compare($this, '<=', $pretty, $nesting, $context);
             push(@$pretty, "${indent}Int256_cmp(");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
-            &codegen($$this[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent}) <= 0");
             last SWITCH;
           };
@@ -2666,6 +3205,13 @@ sub codegen {
           };
         $$this[0] =~ /^CONST$/ and do {
             my $cst0;
+            my $type = &ctype($this);
+            if ($$type{W} != $BOX) {
+                my $value = Math::BigInt->new("$$this[1]")
+                              ->bmod(Math::BigInt->new(2)->bpow($$type{W}));
+                push(@$pretty, "${indent}(uint$$type{W}_t)UINT64_C($value)");
+                last SWITCH;
+            }
             if($$this[1] =~ /^[\-0-9]+$/) {
                 use bigint;
                 my $value = sprintf("%#x%08xLL", ($$this[1] >> 32) & 0xffffffff, $$this[1] & 0xffffffff);
@@ -2685,12 +3231,27 @@ sub codegen {
             my $proxy = $$this[1];
             $proxy =~ /%([0-9]+)(:(\d+))?/ or die "Expecting proxy instead of $$this[1]";
 # Only generate access to RegClass encoded index. Immediate still be accessed through operands.
+            my $type = &ctype($this);
             if($$CodeGen_Proxies{$proxy}{METHOD} eq "RegClass") {
                 my $where = $$CodeGen_Proxies{$proxy}{WHERE};
-                push(@$pretty, "${indent}Int256_fromInt64($where)");
+                # An index into a register file: it is already a C integer, and boxing
+                # it only to take it out again is the commonest waste in the whole tuple.
+                if ($$type{W} != $BOX) {
+                    push(@$pretty, "${indent}(uint$$type{W}_t)($where)");
+                } else {
+                    push(@$pretty, "${indent}Int256_fromInt64($where)");
+                }
             } else {
                 my $index = $$CodeGen_Proxies{$proxy}{INDEX};
-                push(@$pretty, "${indent}HELPER(operandRead)(this, $index)");
+                # An Immediate or a Modifier, which the shim hands back as an Int256_.
+                # Signed immediates come back sign-extended, so the low bits are the
+                # two's complement of the value and ctype's S says how to read them.
+                if ($$type{W} != $BOX) {
+                    push(@$pretty, "${indent}(uint$$type{W}_t)Int256_toUInt64("
+                                 . "HELPER(operandRead)(this, $index))");
+                } else {
+                    push(@$pretty, "${indent}HELPER(operandRead)(this, $index)");
+                }
             }
             last SWITCH;
           };
@@ -2718,15 +3279,18 @@ sub codegen {
             my $Section = $$this[1];
             my $Variable = $$this[2];
             my $Integer = $$this[3];
-            $$CodeGen_Operands{INT256}{$Variable} = 1;
+            my $type = $Unbox && defined $CodeGen_VarTypes{$Variable}
+                       ? $CodeGen_VarTypes{$Variable} : &_ctype_box();
+            # The declaration BE/LAO/BIN/Behavior.pl emits for this variable.
+            $$CodeGen_Operands{INT256}{$Variable} = &cdecl($type);
             if ($Section) {
                 my ($prefix, $suffix) = &codegen_write($Section, $context);
                 push(@$pretty, "${indent}${Variable}$prefix = (");
-                &codegen($Integer, $pretty, $nesting + 1, $context);
+                &codegen_boxed($Integer, $pretty, $nesting + 1, $context);
                 push(@$pretty, ")${indent}$suffix");
             } else {
                 push(@$pretty, "${indent}$Variable = ");
-                &codegen($Integer, $pretty, $nesting + 1, $context);
+                &codegen_operand($Integer, $type, $pretty, $nesting + 1, $context);
             }
             last SWITCH;
           };
@@ -2762,11 +3326,11 @@ sub codegen {
                 and $Storage{$$Location[1]}->{KIND} eq "Memory") {
                 confess "Masked STORE not supported" if defined $Mask;
                 push(@$pretty, "${indent}HELPER(store_$$Location[1])(this${indent_incremented}, ");
-                &codegen($$Location[3], $pretty, $nesting + 1, $context);
+                &codegen_boxed($$Location[3], $pretty, $nesting + 1, $context);
                 push(@$pretty, "${indent_incremented}, ");
-                &codegen($$Location[2], $pretty, $nesting + 1, $context);
+                &codegen_boxed($$Location[2], $pretty, $nesting + 1, $context);
                 push(@$pretty, "${indent_incremented}, ");
-                &codegen($BitField, $pretty, $nesting + 1, $context);
+                &codegen_boxed($BitField, $pretty, $nesting + 1, $context);
                 push(@$pretty, "${indent})");
                 $$CodeGen_Operands{ENUM}{MEMORY}{$$Location[1]}++;
             } else {
@@ -2792,11 +3356,11 @@ sub codegen {
   #$$CodeGen_Operands{MASK}{$mask_name} = 1;
   #push(@$pretty, "${indent}$mask_name = Int256_or($mask_name, $static_name);");
                             push(@$pretty, "${indent}HELPER(operandFromValue)(this, $rank, $index, &$static_name, ");
-                            &codegen($BitField, $pretty, $nesting + 1, $context);
+                            &codegen_boxed($BitField, $pretty, $nesting + 1, $context);
                             push(@$pretty, "${indent})");
                         } else {
                             push(@$pretty, "${indent}HELPER(operandFromValue)(this, $rank, $index, 0, ");
-                            &codegen($BitField, $pretty, $nesting + 1, $context);
+                            &codegen_boxed($BitField, $pretty, $nesting + 1, $context);
                             push(@$pretty, "${indent})");
                         }
                     } else {
@@ -2805,9 +3369,9 @@ sub codegen {
                         # Enable commit stage for this write to storage
                         $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
                         push(@$pretty, "${indent_incremented}Int256_toUInt32(");
-                        &codegen($$Location[2], $pretty, $nesting + 1, $context);
+                        &codegen_boxed($$Location[2], $pretty, $nesting + 1, $context);
                         push(@$pretty, "${indent}), 1, $width, ");
-                        &codegen($BitField, $pretty, $nesting + 1, $context);
+                        &codegen_boxed($BitField, $pretty, $nesting + 1, $context);
                         push(@$pretty, "${indent})");
                     }
                 } else {
@@ -2816,7 +3380,7 @@ sub codegen {
                         push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, $address, 1, $width, ");
                         # Enable commit stage for this write to storage
                         $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
-                        &codegen($BitField, $pretty, $nesting + 1, $context);
+                        &codegen_boxed($BitField, $pretty, $nesting + 1, $context);
                         push(@$pretty, "${indent})");
                         if($$Location[2][1] !~ /^[0-9\-]+$/) {
                             $$CodeGen_Operands{ENUM}{IDENT}{$$Location[2][1]}++;
@@ -2832,7 +3396,7 @@ sub codegen {
                         push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, $address, $extent, $width, ");
                         # Enable commit stage for this write to storage
                         $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
-                        &codegen($BitField, $pretty, $nesting + 1, $context);
+                        &codegen_boxed($BitField, $pretty, $nesting + 1, $context);
                         push(@$pretty, "${indent})");
                     }
                 }
@@ -2847,9 +3411,9 @@ sub codegen {
             if (defined $Storage{$$Location[1]}->{KIND}
                 and $Storage{$$Location[1]}->{KIND} eq "Memory") {
                 push(@$pretty, "${indent}HELPER(load_$$Location[1])(this${indent_incremented}, ");
-                &codegen($$Location[3], $pretty, $nesting + 1, $context);
+                &codegen_boxed($$Location[3], $pretty, $nesting + 1, $context);
                 push(@$pretty, "${indent_incremented}, ");
-                &codegen($$Location[2], $pretty, $nesting + 1, $context);
+                &codegen_boxed($$Location[2], $pretty, $nesting + 1, $context);
                 push(@$pretty, "${indent})");
                 $$CodeGen_Operands{ENUM}{MEMORY}{$$Location[1]}++;
             } else {
@@ -2869,7 +3433,7 @@ sub codegen {
                     } else {
                         push(@$pretty, "${indent}HELPER(readFromStorage_$$Location[1])(this, $Stage, ");
                         push(@$pretty, "${indent_incremented}Int256_toUInt32(");
-                        &codegen($$Location[2], $pretty, $nesting + 1, $context);
+                        &codegen_boxed($$Location[2], $pretty, $nesting + 1, $context);
                         push(@$pretty, "${indent}), 1, $width)");
                     }
                 } else {
@@ -2910,9 +3474,9 @@ sub codegen {
                 $$CodeGen_Operands{ENUM}{REGISTER}{$$Location[1]}++;
             }
             push(@$pretty, "${indent}HELPER(probe_$$Location[1])(this, ");
-            &codegen($$Location[3], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$Location[3], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented},");
-            &codegen($$Location[2], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$Location[2], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             last SWITCH;
           };
@@ -2928,7 +3492,7 @@ sub codegen {
         $$this[0] =~ /^SEQ$/ and do {
             # SEQ Commands
             for (my $i = 1; $i < @$this; $i++) {
-                &codegen($$this[$i], $pretty, $nesting, $context);
+                &codegen_boxed($$this[$i], $pretty, $nesting, $context);
                 push(@$pretty, ";");
             }
             last SWITCH;
@@ -2936,16 +3500,16 @@ sub codegen {
         $$this[0] =~ /^IF$/ and do {
             # IF Boolean Command Command
             push(@$pretty, "${indent}if (");
-            &codegen($$this[1], $pretty, $nesting + 1, $context);
+            &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent})");
             push(@$pretty, "${indent}{");
-            &codegen($$this[2], $pretty, $nesting+1, $context);
+            &codegen_boxed($$this[2], $pretty, $nesting+1, $context);
             push(@$pretty, "${indent_incremented};");
             my @else = $$this[3][0];
             if ($else[0] ne 'SKIP') {
                 push(@$pretty, "${indent}}");
                 push(@$pretty, "${indent}else {");
-                &codegen($$this[3], $pretty, $nesting+1, $context);
+                &codegen_boxed($$this[3], $pretty, $nesting+1, $context);
                 push(@$pretty, "${indent_incremented};");
             }
             push(@$pretty, "${indent}}");
@@ -2973,7 +3537,7 @@ sub codegen {
                 }
                 $cont{$var} = $begin;
                 foreach my $cmd (@cmds) {
-                    &codegen($cmd, $pretty, $nesting+1, \%cont);
+                    &codegen_boxed($cmd, $pretty, $nesting+1, \%cont);
                     push @$pretty, ";";
                 }
                 delete $cont{$var};

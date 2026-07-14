@@ -35,6 +35,12 @@ use strict;
 
 use MDS;
 use Behavior;
+
+# Unbox the generated C: give each Integer a native type where the width analysis
+# proves one fits, instead of a 32-byte Int256_ union.  DOC/Behavior.md section 6.
+# Off by default -- the generator is then byte-for-byte what it always was.
+$Behavior::Unbox = 1 if $ENV{BEHAVIOR_UNBOX};
+
 &MDS::parse(*ARGV);
 
 my $copyrights = &MDS::get_copyrights(" *  ","");
@@ -229,7 +235,11 @@ foreach my $opcode (@Opcode::table) {
         $execute_body .= "  static const Int256_ $Int256_undef;\n";
     }
     foreach my $Int256 (sort keys %{$operands{INT256}}) {
-        $execute_body .= "  Int256_ $Int256 ${unused}= Int256_zero;\n";
+        # CodeGen decided each variable's C type (DOC/Behavior.md section 6); with
+        # $Behavior::Unbox off it is Int256_ for every one of them, as it always was.
+        my $type = $operands{INT256}{$Int256};
+        my $zero = $type eq 'Int256_' ? 'Int256_zero' : '0';
+        $execute_body .= "  $type $Int256 ${unused}= $zero;\n";
     }
     foreach my $Mask (sort keys %{$operands{MASK}}) {
         $execute_body .= "  Int256_ $Mask = Int256_zero;\n";
