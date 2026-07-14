@@ -54,6 +54,18 @@ use Width;
 #
 my $WidthCheck = $ENV{WIDTH_CHECK} || 'error';
 my %WidthFatal = map { $_ => 1 } qw(box signed section extent internal);
+
+#
+# The pass also stamps each Integer's interval onto its Abstract, and %WidthAbstract
+# is what Pretty then emits into Opcode.table: "(*lo:0,hi:255*)".  The grammar parses
+# that straight back into the same attribute hash, which is how the abstract values
+# reach BE/LAO -- it re-parses the tree from the table in a separate process, so
+# otherwise CodeGen would have to recompute them.  Only lo/hi are published; the hash
+# also carries the internal TYPE/WIDTH/REPR, and emitting those would bloat every node
+# for nothing.
+#
+$Width::Annotate = 1 unless $WidthCheck eq 'off';
+my %WidthAbstract = (lo=>1, hi=>1);
 my %WidthCounts;
 my $WidthErrors = 0;
 
@@ -281,7 +293,7 @@ sub behavior {
     &Behavior::Symbol();
     map { $AccessTable->{$_} = $CommitTable->{$_} = undef } (@proxies, keys %$forced);
     $behavior = &MDS::make("Behavior", {
-        }, [ &Pretty($tree, "  ") ]);
+        }, [ &Pretty($tree, "  ", \%WidthAbstract) ]);
     if (defined $actions) {
         my (@proxies, @methods);
         foreach my $proxy (sort keys %{$actions}) {

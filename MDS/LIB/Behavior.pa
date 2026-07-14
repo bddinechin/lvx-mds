@@ -2010,6 +2010,21 @@ sub collate {
 #
 # Pretty output of the syntax tree.
 #
+# $print_attributes selects what goes into the Abstract of each Integer/Boolean,
+# the "(*key:value,...*)" the grammar parses back into that node's attribute hash:
+#
+#   0 or undef	no Abstract at all (the default, and what the tables held before
+#		anything wrote abstract values into them).
+#   a HASH ref	only the named keys, e.g. { lo=>1, hi=>1 }.  This is the useful
+#		form: the attribute hash also carries the internal TYPE/WIDTH/REPR
+#		and dumping those into every node would bloat the tables for
+#		nothing.
+#   any true	every non-ref key.  Debugging only.
+#
+# Only scalars are emitted -- a CODE ref cannot be spelled in the syntax, and a
+# Math::BigInt is a blessed ref, so an abstract value has to be stringified by
+# whoever stamps it (Width.pm does).
+#
 sub Pretty {
     my ($this, $spacing, $print_attributes) = @_;
     $spacing = "\t" unless defined $spacing;
@@ -2034,7 +2049,7 @@ sub pretty {
             if ($items[0] eq 'SECTION') {
                 push @$pretty, "." . $items[1] . "[";
                 if (ref $items[2] eq 'ARRAY') {
-                    &pretty($pretty, $items[2], $spacing, $nesting+1);
+                    &pretty($pretty, $items[2], $spacing, $nesting+1, $print_attributes);
                 } else {
                     if (defined $items[2]) {
                         push @$pretty, $items[2];
@@ -2046,11 +2061,17 @@ sub pretty {
                 next
             }
             push @$pretty, "\n", $indent;
-            &pretty($pretty, $item, $spacing, $nesting+1);
+            # $print_attributes has to travel down: without it only the root node
+            # could ever emit an Abstract, and the root is always a Command, which
+            # has no attribute hash -- so nothing was ever emitted at all.
+            &pretty($pretty, $item, $spacing, $nesting+1, $print_attributes);
             $sep = " ";
         } elsif ($print_attributes and ref $item eq 'HASH'
             and $$item{TYPE} =~ /^(Integer|Boolean)$/) {
-            my @keys = grep {!ref $$item{$_}} keys %{$item};
+            my @keys = grep {
+                !ref $$item{$_}
+                  && (ref $print_attributes ne 'HASH' || $print_attributes->{$_})
+              } keys %{$item};
             if (@keys) {
                 my $sep = '';
                 push @$pretty, "(*";

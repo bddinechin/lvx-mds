@@ -89,6 +89,52 @@ our @Diags;
 our $Context;
 
 #
+# When set, each Integer node's interval is stamped onto its Abstract -- the
+# attribute hash the grammar already attaches to every Integer, which Pretty can
+# emit as "(*lo:0,hi:255*)" and the parser reads straight back into the same slot.
+# That is what carries the abstract values across a process boundary: the analysis
+# runs here, in MDD/MDE, but CodeGen runs later in BE/LAO, which re-parses the tree
+# from Opcode.table.  Without this the intervals would have to be recomputed by
+# every back-end that wants them.
+#
+# The interval is stored as a decimal string: a Math::BigInt is a blessed ref, and
+# Pretty only emits scalars (rightly -- a ref cannot be spelled in the syntax).
+#
+# Annotation JOINS rather than overwrites.  A node can be visited more than once --
+# the FOR fixpoint re-walks its body, and Expand shares the METHOD/CONST leaves of
+# its replace table across every site that uses them -- so the annotation has to be
+# sound for all the contexts a node is reached in, not just the last.  In practice
+# the two agree: those leaves are context-independent, and the fixpoint's last visit
+# is its widest.
+#
+our $Annotate = 0;
+
+# Which nodes this check() has already stamped.  Needed because an unbounded side
+# is spelled by *deleting* the key, so the hash alone cannot tell "never visited"
+# from "visited, and unbounded" -- and joining a bounded value onto the latter
+# would narrow it, which is exactly the unsound direction.  Reset per check().
+my %Annotated;
+
+sub _annotate {
+    my ($this, $lo, $hi) = @_;
+    return unless $Annotate;
+    # Not CONST: its interval is [v, v], which the consumer can read off the node,
+    # and it is the commonest leaf in the tree -- annotating it is pure bloat.  It
+    # would not survive a round trip anyway: sub CONST builds a fresh attribute hash
+    # and discards the parsed one.
+    return if $this->[0] eq 'CONST';
+    my $attributes = $this->[-1];
+    return unless ref $attributes eq 'HASH';
+    if ($Annotated{"$this"}++) {
+        ($lo, $hi) = _join($lo, $hi,
+          (defined $attributes->{lo} ? _big($attributes->{lo}) : undef),
+          (defined $attributes->{hi} ? _big($attributes->{hi}) : undef));
+    }
+    defined $lo ? ($attributes->{lo} = "$lo") : delete $attributes->{lo};
+    defined $hi ? ($attributes->{hi} = "$hi") : delete $attributes->{hi};
+}
+
+#
 # Memoized powers of two.  Everything here is a Math::BigInt.
 #
 my @Pow2;
@@ -403,7 +449,9 @@ sub _int {
         ($lo, $hi) = _binary($this, $env, $trunc);
     }
 
-    return _box($lo, $hi, $operator, $trunc);
+    ($lo, $hi) = _box($lo, $hi, $operator, $trunc);
+    _annotate($this, $lo, $hi);
+    return ($lo, $hi);
 }
 
 #
@@ -812,7 +860,26 @@ sub check {
     my ($tree, $context) = @_;
     local @Diags = ();
     local $Context = $context || 'Behavior';
-    _cmd($tree, { });
+    %Annotated = ();
+
+    # BitString.pm has `use bignum`, which globally sets
+    # Math::BigInt->upgrade('Math::BigFloat') -- so any operation that goes inexact
+    # silently returns a float, rounded to div_scale (40) significant digits.  This
+    # domain is the integers: (2^64-1) >> 48 has to be 65535, not
+    # 65535.99999999999999644728632119949907064, which is what a right shift produced
+    # before this guard (and which does not even lex when emitted into an Abstract).
+    # Upgrading is never right here, so switch it off for the duration.  Doing it at
+    # the boundary rather than at each division is the point: it covers the operations
+    # I did not think of too.
+    my $upgrade = Math::BigInt->upgrade();
+    Math::BigInt->upgrade(undef);
+    eval { _cmd($tree, { }); 1 } or do {
+        my $error = $@;
+        Math::BigInt->upgrade($upgrade);
+        die $error;
+    };
+    Math::BigInt->upgrade($upgrade);
+
     return @Diags;
 }
 
