@@ -336,8 +336,17 @@ sub _int {
         my $value = &Behavior::constant($this);
         ($lo, $hi) = defined $value ? (_big($value), _big($value)) : (undef, undef);
 
-    } elsif ($operator eq 'UNDEF' || $operator eq 'METHOD' || $operator eq 'ACCESS') {
-        # An operand's encoded value: bounded by whatever coercion wraps it.
+    } elsif ($operator eq 'METHOD') {
+        # An operand's encoded value.  MDE stamps a bound on the proxy's Symbol when
+        # it can (a register operand's value is an index into its register file); an
+        # Immediate or Modifier gets none, but its Access read wraps the METHOD in an
+        # SX/ZX of the field's width, so the coercion bounds it anyway.
+        my $symbol = &Behavior::Symbol($this->[1]);
+        if (ref $symbol eq 'HASH' && defined $symbol->{LO} && defined $symbol->{HI}) {
+            ($lo, $hi) = (_big($symbol->{LO}), _big($symbol->{HI}));
+        }
+
+    } elsif ($operator eq 'UNDEF' || $operator eq 'ACCESS') {
         ($lo, $hi) = (undef, undef);
 
     } elsif ($operator eq 'READ') {
@@ -850,6 +859,212 @@ sub _same {
     return 1;
 }
 
+################################################################################
+#
+# The backward pass: demanded width.
+#
+# The forward intervals say how big a value CAN be.  They are not enough to type it,
+# because the commonest expression in the whole ISA does not fit anything: addw's
+# ADD of two 64-bit registers is [0, 2^65-2], which is no native C type -- even
+# though the store keeps only its low 32 bits and a uint32_t add would do.
+#
+# So this computes the other half: how many of a value's low bits anyone actually
+# LOOKS at.  A node whose demand is d can be computed in any d-bit type, whatever its
+# interval, because the ring operations (+ - * << & | ^ ~) agree with the true result
+# on their low d bits.  The type of a node is then decided by
+#
+#     min(bits its interval needs, bits anyone demands)
+#
+# and for addw that is min(65, 32) = 32.
+#
+# It runs backward -- over commands in reverse, and top-down within an expression --
+# and it crosses variables, which the forward truncation context deliberately does
+# not: %Demand maps a variable to the most bits any later READ wants of it.  A plain
+# WRITE kills that demand (it overwrites the value); a WRITE under an IF does not,
+# because the other path still sees the old one.
+#
+# Helper arguments demand everything.  That is sound, and measurement says it costs
+# almost nothing: 86% of helper arguments are already bounded by the coercion that
+# produced them, and the rest are genuinely 256-bit (XVR octuples, 128-bit products),
+# which no declared argument width could narrow either.
+#
+our %Demand;
+
+sub _dwant {			# a variable is read: it wants $bits of its low end
+    my ($name, $bits) = @_;
+    $bits = $BOX if !defined $bits || $bits > $BOX;
+    $Demand{$name} = $bits
+      if !defined $Demand{$name} || $bits > $Demand{$name};
+}
+
+sub _dbound {			# a node's interval bound, as a small integer, or undef
+    my ($this, $which) = @_;
+    return undef unless ref $this eq 'ARRAY';
+    my $attributes = $this->[-1];
+    return undef unless ref $attributes eq 'HASH' && defined $attributes->{$which};
+    my $value = _big($attributes->{$which});
+    return $BOX if $value > $BOX;		# a shift that far shifts everything out
+    return $value < 0 ? 0 : $value->numify();
+}
+
+sub _dmark {			# record the demand on a node, keeping the largest
+    my ($this, $d) = @_;
+    return unless $Annotate;
+    # A demand of BOX is no demand at all -- it says every bit is looked at, which is
+    # the default -- and a CONST's demand tells nobody anything, since its value is
+    # right there.  Emitting either would be most of the nodes in the tree for nothing.
+    return if $d >= $BOX || $this->[0] eq 'CONST';
+    my $attributes = $this->[-1];
+    return unless ref $attributes eq 'HASH';
+    $attributes->{dm} = $d
+      if !defined $attributes->{dm} || $d > $attributes->{dm};
+}
+
+sub _dexpr {
+    my ($this, $d) = @_;
+    return unless ref $this eq 'ARRAY';
+    my $operator = $this->[0];
+    return if $operator eq 'SECTION';		# handled by its READ/WRITE
+    $d = $BOX if !defined $d || $d > $BOX;
+    $d = 0 if $d < 0;
+    _dmark($this, $d);
+
+    if ($operator eq 'READ') {
+        my ($section, $name) = @{$this}[1, 2];
+        if (ref $section eq 'ARRAY') {
+            # Lane i of width w: the variable is wanted up to bit w*(i+1).
+            my $width = $section->[1];
+            my $index = ref $section->[2] eq 'ARRAY'
+              ? _dbound($section->[2], 'hi') : $section->[2];
+            _dexpr($section->[2], $BOX) if ref $section->[2] eq 'ARRAY';
+            _dwant($name, defined $index ? $width * ($index + 1) : $BOX);
+        } else {
+            _dwant($name, $d);
+        }
+
+    } elsif ($operator eq 'ZX' || $operator eq 'SX') {
+        # Only the low width bits of the operand survive the coercion.
+        my $width = $this->[1];
+        _dexpr($this->[2], $d < $width ? $d : $width);
+
+    } elsif ($operator =~ /^(ADD|SUB|MUL|AND|IOR|XOR)$/) {
+        _dexpr($this->[1], $d);
+        _dexpr($this->[2], $d);
+
+    } elsif ($operator eq 'NOT' || $operator eq 'NEG') {
+        _dexpr($this->[1], $d);
+
+    } elsif ($operator eq 'SHL') {
+        # (x << n) mod 2^d depends on x mod 2^(d - n): the smallest shift needs the
+        # most bits of x.
+        my $shift = _dbound($this->[2], 'lo');
+        _dexpr($this->[1], defined $shift ? $d - $shift : $d);
+        _dexpr($this->[2], $BOX);
+
+    } elsif ($operator eq 'SHR') {
+        # (x >> n) mod 2^d depends on bits [n, n+d) of x: the largest shift reaches
+        # highest.
+        my $shift = _dbound($this->[2], 'hi');
+        _dexpr($this->[1], defined $shift ? $d + $shift : $BOX);
+        _dexpr($this->[2], $BOX);
+
+    } elsif ($operator eq 'SELECT') {
+        _dexpr($this->[1], $BOX);		# the condition
+        _dexpr($this->[2], $d);
+        _dexpr($this->[3], $d);
+
+    } elsif ($operator eq 'F2I') {
+        _dfield($this->[2]);
+
+    } else {
+        # Everything else reads the whole value: SHR's amount, the comparisons,
+        # DIV/REM/MOD, MIN/MAX, SAT, the bit counters, and every helper argument.
+        foreach my $child (@{$this}) {
+            _dexpr($child, $BOX) if ref $child eq 'ARRAY';
+        }
+    }
+}
+
+sub _dfield {
+    my ($this) = @_;
+    return unless ref $this eq 'ARRAY';
+    if ($this->[0] eq 'I2F') {
+        # THE rule: a store of I2F.w wants exactly w bits of what it stores.
+        _dexpr($this->[2], $this->[1]);
+    } elsif ($this->[0] eq 'LOAD') {
+        _dexpr($this->[2], $BOX);		# the location
+    }
+}
+
+sub _dsame {
+    my ($one, $two) = @_;
+    return 0 unless keys %{$one} == keys %{$two};
+    foreach my $name (keys %{$one}) {
+        return 0 unless defined $two->{$name} && $two->{$name} == $one->{$name};
+    }
+    return 1;
+}
+
+sub _dcmd {
+    my ($this) = @_;
+    return unless ref $this eq 'ARRAY';
+    my $operator = $this->[0];
+
+    if ($operator eq 'SEQ') {
+        foreach my $command (reverse @{$this}[1 .. $#{$this}]) {
+            _dcmd($command);
+        }
+
+    } elsif ($operator eq 'IF') {
+        my %after = %Demand;
+        _dcmd($this->[2]);
+        my %then = %Demand;
+        %Demand = %after;
+        _dcmd($this->[3]);
+        foreach my $name (keys %then) {		# union of the two paths
+            _dwant($name, $then{$name});
+        }
+        _dexpr($this->[1], $BOX);
+
+    } elsif ($operator eq 'FOR') {
+        my @commands = @{$this}[3 .. $#{$this}];
+        for (my $round = 0; $round < 5; $round++) {
+            my %before = %Demand;
+            foreach my $command (reverse @commands) {
+                _dcmd($command);
+            }
+            last if _dsame(\%before, \%Demand);
+        }
+
+    } elsif ($operator eq 'WRITE') {
+        my ($section, $name, $expression) = @{$this}[1, 2, 3];
+        if (ref $section eq 'ARRAY') {
+            # A lane write leaves the rest of the variable alone, so it kills nothing.
+            _dexpr($section->[2], $BOX) if ref $section->[2] eq 'ARRAY';
+            _dexpr($expression, $section->[1]);
+        } else {
+            my $demand = $Demand{$name} || 0;
+            delete $Demand{$name};		# this write overwrites the old value
+            _dexpr($expression, $demand);
+        }
+
+    } elsif ($operator eq 'STORE') {
+        _dfield($this->[3]);
+        _dexpr($this->[2], $BOX);		# the location
+        _dexpr($this->[4], $BOX) if ref $this->[4] eq 'ARRAY';
+
+    } elsif ($operator eq 'COMMIT') {
+        _dexpr($this->[3], $BOX);
+        _dexpr($this->[4], $BOX) if ref $this->[4] eq 'ARRAY';
+
+    } elsif ($operator eq 'EFFECT' || $operator eq 'THROW') {
+        foreach my $argument (@{$this}[3 .. $#{$this}]) {
+            _dexpr($argument, $BOX) if ref $argument eq 'ARRAY';
+        }
+    }
+    # MACRO, SKIP, CANCEL: no value, no state.
+}
+
 #
 # Check one Behavior tree.  $context names it in the diagnostics (an opcode ID).
 # Returns the list of diagnostics, empty if the tree is clean.  Each is a hash
@@ -873,7 +1088,14 @@ sub check {
     # I did not think of too.
     my $upgrade = Math::BigInt->upgrade();
     Math::BigInt->upgrade(undef);
-    eval { _cmd($tree, { }); 1 } or do {
+    eval {
+        _cmd($tree, { });		# forward: what a value can be
+        if ($Annotate) {
+            %Demand = ();
+            _dcmd($tree);		# backward: how much of it anyone looks at
+        }
+        1;
+    } or do {
         my $error = $@;
         Math::BigInt->upgrade($upgrade);
         die $error;

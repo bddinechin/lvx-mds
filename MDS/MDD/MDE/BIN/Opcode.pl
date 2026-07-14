@@ -65,7 +65,7 @@ my %WidthFatal = map { $_ => 1 } qw(box signed section extent internal);
 # for nothing.
 #
 $Width::Annotate = 1 unless $WidthCheck eq 'off';
-my %WidthAbstract = (lo=>1, hi=>1);
+my %WidthAbstract = (lo=>1, hi=>1, dm=>1);
 my %WidthCounts;
 my $WidthErrors = 0;
 
@@ -182,6 +182,33 @@ sub execution {
 }
 
 #
+# Bound the value a METHOD node can take, and stash it on the proxy's Symbol so the
+# width pass can pick it up.
+#
+# METHOD is an operand's *encoded* value.  Where the operand is a register, that is
+# an index into the register file -- [0, 63] for a GPR -- and Behavior::yyinit has
+# already mapped every register name to its index.  Without this the width pass sees
+# a bare METHOD as unbounded, which is how 365 of lvx_v1's 2170 helper arguments (a
+# register number handed to MEM_load, say) ended up typed Int256_ when they are a
+# byte.  An Immediate or a Modifier needs nothing here: its Access read always wraps
+# the METHOD in an SX/ZX of the field's width, so the forward analysis bounds it at
+# the coercion.
+#
+sub proxyBound {
+    my ($proxy, $methodID) = @_;
+    return unless defined $methodID && $methodID =~ /^RegClass/;
+    my $regClass = &MDS::fetch($methodID) or return;
+    my ($lo, $hi);
+    foreach my $register ($regClass->access("registers")) {
+        my $index = &Behavior::Constant($register->name());
+        next unless defined $index && $index !~ /\D/;
+        $lo = $index if !defined $lo || $index < $lo;
+        $hi = $index if !defined $hi || $index > $hi;
+    }
+    &Behavior::Symbol($proxy, { LO=>$lo, HI=>$hi }) if defined $lo;
+}
+
+#
 # Make the Behavior of an Opcode by expanding ACCESS(es) and COMMIT(s) to the proxies.
 #
 sub behavior {
@@ -265,6 +292,7 @@ sub behavior {
         $CommitTable->{$proxy} = &SKIP();
     }
     map { &Behavior::Symbol($_, { }); } (@proxies, keys %$forced);
+    map { &proxyBound($_, $methodID{$_}) } @proxies;
     map {
         #print STDERR "ATTRLIST(", @{$$properties{$_}}, ")\n";
         foreach my $attribute (@{$$properties{$_}}) {
