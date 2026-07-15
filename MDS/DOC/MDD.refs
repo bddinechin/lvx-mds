@@ -48,7 +48,7 @@ Instruction  patterns       Pattern      IDs
 Instruction  replacement    Operand      IDs
 Instruction  schedulings    Scheduling   IDs
 Instruction  specialize     Operand      IDs
-Instruction  synthetic      Synthetic    IDs
+Instruction  synthetic      Synthetic    ID
 Operand      fields         BitField     IDs
 Operand      relocations    Relocation   IDs
 Pattern      fields         BitField     IDs

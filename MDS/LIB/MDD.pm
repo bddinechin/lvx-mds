@@ -558,7 +558,7 @@ sub IDs { &MDD::IDs("Instruction", $_[0]) }
     schedulings=>	[ 'IDREFS', '#REQUIRED', 'undef', 'Scheduling', 'IDs' ],
     specialize=>	[ 'IDREFS', '#IMPLIED', 'undef', 'Operand', 'IDs' ],
     syntax=>	[ 'CDATA', '#IMPLIED', 'undef', '', '' ],
-    synthetic=>	[ 'IDREF', '#IMPLIED', 'undef', 'Synthetic', 'IDs' ],
+    synthetic=>	[ 'IDREF', '#IMPLIED', 'undef', 'Synthetic', 'ID' ],
     traps=>	[ 'NMTOKENS', '#IMPLIED', 'undef', '', '' ],
     what=>	[ 'CDATA', '#IMPLIED', 'undef', '', '' ],
   );
