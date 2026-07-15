@@ -1,7 +1,9 @@
 #!/usr/bin/perl -w
 # Machine Description System (MDS)
 #
-# Copyright (C) 2005 STMicroelectronics
+# Copyright (C) 2026 Liesme Tech.
+#
+# Benoît Dupont de Dinechin (benoit.dinechin@gmail.com).
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
