@@ -4,10 +4,8 @@ include	../../Makerules
 include	../Makerules
 
 PERLBIN:=	$(MDSDIR)/BE/GDB/BIN
-RUBYBIN:=	$(MDSDIR)/BE/GDB/BIN
 
 vpath %.pl $(PERLBIN)
-vpath %.rb $(RUBYBIN)
 
 cleanfiles=	$(GDB_products) $(GDB_xml) $(GDB_check) *.xml
 GDB_xml:=	$(addsuffix /GDB.xml, $(FAMILY))
@@ -40,11 +38,9 @@ all: Begin.xml End.xml
 $(FAMILY)/$(FAMILY)-regs.h: target-regs.pl $(GDB_xml)
 	FAMILY=$(FAMILY) CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@  || $(ABORT2)
 
-#$(FAMILY)/$(FAMILY)-regs.h: RegisterInfo.rb $(GDB_xml)
-#	FAMILY=$(FAMILY) CORES="$(CORES)" $(RUBY) $(RUBYINC) $^ > $@  || $(ABORT2)
 
-$(FAMILY)/$(FAMILY)-mds-tdep.c: GDBTargeting.rb $(GDB_xml)
-	FAMILY=$(FAMILY) CORES="$(CORES)" TDESC_NAMESPACE="$(TDESC_NAMESPACE)" $(RUBY) $(RUBYINC) $^ > $@  || $(ABORT2)
+$(FAMILY)/$(FAMILY)-mds-tdep.c: GDBTargeting.pl $(GDB_xml)
+	FAMILY=$(FAMILY) CORES="$(CORES)" TDESC_NAMESPACE="$(TDESC_NAMESPACE)" $(PERL) $(PERLINC) $^ > $@  || $(ABORT2)
 
 GDB_diff:=	$(addsuffix /GDB.diff, $(FAMILY))
 GDB_refs:=	$(addsuffix /GDB.refs, $(FAMILY))
