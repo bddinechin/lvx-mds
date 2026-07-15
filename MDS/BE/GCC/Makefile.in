@@ -3,11 +3,9 @@ GCC_prefix:=@GCCDIR@
 include	../../Makerules
 include	../Makerules
 PERLBIN:=	$(MDSDIR)/BE/GCC/BIN
-RUBYBIN:=	$(MDSDIR)/BE/GCC/BIN
 HEADERDIR:=	$(ARCHDIR)/Compiler
 
 vpath %.pl $(PERLBIN)
-vpath %.rb $(RUBYBIN)
 
 cleanfiles=	$(GCC_products) $(GCC_xml) $(GCC_check) *.xml
 
