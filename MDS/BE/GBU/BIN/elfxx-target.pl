@@ -158,7 +158,7 @@ sub print_reloc_type {
     print $file <<EOT;
 /* LVX-specific relocations table.
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
-   Contributed by Kalray SA.
+   Contributed by Liesme Tech.
 
    This file is part of BFD, the Binary File Descriptor library.
 
