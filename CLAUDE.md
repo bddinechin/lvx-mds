@@ -167,6 +167,79 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 | `BINUTILSDIR` / `GDBDIR` | Install targets for `BE/GBU`'s shared binutils/gdb deliverables (`--with-binutils-prefix`/`--with-gdb-prefix`); default to `lvx-family/BE` placeholders if not passed. Point these at the real sibling checkouts (`/home/bd3/lvx-csw/lvx-binutils`, `/home/bd3/lvx-csw/lvx-gdb`) to actually deliver generated files there. |
 | `NEWLIBDIR` | Install target for `BE/LIBC`'s deliverables (`--with-newlib-prefix`); defaults to an `lvx-family/BE` placeholder if not passed. Point at `/home/bd3/lvx-csw/lvx-newlib`. |
 
+## Adding a new MDD element (end to end)
+
+A "section" in the YAML — `Storage:`, `Immediate:`, and now `Helper:` — is an **MDD
+element**, and adding one touches the whole pipeline. There is no single registry; the
+element's name is repeated in a handful of places and a miss in any of them fails
+*silently* (an empty `.table`, not an error). The full set, learned by adding `Helper`:
+
+1. **`MDS/DOC/MDD.dtd`** — the `<!ELEMENT>` + `<!ATTLIST>`. Then regenerate `LIB/MDD.pm`
+   (`cd MDS && make -f Maintainer MDD.pm && mv MDD.pm LIB/`), and check it reproduces
+   byte-identically (`perl -I LIB BIN/dtd2pm.pl DOC/MDD.dtd | diff - LIB/MDD.pm`). This is
+   what creates the `package <Element>` and `@<Element>::table` the readers use.
+2. **`MDS/configure.ac`** — add `<Element>.table` to `MDD_names`, then `cd MDS && autoconf`
+   (with the pinned 2.72). This is what puts it in the build's table list.
+3. **`MDS/FE/YAML/BIN/Description2MDS.pl`** — two edits: add the name to `@Tables` (so a
+   `<Element>.yml` is emitted), **and** a `foreach (@{$$Description{<Element>}})` loop that
+   stamps each entry into `%Section{<Element>}`. Without the loop the `.yml` comes out `{}`.
+4. **`MDS/FE/YAML/BIN/yml2pl.pl`** — a `sub <Element>` that prints a
+   `MDS::make("<Element>", {...})->emit()`. This file dispatches by
+   `eval "$TableName(\$entry)"`, so a missing sub is a silent no-op — the `.pl` runs and
+   emits nothing, and the `.table` is empty. This is the single easiest miss.
+5. **`MDS/FE/LIB/<Element>.pm`** — a stub module, so the `use <Element>;` that yml2pl writes
+   into the generated `.pl` resolves. Some of these emit a null default entry (`Storage.pm`
+   emits an empty-ID Storage); one that nothing references by IDREF (like `Helper`) needs
+   only `use MDS; 1;`.
+6. **`lvx-family/FE/YAML/lvx/Makefile.in`** — add `<Element>.yml` to `YMLNAMES`, so `cpp`
+   concatenates it into `Description.yml`.
+7. **`lvx-family/FE/YAML/lvx/<Element>.yml`** — the actual source. House style is a
+   **list** of `- ID:` entries, not a mapping (see `Storage.yml`); a mapping parses but
+   `Description2MDS`'s list loop skips it.
+8. **Consumers.** A back-end or MDE pass that reads the table needs it in its input list:
+   MDE via `MDD/MDE/Makefile.in` (e.g. `Opcode.input`), so the `.core.xml` concatenation
+   includes it. `BE/LAO` gets every `MDS_names` table automatically (`LAO_input` is
+   `MDS_names` minus `LAO_drop`), so nothing to do there unless it is dropped. The reader
+   itself iterates `@<Element>::table` and pulls fields with `->attribute("...")` /
+   `->name()`.
+
+After 1 and 2 you must `make config` (below), not just `make all`.
+
+## Build-staleness traps (why `make all` "ignores" your change)
+
+The out-of-tree build has several places where a stale intermediate satisfies a
+downstream rule, so an edit appears to have no effect. All of these cost real time:
+
+- **`Makefile.in` / `configure.ac` edits need `make config`.** `YMLNAMES`, `MDD_names`,
+  the `*.input` lists — all live in `.in` files that `config.status` expands into the
+  build tree's `Makefile`s. A plain `make all` runs the *old* expanded Makefile. Re-run
+  `make config` (from `lvx-csw/`) after any `.in` or `configure.ac` change.
+- **`Description.yml` is regenerated in one `cpp` step from *all* of `YMLNAMES`.** Deleting
+  a single downstream `.yml` (say `build_lvx/FE/YAML/lvx/<core>/Helper.yml`) does **not**
+  retrigger it — the rule's target is `Description.yml`. To force the front end to re-run,
+  delete `build_lvx/FE/YAML/lvx/<core>/Description.yml` itself.
+- **There are two levels of `<T>.table`, and the second copies the first.** The FE build
+  produces `build_lvx/FE/YAML/lvx/<core>/<T>.table`; MDD copies it to
+  `build_lvx/MDD/lvx/<core>/<T>.table`. A stale (e.g. empty) FE table satisfies the MDD
+  copy, so deleting only the MDD one rebuilds nothing. Delete **both**.
+- **The MDE width pass only re-runs when `Opcode.table` is rebuilt.** `WIDTH_CHECK=verbose`
+  prints its diagnostics during the `MDD/lvx/<core>/Opcode.table` build; if that target is
+  up to date you see nothing. `rm` the `Opcode.table`(s) first.
+- **The generated `LIB/*.pm` and `configure` are made by `make -f Maintainer` / `autoconf`,
+  not by `make all`.** Editing `MDD.dtd`, a `LIB/*.pa`, or a `configure.ac` and then running
+  `make all` uses the *committed* generated file. See "Generated files and their toolchain
+  pins" above.
+
+The reliable "force everything downstream of the front end" sequence is:
+
+```sh
+rm -f build_lvx/FE/YAML/lvx/*/Description.yml \
+      build_lvx/FE/YAML/lvx/*/<T>.{yml,pl,table} \
+      build_lvx/MDD/lvx/*/<T>.table \
+      build_lvx/MDD/lvx/*/Opcode.table
+make all              # from lvx-csw/
+```
+
 ## The register model: a RegClass is also the RegFile
 
 **There is no RegFile element.** There used to be one, paired one-to-one with the RegClass that had the same registers; the two were unified, because the pairing was mandatory on both sides, the register lists were identical, and the canonical RegClass had neither shift nor bias.
