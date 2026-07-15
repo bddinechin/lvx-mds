@@ -1,7 +1,7 @@
 /*
  * lvx/Behavior.tuple
  * Automatically generated from the Machine Description System (MDS).
- *  (c) Copyright 2010-2018 Kalray SA.
+ *  Copyright (C) 2026 Liesme Tech.
  */
 
 #ifdef Behavior_FETCH

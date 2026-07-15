@@ -42,7 +42,7 @@ require 5.0010_0000;
 sub get_copyrights {
     my ($prefix,$suffix) = @_;
 
-    my @copyrights = ( "(c) Copyright 2010-2018 Kalray SA.");
+    my @copyrights = ( "Copyright (C) 2026 Liesme Tech.");
 
     my @formated_copyrights = map { "${prefix}$_${suffix}"  } @copyrights;
 

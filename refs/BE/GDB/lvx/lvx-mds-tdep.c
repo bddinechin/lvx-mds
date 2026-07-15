@@ -1,5 +1,5 @@
 /* Generated target-description for lvx */
-/* (c) Copyright 2010-2018 Kalray SA. */
+/* Copyright (C) 2026 Liesme Tech. */
 #include "defs.h"
 
 #include <string.h>
