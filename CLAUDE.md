@@ -169,41 +169,56 @@ Key variables threaded through the whole build (set by `lvx-family/configure`, v
 
 ## Adding a new MDD element (end to end)
 
-A "section" in the YAML — `Storage:`, `Immediate:`, and now `Helper:` — is an **MDD
-element**, and adding one touches the whole pipeline. There is no single registry; the
-element's name is repeated in a handful of places and a miss in any of them fails
-*silently* (an empty `.table`, not an error). The full set, learned by adding `Helper`:
+A "section" in the YAML — `Storage:`, `Immediate:`, `Helper:` — is an **MDD element**.
+Adding one still touches several places, but the FE *emitter* is now generated from the
+schema (`FE/YAML/BIN/yml2pl.pl`'s generic path, driven by the DTD + `DOC/MDD.refs`), so
+there is no longer a hand-written `sub <Element>` to forget — the one silent trap that
+used to bite. The full set:
 
 1. **`MDS/DOC/MDD.dtd`** — the `<!ELEMENT>` + `<!ATTLIST>`. Then regenerate `LIB/MDD.pm`
    (`cd MDS && make -f Maintainer MDD.pm && mv MDD.pm LIB/`), and check it reproduces
-   byte-identically (`perl -I LIB BIN/dtd2pm.pl DOC/MDD.dtd | diff - LIB/MDD.pm`). This is
-   what creates the `package <Element>` and `@<Element>::table` the readers use.
-2. **`MDS/configure.ac`** — add `<Element>.table` to `MDD_names`, then `cd MDS && autoconf`
-   (with the pinned 2.72). This is what puts it in the build's table list.
-3. **`MDS/FE/YAML/BIN/Description2MDS.pl`** — two edits: add the name to `@Tables` (so a
-   `<Element>.yml` is emitted), **and** a `foreach (@{$$Description{<Element>}})` loop that
-   stamps each entry into `%Section{<Element>}`. Without the loop the `.yml` comes out `{}`.
-4. **`MDS/FE/YAML/BIN/yml2pl.pl`** — a `sub <Element>` that prints a
-   `MDS::make("<Element>", {...})->emit()`. This file dispatches by
-   `eval "$TableName(\$entry)"`, so a missing sub is a silent no-op — the `.pl` runs and
-   emits nothing, and the `.table` is empty. This is the single easiest miss.
-5. **`MDS/FE/LIB/<Element>.pm`** — a stub module, so the `use <Element>;` that yml2pl writes
-   into the generated `.pl` resolves. Some of these emit a null default entry (`Storage.pm`
-   emits an empty-ID Storage); one that nothing references by IDREF (like `Helper`) needs
-   only `use MDS; 1;`.
+   byte-identically (`perl -I LIB BIN/dtd2pm.pl DOC/MDD.dtd | diff - LIB/MDD.pm`). This
+   creates the `package <Element>` with `@<Element>::table`, its `%ATTLIST`, and — from the
+   content model — `@<Element>::CHILD_ELEMENTS` (via `childElements()`, **not** `children()`,
+   which is a real `MDS` method).
+2. **`MDS/DOC/MDD.refs`** — *only if the element has `IDREF`/`IDREFS` attributes.* One line
+   per reference: `<Element> <attribute> <TargetElement> <ID|IDs>`. A DTD `IDREF` is
+   untyped, so this is the one thing `dtd2pm.pl` cannot derive; it folds the target into
+   `%ATTLIST` and the generic emitter resolves `&<target>::ID(s)`. `dtd2pm.pl` validates
+   every entry against the DTD (must be a real IDREF/IDREFS attribute) and warns on
+   ID-vs-IDs disagreement — so a wrong or missing entry is *loud*, not silent. Regenerate
+   `LIB/MDD.pm` after editing.
+3. **`MDS/configure.ac`** — add `<Element>.table` to `MDD_names`, then `cd MDS && autoconf`
+   (pinned 2.72). Puts it in the build's table list.
+4. **`MDS/FE/YAML/BIN/Description2MDS.pl`** — add the name to `@Tables` (so a `<Element>.yml`
+   is emitted), **and** a `foreach (@{$$Description{<Element>}})` loop stamping each entry
+   into `%Section{<Element>}`. Most elements' loops are genuinely custom (Register/Format/
+   RegClass run to hundreds of lines); a leaf element's is a dozen. *This part is not
+   generated* — unlike the emitter, these loops carry real per-element logic.
+5. **`MDS/FE/LIB/<Element>.pm`** — a stub module, so the `use <Element>;` in the generated
+   `.pl` resolves. A leaf element needs only `use MDS; 1;`. (Missing → `Can't locate
+   <Element>.pm`, a loud error, not a silent one.) *No `sub <Element>` anywhere* — the
+   generic emitter reads `%ATTLIST`/`childElements()` and needs nothing per-element.
 6. **`lvx-family/FE/YAML/lvx/Makefile.in`** — add `<Element>.yml` to `YMLNAMES`, so `cpp`
    concatenates it into `Description.yml`.
-7. **`lvx-family/FE/YAML/lvx/<Element>.yml`** — the actual source. House style is a
-   **list** of `- ID:` entries, not a mapping (see `Storage.yml`); a mapping parses but
-   `Description2MDS`'s list loop skips it.
+7. **`lvx-family/FE/YAML/lvx/<Element>.yml`** — the source. House style is a **list** of
+   `- ID:` entries, not a mapping (see `Storage.yml`).
 8. **Consumers.** A back-end or MDE pass that reads the table needs it in its input list:
-   MDE via `MDD/MDE/Makefile.in` (e.g. `Opcode.input`), so the `.core.xml` concatenation
-   includes it. `BE/LAO` gets every `MDS_names` table automatically (`LAO_input` is
-   `MDS_names` minus `LAO_drop`), so nothing to do there unless it is dropped. The reader
-   itself iterates `@<Element>::table` and pulls fields with `->attribute("...")` /
-   `->name()`.
+   MDE via `MDD/MDE/Makefile.in` (e.g. `Opcode.input`). `BE/LAO` gets every `MDS_names`
+   table automatically (`LAO_input` is `MDS_names` minus `LAO_drop`). The reader iterates
+   `@<Element>::table` and pulls fields with `->attribute("...")` / `->name()`.
 
-After 1 and 2 you must `make config` (below), not just `make all`.
+After 1–3 you must `make config` (below), not just `make all`.
+
+**How the generic emitter works** (`FE/YAML/BIN/yml2pl.pl`): for each `%ATTLIST` attribute
+it resolves the value — a reference via `&<target>::ID(s)` from the ref-map, the one
+custom-parsed attribute (`properties`) via its handler, everything else via `&attribute` —
+and attaches the DTD content-model children through the parser each child name maps to
+(`%CHILD_PARSER`: `Execution`→`&execution`, etc.). It reproduces the 30 hand-written
+emitters it replaced exactly, which is provable because `MDS::emit()` writes attributes in
+sorted order and skips undef, so only the resolved value per attribute matters. An element
+with an unusual custom-parsed attribute adds one line to `%ATTR_HANDLER`; a new child-
+element kind adds one to `%CHILD_PARSER`; nothing else is per-element.
 
 ## Build-staleness traps (why `make all` "ignores" your change)
 

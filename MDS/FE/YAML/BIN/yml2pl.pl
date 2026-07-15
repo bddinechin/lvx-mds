@@ -8,6 +8,7 @@ use strict;
 
 use Carp;
 use Data::Dumper;
+use MDD;   # the per-element %ATTLIST and @CHILDREN the generic emitter reads (from the DTD)
 require 5.0010_0000;
 
 use YAML::XS;
@@ -40,9 +41,85 @@ local $/;
 my $Load = Load(<>);
 my $Table = $$Load{$TableName};
 my @Table = sort { $$a{number} <=> $$b{number} } values %{$Table};
+
+# The generic emitter (DOC/MDD.dtd + DOC/MDD.refs drive it; see CLAUDE.md "Adding an MDD
+# element").  It replaces the ~30 hand-written per-element subs: for each attribute in the
+# element's %ATTLIST it resolves the value the same way those subs did -- a reference
+# (IDREF/IDREFS) through &<target>::ID(s) from the ref-map, the one custom-parsed attribute
+# (`properties`) through its handler, everything else through &attribute -- and it attaches
+# the child elements the DTD content model declares, via the parser each child name maps to.
+#
+# Byte-identity with the old subs does not need the emitted .pl to match: MDS::emit() writes
+# attributes in sorted order and skips undef, so only the resolved value per attribute
+# matters, which is what this reproduces.
+
+# An %ATTLIST attribute resolved by a custom parser rather than the default &attribute.
+my %ATTR_HANDLER = ( properties => \&properties );
+
+# A DTD child-element name -> a parser that returns a LIST of child-node expressions (0 or
+# more).  Execution/Behavior/Declaration/Definition are single optional children (`X?`), so
+# their parser yields 0 or 1; Parameter is `Parameter*`, so it yields the whole list.  The
+# underlying parsers (execution, behavior, ...) are the ones the old per-element subs used.
+my %CHILD_PARSER = (
+    Execution   => sub { my $e = &execution($_[0]);   defined $e ? ($e) : () },
+    Behavior    => sub { my $e = &behavior($_[0]);    defined $e ? ($e) : () },
+    Declaration => sub { my $e = &declaration($_[0]); defined $e ? ($e) : () },
+    Definition  => sub { my $e = &definition($_[0]);  defined $e ? ($e) : () },
+    Parameter   => \&parameter_children,
+);
+
+# The Parameter children of an entry, as a list of MDS::make("Parameter", ...) expressions.
+# The old `sub Parameter` built the same list and wrapped it in [ ]; here the generic
+# emitter does the wrapping, so this returns the list.
+sub parameter_children {
+    my ($entry) = @_;
+    my $parameters = $$entry{parameters} or return ();
+    my @out;
+    foreach my $parameter (@{$parameters}) {
+        my $action = &attribute($parameter, "action");
+        my $usage  = &attribute($parameter, "usage");
+        my $proxy  = &attribute($parameter, "proxy");
+        my $method = &method($$parameter{method});
+        my $stages = &attribute($parameter, "stages");
+        push @out, "MDS::make(\"Parameter\", { action=>$action, usage=>$usage,"
+          . " proxy=>$proxy, method=>$method, stages=>$stages })";
+    }
+    return @out;
+}
+
+sub generic {
+    my ($element, $entry) = @_;
+    no strict 'refs';   # <Element>::attlist / ::children, resolved by element name
+    my $attlist = "${element}::attlist"->();
+    my @pairs;
+    foreach my $attr (sort keys %{$attlist}) {
+        my ($type, $option, $default, $target, $kind) = @{$attlist->{$attr}};
+        my $value;
+        if ($attr eq 'ID') {
+            $value = "&${element}::ID(" . &attribute($entry, 'ID') . ")";
+        } elsif (my $handler = $ATTR_HANDLER{$attr}) {
+            $value = $handler->($entry, $attr);
+        } elsif ($target ne '') {
+            $value = "&${target}::${kind}(" . &attribute($entry, $attr) . ")";
+        } else {
+            $value = &attribute($entry, $attr);
+        }
+        push @pairs, "  $attr=> $value,";
+    }
+    my @children;
+    foreach my $child (@{ "${element}::childElements"->() }) {
+        my $parser = $CHILD_PARSER{$child} or next;
+        push @children, $parser->($entry);
+    }
+    my $children = @children ? ", [ " . (join ",\n", @children) . " ]" : "";
+    print "print MDS::make(\"$element\", {\n", (join "\n", @pairs),
+          "\n}$children)->emit();\n\n";
+}
+
+# Emit every entry.  This runs last, so the %ATTR_HANDLER / %CHILD_PARSER my-declarations
+# above have executed before generic() reads them.
 foreach my $entry (@Table) {
-    #print STDERR "reading $TableName...\n";
-    eval "$TableName(\$entry)";
+    &generic($TableName, $entry);
 }
 
 sub attribute {
@@ -164,740 +241,5 @@ sub method {
     }
 }
 
-sub Parameter {
-    my ($entry) = @_;
-    return 'undef' unless defined $entry;
-    my $parameters = $$entry{parameters};
-    my @parameters;
-    foreach my $parameter (@$parameters) {
-        my $action = &attribute($parameter,"action");
-        my $usage = &attribute($parameter,"usage");
-        my $proxy = &attribute($parameter,"proxy");
-        my $method = &method($$parameter{method});
-        my $stages = &attribute($parameter,"stages");
-        push @parameters, "MDS::make(\"Parameter\", { action=>$action, usage=>$usage, proxy=>$proxy, method=>$method, stages=>$stages }),\n";
-    }
-    return "[ ".join(' ',@parameters)." ]";
-}
 
 
-sub BitField {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $width = &attribute($entry, "width");
-    my $offset = &attribute($entry, "offset");
-    print <<"EOT";
-print MDS::make("BitField", {
-  ID=>          &BitField::ID($ID),
-  what=>        $what,
-  width=>       $width,
-  offset=>      $offset,
-})->emit();\n
-EOT
-}
-
-
-sub Bundling {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $dispersals = &attribute($entry, "dispersals");
-    print <<"EOT";
-print MDS::make("Bundling", {
-  ID=>          &Bundling::ID($ID),
-  what=>        $what,
-  dispersals=>   &Dispersal::IDs($dispersals),
-})->emit();\n
-EOT
-}
-
-
-sub Convention {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $reserved = &attribute($entry, "reserved");
-    my $argument = &attribute($entry, "argument");
-    my $result = &attribute($entry, "result");
-    my $struct = &attribute($entry, "struct");
-    my $caller = &attribute($entry, "caller");
-    my $callee = &attribute($entry, "callee");
-    my $program = &attribute($entry, "program");
-    my $handler = &attribute($entry, "handler");
-    my $veneer = &attribute($entry, "veneer");
-    my $return = &attribute($entry, "return");
-    my $stack = &attribute($entry, "stack");
-    my $static = &attribute($entry, "static");
-    my $frame = &attribute($entry, "frame");
-    my $global = &attribute($entry, "global");
-    my $local = &attribute($entry, "local");
-    my $wired = &attribute($entry, "wired");
-    my $zero = &attribute($entry, "zero");
-    my $fzero = &attribute($entry, "fzero");
-    my $one = &attribute($entry, "one");
-    my $true = &attribute($entry, "true");
-    print <<"EOT";
-print MDS::make("Convention", {
-  ID=>          &Convention::ID($ID),
-  what=>        $what,
-  reserved=>    &Register::IDs($reserved),
-  argument=>    &Register::IDs($argument),
-  result=>      &Register::IDs($result),
-  struct=>      &Register::IDs($struct),
-  caller=>      &Register::IDs($caller),
-  callee=>      &Register::IDs($callee),
-  program=>     &Register::IDs($program),
-  handler=>     &Register::IDs($handler),
-  veneer=>      &Register::IDs($veneer),
-  return=>      &Register::IDs($return),
-  stack=>       &Register::IDs($stack),
-  static=>      &Register::IDs($static),
-  frame=>       &Register::IDs($frame),
-  global=>      &Register::IDs($global),
-  local=>       &Register::IDs($local),
-  wired=>       &Register::IDs($wired),
-  zero=>        &Register::IDs($zero),
-  fzero=>       &Register::IDs($fzero),
-  one=>         &Register::IDs($one),
-  true=>        &Register::IDs($true),
-})->emit();\n
-EOT
-}
-
-
-sub Encoding {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $wordWidth = &attribute($entry, "wordWidth");
-    my $wordCount = &attribute($entry, "wordCount");
-    print <<"EOT";
-print MDS::make("Encoding", {
-  ID=>          &Encoding::ID($ID),
-  what=>        $what,
-  wordWidth=>   $wordWidth,
-  wordCount=>   $wordCount,
-})->emit();\n
-EOT
-}
-
-
-sub Format {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $patterns = &attribute($entry, "patterns");
-    my $encoding = &attribute($entry, "encoding");
-    my $operands = &attribute($entry, "operands");
-    my $syntax = &attribute($entry, "syntax");
-    my $traps = &attribute($entry, "traps");
-    my $increment = &attribute($entry, "increment");
-    my $properties = &properties($entry, "properties");
-    my $execution = &execution($entry);
-    my $behavior = &behavior($entry);
-    my @children = grep {defined} ($execution, $behavior);
-    my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
-    print <<"EOT";
-print MDS::make("Format", {
-  ID=>          &Format::ID($ID),
-  what=>        $what,
-  patterns=>    &Pattern::IDs($patterns),
-  encoding=>    &Encoding::ID($encoding),
-  operands=>    &Operand::IDs($operands),
-  syntax=>      $syntax,
-  traps=>       $traps,
-  increment=>   $increment,
-  properties=>  $properties,
-}, $children)->emit();\n
-EOT
-}
-
-
-sub Generic {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $attributes = &attribute($entry, "attributes");
-    my $mnemonic = &attribute($entry, "mnemonic");
-    my $syntax = &attribute($entry, "syntax");
-    my $parameters = &Parameter($entry);
-    print <<"EOT";
-print MDS::make("Generic", {
-  ID=>          &Generic::ID($ID),
-  what=>        $what,
-  attributes=>  $attributes,
-  mnemonic=>    $mnemonic,
-  syntax=>      $syntax,
-}, $parameters)->emit();\n
-EOT
-}
-
-sub Immediate {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $width = &attribute($entry, "width");
-    my $shift = &attribute($entry, "shift");
-    my $range = &attribute($entry, "range");
-    my $rotate = &attribute($entry, "rotate");
-    my $bitmask = &attribute($entry, "bitmask");
-    my $bias = &attribute($entry, "bias");
-    my $extend = &attribute($entry, "extend");
-    my $canExtend = &attribute($entry, "canExtend");
-    print <<"EOT";
-print MDS::make("Immediate", {
-  ID=>          &Immediate::ID($ID),
-  what=>        $what,
-  width=>       $width,
-  shift=>       $shift,
-  range=>       $range,
-  rotate=>      $rotate,
-  bitmask=>     &Immediate::IDs($bitmask),
-  bias=>        $bias,
-  extend=>      $extend,
-  canExtend=>   &Immediate::IDs($canExtend),
-})->emit();\n
-EOT
-}
-
-
-sub Instruction {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $mnemonic = &attribute($entry, "mnemonic");
-    my $formats = &attribute($entry, "formats");
-    my $schedulings = &attribute($entry, "schedulings");
-    my $patterns = &attribute($entry, "patterns");
-    my $syntax = &attribute($entry, "syntax");
-    my $traps = &attribute($entry, "traps");
-    my $specialize = &attribute($entry, "specialize");
-    my $replacement = &attribute($entry, "replacement");
-    my $synthetic = &attribute($entry, "synthetic");
-    my $properties = &properties($entry, "properties");
-    my $execution = &execution($entry);
-    my $behavior = &behavior($entry);
-    my @children = grep {defined} ($execution, $behavior);
-    my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
-    print <<"EOT";
-print MDS::make("Instruction", {
-  ID=>          &Instruction::ID($ID),
-  what=>        $what,
-  mnemonic=>    $mnemonic,
-  formats=>     &Format::IDs($formats),
-  schedulings=> &Scheduling::IDs($schedulings),
-  patterns=>    &Pattern::IDs($patterns),
-  syntax=>      $syntax,
-  traps=>       $traps,
-  specialize=>  &Operand::IDs($specialize),
-  replacement=> &Operand::IDs($replacement),
-  synthetic=>   &Synthetic::IDs($synthetic),
-  properties=>  $properties,
-}, $children)->emit();\n
-EOT
-}
-
-sub Builtin {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $prototype = &attribute($entry, "prototype");
-    my $instruction = &attribute($entry, "instruction");
-    my $operands = &attribute($entry, "operands");
-    my $formats = &attribute($entry, "formats");
-    my $declaration = &declaration($entry);
-    my $definition = &definition($entry);
-    my @children = grep {defined} ($declaration, $definition);
-    my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
-    print <<"EOT";
-print MDS::make("Builtin", {
-  ID=>          &Builtin::ID($ID),
-  what=>        $what,
-  prototype=>   $prototype,
-  instruction=> &Instruction::ID($instruction),
-  operands=>    $operands,
-  formats=>     &Format::IDs($formats),
-}, $children)->emit();\n
-EOT
-}
-
-sub Modifier {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $members = &attribute($entry, "members");
-    my $values = &attribute($entry, "values");
-    my $width = &attribute($entry, "width");
-    my $properties = &properties($entry, "properties");
-    print <<"EOT";
-print MDS::make("Modifier", {
-  ID=>          &Modifier::ID($ID),
-  what=>        $what,
-  members=>     $members,
-  values=>      $values,
-  width=>       $width,
-  properties=>  $properties,
-})->emit();\n
-EOT
-}
-
-
-sub NativeType {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $width = &attribute($entry, "width");
-    my $sizeof = &attribute($entry, "sizeof");
-    my $align = &attribute($entry, "align");
-    my $printf = &attribute($entry, "printf");
-    my $slice = &attribute($entry, "slice");
-    my $type = &attribute($entry, "type");
-    print <<"EOT";
-print MDS::make("NativeType", {
-  ID=>          &NativeType::ID($ID),
-  what=>        $what,
-  width=>       $width,
-  sizeof=>      $sizeof,
-  align=>       $align,
-  printf=>      $printf,
-  slice=>       $slice,
-  type=>        $type,
-})->emit();\n
-EOT
-}
-
-
-sub Operand {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $fields = &attribute($entry, "fields");
-    my $method = &attribute($entry, "method");
-    my $relocations = &attribute($entry, "relocations");
-    my $default = &attribute($entry, "default");
-    my $shortName = &attribute($entry, "shortName");
-    print <<"EOT";
-print MDS::make("Operand", {
-  ID=>          &Operand::ID($ID),
-  what=>        $what,
-  fields=>      &BitField::IDs($fields),
-  method=>      $method,
-  relocations=> &Relocation::IDs($relocations),
-  default=>     $default,
-  shortName=>   $shortName,
-})->emit();\n
-EOT
-}
-
-
-sub Pattern {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $fields = &attribute($entry, "fields");
-    my $values = &attribute($entry, "values");
-    print <<"EOT";
-print MDS::make("Pattern", {
-  ID=>          &Pattern::ID($ID),
-  what=>        $what,
-  fields=>      &BitField::IDs($fields),
-  values=>      $values,
-})->emit();\n
-EOT
-}
-
-
-sub Platform {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $charWidth = &attribute($entry, "charWidth");
-    my $addrWidth = &attribute($entry, "addrWidth");
-    my $endian = &attribute($entry, "endian");
-    my $alignText = &attribute($entry, "alignText");
-    my $alignData = &attribute($entry, "alignData");
-    my $alignHeap = &attribute($entry, "alignHeap");
-    my $alignStack = &attribute($entry, "alignStack");
-    my $nativeInt = &attribute($entry, "nativeInt");
-    my $nativeUInt = &attribute($entry, "nativeUInt");
-    my $nativeFloat = &attribute($entry, "nativeFloat");
-    my $nativePtr = &attribute($entry, "nativePtr");
-    print <<"EOT";
-print MDS::make("Platform", {
-  ID=>          &Platform::ID($ID),
-  what=>        $what,
-  charWidth=>   $charWidth,
-  addrWidth=>   $addrWidth,
-  endian=>      $endian,
-  alignText=>   $alignText,
-  alignData=>   $alignData,
-  alignHeap=>   $alignHeap,
-  alignStack=>  $alignStack,
-  nativeInt=>   &NativeType::ID($nativeInt),
-  nativeUInt=>  &NativeType::ID($nativeUInt),
-  nativeFloat=> &NativeType::ID($nativeFloat),
-  nativePtr=>   &NativeType::ID($nativePtr),
-})->emit();\n
-EOT
-}
-
-
-sub Processor {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $minTaken = &attribute($entry, "minTaken");
-    my $interlocks = &attribute($entry, "interlocks");
-    my $pipeline = &attribute($entry, "pipeline");
-    my $stages = &attribute($entry, "stages");
-    print <<"EOT";
-print MDS::make("Processor", {
-  ID=>          &Processor::ID($ID),
-  what=>        $what,
-  minTaken=>    $minTaken,
-  interlocks=>  $interlocks,
-  pipeline=>    $pipeline,
-  stages=>      $stages,
-})->emit();\n
-EOT
-}
-
-
-sub RegClass {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $regFile = &attribute($entry, "regFile");
-    my $regFileName = &attribute($entry, "regFileName");
-    my $regFileNumber = &attribute($entry, "regFileNumber");
-    my $registers = &attribute($entry, "registers");
-    my $multi = &attribute($entry, "multi");
-    my $names = &attribute($entry, "names");
-    my $shift = &attribute($entry, "shift");
-    my $bias = &attribute($entry, "bias");
-    my $width = &attribute($entry, "width");
-    my $nativeTypes = &attribute($entry, "nativeTypes");
-    print <<"EOT";
-print MDS::make("RegClass", {
-  ID=>          &RegClass::ID($ID),
-  what=>        $what,
-  regFile=>     &RegClass::ID($regFile),
-  regFileName=> $regFileName,
-  regFileNumber=> $regFileNumber,
-  registers=>   &Register::IDs($registers),
-  multi=>       &RegClass::IDs($multi),
-  names=>       $names,
-  shift=>       $shift,
-  bias=>        $bias,
-  width=>       $width,
-  nativeTypes=> &NativeType::IDs($nativeTypes),
-})->emit();\n
-EOT
-}
-
-
-sub RegField {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $register = &attribute($entry, "register");
-    my $offset = &attribute($entry, "offset");
-    my $width = &attribute($entry, "width");
-    my $owners = &attribute($entry, "owners");
-    my $reset = &attribute($entry, "reset") || 0;
-    my $rerrors = &attribute($entry, "rerrors") || [ "TRAP_PRIVILEGE" ];
-    my $werrors = &attribute($entry, "werrors") || [ "TRAP_PRIVILEGE" ];
-    print <<"EOT";
-print MDS::make("RegField", {
-  ID=>          &RegField::ID($ID),
-  what=>        $what,
-  register=>    &Register::ID($register),
-  offset=>      $offset,
-  width=>       $width,
-  owners=>      &RegField::IDs($owners),
-  reset=>       $reset,
-  rerrors=>      $rerrors,
-  werrors=>      $werrors,
-})->emit();\n
-EOT
-}
-
-sub Register {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $storage = &attribute($entry, "storage");
-    my $regfile = &attribute($entry, "regFile");
-    my $addresses = &attribute($entry, "addresses");
-    my $fields = &attribute($entry, "fields");
-    my $owners = &attribute($entry, "owners");
-    my $names = &attribute($entry, "names");
-    my $raccess = &attribute($entry, "raccess");
-    my $waccess = &attribute($entry, "waccess");
-    my $width = &attribute($entry, "width");
-    my $reset = &attribute($entry, "reset") || 0;
-    my $dwarfId = &attribute($entry, "dwarfId");
-    print <<"EOT";
-print MDS::make("Register", {
-  ID=>          &Register::ID($ID),
-  what=>        $what,
-  storage=>     &Storage::ID($storage),
-  regFile=>     &RegClass::ID($regfile),
-  addresses=>   $addresses,
-  fields=>      &RegField::IDs($fields),
-  owners=>      &RegField::IDs($owners),
-  names=>       $names,
-  raccess=>     $raccess,
-  waccess=>     $waccess,
-  width=>       $width,
-  reset=>       $reset,
-  dwarfId=>     $dwarfId,
-})->emit();\n
-EOT
-}
-
-sub RegMask {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $regFile = &attribute($entry, "regFile");
-    my $first = &attribute($entry, "first");
-    my $count = &attribute($entry, "count");
-    print <<"EOT";
-print MDS::make("RegMask", {
-  ID=>          &RegMask::ID($ID),
-  what=>        $what,
-  regFile=>     &RegClass::ID($regFile),
-  first=>       $first,
-  count=>       $count,
-})->emit();\n
-EOT
-}
-
-
-sub Relocation {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $relative = &attribute($entry, "relative");
-    my $linker = &attribute($entry, "linker");
-    my $type = &attribute($entry, "type");
-    my $overflow = &attribute($entry, "overflow");
-    my $underflow = &attribute($entry, "underflow");
-    my $scaling = &attribute($entry, "scaling");
-    my $syntax = &attribute($entry, "syntax");
-    my $elfIds = &attribute($entry, "elfIds");
-    my $fields = &attribute($entry, "fields");
-    print <<"EOT";
-print MDS::make("Relocation", {
-  ID=>          &Relocation::ID($ID),
-  what=>        $what,
-  relative=>    $relative,
-  linker=>      $linker,
-  type=>        $type,
-  overflow=>    $overflow,
-  underflow=>   $underflow,
-  scaling=>     $scaling,
-  syntax=>      $syntax,
-  elfIds=>      $elfIds,
-  fields=>      &BitField::IDs($fields),
-})->emit();\n
-EOT
-}
-
-
-sub Reservation {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $resources = &attribute($entry, "resources");
-    my $requirements = &attribute($entry, "requirements");
-    my $stalls = &attribute($entry, "stalls");
-    print <<"EOT";
-print MDS::make("Reservation", {
-  ID=>          &Reservation::ID($ID),
-  what=>        $what,
-  resources=>   &Resource::IDs($resources),
-  requirements=> $requirements,
-  stalls=>       $stalls,
-})->emit();\n
-EOT
-}
-
-
-sub Resource {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $availability = &attribute($entry, "availability");
-    print <<"EOT";
-print MDS::make("Resource", {
-  ID=>          &Resource::ID($ID),
-  what=>        $what,
-  availability=> $availability,
-})->emit();\n
-EOT
-}
-
-
-sub Scheduling {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $bundling = &attribute($entry, "bundling");
-    my $reservation = &attribute($entry, "reservation");
-    print <<"EOT";
-print MDS::make("Scheduling", {
-  ID=>          &Scheduling::ID($ID),
-  what=>        $what,
-  bundling=>    &Bundling::ID($bundling),
-  reservation=> &Reservation::ID($reservation),
-})->emit();\n
-EOT
-}
-
-
-sub Simulated {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $attributes = &attribute($entry, "attributes");
-    my $scheduling = &attribute($entry, "scheduling");
-    my $mnemonic = &attribute($entry, "mnemonic");
-    my $syntax = &attribute($entry, "syntax");
-    my $parameters = &Parameter($entry);
-    print <<"EOT";
-print MDS::make("Simulated", {
-  ID=>          &Simulated::ID($ID),
-  what=>        $what,
-  attributes=>  $attributes,
-  scheduling=>  &Scheduling::ID($scheduling),
-  mnemonic=>    $mnemonic,
-  syntax=>      $syntax,
-}, $parameters)->emit();\n
-EOT
-}
-
-
-sub Helper {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $result = &attribute($entry, "result");
-    my $arguments = &attribute($entry, "arguments");
-    print <<"EOT";
-print MDS::make("Helper", {
-  ID=>          &Helper::ID($ID),
-  what=>        $what,
-  result=>      $result,
-  arguments=>   $arguments,
-})->emit();\n
-EOT
-}
-
-
-sub Storage {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $kind = &attribute($entry, "kind");
-    my $width = &attribute($entry, "width");
-    my $count = &attribute($entry, "count");
-    print <<"EOT";
-print MDS::make("Storage", {
-  ID=>          &Storage::ID($ID),
-  what=>        $what,
-  kind=>        $kind,
-  width=>       $width,
-  count=>       $count,
-})->emit();\n
-EOT
-}
-
-
-sub Dispersal {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $fromFields = &attribute($entry, "fromFields");
-    my $toFields = &attribute($entry, "toFields");
-    my $nopValues = &attribute($entry, "nopValues");
-    my $distance = &attribute($entry, "distance");
-    print <<"EOT";
-print MDS::make("Dispersal", {
-  ID=>          &Dispersal::ID($ID),
-  what=>        $what,
-  fromFields=>  &BitField::IDs($fromFields),
-  toFields=>    &BitField::IDs($toFields),
-  nopValues=>   $nopValues,
-  distance=>    $distance,
-})->emit();\n
-EOT
-}
-
-
-sub Synthetic {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $mnemonic = &attribute($entry, "mnemonic");
-    my $instruction = &attribute($entry, "instruction");
-    my $properties = &properties($entry, "properties");
-    my $formats = &attribute($entry, "formats");
-    my $schedulings = &attribute($entry, "schedulings");
-    my $syntax = &attribute($entry, "syntax");
-    my $forced = &attribute($entry, "forced");
-    my $values = &attribute($entry, "values");
-    my $execution = &execution($entry);
-    my $behavior = &behavior($entry);
-    my @children = grep {defined} ($execution, $behavior);
-    my $children = @children? "[ ". (join ",\n", @children). " ]": undef;
-    print <<"EOT";
-print MDS::make("Synthetic", {
-  ID=>          &Synthetic::ID($ID),
-  what=>        $what,
-  mnemonic=>    $mnemonic,
-  instruction=> &Instruction::ID($instruction),
-  properties=>  $properties,
-  formats=>     &Format::IDs($formats),
-  schedulings=> &Scheduling::IDs($schedulings),
-  syntax=>      $syntax,
-  forced=>      $forced,
-  values=>      $values,
-}, $children)->emit();\n
-EOT
-}
-
-
-sub Template {
-    my ($entry) = @_;
-    my $ID = &attribute($entry, "ID");
-    my $what = &attribute($entry, "what");
-    my $wordWidth = &attribute($entry, "wordWidth");
-    my $alignBase = &attribute($entry, "alignBase");
-    my $alignBias = &attribute($entry, "alignBias");
-    my $dispersals = &attribute($entry, "dispersals");
-    my $patterns = &attribute($entry, "patterns");
-    my $increment = &attribute($entry, "increment");
-    my $nopAllow = &attribute($entry, "nopAllow");
-    my $nopified = &attribute($entry, "nopified");
-    my $original = &attribute($entry, "original");
-    print <<"EOT";
-print MDS::make("Template", {
-  ID=>          &Template::ID($ID),
-  what=>        $what,
-  wordWidth=>   $wordWidth,
-  alignBase=>   $alignBase,
-  alignBias=>   $alignBias,
-  dispersals=>  &Dispersal::IDs($dispersals),
-  patterns=>    &Pattern::IDs($patterns),
-  increment=>   $increment,
-  nopAllow=>    $nopAllow,
-  nopified=>    &Dispersal::IDs($nopified),
-  original=>    &Template::ID($original),
-})->emit();\n
-EOT
-}
-
-# vim: set ts=4 sw=4 et:

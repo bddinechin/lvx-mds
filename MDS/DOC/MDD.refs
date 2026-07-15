@@ -1,0 +1,81 @@
+# MDD.refs -- reference targets for the IDREF/IDREFS attributes of the FE-authored
+# MDD elements.  A DTD IDREF is untyped (it says "an ID", not "of what"), so this is the
+# one thing dtd2pm.pl cannot get from MDD.dtd alone: which element each reference points
+# at.  It is folded into each element's %ATTLIST as a fourth field and drives the generic
+# emitter in FE/YAML/BIN/yml2pl.pl.
+#
+# One line per referencing attribute:   <Element> <attribute> <TargetElement> <kind>
+# kind is ID (a single IDREF) or IDs (an IDREFS list).  The kind is authoritative here,
+# not in MDD.dtd: Instruction.synthetic is emitted with IDs though the DTD types it IDREF,
+# a pre-existing quirk this preserves.  dtd2pm.pl warns on any such disagreement.
+#
+# Bootstrapped by extracting the &Target::ID(s) calls from the hand-written emitters this
+# replaced; every entry is what the generator already did.  Elements produced downstream
+# (Opcode, Operator, Access, ...) are not here -- they are not emitted from source YAML.
+
+Builtin      formats        Format       IDs
+Builtin      instruction    Instruction  ID
+Bundling     dispersals     Dispersal    IDs
+Convention   argument       Register     IDs
+Convention   callee         Register     IDs
+Convention   caller         Register     IDs
+Convention   frame          Register     IDs
+Convention   fzero          Register     IDs
+Convention   global         Register     IDs
+Convention   handler        Register     IDs
+Convention   local          Register     IDs
+Convention   one            Register     IDs
+Convention   program        Register     IDs
+Convention   reserved       Register     IDs
+Convention   result         Register     IDs
+Convention   return         Register     IDs
+Convention   stack          Register     IDs
+Convention   static         Register     IDs
+Convention   struct         Register     IDs
+Convention   true           Register     IDs
+Convention   veneer         Register     IDs
+Convention   wired          Register     IDs
+Convention   zero           Register     IDs
+Dispersal    fromFields     BitField     IDs
+Dispersal    toFields       BitField     IDs
+Format       encoding       Encoding     ID
+Format       operands       Operand      IDs
+Format       patterns       Pattern      IDs
+Immediate    bitmask        Immediate    IDs
+Immediate    canExtend      Immediate    IDs
+Instruction  formats        Format       IDs
+Instruction  patterns       Pattern      IDs
+Instruction  replacement    Operand      IDs
+Instruction  schedulings    Scheduling   IDs
+Instruction  specialize     Operand      IDs
+Instruction  synthetic      Synthetic    IDs
+Operand      fields         BitField     IDs
+Operand      relocations    Relocation   IDs
+Pattern      fields         BitField     IDs
+Platform     nativeFloat    NativeType   ID
+Platform     nativeInt      NativeType   ID
+Platform     nativePtr      NativeType   ID
+Platform     nativeUInt     NativeType   ID
+RegClass     multi          RegClass     IDs
+RegClass     nativeTypes    NativeType   IDs
+RegClass     regFile        RegClass     ID
+RegClass     registers      Register     IDs
+RegField     owners         RegField     IDs
+RegField     register       Register     ID
+RegMask      regFile        RegClass     ID
+Register     fields         RegField     IDs
+Register     owners         RegField     IDs
+Register     regFile        RegClass     ID
+Register     storage        Storage      ID
+Relocation   fields         BitField     IDs
+Reservation  resources      Resource     IDs
+Scheduling   bundling       Bundling     ID
+Scheduling   reservation    Reservation  ID
+Simulated    scheduling     Scheduling   ID
+Synthetic    formats        Format       IDs
+Synthetic    instruction    Instruction  ID
+Synthetic    schedulings    Scheduling   IDs
+Template     dispersals     Dispersal    IDs
+Template     nopified       Dispersal    IDs
+Template     original       Template     ID
+Template     patterns       Pattern      IDs
