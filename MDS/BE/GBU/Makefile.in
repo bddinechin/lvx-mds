@@ -114,8 +114,8 @@ endef
 
 $(foreach CORE,$(CORES),$(foreach GBU_TEST,$(GBU_TESTS),$(eval $(call generateTest,$(CORE),$(GBU_TEST)))))
 
-$(FAMILY)/gas/config/$(FAMILY)-parse.h: $(MDSDIR)/BE/GBU/BIN/gen-parse-table.rb $(foreach CORE,$(CORES),$(FAMILY)/$(CORE)/TESTS.xml)
-	FAMILY=$(FAMILY) CORES="$(CORES)" $(RUBY) $(RUBYINC) $^ > $@ || $(ABORT)
+$(FAMILY)/gas/config/$(FAMILY)-parse.h: $(MDSDIR)/BE/GBU/BIN/gen-parse-table.pl $(foreach CORE,$(CORES),$(FAMILY)/$(CORE)/TESTS.xml)
+	FAMILY=$(FAMILY) CORES="$(CORES)" $(PERL) $(PERLINC) $^ > $@ || $(ABORT)
 
 diff: $(mach_gbuinfo_diffs) $(mach_tests_diffs) diff_gbu
 
