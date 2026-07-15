@@ -83,6 +83,39 @@ sub parse {
 }
 
 #
+# Reset every generated @<Element>::table / @<Element>::noname, so a back-end
+# that parses one core file per core (rather than one concatenated stream)
+# starts each core clean.  Uses the full element list @MDD::ELEMENTS emitted by
+# dtd2pm.pl, so it can never miss a table the way a hand-written clear can.
+# Note: %table (the ID map) is intentionally left alone -- IDs are core-qualified
+# so it does not collide across cores.
+#
+sub clearTables {
+    no strict 'refs';
+    foreach my $element (@MDD::ELEMENTS) {
+        @{"${element}::table"}  = ();
+        @{"${element}::noname"} = ();
+    }
+}
+
+#
+# Drive a multi-core build: for each ($files->[i], $cores->[i]) pair, clear the
+# tables, parse the file, and call $callback->($cores->[i]).  Replaces the
+# open/clearTables/parse loop hand-written in every per-core back-end.
+#
+sub forCores {
+    my ($files, $cores, $callback) = @_;
+    for my $i (0 .. $#{$cores}) {
+        open(my $handle, '<', $files->[$i])
+          or croak "cannot open $files->[$i]: $!";
+        &MDS::clearTables();
+        &MDS::parse(*$handle);
+        close $handle;
+        $callback->($cores->[$i]);
+    }
+}
+
+#
 # Make a new MDS element, and enter it in MDS::table.
 #
 sub make {
@@ -197,6 +230,22 @@ sub fullName {
 }
 
 #
+# Get the whole ID of a MDS element as a C identifier: the full, type-prefixed
+# ID (Type-core-name) with non-word characters replaced by $char (default '_').
+# Unlike name()/fullName(), which drop the element-type prefix, this is the
+# token the back-ends actually emit into C (RegClass_lvx_v1_singleReg, ...).
+#
+sub cName {
+    my $self = shift;
+    my $char = shift;
+    $char = '_' unless defined $char;
+    my $ID = $self->{ATTRIBUTES}->{ID};
+    return undef unless defined $ID;
+    (my $name = $ID) =~ s/\W/$char/g;
+    return $name;
+}
+
+#
 # Get the core of a MDS element. It is derived from the ID.
 #
 sub core {
@@ -256,6 +305,17 @@ sub access {
 }
 
 #
+# Access the single object of an IDREF attribute.  Same as (access)[0], but safe
+# in scalar context (access is a map, so `my $x = $self->access(...)` would get
+# the list length, not the object).  Returns undef if the attribute is empty.
+#
+sub reference {
+    my ($self, $name) = @_;
+    my ($object) = $self->access($name);
+    return $object;
+}
+
+#
 # Filter the existing IDs in a ID or IDREF attribute
 #
 sub filterID {
@@ -291,6 +351,15 @@ sub attribute {
         }
         $$attributes{$name} = $value;
     }
+}
+
+#
+# Get a space-separated list attribute as a Perl list (empty if unset).  The
+# common shape for names/members/fields/resources/... attributes.
+#
+sub attributeList {
+    my ($self, $name) = @_;
+    return split ' ', ($self->attribute($name) // '');
 }
 
 #

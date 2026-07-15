@@ -15,6 +15,8 @@ sub IDs {
     [ map { &ID($type, $_) } @names ];
 }
 
+@ELEMENTS = ( 'Access', 'Behavior', 'BitField', 'Builtin', 'Bundle', 'Bundling', 'Convention', 'Declaration', 'Decode', 'Decoding', 'Definition', 'Dispersal', 'Encoding', 'Execution', 'Format', 'Generic', 'Helper', 'Immediate', 'Instruction', 'Modifier', 'NativeType', 'Opcode', 'Operand', 'Operator', 'Parameter', 'Pattern', 'Platform', 'Processor', 'RegClass', 'RegField', 'RegMask', 'Register', 'Relocation', 'Reservation', 'Resource', 'Scheduling', 'Simulated', 'Storage', 'Synthetic', 'Template' );
+
 package Access;
 @ISA = ( "MDS" );
 sub ID { &MDD::ID("Access", $_[0]) }

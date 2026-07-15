@@ -70,6 +70,9 @@ sub IDs {
 }
 
 EOT
+# The full list of generated element packages, so MDS::clearTables() can reset
+# every @<Element>::table/@<Element>::noname without a hand-maintained list.
+print "\@ELEMENTS = ( ", (join ', ', map { "'$_'" } sort keys %{$DTD}), " );\n\n";
 foreach my $element (sort keys %{$DTD}) {
     my $attributes = $DTD->{$element}->{attributes};
     &process($element, $attributes);
