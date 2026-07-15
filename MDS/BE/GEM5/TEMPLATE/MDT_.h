@@ -1,5 +1,8 @@
 /*
  * Minimal MDT header for the LVX gem5 port.
+ * SPDX-License-Identifier: BSD-3-Clause
+ * Copyright (C) 2026 Liesme Tech.
+ * Benoît Dupont de Dinechin (benoit.dinechin@gmail.com).
  *
  * The MDS-generated Decode.c does #include "MDT/MDT_.h" and needs only the
  * Opcode enum. We build that enum directly from Opcode.tuple's X-macro instead

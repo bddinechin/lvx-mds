@@ -1,6 +1,8 @@
 /*
  * LVX ISA support for gem5 — MDS behavior integration (Layer A).
  * SPDX-License-Identifier: BSD-3-Clause
+ * Copyright (C) 2026 Liesme Tech.
+ * Benoît Dupont de Dinechin (benoit.dinechin@gmail.com).
  *
  * This translation unit is compiled as C (the generated bodies use `this` as a
  * parameter name). It mirrors Kalray's ISS_Behavior.c integration pattern:

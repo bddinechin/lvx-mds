@@ -1,4 +1,10 @@
 /*
+ * Copyright (C) 2026 Liesme Tech.
+ * Benoît Dupont de Dinechin (benoit.dinechin@gmail.com).
+ *
+ * Distributed under the terms of the GNU General Public License, version 2
+ * or later.
+ *
  * Differential test harness for the generated Behavior C.
  *
  * The point is not to simulate LVX.  It is to decide whether two *generations* of

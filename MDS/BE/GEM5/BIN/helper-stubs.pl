@@ -1,4 +1,12 @@
 #!/usr/bin/perl
+# Machine Description System (MDS)
+#
+# Copyright (C) 2026 Liesme Tech.
+# Benoît Dupont de Dinechin (benoit.dinechin@gmail.com).
+#
+# This program is free software, distributed under the terms of the GNU
+# General Public License, version 2 or later.
+#
 # BE/GEM5 — generate helper_stubs.inc for the LVX gem5 port.
 #
 # The MDS-generated behavior bodies (Behavior.tuple) call operator HELPERs that

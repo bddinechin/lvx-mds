@@ -1,4 +1,8 @@
 #!/bin/sh
+# Copyright (C) 2026 Liesme Tech.
+# Benoît Dupont de Dinechin (benoit.dinechin@gmail.com).
+# Distributed under the GNU General Public License, version 2 or later.
+#
 # Build a compilable Int256_/Int128_ out of kvx-lao.
 #
 # The generated Behavior C computes everything in Int256_, Kalray's 256-bit integer

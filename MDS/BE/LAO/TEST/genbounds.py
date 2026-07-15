@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (C) 2026 Liesme Tech.
+# Benoît Dupont de Dinechin (benoit.dinechin@gmail.com).
+# Distributed under the GNU General Public License, version 2 or later.
 """Emit bounds.inc: the range each opcode's operands are allowed to take.
 
 decoded[] is not free-form.  Every METHOD in a behaviour carries the interval Width.pm

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (C) 2026 Liesme Tech.
+# Benoît Dupont de Dinechin (benoit.dinechin@gmail.com).
+# Distributed under the GNU General Public License, version 2 or later.
 """Emit regs.inc for a Behavior.tuple: the register constants its bodies reference,
 and the base the harness must start decoded[] at.
 

@@ -1,3 +1,7 @@
+# Copyright (C) 2026 Liesme Tech.
+# Benoît Dupont de Dinechin (benoit.dinechin@gmail.com).
+# Distributed under the GNU General Public License, version 2 or later.
+
 import re, sys
 src = open(sys.argv[1]).read()
 # The generator emits its own prototypes: BehaviorDeclare(id, DECLARE(<proto>;))
