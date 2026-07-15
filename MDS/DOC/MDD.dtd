@@ -665,7 +665,7 @@
     <term>synthetic</term> The Synthetic for this Instruction if any.
     <term>properties</term> This Instruction properties, given as proxy key to value mapping.
     <term>processors</term> Processors that contains this <code>Instruction</code>.
-</description>
+  </description>
 -->
 
 <!--

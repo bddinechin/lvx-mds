@@ -1,6 +1,6 @@
 include ../Makerules
 
-cleanfiles=	*.hub *.dvi *.log *.ps
+cleanfiles=	*.hub *.dvi *.log *.ps *.latex *.aux *.pdf MDD-check.*
 
 vpath %.pl	$(MDSDIR)/BIN
 vpath %.dtd	$(MDSDIR)/DOC
@@ -11,8 +11,31 @@ all: MDS.dtd MDD.hub MDS.hub
 refs:
 	-
 
-check:
-	-
+# Validate the LaTeX generated from the DTD documentation comments, but only if
+# the host has a LaTeX engine -- otherwise skip (do not fail hosts without one).
+# Building MDD.latex also exercises dtd2latex.pl itself, so a broken generator or
+# a comment that produces invalid LaTeX is caught even where no engine is present
+# only insofar as the generator errors; the compile catches the rest.
+check: MDD.latex
+	@if command -v pdflatex >/dev/null 2>&1; then LTX=pdflatex; \
+	elif command -v latex >/dev/null 2>&1; then LTX=latex; \
+	else LTX=; fi; \
+	if [ -z "$$LTX" ]; then \
+	  echo "DOC: no LaTeX engine found -- skipping generated-doc validation"; \
+	else \
+	  echo "DOC: validating generated LaTeX with $$LTX"; \
+	  { printf '%s\n' '\documentclass{article}' '\begin{document}'; \
+	    cat MDD.latex; printf '%s\n' '\end{document}'; } > MDD-check.tex; \
+	  if $$LTX -interaction=nonstopmode -halt-on-error MDD-check.tex >MDD-check.log 2>&1; then \
+	    echo "DOC: generated LaTeX compiles cleanly"; \
+	  else \
+	    echo "DOC: generated LaTeX FAILED to compile:"; \
+	    grep -A3 '^!' MDD-check.log | head -30; \
+	    rm -f MDD-check.tex MDD-check.aux MDD-check.log MDD-check.dvi MDD-check.pdf; \
+	    exit 1; \
+	  fi; \
+	  rm -f MDD-check.tex MDD-check.aux MDD-check.log MDD-check.dvi MDD-check.pdf; \
+	fi
 
 install:
 	-
@@ -52,5 +75,5 @@ MDS.dtd: MDD.dtd
 	; done
 	@echo "</$*>" >> $@
 
-%.latex: %.dtd
-	$(PERL) dtd2latex.pl $^ > $@	||	$(ABORT)
+%.latex: %.dtd $(MDSDIR)/BIN/dtd2latex.pl
+	$(PERL) $(MDSDIR)/BIN/dtd2latex.pl $< > $@	||	$(ABORT)
