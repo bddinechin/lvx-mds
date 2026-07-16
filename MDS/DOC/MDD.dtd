@@ -122,14 +122,18 @@
 <!ATTLIST Helper
   ID		ID		#REQUIRED
   what		CDATA		#IMPLIED
-  result	NMTOKEN		#IMPLIED
+  result	NMTOKENS	#IMPLIED
   arguments	NMTOKENS	#IMPLIED
 >
 <!--
   <description>
-    <term>result</term> Width in bits of the value the helper returns. Must agree with
-      the width every APPLY of it declares. Omitted for a helper that returns nothing
-      (an EFFECT or a THROW) or whose result stays in the container.
+    <term>result</term> Width in bits of the value the helper returns: one width, or two
+      or more for a tuple-valued helper, whose elements a BIND destructures at the call
+      site (DOC/FP-helpers.md section 6a -- the flag-returning FP convention returns
+      (result, flags) this way). Must agree with what every APPLY of it declares, and is
+      checked against it: see helper-result in DOC/Behavior.md section 5. Omitted for a
+      helper that returns nothing (an EFFECT or a THROW) or whose result stays in the
+      container.
     <term>arguments</term> Width in bits of each argument, in the order the Behavior
       passes them, counting the ones it leaves UNDEF. Omitted arguments, and a width of
       256, mean the container: the helper may read every bit.

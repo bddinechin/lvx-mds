@@ -6,8 +6,22 @@
 ##
 ## `arguments` is the width in bits of each argument, in the order the behaviour passes
 ## them, counting the ones it leaves UNDEF.  `result` is the width of what the helper
-## returns, and must agree with the width every APPLY of it declares.  A width of 256 is
+## returns, and must agree with what every APPLY of it declares.  A width of 256 is
 ## the container, and saying it is the same as saying nothing.
+##
+## That agreement is CHECKED -- `helper-result`, and fatal.  It used to be a promise this
+## header made and nothing kept: CodeGen types the call from the declaration here, the
+## width analysis bounds it from the APPLY, and the two never met.
+##
+## `result` takes two or more widths for a TUPLE-valued helper -- `result: [32, 5]` is a
+## flag-returning FP operator returning (result, flags).  Its call site is then a BIND of
+## an APPLY with the matching widths, which destructures the tuple into ordinary
+## variables:
+##
+##   (BIND.value,flags (APPLY.32,5.f32_add (READ.RM) (READ.a) (READ.b)))
+##
+## Declaring a tuple therefore means converting every APPLY of that helper in the same
+## edit -- `helper-result` will not let it land half done.  See DOC/FP-helpers.md.
 ##
 ## A helper with no entry here takes and returns Int256_ -- a 32-byte union passed by
 ## value -- which is what all ~137 of them did.  So this file is a migration, not a

@@ -401,11 +401,19 @@ sub _int {
             # widens to carry (result, flags), and that is exactly the edit that would
             # otherwise leave one of the two statements behind.
             my $declared = $Result{$name};
-            _report('helper-result',
-              "APPLY.$width.$name disagrees with the Helper element, which declares"
-              . " $declared bits: the call is typed from the declaration and bounded"
-              . " from the APPLY, so the two must agree")
-              if defined $declared && $declared != $width;
+            if (ref $declared eq 'ARRAY') {
+                # An APPLY is single-valued, so the declaration has to be exactly one
+                # width, and it has to be this one.  Two or more is the same mistake seen
+                # from the other end: the helper says it returns (result, flags) and the
+                # call site still takes one value, which a BIND of an APPLYT is how to
+                # spell -- DOC/FP-helpers.md section 6a.
+                _report('helper-result',
+                  "APPLY.$width.$name disagrees with the Helper element, which declares "
+                  . join(',', @{$declared})
+                  . ": the call is typed from the declaration and bounded from the APPLY,"
+                  . " so the two must agree")
+                  if @{$declared} != 1 || $declared->[0] != $width;
+            }
         } else {
             _report('apply-nowidth',
               "APPLY.$name declares no result width, so its value cannot be bounded");

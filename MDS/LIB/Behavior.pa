@@ -2473,8 +2473,14 @@ sub _signature_type {
 
 sub _signature_result {
     my ($name) = @_;
-    my $width = $Signature{$name}{result};
-    return undef unless defined $width;
+    my $result = $Signature{$name}{result};
+    return undef unless ref $result eq 'ARRAY';
+    # This types an APPLY, which is single-valued.  A tuple-valued declaration belongs to
+    # an APPLYT, whose elements are typed one at a time; reaching here with one means the
+    # declaration and the call site disagree, which Width.pm reports as helper-result and
+    # fails the build for.  Decline to type it rather than guess which element was meant.
+    return undef unless @{$result} == 1;
+    my $width = $result->[0];
     return &_ctype_box() if $width > 64;
     return { W => &_ctype_native($width), S => 0, E => 1 };
 }

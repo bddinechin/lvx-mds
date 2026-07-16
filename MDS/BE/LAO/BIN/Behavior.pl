@@ -65,7 +65,7 @@ foreach my $helper (@Helper::table) {
     my $name = $helper->name();
     my $result = $helper->attribute("result");
     my $arguments = $helper->attribute("arguments");
-    $Behavior::Signature{$name}{result} = $result if defined $result;
+    $Behavior::Signature{$name}{result} = [ split ' ', $result ] if defined $result;
     $Behavior::Signature{$name}{arguments} = [ split ' ', $arguments ]
       if defined $arguments;
 }

@@ -445,7 +445,7 @@ sub renumber {
 #
 foreach my $helper (@Helper::table) {
     my $result = $helper->attribute("result");
-    $Width::Result{$helper->name()} = $result if defined $result;
+    $Width::Result{$helper->name()} = [ split ' ', $result ] if defined $result;
     my $arguments = $helper->attribute("arguments");
     next unless defined $arguments;
     $Width::Signature{$helper->name()} = [ split ' ', $arguments ];

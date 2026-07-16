@@ -488,7 +488,7 @@ sub IDs { &MDD::IDs("Helper", $_[0]) }
 %ATTLIST = (
     ID=>	[ 'ID', '#REQUIRED', 'undef', '', '' ],
     arguments=>	[ 'NMTOKENS', '#IMPLIED', 'undef', '', '' ],
-    result=>	[ 'NMTOKEN', '#IMPLIED', 'undef', '', '' ],
+    result=>	[ 'NMTOKENS', '#IMPLIED', 'undef', '', '' ],
     what=>	[ 'CDATA', '#IMPLIED', 'undef', '', '' ],
   );
 @CHILD_ELEMENTS = (  );
