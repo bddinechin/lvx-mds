@@ -88,6 +88,15 @@ our $BOX = 256;
 our @Diags;
 our $Context;
 
+# name => width of the value a Helper element declares it returns.  Declared up here
+# rather than beside %Signature below because the check that reads it (helper-result,
+# in the APPLY rule) runs earlier in the file than %Signature's own uses.  It is
+# checked rather than used: the Helper declaration and the APPLY that calls it are two
+# statements of the same fact, and CodeGen believes the declaration (Behavior.pa's
+# _signature_result types the call from it) while this pass believes the APPLY.  Nothing
+# reconciled them, so a disagreement was a type lie that C would not catch.
+our %Result;
+
 #
 # When set, each Integer node's interval is stamped onto its Abstract -- the
 # attribute hash the grammar already attaches to every Integer, which Pretty can
@@ -382,6 +391,21 @@ sub _int {
             # F2I -- an octuple load is APPLY.256, and [0, 2^256-1] is exactly what
             # the container holds.
             ($lo, $hi) = _unsigned($width);
+            # If the Helper element also declares a result width, the two are saying the
+            # same thing and must say it the same way.  CodeGen types the call from the
+            # declaration and this pass bounds it from the APPLY, so a disagreement is a
+            # type lie rather than a conservative approximation: the C would read a
+            # uint64_t out of a call the analysis proved 32 bits wide, or worse.  Fatal,
+            # because nothing downstream can detect it -- the whole point of the flag-
+            # returning FP convention (DOC/FP-helpers.md) is that a helper's result
+            # widens to carry (result, flags), and that is exactly the edit that would
+            # otherwise leave one of the two statements behind.
+            my $declared = $Result{$name};
+            _report('helper-result',
+              "APPLY.$width.$name disagrees with the Helper element, which declares"
+              . " $declared bits: the call is typed from the declaration and bounded"
+              . " from the APPLY, so the two must agree")
+              if defined $declared && $declared != $width;
         } else {
             _report('apply-nowidth',
               "APPLY.$name declares no result width, so its value cannot be bounded");
@@ -921,6 +945,8 @@ our %Demand;
 # is not in here, or an argument the entry does not reach, demands the whole container --
 # so a description that declares nothing behaves exactly as it did before.
 our %Signature;
+# The companion %Result, which the same Helper elements fill, is declared at the top of
+# this file -- its check runs earlier than anything here.
 
 sub _dwant {			# a variable is read: it wants $bits of its low end
     my ($name, $bits) = @_;

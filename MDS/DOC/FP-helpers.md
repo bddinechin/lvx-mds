@@ -13,6 +13,17 @@ helpers are to stop being opaque C, does MPFR do the job?**
 
 ## 1. What LVX's gap actually is, measured
 
+**The flags are not modelled at all.** 86 instructions say in their `description:` that
+"This instruction may raise exception bits in the CS register", and **no behavior in the
+ISA writes CS** — there is not one `WRITE.CS` or `STORE` to it. The IEEE flag semantics
+exist in exactly two places, and neither is the description: English prose, and a global
+mutated inside the opaque C. So §4's "not in the description at all" is literal, and
+step (1) below is not a *conversion* of an existing model — it is the first time the
+flags are stated formally. CS itself is fully declared and waiting: `$cs`/`$s4`, and
+`RegField.yml` gives the layout — `CS_IO`(1) invalid operation, `CS_DZ`(2) divide by
+zero, `CS_OV`(3) overflow, `CS_UN`(4) underflow, `CS_IN`(5) inexact, with an Extension
+set `CS_XIO`..`CS_XIN` at 9..13.
+
 `Behavior.md` §7 (5) says "**start with the exact dot-product operators** — no library
 can give you those". **That advice does not apply to LVX**, and this is the first thing
 to know before planning the work:
@@ -163,6 +174,17 @@ raised global. Behavior can do all three natively. §4's flag-returning sketch i
 shape as MPFR's ternary value, arrived at independently.
 
 ## 7. Recommendation, in order
+
+0. **Make `Helper`'s `result` checkable** — *done*. The convention in (1) works by
+   *widening a helper's result* to carry (result, flags), so every one of the 57
+   conversions is an edit that must change the `Helper` declaration and every `APPLY` of
+   it together. `Helper.yml`'s header already said `result` "must agree with the width
+   every `APPLY` of it declares" — and **nothing checked it**: `CodeGen` types the call
+   from the declaration (`Behavior.pa`'s `_signature_result`), the width analysis bounds
+   it from the `APPLY`, and `MDD/MDE/BIN/Opcode.pl` threaded only `arguments`, so the two
+   never met. A disagreement was a type lie C would not catch, on the exact edit the whole
+   plan is made of. Now `helper-result`, and fatal (§5). It fires on nothing today —
+   `result` is declared nowhere — so it is a pure safety net for what follows.
 
 1. **The flag-returning convention, on one operator, end to end.** This is the
    load-bearing decision and it is provable *before* any FP body is written: 57 operators

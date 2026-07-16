@@ -331,6 +331,7 @@ mistake (this pass made it first, and it produced 22 false alarms):
 | `section` | yes | A `Section` access (`w[i]`) reaches past the end of the container: `w × (i+1) > 256`. These are the two `die`s that were commented out in `codegen_read`/`codegen_write`. |
 | `extent` | yes | A `STORE`'s `BitField` width disagrees with the width its `Location` implies, or an `F2I.w` disagrees with the `BitField` it reads. |
 | `internal` | yes | The pass met an operator it has no rule for. A gap in the checker, not in the description — but it means the tree went unchecked, so it fails rather than passing quietly. |
+| `helper-result` | yes | A `Helper` declares a `result` width that disagrees with an `APPLY` of it. The two are one fact stated twice, and they are read by different consumers — `CodeGen` types the call from the declaration, this pass bounds it from the `APPLY` — so a disagreement is a type lie C cannot catch, not a conservative approximation. |
 | `helper-truncates` | no | A `Helper` declares an argument narrower than the value handed to it, so it is given only the low *w* bits. Not an error: it is the *description asserting a truncation*, and reporting it is what keeps that assertion visible — §7 (6). |
 | `apply-nowidth` | no | An `APPLY` declares no result width, so its value cannot be bounded. Now unreachable — the grammar rejects it first (below) — and kept as a backstop. |
 | `shift` | no | A `SHL`/`SHR` by an amount that may be negative, or is unbounded. The interval is abandoned rather than guessed. |

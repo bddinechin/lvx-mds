@@ -53,7 +53,7 @@ use Width;
 # the build; =off skips the pass.
 #
 my $WidthCheck = $ENV{WIDTH_CHECK} || 'error';
-my %WidthFatal = map { $_ => 1 } qw(box signed section extent internal);
+my %WidthFatal = map { $_ => 1 } qw(box signed section extent internal helper-result);
 
 #
 # The pass also stamps each Integer's interval onto its Abstract, and %WidthAbstract
@@ -444,6 +444,8 @@ sub renumber {
 # the element existed, so a description that declares nothing is unaffected.
 #
 foreach my $helper (@Helper::table) {
+    my $result = $helper->attribute("result");
+    $Width::Result{$helper->name()} = $result if defined $result;
     my $arguments = $helper->attribute("arguments");
     next unless defined $arguments;
     $Width::Signature{$helper->name()} = [ split ' ', $arguments ];
