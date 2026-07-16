@@ -28,6 +28,14 @@
 
 #define HELPER(routine) Behavior_##routine
 
+/* Tuple types returned by flag-returning helpers, e.g.
+ *   typedef struct { uint32_t _0; uint8_t _1; } Tuple_32_5;
+ * one per shape rather than per helper. Must come before helper_stubs.inc,
+ * whose stubs return them. See lvx-mds DOC/FP-helpers.md §6a. */
+#define Behavior_TYPES
+#include "arch/lvx/generated/Behavior.tuple"
+#undef Behavior_TYPES
+
 /* Operator-helper definitions: panic stubs for now (the SIMD/float/atomic
  * operators, ~Phase 3). These 137 are derived from Behavior.tuple's
  * declarations by regen.sh. The 17 *core* runtime helpers (operand/regfile/

@@ -353,6 +353,26 @@ foreach my $opcode (@Opcode::table) {
         }
       } sort keys %$enums;
 
+    # The tuple structs a flag-returning helper returns (DOC/FP-helpers.md section 6a).
+    # Their own phase, because they have to be visible to helper_stubs.inc -- which
+    # BE/GEM5 generates from this file's declarations and which behavior.c includes
+    # BEFORE the bodies -- and Behavior_STATIC comes too late for that.  Position within
+    # the file does not matter: a phase is a separate include, so a pass with only
+    # Behavior_TYPES defined emits every typedef wherever it sits, and the bodies in a
+    # later pass all see them.
+    my @typedefs;
+    foreach my $tuple (sort keys %tuples) {
+        unless ($emitted{$tuple}) {
+            push @typedefs, "$tuples{$tuple}\n";
+            $emitted{$tuple} = 1;
+        }
+    }
+    if (@typedefs) {
+        print "#ifdef Behavior_TYPES\n";
+        print @typedefs;
+        print "#endif /* Behavior_TYPES */\n";
+    }
+
     my @statics;
     foreach my $static_name (sort keys %statics) {
         unless ($emitted{$static_name}) {

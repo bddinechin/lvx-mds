@@ -140,6 +140,13 @@ void HELPER(commitRegFiles)(void *t)
  * (it moves the opcode table) and is tracked in Behavior.md. */
 static Int256_ argument3, ziplanes;
 
+/* ---- tuple types returned by flag-returning helpers ---- */
+/* Their own include pass, before the stubs that return them -- the same order
+ * BE/GEM5's behavior.c uses.  Empty until a helper declares a tuple result. */
+#define Behavior_TYPES
+#include BEHAVIOR_TUPLE
+#undef Behavior_TYPES
+
 /* ---- the ~137 operator helpers, defined from the generator's own prototypes ---- */
 #include "opstubs.inc"
 

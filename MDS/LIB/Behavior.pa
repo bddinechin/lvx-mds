@@ -2267,8 +2267,17 @@ sub signature {
         # helper-result is what keeps the two agreeing, so this can trust either.
         $helper_name = $$this[2];
         $first_arg_idx = 3;
-        $return_type = &_ctype_tuple($$this[1]);
-        $$CodeGen_Tuples{$return_type} = $$this[1] if defined $CodeGen_Tuples;
+        my $widths = $$this[1];
+        $return_type = &_ctype_tuple($widths);
+        if (defined $CodeGen_Tuples && !defined $$CodeGen_Tuples{$return_type}) {
+            # Hand back the rendered typedef, not the widths: the element types are
+            # ctype's business and the consumer only has to print this.
+            my $fields = '';
+            for (my $i = 0; $i < @{$widths}; $i++) {
+                $fields .= ' ' . &cdecl(&_ctype_element($widths->[$i])) . " _$i;";
+            }
+            $$CodeGen_Tuples{$return_type} = "typedef struct {$fields } $return_type;";
+        }
     }
     elsif ($$this[0] eq "EFFECT") {
         $helper_name = $$this[2];
@@ -3523,6 +3532,11 @@ sub codegen {
             my $temp = "_bind" . $CodeGen_Binds++;
             push(@$pretty, "${indent}$type $temp = ");
             &signature($tuple, $pretty, $nesting + 1, $context);
+            # A command emits one statement and lets whatever contains it supply the
+            # terminator -- SEQ pushes one per child, CodeGen one at the end.  This emits
+            # several, so it terminates its own and leaves the last to the container,
+            # exactly as a WRITE leaves its only one.
+            push(@$pretty, ";");
             for (my $i = 0; $i < @{$names}; $i++) {
                 my $name = $names->[$i];
                 my $want = $Unbox && defined $CodeGen_VarTypes{$name}
@@ -3533,6 +3547,7 @@ sub codegen {
                 # unless a WRITE elsewhere disagreed and pushed it to the container.
                 my ($prefix, $suffix) = &cconv(&_ctype_element($widths->[$i]), $want);
                 push(@$pretty, "${indent}$name = $prefix$temp._$i$suffix");
+                push(@$pretty, ";") unless $i == $#{$names};
             }
             last SWITCH;
           };
