@@ -2217,9 +2217,17 @@ my $CodeGen_Proxies;
 my $CodeGen_Operands;
 my $CodeGen_Statics;
 my $CodeGen_Spacing;
+# name => [ widths ], the tuple structs the emitted C needs a typedef for.  Optional, so
+# a caller that predates tuples still works and simply cannot receive one -- there is no
+# APPLYT without a BIND, and no BIND unless the description writes one.
+my $CodeGen_Tuples;
+# One temporary per BIND, holding the struct between the call and the destructuring.  FOR
+# is unrolled here, so a bind in a lane body emits once per lane and each needs its own.
+my $CodeGen_Binds;
 
 sub CodeGen {
-    my ($this, $_opcode, $_helpers, $_proxies, $_operands, $_statics, $_spacing) = @_;
+    my ($this, $_opcode, $_helpers, $_proxies, $_operands, $_statics, $_spacing,
+        $_tuples) = @_;
     my @pretty = ( "\n" );
     my %context;
     $CodeGen_Opcode = $_opcode;
@@ -2227,6 +2235,8 @@ sub CodeGen {
     $CodeGen_Proxies = $_proxies;
     $CodeGen_Operands = $_operands;
     $CodeGen_Statics = $_statics;
+    $CodeGen_Tuples = $_tuples;
+    $CodeGen_Binds = 0;
     $CodeGen_Spacing = $_spacing || "\t";
     &vartypes($this);
     &codegen($this, \@pretty, 1, \%context);
@@ -2250,6 +2260,15 @@ sub signature {
         $helper_name = $$this[2];
         $first_arg_idx = 3;
         $return_type = "Int256_";
+    }
+    elsif ($$this[0] eq "APPLYT") {
+        # A tuple-valued helper returns a small struct by value, one type per shape.  The
+        # widths are on the node and the Helper element declares them too; Width.pm's
+        # helper-result is what keeps the two agreeing, so this can trust either.
+        $helper_name = $$this[2];
+        $first_arg_idx = 3;
+        $return_type = &_ctype_tuple($$this[1]);
+        $$CodeGen_Tuples{$return_type} = $$this[1] if defined $CodeGen_Tuples;
     }
     elsif ($$this[0] eq "EFFECT") {
         $helper_name = $$this[2];
@@ -2512,11 +2531,15 @@ sub vartypes {
     my ($this) = @_;
     %CodeGen_VarTypes = ();
     return unless $Unbox;
-    # Two passes, and the order is not cosmetic.  A variable's type has to be settled
+    # Three passes, and the order is not cosmetic.  A variable's type has to be settled
     # before any ctype() that depends on it is asked for, and a lane access anywhere in
     # the tree pins the variable to the container -- including one that appears after
-    # the WRITE whose right-hand side would otherwise have typed it.
+    # the WRITE whose right-hand side would otherwise have typed it.  Binds go before
+    # writes for the same reason a write's own join exists: a name that is bound in one
+    # place and written in another takes the container unless the two agree, and that
+    # cannot be decided until both have been seen.
     &_vartypes_lanes($this);
+    &_vartypes_binds($this);
     &_vartypes_writes($this);
 }
 
@@ -2529,6 +2552,46 @@ sub _vartypes_lanes {
     }
     foreach my $child (@$this) {
         &_vartypes_lanes($child) if ref $child eq 'ARRAY';
+    }
+}
+
+# The C type of one element of a tuple, and of the tuple itself.  The element type is the
+# element's declared width, exactly as _signature_result types an APPLY's single result;
+# the struct's name is a function of the widths, so it is shared by shape rather than by
+# helper -- f32_add, f32_sub and f32_mul all return Tuple_32_5.
+sub _ctype_element {
+    my ($width) = @_;
+    return &_ctype_box() if $width > 64;
+    return { W => &_ctype_native($width), S => 0, E => 1 };
+}
+
+sub _ctype_tuple {
+    my ($widths) = @_;
+    return 'Tuple_' . join('_', @{$widths});
+}
+
+sub _vartypes_binds {
+    my ($this) = @_;
+    return unless ref $this eq 'ARRAY' && defined $$this[0] && !ref $$this[0];
+    if ($$this[0] eq 'BIND') {
+        # A bound name has no WRITE to be typed from -- its type is its element's declared
+        # width.  Same join as a WRITE's: a name bound in one place and written in another
+        # keeps the container unless the two agree.
+        my ($names, $tuple) = @{$this}[1, 2];
+        my $widths = $$tuple[1];
+        for (my $i = 0; $i < @{$names}; $i++) {
+            my $name = $names->[$i];
+            my $known = $CodeGen_VarTypes{$name};
+            next if defined $known && $$known{W} == $BOX;
+            my $type = &_ctype_element($widths->[$i]);
+            $CodeGen_VarTypes{$name} =
+              (!defined $known)             ? $type
+              : &_ctype_same($known, $type) ? $known
+              :                               &_ctype_box();
+        }
+    }
+    foreach my $child (@$this) {
+        &_vartypes_binds($child) if ref $child eq 'ARRAY';
     }
 }
 
@@ -3444,6 +3507,33 @@ sub codegen {
         $$this[0] =~ /^THROW$/ and do {
             # THROW Ident
             &signature($this, $pretty, $nesting, $context);
+            last SWITCH;
+          };
+        $$this[0] =~ /^BIND$/ and do {
+            # BIND Variables APPLYT -- the destructuring of a tuple-valued call.
+            #
+            # The struct is taken into a temporary declared right here rather than at the
+            # top of the function with the other variables: those are emitted as
+            # `T name = 0;`, which a struct is not, and the temporary is single-use
+            # anyway.  C99 lets it be declared where it is assigned, and every block this
+            # can appear in is braced.
+            my ($names, $tuple) = @{$this}[1, 2];
+            my $widths = $$tuple[1];
+            my $type = &_ctype_tuple($widths);
+            my $temp = "_bind" . $CodeGen_Binds++;
+            push(@$pretty, "${indent}$type $temp = ");
+            &signature($tuple, $pretty, $nesting + 1, $context);
+            for (my $i = 0; $i < @{$names}; $i++) {
+                my $name = $names->[$i];
+                my $want = $Unbox && defined $CodeGen_VarTypes{$name}
+                           ? $CodeGen_VarTypes{$name} : &_ctype_box();
+                $$CodeGen_Operands{INT256}{$name} = &cdecl($want);
+                # The element is exactly its declared width, so the conversion is a
+                # no-op whenever the bind typed the variable -- which is every time,
+                # unless a WRITE elsewhere disagreed and pushed it to the container.
+                my ($prefix, $suffix) = &cconv(&_ctype_element($widths->[$i]), $want);
+                push(@$pretty, "${indent}$name = $prefix$temp._$i$suffix");
+            }
             last SWITCH;
           };
         $$this[0] =~ /^WRITE$/ and do {

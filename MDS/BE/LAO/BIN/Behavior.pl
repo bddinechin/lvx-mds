@@ -95,6 +95,9 @@ foreach my $regFile (&MDS::regFiles()) {
 }
 
 my %helpers;
+# The tuple structs the emitted C needs a typedef for: name => [ widths ].  Shared by
+# shape, so every (result, flags) helper of the same widths uses one type.
+my %tuples;
 my %enums;
 
 my %operator;
@@ -237,7 +240,8 @@ foreach my $opcode (@Opcode::table) {
         &Behavior::yyflush;
         # my $tree = &Parallel(&Behavior::yytree);
         my $tree = &Simplify(&Behavior::yytree);
-        @result = &CodeGen($tree, $opcode, \%helpers, \%proxies, \%operands, \%statics, "  ");
+        @result = &CodeGen($tree, $opcode, \%helpers, \%proxies, \%operands, \%statics, "  ",
+                              \%tuples);
         $pretty = join('', &Pretty($tree, "  "));
     }
 
