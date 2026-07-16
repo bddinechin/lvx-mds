@@ -1335,7 +1335,7 @@ execute_lvx_v1_SYNCGROUP_registerZ_simple(void *this, OperandDecoded *decoded, P
       );
     waitclrB = 
       Int256_and(
-        Int256_shru(
+        Int256_shr(
           argument1, 
           Int256_fromUInt64(0x10LL)
         ), 
@@ -1343,7 +1343,7 @@ execute_lvx_v1_SYNCGROUP_registerZ_simple(void *this, OperandDecoded *decoded, P
       );
     notifyF = 
       Int256_and(
-        Int256_shru(
+        Int256_shr(
           argument1, 
           Int256_fromUInt64(0x20LL)
         ), 
@@ -1351,7 +1351,7 @@ execute_lvx_v1_SYNCGROUP_registerZ_simple(void *this, OperandDecoded *decoded, P
       );
     notifyB = 
       Int256_and(
-        Int256_shru(
+        Int256_shr(
           argument1, 
           Int256_fromUInt64(0x30LL)
         ), 
@@ -46200,7 +46200,7 @@ execute_lvx_v1_SRLD_registerW_registerZ_unsigned6_simple(void *this, OperandDeco
       HELPER(operandRead)(this, 1), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_zx(
         argument2, 64
       ), 
@@ -46261,7 +46261,7 @@ execute_lvx_v1_SRLD_registerW_registerZ_registerY_simple(void *this, OperandDeco
       HELPER(operandRead)(this, 1), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_zx(
         argument2, 64
       ), 
@@ -46335,7 +46335,7 @@ execute_lvx_v1_SRLW_signextw_registerW_registerZ_registerY_simple(void *this, Op
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_fromUInt32(argument2.words[0]), 
       Int256_zx(
         argument3, 5
@@ -46416,7 +46416,7 @@ execute_lvx_v1_SRLW_signextw_registerW_registerZ_unsigned6_simple(void *this, Op
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_fromUInt32(argument2.words[0]), 
       Int256_zx(
         argument3, 5
@@ -46484,7 +46484,7 @@ execute_lvx_v1_SRAD_registerW_registerZ_unsigned6_simple(void *this, OperandDeco
       HELPER(operandRead)(this, 1), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_sx(
         argument2, 64
       ), 
@@ -46545,7 +46545,7 @@ execute_lvx_v1_SRAD_registerW_registerZ_registerY_simple(void *this, OperandDeco
       HELPER(operandRead)(this, 1), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_sx(
         argument2, 64
       ), 
@@ -46620,7 +46620,7 @@ execute_lvx_v1_SRAW_signextw_registerW_registerZ_registerY_simple(void *this, Op
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_sx(
         argument2, 32
       ), 
@@ -46704,7 +46704,7 @@ execute_lvx_v1_SRAW_signextw_registerW_registerZ_unsigned6_simple(void *this, Op
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_sx(
         argument2, 32
       ), 
@@ -46815,7 +46815,7 @@ execute_lvx_v1_SRSD_registerW_registerZ_unsigned6_simple(void *this, OperandDeco
     Int256_fromUInt64(0LL)
 );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_sx(
           argument2, 64
@@ -46918,7 +46918,7 @@ execute_lvx_v1_SRSD_registerW_registerZ_registerY_simple(void *this, OperandDeco
     Int256_fromUInt64(0LL)
 );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_sx(
           argument2, 64
@@ -47035,7 +47035,7 @@ execute_lvx_v1_SRSW_signextw_registerW_registerZ_registerY_simple(void *this, Op
     Int256_fromUInt64(0LL)
 );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_sx(
           argument2, 32
@@ -47161,7 +47161,7 @@ execute_lvx_v1_SRSW_signextw_registerW_registerZ_unsigned6_simple(void *this, Op
     Int256_fromUInt64(0LL)
 );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_sx(
           argument2, 32
@@ -49903,7 +49903,7 @@ execute_lvx_v1_AVGW_signextw_registerW_registerZ_registerY_simple(void *this, Op
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_sx(
           argument3, 32
@@ -49992,7 +49992,7 @@ execute_lvx_v1_AVGW_signextw_registerW_registerZ_upper27_lower5_double(void *thi
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_sx(
           argument3, 32
@@ -50082,7 +50082,7 @@ execute_lvx_v1_AVGUW_signextw_registerW_registerZ_registerY_simple(void *this, O
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_fromUInt32(argument3.words[0]), 
         Int256_fromUInt32(argument2.words[0])
@@ -50165,7 +50165,7 @@ execute_lvx_v1_AVGUW_signextw_registerW_registerZ_upper27_lower5_double(void *th
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_fromUInt32(argument3.words[0]), 
         Int256_fromUInt32(argument2.words[0])
@@ -50255,7 +50255,7 @@ execute_lvx_v1_AVGRW_signextw_registerW_registerZ_registerY_simple(void *this, O
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_add(
           Int256_sx(
@@ -50349,7 +50349,7 @@ execute_lvx_v1_AVGRW_signextw_registerW_registerZ_upper27_lower5_double(void *th
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_add(
           Int256_sx(
@@ -50444,7 +50444,7 @@ execute_lvx_v1_AVGRUW_signextw_registerW_registerZ_registerY_simple(void *this, 
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_add(
           Int256_fromUInt32(argument3.words[0]), 
@@ -50532,7 +50532,7 @@ execute_lvx_v1_AVGRUW_signextw_registerW_registerZ_upper27_lower5_double(void *t
       HELPER(operandRead)(this, 2), 64
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       Int256_add(
         Int256_add(
           Int256_fromUInt32(argument3.words[0]), 
@@ -54909,7 +54909,7 @@ execute_lvx_v1_FWIDENWD_mostsig_registerW_registerZ_simple(void *this, OperandDe
   )
   {
     argument2 = 
-      Int256_shru(
+      Int256_shr(
         argument2, 
         Int256_fromUInt64(0x20LL)
       );
@@ -54982,7 +54982,7 @@ execute_lvx_v1_FWIDENHW_mostsig_registerW_registerZ_simple(void *this, OperandDe
   )
   {
     argument2 = 
-      Int256_shru(
+      Int256_shr(
         argument2, 
         Int256_fromUInt64(0x10LL)
       );
@@ -55408,7 +55408,7 @@ execute_lvx_v1_EXTFZ_registerW_registerZ_stopbit2_stopbit4_startbit_simple(void 
       mask
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       masked, 
       startbit
     );
@@ -55571,7 +55571,7 @@ execute_lvx_v1_EXTFS_registerW_registerZ_stopbit2_stopbit4_startbit_simple(void 
       Int256_and(
         mask, 
         Int256_not(
-          Int256_shru(
+          Int256_shr(
             mask, 
             Int256_fromUInt64(0x1LL)
           )
@@ -55590,7 +55590,7 @@ execute_lvx_v1_EXTFS_registerW_registerZ_stopbit2_stopbit4_startbit_simple(void 
     masked2
 );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       masked, 
       startbit
     );
@@ -67183,7 +67183,7 @@ execute_lvx_v1_CRCBELMW_registerW_registerZ_registerY_simple(void *this, Operand
       Int256_fromUInt32(argument1.words[0]), 
       Int256_swap(
         Int256_swap(
-          Int256_shru(
+          Int256_shr(
             argument2, 
             Int256_fromUInt64(0x20LL)
           ), 8
@@ -67288,7 +67288,7 @@ execute_lvx_v1_CRCBELMW_registerW_registerZ_upper27_lower5_double(void *this, Op
       Int256_fromUInt32(argument1.words[0]), 
       Int256_swap(
         Int256_swap(
-          Int256_shru(
+          Int256_shr(
             argument2, 
             Int256_fromUInt64(0x20LL)
           ), 8
@@ -71698,7 +71698,7 @@ execute_lvx_v1_ZXBD_registerW_registerZ_simple(void *this, OperandDecoded *decod
       mask
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       masked, 
       startbit
     );
@@ -71855,7 +71855,7 @@ execute_lvx_v1_SXBD_registerW_registerZ_simple(void *this, OperandDecoded *decod
       Int256_and(
         mask, 
         Int256_not(
-          Int256_shru(
+          Int256_shr(
             mask, 
             Int256_fromUInt64(0x1LL)
           )
@@ -71874,7 +71874,7 @@ execute_lvx_v1_SXBD_registerW_registerZ_simple(void *this, OperandDecoded *decod
     masked2
 );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       masked, 
       startbit
     );
@@ -71989,7 +71989,7 @@ execute_lvx_v1_ZXHD_registerW_registerZ_simple(void *this, OperandDecoded *decod
       mask
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       masked, 
       startbit
     );
@@ -72146,7 +72146,7 @@ execute_lvx_v1_SXHD_registerW_registerZ_simple(void *this, OperandDecoded *decod
       Int256_and(
         mask, 
         Int256_not(
-          Int256_shru(
+          Int256_shr(
             mask, 
             Int256_fromUInt64(0x1LL)
           )
@@ -72165,7 +72165,7 @@ execute_lvx_v1_SXHD_registerW_registerZ_simple(void *this, OperandDecoded *decod
     masked2
 );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       masked, 
       startbit
     );
@@ -72280,7 +72280,7 @@ execute_lvx_v1_ZXWD_registerW_registerZ_simple(void *this, OperandDecoded *decod
       mask
     );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       masked, 
       startbit
     );
@@ -72437,7 +72437,7 @@ execute_lvx_v1_SXWD_registerW_registerZ_simple(void *this, OperandDecoded *decod
       Int256_and(
         mask, 
         Int256_not(
-          Int256_shru(
+          Int256_shr(
             mask, 
             Int256_fromUInt64(0x1LL)
           )
@@ -72456,7 +72456,7 @@ execute_lvx_v1_SXWD_registerW_registerZ_simple(void *this, OperandDecoded *decod
     masked2
 );
   result1 = 
-    Int256_shru(
+    Int256_shr(
       masked, 
       startbit
     );

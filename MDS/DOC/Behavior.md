@@ -123,19 +123,23 @@ the stage/bundle model becomes an explicitly *generated* bundle sequencer in Sai
 
 Two places where the unbounded-integer semantics was not actually unbounded — the
 description's meaning depended on the container being exactly 256 bits, and said so
-nowhere. Both were found by the width pass. **The second is now fixed; the first is
-not.**
+nowhere. Both were found by the width pass. **Both are now fixed.**
 
-**`SHR` is a logical shift, and this is still true.** It generates `Int256_shru`,
-so on a negative operand the result is `(x mod 2²⁵⁶) >> n` — not a function of `x`
-alone. The ISA *relies* on this: `sraw` is `(SHR (SX.32 x) n)`, and its low 32 bits
-come out right only because the sign extension runs all the way to the top of the
-container and the store truncates back. Correct, and box-dependent. 25 instruction
-families do it (`sraw`/`srad`/`srsw`/`srsd`/`avgw`/`avgrw`/`extfs`/`sxbd`/`sxhd`/
-`sxwd` and the packed forms), and `Width.pm` reports each as `shr-negative`. Worth
-either renaming the operator to say what it is (`SHRU`) or defining `SHR` as
-arithmetic and adding a separate logical form. **Until then, the container width is
-part of the architecture.**
+**`SHR` is an arithmetic shift, container-free.** It used to be emitted as
+`Int256_shru`, so on a negative operand the result was `(x mod 2²⁵⁶) >> n` — not a
+function of `x` alone. `sraw = (SHR (SX.32 x) n)` came out right only because the
+sign extension ran to the top of the container and the store truncated back:
+correct, but box-dependent, and the 16 `sraw`/`srad`/`srsw`/`srsd`/`avgw`/`avgrw`/
+`extfs`/`sxbd`/`sxhd`/`sxwd` sites were reported `shr-negative`. Resolved by
+**operand inference** (see `DOC/SHR-split.md`): `SHR` is now `floor(x/2ⁿ)`, a total
+function of the value, emitted as `Int256_shr` for a signed operand and
+`Int256_shru` for a non-negative one — which agree on the demanded bits, and on a
+non-negative operand arithmetic *is* logical. `Width.pm`'s interval is the exact
+arithmetic range for every operand, so `shr-negative` is gone and the container
+width no longer enters the shift's meaning. Behaviour-preserving: the lvx_v1
+differential test is 0/870 old-vs-new and boxed-vs-unboxed. A second explicit
+`SHRU` operator was considered and rejected as buying only readability, not
+capability (`SHR-split.md`, "Do we need `SHRU`").
 
 **Byte-lane placement overflowed the box on purpose — now it says so.** The `lvx_v2`
 extension preloads (`xplb`/`xplh`/`xplw`/`xpld`/`xplq`/`xplo`) and

@@ -582,6 +582,25 @@ sub _shl {
     return ($lo, $hi);
 }
 
+# floor($x / 2**$n).  Integer even under the bignum float-upgrade that BitString
+# installs process-wide: `brsft` (like bdiv) upgrades to a Math::BigFloat and
+# rounds on an inexact shift -- (2^32-1) >> 1 comes back 2147483647.5 -- while
+# `bmod` outright dies on a negative operand under that upgrade.  So take the low
+# bits with `band` (bitwise, always exact) and only ever brsft an exact multiple
+# of 2**n, working on magnitudes so the arithmetic stays non-negative.  floor
+# rounds toward -inf, so a negative is the negated ceiling of its magnitude.
+sub _floor_shr {
+    my ($x, $n) = @_;
+    return $x->copy() unless $n;
+    my $mask = _pow2($n)->bsub(1);			# 2**n - 1
+    if ($x >= 0) {
+        return $x->copy()->bsub($x->copy()->band($mask))->brsft($n);
+    }
+    my $m = $x->copy()->bneg();				# |x| > 0
+    my $t = $m->badd($mask);				# ceil(|x|/2^n) = (|x|+2^n-1) >> n
+    return $t->copy()->bsub($t->copy()->band($mask))->brsft($n)->bneg();
+}
+
 sub _shr {
     my ($l1, $h1, $l2, $h2) = @_;
     if (!defined $l2 || $l2 < 0) {
@@ -594,27 +613,26 @@ sub _shr {
     }
     ($l2, $h2) = ($l2 > $BOX ? $BOX : $l2->numify(),
                   $h2 > $BOX ? $BOX : $h2->numify());	# shifting further changes nothing
-    unless (_nonneg($l1, $h1)) {
-        # SHR generates Int256_shru, a *logical* shift on the container.  On a
-        # negative value that is (x mod 2^BOX) >> n, not a function of x alone --
-        # the one place the unbounded semantics leaks the box.  The ISA relies on
-        # this: `sraw` is (SHR (SX.32 x) n), whose low 32 bits come out right only
-        # because the sign extension runs all the way up the container and the
-        # store truncates back.  Correct, but box-dependent.  See DOC/Behavior.md
-        # section 3.  The result is whatever a logical shift of BOX bits gives.
-        _report('shr-negative',
-          "SHR on an operand not provably non-negative: Int256_shru shifts in the"
-          . " sign bits of the ${BOX}-bit container, so the result depends on it");
-        return _unsigned($BOX - $l2);
+    # SHR is an ARITHMETIC shift: floor(x / 2^n), a total function of the value and
+    # independent of the container.  It is emitted as Int256_shr for a signed
+    # operand and Int256_shru for a non-negative one (see Behavior.pa); the two
+    # agree on the demanded bits, and on a non-negative operand arithmetic *is*
+    # logical.  So the interval is exact for every operand -- negatives included --
+    # and no longer leaks the box, which retires the old `shr-negative` diagnostic.
+    # See DOC/Behavior.md section 3 and DOC/SHR-split.md.  floor(x/2^n) is monotone
+    # non-decreasing in x and monotone in n, so the extremes are at the corners:
+    # the minimum uses l1, the maximum uses h1, each at whichever shift amount is
+    # extremal for that sign.
+    my ($lo, $hi);
+    if (defined $l1) {
+        my ($a, $b) = (_floor_shr($l1, $l2), _floor_shr($l1, $h2));
+        $lo = $a < $b ? $a : $b;
     }
-    # brsft, not bdiv.  BitString.pm has `use bignum`, which globally sets
-    # Math::BigInt->upgrade('Math::BigFloat') -- so bdiv upgrades to a float and
-    # rounds to div_scale (40) significant digits, and (2^256-1) >> 0 comes back as
-    # 2^256 and change.  Every other operation here is exact and stays in BigInt;
-    # division is the only one that can go inexact, so it is the only one to avoid.
-    # The operand is non-negative on this path, so a bit shift is the floor divide.
-    return (defined $l1 ? $l1->copy()->brsft($h2) : undef,
-            defined $h1 ? $h1->copy()->brsft($l2) : undef);
+    if (defined $h1) {
+        my ($a, $b) = (_floor_shr($h1, $l2), _floor_shr($h1, $h2));
+        $hi = $a > $b ? $a : $b;
+    }
+    return ($lo, $hi);
 }
 
 sub _bitwise {

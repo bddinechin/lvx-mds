@@ -3102,7 +3102,16 @@ sub codegen {
                 push(@$pretty, "${indent}))");
                 last SWITCH;
             }
-            push(@$pretty, "${indent}Int256_shru(");
+            # Int256_shr is an ARITHMETIC shift, Int256_shru a logical one.  Pick
+            # by the operand's reading, exactly as the native path above does, so
+            # the boxed and unboxed generations agree.  Neither depends on the
+            # container width: arithmetic is floor(x/2^n) for any x, and logical on
+            # a non-negative operand equals it.  This retires the box dependence
+            # DOC/Behavior.md section 3 recorded for sraw and its family (the two
+            # functions differ only in bits above the demand).  See DOC/SHR-split.md.
+            my $shrvalue = &ctype($$this[1]);
+            my $shrfn = $$shrvalue{S} ? 'Int256_shr' : 'Int256_shru';
+            push(@$pretty, "${indent}${shrfn}(");
             &codegen_boxed($$this[1], $pretty, $nesting + 1, $context);
             push(@$pretty, "${indent_incremented}, ");
             &codegen_boxed($$this[2], $pretty, $nesting + 1, $context);
