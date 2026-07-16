@@ -760,6 +760,9 @@ sub _cmd {
     } elsif ($operator eq 'WRITE') {
         _write($this, $env);
 
+    } elsif ($operator eq 'BIND') {
+        _bind($this, $env);
+
     } elsif ($operator eq 'STORE') {
         _store($this, $env);
 
@@ -777,6 +780,46 @@ sub _cmd {
 
     } else {
         _report('internal', "unknown Command $operator");
+    }
+}
+
+#
+# BIND destructures a tuple-valued call into ordinary variables, which is how a
+# flag-returning operator hands back (result, flags) -- DOC/FP-helpers.md section 6a.
+#
+# Each element is bounded by its own declared width and by nothing else, exactly as an
+# APPLY's single result is: the helper's arguments say nothing about how wide what it
+# returns is.  So this is a WRITE per name, with the interval coming from the width
+# rather than from an expression, and the bound names are plain Integers from here on --
+# a tuple is never a value, so nothing downstream needs a tuple interval.
+#
+sub _bind {
+    my ($this, $env) = @_;
+    my ($names, $tuple) = @{$this}[1, 2];
+    my ($widths, $name) = @{$tuple}[1, 2];
+    foreach my $argument (@{$tuple}[3 .. $#{$tuple}]) {
+        _value($argument, $env) if ref $argument eq 'ARRAY';
+    }
+    # The tuple half of helper-result: the Helper element and the call are one fact
+    # stated twice, and CodeGen believes the declaration while this believes the call.
+    my $declared = $Result{$name};
+    if (ref $declared eq 'ARRAY') {
+        my $agree = @{$declared} == @{$widths};
+        if ($agree) {
+            for (my $i = 0; $i < @{$widths}; $i++) {
+                $agree = 0 if $declared->[$i] != $widths->[$i];
+            }
+        }
+        _report('helper-result',
+          "APPLY." . join(',', @{$widths}) . ".$name disagrees with the Helper element,"
+          . " which declares " . join(',', @{$declared})
+          . ": the call is typed from the declaration and bounded from the APPLY,"
+          . " so the two must agree")
+          unless $agree;
+    }
+    for (my $i = 0; $i < @{$names}; $i++) {
+        my ($lo, $hi) = _unsigned($widths->[$i]);
+        $env->{$names->[$i]} = { lo=>$lo, hi=>$hi, bits=>undef };
     }
 }
 
@@ -1197,6 +1240,16 @@ sub _dcmd {
     } elsif ($operator eq 'COMMIT') {
         _dexpr($this->[3], $BOX);
         _dexpr($this->[4], $BOX) if ref $this->[4] eq 'ARRAY';
+
+    } elsif ($operator eq 'BIND') {
+        # The names this binds are overwritten here, so whatever was demanded of them
+        # below dies with the bind, exactly as it does at a WRITE.  Nothing propagates
+        # back into the call: the elements' widths are declared, not inferred, so there
+        # is no narrowing for a demand to drive.  The arguments then demand what the
+        # signature says, through the same _dargs an APPLY uses.
+        my ($names, $tuple) = @{$this}[1, 2];
+        delete $Demand{$_} foreach @{$names};
+        _dargs($tuple, $tuple->[2], 3);
 
     } elsif ($operator eq 'EFFECT' || $operator eq 'THROW') {
         # Through _dargs, not a walk of its own: a helper called from a command has a
