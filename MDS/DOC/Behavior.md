@@ -318,6 +318,10 @@ mistake (this pass made it first, and it produced 22 false alarms):
 | `signed` | yes | A sign-reading operator is applied to a value outside the signed 256-bit range, so `Int256_` misreads it. |
 | `section` | yes | A `Section` access (`w[i]`) reaches past the end of the container: `w × (i+1) > 256`. These are the two `die`s that were commented out in `codegen_read`/`codegen_write`. |
 | `extent` | yes | A `STORE`'s `BitField` width disagrees with the width its `Location` implies, or an `F2I.w` disagrees with the `BitField` it reads. |
+| `internal` | yes | The pass met an operator it has no rule for. A gap in the checker, not in the description — but it means the tree went unchecked, so it fails rather than passing quietly. |
+| `helper-truncates` | no | A `Helper` declares an argument narrower than the value handed to it, so it is given only the low *w* bits. Not an error: it is the *description asserting a truncation*, and reporting it is what keeps that assertion visible — §7 (6). Only fires for helpers in expression position (`APPLY`/`TEST`); an `EFFECT` command's are not checked (below). |
+| `apply-nowidth` | no | An `APPLY` declares no result width, so its value cannot be bounded. Now unreachable — the grammar rejects it first (below) — and kept as a backstop. |
+| `shift` | no | A `SHL`/`SHR` by an amount that may be negative, or is unbounded. The interval is abandoned rather than guessed. |
 | `read-partial` | no | A variable read on a path where it was not written. |
 | `read-unknown` | no | A variable read with no reaching `WRITE` at all. |
 
@@ -347,6 +351,7 @@ per-core summary lines add up — `read-partial`'s 156 is 42 + 114, and `read-un
 | `box` | 840 (8 `lvx_v2` instructions) | **0** — the truncation is written down (§3) |
 | `apply-nowidth` | 44 | **0** — the width is mandatory (below) |
 | `shr-negative` | 89 | **0** — retired: `SHR` is container-free (§3), so the diagnostic no longer exists |
+| `helper-truncates` | — | 364 — every one an address, but `EFFECT` helpers go unchecked (below) |
 | `read-partial` | 156 | 156 — benign (below) |
 | `read-unknown` | 1 | **1** — a real bug (below) |
 
@@ -359,6 +364,35 @@ per-core summary lines add up — `read-partial`'s 156 is 42 + 114, and `read-un
   (32). The FP gap of §4 was not only missing bodies: two FP operators did not
   declare how wide their result was. `lvx_v1`'s generated C is byte-identical after
   this — `APPLY`'s width never reached `CodeGen`, it only ever reached the checker.
+
+- **`helper-truncates` has no first-run count because the diagnostic postdates it** —
+  it arrived with the helper signatures of §7 (6), and it exists to keep those honest.
+  A declared width narrower than the value is a truncation, and the reason to report one
+  is that it is the *description making a claim*, not the checker finding a fault. So the
+  useful question is not how many there are but whether they are all the same claim, and
+  of the ones that *are checked*, they are: all **364** (142 `lvx_v1` + 222 `lvx_v2`) are
+  **argument 1 of a `MEM_*` helper** — `MEM_load` and the twelve `MEM_atomic_*` — declared
+  64 bits. That is the one architectural claim §7 (6) makes: an address is 64 bits, while
+  base + a signed offset needs 66.
+
+  **But the check has a hole, and the count is not evidence of what it looks like.** A
+  helper called from an `EFFECT` in *command* position is never checked at all, so its
+  declared width is unverified: `_dcmd`'s `EFFECT`/`THROW` arm walks the arguments itself
+  and demands ⊤ from each, never reaching the signature lookup in `_dexpr` — whose own
+  `EFFECT`/`THROW` arm is consequently dead code, since an `EFFECT` is a command and no
+  caller ever hands one to `_dexpr`. So `MEM_store` (24 sites on `lvx_v1`) and
+  `branch_info` (18) report nothing despite declaring the same 64-bit address that
+  `MEM_load` reports on 36 times. `MEM_load` is checked only because it is an `APPLY`,
+  i.e. an expression.
+
+  This costs more than the missing diagnostic, and §6 already measured the symptom
+  without naming the cause: the demand does not narrow either, so `branch_info`'s
+  program-counter argument keeps ⊤, the `address` variable it reads demands ⊤ with it,
+  and **the branch-target `ADD` stays boxed** — which is precisely the "boxed because a
+  helper argument demands ⊤" that §6 records for the 144 `Int256_add` still remaining
+  after signatures. `GOTO` shows both readings of one variable side by side: the `STORE`'s
+  `I2F.64` narrows its `READ.address` to `dm:64`, while `branch_info`'s `READ.address`
+  carries no `dm` at all.
 
 - **`read-unknown` is a real bug, and it is worse than "nothing anywhere fails".**
   `FNARROWDWQ` reads `ziplanes`, but its format `ALU_FWQWR` declares the `ziplanes`
