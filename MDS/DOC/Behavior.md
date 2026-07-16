@@ -338,6 +338,10 @@ lint for *unintended* truncation would need an annotation to tell the two apart.
 
 ### What it found, and what is left
 
+Counts are **both cores summed** (`lvx_v1` + `lvx_v2`), which is how the pass's own
+per-core summary lines add up — `read-partial`'s 156 is 42 + 114, and `read-unknown`'s
+1 is 0 + 1, the `lvx_v2`-only bug below.
+
 | | first run | now |
 |---|---|---|
 | `box` | 840 (8 `lvx_v2` instructions) | **0** — the truncation is written down (§3) |
