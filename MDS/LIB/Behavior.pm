@@ -50,7 +50,7 @@ use strict;
 require Exporter;
 our @ISA = qw(Exporter MDS);
 our @EXPORT = qw(
-  Error Check Constant Storage Symbol Reorder Normalize Simplify Clone Expand Parallel Collate Pretty CodeGen
+  Error Check Constant Storage Symbol Reorder Normalize Simplify Clone Expand Parallel proxyActions Pretty CodeGen
   F2I I2F B2I I2B SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL NOTL ANDL IORL XORL MIN MAX NOT NEG ABS
   SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX ABS NE EQ GT LE GE LT TRUE FALSE TEST
   UNDEF CONST METHOD APPLY EFFECT THROW WRITE READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB
@@ -2006,36 +2006,77 @@ sub uniq {
 }
 
 #
-# Collate all paths in the Behavior syntax tree and prune type casting nodes.
-# This method will eventually go to Semantics, because the results of Collate
-# are used to compute the summary properties of Operator(s) and Parameter(s).
+# Infer the read/write action of each operand proxy (METHOD.%N) directly from the
+# Behavior syntax tree, for the summary properties of Operator(s) and Parameter(s).
+# This method will eventually go to Semantics.
 #
-sub Collate {
-    my ($tree) = @_;
-    my $collate = [ ];
-    &collate($tree, [ ], $collate);
-    return $collate;
+# A single top-down traversal carries down the small context each METHOD leaf needs,
+# so the tree is visited once (O(nodes)) with no path materialization.  It replaces
+# the former Collate, which enumerated one full root-to-node path per node and then
+# re-parsed those strings: Theta(nodes * depth) at best, and it re-traversed shared
+# DAG subtrees once per incoming path (the Simplify SELECT-hoisting shares branch
+# arms), so it could blow up superlinearly.  The four inference rules are matched
+# structurally during descent instead:
+#
+#   * a METHOD in the location (array-child 0) of the nearest enclosing LOAD/STORE
+#     is a Read/Write at that node's stage (nearest wins, so a deeper LOAD/STORE
+#     overrides an outer one);
+#   * else a METHOD whose nearest non-coercion parent is SX/ZX is a Read;
+#   * else a METHOD naming an Immediate is a Read;
+#   * else it is a direct use of METHOD in Behavior and is ignored.
+#
+# F2I/I2F/B2I/I2B coercion nodes are transparent to the SX/ZX-parent test and to the
+# ancestor depth, exactly as the former path filtering made them.
+#
+# Returns { '%N' => { Read|Write => { STAGE => s } } }.
+#
+sub proxyActions {
+    my ($tree, $proxyMethodID) = @_;
+    my %action;
+    &proxyActionsWalk($tree, $proxyMethodID, \%action, undef, undef, undef, 0);
+    return \%action;
 }
 
-sub collate {
-    my ($tree, $path, $collate) = @_;
-    my ($index, @value) = (0);
-    map {
-        if (ref $_ eq 'ARRAY') {
-            my $value = join '.', @value;
-            push @{$path}, $value."[$index]";
-            &collate($_, $path, $collate);
-            pop @{$path};
-            $index++;
-        } elsif (!ref $_) {
-            push @value, $_;
-        }
-      } @{$tree};
-    my $value = join '.', @value;
-    my @path = grep {
-        !/^(F2I|I2F|B2I|I2B)/
-      } (@{$path}, $value);
-    push @{$collate}, [ @path ];
+# $act/$stage: action+stage of the nearest enclosing LOAD/STORE location (undef if none).
+# $parent:     label of the nearest non-coercion ancestor (undef at the root).
+# $nca:        number of non-coercion ancestors (matches the former filtered path depth).
+sub proxyActionsWalk {
+    my ($tree, $proxyMethodID, $action, $act, $stage, $parent, $nca) = @_;
+    return unless ref $tree eq 'ARRAY';
+    my $label = join '.', grep { !ref } @{$tree};
+
+    if ($label =~ /^METHOD\.(\%\d+(:\d+)?)$/) {
+        my $proxy = $1;
+        my $methodID = $$proxyMethodID{$proxy};
+        if (defined $act) {
+            $action->{$proxy}{$act}->{STAGE} = $stage;
+        } elsif ($nca >= 2 && defined $parent && $parent =~ /^[SZ]X\b/) {
+            $action->{$proxy}{Read}->{STAGE} = 0;
+        } elsif (defined $methodID && $methodID =~ /^Immediate/) {
+            $action->{$proxy}{Read}->{STAGE} = 0;
+        } # Else a direct use of METHOD in Behavior, ignore.
+        return;
+    }
+
+    # A LOAD.<stage>/STORE.<stage> hands its location (array-child 0) a Read/Write.
+    my ($lsact, $lsstage);
+    if ($label =~ /^(LOAD|STORE)\.(\d*)$/) {
+        $lsact   = $1 eq 'STORE' ? 'Write' : 'Read';
+        $lsstage = $2 || 0;
+    }
+
+    my $coercion    = ($label =~ /^(F2I|I2F|B2I|I2B)/);
+    my $childparent = $coercion ? $parent : $label;
+    my $childnca    = $coercion ? $nca : $nca + 1;
+
+    my $arrayindex = 0;
+    foreach my $child (@{$tree}) {
+        next unless ref $child eq 'ARRAY';
+        my ($ca, $cs) =
+          (defined $lsact && $arrayindex == 0) ? ($lsact, $lsstage) : ($act, $stage);
+        &proxyActionsWalk($child, $proxyMethodID, $action, $ca, $cs, $childparent, $childnca);
+        $arrayindex++;
+    }
 }
 
 #

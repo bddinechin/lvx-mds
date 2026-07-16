@@ -447,34 +447,8 @@ sub implicitParameters {
 # Map the METHOD references to Parameter(s).
 sub explicitParameters {
     my ($tree, $proxyMethodID, $properties, $parameters, $opcodeID) = @_;
-    # Use the collated tree to infer proxy action(s).
-    my %action;
-    my $collate = &Collate($tree);
-    if (defined $collate) {
-        foreach my $path (@{$collate}) {
-            #{ local $, = ' '; print STDERR "Collate:", @{$path}, "\n"; }
-            my $leaf = $path->[-1];
-            if ($leaf =~ /^METHOD\.(\%\d+(:\d+)?)$/) {
-                my $proxy = $1;
-                my $methodID = $$proxyMethodID{$proxy};
-                my @loadstore = grep {/^(LOAD|STORE)\.(\d*)\[0\]$/} reverse @{$path};
-                if (@loadstore) {
-                    if ($loadstore[0] =~ /^LOAD\.(\d*)\[0\]$/) {
-                        my $stage = $1 || 0;
-                        $action{$proxy}{Read}->{STAGE} = $stage;
-                    } elsif ($loadstore[0] =~ /^STORE\.(\d*)\[0\]$/) {
-                        my $stage = $1 || 0;
-                        $action{$proxy}{Write}->{STAGE} = $stage;
-                    }
-                } elsif (@{$path} > 2 && $path->[-2] =~ /^[SZ]X\b/) {
-                    $action{$proxy}{Read}->{STAGE} = 0;
-                } elsif (defined $methodID && $methodID =~ /^Immediate/) {
-#print STDERR "Missing ZX or SX for proxy $proxy ($$proxyMethodID{$proxy}) in $opcodeID\n";
-                    $action{$proxy}{Read}->{STAGE} = 0;
-                } # Else must be a direct use of METHOD in Behavior, ignore.
-            }
-        }
-    }
+    # Infer proxy action(s) by pattern-matching the Behavior syntax tree.
+    my %action = %{ &proxyActions($tree, $proxyMethodID) };
     # Iterate the @proxies in order and make Parameter(s).
     #print STDERR "proxyMethodID:\n";
     foreach my $proxy (sort keys %$proxyMethodID) {
