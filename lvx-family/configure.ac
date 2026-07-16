@@ -113,12 +113,6 @@ AC_ARG_WITH([mppadl_prefix],
   [MPPADLDIR="$ABSPATH/BE"])
 AC_SUBST(MPPADLDIR)
 
-AC_ARG_WITH([o64_prefix],
-  [AS_HELP_STRING([--with-o64-prefix],[Set O64 prefix for install])],
-  [O64DIR="$with_o64_prefix"],
-  [O64DIR="$ABSPATH/BE"])
-AC_SUBST(O64DIR)
-
 AC_ARG_WITH([gcc_prefix],
   [AS_HELP_STRING([--with-gcc-prefix],[Set GCC prefix for install])],
   [GCCDIR="$with_gcc_prefix"],

@@ -113,7 +113,7 @@ my @names = split ' ', $register->attribute("names");
   (`RegClass_lvx_v1_singleReg`, the form gbu.pl puts in `include/opcode/lvx.h`),
   it takes `->attribute("ID")` and hand-substitutes: `(my $c = $id) =~
   s/[-.]/_/g`. This `s/\W/_/`-style sanitisation is hand-rolled **~40 times**
-  across `gbu*.pl`, `gen-parse-table.pl`, `LAO/Operator.pl`, `TargInfo.pm`, …
+  across `gbu*.pl`, `gen-parse-table.pl`, `LAO/Operator.pl`, …
 
 **The multi-core parse loop.** Two dialects. Most `LAO/*.pl` parse a single
 concatenated stream — `&MDS::parse(*ARGV)` — and never loop. The GBU/GDB/GCC
