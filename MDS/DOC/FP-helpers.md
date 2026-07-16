@@ -173,6 +173,80 @@ single correct rounding, with the inexactness reported as a returned value rathe
 raised global. Behavior can do all three natively. §4's flag-returning sketch is the same
 shape as MPFR's ternary value, arrived at independently.
 
+## 6a. The flag encoding: tuples, not packing
+
+**Decided: `APPLY` returns a tuple, and `Behavior` gets the grammar for it.** This
+supersedes §4's sketch, which packs (result, flags) into one wider integer and notes
+"Behavior needs no grammar change to do it". That was true, and it is the wrong trade.
+
+**Why packing fails, and it fails on f64.** The rule "double the format width, low half
+result, high half flags" gives:
+
+| | `APPLY` | layout | C type | |
+|---|---|---|---|---|
+| FP16 | `APPLY.32.f16_add` | `16[0]`, `16[1]` | `uint32_t` | free |
+| FP32 | `APPLY.64.f32_add` | `32[0]`, `32[1]` | `uint64_t` | free — the case §4 sketched |
+| FP64 | `APPLY.128.f64_add` | `64[0]`, `64[1]` | **`Int256_`** | **boxes** |
+
+`_ctype_native`'s ladder is 8/16/32/64 and `_signature_result` boxes anything above 64,
+so widening f64's result crosses the container and every f64 FP operation starts
+returning a 32-byte union where it now returns a native `uint64_t` — 13 helpers, 38 sites
+on `lvx_v2`, and in an lvx_v3 8-lane masked FP64, eight boxed returns per instruction. It
+is **not** fixable by shrinking the flag field: f64's result already fills a native 64-bit
+type, so result + *any* flag bits exceeds 64. Five bits or sixty-four, same box. Packing
+inherently boxes the widest format, which is the one that matters.
+
+**A tuple dissolves it**, because the elements are typed independently: `(64, 5)` is a
+`uint64_t` and a `uint8_t`, both native, nothing crossing the container. The
+`unsigned __int128` escape hatch that packing would have needed is not needed.
+
+Two further reasons, either sufficient:
+
+- **It is what Sail does**, which §4 itself cites: *"its soft-float interface returns
+  `(fflags, value)` pairs rather than touching a global."* The tuple exports to a Sail
+  back-end as-is; the packed form exports as arithmetic on a 128-bit integer that Sail
+  must un-pack before it means anything.
+- **It puts the convention in the type rather than in folklore.** "The flags live in
+  `32[1]`" is something 57 operators and every future reader must remember, and nothing
+  checks. `result: [64, 5]` is checked (`helper-result`, §5).
+
+**The shape: a scalar helper per lane; the description assembles the vectors.** The helper
+stays one per format — `f64_add` is `(64, 5)`, not `f64_add_v8` — and the `FOR` body binds
+its two results, writes the result lane, and writes the flag lane. The instruction's
+"vector of results, vector of flags" is built by the description, and CS takes an
+OR-reduction over the *active* lanes of the flag vector. The alternative — a vectorized
+helper returning both vectors — was rejected: it multiplies the helper population by lane
+count (format × 1/2/4/8/16), and an 8-lane FP64 result vector is 512 bits, which drags
+lvx_v3's container question into the helper ABI. Keep that question in the register model
+where it belongs.
+
+**Containment is the design rule: a tuple is destructured at its binding site and is never
+a first-class value.** The two results become ordinary Integer variables immediately, so
+`Width.pm` still bounds one interval per variable, `ctype` needs no tuple type, and the
+blast radius stays at `APPLY` + the binding command + the helper prototype. If tuples were
+allowed to flow through expressions, be stored, or be passed on, the interval analysis and
+the type map would both need tuple support — a far larger change for no gain here.
+
+**The deltas.**
+
+- `DOC/Behavior.y`: `Widths : Width | Widths ',' Width` and a binding command taking more
+  than one `Variable`. `,` is already a token (`Attributes`), and both are LALR(1) — after
+  an `INTNUM`, a `,` continues the list and a `.` reduces it.
+- `LIB/Behavior.pa`: the matching `#rule`s and actions, then regenerate `LIB/Behavior.pm`.
+  **`#rule` must start in column 0** and the regeneration must reproduce byte-identically —
+  see `Behavior.md`'s "Generated files and their toolchain pins".
+- **The tree shape is the decision that touches every consumer.** `WRITE` currently builds
+  `[ 'WRITE', $section, $name, $expr ]` and `$name` is a scalar. A tuple bind must not
+  silently turn it into an ARRAY ref: a new command node, distinguishable on `$this->[0]`,
+  leaves every existing tree byte-identical and makes unported consumers fail loudly
+  rather than quietly.
+- `DOC/MDD.dtd`: `result NMTOKEN` becomes `NMTOKENS`, symmetric with `arguments NMTOKENS`
+  — so `result: [64, 5]`. Regenerate `LIB/MDD.pm` (`make -f Maintainer MDD.pm`).
+- `Width.pm`: `helper-result` generalizes from comparing two scalars to comparing two
+  lists. It is worth more under tuples than it was under packing.
+- `CodeGen`: a struct return, or out-parameters. `BE/LAO/TEST`'s `genstubs.py` and
+  `BE/GEM5`'s `helper_stubs.inc` follow the prototype.
+
 ## 7. Recommendation, in order
 
 0. **Make `Helper`'s `result` checkable** — *done*. The convention in (1) works by
@@ -186,14 +260,24 @@ shape as MPFR's ternary value, arrived at independently.
    plan is made of. Now `helper-result`, and fatal (§5). It fires on nothing today —
    `result` is declared nowhere — so it is a pure safety net for what follows.
 
-1. **The flag-returning convention, on one operator, end to end.** This is the
-   load-bearing decision and it is provable *before* any FP body is written: 57 operators
-   will depend on it, and changing it afterwards is expensive. §4 shows the shape and
-   notes Behavior needs no grammar change. It can be proved with the **body still an
-   opaque helper** — widen `f32_add` to return (result, flags), express the CS
-   accumulation as ordinary masked data flow, and the global flag leaves the
-   *description's* semantics even though the C still has one. Differentially testable at
-   every step.
+1. **Tuple returns in the grammar** (§6a), then **the flag-returning convention on one
+   operator, end to end.** This is the load-bearing decision and it is provable *before*
+   any FP body is written: 57 operators will depend on it, and changing it afterwards is
+   expensive. It can be proved with the **body still an opaque helper** — give `f32_add`
+   `result: [32, 5]`, bind its two results in the `FOR` body, express the CS accumulation
+   as an OR-reduction over the active lanes, and the global flag leaves the
+   *description's* semantics even though the C still has one.
+
+   `f32_add` is the right first operator: its six call sites are scalar `FADDW`, 2-lane
+   `FADDWP`, 4-lane `FADDWQ`, complex `FADDWC` and NaN-boxed `FADD.S`, so one conversion
+   exercises the scalar, lane and reduction paths. And because `result` must agree with
+   every `APPLY` (`helper-result`, step 0), the six move together or the build fails.
+
+   **This step is not behaviour-preserving and must not be measured as if it were.** It
+   adds CS writes that the description has never had, so `refs` and the differential
+   traces *will* move; the safety net is review and the width analysis, not trace
+   equality. That is the one place in this plan where `BE/LAO/TEST`'s usual question —
+   "does it still compute the same thing?" — is the wrong question.
 2. **`round_once(p, emin, emax)` in Behavior**, and the unpack/pack primitives around it.
    The shared machinery of §6, and the point at which `.RM` and `.RO` stop being someone
    else's problem.

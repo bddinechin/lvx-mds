@@ -219,6 +219,14 @@ unbounded integers and `Section` slicing already exists, a flag-returning operat
 is just an operator that returns a *wider* integer, with the caller extracting
 fields:
 
+> **Superseded — `DOC/FP-helpers.md` §6a.** True, and the wrong trade: the packing
+> below is free for f16 and f32 and **boxes f64**, whose result already fills a native
+> 64-bit type, so result + *any* flag bits crosses the container. `APPLY` returns a
+> **tuple** instead, which types the two elements independently, matches the `(fflags,
+> value)` pair this section cites Sail's RISC-V model for, and puts the convention in the
+> type rather than in a `32[1]` folklore that 57 operators must remember. The sketch below
+> is still the right *shape* — read it for the masked accumulation, not the encoding.
+
 ```
 (FOR.I (RANGE.4)
   (SEQ
