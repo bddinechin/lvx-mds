@@ -502,126 +502,141 @@ sub {
   undef;
 },
 # rule 77
-# type_specifier -> NEW
+# init_declarator -> '(' declarator_list ')' '=' initializer
 sub {
   undef;
 },
 # rule 78
-# declarator -> direct_declarator
+# declarator_list -> declarator ',' declarator
 sub {
   undef;
 },
 # rule 79
-# direct_declarator -> IDENTIFIER
+# declarator_list -> declarator_list ',' declarator
 sub {
   undef;
 },
 # rule 80
-# direct_declarator -> '(' declarator ')'
+# type_specifier -> NEW
 sub {
   undef;
 },
 # rule 81
-# initializer -> assignment_expression
+# declarator -> direct_declarator
 sub {
   undef;
 },
 # rule 82
-# statement -> labeled_statement
+# direct_declarator -> IDENTIFIER
 sub {
   undef;
 },
 # rule 83
-# statement -> compound_statement
+# direct_declarator -> '(' declarator ')'
 sub {
   undef;
 },
 # rule 84
-# statement -> expression_statement
+# initializer -> assignment_expression
 sub {
   undef;
 },
 # rule 85
-# statement -> selection_statement
+# statement -> labeled_statement
 sub {
   undef;
 },
 # rule 86
-# statement -> iteration_statement
+# statement -> compound_statement
 sub {
   undef;
 },
 # rule 87
-# labeled_statement -> IDENTIFIER ':' statement
+# statement -> expression_statement
 sub {
   undef;
 },
 # rule 88
-# compound_statement -> '{' '}'
+# statement -> selection_statement
 sub {
   undef;
 },
 # rule 89
-# compound_statement -> '{' block_item_list '}'
+# statement -> iteration_statement
 sub {
   undef;
 },
 # rule 90
-# block_item_list -> block_item
+# labeled_statement -> IDENTIFIER ':' statement
 sub {
   undef;
 },
 # rule 91
-# block_item_list -> block_item_list block_item
+# compound_statement -> '{' '}'
 sub {
   undef;
 },
 # rule 92
-# block_item -> declaration
+# compound_statement -> '{' block_item_list '}'
 sub {
   undef;
 },
 # rule 93
-# block_item -> statement
+# block_item_list -> block_item
 sub {
   undef;
 },
 # rule 94
-# block_item -> STAGE CONSTANT ':'
+# block_item_list -> block_item_list block_item
 sub {
   undef;
 },
 # rule 95
-# expression_statement -> ';'
+# block_item -> declaration
 sub {
   undef;
 },
 # rule 96
-# expression_statement -> expression ';'
+# block_item -> statement
 sub {
   undef;
 },
 # rule 97
-# selection_statement -> IF '(' expression ')' statement
+# block_item -> STAGE CONSTANT ':'
 sub {
   undef;
 },
 # rule 98
-# selection_statement -> IF '(' expression ')' statement ELSE statement
+# expression_statement -> ';'
 sub {
   undef;
 },
 # rule 99
-# iteration_statement -> FOR '(' IDENTIFIER RANGE CONSTANT ')' statement
+# expression_statement -> expression ';'
 sub {
   undef;
 },
 # rule 100
-# iteration_statement -> FOR '(' IDENTIFIER RANGE CONSTANT ',' CONSTANT ')' statement
+# selection_statement -> IF '(' expression ')' statement
 sub {
   undef;
 },
 # rule 101
+# selection_statement -> IF '(' expression ')' statement ELSE statement
+sub {
+  undef;
+},
+# rule 102
+# iteration_statement -> FOR '(' IDENTIFIER RANGE CONSTANT ')' statement
+sub {
+  undef;
+},
+# rule 103
+# iteration_statement -> FOR '(' IDENTIFIER RANGE CONSTANT ',' CONSTANT ')' statement
+sub {
+  undef;
+},
+# rule 104
 # execution_definition -> block_item_list
 sub {
   undef;
@@ -686,7 +701,7 @@ our @act = (
   '$default'=>['reduce','2'],
 },
 {# state 3
-  '$default'=>['reduce','77'],
+  '$default'=>['reduce','80'],
 },
 {# state 4
   'CONSTANT'=>['shift','49'],
@@ -781,7 +796,7 @@ our @act = (
   '$default'=>['reduce','23'],
 },
 {# state 16
-  '$default'=>['reduce','95'],
+  '$default'=>['reduce','98'],
 },
 {# state 17
   '!'=>['shift','15'],
@@ -938,7 +953,7 @@ our @act = (
   ';'=>['shift','96'],
 },
 {# state 36
-  '$default'=>['reduce','92'],
+  '$default'=>['reduce','95'],
 },
 {# state 37
   '('=>['shift','98'],
@@ -956,17 +971,17 @@ our @act = (
   'type_specifier'=>['goto','38'],
 },
 {# state 39
-  '$default'=>['reduce','93'],
+  '$default'=>['reduce','96'],
 },
 {# state 40
-  '$default'=>['reduce','82'],
+  '$default'=>['reduce','85'],
 },
 {# state 41
-  '$default'=>['reduce','83'],
+  '$default'=>['reduce','86'],
 },
 {# state 42
   '!'=>['shift','15'],
-  '$default'=>['reduce','101'],
+  '$default'=>['reduce','104'],
   '('=>['shift','9'],
   '+'=>['shift','12'],
   '++'=>['shift','10'],
@@ -1013,16 +1028,16 @@ our @act = (
   '~'=>['shift','14'],
 },
 {# state 43
-  '$default'=>['reduce','90'],
+  '$default'=>['reduce','93'],
 },
 {# state 44
-  '$default'=>['reduce','84'],
+  '$default'=>['reduce','87'],
 },
 {# state 45
-  '$default'=>['reduce','85'],
+  '$default'=>['reduce','88'],
 },
 {# state 46
-  '$default'=>['reduce','86'],
+  '$default'=>['reduce','89'],
 },
 {# state 47
   '$end'=>['shift','106'],
@@ -1118,7 +1133,7 @@ our @act = (
   '$default'=>['reduce','18'],
 },
 {# state 56
-  '$default'=>['reduce','88'],
+  '$default'=>['reduce','91'],
 },
 {# state 57
   '!'=>['shift','15'],
@@ -1727,73 +1742,74 @@ our @act = (
   '~'=>['shift','14'],
 },
 {# state 96
-  '$default'=>['reduce','96'],
+  '$default'=>['reduce','99'],
 },
 {# state 97
-  '$default'=>['reduce','79'],
+  '$default'=>['reduce','82'],
 },
 {# state 98
-  '('=>['shift','98'],
+  '('=>['shift','139'],
   'IDENTIFIER'=>['shift','97'],
-  'declarator'=>['goto','139'],
+  'declarator'=>['goto','141'],
+  'declarator_list'=>['goto','140'],
   'direct_declarator'=>['goto','103'],
 },
 {# state 99
   '$default'=>['reduce','69'],
 },
 {# state 100
-  ','=>['shift','140'],
-  ';'=>['shift','141'],
+  ','=>['shift','142'],
+  ';'=>['shift','143'],
 },
 {# state 101
   '$default'=>['reduce','73'],
 },
 {# state 102
   '$default'=>['reduce','75'],
-  '='=>['shift','142'],
+  '='=>['shift','144'],
 },
 {# state 103
-  '$default'=>['reduce','78'],
+  '$default'=>['reduce','81'],
 },
 {# state 104
   '$default'=>['reduce','72'],
 },
 {# state 105
-  '$default'=>['reduce','91'],
+  '$default'=>['reduce','94'],
 },
 {# state 106
   '$default'=>['accept','undef'],
 },
 {# state 107
-  '$default'=>['reduce','87'],
+  '$default'=>['reduce','90'],
 },
 {# state 108
-  '$default'=>['reduce','94'],
+  '$default'=>['reduce','97'],
 },
 {# state 109
-  ')'=>['shift','143'],
+  ')'=>['shift','145'],
 },
 {# state 110
-  'RANGE'=>['shift','144'],
+  'RANGE'=>['shift','146'],
 },
 {# state 111
   '$default'=>['reduce','3'],
 },
 {# state 112
-  '$default'=>['reduce','89'],
+  '$default'=>['reduce','92'],
 },
 {# state 113
   '$default'=>['reduce','8'],
 },
 {# state 114
-  ')'=>['shift','145'],
-  ','=>['shift','146'],
+  ')'=>['shift','147'],
+  ','=>['shift','148'],
 },
 {# state 115
   '$default'=>['reduce','14'],
 },
 {# state 116
-  ']'=>['shift','147'],
+  ']'=>['shift','149'],
 },
 {# state 117
   '$default'=>['reduce','10'],
@@ -1891,22 +1907,33 @@ our @act = (
   '&&'=>['shift','93'],
 },
 {# state 138
-  ':'=>['shift','148'],
+  ':'=>['shift','150'],
 },
 {# state 139
-  ')'=>['shift','149'],
+  '('=>['shift','139'],
+  'IDENTIFIER'=>['shift','97'],
+  'declarator'=>['goto','151'],
+  'direct_declarator'=>['goto','103'],
 },
 {# state 140
+  ')'=>['shift','152'],
+  ','=>['shift','153'],
+},
+{# state 141
+  ')'=>['shift','154'],
+  ','=>['shift','155'],
+},
+{# state 142
   '('=>['shift','98'],
   'IDENTIFIER'=>['shift','97'],
   'declarator'=>['goto','102'],
   'direct_declarator'=>['goto','103'],
-  'init_declarator'=>['goto','150'],
+  'init_declarator'=>['goto','156'],
 },
-{# state 141
+{# state 143
   '$default'=>['reduce','70'],
 },
-{# state 142
+{# state 144
   '!'=>['shift','15'],
   '('=>['shift','9'],
   '+'=>['shift','12'],
@@ -1919,13 +1946,13 @@ our @act = (
   'PROXY'=>['shift','5'],
   'additive_expression'=>['goto','24'],
   'and_expression'=>['goto','28'],
-  'assignment_expression'=>['goto','151'],
+  'assignment_expression'=>['goto','157'],
   'cast_expression'=>['goto','22'],
   'conditional_expression'=>['goto','33'],
   'equality_expression'=>['goto','27'],
   'exclusive_or_expression'=>['goto','29'],
   'inclusive_or_expression'=>['goto','30'],
-  'initializer'=>['goto','152'],
+  'initializer'=>['goto','158'],
   'logical_and_expression'=>['goto','31'],
   'logical_or_expression'=>['goto','32'],
   'multiplicative_expression'=>['goto','23'],
@@ -1937,7 +1964,7 @@ our @act = (
   'unary_operator'=>['goto','21'],
   '~'=>['shift','14'],
 },
-{# state 143
+{# state 145
   '!'=>['shift','15'],
   '('=>['shift','9'],
   '+'=>['shift','12'],
@@ -1972,50 +1999,17 @@ our @act = (
   'relational_expression'=>['goto','26'],
   'selection_statement'=>['goto','45'],
   'shift_expression'=>['goto','25'],
-  'statement'=>['goto','153'],
+  'statement'=>['goto','159'],
   'unary_expression'=>['goto','20'],
   'unary_operator'=>['goto','21'],
   '{'=>['shift','17'],
   '~'=>['shift','14'],
 },
-{# state 144
-  'CONSTANT'=>['shift','154'],
-},
-{# state 145
-  '$default'=>['reduce','9'],
-},
 {# state 146
-  '!'=>['shift','15'],
-  '('=>['shift','9'],
-  '+'=>['shift','12'],
-  '++'=>['shift','10'],
-  '-'=>['shift','13'],
-  '--'=>['shift','11'],
-  'CONSTANT'=>['shift','2'],
-  'IDENTIFIER'=>['shift','52'],
-  'METHOD'=>['shift','6'],
-  'PROXY'=>['shift','5'],
-  'additive_expression'=>['goto','24'],
-  'and_expression'=>['goto','28'],
-  'assignment_expression'=>['goto','155'],
-  'cast_expression'=>['goto','22'],
-  'conditional_expression'=>['goto','33'],
-  'equality_expression'=>['goto','27'],
-  'exclusive_or_expression'=>['goto','29'],
-  'inclusive_or_expression'=>['goto','30'],
-  'logical_and_expression'=>['goto','31'],
-  'logical_or_expression'=>['goto','32'],
-  'multiplicative_expression'=>['goto','23'],
-  'postfix_expression'=>['goto','19'],
-  'primary_expression'=>['goto','18'],
-  'relational_expression'=>['goto','26'],
-  'shift_expression'=>['goto','25'],
-  'unary_expression'=>['goto','20'],
-  'unary_operator'=>['goto','21'],
-  '~'=>['shift','14'],
+  'CONSTANT'=>['shift','160'],
 },
 {# state 147
-  '$default'=>['reduce','7'],
+  '$default'=>['reduce','9'],
 },
 {# state 148
   '!'=>['shift','15'],
@@ -2030,8 +2024,41 @@ our @act = (
   'PROXY'=>['shift','5'],
   'additive_expression'=>['goto','24'],
   'and_expression'=>['goto','28'],
+  'assignment_expression'=>['goto','161'],
   'cast_expression'=>['goto','22'],
-  'conditional_expression'=>['goto','156'],
+  'conditional_expression'=>['goto','33'],
+  'equality_expression'=>['goto','27'],
+  'exclusive_or_expression'=>['goto','29'],
+  'inclusive_or_expression'=>['goto','30'],
+  'logical_and_expression'=>['goto','31'],
+  'logical_or_expression'=>['goto','32'],
+  'multiplicative_expression'=>['goto','23'],
+  'postfix_expression'=>['goto','19'],
+  'primary_expression'=>['goto','18'],
+  'relational_expression'=>['goto','26'],
+  'shift_expression'=>['goto','25'],
+  'unary_expression'=>['goto','20'],
+  'unary_operator'=>['goto','21'],
+  '~'=>['shift','14'],
+},
+{# state 149
+  '$default'=>['reduce','7'],
+},
+{# state 150
+  '!'=>['shift','15'],
+  '('=>['shift','9'],
+  '+'=>['shift','12'],
+  '++'=>['shift','10'],
+  '-'=>['shift','13'],
+  '--'=>['shift','11'],
+  'CONSTANT'=>['shift','2'],
+  'IDENTIFIER'=>['shift','52'],
+  'METHOD'=>['shift','6'],
+  'PROXY'=>['shift','5'],
+  'additive_expression'=>['goto','24'],
+  'and_expression'=>['goto','28'],
+  'cast_expression'=>['goto','22'],
+  'conditional_expression'=>['goto','162'],
   'equality_expression'=>['goto','27'],
   'exclusive_or_expression'=>['goto','29'],
   'inclusive_or_expression'=>['goto','30'],
@@ -2046,125 +2073,49 @@ our @act = (
   'unary_operator'=>['goto','21'],
   '~'=>['shift','14'],
 },
-{# state 149
-  '$default'=>['reduce','80'],
-},
-{# state 150
-  '$default'=>['reduce','74'],
-},
 {# state 151
-  '$default'=>['reduce','81'],
+  ')'=>['shift','154'],
 },
 {# state 152
-  '$default'=>['reduce','76'],
+  '='=>['shift','163'],
 },
 {# state 153
-  '$default'=>['reduce','97'],
-  'ELSE'=>['shift','157'],
+  '('=>['shift','139'],
+  'IDENTIFIER'=>['shift','97'],
+  'declarator'=>['goto','164'],
+  'direct_declarator'=>['goto','103'],
 },
 {# state 154
-  ')'=>['shift','158'],
-  ','=>['shift','159'],
+  '$default'=>['reduce','83'],
 },
 {# state 155
-  '$default'=>['reduce','15'],
+  '('=>['shift','139'],
+  'IDENTIFIER'=>['shift','97'],
+  'declarator'=>['goto','165'],
+  'direct_declarator'=>['goto','103'],
 },
 {# state 156
-  '$default'=>['reduce','54'],
+  '$default'=>['reduce','74'],
 },
 {# state 157
-  '!'=>['shift','15'],
-  '('=>['shift','9'],
-  '+'=>['shift','12'],
-  '++'=>['shift','10'],
-  '-'=>['shift','13'],
-  '--'=>['shift','11'],
-  ';'=>['shift','16'],
-  'CONSTANT'=>['shift','2'],
-  'FOR'=>['shift','8'],
-  'IDENTIFIER'=>['shift','1'],
-  'IF'=>['shift','7'],
-  'METHOD'=>['shift','6'],
-  'PROXY'=>['shift','5'],
-  'additive_expression'=>['goto','24'],
-  'and_expression'=>['goto','28'],
-  'assignment_expression'=>['goto','34'],
-  'cast_expression'=>['goto','22'],
-  'compound_statement'=>['goto','41'],
-  'conditional_expression'=>['goto','33'],
-  'equality_expression'=>['goto','27'],
-  'exclusive_or_expression'=>['goto','29'],
-  'expression'=>['goto','35'],
-  'expression_statement'=>['goto','44'],
-  'inclusive_or_expression'=>['goto','30'],
-  'iteration_statement'=>['goto','46'],
-  'labeled_statement'=>['goto','40'],
-  'logical_and_expression'=>['goto','31'],
-  'logical_or_expression'=>['goto','32'],
-  'multiplicative_expression'=>['goto','23'],
-  'postfix_expression'=>['goto','19'],
-  'primary_expression'=>['goto','18'],
-  'relational_expression'=>['goto','26'],
-  'selection_statement'=>['goto','45'],
-  'shift_expression'=>['goto','25'],
-  'statement'=>['goto','160'],
-  'unary_expression'=>['goto','20'],
-  'unary_operator'=>['goto','21'],
-  '{'=>['shift','17'],
-  '~'=>['shift','14'],
+  '$default'=>['reduce','84'],
 },
 {# state 158
-  '!'=>['shift','15'],
-  '('=>['shift','9'],
-  '+'=>['shift','12'],
-  '++'=>['shift','10'],
-  '-'=>['shift','13'],
-  '--'=>['shift','11'],
-  ';'=>['shift','16'],
-  'CONSTANT'=>['shift','2'],
-  'FOR'=>['shift','8'],
-  'IDENTIFIER'=>['shift','1'],
-  'IF'=>['shift','7'],
-  'METHOD'=>['shift','6'],
-  'PROXY'=>['shift','5'],
-  'additive_expression'=>['goto','24'],
-  'and_expression'=>['goto','28'],
-  'assignment_expression'=>['goto','34'],
-  'cast_expression'=>['goto','22'],
-  'compound_statement'=>['goto','41'],
-  'conditional_expression'=>['goto','33'],
-  'equality_expression'=>['goto','27'],
-  'exclusive_or_expression'=>['goto','29'],
-  'expression'=>['goto','35'],
-  'expression_statement'=>['goto','44'],
-  'inclusive_or_expression'=>['goto','30'],
-  'iteration_statement'=>['goto','46'],
-  'labeled_statement'=>['goto','40'],
-  'logical_and_expression'=>['goto','31'],
-  'logical_or_expression'=>['goto','32'],
-  'multiplicative_expression'=>['goto','23'],
-  'postfix_expression'=>['goto','19'],
-  'primary_expression'=>['goto','18'],
-  'relational_expression'=>['goto','26'],
-  'selection_statement'=>['goto','45'],
-  'shift_expression'=>['goto','25'],
-  'statement'=>['goto','161'],
-  'unary_expression'=>['goto','20'],
-  'unary_operator'=>['goto','21'],
-  '{'=>['shift','17'],
-  '~'=>['shift','14'],
+  '$default'=>['reduce','76'],
 },
 {# state 159
-  'CONSTANT'=>['shift','162'],
+  '$default'=>['reduce','100'],
+  'ELSE'=>['shift','166'],
 },
 {# state 160
-  '$default'=>['reduce','98'],
+  ')'=>['shift','167'],
+  ','=>['shift','168'],
 },
 {# state 161
-  '$default'=>['reduce','99'],
+  '$default'=>['reduce','15'],
 },
 {# state 162
-  ')'=>['shift','163'],
+  '$default'=>['reduce','54'],
 },
 {# state 163
   '!'=>['shift','15'],
@@ -2173,6 +2124,43 @@ our @act = (
   '++'=>['shift','10'],
   '-'=>['shift','13'],
   '--'=>['shift','11'],
+  'CONSTANT'=>['shift','2'],
+  'IDENTIFIER'=>['shift','52'],
+  'METHOD'=>['shift','6'],
+  'PROXY'=>['shift','5'],
+  'additive_expression'=>['goto','24'],
+  'and_expression'=>['goto','28'],
+  'assignment_expression'=>['goto','157'],
+  'cast_expression'=>['goto','22'],
+  'conditional_expression'=>['goto','33'],
+  'equality_expression'=>['goto','27'],
+  'exclusive_or_expression'=>['goto','29'],
+  'inclusive_or_expression'=>['goto','30'],
+  'initializer'=>['goto','169'],
+  'logical_and_expression'=>['goto','31'],
+  'logical_or_expression'=>['goto','32'],
+  'multiplicative_expression'=>['goto','23'],
+  'postfix_expression'=>['goto','19'],
+  'primary_expression'=>['goto','18'],
+  'relational_expression'=>['goto','26'],
+  'shift_expression'=>['goto','25'],
+  'unary_expression'=>['goto','20'],
+  'unary_operator'=>['goto','21'],
+  '~'=>['shift','14'],
+},
+{# state 164
+  '$default'=>['reduce','79'],
+},
+{# state 165
+  '$default'=>['reduce','78'],
+},
+{# state 166
+  '!'=>['shift','15'],
+  '('=>['shift','9'],
+  '+'=>['shift','12'],
+  '++'=>['shift','10'],
+  '-'=>['shift','13'],
+  '--'=>['shift','11'],
   ';'=>['shift','16'],
   'CONSTANT'=>['shift','2'],
   'FOR'=>['shift','8'],
@@ -2201,21 +2189,118 @@ our @act = (
   'relational_expression'=>['goto','26'],
   'selection_statement'=>['goto','45'],
   'shift_expression'=>['goto','25'],
-  'statement'=>['goto','164'],
+  'statement'=>['goto','170'],
   'unary_expression'=>['goto','20'],
   'unary_operator'=>['goto','21'],
   '{'=>['shift','17'],
   '~'=>['shift','14'],
 },
-{# state 164
-  '$default'=>['reduce','100'],
+{# state 167
+  '!'=>['shift','15'],
+  '('=>['shift','9'],
+  '+'=>['shift','12'],
+  '++'=>['shift','10'],
+  '-'=>['shift','13'],
+  '--'=>['shift','11'],
+  ';'=>['shift','16'],
+  'CONSTANT'=>['shift','2'],
+  'FOR'=>['shift','8'],
+  'IDENTIFIER'=>['shift','1'],
+  'IF'=>['shift','7'],
+  'METHOD'=>['shift','6'],
+  'PROXY'=>['shift','5'],
+  'additive_expression'=>['goto','24'],
+  'and_expression'=>['goto','28'],
+  'assignment_expression'=>['goto','34'],
+  'cast_expression'=>['goto','22'],
+  'compound_statement'=>['goto','41'],
+  'conditional_expression'=>['goto','33'],
+  'equality_expression'=>['goto','27'],
+  'exclusive_or_expression'=>['goto','29'],
+  'expression'=>['goto','35'],
+  'expression_statement'=>['goto','44'],
+  'inclusive_or_expression'=>['goto','30'],
+  'iteration_statement'=>['goto','46'],
+  'labeled_statement'=>['goto','40'],
+  'logical_and_expression'=>['goto','31'],
+  'logical_or_expression'=>['goto','32'],
+  'multiplicative_expression'=>['goto','23'],
+  'postfix_expression'=>['goto','19'],
+  'primary_expression'=>['goto','18'],
+  'relational_expression'=>['goto','26'],
+  'selection_statement'=>['goto','45'],
+  'shift_expression'=>['goto','25'],
+  'statement'=>['goto','171'],
+  'unary_expression'=>['goto','20'],
+  'unary_operator'=>['goto','21'],
+  '{'=>['shift','17'],
+  '~'=>['shift','14'],
+},
+{# state 168
+  'CONSTANT'=>['shift','172'],
+},
+{# state 169
+  '$default'=>['reduce','77'],
+},
+{# state 170
+  '$default'=>['reduce','101'],
+},
+{# state 171
+  '$default'=>['reduce','102'],
+},
+{# state 172
+  ')'=>['shift','173'],
+},
+{# state 173
+  '!'=>['shift','15'],
+  '('=>['shift','9'],
+  '+'=>['shift','12'],
+  '++'=>['shift','10'],
+  '-'=>['shift','13'],
+  '--'=>['shift','11'],
+  ';'=>['shift','16'],
+  'CONSTANT'=>['shift','2'],
+  'FOR'=>['shift','8'],
+  'IDENTIFIER'=>['shift','1'],
+  'IF'=>['shift','7'],
+  'METHOD'=>['shift','6'],
+  'PROXY'=>['shift','5'],
+  'additive_expression'=>['goto','24'],
+  'and_expression'=>['goto','28'],
+  'assignment_expression'=>['goto','34'],
+  'cast_expression'=>['goto','22'],
+  'compound_statement'=>['goto','41'],
+  'conditional_expression'=>['goto','33'],
+  'equality_expression'=>['goto','27'],
+  'exclusive_or_expression'=>['goto','29'],
+  'expression'=>['goto','35'],
+  'expression_statement'=>['goto','44'],
+  'inclusive_or_expression'=>['goto','30'],
+  'iteration_statement'=>['goto','46'],
+  'labeled_statement'=>['goto','40'],
+  'logical_and_expression'=>['goto','31'],
+  'logical_or_expression'=>['goto','32'],
+  'multiplicative_expression'=>['goto','23'],
+  'postfix_expression'=>['goto','19'],
+  'primary_expression'=>['goto','18'],
+  'relational_expression'=>['goto','26'],
+  'selection_statement'=>['goto','45'],
+  'shift_expression'=>['goto','25'],
+  'statement'=>['goto','174'],
+  'unary_expression'=>['goto','20'],
+  'unary_operator'=>['goto','21'],
+  '{'=>['shift','17'],
+  '~'=>['shift','14'],
+},
+{# state 174
+  '$default'=>['reduce','103'],
 },
 );
 
 our @length = (
-2, 1, 1, 3, 1, 1, 1, 4, 3, 4, 3, 3, 2, 2, 1, 3, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 3, 3, 3, 1, 3, 3, 1, 3, 3, 1, 3, 3, 3, 3, 1, 3, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 5, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 2, 1, 3, 1, 3, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 3, 2, 3, 1, 2, 1, 1, 3, 1, 2, 5, 7, 7, 9, 1, );
+2, 1, 1, 3, 1, 1, 1, 4, 3, 4, 3, 3, 2, 2, 1, 3, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 3, 3, 3, 1, 3, 3, 1, 3, 3, 1, 3, 3, 3, 3, 1, 3, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 5, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 2, 1, 3, 1, 3, 5, 3, 3, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 3, 2, 3, 1, 2, 1, 1, 3, 1, 2, 5, 7, 7, 9, 1, );
 
-our @rhs = ('$accept', 'primary_expression', 'primary_expression', 'primary_expression', 'primary_expression', 'primary_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'argument_expression_list', 'argument_expression_list', 'unary_expression', 'unary_expression', 'unary_expression', 'unary_expression', 'unary_operator', 'unary_operator', 'unary_operator', 'unary_operator', 'cast_expression', 'multiplicative_expression', 'multiplicative_expression', 'multiplicative_expression', 'multiplicative_expression', 'additive_expression', 'additive_expression', 'additive_expression', 'shift_expression', 'shift_expression', 'shift_expression', 'relational_expression', 'relational_expression', 'relational_expression', 'relational_expression', 'relational_expression', 'equality_expression', 'equality_expression', 'equality_expression', 'and_expression', 'and_expression', 'exclusive_or_expression', 'exclusive_or_expression', 'inclusive_or_expression', 'inclusive_or_expression', 'logical_and_expression', 'logical_and_expression', 'logical_or_expression', 'logical_or_expression', 'conditional_expression', 'conditional_expression', 'assignment_expression', 'assignment_expression', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'expression', 'declaration', 'declaration', 'declaration_specifiers', 'declaration_specifiers', 'init_declarator_list', 'init_declarator_list', 'init_declarator', 'init_declarator', 'type_specifier', 'declarator', 'direct_declarator', 'direct_declarator', 'initializer', 'statement', 'statement', 'statement', 'statement', 'statement', 'labeled_statement', 'compound_statement', 'compound_statement', 'block_item_list', 'block_item_list', 'block_item', 'block_item', 'block_item', 'expression_statement', 'expression_statement', 'selection_statement', 'selection_statement', 'iteration_statement', 'iteration_statement', 'execution_definition', );
+our @rhs = ('$accept', 'primary_expression', 'primary_expression', 'primary_expression', 'primary_expression', 'primary_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'postfix_expression', 'argument_expression_list', 'argument_expression_list', 'unary_expression', 'unary_expression', 'unary_expression', 'unary_expression', 'unary_operator', 'unary_operator', 'unary_operator', 'unary_operator', 'cast_expression', 'multiplicative_expression', 'multiplicative_expression', 'multiplicative_expression', 'multiplicative_expression', 'additive_expression', 'additive_expression', 'additive_expression', 'shift_expression', 'shift_expression', 'shift_expression', 'relational_expression', 'relational_expression', 'relational_expression', 'relational_expression', 'relational_expression', 'equality_expression', 'equality_expression', 'equality_expression', 'and_expression', 'and_expression', 'exclusive_or_expression', 'exclusive_or_expression', 'inclusive_or_expression', 'inclusive_or_expression', 'logical_and_expression', 'logical_and_expression', 'logical_or_expression', 'logical_or_expression', 'conditional_expression', 'conditional_expression', 'assignment_expression', 'assignment_expression', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'assignment_operator', 'expression', 'declaration', 'declaration', 'declaration_specifiers', 'declaration_specifiers', 'init_declarator_list', 'init_declarator_list', 'init_declarator', 'init_declarator', 'init_declarator', 'declarator_list', 'declarator_list', 'type_specifier', 'declarator', 'direct_declarator', 'direct_declarator', 'initializer', 'statement', 'statement', 'statement', 'statement', 'statement', 'labeled_statement', 'compound_statement', 'compound_statement', 'block_item_list', 'block_item_list', 'block_item', 'block_item', 'block_item', 'expression_statement', 'expression_statement', 'selection_statement', 'selection_statement', 'iteration_statement', 'iteration_statement', 'execution_definition', );
 
 # py-skel.pl: perl yacc parser skeleton
 # Copyright 1995 Mark-Jason Dominus (mjd@pobox.com).

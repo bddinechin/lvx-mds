@@ -172,6 +172,20 @@ init_declarator_list
 init_declarator
 	: declarator
 	| declarator '=' initializer
+	| '(' declarator_list ')' '=' initializer
+	;
+
+/* A tuple-valued call and the declaration that destructures it, the Execution
+   counterpart of Behavior's BIND:
+
+       new (result1, io, dz, ov, un, in) = f32_add(RM, argument2, argument3);
+
+   Two or more, so it cannot be confused with direct_declarator's '(' declarator ')'
+   -- the comma is what tells them apart, exactly as in DOC/Behavior.y.  */
+
+declarator_list
+	: declarator ',' declarator
+	| declarator_list ',' declarator
 	;
 
 /*
