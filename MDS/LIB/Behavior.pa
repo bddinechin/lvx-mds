@@ -48,7 +48,7 @@ our @EXPORT = qw(
   Error Check Constant Storage Symbol Reorder Normalize Simplify Clone Expand Parallel proxyActions Pretty CodeGen
   F2I I2F B2I I2B SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL NOTL ANDL IORL XORL MIN MAX NOT NEG ABS
   SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX ABS NE EQ GT LE GE LT TRUE FALSE TEST
-  UNDEF CONST METHOD APPLY EFFECT THROW WRITE READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB
+  UNDEF CONST METHOD APPLY APPLYT EFFECT THROW WRITE BIND READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB
   );
 
 # The operator helpers' signatures, from the Helper elements (DOC/MDD.dtd), keyed by name:
@@ -1111,6 +1111,54 @@ sub WRITE {
     my $symbol = $Symbol{$name};
     &Error("WRITE unknown symbol", @_) if ref $symbol ne 'HASH';
     return [ 'WRITE', $section, $name, &castI($expression) ];
+}
+
+#
+# A tuple-valued call, and the destructuring bind that is the only place one may appear.
+# The flag-returning FP convention is the motive: an operator yields (result, flags) as a
+# value rather than raising a global, so masked lane accumulation becomes ordinary data
+# flow -- DOC/FP-helpers.md section 6a, DOC/Behavior.md section 4.
+#
+# APPLYT rather than an APPLY whose width slot holds a list, and BIND rather than a WRITE
+# whose name slot does: every existing tree keeps its shape to the byte, and a consumer
+# that has not been taught tuples meets an operator it has no rule for -- which Width.pm
+# reports as `internal`, fatally -- instead of silently reading an ARRAY ref as a number
+# or printing one as a name.  Loud beats clever here; this description has been bitten by
+# the quiet version more than once.
+#
+sub APPLYT {
+    my ($widths, $name, @arguments) = @_;
+    # Each element is bounded by its own declared width, for the reason APPLY's single
+    # width is mandatory: an element nothing can bound is an element nothing downstream
+    # can check.  Two or more, since a one-tuple is a WRITE of an APPLY -- the grammar
+    # cannot spell one, and this is the assertion that says so.
+    &Error('APPLYT has fewer than two widths', @_)
+      unless ref $widths eq 'ARRAY' && @{$widths} >= 2;
+    foreach my $width (@{$widths}) {
+        &Error('APPLYT has a widthless element', @_) unless $width;
+    }
+    my $attributes = $arguments[-1];
+    if (ref $attributes eq 'HASH') { pop @arguments; }
+    else { $attributes = { WIDTH=>join(',', @{$widths}) }; }
+    $$attributes{TYPE} = 'Tuple';
+    return [ 'APPLYT', $widths, $name, @arguments, $attributes ];
+}
+
+sub BIND {
+    my ($names, $expression) = @_;
+    &Error('BIND has fewer than two variables', @_)
+      unless ref $names eq 'ARRAY' && @{$names} >= 2;
+    foreach my $name (@{$names}) {
+        my $symbol = $Symbol{$name};
+        &Error("BIND unknown symbol", @_) if ref $symbol ne 'HASH';
+    }
+    # The arity is the one thing a bind can get wrong that the grammar cannot catch: the
+    # names and the tuple's elements are two statements of the same count.
+    &Error('BIND of a non-tuple', @_) unless ref $expression eq 'ARRAY'
+      && $expression->[0] eq 'APPLYT';
+    &Error('BIND arity does not match the tuple', @_)
+      unless @{$names} == @{$expression->[1]};
+    return [ 'BIND', $names, $expression ];
 }
 
 sub INDEX {
@@ -3828,7 +3876,7 @@ sub yylex {
     return '' unless (@yyin);
     my $value = shift @yyin;
 #%token INTNUM SYMNUM IDENT PROXY
-#%token SEQ IF EFFECT STORE COMMIT WRITE THROW MACRO SKIP LOAD ACCESS READ PROBE AGGL AGGB
+#%token SEQ IF EFFECT STORE COMMIT WRITE BIND THROW MACRO SKIP LOAD ACCESS READ PROBE AGGL AGGB
 #%token UNDEF PROPERTY CONST METHOD APPLY F2I SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL
 #%token SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX NOT NEG ABS B2I
 #%token TRUE FALSE TEST NE EQ GT LE GE LT ANDL IORL XORL NOTL I2B I2F
@@ -3909,6 +3957,9 @@ $yytree = $_[0];
 #rule Command -> '(' WRITE '.' Variable Integer ')'
 &WRITE("", $_[3], $_[4]);
 
+#rule Command -> '(' BIND '.' Variables Tuple ')'
+&BIND($_[3], $_[4]);
+
 #rule Command -> '(' MACRO '.' Ident ')'
 &MACRO($_[3]);
 
@@ -3977,6 +4028,21 @@ return $_[0];
 
 #rule Integer -> '(' APPLY '.' Width '.' Ident Arguments Abstract ')'
 &APPLY($_[3], $_[5], @{$_[6]}, $_[7]);
+
+#rule Tuple -> '(' APPLY '.' Widths '.' Ident Arguments Abstract ')'
+&APPLYT($_[3], $_[5], @{$_[6]}, $_[7]);
+
+#rule Widths -> Width ',' Width
+return [ $_[0], $_[2] ];
+
+#rule Widths -> Widths ',' Width
+return [ @{$_[0]}, $_[2] ];
+
+#rule Variables -> Variable ',' Variable
+return [ $_[0], $_[2] ];
+
+#rule Variables -> Variables ',' Variable
+return [ @{$_[0]}, $_[2] ];
 
 #rule Integer -> '(' F2I '.' Width BitField Abstract ')'
 &F2I($_[3], $_[4], $_[5]);

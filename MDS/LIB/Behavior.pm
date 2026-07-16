@@ -53,7 +53,7 @@ our @EXPORT = qw(
   Error Check Constant Storage Symbol Reorder Normalize Simplify Clone Expand Parallel proxyActions Pretty CodeGen
   F2I I2F B2I I2B SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL NOTL ANDL IORL XORL MIN MAX NOT NEG ABS
   SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX ABS NE EQ GT LE GE LT TRUE FALSE TEST
-  UNDEF CONST METHOD APPLY EFFECT THROW WRITE READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB
+  UNDEF CONST METHOD APPLY APPLYT EFFECT THROW WRITE BIND READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB
   );
 
 # The operator helpers' signatures, from the Helper elements (DOC/MDD.dtd), keyed by name:
@@ -1116,6 +1116,54 @@ sub WRITE {
     my $symbol = $Symbol{$name};
     &Error("WRITE unknown symbol", @_) if ref $symbol ne 'HASH';
     return [ 'WRITE', $section, $name, &castI($expression) ];
+}
+
+#
+# A tuple-valued call, and the destructuring bind that is the only place one may appear.
+# The flag-returning FP convention is the motive: an operator yields (result, flags) as a
+# value rather than raising a global, so masked lane accumulation becomes ordinary data
+# flow -- DOC/FP-helpers.md section 6a, DOC/Behavior.md section 4.
+#
+# APPLYT rather than an APPLY whose width slot holds a list, and BIND rather than a WRITE
+# whose name slot does: every existing tree keeps its shape to the byte, and a consumer
+# that has not been taught tuples meets an operator it has no rule for -- which Width.pm
+# reports as `internal`, fatally -- instead of silently reading an ARRAY ref as a number
+# or printing one as a name.  Loud beats clever here; this description has been bitten by
+# the quiet version more than once.
+#
+sub APPLYT {
+    my ($widths, $name, @arguments) = @_;
+    # Each element is bounded by its own declared width, for the reason APPLY's single
+    # width is mandatory: an element nothing can bound is an element nothing downstream
+    # can check.  Two or more, since a one-tuple is a WRITE of an APPLY -- the grammar
+    # cannot spell one, and this is the assertion that says so.
+    &Error('APPLYT has fewer than two widths', @_)
+      unless ref $widths eq 'ARRAY' && @{$widths} >= 2;
+    foreach my $width (@{$widths}) {
+        &Error('APPLYT has a widthless element', @_) unless $width;
+    }
+    my $attributes = $arguments[-1];
+    if (ref $attributes eq 'HASH') { pop @arguments; }
+    else { $attributes = { WIDTH=>join(',', @{$widths}) }; }
+    $$attributes{TYPE} = 'Tuple';
+    return [ 'APPLYT', $widths, $name, @arguments, $attributes ];
+}
+
+sub BIND {
+    my ($names, $expression) = @_;
+    &Error('BIND has fewer than two variables', @_)
+      unless ref $names eq 'ARRAY' && @{$names} >= 2;
+    foreach my $name (@{$names}) {
+        my $symbol = $Symbol{$name};
+        &Error("BIND unknown symbol", @_) if ref $symbol ne 'HASH';
+    }
+    # The arity is the one thing a bind can get wrong that the grammar cannot catch: the
+    # names and the tuple's elements are two statements of the same count.
+    &Error('BIND of a non-tuple', @_) unless ref $expression eq 'ARRAY'
+      && $expression->[0] eq 'APPLYT';
+    &Error('BIND arity does not match the tuple', @_)
+      unless @{$names} == @{$expression->[1]};
+    return [ 'BIND', $names, $expression ];
 }
 
 sub INDEX {
@@ -3833,7 +3881,7 @@ sub yylex {
     return '' unless (@yyin);
     my $value = shift @yyin;
 #%token INTNUM SYMNUM IDENT PROXY
-#%token SEQ IF EFFECT STORE COMMIT WRITE THROW MACRO SKIP LOAD ACCESS READ PROBE AGGL AGGB
+#%token SEQ IF EFFECT STORE COMMIT WRITE BIND THROW MACRO SKIP LOAD ACCESS READ PROBE AGGL AGGB
 #%token UNDEF PROPERTY CONST METHOD APPLY F2I SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL
 #%token SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX NOT NEG ABS B2I
 #%token TRUE FALSE TEST NE EQ GT LE GE LT ANDL IORL XORL NOTL I2B I2F
@@ -3943,459 +3991,489 @@ sub {
 &WRITE("", $_[3], $_[4]);
 },
 # rule 12
+# Command -> '(' BIND '.' Variables Tuple ')'
+sub {
+&BIND($_[3], $_[4]);
+},
+# rule 13
 # Command -> '(' MACRO '.' Ident ')'
 sub {
 &MACRO($_[3]);
 },
-# rule 13
+# rule 14
 # Command -> '(' FOR '.' Variable Sequence Commands ')'
 sub {
 &FOR($_[3], $_[4], $_[5]);
 },
-# rule 14
+# rule 15
 # Command -> '(' SKIP Arguments ')'
 sub {
 &SKIP(@{$_[2]});
 },
-# rule 15
+# rule 16
 # Command -> '(' CANCEL ')'
 sub {
 &CANCEL();
 },
-# rule 16
+# rule 17
 # Commands -> Command
 sub {
 return [ $_[0] ];
 },
-# rule 17
+# rule 18
 # Commands -> Commands Command
 sub {
 return [ @{$_[0]}, $_[1] ];
 },
-# rule 18
+# rule 19
 # Arguments -> $empty
 sub {
 return [ ];
 },
-# rule 19
+# rule 20
 # Arguments -> Arguments Integer
 sub {
 return [ @{$_[0]}, $_[1] ];
 },
-# rule 20
+# rule 21
 # Arguments -> Arguments Boolean
 sub {
 return [ @{$_[0]}, $_[1] ];
 },
-# rule 21
+# rule 22
+# Tuple -> '(' APPLY '.' Widths '.' Ident Arguments Abstract ')'
+sub {
+&APPLYT($_[3], $_[5], @{$_[6]}, $_[7]);
+},
+# rule 23
+# Widths -> Width ',' Width
+sub {
+return [ $_[0], $_[2] ];
+},
+# rule 24
+# Widths -> Widths ',' Width
+sub {
+return [ @{$_[0]}, $_[2] ];
+},
+# rule 25
+# Variables -> Variable ',' Variable
+sub {
+return [ $_[0], $_[2] ];
+},
+# rule 26
+# Variables -> Variables ',' Variable
+sub {
+return [ @{$_[0]}, $_[2] ];
+},
+# rule 27
 # Location -> '(' AGGL '.' Storage Address Extent ')'
 sub {
 &AGGL($_[3], $_[4], $_[5]);
 },
-# rule 22
+# rule 28
 # Location -> '(' AGGB '.' Storage Address Extent ')'
 sub {
 &AGGB($_[3], $_[4], $_[5]);
 },
-# rule 23
+# rule 29
 # Address -> Integer
 sub {
 return $_[0];
 },
-# rule 24
+# rule 30
 # Extent -> Integer
 sub {
 return $_[0];
 },
-# rule 25
+# rule 31
 # Mask -> Integer
 sub {
 return $_[0];
 },
-# rule 26
+# rule 32
 # Integer -> '(' UNDEF Abstract ')'
 sub {
 &UNDEF($_[2]);
 },
-# rule 27
+# rule 33
 # Integer -> '(' METHOD '.' Proxy Abstract ')'
 sub {
 &METHOD($_[3], $_[4]);
 },
-# rule 28
+# rule 34
 # Integer -> '(' CONST '.' Constant Abstract ')'
 sub {
 &CONST($_[3], $_[4]);
 },
-# rule 29
+# rule 35
 # Integer -> '(' READ '.' Variable Abstract ')'
 sub {
 &READ("", $_[3], $_[4]);
 },
-# rule 30
+# rule 36
 # Integer -> '(' READ '.' Section '.' Variable Abstract ')'
 sub {
 &READ($_[3], $_[5], $_[6]);
 },
-# rule 31
+# rule 37
 # Integer -> '(' INDEX '.' Variable Abstract ')'
 sub {
 &INDEX($_[3]);
 },
-# rule 32
+# rule 38
 # Integer -> '(' ACCESS '.' Stage '.' Proxy Abstract ')'
 sub {
 &ACCESS($_[3], $_[5], $_[6]);
 },
-# rule 33
+# rule 39
 # Integer -> '(' PROPERTY '.' Ident '.' Proxy Abstract ')'
 sub {
 &PROPERTY($_[3], $_[5], $_[6]);
 },
-# rule 34
+# rule 40
 # Integer -> '(' APPLY '.' Width '.' Ident Arguments Abstract ')'
 sub {
 &APPLY($_[3], $_[5], @{$_[6]}, $_[7]);
 },
-# rule 35
+# rule 41
 # Integer -> '(' F2I '.' Width BitField Abstract ')'
 sub {
 &F2I($_[3], $_[4], $_[5]);
 },
-# rule 36
+# rule 42
 # Integer -> '(' SX '.' Width Integer Abstract ')'
 sub {
 &SX($_[3], $_[4], $_[5]);
 },
-# rule 37
+# rule 43
 # Integer -> '(' ZX '.' Width Integer Abstract ')'
 sub {
 &ZX($_[3], $_[4], $_[5]);
 },
-# rule 38
+# rule 44
 # Integer -> '(' SAT '.' Width Integer Abstract ')'
 sub {
 &SAT($_[3], $_[4], $_[5]);
 },
-# rule 39
+# rule 45
 # Integer -> '(' SATU '.' Width Integer Abstract ')'
 sub {
 &SATU($_[3], $_[4], $_[5]);
 },
-# rule 40
+# rule 46
 # Integer -> '(' CLZ '.' Width Integer Abstract ')'
 sub {
 &CLZ($_[3], $_[4], $_[5]);
 },
-# rule 41
+# rule 47
 # Integer -> '(' CLS '.' Width Integer Abstract ')'
 sub {
 &CLS($_[3], $_[4], $_[5]);
 },
-# rule 42
+# rule 48
 # Integer -> '(' CTZ '.' Width Integer Abstract ')'
 sub {
 &CTZ($_[3], $_[4], $_[5]);
 },
-# rule 43
+# rule 49
 # Integer -> '(' CBS '.' Width Integer Abstract ')'
 sub {
 &CBS($_[3], $_[4], $_[5]);
 },
-# rule 44
+# rule 50
 # Integer -> '(' SWAP '.' Width Integer Abstract ')'
 sub {
 &SWAP($_[3], $_[4], $_[5]);
 },
-# rule 45
+# rule 51
 # Integer -> '(' ROR '.' Width Integer Integer Abstract ')'
 sub {
 &ROR($_[3], $_[4], $_[5], $_[6]);
 },
-# rule 46
+# rule 52
 # Integer -> '(' ROL '.' Width Integer Integer Abstract ')'
 sub {
 &ROL($_[3], $_[4], $_[5], $_[6]);
 },
-# rule 47
+# rule 53
 # Integer -> '(' SELECT Boolean Integer Integer Abstract ')'
 sub {
 &SELECT($_[2], $_[3], $_[4], $_[5]);
 },
-# rule 48
+# rule 54
 # Integer -> '(' ADD Integer Integer Abstract ')'
 sub {
 &ADD($_[2], $_[3], $_[4]);
 },
-# rule 49
+# rule 55
 # Integer -> '(' SUB Integer Integer Abstract ')'
 sub {
 &SUB($_[2], $_[3], $_[4]);
 },
-# rule 50
+# rule 56
 # Integer -> '(' MUL Integer Integer Abstract ')'
 sub {
 &MUL($_[2], $_[3], $_[4]);
 },
-# rule 51
+# rule 57
 # Integer -> '(' DIV Integer Integer Abstract ')'
 sub {
 &DIV($_[2], $_[3], $_[4]);
 },
-# rule 52
+# rule 58
 # Integer -> '(' REM Integer Integer Abstract ')'
 sub {
 &REM($_[2], $_[3], $_[4]);
 },
-# rule 53
+# rule 59
 # Integer -> '(' MOD Integer Integer Abstract ')'
 sub {
 &MOD($_[2], $_[3], $_[4]);
 },
-# rule 54
+# rule 60
 # Integer -> '(' SHR Integer Integer Abstract ')'
 sub {
 &SHR($_[2], $_[3], $_[4]);
 },
-# rule 55
+# rule 61
 # Integer -> '(' SHL Integer Integer Abstract ')'
 sub {
 &SHL($_[2], $_[3], $_[4]);
 },
-# rule 56
+# rule 62
 # Integer -> '(' AND Integer Integer Abstract ')'
 sub {
 &AND($_[2], $_[3], $_[4]);
 },
-# rule 57
+# rule 63
 # Integer -> '(' IOR Integer Integer Abstract ')'
 sub {
 &IOR($_[2], $_[3], $_[4]);
 },
-# rule 58
+# rule 64
 # Integer -> '(' XOR Integer Integer Abstract ')'
 sub {
 &XOR($_[2], $_[3], $_[4]);
 },
-# rule 59
+# rule 65
 # Integer -> '(' MIN Integer Integer Abstract ')'
 sub {
 &MIN($_[2], $_[3], $_[4]);
 },
-# rule 60
+# rule 66
 # Integer -> '(' MAX Integer Integer Abstract ')'
 sub {
 &MAX($_[2], $_[3], $_[4]);
 },
-# rule 61
+# rule 67
 # Integer -> '(' NOT Integer Abstract ')'
 sub {
 &NOT($_[2], $_[3]);
 },
-# rule 62
+# rule 68
 # Integer -> '(' NEG Integer Abstract ')'
 sub {
 &NEG($_[2], $_[3]);
 },
-# rule 63
+# rule 69
 # Integer -> '(' ABS Integer Abstract ')'
 sub {
 &ABS($_[2], $_[3]);
 },
-# rule 64
+# rule 70
 # Integer -> '(' B2I Boolean Abstract ')'
 sub {
 &B2I($_[2], $_[3]);
 },
-# rule 65
+# rule 71
 # Boolean -> '(' TRUE Abstract ')'
 sub {
 &TRUE($_[2]);
 },
-# rule 66
+# rule 72
 # Boolean -> '(' FALSE Abstract ')'
 sub {
 &FALSE($_[2]);
 },
-# rule 67
+# rule 73
 # Boolean -> '(' TEST '.' Ident Arguments Abstract ')'
 sub {
 &TEST($_[3], @{$_[4]}, $_[5]);
 },
-# rule 68
+# rule 74
 # Boolean -> '(' NE Integer Integer Abstract ')'
 sub {
 &NE($_[2], $_[3], $_[4]);
 },
-# rule 69
+# rule 75
 # Boolean -> '(' EQ Integer Integer Abstract ')'
 sub {
 &EQ($_[2], $_[3], $_[4]);
 },
-# rule 70
+# rule 76
 # Boolean -> '(' GT Integer Integer Abstract ')'
 sub {
 &GT($_[2], $_[3], $_[4]);
 },
-# rule 71
+# rule 77
 # Boolean -> '(' LE Integer Integer Abstract ')'
 sub {
 &LE($_[2], $_[3], $_[4]);
 },
-# rule 72
+# rule 78
 # Boolean -> '(' GE Integer Integer Abstract ')'
 sub {
 &GE($_[2], $_[3], $_[4]);
 },
-# rule 73
+# rule 79
 # Boolean -> '(' LT Integer Integer Abstract ')'
 sub {
 &LT($_[2], $_[3], $_[4]);
 },
-# rule 74
+# rule 80
 # Boolean -> '(' ANDL Boolean Boolean Abstract ')'
 sub {
 &ANDL($_[2], $_[3], $_[4]);
 },
-# rule 75
+# rule 81
 # Boolean -> '(' IORL Boolean Boolean Abstract ')'
 sub {
 &IORL($_[2], $_[3], $_[4]);
 },
-# rule 76
+# rule 82
 # Boolean -> '(' XORL Boolean Boolean Abstract ')'
 sub {
 &XORL($_[2], $_[3], $_[4]);
 },
-# rule 77
+# rule 83
 # Boolean -> '(' PROBE '.' Stage Location Abstract ')'
 sub {
 &PROBE($_[3], $_[4], $_[5]);
 },
-# rule 78
+# rule 84
 # Boolean -> '(' NOTL Boolean Abstract ')'
 sub {
 &NOTL($_[2], $_[3]);
 },
-# rule 79
+# rule 85
 # Boolean -> '(' I2B Integer Abstract ')'
 sub {
 &I2B($_[2], $_[3]);
 },
-# rule 80
+# rule 86
 # BitField -> '(' LOAD '.' Stage Location ')'
 sub {
 &LOAD($_[3], $_[4]);
 },
-# rule 81
+# rule 87
 # BitField -> '(' I2F '.' Width Integer ')'
 sub {
 &I2F($_[3], $_[4]);
 },
-# rule 82
+# rule 88
 # Abstract -> $empty
 sub {
 return { };
 },
-# rule 83
+# rule 89
 # Abstract -> "(*" Attributes "*)"
 sub {
 return $_[1];
 },
-# rule 84
+# rule 90
 # Attributes -> Attribute
 sub {
 return $_[0];
 },
-# rule 85
+# rule 91
 # Attributes -> Attributes ',' Attribute
 sub {
 return { %{$_[0]}, %{$_[2]} };
 },
-# rule 86
+# rule 92
 # Attribute -> IDENT ':' IDENT
 sub {
 return { $_[0] => $_[2] };
 },
-# rule 87
+# rule 93
 # Attribute -> IDENT ':' Constant
 sub {
 return { $_[0] => $_[2] };
 },
-# rule 88
+# rule 94
 # Constant -> SYMNUM
 sub {
 return $_[0];
 },
-# rule 89
+# rule 95
 # Constant -> INTNUM
 sub {
 return $_[0];
 },
-# rule 90
+# rule 96
 # Constant -> Section
 sub {
 return $_[0];
 },
-# rule 91
+# rule 97
 # Section -> INTNUM '[' INTNUM ']'
 sub {
 &SECTION($_[0], $_[2]);
 },
-# rule 92
+# rule 98
 # Section -> INTNUM '[' Integer ']'
 sub {
 &SECTION($_[0], $_[2]);
 },
-# rule 93
+# rule 99
 # Sequence -> '(' RANGE '.' INTNUM ')'
 sub {
 &RANGE(0, $_[3], $_[3] > 0 ? 1 : -1);
 },
-# rule 94
+# rule 100
 # Sequence -> '(' RANGE '.' INTNUM '.' INTNUM ')'
 sub {
 &RANGE($_[3], $_[5], $_[5] - $_[3] ? 1 : -1);
 },
-# rule 95
+# rule 101
 # Sequence -> '(' RANGE '.' INTNUM '.' INTNUM '.' INTNUM ')'
 sub {
 &RANGE($_[3], $_[5], $_[7]);
 },
-# rule 96
+# rule 102
 # Storage -> Ident
 sub {
 &Storage($_[0]);
 return $_[0];
 },
-# rule 97
+# rule 103
 # Variable -> Ident
 sub {
 &Symbol($_[0], { PROXY=> $_[0] });
 return $_[0];
 },
-# rule 98
+# rule 104
 # Proxy -> PROXY
 sub {
 return $_[0];
 },
-# rule 99
+# rule 105
 # Stage -> INTNUM
 sub {
 return $_[0];
 },
-# rule 100
+# rule 106
 # Stage -> Ident
 sub {
 my $stage = $pipeline{$_[0]};
 return $stage;
 },
-# rule 101
+# rule 107
 # Width -> INTNUM
 sub {
 return $_[0];
 },
-# rule 102
+# rule 108
 # Ident -> IDENT
 sub {
 return $_[0];
@@ -4409,1699 +4487,1793 @@ our @act = (
   'Command'=>['goto','3'],
 },
 {# state 1
-  'CANCEL'=>['shift','13'],
+  'BIND'=>['shift','10'],
+  'CANCEL'=>['shift','14'],
   'COMMIT'=>['shift','8'],
   'EFFECT'=>['shift','6'],
-  'FOR'=>['shift','14'],
+  'FOR'=>['shift','15'],
   'IF'=>['shift','5'],
-  'MACRO'=>['shift','11'],
+  'MACRO'=>['shift','12'],
   'SEQ'=>['shift','4'],
-  'SKIP'=>['shift','12'],
+  'SKIP'=>['shift','13'],
   'STORE'=>['shift','7'],
-  'THROW'=>['shift','10'],
+  'THROW'=>['shift','11'],
   'WRITE'=>['shift','9'],
 },
 {# state 2
-  '$end'=>['shift','15'],
+  '$end'=>['shift','16'],
 },
 {# state 3
   '$default'=>['reduce','1'],
 },
 {# state 4
   '('=>['shift','1'],
-  'Command'=>['goto','16'],
-  'Commands'=>['goto','17'],
+  'Command'=>['goto','17'],
+  'Commands'=>['goto','18'],
 },
 {# state 5
-  '('=>['shift','18'],
-  'Boolean'=>['goto','19'],
+  '('=>['shift','19'],
+  'Boolean'=>['goto','20'],
 },
 {# state 6
-  '.'=>['shift','20'],
-},
-{# state 7
   '.'=>['shift','21'],
 },
-{# state 8
+{# state 7
   '.'=>['shift','22'],
 },
-{# state 9
+{# state 8
   '.'=>['shift','23'],
 },
-{# state 10
+{# state 9
   '.'=>['shift','24'],
 },
-{# state 11
+{# state 10
   '.'=>['shift','25'],
 },
+{# state 11
+  '.'=>['shift','26'],
+},
 {# state 12
-  '$default'=>['reduce','18'],
-  'Arguments'=>['goto','26'],
+  '.'=>['shift','27'],
 },
 {# state 13
-  ')'=>['shift','27'],
+  '$default'=>['reduce','19'],
+  'Arguments'=>['goto','28'],
 },
 {# state 14
-  '.'=>['shift','28'],
+  ')'=>['shift','29'],
 },
 {# state 15
-  '$default'=>['accept','undef'],
+  '.'=>['shift','30'],
 },
 {# state 16
-  '$default'=>['reduce','16'],
+  '$default'=>['accept','undef'],
 },
 {# state 17
-  '('=>['shift','1'],
-  ')'=>['shift','29'],
-  'Command'=>['goto','30'],
+  '$default'=>['reduce','17'],
 },
 {# state 18
-  'ANDL'=>['shift','41'],
-  'EQ'=>['shift','36'],
-  'FALSE'=>['shift','33'],
-  'GE'=>['shift','39'],
-  'GT'=>['shift','37'],
-  'I2B'=>['shift','45'],
-  'IORL'=>['shift','42'],
-  'LE'=>['shift','38'],
-  'LT'=>['shift','40'],
-  'NE'=>['shift','35'],
-  'NOTL'=>['shift','44'],
-  'PROBE'=>['shift','31'],
-  'TEST'=>['shift','34'],
-  'TRUE'=>['shift','32'],
-  'XORL'=>['shift','43'],
+  '('=>['shift','1'],
+  ')'=>['shift','31'],
+  'Command'=>['goto','32'],
 },
 {# state 19
-  '('=>['shift','1'],
-  'Command'=>['goto','46'],
+  'ANDL'=>['shift','43'],
+  'EQ'=>['shift','38'],
+  'FALSE'=>['shift','35'],
+  'GE'=>['shift','41'],
+  'GT'=>['shift','39'],
+  'I2B'=>['shift','47'],
+  'IORL'=>['shift','44'],
+  'LE'=>['shift','40'],
+  'LT'=>['shift','42'],
+  'NE'=>['shift','37'],
+  'NOTL'=>['shift','46'],
+  'PROBE'=>['shift','33'],
+  'TEST'=>['shift','36'],
+  'TRUE'=>['shift','34'],
+  'XORL'=>['shift','45'],
 },
 {# state 20
-  'IDENT'=>['shift','48'],
-  'INTNUM'=>['shift','47'],
-  'Ident'=>['goto','50'],
-  'Stage'=>['goto','49'],
+  '('=>['shift','1'],
+  'Command'=>['goto','48'],
 },
 {# state 21
-  'IDENT'=>['shift','48'],
-  'INTNUM'=>['shift','47'],
-  'Ident'=>['goto','50'],
+  'IDENT'=>['shift','50'],
+  'INTNUM'=>['shift','49'],
+  'Ident'=>['goto','52'],
   'Stage'=>['goto','51'],
 },
 {# state 22
-  'IDENT'=>['shift','48'],
-  'INTNUM'=>['shift','47'],
-  'Ident'=>['goto','50'],
-  'Stage'=>['goto','52'],
+  'IDENT'=>['shift','50'],
+  'INTNUM'=>['shift','49'],
+  'Ident'=>['goto','52'],
+  'Stage'=>['goto','53'],
 },
 {# state 23
-  'IDENT'=>['shift','48'],
-  'INTNUM'=>['shift','53'],
-  'Ident'=>['goto','56'],
-  'Section'=>['goto','54'],
-  'Variable'=>['goto','55'],
+  'IDENT'=>['shift','50'],
+  'INTNUM'=>['shift','49'],
+  'Ident'=>['goto','52'],
+  'Stage'=>['goto','54'],
 },
 {# state 24
-  'IDENT'=>['shift','48'],
-  'INTNUM'=>['shift','47'],
-  'Ident'=>['goto','50'],
-  'Stage'=>['goto','57'],
+  'IDENT'=>['shift','50'],
+  'INTNUM'=>['shift','55'],
+  'Ident'=>['goto','58'],
+  'Section'=>['goto','56'],
+  'Variable'=>['goto','57'],
 },
 {# state 25
-  'IDENT'=>['shift','48'],
+  'IDENT'=>['shift','50'],
   'Ident'=>['goto','58'],
+  'Variable'=>['goto','60'],
+  'Variables'=>['goto','59'],
 },
 {# state 26
-  '('=>['shift','59'],
-  ')'=>['shift','60'],
-  'Boolean'=>['goto','62'],
-  'Integer'=>['goto','61'],
+  'IDENT'=>['shift','50'],
+  'INTNUM'=>['shift','49'],
+  'Ident'=>['goto','52'],
+  'Stage'=>['goto','61'],
 },
 {# state 27
-  '$default'=>['reduce','15'],
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','62'],
 },
 {# state 28
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','56'],
-  'Variable'=>['goto','63'],
+  '('=>['shift','63'],
+  ')'=>['shift','64'],
+  'Boolean'=>['goto','66'],
+  'Integer'=>['goto','65'],
 },
 {# state 29
-  '$default'=>['reduce','2'],
+  '$default'=>['reduce','16'],
 },
 {# state 30
-  '$default'=>['reduce','17'],
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','58'],
+  'Variable'=>['goto','67'],
 },
 {# state 31
-  '.'=>['shift','64'],
+  '$default'=>['reduce','2'],
 },
 {# state 32
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','66'],
+  '$default'=>['reduce','18'],
 },
 {# state 33
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','67'],
-},
-{# state 34
   '.'=>['shift','68'],
 },
+{# state 34
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','70'],
+},
 {# state 35
-  '('=>['shift','69'],
-  'Integer'=>['goto','70'],
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','71'],
 },
 {# state 36
-  '('=>['shift','69'],
-  'Integer'=>['goto','71'],
+  '.'=>['shift','72'],
 },
 {# state 37
-  '('=>['shift','69'],
-  'Integer'=>['goto','72'],
-},
-{# state 38
-  '('=>['shift','69'],
-  'Integer'=>['goto','73'],
-},
-{# state 39
-  '('=>['shift','69'],
+  '('=>['shift','73'],
   'Integer'=>['goto','74'],
 },
-{# state 40
-  '('=>['shift','69'],
+{# state 38
+  '('=>['shift','73'],
   'Integer'=>['goto','75'],
 },
+{# state 39
+  '('=>['shift','73'],
+  'Integer'=>['goto','76'],
+},
+{# state 40
+  '('=>['shift','73'],
+  'Integer'=>['goto','77'],
+},
 {# state 41
-  '('=>['shift','18'],
-  'Boolean'=>['goto','76'],
+  '('=>['shift','73'],
+  'Integer'=>['goto','78'],
 },
 {# state 42
-  '('=>['shift','18'],
-  'Boolean'=>['goto','77'],
+  '('=>['shift','73'],
+  'Integer'=>['goto','79'],
 },
 {# state 43
-  '('=>['shift','18'],
-  'Boolean'=>['goto','78'],
+  '('=>['shift','19'],
+  'Boolean'=>['goto','80'],
 },
 {# state 44
-  '('=>['shift','18'],
-  'Boolean'=>['goto','79'],
+  '('=>['shift','19'],
+  'Boolean'=>['goto','81'],
 },
 {# state 45
-  '('=>['shift','69'],
-  'Integer'=>['goto','80'],
+  '('=>['shift','19'],
+  'Boolean'=>['goto','82'],
 },
 {# state 46
-  '('=>['shift','1'],
-  'Command'=>['goto','81'],
+  '('=>['shift','19'],
+  'Boolean'=>['goto','83'],
 },
 {# state 47
-  '$default'=>['reduce','99'],
+  '('=>['shift','73'],
+  'Integer'=>['goto','84'],
 },
 {# state 48
-  '$default'=>['reduce','102'],
+  '('=>['shift','1'],
+  'Command'=>['goto','85'],
 },
 {# state 49
-  '.'=>['shift','82'],
+  '$default'=>['reduce','105'],
 },
 {# state 50
-  '$default'=>['reduce','100'],
+  '$default'=>['reduce','108'],
 },
 {# state 51
-  '('=>['shift','83'],
-  'Location'=>['goto','84'],
+  '.'=>['shift','86'],
 },
 {# state 52
-  '.'=>['shift','85'],
+  '$default'=>['reduce','106'],
 },
 {# state 53
-  '['=>['shift','86'],
+  '('=>['shift','87'],
+  'Location'=>['goto','88'],
 },
 {# state 54
-  '.'=>['shift','87'],
-},
-{# state 55
-  '('=>['shift','69'],
-  'Integer'=>['goto','88'],
-},
-{# state 56
-  '$default'=>['reduce','97'],
-},
-{# state 57
   '.'=>['shift','89'],
 },
+{# state 55
+  '['=>['shift','90'],
+},
+{# state 56
+  '.'=>['shift','91'],
+},
+{# state 57
+  '('=>['shift','73'],
+  'Integer'=>['goto','92'],
+},
 {# state 58
-  ')'=>['shift','90'],
+  '$default'=>['reduce','103'],
 },
 {# state 59
-  'ABS'=>['shift','125'],
-  'ACCESS'=>['shift','91'],
-  'ADD'=>['shift','111'],
-  'AND'=>['shift','119'],
-  'ANDL'=>['shift','41'],
-  'APPLY'=>['shift','97'],
-  'B2I'=>['shift','127'],
-  'CBS'=>['shift','106'],
-  'CLS'=>['shift','104'],
-  'CLZ'=>['shift','103'],
-  'CONST'=>['shift','95'],
-  'CTZ'=>['shift','105'],
-  'DIV'=>['shift','114'],
-  'EQ'=>['shift','36'],
-  'F2I'=>['shift','98'],
-  'FALSE'=>['shift','33'],
-  'GE'=>['shift','39'],
-  'GT'=>['shift','37'],
-  'I2B'=>['shift','45'],
-  'INDEX'=>['shift','128'],
-  'IOR'=>['shift','120'],
-  'IORL'=>['shift','42'],
-  'LE'=>['shift','38'],
-  'LT'=>['shift','40'],
-  'MAX'=>['shift','123'],
-  'METHOD'=>['shift','96'],
-  'MIN'=>['shift','122'],
-  'MOD'=>['shift','116'],
-  'MUL'=>['shift','113'],
-  'NE'=>['shift','35'],
-  'NEG'=>['shift','126'],
-  'NOT'=>['shift','124'],
-  'NOTL'=>['shift','44'],
-  'PROBE'=>['shift','31'],
-  'PROPERTY'=>['shift','94'],
-  'READ'=>['shift','92'],
-  'REM'=>['shift','115'],
-  'ROL'=>['shift','109'],
-  'ROR'=>['shift','108'],
-  'SAT'=>['shift','101'],
-  'SATU'=>['shift','102'],
-  'SELECT'=>['shift','110'],
-  'SHL'=>['shift','118'],
-  'SHR'=>['shift','117'],
-  'SUB'=>['shift','112'],
-  'SWAP'=>['shift','107'],
-  'SX'=>['shift','99'],
-  'TEST'=>['shift','34'],
-  'TRUE'=>['shift','32'],
-  'UNDEF'=>['shift','93'],
-  'XOR'=>['shift','121'],
-  'XORL'=>['shift','43'],
-  'ZX'=>['shift','100'],
+  '('=>['shift','93'],
+  ','=>['shift','94'],
+  'Tuple'=>['goto','95'],
 },
 {# state 60
-  '$default'=>['reduce','14'],
+  ','=>['shift','96'],
 },
 {# state 61
-  '$default'=>['reduce','19'],
+  '.'=>['shift','97'],
 },
 {# state 62
-  '$default'=>['reduce','20'],
+  ')'=>['shift','98'],
 },
 {# state 63
-  '('=>['shift','129'],
-  'Sequence'=>['goto','130'],
+  'ABS'=>['shift','133'],
+  'ACCESS'=>['shift','99'],
+  'ADD'=>['shift','119'],
+  'AND'=>['shift','127'],
+  'ANDL'=>['shift','43'],
+  'APPLY'=>['shift','105'],
+  'B2I'=>['shift','135'],
+  'CBS'=>['shift','114'],
+  'CLS'=>['shift','112'],
+  'CLZ'=>['shift','111'],
+  'CONST'=>['shift','103'],
+  'CTZ'=>['shift','113'],
+  'DIV'=>['shift','122'],
+  'EQ'=>['shift','38'],
+  'F2I'=>['shift','106'],
+  'FALSE'=>['shift','35'],
+  'GE'=>['shift','41'],
+  'GT'=>['shift','39'],
+  'I2B'=>['shift','47'],
+  'INDEX'=>['shift','136'],
+  'IOR'=>['shift','128'],
+  'IORL'=>['shift','44'],
+  'LE'=>['shift','40'],
+  'LT'=>['shift','42'],
+  'MAX'=>['shift','131'],
+  'METHOD'=>['shift','104'],
+  'MIN'=>['shift','130'],
+  'MOD'=>['shift','124'],
+  'MUL'=>['shift','121'],
+  'NE'=>['shift','37'],
+  'NEG'=>['shift','134'],
+  'NOT'=>['shift','132'],
+  'NOTL'=>['shift','46'],
+  'PROBE'=>['shift','33'],
+  'PROPERTY'=>['shift','102'],
+  'READ'=>['shift','100'],
+  'REM'=>['shift','123'],
+  'ROL'=>['shift','117'],
+  'ROR'=>['shift','116'],
+  'SAT'=>['shift','109'],
+  'SATU'=>['shift','110'],
+  'SELECT'=>['shift','118'],
+  'SHL'=>['shift','126'],
+  'SHR'=>['shift','125'],
+  'SUB'=>['shift','120'],
+  'SWAP'=>['shift','115'],
+  'SX'=>['shift','107'],
+  'TEST'=>['shift','36'],
+  'TRUE'=>['shift','34'],
+  'UNDEF'=>['shift','101'],
+  'XOR'=>['shift','129'],
+  'XORL'=>['shift','45'],
+  'ZX'=>['shift','108'],
 },
 {# state 64
-  'IDENT'=>['shift','48'],
-  'INTNUM'=>['shift','47'],
-  'Ident'=>['goto','50'],
-  'Stage'=>['goto','131'],
+  '$default'=>['reduce','15'],
 },
 {# state 65
-  'Attribute'=>['goto','134'],
-  'Attributes'=>['goto','133'],
-  'IDENT'=>['shift','132'],
+  '$default'=>['reduce','20'],
 },
 {# state 66
-  ')'=>['shift','135'],
-},
-{# state 67
-  ')'=>['shift','136'],
-},
-{# state 68
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','137'],
-},
-{# state 69
-  'ABS'=>['shift','125'],
-  'ACCESS'=>['shift','91'],
-  'ADD'=>['shift','111'],
-  'AND'=>['shift','119'],
-  'APPLY'=>['shift','97'],
-  'B2I'=>['shift','127'],
-  'CBS'=>['shift','106'],
-  'CLS'=>['shift','104'],
-  'CLZ'=>['shift','103'],
-  'CONST'=>['shift','95'],
-  'CTZ'=>['shift','105'],
-  'DIV'=>['shift','114'],
-  'F2I'=>['shift','98'],
-  'INDEX'=>['shift','128'],
-  'IOR'=>['shift','120'],
-  'MAX'=>['shift','123'],
-  'METHOD'=>['shift','96'],
-  'MIN'=>['shift','122'],
-  'MOD'=>['shift','116'],
-  'MUL'=>['shift','113'],
-  'NEG'=>['shift','126'],
-  'NOT'=>['shift','124'],
-  'PROPERTY'=>['shift','94'],
-  'READ'=>['shift','92'],
-  'REM'=>['shift','115'],
-  'ROL'=>['shift','109'],
-  'ROR'=>['shift','108'],
-  'SAT'=>['shift','101'],
-  'SATU'=>['shift','102'],
-  'SELECT'=>['shift','110'],
-  'SHL'=>['shift','118'],
-  'SHR'=>['shift','117'],
-  'SUB'=>['shift','112'],
-  'SWAP'=>['shift','107'],
-  'SX'=>['shift','99'],
-  'UNDEF'=>['shift','93'],
-  'XOR'=>['shift','121'],
-  'ZX'=>['shift','100'],
-},
-{# state 70
-  '('=>['shift','69'],
-  'Integer'=>['goto','138'],
-},
-{# state 71
-  '('=>['shift','69'],
-  'Integer'=>['goto','139'],
-},
-{# state 72
-  '('=>['shift','69'],
-  'Integer'=>['goto','140'],
-},
-{# state 73
-  '('=>['shift','69'],
-  'Integer'=>['goto','141'],
-},
-{# state 74
-  '('=>['shift','69'],
-  'Integer'=>['goto','142'],
-},
-{# state 75
-  '('=>['shift','69'],
-  'Integer'=>['goto','143'],
-},
-{# state 76
-  '('=>['shift','18'],
-  'Boolean'=>['goto','144'],
-},
-{# state 77
-  '('=>['shift','18'],
-  'Boolean'=>['goto','145'],
-},
-{# state 78
-  '('=>['shift','18'],
-  'Boolean'=>['goto','146'],
-},
-{# state 79
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','147'],
-},
-{# state 80
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','148'],
-},
-{# state 81
-  ')'=>['shift','149'],
-},
-{# state 82
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','150'],
-},
-{# state 83
-  'AGGB'=>['shift','152'],
-  'AGGL'=>['shift','151'],
-},
-{# state 84
-  '('=>['shift','153'],
-  'BitField'=>['goto','154'],
-},
-{# state 85
-  'PROXY'=>['shift','155'],
-  'Proxy'=>['goto','156'],
-},
-{# state 86
-  '('=>['shift','69'],
-  'INTNUM'=>['shift','157'],
-  'Integer'=>['goto','158'],
-},
-{# state 87
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','56'],
-  'Variable'=>['goto','159'],
-},
-{# state 88
-  ')'=>['shift','160'],
-},
-{# state 89
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','161'],
-},
-{# state 90
-  '$default'=>['reduce','12'],
-},
-{# state 91
-  '.'=>['shift','162'],
-},
-{# state 92
-  '.'=>['shift','163'],
-},
-{# state 93
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','164'],
-},
-{# state 94
-  '.'=>['shift','165'],
-},
-{# state 95
-  '.'=>['shift','166'],
-},
-{# state 96
-  '.'=>['shift','167'],
-},
-{# state 97
-  '.'=>['shift','168'],
-},
-{# state 98
-  '.'=>['shift','169'],
-},
-{# state 99
-  '.'=>['shift','170'],
-},
-{# state 100
-  '.'=>['shift','171'],
-},
-{# state 101
-  '.'=>['shift','172'],
-},
-{# state 102
-  '.'=>['shift','173'],
-},
-{# state 103
-  '.'=>['shift','174'],
-},
-{# state 104
-  '.'=>['shift','175'],
-},
-{# state 105
-  '.'=>['shift','176'],
-},
-{# state 106
-  '.'=>['shift','177'],
-},
-{# state 107
-  '.'=>['shift','178'],
-},
-{# state 108
-  '.'=>['shift','179'],
-},
-{# state 109
-  '.'=>['shift','180'],
-},
-{# state 110
-  '('=>['shift','18'],
-  'Boolean'=>['goto','181'],
-},
-{# state 111
-  '('=>['shift','69'],
-  'Integer'=>['goto','182'],
-},
-{# state 112
-  '('=>['shift','69'],
-  'Integer'=>['goto','183'],
-},
-{# state 113
-  '('=>['shift','69'],
-  'Integer'=>['goto','184'],
-},
-{# state 114
-  '('=>['shift','69'],
-  'Integer'=>['goto','185'],
-},
-{# state 115
-  '('=>['shift','69'],
-  'Integer'=>['goto','186'],
-},
-{# state 116
-  '('=>['shift','69'],
-  'Integer'=>['goto','187'],
-},
-{# state 117
-  '('=>['shift','69'],
-  'Integer'=>['goto','188'],
-},
-{# state 118
-  '('=>['shift','69'],
-  'Integer'=>['goto','189'],
-},
-{# state 119
-  '('=>['shift','69'],
-  'Integer'=>['goto','190'],
-},
-{# state 120
-  '('=>['shift','69'],
-  'Integer'=>['goto','191'],
-},
-{# state 121
-  '('=>['shift','69'],
-  'Integer'=>['goto','192'],
-},
-{# state 122
-  '('=>['shift','69'],
-  'Integer'=>['goto','193'],
-},
-{# state 123
-  '('=>['shift','69'],
-  'Integer'=>['goto','194'],
-},
-{# state 124
-  '('=>['shift','69'],
-  'Integer'=>['goto','195'],
-},
-{# state 125
-  '('=>['shift','69'],
-  'Integer'=>['goto','196'],
-},
-{# state 126
-  '('=>['shift','69'],
-  'Integer'=>['goto','197'],
-},
-{# state 127
-  '('=>['shift','18'],
-  'Boolean'=>['goto','198'],
-},
-{# state 128
-  '.'=>['shift','199'],
-},
-{# state 129
-  'RANGE'=>['shift','200'],
-},
-{# state 130
-  '('=>['shift','1'],
-  'Command'=>['goto','16'],
-  'Commands'=>['goto','201'],
-},
-{# state 131
-  '('=>['shift','83'],
-  'Location'=>['goto','202'],
-},
-{# state 132
-  ':'=>['shift','203'],
-},
-{# state 133
-  '*)'=>['shift','204'],
-  ','=>['shift','205'],
-},
-{# state 134
-  '$default'=>['reduce','84'],
-},
-{# state 135
-  '$default'=>['reduce','65'],
-},
-{# state 136
-  '$default'=>['reduce','66'],
-},
-{# state 137
-  '$default'=>['reduce','18'],
-  'Arguments'=>['goto','206'],
-},
-{# state 138
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','207'],
-},
-{# state 139
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','208'],
-},
-{# state 140
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','209'],
-},
-{# state 141
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','210'],
-},
-{# state 142
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','211'],
-},
-{# state 143
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','212'],
-},
-{# state 144
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','213'],
-},
-{# state 145
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','214'],
-},
-{# state 146
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','215'],
-},
-{# state 147
-  ')'=>['shift','216'],
-},
-{# state 148
-  ')'=>['shift','217'],
-},
-{# state 149
-  '$default'=>['reduce','3'],
-},
-{# state 150
-  '$default'=>['reduce','18'],
-  'Arguments'=>['goto','218'],
-},
-{# state 151
-  '.'=>['shift','219'],
-},
-{# state 152
-  '.'=>['shift','220'],
-},
-{# state 153
-  'I2F'=>['shift','222'],
-  'LOAD'=>['shift','221'],
-},
-{# state 154
-  '('=>['shift','69'],
-  ')'=>['shift','223'],
-  'Integer'=>['goto','225'],
-  'Mask'=>['goto','224'],
-},
-{# state 155
-  '$default'=>['reduce','98'],
-},
-{# state 156
-  '('=>['shift','69'],
-  'Integer'=>['goto','226'],
-},
-{# state 157
-  ']'=>['shift','227'],
-},
-{# state 158
-  ']'=>['shift','228'],
-},
-{# state 159
-  '('=>['shift','69'],
-  'Integer'=>['goto','229'],
-},
-{# state 160
-  '$default'=>['reduce','11'],
-},
-{# state 161
-  '$default'=>['reduce','18'],
-  'Arguments'=>['goto','230'],
-},
-{# state 162
-  'IDENT'=>['shift','48'],
-  'INTNUM'=>['shift','47'],
-  'Ident'=>['goto','50'],
-  'Stage'=>['goto','231'],
-},
-{# state 163
-  'IDENT'=>['shift','48'],
-  'INTNUM'=>['shift','53'],
-  'Ident'=>['goto','56'],
-  'Section'=>['goto','232'],
-  'Variable'=>['goto','233'],
-},
-{# state 164
-  ')'=>['shift','234'],
-},
-{# state 165
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','235'],
-},
-{# state 166
-  'Constant'=>['goto','238'],
-  'INTNUM'=>['shift','236'],
-  'SYMNUM'=>['shift','237'],
-  'Section'=>['goto','239'],
-},
-{# state 167
-  'PROXY'=>['shift','155'],
-  'Proxy'=>['goto','240'],
-},
-{# state 168
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','242'],
-},
-{# state 169
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','243'],
-},
-{# state 170
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','244'],
-},
-{# state 171
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','245'],
-},
-{# state 172
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','246'],
-},
-{# state 173
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','247'],
-},
-{# state 174
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','248'],
-},
-{# state 175
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','249'],
-},
-{# state 176
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','250'],
-},
-{# state 177
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','251'],
-},
-{# state 178
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','252'],
-},
-{# state 179
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','253'],
-},
-{# state 180
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','254'],
-},
-{# state 181
-  '('=>['shift','69'],
-  'Integer'=>['goto','255'],
-},
-{# state 182
-  '('=>['shift','69'],
-  'Integer'=>['goto','256'],
-},
-{# state 183
-  '('=>['shift','69'],
-  'Integer'=>['goto','257'],
-},
-{# state 184
-  '('=>['shift','69'],
-  'Integer'=>['goto','258'],
-},
-{# state 185
-  '('=>['shift','69'],
-  'Integer'=>['goto','259'],
-},
-{# state 186
-  '('=>['shift','69'],
-  'Integer'=>['goto','260'],
-},
-{# state 187
-  '('=>['shift','69'],
-  'Integer'=>['goto','261'],
-},
-{# state 188
-  '('=>['shift','69'],
-  'Integer'=>['goto','262'],
-},
-{# state 189
-  '('=>['shift','69'],
-  'Integer'=>['goto','263'],
-},
-{# state 190
-  '('=>['shift','69'],
-  'Integer'=>['goto','264'],
-},
-{# state 191
-  '('=>['shift','69'],
-  'Integer'=>['goto','265'],
-},
-{# state 192
-  '('=>['shift','69'],
-  'Integer'=>['goto','266'],
-},
-{# state 193
-  '('=>['shift','69'],
-  'Integer'=>['goto','267'],
-},
-{# state 194
-  '('=>['shift','69'],
-  'Integer'=>['goto','268'],
-},
-{# state 195
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','269'],
-},
-{# state 196
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','270'],
-},
-{# state 197
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','271'],
-},
-{# state 198
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','272'],
-},
-{# state 199
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','56'],
-  'Variable'=>['goto','273'],
-},
-{# state 200
-  '.'=>['shift','274'],
-},
-{# state 201
-  '('=>['shift','1'],
-  ')'=>['shift','275'],
-  'Command'=>['goto','30'],
-},
-{# state 202
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','276'],
-},
-{# state 203
-  'Constant'=>['goto','278'],
-  'IDENT'=>['shift','277'],
-  'INTNUM'=>['shift','236'],
-  'SYMNUM'=>['shift','237'],
-  'Section'=>['goto','239'],
-},
-{# state 204
-  '$default'=>['reduce','83'],
-},
-{# state 205
-  'Attribute'=>['goto','279'],
-  'IDENT'=>['shift','132'],
-},
-{# state 206
-  '$default'=>['reduce','82'],
-  '('=>['shift','59'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','280'],
-  'Boolean'=>['goto','62'],
-  'Integer'=>['goto','61'],
-},
-{# state 207
-  ')'=>['shift','281'],
-},
-{# state 208
-  ')'=>['shift','282'],
-},
-{# state 209
-  ')'=>['shift','283'],
-},
-{# state 210
-  ')'=>['shift','284'],
-},
-{# state 211
-  ')'=>['shift','285'],
-},
-{# state 212
-  ')'=>['shift','286'],
-},
-{# state 213
-  ')'=>['shift','287'],
-},
-{# state 214
-  ')'=>['shift','288'],
-},
-{# state 215
-  ')'=>['shift','289'],
-},
-{# state 216
-  '$default'=>['reduce','78'],
-},
-{# state 217
-  '$default'=>['reduce','79'],
-},
-{# state 218
-  '('=>['shift','59'],
-  ')'=>['shift','290'],
-  'Boolean'=>['goto','62'],
-  'Integer'=>['goto','61'],
-},
-{# state 219
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','292'],
-  'Storage'=>['goto','291'],
-},
-{# state 220
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','292'],
-  'Storage'=>['goto','293'],
-},
-{# state 221
-  '.'=>['shift','294'],
-},
-{# state 222
-  '.'=>['shift','295'],
-},
-{# state 223
-  '$default'=>['reduce','6'],
-},
-{# state 224
-  ')'=>['shift','296'],
-},
-{# state 225
-  '$default'=>['reduce','25'],
-},
-{# state 226
-  '('=>['shift','69'],
-  ')'=>['shift','297'],
-  'Integer'=>['goto','225'],
-  'Mask'=>['goto','298'],
-},
-{# state 227
-  '$default'=>['reduce','91'],
-},
-{# state 228
-  '$default'=>['reduce','92'],
-},
-{# state 229
-  ')'=>['shift','299'],
-},
-{# state 230
-  '('=>['shift','59'],
-  ')'=>['shift','300'],
-  'Boolean'=>['goto','62'],
-  'Integer'=>['goto','61'],
-},
-{# state 231
-  '.'=>['shift','301'],
-},
-{# state 232
-  '.'=>['shift','302'],
-},
-{# state 233
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','303'],
-},
-{# state 234
-  '$default'=>['reduce','26'],
-},
-{# state 235
-  '.'=>['shift','304'],
-},
-{# state 236
-  '$default'=>['reduce','89'],
-  '['=>['shift','86'],
-},
-{# state 237
-  '$default'=>['reduce','88'],
-},
-{# state 238
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','305'],
-},
-{# state 239
-  '$default'=>['reduce','90'],
-},
-{# state 240
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','306'],
-},
-{# state 241
-  '$default'=>['reduce','101'],
-},
-{# state 242
-  '.'=>['shift','307'],
-},
-{# state 243
-  '('=>['shift','153'],
-  'BitField'=>['goto','308'],
-},
-{# state 244
-  '('=>['shift','69'],
-  'Integer'=>['goto','309'],
-},
-{# state 245
-  '('=>['shift','69'],
-  'Integer'=>['goto','310'],
-},
-{# state 246
-  '('=>['shift','69'],
-  'Integer'=>['goto','311'],
-},
-{# state 247
-  '('=>['shift','69'],
-  'Integer'=>['goto','312'],
-},
-{# state 248
-  '('=>['shift','69'],
-  'Integer'=>['goto','313'],
-},
-{# state 249
-  '('=>['shift','69'],
-  'Integer'=>['goto','314'],
-},
-{# state 250
-  '('=>['shift','69'],
-  'Integer'=>['goto','315'],
-},
-{# state 251
-  '('=>['shift','69'],
-  'Integer'=>['goto','316'],
-},
-{# state 252
-  '('=>['shift','69'],
-  'Integer'=>['goto','317'],
-},
-{# state 253
-  '('=>['shift','69'],
-  'Integer'=>['goto','318'],
-},
-{# state 254
-  '('=>['shift','69'],
-  'Integer'=>['goto','319'],
-},
-{# state 255
-  '('=>['shift','69'],
-  'Integer'=>['goto','320'],
-},
-{# state 256
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','321'],
-},
-{# state 257
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','322'],
-},
-{# state 258
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','323'],
-},
-{# state 259
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','324'],
-},
-{# state 260
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','325'],
-},
-{# state 261
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','326'],
-},
-{# state 262
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','327'],
-},
-{# state 263
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','328'],
-},
-{# state 264
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','329'],
-},
-{# state 265
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','330'],
-},
-{# state 266
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','331'],
-},
-{# state 267
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','332'],
-},
-{# state 268
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','333'],
-},
-{# state 269
-  ')'=>['shift','334'],
-},
-{# state 270
-  ')'=>['shift','335'],
-},
-{# state 271
-  ')'=>['shift','336'],
-},
-{# state 272
-  ')'=>['shift','337'],
-},
-{# state 273
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','338'],
-},
-{# state 274
-  'INTNUM'=>['shift','339'],
-},
-{# state 275
-  '$default'=>['reduce','13'],
-},
-{# state 276
-  ')'=>['shift','340'],
-},
-{# state 277
-  '$default'=>['reduce','86'],
-},
-{# state 278
-  '$default'=>['reduce','87'],
-},
-{# state 279
-  '$default'=>['reduce','85'],
-},
-{# state 280
-  ')'=>['shift','341'],
-},
-{# state 281
-  '$default'=>['reduce','68'],
-},
-{# state 282
-  '$default'=>['reduce','69'],
-},
-{# state 283
-  '$default'=>['reduce','70'],
-},
-{# state 284
-  '$default'=>['reduce','71'],
-},
-{# state 285
-  '$default'=>['reduce','72'],
-},
-{# state 286
-  '$default'=>['reduce','73'],
-},
-{# state 287
-  '$default'=>['reduce','74'],
-},
-{# state 288
-  '$default'=>['reduce','75'],
-},
-{# state 289
-  '$default'=>['reduce','76'],
-},
-{# state 290
-  '$default'=>['reduce','5'],
-},
-{# state 291
-  '('=>['shift','69'],
-  'Address'=>['goto','342'],
-  'Integer'=>['goto','343'],
-},
-{# state 292
-  '$default'=>['reduce','96'],
-},
-{# state 293
-  '('=>['shift','69'],
-  'Address'=>['goto','344'],
-  'Integer'=>['goto','343'],
-},
-{# state 294
-  'IDENT'=>['shift','48'],
-  'INTNUM'=>['shift','47'],
-  'Ident'=>['goto','50'],
-  'Stage'=>['goto','345'],
-},
-{# state 295
-  'INTNUM'=>['shift','241'],
-  'Width'=>['goto','346'],
-},
-{# state 296
-  '$default'=>['reduce','7'],
-},
-{# state 297
-  '$default'=>['reduce','8'],
-},
-{# state 298
-  ')'=>['shift','347'],
-},
-{# state 299
-  '$default'=>['reduce','10'],
-},
-{# state 300
-  '$default'=>['reduce','4'],
-},
-{# state 301
-  'PROXY'=>['shift','155'],
-  'Proxy'=>['goto','348'],
-},
-{# state 302
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','56'],
-  'Variable'=>['goto','349'],
-},
-{# state 303
-  ')'=>['shift','350'],
-},
-{# state 304
-  'PROXY'=>['shift','155'],
-  'Proxy'=>['goto','351'],
-},
-{# state 305
-  ')'=>['shift','352'],
-},
-{# state 306
-  ')'=>['shift','353'],
-},
-{# state 307
-  'IDENT'=>['shift','48'],
-  'Ident'=>['goto','354'],
-},
-{# state 308
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','355'],
-},
-{# state 309
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','356'],
-},
-{# state 310
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','357'],
-},
-{# state 311
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','358'],
-},
-{# state 312
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','359'],
-},
-{# state 313
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','360'],
-},
-{# state 314
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','361'],
-},
-{# state 315
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','362'],
-},
-{# state 316
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','363'],
-},
-{# state 317
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','364'],
-},
-{# state 318
-  '('=>['shift','69'],
-  'Integer'=>['goto','365'],
-},
-{# state 319
-  '('=>['shift','69'],
-  'Integer'=>['goto','366'],
-},
-{# state 320
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','367'],
-},
-{# state 321
-  ')'=>['shift','368'],
-},
-{# state 322
-  ')'=>['shift','369'],
-},
-{# state 323
-  ')'=>['shift','370'],
-},
-{# state 324
-  ')'=>['shift','371'],
-},
-{# state 325
-  ')'=>['shift','372'],
-},
-{# state 326
-  ')'=>['shift','373'],
-},
-{# state 327
-  ')'=>['shift','374'],
-},
-{# state 328
-  ')'=>['shift','375'],
-},
-{# state 329
-  ')'=>['shift','376'],
-},
-{# state 330
-  ')'=>['shift','377'],
-},
-{# state 331
-  ')'=>['shift','378'],
-},
-{# state 332
-  ')'=>['shift','379'],
-},
-{# state 333
-  ')'=>['shift','380'],
-},
-{# state 334
-  '$default'=>['reduce','61'],
-},
-{# state 335
-  '$default'=>['reduce','63'],
-},
-{# state 336
-  '$default'=>['reduce','62'],
-},
-{# state 337
-  '$default'=>['reduce','64'],
-},
-{# state 338
-  ')'=>['shift','381'],
-},
-{# state 339
-  ')'=>['shift','382'],
-  '.'=>['shift','383'],
-},
-{# state 340
-  '$default'=>['reduce','77'],
-},
-{# state 341
-  '$default'=>['reduce','67'],
-},
-{# state 342
-  '('=>['shift','69'],
-  'Extent'=>['goto','384'],
-  'Integer'=>['goto','385'],
-},
-{# state 343
-  '$default'=>['reduce','23'],
-},
-{# state 344
-  '('=>['shift','69'],
-  'Extent'=>['goto','386'],
-  'Integer'=>['goto','385'],
-},
-{# state 345
-  '('=>['shift','83'],
-  'Location'=>['goto','387'],
-},
-{# state 346
-  '('=>['shift','69'],
-  'Integer'=>['goto','388'],
-},
-{# state 347
-  '$default'=>['reduce','9'],
-},
-{# state 348
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','389'],
-},
-{# state 349
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','390'],
-},
-{# state 350
-  '$default'=>['reduce','29'],
-},
-{# state 351
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','391'],
-},
-{# state 352
-  '$default'=>['reduce','28'],
-},
-{# state 353
-  '$default'=>['reduce','27'],
-},
-{# state 354
-  '$default'=>['reduce','18'],
-  'Arguments'=>['goto','392'],
-},
-{# state 355
-  ')'=>['shift','393'],
-},
-{# state 356
-  ')'=>['shift','394'],
-},
-{# state 357
-  ')'=>['shift','395'],
-},
-{# state 358
-  ')'=>['shift','396'],
-},
-{# state 359
-  ')'=>['shift','397'],
-},
-{# state 360
-  ')'=>['shift','398'],
-},
-{# state 361
-  ')'=>['shift','399'],
-},
-{# state 362
-  ')'=>['shift','400'],
-},
-{# state 363
-  ')'=>['shift','401'],
-},
-{# state 364
-  ')'=>['shift','402'],
-},
-{# state 365
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','403'],
-},
-{# state 366
-  '$default'=>['reduce','82'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','404'],
-},
-{# state 367
-  ')'=>['shift','405'],
-},
-{# state 368
-  '$default'=>['reduce','48'],
-},
-{# state 369
-  '$default'=>['reduce','49'],
-},
-{# state 370
-  '$default'=>['reduce','50'],
-},
-{# state 371
-  '$default'=>['reduce','51'],
-},
-{# state 372
-  '$default'=>['reduce','52'],
-},
-{# state 373
-  '$default'=>['reduce','53'],
-},
-{# state 374
-  '$default'=>['reduce','54'],
-},
-{# state 375
-  '$default'=>['reduce','55'],
-},
-{# state 376
-  '$default'=>['reduce','56'],
-},
-{# state 377
-  '$default'=>['reduce','57'],
-},
-{# state 378
-  '$default'=>['reduce','58'],
-},
-{# state 379
-  '$default'=>['reduce','59'],
-},
-{# state 380
-  '$default'=>['reduce','60'],
-},
-{# state 381
-  '$default'=>['reduce','31'],
-},
-{# state 382
-  '$default'=>['reduce','93'],
-},
-{# state 383
-  'INTNUM'=>['shift','406'],
-},
-{# state 384
-  ')'=>['shift','407'],
-},
-{# state 385
-  '$default'=>['reduce','24'],
-},
-{# state 386
-  ')'=>['shift','408'],
-},
-{# state 387
-  ')'=>['shift','409'],
-},
-{# state 388
-  ')'=>['shift','410'],
-},
-{# state 389
-  ')'=>['shift','411'],
-},
-{# state 390
-  ')'=>['shift','412'],
-},
-{# state 391
-  ')'=>['shift','413'],
-},
-{# state 392
-  '$default'=>['reduce','82'],
-  '('=>['shift','59'],
-  '(*'=>['shift','65'],
-  'Abstract'=>['goto','414'],
-  'Boolean'=>['goto','62'],
-  'Integer'=>['goto','61'],
-},
-{# state 393
-  '$default'=>['reduce','35'],
-},
-{# state 394
-  '$default'=>['reduce','36'],
-},
-{# state 395
-  '$default'=>['reduce','37'],
-},
-{# state 396
-  '$default'=>['reduce','38'],
-},
-{# state 397
-  '$default'=>['reduce','39'],
-},
-{# state 398
-  '$default'=>['reduce','40'],
-},
-{# state 399
-  '$default'=>['reduce','41'],
-},
-{# state 400
-  '$default'=>['reduce','42'],
-},
-{# state 401
-  '$default'=>['reduce','43'],
-},
-{# state 402
-  '$default'=>['reduce','44'],
-},
-{# state 403
-  ')'=>['shift','415'],
-},
-{# state 404
-  ')'=>['shift','416'],
-},
-{# state 405
-  '$default'=>['reduce','47'],
-},
-{# state 406
-  ')'=>['shift','417'],
-  '.'=>['shift','418'],
-},
-{# state 407
   '$default'=>['reduce','21'],
 },
-{# state 408
-  '$default'=>['reduce','22'],
+{# state 67
+  '('=>['shift','137'],
+  'Sequence'=>['goto','138'],
 },
-{# state 409
-  '$default'=>['reduce','80'],
+{# state 68
+  'IDENT'=>['shift','50'],
+  'INTNUM'=>['shift','49'],
+  'Ident'=>['goto','52'],
+  'Stage'=>['goto','139'],
 },
-{# state 410
-  '$default'=>['reduce','81'],
+{# state 69
+  'Attribute'=>['goto','142'],
+  'Attributes'=>['goto','141'],
+  'IDENT'=>['shift','140'],
 },
-{# state 411
+{# state 70
+  ')'=>['shift','143'],
+},
+{# state 71
+  ')'=>['shift','144'],
+},
+{# state 72
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','145'],
+},
+{# state 73
+  'ABS'=>['shift','133'],
+  'ACCESS'=>['shift','99'],
+  'ADD'=>['shift','119'],
+  'AND'=>['shift','127'],
+  'APPLY'=>['shift','105'],
+  'B2I'=>['shift','135'],
+  'CBS'=>['shift','114'],
+  'CLS'=>['shift','112'],
+  'CLZ'=>['shift','111'],
+  'CONST'=>['shift','103'],
+  'CTZ'=>['shift','113'],
+  'DIV'=>['shift','122'],
+  'F2I'=>['shift','106'],
+  'INDEX'=>['shift','136'],
+  'IOR'=>['shift','128'],
+  'MAX'=>['shift','131'],
+  'METHOD'=>['shift','104'],
+  'MIN'=>['shift','130'],
+  'MOD'=>['shift','124'],
+  'MUL'=>['shift','121'],
+  'NEG'=>['shift','134'],
+  'NOT'=>['shift','132'],
+  'PROPERTY'=>['shift','102'],
+  'READ'=>['shift','100'],
+  'REM'=>['shift','123'],
+  'ROL'=>['shift','117'],
+  'ROR'=>['shift','116'],
+  'SAT'=>['shift','109'],
+  'SATU'=>['shift','110'],
+  'SELECT'=>['shift','118'],
+  'SHL'=>['shift','126'],
+  'SHR'=>['shift','125'],
+  'SUB'=>['shift','120'],
+  'SWAP'=>['shift','115'],
+  'SX'=>['shift','107'],
+  'UNDEF'=>['shift','101'],
+  'XOR'=>['shift','129'],
+  'ZX'=>['shift','108'],
+},
+{# state 74
+  '('=>['shift','73'],
+  'Integer'=>['goto','146'],
+},
+{# state 75
+  '('=>['shift','73'],
+  'Integer'=>['goto','147'],
+},
+{# state 76
+  '('=>['shift','73'],
+  'Integer'=>['goto','148'],
+},
+{# state 77
+  '('=>['shift','73'],
+  'Integer'=>['goto','149'],
+},
+{# state 78
+  '('=>['shift','73'],
+  'Integer'=>['goto','150'],
+},
+{# state 79
+  '('=>['shift','73'],
+  'Integer'=>['goto','151'],
+},
+{# state 80
+  '('=>['shift','19'],
+  'Boolean'=>['goto','152'],
+},
+{# state 81
+  '('=>['shift','19'],
+  'Boolean'=>['goto','153'],
+},
+{# state 82
+  '('=>['shift','19'],
+  'Boolean'=>['goto','154'],
+},
+{# state 83
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','155'],
+},
+{# state 84
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','156'],
+},
+{# state 85
+  ')'=>['shift','157'],
+},
+{# state 86
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','158'],
+},
+{# state 87
+  'AGGB'=>['shift','160'],
+  'AGGL'=>['shift','159'],
+},
+{# state 88
+  '('=>['shift','161'],
+  'BitField'=>['goto','162'],
+},
+{# state 89
+  'PROXY'=>['shift','163'],
+  'Proxy'=>['goto','164'],
+},
+{# state 90
+  '('=>['shift','73'],
+  'INTNUM'=>['shift','165'],
+  'Integer'=>['goto','166'],
+},
+{# state 91
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','58'],
+  'Variable'=>['goto','167'],
+},
+{# state 92
+  ')'=>['shift','168'],
+},
+{# state 93
+  'APPLY'=>['shift','169'],
+},
+{# state 94
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','58'],
+  'Variable'=>['goto','170'],
+},
+{# state 95
+  ')'=>['shift','171'],
+},
+{# state 96
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','58'],
+  'Variable'=>['goto','172'],
+},
+{# state 97
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','173'],
+},
+{# state 98
+  '$default'=>['reduce','13'],
+},
+{# state 99
+  '.'=>['shift','174'],
+},
+{# state 100
+  '.'=>['shift','175'],
+},
+{# state 101
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','176'],
+},
+{# state 102
+  '.'=>['shift','177'],
+},
+{# state 103
+  '.'=>['shift','178'],
+},
+{# state 104
+  '.'=>['shift','179'],
+},
+{# state 105
+  '.'=>['shift','180'],
+},
+{# state 106
+  '.'=>['shift','181'],
+},
+{# state 107
+  '.'=>['shift','182'],
+},
+{# state 108
+  '.'=>['shift','183'],
+},
+{# state 109
+  '.'=>['shift','184'],
+},
+{# state 110
+  '.'=>['shift','185'],
+},
+{# state 111
+  '.'=>['shift','186'],
+},
+{# state 112
+  '.'=>['shift','187'],
+},
+{# state 113
+  '.'=>['shift','188'],
+},
+{# state 114
+  '.'=>['shift','189'],
+},
+{# state 115
+  '.'=>['shift','190'],
+},
+{# state 116
+  '.'=>['shift','191'],
+},
+{# state 117
+  '.'=>['shift','192'],
+},
+{# state 118
+  '('=>['shift','19'],
+  'Boolean'=>['goto','193'],
+},
+{# state 119
+  '('=>['shift','73'],
+  'Integer'=>['goto','194'],
+},
+{# state 120
+  '('=>['shift','73'],
+  'Integer'=>['goto','195'],
+},
+{# state 121
+  '('=>['shift','73'],
+  'Integer'=>['goto','196'],
+},
+{# state 122
+  '('=>['shift','73'],
+  'Integer'=>['goto','197'],
+},
+{# state 123
+  '('=>['shift','73'],
+  'Integer'=>['goto','198'],
+},
+{# state 124
+  '('=>['shift','73'],
+  'Integer'=>['goto','199'],
+},
+{# state 125
+  '('=>['shift','73'],
+  'Integer'=>['goto','200'],
+},
+{# state 126
+  '('=>['shift','73'],
+  'Integer'=>['goto','201'],
+},
+{# state 127
+  '('=>['shift','73'],
+  'Integer'=>['goto','202'],
+},
+{# state 128
+  '('=>['shift','73'],
+  'Integer'=>['goto','203'],
+},
+{# state 129
+  '('=>['shift','73'],
+  'Integer'=>['goto','204'],
+},
+{# state 130
+  '('=>['shift','73'],
+  'Integer'=>['goto','205'],
+},
+{# state 131
+  '('=>['shift','73'],
+  'Integer'=>['goto','206'],
+},
+{# state 132
+  '('=>['shift','73'],
+  'Integer'=>['goto','207'],
+},
+{# state 133
+  '('=>['shift','73'],
+  'Integer'=>['goto','208'],
+},
+{# state 134
+  '('=>['shift','73'],
+  'Integer'=>['goto','209'],
+},
+{# state 135
+  '('=>['shift','19'],
+  'Boolean'=>['goto','210'],
+},
+{# state 136
+  '.'=>['shift','211'],
+},
+{# state 137
+  'RANGE'=>['shift','212'],
+},
+{# state 138
+  '('=>['shift','1'],
+  'Command'=>['goto','17'],
+  'Commands'=>['goto','213'],
+},
+{# state 139
+  '('=>['shift','87'],
+  'Location'=>['goto','214'],
+},
+{# state 140
+  ':'=>['shift','215'],
+},
+{# state 141
+  '*)'=>['shift','217'],
+  ','=>['shift','216'],
+},
+{# state 142
+  '$default'=>['reduce','90'],
+},
+{# state 143
+  '$default'=>['reduce','71'],
+},
+{# state 144
+  '$default'=>['reduce','72'],
+},
+{# state 145
+  '$default'=>['reduce','19'],
+  'Arguments'=>['goto','218'],
+},
+{# state 146
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','219'],
+},
+{# state 147
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','220'],
+},
+{# state 148
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','221'],
+},
+{# state 149
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','222'],
+},
+{# state 150
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','223'],
+},
+{# state 151
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','224'],
+},
+{# state 152
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','225'],
+},
+{# state 153
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','226'],
+},
+{# state 154
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','227'],
+},
+{# state 155
+  ')'=>['shift','228'],
+},
+{# state 156
+  ')'=>['shift','229'],
+},
+{# state 157
+  '$default'=>['reduce','3'],
+},
+{# state 158
+  '$default'=>['reduce','19'],
+  'Arguments'=>['goto','230'],
+},
+{# state 159
+  '.'=>['shift','231'],
+},
+{# state 160
+  '.'=>['shift','232'],
+},
+{# state 161
+  'I2F'=>['shift','234'],
+  'LOAD'=>['shift','233'],
+},
+{# state 162
+  '('=>['shift','73'],
+  ')'=>['shift','235'],
+  'Integer'=>['goto','237'],
+  'Mask'=>['goto','236'],
+},
+{# state 163
+  '$default'=>['reduce','104'],
+},
+{# state 164
+  '('=>['shift','73'],
+  'Integer'=>['goto','238'],
+},
+{# state 165
+  ']'=>['shift','239'],
+},
+{# state 166
+  ']'=>['shift','240'],
+},
+{# state 167
+  '('=>['shift','73'],
+  'Integer'=>['goto','241'],
+},
+{# state 168
+  '$default'=>['reduce','11'],
+},
+{# state 169
+  '.'=>['shift','242'],
+},
+{# state 170
+  '$default'=>['reduce','26'],
+},
+{# state 171
+  '$default'=>['reduce','12'],
+},
+{# state 172
+  '$default'=>['reduce','25'],
+},
+{# state 173
+  '$default'=>['reduce','19'],
+  'Arguments'=>['goto','243'],
+},
+{# state 174
+  'IDENT'=>['shift','50'],
+  'INTNUM'=>['shift','49'],
+  'Ident'=>['goto','52'],
+  'Stage'=>['goto','244'],
+},
+{# state 175
+  'IDENT'=>['shift','50'],
+  'INTNUM'=>['shift','55'],
+  'Ident'=>['goto','58'],
+  'Section'=>['goto','245'],
+  'Variable'=>['goto','246'],
+},
+{# state 176
+  ')'=>['shift','247'],
+},
+{# state 177
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','248'],
+},
+{# state 178
+  'Constant'=>['goto','251'],
+  'INTNUM'=>['shift','249'],
+  'SYMNUM'=>['shift','250'],
+  'Section'=>['goto','252'],
+},
+{# state 179
+  'PROXY'=>['shift','163'],
+  'Proxy'=>['goto','253'],
+},
+{# state 180
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','255'],
+},
+{# state 181
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','256'],
+},
+{# state 182
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','257'],
+},
+{# state 183
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','258'],
+},
+{# state 184
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','259'],
+},
+{# state 185
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','260'],
+},
+{# state 186
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','261'],
+},
+{# state 187
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','262'],
+},
+{# state 188
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','263'],
+},
+{# state 189
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','264'],
+},
+{# state 190
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','265'],
+},
+{# state 191
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','266'],
+},
+{# state 192
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','267'],
+},
+{# state 193
+  '('=>['shift','73'],
+  'Integer'=>['goto','268'],
+},
+{# state 194
+  '('=>['shift','73'],
+  'Integer'=>['goto','269'],
+},
+{# state 195
+  '('=>['shift','73'],
+  'Integer'=>['goto','270'],
+},
+{# state 196
+  '('=>['shift','73'],
+  'Integer'=>['goto','271'],
+},
+{# state 197
+  '('=>['shift','73'],
+  'Integer'=>['goto','272'],
+},
+{# state 198
+  '('=>['shift','73'],
+  'Integer'=>['goto','273'],
+},
+{# state 199
+  '('=>['shift','73'],
+  'Integer'=>['goto','274'],
+},
+{# state 200
+  '('=>['shift','73'],
+  'Integer'=>['goto','275'],
+},
+{# state 201
+  '('=>['shift','73'],
+  'Integer'=>['goto','276'],
+},
+{# state 202
+  '('=>['shift','73'],
+  'Integer'=>['goto','277'],
+},
+{# state 203
+  '('=>['shift','73'],
+  'Integer'=>['goto','278'],
+},
+{# state 204
+  '('=>['shift','73'],
+  'Integer'=>['goto','279'],
+},
+{# state 205
+  '('=>['shift','73'],
+  'Integer'=>['goto','280'],
+},
+{# state 206
+  '('=>['shift','73'],
+  'Integer'=>['goto','281'],
+},
+{# state 207
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','282'],
+},
+{# state 208
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','283'],
+},
+{# state 209
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','284'],
+},
+{# state 210
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','285'],
+},
+{# state 211
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','58'],
+  'Variable'=>['goto','286'],
+},
+{# state 212
+  '.'=>['shift','287'],
+},
+{# state 213
+  '('=>['shift','1'],
+  ')'=>['shift','288'],
+  'Command'=>['goto','32'],
+},
+{# state 214
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','289'],
+},
+{# state 215
+  'Constant'=>['goto','291'],
+  'IDENT'=>['shift','290'],
+  'INTNUM'=>['shift','249'],
+  'SYMNUM'=>['shift','250'],
+  'Section'=>['goto','252'],
+},
+{# state 216
+  'Attribute'=>['goto','292'],
+  'IDENT'=>['shift','140'],
+},
+{# state 217
+  '$default'=>['reduce','89'],
+},
+{# state 218
+  '$default'=>['reduce','88'],
+  '('=>['shift','63'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','293'],
+  'Boolean'=>['goto','66'],
+  'Integer'=>['goto','65'],
+},
+{# state 219
+  ')'=>['shift','294'],
+},
+{# state 220
+  ')'=>['shift','295'],
+},
+{# state 221
+  ')'=>['shift','296'],
+},
+{# state 222
+  ')'=>['shift','297'],
+},
+{# state 223
+  ')'=>['shift','298'],
+},
+{# state 224
+  ')'=>['shift','299'],
+},
+{# state 225
+  ')'=>['shift','300'],
+},
+{# state 226
+  ')'=>['shift','301'],
+},
+{# state 227
+  ')'=>['shift','302'],
+},
+{# state 228
+  '$default'=>['reduce','84'],
+},
+{# state 229
+  '$default'=>['reduce','85'],
+},
+{# state 230
+  '('=>['shift','63'],
+  ')'=>['shift','303'],
+  'Boolean'=>['goto','66'],
+  'Integer'=>['goto','65'],
+},
+{# state 231
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','305'],
+  'Storage'=>['goto','304'],
+},
+{# state 232
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','305'],
+  'Storage'=>['goto','306'],
+},
+{# state 233
+  '.'=>['shift','307'],
+},
+{# state 234
+  '.'=>['shift','308'],
+},
+{# state 235
+  '$default'=>['reduce','6'],
+},
+{# state 236
+  ')'=>['shift','309'],
+},
+{# state 237
+  '$default'=>['reduce','31'],
+},
+{# state 238
+  '('=>['shift','73'],
+  ')'=>['shift','310'],
+  'Integer'=>['goto','237'],
+  'Mask'=>['goto','311'],
+},
+{# state 239
+  '$default'=>['reduce','97'],
+},
+{# state 240
+  '$default'=>['reduce','98'],
+},
+{# state 241
+  ')'=>['shift','312'],
+},
+{# state 242
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','314'],
+  'Widths'=>['goto','313'],
+},
+{# state 243
+  '('=>['shift','63'],
+  ')'=>['shift','315'],
+  'Boolean'=>['goto','66'],
+  'Integer'=>['goto','65'],
+},
+{# state 244
+  '.'=>['shift','316'],
+},
+{# state 245
+  '.'=>['shift','317'],
+},
+{# state 246
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','318'],
+},
+{# state 247
   '$default'=>['reduce','32'],
 },
-{# state 412
-  '$default'=>['reduce','30'],
+{# state 248
+  '.'=>['shift','319'],
 },
-{# state 413
-  '$default'=>['reduce','33'],
+{# state 249
+  '$default'=>['reduce','95'],
+  '['=>['shift','90'],
 },
-{# state 414
-  ')'=>['shift','419'],
-},
-{# state 415
-  '$default'=>['reduce','45'],
-},
-{# state 416
-  '$default'=>['reduce','46'],
-},
-{# state 417
+{# state 250
   '$default'=>['reduce','94'],
 },
-{# state 418
-  'INTNUM'=>['shift','420'],
+{# state 251
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','320'],
 },
-{# state 419
+{# state 252
+  '$default'=>['reduce','96'],
+},
+{# state 253
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','321'],
+},
+{# state 254
+  '$default'=>['reduce','107'],
+},
+{# state 255
+  '.'=>['shift','322'],
+},
+{# state 256
+  '('=>['shift','161'],
+  'BitField'=>['goto','323'],
+},
+{# state 257
+  '('=>['shift','73'],
+  'Integer'=>['goto','324'],
+},
+{# state 258
+  '('=>['shift','73'],
+  'Integer'=>['goto','325'],
+},
+{# state 259
+  '('=>['shift','73'],
+  'Integer'=>['goto','326'],
+},
+{# state 260
+  '('=>['shift','73'],
+  'Integer'=>['goto','327'],
+},
+{# state 261
+  '('=>['shift','73'],
+  'Integer'=>['goto','328'],
+},
+{# state 262
+  '('=>['shift','73'],
+  'Integer'=>['goto','329'],
+},
+{# state 263
+  '('=>['shift','73'],
+  'Integer'=>['goto','330'],
+},
+{# state 264
+  '('=>['shift','73'],
+  'Integer'=>['goto','331'],
+},
+{# state 265
+  '('=>['shift','73'],
+  'Integer'=>['goto','332'],
+},
+{# state 266
+  '('=>['shift','73'],
+  'Integer'=>['goto','333'],
+},
+{# state 267
+  '('=>['shift','73'],
+  'Integer'=>['goto','334'],
+},
+{# state 268
+  '('=>['shift','73'],
+  'Integer'=>['goto','335'],
+},
+{# state 269
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','336'],
+},
+{# state 270
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','337'],
+},
+{# state 271
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','338'],
+},
+{# state 272
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','339'],
+},
+{# state 273
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','340'],
+},
+{# state 274
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','341'],
+},
+{# state 275
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','342'],
+},
+{# state 276
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','343'],
+},
+{# state 277
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','344'],
+},
+{# state 278
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','345'],
+},
+{# state 279
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','346'],
+},
+{# state 280
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','347'],
+},
+{# state 281
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','348'],
+},
+{# state 282
+  ')'=>['shift','349'],
+},
+{# state 283
+  ')'=>['shift','350'],
+},
+{# state 284
+  ')'=>['shift','351'],
+},
+{# state 285
+  ')'=>['shift','352'],
+},
+{# state 286
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','353'],
+},
+{# state 287
+  'INTNUM'=>['shift','354'],
+},
+{# state 288
+  '$default'=>['reduce','14'],
+},
+{# state 289
+  ')'=>['shift','355'],
+},
+{# state 290
+  '$default'=>['reduce','92'],
+},
+{# state 291
+  '$default'=>['reduce','93'],
+},
+{# state 292
+  '$default'=>['reduce','91'],
+},
+{# state 293
+  ')'=>['shift','356'],
+},
+{# state 294
+  '$default'=>['reduce','74'],
+},
+{# state 295
+  '$default'=>['reduce','75'],
+},
+{# state 296
+  '$default'=>['reduce','76'],
+},
+{# state 297
+  '$default'=>['reduce','77'],
+},
+{# state 298
+  '$default'=>['reduce','78'],
+},
+{# state 299
+  '$default'=>['reduce','79'],
+},
+{# state 300
+  '$default'=>['reduce','80'],
+},
+{# state 301
+  '$default'=>['reduce','81'],
+},
+{# state 302
+  '$default'=>['reduce','82'],
+},
+{# state 303
+  '$default'=>['reduce','5'],
+},
+{# state 304
+  '('=>['shift','73'],
+  'Address'=>['goto','357'],
+  'Integer'=>['goto','358'],
+},
+{# state 305
+  '$default'=>['reduce','102'],
+},
+{# state 306
+  '('=>['shift','73'],
+  'Address'=>['goto','359'],
+  'Integer'=>['goto','358'],
+},
+{# state 307
+  'IDENT'=>['shift','50'],
+  'INTNUM'=>['shift','49'],
+  'Ident'=>['goto','52'],
+  'Stage'=>['goto','360'],
+},
+{# state 308
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','361'],
+},
+{# state 309
+  '$default'=>['reduce','7'],
+},
+{# state 310
+  '$default'=>['reduce','8'],
+},
+{# state 311
+  ')'=>['shift','362'],
+},
+{# state 312
+  '$default'=>['reduce','10'],
+},
+{# state 313
+  ','=>['shift','364'],
+  '.'=>['shift','363'],
+},
+{# state 314
+  ','=>['shift','365'],
+},
+{# state 315
+  '$default'=>['reduce','4'],
+},
+{# state 316
+  'PROXY'=>['shift','163'],
+  'Proxy'=>['goto','366'],
+},
+{# state 317
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','58'],
+  'Variable'=>['goto','367'],
+},
+{# state 318
+  ')'=>['shift','368'],
+},
+{# state 319
+  'PROXY'=>['shift','163'],
+  'Proxy'=>['goto','369'],
+},
+{# state 320
+  ')'=>['shift','370'],
+},
+{# state 321
+  ')'=>['shift','371'],
+},
+{# state 322
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','372'],
+},
+{# state 323
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','373'],
+},
+{# state 324
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','374'],
+},
+{# state 325
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','375'],
+},
+{# state 326
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','376'],
+},
+{# state 327
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','377'],
+},
+{# state 328
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','378'],
+},
+{# state 329
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','379'],
+},
+{# state 330
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','380'],
+},
+{# state 331
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','381'],
+},
+{# state 332
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','382'],
+},
+{# state 333
+  '('=>['shift','73'],
+  'Integer'=>['goto','383'],
+},
+{# state 334
+  '('=>['shift','73'],
+  'Integer'=>['goto','384'],
+},
+{# state 335
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','385'],
+},
+{# state 336
+  ')'=>['shift','386'],
+},
+{# state 337
+  ')'=>['shift','387'],
+},
+{# state 338
+  ')'=>['shift','388'],
+},
+{# state 339
+  ')'=>['shift','389'],
+},
+{# state 340
+  ')'=>['shift','390'],
+},
+{# state 341
+  ')'=>['shift','391'],
+},
+{# state 342
+  ')'=>['shift','392'],
+},
+{# state 343
+  ')'=>['shift','393'],
+},
+{# state 344
+  ')'=>['shift','394'],
+},
+{# state 345
+  ')'=>['shift','395'],
+},
+{# state 346
+  ')'=>['shift','396'],
+},
+{# state 347
+  ')'=>['shift','397'],
+},
+{# state 348
+  ')'=>['shift','398'],
+},
+{# state 349
+  '$default'=>['reduce','67'],
+},
+{# state 350
+  '$default'=>['reduce','69'],
+},
+{# state 351
+  '$default'=>['reduce','68'],
+},
+{# state 352
+  '$default'=>['reduce','70'],
+},
+{# state 353
+  ')'=>['shift','399'],
+},
+{# state 354
+  ')'=>['shift','400'],
+  '.'=>['shift','401'],
+},
+{# state 355
+  '$default'=>['reduce','83'],
+},
+{# state 356
+  '$default'=>['reduce','73'],
+},
+{# state 357
+  '('=>['shift','73'],
+  'Extent'=>['goto','402'],
+  'Integer'=>['goto','403'],
+},
+{# state 358
+  '$default'=>['reduce','29'],
+},
+{# state 359
+  '('=>['shift','73'],
+  'Extent'=>['goto','404'],
+  'Integer'=>['goto','403'],
+},
+{# state 360
+  '('=>['shift','87'],
+  'Location'=>['goto','405'],
+},
+{# state 361
+  '('=>['shift','73'],
+  'Integer'=>['goto','406'],
+},
+{# state 362
+  '$default'=>['reduce','9'],
+},
+{# state 363
+  'IDENT'=>['shift','50'],
+  'Ident'=>['goto','407'],
+},
+{# state 364
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','408'],
+},
+{# state 365
+  'INTNUM'=>['shift','254'],
+  'Width'=>['goto','409'],
+},
+{# state 366
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','410'],
+},
+{# state 367
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','411'],
+},
+{# state 368
+  '$default'=>['reduce','35'],
+},
+{# state 369
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','412'],
+},
+{# state 370
   '$default'=>['reduce','34'],
 },
-{# state 420
+{# state 371
+  '$default'=>['reduce','33'],
+},
+{# state 372
+  '$default'=>['reduce','19'],
+  'Arguments'=>['goto','413'],
+},
+{# state 373
+  ')'=>['shift','414'],
+},
+{# state 374
+  ')'=>['shift','415'],
+},
+{# state 375
+  ')'=>['shift','416'],
+},
+{# state 376
+  ')'=>['shift','417'],
+},
+{# state 377
+  ')'=>['shift','418'],
+},
+{# state 378
+  ')'=>['shift','419'],
+},
+{# state 379
+  ')'=>['shift','420'],
+},
+{# state 380
   ')'=>['shift','421'],
 },
+{# state 381
+  ')'=>['shift','422'],
+},
+{# state 382
+  ')'=>['shift','423'],
+},
+{# state 383
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','424'],
+},
+{# state 384
+  '$default'=>['reduce','88'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','425'],
+},
+{# state 385
+  ')'=>['shift','426'],
+},
+{# state 386
+  '$default'=>['reduce','54'],
+},
+{# state 387
+  '$default'=>['reduce','55'],
+},
+{# state 388
+  '$default'=>['reduce','56'],
+},
+{# state 389
+  '$default'=>['reduce','57'],
+},
+{# state 390
+  '$default'=>['reduce','58'],
+},
+{# state 391
+  '$default'=>['reduce','59'],
+},
+{# state 392
+  '$default'=>['reduce','60'],
+},
+{# state 393
+  '$default'=>['reduce','61'],
+},
+{# state 394
+  '$default'=>['reduce','62'],
+},
+{# state 395
+  '$default'=>['reduce','63'],
+},
+{# state 396
+  '$default'=>['reduce','64'],
+},
+{# state 397
+  '$default'=>['reduce','65'],
+},
+{# state 398
+  '$default'=>['reduce','66'],
+},
+{# state 399
+  '$default'=>['reduce','37'],
+},
+{# state 400
+  '$default'=>['reduce','99'],
+},
+{# state 401
+  'INTNUM'=>['shift','427'],
+},
+{# state 402
+  ')'=>['shift','428'],
+},
+{# state 403
+  '$default'=>['reduce','30'],
+},
+{# state 404
+  ')'=>['shift','429'],
+},
+{# state 405
+  ')'=>['shift','430'],
+},
+{# state 406
+  ')'=>['shift','431'],
+},
+{# state 407
+  '$default'=>['reduce','19'],
+  'Arguments'=>['goto','432'],
+},
+{# state 408
+  '$default'=>['reduce','24'],
+},
+{# state 409
+  '$default'=>['reduce','23'],
+},
+{# state 410
+  ')'=>['shift','433'],
+},
+{# state 411
+  ')'=>['shift','434'],
+},
+{# state 412
+  ')'=>['shift','435'],
+},
+{# state 413
+  '$default'=>['reduce','88'],
+  '('=>['shift','63'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','436'],
+  'Boolean'=>['goto','66'],
+  'Integer'=>['goto','65'],
+},
+{# state 414
+  '$default'=>['reduce','41'],
+},
+{# state 415
+  '$default'=>['reduce','42'],
+},
+{# state 416
+  '$default'=>['reduce','43'],
+},
+{# state 417
+  '$default'=>['reduce','44'],
+},
+{# state 418
+  '$default'=>['reduce','45'],
+},
+{# state 419
+  '$default'=>['reduce','46'],
+},
+{# state 420
+  '$default'=>['reduce','47'],
+},
 {# state 421
-  '$default'=>['reduce','95'],
+  '$default'=>['reduce','48'],
+},
+{# state 422
+  '$default'=>['reduce','49'],
+},
+{# state 423
+  '$default'=>['reduce','50'],
+},
+{# state 424
+  ')'=>['shift','437'],
+},
+{# state 425
+  ')'=>['shift','438'],
+},
+{# state 426
+  '$default'=>['reduce','53'],
+},
+{# state 427
+  ')'=>['shift','439'],
+  '.'=>['shift','440'],
+},
+{# state 428
+  '$default'=>['reduce','27'],
+},
+{# state 429
+  '$default'=>['reduce','28'],
+},
+{# state 430
+  '$default'=>['reduce','86'],
+},
+{# state 431
+  '$default'=>['reduce','87'],
+},
+{# state 432
+  '$default'=>['reduce','88'],
+  '('=>['shift','63'],
+  '(*'=>['shift','69'],
+  'Abstract'=>['goto','441'],
+  'Boolean'=>['goto','66'],
+  'Integer'=>['goto','65'],
+},
+{# state 433
+  '$default'=>['reduce','38'],
+},
+{# state 434
+  '$default'=>['reduce','36'],
+},
+{# state 435
+  '$default'=>['reduce','39'],
+},
+{# state 436
+  ')'=>['shift','442'],
+},
+{# state 437
+  '$default'=>['reduce','51'],
+},
+{# state 438
+  '$default'=>['reduce','52'],
+},
+{# state 439
+  '$default'=>['reduce','100'],
+},
+{# state 440
+  'INTNUM'=>['shift','443'],
+},
+{# state 441
+  ')'=>['shift','444'],
+},
+{# state 442
+  '$default'=>['reduce','40'],
+},
+{# state 443
+  ')'=>['shift','445'],
+},
+{# state 444
+  '$default'=>['reduce','22'],
+},
+{# state 445
+  '$default'=>['reduce','101'],
 },
 );
 
 our @length = (
-2, 1, 4, 6, 8, 8, 7, 8, 8, 9, 8, 6, 5, 7, 4, 3, 1, 2, 0, 2, 2, 7, 7, 1, 1, 1, 4, 6, 6, 6, 8, 6, 8, 8, 9, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 4, 4, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 5, 5, 6, 6, 0, 3, 1, 3, 3, 3, 1, 1, 1, 4, 4, 5, 7, 9, 1, 1, 1, 1, 1, 1, 1, );
+2, 1, 4, 6, 8, 8, 7, 8, 8, 9, 8, 6, 6, 5, 7, 4, 3, 1, 2, 0, 2, 2, 9, 3, 3, 3, 3, 7, 7, 1, 1, 1, 4, 6, 6, 6, 8, 6, 8, 8, 9, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 4, 4, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 5, 5, 6, 6, 0, 3, 1, 3, 3, 3, 1, 1, 1, 4, 4, 5, 7, 9, 1, 1, 1, 1, 1, 1, 1, );
 
-our @rhs = ('$accept', 'Behavior', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Commands', 'Commands', 'Arguments', 'Arguments', 'Arguments', 'Location', 'Location', 'Address', 'Extent', 'Mask', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'BitField', 'BitField', 'Abstract', 'Abstract', 'Attributes', 'Attributes', 'Attribute', 'Attribute', 'Constant', 'Constant', 'Constant', 'Section', 'Section', 'Sequence', 'Sequence', 'Sequence', 'Storage', 'Variable', 'Proxy', 'Stage', 'Stage', 'Width', 'Ident', );
+our @rhs = ('$accept', 'Behavior', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Command', 'Commands', 'Commands', 'Arguments', 'Arguments', 'Arguments', 'Tuple', 'Widths', 'Widths', 'Variables', 'Variables', 'Location', 'Location', 'Address', 'Extent', 'Mask', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'Boolean', 'BitField', 'BitField', 'Abstract', 'Abstract', 'Attributes', 'Attributes', 'Attribute', 'Attribute', 'Constant', 'Constant', 'Constant', 'Section', 'Section', 'Sequence', 'Sequence', 'Sequence', 'Storage', 'Variable', 'Proxy', 'Stage', 'Stage', 'Width', 'Ident', );
 
 # py-skel.pl: perl yacc parser skeleton
 # Copyright 1995 Mark-Jason Dominus (mjd@pobox.com).

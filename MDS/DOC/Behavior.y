@@ -1,5 +1,5 @@
 %token INTNUM SYMNUM IDENT PROXY
-%token SEQ IF EFFECT STORE COMMIT WRITE THROW MACRO SKIP CANCEL LOAD ACCESS READ PROBE AGGL AGGB
+%token SEQ IF EFFECT STORE COMMIT WRITE BIND THROW MACRO SKIP CANCEL LOAD ACCESS READ PROBE AGGL AGGB
 %token UNDEF PROPERTY CONST METHOD APPLY F2I SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL
 %token SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX NOT ABS NEG B2I
 %token TRUE FALSE TEST NE EQ GT LE GE LT ANDL IORL XORL NOTL I2B I2F
@@ -21,6 +21,7 @@ Command
 	| '(' COMMIT '.' Stage '.' Proxy Integer Mask ')'
 	| '(' WRITE '.' Section '.' Variable Integer ')'
 	| '(' WRITE '.' Variable Integer ')'
+	| '(' BIND '.' Variables Tuple ')'
 	| '(' MACRO '.' Ident ')'
         | '(' FOR '.' Variable Sequence Commands ')'
 	| '(' SKIP Arguments ')'
@@ -36,6 +37,26 @@ Arguments
 	: /* empty */
 	| Arguments Integer
 	| Arguments Boolean
+	;
+
+/* A tuple-valued call, and the only place one may appear: BIND destructures it into
+   ordinary Variables at the binding site, so a tuple is never a first-class value and
+   nothing downstream needs a tuple type.  Both lists take two or more, so a one-tuple
+   cannot be spelled -- that is a WRITE of an APPLY -- and neither list can be confused
+   with the single-valued forms above.  */
+
+Tuple
+	: '(' APPLY '.' Widths '.' Ident Arguments Abstract ')'
+	;
+
+Widths
+	: Width ',' Width
+	| Widths ',' Width
+	;
+
+Variables
+	: Variable ',' Variable
+	| Variables ',' Variable
 	;
 
 Location
