@@ -260,6 +260,18 @@ the IEEE-conforming subset (single lane, unmasked, standard operations) it is ch
 to wire up and will catch real bugs in the Behavior FP specifications. It is a
 check on the semantics, not the semantics itself.
 
+**`DOC/FP-helpers.md` settles what this section leaves open** — whether a library can
+supply the semantics after all — by evaluating **MPFR**, which unlike SoftFloat *can*
+express exact accumulation with a single rounding. The answer is still no, and for this
+section's own reason: MPFR is unbounded where the hardware has an alignment window, so a
+description calling it describes a different machine, and §5's theorem stops being
+askable. But it earns an oracle role *larger* than the one reserved for SoftFloat above,
+and its per-variable precision is the idea that makes `f16`/`f32`/`f64` — and lvx_v3's
+lane widths — instantiations of one specification rather than three. That note also
+records what this section could not know: **LVX has no dot-product operators at all**, so
+the exact-accumulation argument above currently has no LVX operator to attach to, and the
+"no library can give you these" role falls instead to `fast_rec`/`fast_rsqrt`.
+
 
 ## 5. The width analysis
 
@@ -706,11 +718,21 @@ runtime.** The `SHR` fix of §3 needs no new runtime support.
 
 5. **Close the helper gap** (§4). Make the FP operators flag-returning and specify the
    FP and SIMD semantics in Behavior rather than in per-target C. This is the real
-   bottleneck for ISS retargeting, and it is independent of any Sail decision. Start
-   with the exact dot-product operators — no library can give you those, and they are
-   the ones the width analysis can now prove fit the container, or not. Doing (4) first
-   is worth it: the narrow prototypes it enables (§6) are what make these helpers
+   bottleneck for ISS retargeting, and it is independent of any Sail decision. Doing (4)
+   first is worth it: the narrow prototypes it enables (§6) are what make these helpers
    pleasant to write.
+
+   ~~Start with the exact dot-product operators — no library can give you those, and they
+   are the ones the width analysis can now prove fit the container, or not.~~ **This was
+   written for an ISA that has them: LVX does not.** There is no `ARITH` class and no
+   dot-product operator; the gap here is 57 IEEE-shaped operators, of which four
+   (`f32`/`f64_fast_rec`/`_rsqrt`) are the only ones no library can supply — and those
+   are blocked on an accuracy bound from the architects, not on engineering. **Start
+   instead with the flag-returning convention on one operator**, which is the
+   load-bearing decision (57 operators will depend on it) and is provable before any FP
+   body is written — the body can stay an opaque helper while the global flag leaves the
+   description's semantics. `DOC/FP-helpers.md` has the ordering, and the evaluation of
+   MPFR that settles whether a library can supply the bodies after all.
 
 6. **Helpers have a signature** (§6) — *done*. A `Helper` element in `MDD.dtd`, declared in
    `lvx-family/FE/YAML/lvx/Helper.yml`, flowing through `Helper.table` to `Width.pm` in MDE
