@@ -13,16 +13,110 @@ helpers are to stop being opaque C, does MPFR do the job?**
 
 ## 1. What LVX's gap actually is, measured
 
-**The flags are not modelled at all.** 86 instructions say in their `description:` that
-"This instruction may raise exception bits in the CS register", and **no behavior in the
-ISA writes CS** — there is not one `WRITE.CS` or `STORE` to it. The IEEE flag semantics
-exist in exactly two places, and neither is the description: English prose, and a global
-mutated inside the opaque C. So §4's "not in the description at all" is literal, and
-step (1) below is not a *conversion* of an existing model — it is the first time the
-flags are stated formally. CS itself is fully declared and waiting: `$cs`/`$s4`, and
-`RegField.yml` gives the layout — `CS_IO`(1) invalid operation, `CS_DZ`(2) divide by
-zero, `CS_OV`(3) overflow, `CS_UN`(4) underflow, `CS_IN`(5) inexact, with an Extension
-set `CS_XIO`..`CS_XIN` at 9..13.
+**The arithmetic flags are not modelled.** 86 instructions say in their `description:`
+that "This instruction may raise exception bits in the CS register", and **no behavior
+writes `CS_IO`, `CS_DZ`, `CS_OV`, `CS_UN` or `CS_IN`.** Those semantics live in exactly
+two places, neither of them the description: English prose, and a global mutated inside
+the opaque C. So §4's "not in the description at all" is literal *for the flags*.
+
+Be precise about the scope, because the obvious grep gets it wrong. **CS is written 49
+times**, all from `Format.yml`'s `Macro:` wrappers and all of them `CS_XMF`. So the
+register, the idiom, and the plumbing are in use already — it is the five IEEE flag bits
+specifically that nobody sets. The gap is narrower than "CS is unmodelled", and that
+makes it smaller: step (1) does not invent a way to reach CS, it reuses one.
+
+`RegField.yml` gives the layout: `CS_IO`(1) invalid operation, `CS_DZ`(2) divide by zero,
+`CS_OV`(3) overflow, `CS_UN`(4) underflow, `CS_IN`(5) inexact, plus an Extension set
+`CS_XIO`..`CS_XIN` at 9..13.
+
+**KVX models them, so this was lost in the port rather than never written.** Its
+description has 298 CS accesses against LVX's 49, including the five arithmetic flags as
+per-flag variables (`CS_dz`, `CS_in`, `CS_io`, `CS_ov`), and the idiom is one LVX can use
+verbatim — address each flag by its `RegField` name, no bit arithmetic:
+
+```
+(WRITE.CS_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+(STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+  (I2F.1 (IOR (APPLY.fdivbyzero) (READ.CS_dz))))
+```
+
+That settles the encoding question §6a would otherwise have to invent an answer to: **the
+flags need no bit order and no shifting**, because each is addressed by name. It also
+confirms stage **E4** independently — which is where `faddw`'s Write parameter already
+puts its result.
+
+**What KVX cannot lend is the flag *source*, and that is the whole point.** It gets them
+from `APPLY.finexact`/`finvalid`/`foverflow`/`fdivbyzero`/`funderflow` — zero-argument
+helpers querying SoftFloat's global — and its SIMD calls *vectorized* helpers
+(`f32_add_x2`) with the flags OR'd once per instruction. That is precisely §4's global
+mutable accumulator, and it works for KVX only because kv3's FP SIMD is **unmasked**. It
+cannot express "CS accumulates the OR of the flags raised by the active lanes". So: keep
+KVX's CS idiom, replace its flag source with the tuple.
+
+**And the author does not write any of this per instruction.** KVX has exactly **3**
+direct `WRITE.CS_dz` sites in its whole description; they are the definitions of shared
+`Macro:` anchors, and every FP instruction just says `behavior: *behaviorWRSRD`, with its
+own arithmetic spliced in at `(MACRO.Instruction)`. LVX's `Format.yml` is built the same
+way and its 49 `CS_XMF` stores are already there. The flag accumulation belongs in the FP
+macros, written once each; an instruction's own behavior changes by one line, from a
+`WRITE` to a `BIND`.
+
+**One thing LVX drops on purpose:** KVX guards every FP CS write with a `silent` modifier
+(`.S`, "Silent on CS") and LVX has none. That is deliberate — it costs encoding space, and
+RISC-V has no such mode either, only an explicit rounding mode, which is what LVX follows
+(`decode_riscv_float_rounding_mode`). So LVX's FP macros accumulate unconditionally, with
+no `IF` guard around the CS stores.
+
+### The hook is already there, and it is a panic stub
+
+Step (1) does not add a place for the flags to be committed. **It replaces one.** Every FP
+macro already ends:
+
+```
+  (WRITE.RM (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (MACRO.Instruction)
+  (COMMIT.E4.%1 (READ.result1))
+  (EFFECT.E4.commit_float_exception_flags)      <- 57 sites, 29 macros
+```
+
+`commit_float_exception_flags` **takes no arguments**, so it can only work by reading a
+global — the same shape as KVX's `finexact`/`finvalid`, and the same one §4 rejects. It has
+no `Helper.yml` signature, and in gem5 it is `lvx_behavior_unimpl()`: a **panic stub**. So
+the flags have a designated home, a stage, and a call site, and nothing behind them. That
+is the line the per-flag CS stores replace.
+
+### The blast radius is a macro, not an instruction
+
+The macros are FP-specific — `GW*F` and `RV32F_*`, 29 of them, ridden by the 144 FPU-class
+opcodes plus `FNARROWDWQ`/`FNARROWWHQ` (FP, ALU-classed) — so no non-FP instruction can be
+caught by an edit. But **a macro is shared across helpers**: `behaviorGW4RRF` alone serves
+5 formats and 10 instructions — `FADDD FADDDP FADDHO FADDW FADDWQ FSBFD FSBFDP FSBFHO
+FSBFW FSBFWQ` — which is `f16/f32/f64_add` *and* `f16/f32/f64_sub`. Since the macro's CS
+stores read flag variables that only a `BIND` supplies, converting `f32_add` alone would
+leave `FSBFW` riding a macro that reads what it never bound.
+
+**The fix is to zero the flags in the macro before splicing:**
+
+```
+  (WRITE.io (CONST.0)) (WRITE.dz (CONST.0)) ...
+  (MACRO.Instruction)          <- BINDs them, or does not
+  ... (IOR ...) each into its CS bitfield ...
+```
+
+An unconverted instruction leaves the zeros standing, the `IOR` is a no-op, and CS is
+untouched — so the macro tolerates both, and the 57 helpers convert one at a time instead
+of in one leap. That is the same discipline `Helper.yml`'s header already sets for
+`arguments`: declare what is known, leave the rest alone.
+
+### `Macro:` is not an MDD element
+
+Worth knowing before looking for its table: there isn't one, and it is not in `MDD.dtd`.
+`Macro:` in `Format.yml` is a **YAML anchor namespace** — `YAML::XS` expands
+`*behaviorGW4RRF` inline before MDS parses anything, so `Description2MDS.pl` only registers
+the IDs to reject duplicates. The splice is textual and later: `MDD/MDE/BIN/Opcode.pl`
+splits a format's behavior on `(MACRO.Instruction)` and puts the instruction's between the
+halves. So editing a macro means editing the anchor definition, and every format
+referencing it changes with no further ceremony.
 
 `Behavior.md` §7 (5) says "**start with the exact dot-product operators** — no library
 can give you those". **That advice does not apply to LVX**, and this is the first thing
