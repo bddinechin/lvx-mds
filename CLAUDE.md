@@ -394,9 +394,9 @@ generalises: the harness has to stay inside the domain the description assumes.
 **The one trap, before you touch that emitter:** typing a node as `min(interval, demand)`
 is sound *only for the ring operations*, which commute with truncation. **`SHR` does
 not.** `sraw` is `(SHR (SX.32 x) n)` with a demand of 32, so the rule makes it a
-`uint32_t` — and a `uint32_t` `>>` is a *logical* shift, while the semantics is a logical
-shift of the value sign-extended across the container, whose low 32 bits are an
-*arithmetic* shift (`0x08000000` against the correct `0xf8000000`). It must be emitted as
+`uint32_t` — and a `uint32_t` `>>` is a *logical* shift, while `SHR`'s semantics is
+`floor(x/2ⁿ)`, whose low 32 bits on a negative value are an *arithmetic* shift
+(`0x08000000` against the correct `0xf8000000`). It must be emitted as
 an arithmetic shift whenever its operand's reading is signed, which is sound because that
 operand is exact. Get it wrong and 89 instruction families are silently wrong in their
 sign bits only. `Behavior.md` §6 has the argument.
@@ -422,12 +422,23 @@ Two consequences worth knowing before you touch a `behavior:`:
   place a mask shifted up to 248 bits left inside a 256-bit `XVR` and depend on the
   excess being dropped — they now say so with an explicit `ZX.256`.
 
-**One box dependence remains and is not checkable away:** `SHR` generates
-`Int256_shru`, a *logical* shift, and `sraw`/`srad`/`avgw`/… rely on it shifting in
-the container's sign bits. 89 sites, reported as `shr-negative`. Until `SHR` is
-renamed or redefined, **the 256-bit container width is part of the architecture**.
-`Behavior.md` §3 has the details. (`Int256_shr`, a true arithmetic shift, turns out
-to already exist in the runtime, so the fix needs no new runtime support.)
+**The last box dependence is gone: the container width is no longer part of the
+architecture.** `SHR` used to be emitted as `Int256_shru`, a *logical* shift, so
+`sraw`/`srad`/`avgw`/… were correct only because it shifted in the sign bits the
+container had been extended with — the description's meaning was true at exactly 256
+bits and said so nowhere (89 sites, reported as `shr-negative`). `SHR` is now
+`floor(x/2ⁿ)`, a total function of the value: emitted as `Int256_shr` for a signed
+operand and `Int256_shru` for a non-negative one, which agree on the demanded bits.
+**`shr-negative` no longer exists** — the 89 reports are gone and the diagnostic itself
+is retired, so `WIDTH_CHECK=verbose` shows none. No second
+`SHRU` operator was added; `DOC/SHR-split.md` records why, and `Behavior.md` §3 has
+the details.
+
+This is what unblocks a Sail emitter, and it is worth keeping the two senses of "boxed"
+apart: a box dependence in the **meaning** (the above) would not survive translation into
+a language whose integers really are unbounded, whereas the `Int256_` in `BE/LAO`'s
+emitted **C** is one back-end's representation and constrains nothing else. The sites
+`ctype` still boxes are a codegen matter, not a semantic one.
 
 ## Testing the generated ISS C
 

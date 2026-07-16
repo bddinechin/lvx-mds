@@ -318,7 +318,6 @@ mistake (this pass made it first, and it produced 22 false alarms):
 | `signed` | yes | A sign-reading operator is applied to a value outside the signed 256-bit range, so `Int256_` misreads it. |
 | `section` | yes | A `Section` access (`w[i]`) reaches past the end of the container: `w × (i+1) > 256`. These are the two `die`s that were commented out in `codegen_read`/`codegen_write`. |
 | `extent` | yes | A `STORE`'s `BitField` width disagrees with the width its `Location` implies, or an `F2I.w` disagrees with the `BitField` it reads. |
-| `shr-negative` | no | `SHR` on an operand not provably non-negative — box-dependent, §3. |
 | `read-partial` | no | A variable read on a path where it was not written. |
 | `read-unknown` | no | A variable read with no reaching `WRITE` at all. |
 
@@ -343,7 +342,7 @@ lint for *unintended* truncation would need an annotation to tell the two apart.
 |---|---|---|
 | `box` | 840 (8 `lvx_v2` instructions) | **0** — the truncation is written down (§3) |
 | `apply-nowidth` | 44 | **0** — the width is mandatory (below) |
-| `shr-negative` | 89 | 89 — real, unfixed (§3) |
+| `shr-negative` | 89 | **0** — retired: `SHR` is container-free (§3), so the diagnostic no longer exists |
 | `read-partial` | 156 | 156 — benign (below) |
 | `read-unknown` | 1 | **1** — a real bug (below) |
 
@@ -461,19 +460,21 @@ its result and says nothing about its operands.
 one §3 already singles out. **`SHR` is not a ring operation.** The justification for
 typing a node by its demand — that the ring operations agree with the true result on
 their low *d* bits — is exactly the property `SHR` does not have: it reads the value,
-not its low bits. `Width.pm`'s own `_shr` says so, giving up and returning the
-interval of a logical shift of the whole container whenever the operand is not
-provably non-negative.
+not its low bits.
 
-So `sraw`'s `SHR` node carries `dm:32` over an interval of `[0, 2^256-1]`, and
-`min(rep, dm)` makes it a `uint32_t`. But a `uint32_t` `>>` is a **logical** shift,
-while the semantics is a logical shift of the value *sign-extended across the
-container*, whose low 32 bits are an **arithmetic** shift. For `x = 0x80000000`,
-`n = 4` that is `0x08000000` against the correct `0xf8000000` — which is the identity
-`shru(sx(-2^31,32),4)` that building the oracle demonstrated in the first place. All
-89 `shr-negative` sites (`sraw`/`srad`/`srsw`/`srsd`/`avgw`/`extfs`/`sxbd`/…) break,
-silently, and only in the sign bits. It is precisely the bug the trace hash was
-folded over all four limbs to catch.
+So `sraw`'s `SHR` node carries `dm:32` over an operand whose interval runs negative,
+and `min(rep, dm)` makes it a `uint32_t`. But a `uint32_t` `>>` is a **logical** shift,
+while `SHR`'s semantics is `floor(x/2ⁿ)`, whose low 32 bits on a negative value are an
+**arithmetic** shift. For `x = 0x80000000`, `n = 4` that is `0x08000000` against the
+correct `0xf8000000` — which is the identity `shru(sx(-2^31,32),4)` that building the
+oracle demonstrated in the first place. All 89 sites (`sraw`/`srad`/`srsw`/`srsd`/
+`avgw`/`extfs`/`sxbd`/…) break, silently, and only in the sign bits. It is precisely
+the bug the trace hash was folded over all four limbs to catch.
+
+(`Width.pm`'s `_shr` used to give up here too, returning the interval of a logical
+shift of the whole container whenever the operand was not provably non-negative, and
+reporting `shr-negative`. It now computes the exact arithmetic interval for every
+operand — §3 — so the trap below is the only part of this that is still live.)
 
 The fix is not to box `SHR`. It is to **type it by its demand and emit an arithmetic
 shift whenever its operand's reading is signed**, which is sound for a reason worth
@@ -702,9 +703,14 @@ runtime.** The `SHR` fix of §3 needs no new runtime support.
    same signatures on both sides). It cannot verify that what `Helper.yml` says is true of the
    C the helper is implemented in. That part is review.
 
-7. **Fix `SHR`** (§3) — the last place the container width leaks into the *meaning* of
-   the description. `Int256_shr` already exists in the runtime, so this costs nothing
-   but the rename and the sweep of the 89 sites.
+7. **Fix `SHR`** (§3) — *done*. It was the last place the container width leaked into the
+   *meaning* of the description. Resolved by **operand inference** rather than the rename
+   this entry anticipated: `SHR` is now `floor(x/2ⁿ)`, a total function of the value,
+   emitted as `Int256_shr` for a signed operand and `Int256_shru` for a non-negative one
+   (natively, an arithmetic or logical `>>` on the same test). No second `SHRU` operator
+   was added — `DOC/SHR-split.md` records why. `Width.pm`'s interval is now the exact
+   arithmetic range, so the 89 `shr-negative` sites are gone and the diagnostic is retired.
+   Behaviour-preserving: lvx_v1 0/870, old-vs-new and boxed-vs-unboxed.
 
 8. **Fix `ALU_FWQWR`, and the `CMOVE*` `argument3`** (§5), once `lvx_v2` is settled enough
    for the opcode table to move. This is now a **blocker for `lvx_v2`**, not a curiosity:
@@ -712,6 +718,16 @@ runtime.** The `SHR` fix of §3 needs no new runtime support.
 
 9. **Add a Sail emitter as a back-end** (§2). Not a migration. A model whose FP is
    defined in terms of integer arithmetic exports to Sail *better* than an
-   IEEE-primitive model would, because there is no primitive to map. In practice this
-   is gated on (5) and (7): a box dependence does not survive translation into a
-   language whose integers really are unbounded.
+   IEEE-primitive model would, because there is no primitive to map. This was gated on
+   (5) and (7) — a box dependence does not survive translation into a language whose
+   integers really are unbounded — and **(7) is now done, so (5) is the only gate left.**
+
+   Note what does *not* gate it: the tail of (4). Two different things get called
+   "boxing", and only one of them blocks Sail. A box dependence in the **meaning** — `SHR`
+   leaning on the container's sign bits, so the description was only true at exactly 256
+   bits — did, and that was (7). Boxing in the **C emission** — `Int256_` versus a
+   `uint32_t` — is a property of one back-end's output; Sail emits no C and has no
+   container, so the sites `ctype` still boxes are irrelevant to it. What a Sail emitter
+   does need from this work is the width analysis (0), and that is done: Sail's type
+   checker will reject width-sloppy code too, which is why (0) was worth doing on home
+   ground first.
