@@ -319,7 +319,7 @@ mistake (this pass made it first, and it produced 22 false alarms):
 | `section` | yes | A `Section` access (`w[i]`) reaches past the end of the container: `w × (i+1) > 256`. These are the two `die`s that were commented out in `codegen_read`/`codegen_write`. |
 | `extent` | yes | A `STORE`'s `BitField` width disagrees with the width its `Location` implies, or an `F2I.w` disagrees with the `BitField` it reads. |
 | `internal` | yes | The pass met an operator it has no rule for. A gap in the checker, not in the description — but it means the tree went unchecked, so it fails rather than passing quietly. |
-| `helper-truncates` | no | A `Helper` declares an argument narrower than the value handed to it, so it is given only the low *w* bits. Not an error: it is the *description asserting a truncation*, and reporting it is what keeps that assertion visible — §7 (6). Only fires for helpers in expression position (`APPLY`/`TEST`); an `EFFECT` command's are not checked (below). |
+| `helper-truncates` | no | A `Helper` declares an argument narrower than the value handed to it, so it is given only the low *w* bits. Not an error: it is the *description asserting a truncation*, and reporting it is what keeps that assertion visible — §7 (6). |
 | `apply-nowidth` | no | An `APPLY` declares no result width, so its value cannot be bounded. Now unreachable — the grammar rejects it first (below) — and kept as a backstop. |
 | `shift` | no | A `SHL`/`SHR` by an amount that may be negative, or is unbounded. The interval is abandoned rather than guessed. |
 | `read-partial` | no | A variable read on a path where it was not written. |
@@ -351,7 +351,7 @@ per-core summary lines add up — `read-partial`'s 156 is 42 + 114, and `read-un
 | `box` | 840 (8 `lvx_v2` instructions) | **0** — the truncation is written down (§3) |
 | `apply-nowidth` | 44 | **0** — the width is mandatory (below) |
 | `shr-negative` | 89 | **0** — retired: `SHR` is container-free (§3), so the diagnostic no longer exists |
-| `helper-truncates` | — | 364 — every one an address, but `EFFECT` helpers go unchecked (below) |
+| `helper-truncates` | — | 636 — every one an address or a PC, which is the point (below) |
 | `read-partial` | 156 | 156 — benign (below) |
 | `read-unknown` | 1 | **1** — a real bug (below) |
 
@@ -370,29 +370,41 @@ per-core summary lines add up — `read-partial`'s 156 is 42 + 114, and `read-un
   A declared width narrower than the value is a truncation, and the reason to report one
   is that it is the *description making a claim*, not the checker finding a fault. So the
   useful question is not how many there are but whether they are all the same claim, and
-  of the ones that *are checked*, they are: all **364** (142 `lvx_v1` + 222 `lvx_v2`) are
-  **argument 1 of a `MEM_*` helper** — `MEM_load` and the twelve `MEM_atomic_*` — declared
-  64 bits. That is the one architectural claim §7 (6) makes: an address is 64 bits, while
-  base + a signed offset needs 66.
+  they are: all **636** (274 `lvx_v1` + 362 `lvx_v2`) are either **argument 1 of a `MEM_*`
+  helper** — the address — or **`branch_info`'s argument 2**, the program counter, each
+  declared 64 bits. Nothing else in either core truncates, which is the check that no
+  second claim has crept in: an address and a PC are 64 bits, while base + a signed offset
+  needs 66.
 
-  **But the check has a hole, and the count is not evidence of what it looks like.** A
-  helper called from an `EFFECT` in *command* position is never checked at all, so its
-  declared width is unverified: `_dcmd`'s `EFFECT`/`THROW` arm walks the arguments itself
-  and demands ⊤ from each, never reaching the signature lookup in `_dexpr` — whose own
-  `EFFECT`/`THROW` arm is consequently dead code, since an `EFFECT` is a command and no
-  caller ever hands one to `_dexpr`. So `MEM_store` (24 sites on `lvx_v1`) and
-  `branch_info` (18) report nothing despite declaring the same 64-bit address that
-  `MEM_load` reports on 36 times. `MEM_load` is checked only because it is an `APPLY`,
-  i.e. an expression.
+  **It only became that check when helpers called from commands started being checked.**
+  `_dcmd`'s `EFFECT`/`THROW` arm used to walk the arguments itself and demand ⊤ from each,
+  never reaching the signature lookup in `_dexpr` — whose own `EFFECT`/`THROW` arm was
+  therefore dead code, since an `EFFECT` is a command and nothing hands one to `_dexpr`. So
+  a helper called from a command was never checked at all: `MEM_store` and `branch_info`
+  declared the same 64-bit address `MEM_load` reported on, and reported nothing. `MEM_load`
+  was checked only for being an `APPLY`. Both now go through one `_dargs`, and the count
+  went 364 → 636 — the new sites being exactly the addresses and PCs that were invisible.
 
-  This costs more than the missing diagnostic, and §6 already measured the symptom
-  without naming the cause: the demand does not narrow either, so `branch_info`'s
-  program-counter argument keeps ⊤, the `address` variable it reads demands ⊤ with it,
-  and **the branch-target `ADD` stays boxed** — which is precisely the "boxed because a
-  helper argument demands ⊤" that §6 records for the 144 `Int256_add` still remaining
-  after signatures. `GOTO` shows both readings of one variable side by side: the `STORE`'s
-  `I2F.64` narrows its `READ.address` to `dm:64`, while `branch_info`'s `READ.address`
-  carries no `dm` at all.
+  **The diagnostic was the smaller half.** The demand did not narrow either, so
+  `branch_info`'s program-counter argument kept ⊤, the `address` variable it reads kept ⊤
+  with it, and the branch-target `ADD` stayed boxed — precisely the "boxed because a helper
+  argument demands ⊤" that §6 records for the 144 `Int256_add` remaining after signatures,
+  and precisely what §7 (6) predicted declaring the width would delete. It does:
+  **`Int256_add` 144 → 12 on `lvx_v1`** (164 → 24 on `lvx_v2`), and `Int256_from*64`
+  2161 → 1895, since a value that stays native is not re-boxed at the call. `GOTO` is the
+  whole story in one tree: the `STORE`'s `I2F.64` narrowed its `READ.address` to `dm:64`
+  while `branch_info`'s `READ.address` carried no `dm` at all; now the `ADD` feeding both
+  carries `dm:64` and is a `uint64_t`.
+
+  **One trap surfaced with it, and it is a general one.** A `CONST` carries no interval —
+  `_annotate` leaves it off deliberately, since the value is on the node — and the check
+  read the absence as *unbounded*, reporting a truncation on a value that plainly fits. It
+  was invisible while only expression-position helpers were checked, because none of their
+  narrow-declared arguments is a `CONST`; command-position ones have several (`branch_info`'s
+  flag, `MEM_store`'s cache policy, `idle`'s mode), and it produced 45 false reports on
+  `lvx_v1` the moment they were checked. `_abounds` reads a `CONST`'s value off the node
+  instead. The lesson is the one this pass keeps teaching: *absent* and *unbounded* are not
+  the same, and a checker that conflates them is loudest exactly where it is wrong.
 
 - **`read-unknown` is a real bug, and it is worse than "nothing anywhere fails".**
   `FNARROWDWQ` reads `ziplanes`, but its format `ALU_FWQWR` declares the `ziplanes`
@@ -542,7 +554,8 @@ demands ⊤.** The exemplar is every branch:
 `address` is a program counter. The `STORE` already writes the truncation down — the
 emitted C says `Int256_zx(address, 64)`. Only `branch_info` wants all 256 bits, and
 it plainly does not. Declaring helper argument widths takes unboxing to **96.5%** and
-halves the boxed `ADD`s (286 → 144).
+halves the boxed `ADD`s (286 → 144) — and once a command-position helper actually reaches
+its signature (§5), 286 → **12**.
 
 So the claim above — that the unbounded helper arguments "are genuinely 256-bit (XVR
 octuples, 128-bit products), which no declared width could narrow either" — is wrong,
@@ -718,6 +731,16 @@ runtime.** The `SHR` fix of §3 needs no new runtime support.
    program counter. And the re-boxing that (4) had to pay at 4438 call sites is mostly gone:
    `void HELPER(branch_info)(void *this, uint8_t opnd1, uint64_t opnd2)` where it was two
    32-byte unions.
+
+   **The `+ signatures` column understates it, because the signatures were only half
+   applied when it was measured.** A helper called from an `EFFECT` in command position
+   never reached the signature lookup at all (§5), which is most of why `Int256_add` only
+   halved rather than going away: `branch_info` *said* it took a program counter and
+   nothing listened. With `_dargs` shared by both call positions, on the same `lvx_v1`
+   and by the same count: **`Int256_add` 144 → 12** and **`Int256_from*64` 2161 → 1895**
+   (`lvx_v2`: 164 → 24). Behaviour-preserving, 0/870 and 0/1453. The other two rows are
+   left as they were measured rather than restated, since their exact populations are not
+   reproduced here.
 
    **The declarations are of two kinds, and only one of them is a claim.** 107 of the 130 are
    *derived*: the width is the one the values already carry, so the declaration cannot

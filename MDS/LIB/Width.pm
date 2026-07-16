@@ -952,6 +952,77 @@ sub _dmark {			# record the demand on a node, keeping the largest
       if !defined $attributes->{dm} || $d > $attributes->{dm};
 }
 
+#
+# The arguments of a helper call.  A helper argument demands what the helper's signature
+# says it does, and the whole container if the helper has no signature -- which is what
+# every helper used to do, and is why the branch-target ADD of every branch instruction
+# stayed in a 256-bit box: `branch_info` takes a program counter, and until there was a
+# Helper element the description had no way to say so.  See DOC/MDD.dtd.
+#
+# Shared by _dexpr and _dcmd, because a helper is called from both positions: APPLY/TEST
+# are expressions, EFFECT/THROW are commands.  It has to be, and that is the whole point
+# of it being a sub: _dcmd used to walk the arguments itself and demand the container from
+# each, so a helper called from a command never reached this code.  Its declared widths
+# then narrowed nothing and were never checked -- `MEM_store` and `branch_info` declare
+# the same 64-bit address `MEM_load` does, and reported nothing, while `branch_info`'s
+# program counter kept its demand at the container and boxed the ADD handed to it.
+#
+# The interval of a helper argument, as ($known, $lo, $hi).  A CONST carries no
+# annotation -- _annotate leaves it off deliberately, since the value is right there on
+# the node and annotating the commonest leaf in the tree would be bloat -- so read it
+# off, rather than mistaking the absence for "unbounded" and reporting a truncation on a
+# value that plainly fits.  That mistake is invisible while only expression-position
+# helpers are checked, because none of their narrow-declared arguments is a CONST; it
+# fires the moment command-position ones are, since several of theirs are (`branch_info`'s
+# flag, `MEM_store`'s cache policy, `idle`'s mode).  $known is false for a node carrying
+# no attribute hash at all, which is not the same as one whose interval is unbounded.
+sub _abounds {
+    my ($this) = @_;
+    if ($this->[0] eq 'CONST') {
+        my $value = &Behavior::constant($this);
+        return defined $value ? (1, _big($value), _big($value)) : (1, undef, undef);
+    }
+    my $attributes = $this->[-1];
+    return (0) unless ref $attributes eq 'HASH';
+    return (1, $attributes->{lo}, $attributes->{hi});
+}
+
+sub _dargs {
+    my ($this, $name, $first) = @_;
+    my $widths = $Signature{$name};
+    my $argument = 0;
+    for (my $i = $first; $i < @{$this}; $i++) {
+        my $child = $this->[$i];
+        # Count the arguments the way CodeGen's signature() counts them -- only the
+        # ARRAY children, so the trailing attribute hash does not shift the numbering.
+        # The two have to agree on which argument is which or a declared width lands on
+        # the wrong one, which is not a subtle failure but it is a silent one.
+        next unless ref $child eq 'ARRAY';
+        $argument++;
+        my $want = (ref $widths eq 'ARRAY') ? $widths->[$argument - 1] : undef;
+        # A declared width of BOX is the container, which is the same as declaring
+        # nothing -- it narrows nothing and it truncates nothing.
+        $want = undef if defined $want && $want >= $BOX;
+        if (defined $want) {
+            # A declared width narrower than the value is a TRUNCATION, and the point
+            # of declaring it is to say so: `branch_info` takes a program counter, and
+            # PC + a signed offset needs 66 bits while the architecture keeps 64.  It
+            # is not an error -- but it is the description asserting something, so it
+            # is reported rather than left to be discovered.
+            my ($known, $lo, $hi) = _abounds($child);
+            if ($known) {
+                my $needs = _swidth($lo, $hi);
+                _report('helper-truncates',
+                  "$name argument $argument is declared $want bits wide, but the value"
+                  . " needs " . (defined $needs ? $needs : "over $BOX")
+                  . " signed bits: the low $want are what the helper is given")
+                  if !defined $needs || $needs > $want + 1;
+            }
+        }
+        _dexpr($child, defined $want ? $want : $BOX);
+    }
+}
+
 sub _dexpr {
     my ($this, $d) = @_;
     return unless ref $this eq 'ARRAY';
@@ -1009,45 +1080,8 @@ sub _dexpr {
         _dfield($this->[2]);
 
     } elsif ($operator =~ /^(APPLY|EFFECT|TEST|THROW)$/) {
-        # A helper argument demands what the helper's signature says it does, and the
-        # whole container if the helper has no signature -- which is what every helper
-        # used to do, and is why the branch-target ADD of every branch instruction stayed
-        # in a 256-bit box: `branch_info` takes a program counter, and until there was a
-        # Helper element the description had no way to say so.  See DOC/MDD.dtd.
-        my $name = $operator eq 'TEST' ? $this->[1] : $this->[2];
-        my $first = $operator eq 'TEST' ? 2 : 3;
-        my $widths = $Signature{$name};
-        my $argument = 0;
-        for (my $i = $first; $i < @{$this}; $i++) {
-            my $child = $this->[$i];
-            # Count the arguments the way CodeGen's signature() counts them -- only the
-            # ARRAY children, so the trailing attribute hash does not shift the numbering.
-            # The two have to agree on which argument is which or a declared width lands on
-            # the wrong one, which is not a subtle failure but it is a silent one.
-            next unless ref $child eq 'ARRAY';
-            $argument++;
-            my $want = (ref $widths eq 'ARRAY') ? $widths->[$argument - 1] : undef;
-            # A declared width of BOX is the container, which is the same as declaring
-            # nothing -- it narrows nothing and it truncates nothing.
-            $want = undef if defined $want && $want >= $BOX;
-            if (defined $want) {
-                # A declared width narrower than the value is a TRUNCATION, and the point
-                # of declaring it is to say so: `branch_info` takes a program counter, and
-                # PC + a signed offset needs 66 bits while the architecture keeps 64.  It
-                # is not an error -- but it is the description asserting something, so it
-                # is reported rather than left to be discovered.
-                my $attributes = $child->[-1];
-                if (ref $attributes eq 'HASH') {
-                    my $needs = _swidth($attributes->{lo}, $attributes->{hi});
-                    _report('helper-truncates',
-                      "$name argument $argument is declared $want bits wide, but the value"
-                      . " needs " . (defined $needs ? $needs : "over $BOX")
-                      . " signed bits: the low $want are what the helper is given")
-                      if !defined $needs || $needs > $want + 1;
-                }
-            }
-            _dexpr($child, defined $want ? $want : $BOX);
-        }
+        _dargs($this, $operator eq 'TEST' ? $this->[1] : $this->[2],
+                      $operator eq 'TEST' ? 2 : 3);
 
     } else {
         # Everything else reads the whole value: SHR's amount, the comparisons,
@@ -1131,9 +1165,9 @@ sub _dcmd {
         _dexpr($this->[4], $BOX) if ref $this->[4] eq 'ARRAY';
 
     } elsif ($operator eq 'EFFECT' || $operator eq 'THROW') {
-        foreach my $argument (@{$this}[3 .. $#{$this}]) {
-            _dexpr($argument, $BOX) if ref $argument eq 'ARRAY';
-        }
+        # Through _dargs, not a walk of its own: a helper called from a command has a
+        # signature exactly as one called from an expression does.
+        _dargs($this, $this->[2], 3);
     }
     # MACRO, SKIP, CANCEL: no value, no state.
 }
