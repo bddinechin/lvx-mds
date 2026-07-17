@@ -184,6 +184,24 @@ capability, and it is exactly the capability §4 says the problem needs.
 
 ## 4. Why it must nonetheless not be an `APPLY`
 
+> **Re-appraised once the flags landed, and two of these three no longer bear weight.**
+> The conclusion is unchanged; the reasoning for it is narrower than it looks here.
+>
+> - **The global-flag objection is largely gone, and we removed it ourselves.** The tuple
+>   convention (§6a) is precisely what makes a global-flag library *wrappable*: a helper
+>   can clear, compute, read and return `(result, flags)`, and the masking lives in the
+>   description. The global becomes a local detail of one call rather than a property of
+>   the semantics. That was §4's primary complaint against SoftFloat and it no longer
+>   decides anything.
+> - **The unbounded-precision objection is currently vacuous.** It needs an
+>   exact-accumulation operator to bite on, and LVX has none (§1). It would matter to an
+>   lvx_v3 with ML operators; today it is an argument about nothing.
+> - **What survives carries the whole weight: an `APPLY` keeps the semantics out of the
+>   description.** The width pass cannot see in, Sail gets an `extern`, and every ISS
+>   relinks a library. That is the whole of §7 (5) — but note it is an argument against
+>   *any* library, not against MPFR. MPFR is not specially disqualified; no library can be
+>   the specification.
+
 **Because MPFR's unboundedness models the wrong machine.** This is the argument that
 decides it, and it is §4's own:
 
@@ -248,11 +266,30 @@ gives up against exact arithmetic.
 
 | Oracle | Job | Why it, and not the other |
 |---|---|---|
-| **SoftFloat** | the IEEE-conforming subset | Format-native — it *is* a binary32/binary64 model rather than something configured into being one, so no `subnormalize` protocol and no double-rounding hazard. And it covers `.RM` (`softfloat_round_near_maxMag`) and `.RO` (`softfloat_round_odd`, where the port provides it), which MPFR cannot. |
-| **MPFR** | exactness and rounding | Correct rounding at arbitrary precision. The only one that can oracle a single-rounding accumulation, or check a rounding decision at a precision no format has. |
+| **SoftFloat** | the IEEE-conforming subset | Format-native — it *is* a binary32/binary64 model rather than something configured into being one, so no `subnormalize` protocol and no double-rounding hazard. And it covers `.RM` (`softfloat_round_near_maxMag`) and `.RO` (`softfloat_round_odd`, where the port provides it), which MPFR cannot. **But it must be specialized to RISC-V first — see below.** |
+| **MPFR** | exactness and rounding | Correct rounding at arbitrary precision. The only one that can oracle a single-rounding accumulation, or check a rounding decision at a precision no format has — which is exactly what `round_once` (§6) is. |
 
 Neither is an oracle for `fast_rec`/`fast_rsqrt`. Nothing is: they are approximate by
 architecture, and the only possible reference is the bound the architects specify.
+
+### Stock SoftFloat is the wrong oracle for LVX, and quietly
+
+LVX FP is **RISC-V** FP, canonical NaN generation and NaN handling included — and that is
+explicitly *not* SoftFloat's. SoftFloat parameterizes exactly this, as a build-time
+**specialization**, which fixes the default quiet NaN, how NaNs propagate from inputs to
+output, how sNaN is distinguished, tininess timing, **and the integer result a conversion
+returns when it raises invalid**.
+
+**It ships 8086, 8086-SSE, ARM-VFPv2 and ARM-VFPv2-defaultNaN. There is no RISC-V
+specialization in the stock distribution.** So an unspecialized SoftFloat disagrees with
+LVX on every NaN result and on `FIXED*` of a NaN — RISC-V returns `INT_MAX`, the 8086
+specialization returns `INT_MIN`. Both are silent, and both hide on exactly the inputs a
+random test under-samples. Take `riscv-isa-sim`'s `specialize.h`, or write one;
+`ARM-VFPv2-defaultNaN` is the closest in spirit — it generates a default NaN rather than
+propagating payloads — but it is not RISC-V.
+
+This is the second time the *general rule* (LVX FP is RISC-V FP) has outranked a
+plausible-looking artifact; the first was `GWRR` and KVX's silence on `FMINW` (§6b).
 
 ## 6. What to take from MPFR: the parameterization
 
@@ -276,6 +313,20 @@ Note this is also the MPFR *discipline*, not just its API: exact/wide intermedia
 single correct rounding, with the inexactness reported as a returned value rather than a
 raised global. Behavior can do all three natively. §4's flag-returning sketch is the same
 shape as MPFR's ternary value, arrived at independently.
+
+**The architecture corroborates the parameterization from a direction MPFR knows nothing
+about.** The architect's rule is that `F*H` and `F*D` raise what the corresponding `F*W`
+raises — the flag sets do not vary with width (§6b), and the width rule cross-checks
+itself against kv3_v1 wherever both apply. A specification whose *flags* are
+width-invariant and whose *arithmetic* is not would be describing an accident. One
+`round_once(p, emin, emax)` is what makes both invariant together.
+
+**And the parameterization gives MPFR its remaining job.** With the flags landed, MPFR's
+arbitrary precision has no LVX operator to serve — there are no exact-accumulation
+operators here (§1). But `round_once(p, emin, emax)` is *precisely* a
+precision-parameterized rounding, so MPFR is its natural oracle: set the precision and the
+exponent range, compare. The idea worth taking from MPFR and the job left for MPFR turn out
+to be the same idea, used twice.
 
 ## 6a. The flag encoding: tuples, not packing
 
