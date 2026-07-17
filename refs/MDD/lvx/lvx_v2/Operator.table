@@ -75330,8 +75330,16 @@
   syntax=	"%0.r5 %2 = %3"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%2"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75350,8 +75358,16 @@
   syntax=	"%0.rd %2 = %3"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%2"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75370,8 +75386,16 @@
   syntax=	"%0.rm %2 = %3"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%2"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75390,8 +75414,16 @@
   syntax=	"%0.rn %2 = %3"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%2"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75410,8 +75442,16 @@
   syntax=	"%0.ro %2 = %3"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%2"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75430,8 +75470,16 @@
   syntax=	"%0.ru %2 = %3"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%2"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75450,8 +75498,16 @@
   syntax=	"%0.rz %2 = %3"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%2"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75470,8 +75526,16 @@
   syntax=	"%0 %2 = %3"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%2"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75650,8 +75714,16 @@
   syntax=	"%0.z.r5 %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75670,8 +75742,16 @@
   syntax=	"%0.z.rd %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75690,8 +75770,16 @@
   syntax=	"%0.z.rm %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75710,8 +75798,16 @@
   syntax=	"%0.z.rn %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75730,8 +75826,16 @@
   syntax=	"%0.z.ro %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75750,8 +75854,16 @@
   syntax=	"%0.z.ru %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75770,8 +75882,16 @@
   syntax=	"%0.z.rz %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75790,8 +75910,16 @@
   syntax=	"%0.z %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75810,8 +75938,16 @@
   syntax=	"%0.r5 %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75830,8 +75966,16 @@
   syntax=	"%0.rd %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75850,8 +75994,16 @@
   syntax=	"%0.rm %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75870,8 +76022,16 @@
   syntax=	"%0.rn %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75890,8 +76050,16 @@
   syntax=	"%0.ro %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75910,8 +76078,16 @@
   syntax=	"%0.ru %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75930,8 +76106,16 @@
   syntax=	"%0.rz %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"
@@ -75950,8 +76134,16 @@
   syntax=	"%0 %3 = %4"
 ><Parameter
   action=	"Write"
+  method=	"Register-lvx_v2-CS"
+  stages=	"2"
+/><Parameter
+  action=	"Write"
   method=	"RegClass-lvx_v2-singleReg"
   proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx_v2-CS"
   stages=	"2"
 /><Parameter
   action=	"Read"

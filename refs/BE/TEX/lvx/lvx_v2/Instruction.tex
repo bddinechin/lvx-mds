@@ -26052,6 +26052,11 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   if (ziplanes) {
     result1.32[0] = f64_to_f32(RM, argument2.64[0]);
     result1.32[1] = f64_to_f32(RM, argument3.64[0]);
@@ -26064,7 +26069,16 @@ stage RR:
   result1.32[3] = f64_to_f32(RM, argument3.64[1]);
 stage E1:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FNARROWWHQ: Floating Point Narrow Word to Half Word Quadruple}]{FNARROWWHQ\hfill Floating Point Narrow Word to Half Word Quadruple}
@@ -26095,6 +26109,11 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   if (ziplanes) {
     result1.16[0] = f32_to_f16(RM, argument2.32[0]);
     result1.16[1] = f32_to_f16(RM, argument3.32[0]);
@@ -26107,7 +26126,16 @@ stage RR:
   result1.16[3] = f32_to_f16(RM, argument3.32[1]);
 stage E1:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FRACTDWQ: Fraction Double Word to Word Quadruple}]{FRACTDWQ\hfill Fraction Double Word to Word Quadruple}
@@ -38858,10 +38886,24 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f16_add(RM, argument2, argument3);
 stage E3:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FADDHO: Floating-Point Add Half Word Octuple}]{FADDHO\hfill Floating-Point Add Half Word Octuple}
@@ -39672,11 +39714,25 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   new result1 = f64_div(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FDIVH: Floating-Point Divide Half Word}]{FDIVH\hfill Floating-Point Divide Half Word}
@@ -39708,11 +39764,25 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   new result1 = f16_div(RM, argument2 ^ fsign, argument3);
 stage E3:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FDIVW: Floating-Point Divide Word}]{FDIVW\hfill Floating-Point Divide Word}
@@ -39744,11 +39814,25 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   new result1 = f32_div(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FEXTLHWQ: Floating Point Extend Lane Half Word to Word Quadruple}]{FEXTLHWQ\hfill Floating Point Extend Lane Half Word to Word Quadruple}
@@ -39816,11 +39900,25 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   new result1 = f64_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMADP: Floating-Point Fused Multiply Add Double Word Pair}]{FFMADP\hfill Floating-Point Fused Multiply Add Double Word Pair}
@@ -39853,13 +39951,27 @@ stage RR:
   new argument2 = PGR[registerP];
   new argument1 = PGR[registerM];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = f64_mulAdd(RM, argument3.64[I], argument2.64[I] ^ fsign, argument1.64[I] ^ fsign)
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMAH: Floating-Point Fused Multiply Add Half Word}]{FFMAH\hfill Floating-Point Fused Multiply Add Half Word}
@@ -39892,11 +40004,25 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   new result1 = f16_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E3:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMAHO: Floating-Point Fused Multiply Add Half Word Octuple}]{FFMAHO\hfill Floating-Point Fused Multiply Add Half Word Octuple}
@@ -39929,13 +40055,27 @@ stage RR:
   new argument2 = PGR[registerP];
   new argument1 = PGR[registerM];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = f16_mulAdd(RM, argument3.16[I], argument2.16[I] ^ fsign, argument1.16[I] ^ fsign)
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMAW: Floating-Point Fused Multiply Add Word}]{FFMAW\hfill Floating-Point Fused Multiply Add Word}
@@ -39968,11 +40108,25 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   new result1 = f32_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMAWC: Floating-Point Multiply Add Word Complex}]{FFMAWC\hfill Floating-Point Multiply Add Word Complex}
@@ -40064,13 +40218,27 @@ stage RR:
   new argument2 = PGR[registerP];
   new argument1 = PGR[registerM];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = f32_mulAdd(RM, argument3.32[I], argument2.32[I] ^ fsign, argument1.32[I] ^ fsign)
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSD: Floating-Point Fused Multiply Subtract From Double Word}]{FFMSD\hfill Floating-Point Fused Multiply Subtract From Double Word}
@@ -40103,11 +40271,25 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   new result1 = f64_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSDP: Floating-Point Fused Multiply Subtract From Double Word Pair}]{FFMSDP\hfill Floating-Point Fused Multiply Subtract From Double Word Pair}
@@ -40140,13 +40322,27 @@ stage RR:
   new argument2 = PGR[registerP];
   new argument1 = PGR[registerM];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = f64_mulnAdd(RM, argument3.64[I], argument2.64[I] ^ fsign, argument1.64[I] ^ fsign)
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSH: Floating-Point Fused Multiply Subtract From Half Word}]{FFMSH\hfill Floating-Point Fused Multiply Subtract From Half Word}
@@ -40179,11 +40375,25 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   new result1 = f16_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E3:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSHO: Floating-Point Fused Multiply Subtract From Half Word Octuple}]{FFMSHO\hfill Floating-Point Fused Multiply Subtract From Half Word Octuple}
@@ -40216,13 +40426,27 @@ stage RR:
   new argument2 = PGR[registerP];
   new argument1 = PGR[registerM];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = f16_mulnAdd(RM, argument3.16[I], argument2.16[I] ^ fsign, argument1.16[I] ^ fsign)
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSW: Floating-Point Fused Multiply Subtract From Word}]{FFMSW\hfill Floating-Point Fused Multiply Subtract From Word}
@@ -40255,11 +40479,25 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   new result1 = f32_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSWQ: Floating-Point Fused Multiply Subtract From Word Quadruple}]{FFMSWQ\hfill Floating-Point Fused Multiply Subtract From Word Quadruple}
@@ -40292,13 +40530,27 @@ stage RR:
   new argument2 = PGR[registerP];
   new argument1 = PGR[registerM];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = f32_mulnAdd(RM, argument3.32[I], argument2.32[I] ^ fsign, argument1.32[I] ^ fsign)
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDD: Floating Point Conversion to Fixed-Point Double Word}]{FIXEDD\hfill Floating Point Conversion to Fixed-Point Double Word}
@@ -40327,10 +40579,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f64_to_i64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDDP: Floating Point Conversion to Fixed-Point Double Word Pair}]{FIXEDDP\hfill Floating Point Conversion to Fixed-Point Double Word Pair}
@@ -40359,12 +40625,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = f64_to_i64(RM, argument2.64[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDDW: Floating Point Conversion from Double Word to Fixed-Point Word}]{FIXEDDW\hfill Floating Point Conversion from Double Word to Fixed-Point Word}
@@ -40393,10 +40673,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f64_to_i32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDHO: Floating Point Conversion to Fixed-Point Half Word Octuple}]{FIXEDHO\hfill Floating Point Conversion to Fixed-Point Half Word Octuple}
@@ -40425,12 +40719,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = f16_to_i16(RM, argument2.16[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUD: Floating Point Conversion to Unsigned Fixed-Point Double Word}]{FIXEDUD\hfill Floating Point Conversion to Unsigned Fixed-Point Double Word}
@@ -40459,10 +40767,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f64_to_ui64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUDP: Floating Point Conversion to Unsigned Fixed-Point Double Word Pair}]{FIXEDUDP\hfill Floating Point Conversion to Unsigned Fixed-Point Double Word Pair}
@@ -40491,12 +40813,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = f64_to_ui64(RM, argument2.64[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUDW: Floating Point Conversion from Double Word to Unsigned Fixed-Point Word}]{FIXEDUDW\hfill Floating Point Conversion from Double Word to Unsigned Fixed-Point Word}
@@ -40525,10 +40861,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f64_to_ui32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUHO: Floating Point Conversion to Unsigned Fixed-Point Half Word Octuple}]{FIXEDUHO\hfill Floating Point Conversion to Unsigned Fixed-Point Half Word Octuple}
@@ -40557,12 +40907,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = f16_to_ui16(RM, argument2.16[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUW: Floating Point Conversion to Unsigned Fixed-Point}]{FIXEDUW\hfill Floating Point Conversion to Unsigned Fixed-Point}
@@ -40591,10 +40955,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f32_to_ui32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUWD: Floating Point Conversion from Word to Unsigned Fixed-Point Double Word}]{FIXEDUWD\hfill Floating Point Conversion from Word to Unsigned Fixed-Point Double Word}
@@ -40623,10 +41001,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f32_to_ui64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUWP: Floating Point Conversion to Unsigned Fixed-Point Word Pair}]{FIXEDUWP\hfill Floating Point Conversion to Unsigned Fixed-Point Word Pair}
@@ -40655,12 +41047,26 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.32[I] = f32_to_ui32(RM, argument2.32[I])
   };
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUWQ: Floating Point Conversion to Unsigned Fixed-Point Word Quadruple}]{FIXEDUWQ\hfill Floating Point Conversion to Unsigned Fixed-Point Word Quadruple}
@@ -40689,12 +41095,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = f32_to_ui32(RM, argument2.32[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDW: Floating Point Conversion to Fixed-Point}]{FIXEDW\hfill Floating Point Conversion to Fixed-Point}
@@ -40723,10 +41143,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f32_to_i32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDWD: Floating Point Conversion from Word to Fixed-Point Double Word}]{FIXEDWD\hfill Floating Point Conversion from Word to Fixed-Point Double Word}
@@ -40755,10 +41189,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f32_to_i64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDWP: Floating Point Conversion to Fixed-Point Word Pair}]{FIXEDWP\hfill Floating Point Conversion to Fixed-Point Word Pair}
@@ -40787,12 +41235,26 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.32[I] = f32_to_i32(RM, argument2.32[I])
   };
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDWQ: Floating Point Conversion to Fixed-Point Word Quadruple}]{FIXEDWQ\hfill Floating Point Conversion to Fixed-Point Word Quadruple}
@@ -40821,12 +41283,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = f32_to_i32(RM, argument2.32[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATD: Floating Point Conversion from Fixed-Point Double Word}]{FLOATD\hfill Floating Point Conversion from Fixed-Point Double Word}
@@ -40855,10 +41331,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = i64_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATDP: Floating Point Conversion from Fixed-Point Double Word Pair}]{FLOATDP\hfill Floating Point Conversion from Fixed-Point Double Word Pair}
@@ -40887,12 +41377,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = i64_to_f64(RM, argument2.64[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATDW: Floating Point Conversion from Fixed-Point Double Word to Word}]{FLOATDW\hfill Floating Point Conversion from Fixed-Point Double Word to Word}
@@ -40921,10 +41425,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = i64_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATHO: Floating Point Conversion from Fixed-Point Half Word Octuple}]{FLOATHO\hfill Floating Point Conversion from Fixed-Point Half Word Octuple}
@@ -40953,12 +41471,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = i16_to_f16(RM, argument2.16[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUD: Floating Point Conversion from Unsigned Fixed-Point Double Word}]{FLOATUD\hfill Floating Point Conversion from Unsigned Fixed-Point Double Word}
@@ -40987,10 +41519,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = ui64_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUDP: Floating Point Conversion from Unsigned Fixed-Point Double Word Pair}]{FLOATUDP\hfill Floating Point Conversion from Unsigned Fixed-Point Double Word Pair}
@@ -41019,12 +41565,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = ui64_to_f64(RM, argument2.64[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUDW: Floating Point Conversion from Unsigned Fixed-Point Double Word to Word}]{FLOATUDW\hfill Floating Point Conversion from Unsigned Fixed-Point Double Word to Word}
@@ -41053,10 +41613,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = ui64_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUHO: Floating Point Conversion from Unsigned Fixed-Point Half Word Octuple}]{FLOATUHO\hfill Floating Point Conversion from Unsigned Fixed-Point Half Word Octuple}
@@ -41085,12 +41659,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = ui16_to_f16(RM, argument2.16[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUW: Floating Point Conversion from Unsigned Fixed-Point}]{FLOATUW\hfill Floating Point Conversion from Unsigned Fixed-Point}
@@ -41119,10 +41707,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = ui32_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUWD: Floating Point Conversion from Unsigned Fixed-Point Word to Double Word}]{FLOATUWD\hfill Floating Point Conversion from Unsigned Fixed-Point Word to Double Word}
@@ -41151,10 +41753,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = ui32_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUWP: Floating Point Conversion from Unsigned Fixed-Point Word Pair}]{FLOATUWP\hfill Floating Point Conversion from Unsigned Fixed-Point Word Pair}
@@ -41183,12 +41799,26 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.32[I] = ui32_to_f32(RM, argument2.32[I])
   };
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUWQ: Floating Point Conversion from Unsigned Fixed-Point Word Quadruple}]{FLOATUWQ\hfill Floating Point Conversion from Unsigned Fixed-Point Word Quadruple}
@@ -41217,12 +41847,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = ui32_to_f32(RM, argument2.32[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATW: Floating Point Conversion from Fixed-Point}]{FLOATW\hfill Floating Point Conversion from Fixed-Point}
@@ -41251,10 +41895,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = i32_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATWD: Floating Point Conversion from Fixed-Point Word to Double Word}]{FLOATWD\hfill Floating Point Conversion from Fixed-Point Word to Double Word}
@@ -41283,10 +41941,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = i32_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATWP: Floating Point Conversion from Fixed-Point Word Pair}]{FLOATWP\hfill Floating Point Conversion from Fixed-Point Word Pair}
@@ -41315,12 +41987,26 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.32[I] = i32_to_f32(RM, argument2.32[I])
   };
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATWQ: Floating Point Conversion from Fixed-Point Word Quadruple}]{FLOATWQ\hfill Floating Point Conversion from Fixed-Point Word Quadruple}
@@ -41349,12 +42035,26 @@ stage ID:
 stage RR:
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = i32_to_f32(RM, argument2.32[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXD: Floating-Point Maximum Double Word}]{FMAXD\hfill Floating-Point Maximum Double Word}
@@ -41986,11 +42686,25 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   new result1 = f64_mul(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULDP: Floating-Point Multiply Double Word Pair}]{FMULDP\hfill Floating-Point Multiply Double Word Pair}
@@ -42022,13 +42736,27 @@ stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = f64_mul(RM, argument2.64[I] ^ fsign, argument3.64[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULH: Floating-Point Multiply Half Word}]{FMULH\hfill Floating-Point Multiply Half Word}
@@ -42060,11 +42788,25 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   new result1 = f16_mul(RM, argument2 ^ fsign, argument3);
 stage E3:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULHO: Floating-Point Multiply Half Word Octuple}]{FMULHO\hfill Floating-Point Multiply Half Word Octuple}
@@ -42096,13 +42838,27 @@ stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = f16_mul(RM, argument2.16[I] ^ fsign, argument3.16[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULW: Floating-Point Multiply Word}]{FMULW\hfill Floating-Point Multiply Word}
@@ -42134,11 +42890,25 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   new result1 = f32_mul(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULWC: Floating-Point Multiply Word Complex}]{FMULWC\hfill Floating-Point Multiply Word Complex}
@@ -42229,13 +42999,27 @@ stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = f32_mul(RM, argument2.32[I] ^ fsign, argument3.32[I])
   };
 stage E4:
   PGR[registerM] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FNARROWDW: Floating Point Narrow Double Word to Word}]{FNARROWDW\hfill Floating Point Narrow Double Word to Word}
@@ -42264,10 +43048,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f64_to_f32(RM, argument2.64[0]);
 stage E1:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FNARROWWH: Floating Point Narrow Word to Half Word}]{FNARROWWH\hfill Floating Point Narrow Word to Half Word}
@@ -42296,10 +43094,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f32_to_f16(RM, argument2.32[0]);
 stage E1:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FNEGD: Floating-Point Negate Double Word}]{FNEGD\hfill Floating-Point Negate Double Word}
@@ -42497,10 +43309,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f64_rint(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FRINTH: Floating Point Round to Int Half Word}]{FRINTH\hfill Floating Point Round to Int Half Word}
@@ -42529,10 +43355,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f16_rint(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FRINTW: Floating Point Round to Int Word}]{FRINTW\hfill Floating Point Round to Int Word}
@@ -42561,10 +43401,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f32_rint(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSBFD: Floating-Point Subtract From Double Word}]{FSBFD\hfill Floating-Point Subtract From Double Word}
@@ -42690,10 +43544,24 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f16_sub(RM, argument3, argument2);
 stage E3:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSBFHO: Floating-Point Subtract From Half Word Octuple}]{FSBFHO\hfill Floating-Point Subtract From Half Word Octuple}
@@ -43375,10 +44243,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f64_sqrt(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSQRTH: Floating Point Square Root Half Word}]{FSQRTH\hfill Floating Point Square Root Half Word}
@@ -43407,10 +44289,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f16_sqrt(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSQRTW: Floating Point Square Root Word}]{FSQRTW\hfill Floating Point Square Root Word}
@@ -43439,10 +44335,24 @@ stage ID:
 stage RR:
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f32_sqrt(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSRECD: Floating-Point Seed for Reciprocal Double Word}]{FSRECD\hfill Floating-Point Seed for Reciprocal Double Word}

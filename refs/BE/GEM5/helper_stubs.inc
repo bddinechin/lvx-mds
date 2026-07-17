@@ -118,7 +118,6 @@ void HELPER(MEM_i1invals)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
 void HELPER(barrier)(void *this) { lvx_behavior_unimpl(); }
 void HELPER(blend)(void *this, uint8_t opnd1, uint8_t opnd2, uint64_t opnd3, uint8_t opnd4) { lvx_behavior_unimpl(); }
 void HELPER(break)(void *this, uint8_t opnd1) { lvx_behavior_unimpl(); }
-void HELPER(commit_float_exception_flags)(void *this) { lvx_behavior_unimpl(); }
 void HELPER(guard)(void *this, uint8_t opnd1, uint64_t opnd2, uint8_t opnd3) { lvx_behavior_unimpl(); }
 void HELPER(idle)(void *this, uint8_t opnd1) { lvx_behavior_unimpl(); }
 void HELPER(invaldtlb)(void *this) { lvx_behavior_unimpl(); }

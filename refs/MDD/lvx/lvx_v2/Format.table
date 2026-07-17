@@ -8551,19 +8551,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FDFIXED"
@@ -8579,19 +8607,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FDMO0"
@@ -8607,19 +8663,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_DWWR"
@@ -8635,19 +8719,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E1:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E1.%1 (READ.result1))
-  (EFFECT.E1.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWPMO1"
@@ -8683,19 +8795,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWPFIXED"
@@ -8711,19 +8851,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FDFMA"
@@ -8742,9 +8910,19 @@ new argument3 = %3;
 new argument2 = %2;
 new argument1 = %1;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -8754,9 +8932,28 @@ stage E4:
   (WRITE.argument1 (ACCESS.RR.%1))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FDMUL"
@@ -8774,9 +8971,18 @@ stage RR:
 new argument3 = %3;
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -8785,9 +8991,28 @@ commit_float_exception_flags();
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWCOP"
@@ -9042,19 +9267,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWFIXED"
@@ -9070,19 +9323,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWMO0"
@@ -9098,19 +9379,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage SF:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.SF.%1 (READ.result1))
-  (EFFECT.SF.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.SF (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.SF (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.SF (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.SF (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.SF (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWWR"
@@ -9126,19 +9435,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E1:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E1.%1 (READ.result1))
-  (EFFECT.E1.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWFMA"
@@ -9157,9 +9494,19 @@ new argument3 = %3;
 new argument2 = %2;
 new argument1 = %1;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -9169,9 +9516,28 @@ stage E4:
   (WRITE.argument1 (ACCESS.RR.%1))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWMUL"
@@ -9189,9 +9555,18 @@ stage RR:
 new argument3 = %3;
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -9200,9 +9575,28 @@ commit_float_exception_flags();
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHADD"
@@ -9219,10 +9613,19 @@ stage RR:
 new argument3 = %3;
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E3:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%4))
@@ -9230,9 +9633,28 @@ commit_float_exception_flags();
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E3.%1 (READ.result1))
-  (EFFECT.E3.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E3 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E3 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E3 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E3 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHCWRR"
@@ -9365,19 +9787,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E1:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E1.%1 (READ.result1))
-  (EFFECT.E1.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHFIXED"
@@ -9393,19 +9843,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHMO0"
@@ -9421,19 +9899,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage SF:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.SF.%1 (READ.result1))
-  (EFFECT.SF.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.SF (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.SF (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.SF (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.SF (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.SF (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHWR"
@@ -9449,19 +9955,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E1:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E1.%1 (READ.result1))
-  (EFFECT.E1.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHFMA"
@@ -9480,10 +10014,19 @@ new argument3 = %3;
 new argument2 = %2;
 new argument1 = %1;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E3:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -9493,9 +10036,28 @@ commit_float_exception_flags();
   (WRITE.argument1 (ACCESS.RR.%1))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E3.%1 (READ.result1))
-  (EFFECT.E3.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E3 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E3 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E3 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E3 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHMUL"
@@ -9513,10 +10075,19 @@ stage RR:
 new argument3 = %3;
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E3:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -9525,9 +10096,28 @@ commit_float_exception_flags();
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E3.%1 (READ.result1))
-  (EFFECT.E3.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E3 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E3 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E3 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E3 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_DPWRR0"
@@ -12459,19 +13049,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FDPFIXED"
@@ -12487,19 +13105,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FDPMO0"
@@ -12514,19 +13160,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage SF:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.SF.%1 (READ.result1))
-  (EFFECT.SF.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.SF (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.SF (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.SF (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.SF (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.SF (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FDPWR"
@@ -12542,10 +13216,19 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E1:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.ziplanes (ACCESS.ID.%4))
@@ -12553,9 +13236,28 @@ commit_float_exception_flags();
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E1.%1 (READ.result1))
-  (EFFECT.E1.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FDPCNWRR"
@@ -12632,9 +13334,19 @@ new argument3 = %3;
 new argument2 = %2;
 new argument1 = %1;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -12644,9 +13356,28 @@ stage E4:
   (WRITE.argument1 (ACCESS.RR.%1))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FDPMUL"
@@ -12664,9 +13395,18 @@ stage RR:
 new argument3 = %3;
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -12675,9 +13415,28 @@ commit_float_exception_flags();
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWCPOP"
@@ -12958,19 +13717,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWQFIXED"
@@ -12986,19 +13773,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWQMO0"
@@ -13013,19 +13828,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage SF:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.SF.%1 (READ.result1))
-  (EFFECT.SF.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.SF (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.SF (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.SF (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.SF (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.SF (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWQWR"
@@ -13040,19 +13883,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E1:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E1.%1 (READ.result1))
-  (EFFECT.E1.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWQCNWRR"
@@ -13129,9 +14000,19 @@ new argument3 = %3;
 new argument2 = %2;
 new argument1 = %1;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -13141,9 +14022,28 @@ stage E4:
   (WRITE.argument1 (ACCESS.RR.%1))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FWQMUL"
@@ -13161,9 +14061,18 @@ stage RR:
 new argument3 = %3;
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -13172,9 +14081,28 @@ commit_float_exception_flags();
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHCPOP"
@@ -13455,19 +14383,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHOFIXED"
@@ -13483,19 +14439,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHOMO0"
@@ -13510,19 +14494,47 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage SF:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.floatmode (ACCESS.ID.%3))
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.SF.%1 (READ.result1))
-  (EFFECT.SF.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.SF (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.SF (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.SF (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.SF (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.SF (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHQWR"
@@ -13538,10 +14550,19 @@ new floatmode = %3;
 stage RR:
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E1:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.ziplanes (ACCESS.ID.%4))
@@ -13549,9 +14570,28 @@ commit_float_exception_flags();
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E1.%1 (READ.result1))
-  (EFFECT.E1.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHOCNWRR"
@@ -13628,9 +14668,19 @@ new argument3 = %3;
 new argument2 = %2;
 new argument1 = %1;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 @Instruction
 stage E4:
 %1 = result1;
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -13640,9 +14690,28 @@ stage E4:
   (WRITE.argument1 (ACCESS.RR.%1))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_FHOMUL"
@@ -13660,9 +14729,18 @@ stage RR:
 new argument3 = %3;
 new argument2 = %2;
 new RM = decode_riscv_float_rounding_mode(floatmode);
+new fio = 0;
+new fdz = 0;
+new fov = 0;
+new fun = 0;
+new fin = 0;
 stage E4:
 %1 = result1;
-commit_float_exception_flags();
+CS.IO |= fio;
+CS.DZ |= fdz;
+CS.OV |= fov;
+CS.UN |= fun;
+CS.IN |= fin;
 </Execution><Behavior>
 (SEQ
   (WRITE.fnegate (ACCESS.ID.%5))
@@ -13671,9 +14749,28 @@ commit_float_exception_flags();
   (WRITE.argument2 (ACCESS.RR.%2))
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.fio (CONST.0))
+  (WRITE.fdz (CONST.0))
+  (WRITE.fov (CONST.0))
+  (WRITE.fun (CONST.0))
+  (WRITE.fin (CONST.0))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
-  (EFFECT.E4.commit_float_exception_flags))
+  (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+  (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+  (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+  (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+  (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+    (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+  (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+    (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+  (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+    (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+  (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+    (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+  (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+    (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 </Behavior></Format>
 <Format
   ID=	"Format-lvx_v2-ALU_NOP"
