@@ -5,19 +5,29 @@ bottleneck for ISS retargeting". Read `Behavior.md` §4 first — this note assu
 argument and only settles a question it left open: **if the ~57 floating-point
 helpers are to stop being opaque C, does MPFR do the job?**
 
-> **Status: analysis and recommendation. Nothing landed.** Recommendation in short:
-> **MPFR belongs in `BE/LAO/TEST/` as an oracle, alongside SoftFloat and not instead
-> of it — never behind an `APPLY`.** The thing worth taking from MPFR is its
-> *precision parameterization*, not its API. §4's design stands unchanged; MPFR
-> corroborates it rather than replacing it.
+> **Status: the flags have landed; the bodies have not.** Steps 0–4 of §7 are in — the
+> tuple grammar, the checked `result`, the 22+1 FP macros, and all 60 flag-raising helpers
+> — so an FP instruction's IEEE flags now reach CS, which no LVX instruction had ever
+> done. What is still opaque C is the *arithmetic*: `f32_add` returns its flags as data
+> and computes its sum in a helper. That is §7 (5), and it is the rest of the job.
+>
+> On MPFR, which this note set out to answer: **it belongs in `BE/LAO/TEST/` as an oracle,
+> alongside SoftFloat and not instead of it — never behind an `APPLY`.** The thing worth
+> taking from it is its *precision parameterization*, not its API. §4's design stands
+> unchanged; MPFR corroborates it rather than replacing it.
 
 ## 1. What LVX's gap actually is, measured
 
-**The arithmetic flags are not modelled.** 86 instructions say in their `description:`
+> **This section is the diagnosis, and it is now history: the flags landed** (§6b). It is
+> kept in the past tense of its own findings because the reasoning is what justifies the
+> shape of the fix — and because "86 instructions claim an effect that no behavior has" is
+> worth remembering as a thing that was true of a description in active use.
+
+**The arithmetic flags were not modelled.** 86 instructions say in their `description:`
 that "This instruction may raise exception bits in the CS register", and **no behavior
-writes `CS_IO`, `CS_DZ`, `CS_OV`, `CS_UN` or `CS_IN`.** Those semantics live in exactly
+wrote `CS_IO`, `CS_DZ`, `CS_OV`, `CS_UN` or `CS_IN`.** Those semantics lived in exactly
 two places, neither of them the description: English prose, and a global mutated inside
-the opaque C. So §4's "not in the description at all" is literal *for the flags*.
+the opaque C. So §4's "not in the description at all" was literal *for the flags*.
 
 Be precise about the scope, because the obvious grep gets it wrong. **CS is written 49
 times**, all from `Format.yml`'s `Macro:` wrappers and all of them `CS_XMF`. So the
@@ -343,51 +353,70 @@ the type map would both need tuple support — a far larger change for no gain h
 
 ## 6b. Which flags each helper raises, and where that came from
 
-**Half of this table is inference, and it is a specification claim.** It is written down
-here because nothing else in the description states it, and because a reader who assumes
-it was read off a document would be wrong for half the rows.
+**Landed.** 60 helpers declare a tuple result and their sites bind it; the table below is
+read back off the description, not off intent. Much of it began as inference and it is a
+specification claim either way — a reader who assumes it was copied from a document would
+be wrong for most rows.
 
-**LVX's own prose cannot answer the question.** All 53 CS-claiming instructions say the
-generic *"may raise exception bits in the CS register"* — which flags is never named. KVX
-names them in every case (zero generic), so this specificity was lost in the port, along
-with the CS modelling itself. KVX kv3_v1 is therefore the document, and it covers 28 of
-the 53; the rest are kv4_v1 features it does not have — and **kv4_v1's `Description.yml`
-is not available**, only its architecture chapters (`kv4-v1-*.tex`).
+**LVX's own prose could not answer the question.** Every CS-claiming instruction said the
+generic *"may raise exception bits in the CS register"* and never named which. KVX names
+them in every case (zero generic), so the specificity was lost in the port along with the
+CS modelling. kv3_v1 covered 28; the rest are kv4_v1 features it lacks, and kv4_v1's
+`Description.yml` is not available — only its architecture chapters (`kv4-v1-*.tex`).
 
-Two rules from the architect close the gap:
+Three rules from the architect closed the gap:
 
-- **`F*H` and `F*D` raise the same flags as the corresponding `F*W`** — width does not
-  change the set.
-- **LVX FP arithmetic is RISC-V FP arithmetic**, including canonical NaN generation and
-  NaN handling, which is *not* SoftFloat's.
+- **`F*H` and `F*D` raise what the corresponding `F*W` raises** — width does not change
+  the set.
+- **LVX FP arithmetic is RISC-V FP arithmetic**, canonical NaN generation and NaN handling
+  included, which is *not* SoftFloat's.
+- **`FMIN`/`FMAX` are RISC-V `FMINM`/`FMAXM`; `FMINN`/`FMAXN` are RISC-V `FMIN`/`FMAX`.**
+  The pairs differ in NaN *propagation* — `FMINM`/`FMAXM` return the canonical NaN — not in
+  flags.
 
-| helper | flags | source |
+| flags | helpers | source |
 |---|---|---|
-| `f{16,32,64}_add`, `_sub` | IN IO OV | kv3_v1 for f32/f64; width rule for f16 |
-| `f{16,32,64}_mul`, `_muln` | IN IO OV UN | kv3_v1 for f32/f64; width rule for f16 |
-| `f{16,32,64}_div` | DZ IN IO OV UN | **inferred**: RISC-V FDIV |
-| `f{16,32,64}_sqrt` | IN IO | **inferred**: RISC-V FSQRT |
-| `f{16,32,64}_rint` | IN IO | **inferred**: IEEE roundToIntegralExact |
-| `f32_to_f16`, `f64_to_f32` | IN IO OV UN | kv3_v1 |
-| `f{32,64}_to_{i,ui}{32,64}` | IN IO | kv3_v1 for the same-width four; width rule for the cross-width four |
-| `{i,ui}{32,64}_to_f{32,64}` | IN IO | kv3_v1 for the same-width four; width rule for the cross-width four |
-| `fconj_32_32`, `fmulc_32_32`, `ffmac_32_32` | IN IO OV | kv3_v1 for the first two; analogy for `ffmac_32_32` |
-| `f{32,64}_fast_rec`, `f{32,64}_fast_rsqrt` | **none** | architect: no CS effects; to be revised with new hardware |
+| **IO IN** (26) | `f{16,32,64}_rint`, `_sqrt`; every float↔int conversion (`f*_to_{i,ui}*`, `{i,ui}*_to_f*`) | kv3_v1 for the same-width conversions; RISC-V FSQRT / IEEE roundToIntegralExact; width rule for the rest |
+| **IO** (12) | `f{16,32,64}_{min,max,minNum,maxNum}` | RISC-V: invalid only, on a signalling NaN |
+| **IO OV UN IN** (11) | `f{16,32,64}_mul`, `_mulAdd`, `_mulnAdd`; `f32_to_f16`, `f64_to_f32` | kv3_v1 for `mul` and the narrowings; RISC-V FMADD for the fused forms |
+| **IO OV IN** (8) | `f{16,32,64}_add`, `_sub`; `ffmac_32_32`, `fmulc_32_32` | kv3_v1; width rule for f16 |
+| **IO DZ OV UN IN** (3) | `f{16,32,64}_div` | RISC-V FDIV |
+| **none** (5) | `f{32,64}_fast_rec`, `_fast_rsqrt`; `fconj_32_32` | architect (pending new hardware); `fconj` flips a sign bit and takes no rounding mode |
 
-**The width rule cross-checks itself**, which is the reason to trust the inferred rows: it
-predicts `f64_add` raises what `f32_add` raises, and kv3_v1 independently documents both
-as IN IO OV. Same for `mul`/`muln`. Rule and document agree wherever both apply.
+**Two rows are right where intuition is wrong**, which is the reason to trust the inferred
+ones. Addition looks like it should underflow and cannot: a sum landing in the subnormal
+range is *exact*, so never both tiny and inexact — hence IO OV IN, not IO OV UN IN, and
+RISC-V agrees. And the width rule cross-checks itself: it predicts `f64_add` raises what
+`f32_add` raises, and kv3_v1 independently documents both as IO OV IN. Anyone "fixing" add
+to raise UN would be breaking it.
 
-**And the document is right where intuition is wrong.** Addition looks like it should be
-able to underflow and does not: a sum that lands in the subnormal range is *exact*, so it
-is never both tiny and inexact, and IEEE therefore raises nothing. `add`/`sub` are IN IO OV
-and `mul` is IN IO OV UN for that reason, not by oversight. RISC-V agrees. Anyone
-"fixing" add to raise UN would be wrong.
+### The name pattern aliased one helper onto another
 
-**`fast_rec`/`fast_rsqrt` are an override, not a reading.** kv3_v1 documents them as
-DZ IN IO OV; LVX's raise nothing, pending a new hardware implementation. The three
-instructions that use them (`FSRECW`, `FSRECWP`, `FSRECD`) still claim CS effects in their
-`description:`, and that prose is now wrong — it should go when they are revised.
+The first sweep silently skipped every camelCase helper, and `helper-result` could not
+report it. `f32_mulAdd` truncates to `f32_mul` under a `[a-z_0-9]+` name pattern — **and
+`f32_mul` is a different real helper**. So the sweep converted "f32_mul", declared
+`f32_mul`, and `f32_mulAdd` was never named anywhere a check could look. Likewise
+`f32_mulnAdd`/`f32_muln` and `f32_minNum`/`f32_min`. The fused multiply-adds and the
+min/max forms were left unconverted, and nothing said so.
+
+A truncating pattern is not merely incomplete: it **aliases**. This note carried an
+invented helper for a while because of it — `f{16,32,64}_muln`, which does not exist and
+never did; it was `_mulnAdd` seen through the same truncation.
+
+### FMIN/FMAX needed a macro of their own: GWRRE
+
+They rode `behaviorGWRR`, which has no flag-commit hook and never had one — and which **80
+instructions ride, 68 of them integer** (`ADDD`, `ANDQ`, `SRLD`…), which have no business
+touching CS. `GWRRF` does not fit either: it reads `%4` as a `floatmode` and decodes a
+rounding mode, and min/max do not round. Hence **`GWRRE`** — `GWRR` plus flag accumulation
+at E1, no rounding mode — with `ALU_F{D,W,H}MMWR` and `ALU_F{DP,WQ,HO}MMWR` repointed to
+it. `FSIGN*` stay on `GWRR`: they are RISC-V `FSGNJ` and raise nothing.
+
+**The old description looked authoritative and was wrong**, which is worth remembering the
+next time an artifact contradicts a rule. `GWRR` genuinely has no hook; KVX genuinely makes
+no CS claim for `FMINW`/`FMAXW`. Both facts are real, mutually consistent, and both are the
+same loss that took the CS modelling and the flag names. The evidence was self-consistent
+because it was all downstream of one omission.
 
 ## 7. Recommendation, in order
 
@@ -399,14 +428,16 @@ instructions that use them (`FSRECW`, `FSRECWP`, `FSRECD`) still claim CS effect
    from the declaration (`Behavior.pa`'s `_signature_result`), the width analysis bounds
    it from the `APPLY`, and `MDD/MDE/BIN/Opcode.pl` threaded only `arguments`, so the two
    never met. A disagreement was a type lie C would not catch, on the exact edit the whole
-   plan is made of. Now `helper-result`, and fatal (§5). It fires on nothing today —
-   `result` is declared nowhere — so it is a pure safety net for what follows.
+   plan is made of. Now `helper-result`, and fatal (§5). It earned itself immediately:
+   it refused `f32_sub` half-converted, and later caught nine instructions calling a
+   converted helper whose prose never claimed CS effects at all.
 
 1. **Tuple returns in the grammar** (§6a), then **the flag-returning convention on one
-   operator, end to end.** This is the load-bearing decision and it is provable *before*
-   any FP body is written: 57 operators will depend on it, and changing it afterwards is
-   expensive. It can be proved with the **body still an opaque helper** — give `f32_add`
-   `result: [32, 5]`, bind its two results in the `FOR` body, express the CS accumulation
+   operator, end to end** — *done*. This was the load-bearing decision and it was provable
+   *before* any FP body was written: 60 operators now depend on it, and changing it
+   afterwards would have been expensive. It was proved with the **body still an opaque
+   helper** — give `f32_add` `result: [32, 1, 1, 1]`, bind its results, express the CS
+   accumulation
    as an OR-reduction over the active lanes, and the global flag leaves the
    *description's* semantics even though the C still has one.
 
