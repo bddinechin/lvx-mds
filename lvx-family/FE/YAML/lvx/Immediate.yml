@@ -90,44 +90,4 @@ Immediate:
     shortName: w64
     execution: "_WX_64(%0)"
 
-#ifdef _RV64_
-
-  - ID: unsigned5
-    what: Zero Extended Immediate 5 bits
-    shortName: u5
-    execution: "_ZX_5(%0)"
-
-#ifdef _NO_UNSIGNED6_
-  - ID: unsigned6
-    what: Zero Extended Immediate 6 bits
-    shortName: u6
-    execution: "_ZX_6(%0)"
-#endif
-
-  - ID: signed6
-    what: Sign Extended Immediate 6 bits
-    shortName: s6
-    execution: "_SX_6(%0)"
-
-  - ID: signed12
-    what: Sign Extended Immediate 12 bits
-    shortName: s12
-    execution: "_SX_12(%0)"
-
-  - ID: signed20
-    what: Sign Extended Immediate 20 bits
-    shortName: s20
-    execution: "_SX_20(%0)"
-
-  - ID: pcrel12s1
-    what: PC-Relative Immediate 12 bits
-    relative: PC
-    execution: "(_SX_12(%0)<<1)"
-
-  - ID: pcrel20s1
-    what: PC-Relative Immediate 20 bits
-    relative: PC
-    execution: "(_SX_20(%0)<<1)"
-
-#endif//_RV64_
 
