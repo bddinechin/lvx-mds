@@ -13869,13 +13869,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 64
       floating-point numbers. The minimum is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_min(argument2, argument3);
+      new (result1, fio) = f64_min(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_min
-        (READ.argument2)
-        (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.64,1.f64_min
+          (READ.argument2)
+          (READ.argument3)))
 
 #ifdef _LVX_V2_
   - ID: FMINDP
@@ -13886,16 +13887,21 @@ Instruction:
       The %2 and the %3 are interpreted as two binary 64 floating-point numbers packed into 128 bits.
       The %2 double words are compared to the %3 double words.
       The two minimum double words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.64[i] = f64_min(argument2.64[i], argument3.64[i]);
+        new (lane, lio) = f64_min(argument2.64[i], argument3.64[i]);
+        result1.64[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.64[(INDEX.I)].result1
-          (APPLY.64.f64_min
-          (READ.64[(INDEX.I)].argument2)
-          (READ.64[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.64,1.f64_min
+            (READ.64[(INDEX.I)].argument2)
+            (READ.64[(INDEX.I)].argument3)))
+        (WRITE.64[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMINW
@@ -13905,13 +13911,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 32 floating-point
       numbers. The minimum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_min(argument2, argument3);
+      new (result1, fio) = f32_min(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_min
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.32,1.f32_min
+            (READ.argument2)
+            (READ.argument3)))
 
 #if 0
   - ID: FMINWP
@@ -13922,16 +13929,21 @@ Instruction:
       The %2 and the %3 are interpreted as two binary 32 floating-point numbers packed into 64 bits.
       The %2 words are compared to the %3 words.
       The two minimum words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.32[i] = f32_min(argument2.32[i], argument3.32[i]);
+        new (lane, lio) = f32_min(argument2.32[i], argument3.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_min
-          (READ.32[(INDEX.I)].argument2)
-          (READ.32[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.32,1.f32_min
+            (READ.32[(INDEX.I)].argument2)
+            (READ.32[(INDEX.I)].argument3)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #elif defined(_LVX_V2_)
   - ID: FMINWQ
     what: Floating-Point Minimum Word Quadruple
@@ -13941,16 +13953,21 @@ Instruction:
       The %2 and the %3 are interpreted as four binary 32 floating-point numbers packed into 128 bits.
       The %2 words are compared to the %3 words.
       The four minimum words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 4) {
-        result1.32[i] = f32_min(argument2.32[i], argument3.32[i]);
+        new (lane, lio) = f32_min(argument2.32[i], argument3.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.4)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_min
-          (READ.32[(INDEX.I)].argument2)
-          (READ.32[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.32,1.f32_min
+            (READ.32[(INDEX.I)].argument2)
+            (READ.32[(INDEX.I)].argument3)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMINH
@@ -13960,13 +13977,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 16 floating-point
       numbers. The minimum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_min(argument2, argument3);
+      new (result1, fio) = f16_min(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_min
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.16,1.f16_min
+            (READ.argument2)
+            (READ.argument3)))
 
 #if 0
   - ID: FMINHQ
@@ -13977,16 +13995,21 @@ Instruction:
       The %2 and the %3 are interpreted as four binary 16 floating-point numbers packed into 64 bits.
       The %2 half words are compared to the %3 half words.
       The four minimum half words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 4) {
-        result1.16[i] = f16_min(argument2.16[i], argument3.16[i]);
+        new (lane, lio) = f16_min(argument2.16[i], argument3.16[i]);
+        result1.16[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.4)
-        (WRITE.16[(INDEX.I)].result1
-          (APPLY.16.f16_min
-          (READ.16[(INDEX.I)].argument2)
-          (READ.16[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.16,1.f16_min
+            (READ.16[(INDEX.I)].argument2)
+            (READ.16[(INDEX.I)].argument3)))
+        (WRITE.16[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #elif defined(_LVX_V2_)
   - ID: FMINHO
     what: Floating-Point Minimum Half Word Octuple
@@ -13996,16 +14019,21 @@ Instruction:
       The %2 and the %3 are interpreted as eight binary 16 floating-point numbers packed into 128 bits.
       The %2 half words are compared to the %3 half words.
       The eight minimum half words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 8) {
-        result1.16[i] = f16_min(argument2.16[i], argument3.16[i]);
+        new (lane, lio) = f16_min(argument2.16[i], argument3.16[i]);
+        result1.16[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.8)
-        (WRITE.16[(INDEX.I)].result1
-          (APPLY.16.f16_min
-          (READ.16[(INDEX.I)].argument2)
-          (READ.16[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.16,1.f16_min
+            (READ.16[(INDEX.I)].argument2)
+            (READ.16[(INDEX.I)].argument3)))
+        (WRITE.16[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMINND
@@ -14015,13 +14043,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 64
       floating-point numbers. The minimum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_minNum(argument2, argument3);
+      new (result1, fio) = f64_minNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_minNum
-        (READ.argument2)
-        (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.64,1.f64_minNum
+          (READ.argument2)
+          (READ.argument3)))
 
 #ifdef _LVX_V2_
   - ID: FMINNDP
@@ -14032,16 +14061,21 @@ Instruction:
       The %2 and the %3 are interpreted as two binary 64 floating-point numbers packed into 128 bits.
       The %2 double words are compared to the %3 double words.
       The two minimum number double words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.64[i] = f64_minNum(argument2.64[i], argument3.64[i]);
+        new (lane, lio) = f64_minNum(argument2.64[i], argument3.64[i]);
+        result1.64[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.64[(INDEX.I)].result1
-          (APPLY.64.f64_minNum
-          (READ.64[(INDEX.I)].argument2)
-          (READ.64[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.64,1.f64_minNum
+            (READ.64[(INDEX.I)].argument2)
+            (READ.64[(INDEX.I)].argument3)))
+        (WRITE.64[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMINNW
@@ -14051,13 +14085,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 32 floating-point
       numbers. The minimum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_minNum(argument2, argument3);
+      new (result1, fio) = f32_minNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_minNum
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.32,1.f32_minNum
+            (READ.argument2)
+            (READ.argument3)))
 
 #if 0
   - ID: FMINNWP
@@ -14070,14 +14105,18 @@ Instruction:
       The two minimum number words are packed and stored into the %1.
     execution: |
       for (i range 2) {
-        result1.32[i] = f32_minNum(argument2.32[i], argument3.32[i]);
+        new (lane, lio) = f32_minNum(argument2.32[i], argument3.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_minNum
-          (READ.32[(INDEX.I)].argument2)
-          (READ.32[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.32,1.f32_minNum
+            (READ.32[(INDEX.I)].argument2)
+            (READ.32[(INDEX.I)].argument3)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #elif defined(_LVX_V2_)
   - ID: FMINNWQ
     what: Floating-Point Minimum Number Word Quadruple
@@ -14087,16 +14126,21 @@ Instruction:
       The %2 and the %3 are interpreted as four binary 32 floating-point numbers packed into 128 bits.
       The %2 words are compared to the %3 words.
       The four minimum number words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 4) {
-        result1.32[i] = f32_minNum(argument2.32[i], argument3.32[i]);
+        new (lane, lio) = f32_minNum(argument2.32[i], argument3.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.4)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_minNum
-          (READ.32[(INDEX.I)].argument2)
-          (READ.32[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.32,1.f32_minNum
+            (READ.32[(INDEX.I)].argument2)
+            (READ.32[(INDEX.I)].argument3)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMINNH
@@ -14106,13 +14150,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 16 floating-point
       numbers. The minimum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_minNum(argument2, argument3);
+      new (result1, fio) = f16_minNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_minNum
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.16,1.f16_minNum
+            (READ.argument2)
+            (READ.argument3)))
 
 #if 0
   - ID: FMINNHQ
@@ -14125,14 +14170,18 @@ Instruction:
       The four minimum number half words are packed and stored into the %1.
     execution: |
       for (i range 4) {
-        result1.16[i] = f16_minNum(argument2.16[i], argument3.16[i]);
+        new (lane, lio) = f16_minNum(argument2.16[i], argument3.16[i]);
+        result1.16[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.4)
-        (WRITE.16[(INDEX.I)].result1
-          (APPLY.16.f16_minNum
-          (READ.16[(INDEX.I)].argument2)
-          (READ.16[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.16,1.f16_minNum
+            (READ.16[(INDEX.I)].argument2)
+            (READ.16[(INDEX.I)].argument3)))
+        (WRITE.16[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #elif defined(_LVX_V2_)
   - ID: FMINNHO
     what: Floating-Point Minimum Number Half Word Octuple
@@ -14142,16 +14191,21 @@ Instruction:
       The %2 and the %3 are interpreted as eight binary 16 floating-point numbers packed into 128 bits.
       The %2 half words are compared to the %3 half words.
       The eight minimum number half words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 8) {
-        result1.16[i] = f16_minNum(argument2.16[i], argument3.16[i]);
+        new (lane, lio) = f16_minNum(argument2.16[i], argument3.16[i]);
+        result1.16[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.8)
-        (WRITE.16[(INDEX.I)].result1
-          (APPLY.16.f16_minNum
-          (READ.16[(INDEX.I)].argument2)
-          (READ.16[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.16,1.f16_minNum
+            (READ.16[(INDEX.I)].argument2)
+            (READ.16[(INDEX.I)].argument3)))
+        (WRITE.16[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMAXD
@@ -14161,13 +14215,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 64
       floating-point numbers. The maximum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_max(argument2, argument3);
+      new (result1, fio) = f64_max(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_max
-        (READ.argument2)
-        (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.64,1.f64_max
+          (READ.argument2)
+          (READ.argument3)))
 
 #ifdef _LVX_V2_
   - ID: FMAXDP
@@ -14178,16 +14233,21 @@ Instruction:
       The %2 and the %3 are interpreted as two binary 64 floating-point numbers packed into 128 bits.
       The %2 double words are compared to the %3 double words.
       The two maximum double words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.64[i] = f64_max(argument2.64[i], argument3.64[i]);
+        new (lane, lio) = f64_max(argument2.64[i], argument3.64[i]);
+        result1.64[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.64[(INDEX.I)].result1
-          (APPLY.64.f64_max
-          (READ.64[(INDEX.I)].argument2)
-          (READ.64[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.64,1.f64_max
+            (READ.64[(INDEX.I)].argument2)
+            (READ.64[(INDEX.I)].argument3)))
+        (WRITE.64[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMAXW
@@ -14197,13 +14257,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 32 floating-point
       numbers. The maximum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_max(argument2, argument3);
+      new (result1, fio) = f32_max(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_max
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.32,1.f32_max
+            (READ.argument2)
+            (READ.argument3)))
 
 #if 0
   - ID: FMAXWP
@@ -14214,16 +14275,21 @@ Instruction:
       The %2 and the %3 are interpreted as two binary 32 floating-point numbers packed into 64 bits.
       The %2 words are compared to the %3 words.
       The two maximum words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.32[i] = f32_max(argument2.32[i], argument3.32[i]);
+        new (lane, lio) = f32_max(argument2.32[i], argument3.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_max
-          (READ.32[(INDEX.I)].argument2)
-          (READ.32[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.32,1.f32_max
+            (READ.32[(INDEX.I)].argument2)
+            (READ.32[(INDEX.I)].argument3)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #elif defined(_LVX_V2_)
   - ID: FMAXWQ
     what: Floating-Point Maximum Word Quadruple
@@ -14233,16 +14299,21 @@ Instruction:
       The %2 and the %3 are interpreted as four binary 32 floating-point numbers packed into 128 bits.
       The %2 words are compared to the %3 words.
       The four maximum words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 4) {
-        result1.32[i] = f32_max(argument2.32[i], argument3.32[i]);
+        new (lane, lio) = f32_max(argument2.32[i], argument3.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.4)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_max
-          (READ.32[(INDEX.I)].argument2)
-          (READ.32[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.32,1.f32_max
+            (READ.32[(INDEX.I)].argument2)
+            (READ.32[(INDEX.I)].argument3)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMAXH
@@ -14252,13 +14323,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 16 floating-point
       numbers. The maximum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_max(argument2, argument3);
+      new (result1, fio) = f16_max(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_max
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.16,1.f16_max
+            (READ.argument2)
+            (READ.argument3)))
 
 #if 0
   - ID: FMAXHQ
@@ -14269,16 +14341,21 @@ Instruction:
       The %2 and the %3 are interpreted as four binary 16 floating-point numbers packed into 64 bits.
       The %2 half words are compared to the %3 half words.
       The four maximum half words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 4) {
-        result1.16[i] = f16_max(argument2.16[i], argument3.16[i]);
+        new (lane, lio) = f16_max(argument2.16[i], argument3.16[i]);
+        result1.16[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.4)
-        (WRITE.16[(INDEX.I)].result1
-          (APPLY.16.f16_max
-          (READ.16[(INDEX.I)].argument2)
-          (READ.16[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.16,1.f16_max
+            (READ.16[(INDEX.I)].argument2)
+            (READ.16[(INDEX.I)].argument3)))
+        (WRITE.16[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #elif defined(_LVX_V2_)
   - ID: FMAXHO
     what: Floating-Point Maximum Half Word Octuple
@@ -14288,16 +14365,21 @@ Instruction:
       The %2 and the %3 are interpreted as eight binary 16 floating-point numbers packed into 128 bits.
       The %2 half words are compared to the %3 half words.
       The eight maximum half words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 8) {
-        result1.16[i] = f16_max(argument2.16[i], argument3.16[i]);
+        new (lane, lio) = f16_max(argument2.16[i], argument3.16[i]);
+        result1.16[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.8)
-        (WRITE.16[(INDEX.I)].result1
-          (APPLY.16.f16_max
-          (READ.16[(INDEX.I)].argument2)
-          (READ.16[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.16,1.f16_max
+            (READ.16[(INDEX.I)].argument2)
+            (READ.16[(INDEX.I)].argument3)))
+        (WRITE.16[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMAXND
@@ -14307,13 +14389,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 64
       floating-point numbers. The maximum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_maxNum(argument2, argument3);
+      new (result1, fio) = f64_maxNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_maxNum
-        (READ.argument2)
-        (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.64,1.f64_maxNum
+          (READ.argument2)
+          (READ.argument3)))
 
 #ifdef _LVX_V2_
   - ID: FMAXNDP
@@ -14324,16 +14407,21 @@ Instruction:
       The %2 and the %3 are interpreted as two binary 64 floating-point numbers packed into 128 bits.
       The %2 double words are compared to the %3 double words.
       The two maximum number double words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.64[i] = f64_maxNum(argument2.64[i], argument3.64[i]);
+        new (lane, lio) = f64_maxNum(argument2.64[i], argument3.64[i]);
+        result1.64[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.64[(INDEX.I)].result1
-          (APPLY.64.f64_maxNum
-          (READ.64[(INDEX.I)].argument2)
-          (READ.64[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.64,1.f64_maxNum
+            (READ.64[(INDEX.I)].argument2)
+            (READ.64[(INDEX.I)].argument3)))
+        (WRITE.64[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMAXNW
@@ -14343,13 +14431,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 32 floating-point
       numbers. The maximum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_maxNum(argument2, argument3);
+      new (result1, fio) = f32_maxNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_maxNum
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.32,1.f32_maxNum
+            (READ.argument2)
+            (READ.argument3)))
 
 #if 0
   - ID: FMAXNWP
@@ -14362,14 +14451,18 @@ Instruction:
       The two maximum number words are packed and stored into the %1.
     execution: |
       for (i range 2) {
-        result1.32[i] = f32_maxNum(argument2.32[i], argument3.32[i]);
+        new (lane, lio) = f32_maxNum(argument2.32[i], argument3.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_maxNum
-          (READ.32[(INDEX.I)].argument2)
-          (READ.32[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.32,1.f32_maxNum
+            (READ.32[(INDEX.I)].argument2)
+            (READ.32[(INDEX.I)].argument3)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #elif defined(_LVX_V2_)
   - ID: FMAXNWQ
     what: Floating-Point Maximum Number Word Quadruple
@@ -14379,16 +14472,21 @@ Instruction:
       The %2 and the %3 are interpreted as four binary 32 floating-point numbers packed into 128 bits.
       The %2 words are compared to the %3 words.
       The four maximum number words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 4) {
-        result1.32[i] = f32_maxNum(argument2.32[i], argument3.32[i]);
+        new (lane, lio) = f32_maxNum(argument2.32[i], argument3.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.4)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_maxNum
-          (READ.32[(INDEX.I)].argument2)
-          (READ.32[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.32,1.f32_maxNum
+            (READ.32[(INDEX.I)].argument2)
+            (READ.32[(INDEX.I)].argument3)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FMAXNH
@@ -14398,13 +14496,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 16 floating-point
       numbers. The maximum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_maxNum(argument2, argument3);
+      new (result1, fio) = f16_maxNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_maxNum
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.16,1.f16_maxNum
+            (READ.argument2)
+            (READ.argument3)))
 
 #if 0
   - ID: FMAXNHQ
@@ -14417,14 +14516,18 @@ Instruction:
       The four maximum number half words are packed and stored into the %1.
     execution: |
       for (i range 4) {
-        result1.16[i] = f16_maxNum(argument2.16[i], argument3.16[i]);
+        new (lane, lio) = f16_maxNum(argument2.16[i], argument3.16[i]);
+        result1.16[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.4)
-        (WRITE.16[(INDEX.I)].result1
-          (APPLY.16.f16_maxNum
-          (READ.16[(INDEX.I)].argument2)
-          (READ.16[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.16,1.f16_maxNum
+            (READ.16[(INDEX.I)].argument2)
+            (READ.16[(INDEX.I)].argument3)))
+        (WRITE.16[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #elif defined(_LVX_V2_)
   - ID: FMAXNHO
     what: Floating-Point Maximum Number Half Word Octuple
@@ -14434,16 +14537,21 @@ Instruction:
       The %2 and the %3 are interpreted as eight binary 16 floating-point numbers packed into 128 bits.
       The %2 half words are compared to the %3 half words.
       The eight maximum number half words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 8) {
-        result1.16[i] = f16_maxNum(argument2.16[i], argument3.16[i]);
+        new (lane, lio) = f16_maxNum(argument2.16[i], argument3.16[i]);
+        result1.16[i] = lane;
+        fio |= lio;
       }
     behavior: |
       (FOR.I (RANGE.8)
-        (WRITE.16[(INDEX.I)].result1
-          (APPLY.16.f16_maxNum
-          (READ.16[(INDEX.I)].argument2)
-          (READ.16[(INDEX.I)].argument3))))
+        (BIND.lane,lio
+          (APPLY.16,1.f16_maxNum
+            (READ.16[(INDEX.I)].argument2)
+            (READ.16[(INDEX.I)].argument3)))
+        (WRITE.16[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio))))
 #endif//_LVX_V2_
 
   - ID: FSIGND
@@ -20274,6 +20382,7 @@ Instruction:
       The %2 and the %3 are interpreted as two binary 64 floating-point numbers packed into 128 bits.
       The %2 double words are added to the %3 double words.
       The two resulting double words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
         new (lane, lio, lov, lin) = f64_add(RM, argument2.64[i], argument3.64[i]);
@@ -20350,6 +20459,7 @@ Instruction:
       The %2 and the %3 are interpreted as four binary 32 floating-point numbers packed into 128 bits.
       The %2 words are added to the %3 words.
       The four resulting words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 4) {
         new (lane, lio, lov, lin) = f32_add(RM, argument2.32[i], argument3.32[i]);
@@ -20427,6 +20537,7 @@ Instruction:
       The %2 and the %3 are interpreted as eight binary 16 floating-point numbers packed into 128 bits.
       The %2 half words are added to the %3 half words.
       The eight resulting half words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 8) {
         new (lane, lio, lov, lin) = f16_add(RM, argument2.16[i], argument3.16[i]);
@@ -20475,6 +20586,7 @@ Instruction:
       The %2 and the %3 are interpreted as two binary 64 floating-point numbers packed into 128 bits.
       The %2 double words are subtracted from the %3 double words.
       The two resulting double words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
         new (lane, lio, lov, lin) = f64_sub(RM, argument3.64[i], argument2.64[i]);
@@ -20551,6 +20663,7 @@ Instruction:
       The %2 and the %3 are interpreted as four binary 32 floating-point numbers packed into 128 bits.
       The %2 words are subtracted from to the %3 words.
       The four resulting words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 4) {
         new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[i], argument2.32[i]);
@@ -20627,6 +20740,7 @@ Instruction:
       The %2 and the %3 are interpreted as eight binary 16 floating-point numbers packed into 128 bits.
       The %2 half words are subtracted from the %3 half words.
       The eight resulting half words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 8) {
         new (lane, lio, lov, lin) = f16_sub(RM, argument3.16[i], argument2.16[i]);
@@ -20684,6 +20798,7 @@ Instruction:
       If \emph{fnegate} is set, the %2 double words are negated prior to the operation.
       The %2 double words are multiplied by the %3 double words.
       The two resulting double words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000000000000000 : 0;
       for (i range 2) {
@@ -20788,6 +20903,7 @@ Instruction:
       If \emph{fnegate} is set, the %2 words are negated prior to the operation.
       The %2 words are multiplied by the %3 words.
       The four resulting words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
       for (i range 4) {
@@ -20892,6 +21008,7 @@ Instruction:
       If \emph{fnegate} is set, the %2 half words are negated prior to the operation.
       The %2 half words are multiplied by the %3 half words.
       The eight resulting half words are packed and stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000 : 0;
       for (i range 8) {
@@ -21015,7 +21132,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000000000000000 : 0;
-      result1 = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -21023,12 +21140,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000000000000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.64.f64_mulAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.64,1,1,1,1.f64_mulAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
 
 #ifdef _LVX_V2_
   - ID: FFMADP
@@ -21046,7 +21163,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x8000000000000000 : 0;
       for (i range 2) {
-        result1.64[i] = f64_mulAdd(RM, argument3.64[i], argument2.64[i]^fsign, argument1.64[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f64_mulAdd(RM, argument3.64[i], argument2.64[i]^fsign, argument1.64[i]^fsign);
+        result1.64[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21056,12 +21178,17 @@ Instruction:
             (CONST.0x8000000000000000)
             (CONST.0)))
         (FOR.I (RANGE.2)
-          (WRITE.64[(INDEX.I)].result1
-            (APPLY.64.f64_mulAdd
-              (READ.RM)
-              (READ.64[(INDEX.I)].argument3)
-              (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.64,1,1,1,1.f64_mulAdd
+                (READ.RM)
+                (READ.64[(INDEX.I)].argument3)
+                (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.64[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #endif//_LVX_V2_
 
   - ID: FFMAW
@@ -21076,7 +21203,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
-      result1 = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -21084,12 +21211,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x80000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.32.f32_mulAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.32,1,1,1,1.f32_mulAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
 
   - ID: FFMAH
     what: Floating-Point Fused Multiply Add Half Word
@@ -21103,7 +21230,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000 : 0;
-      result1 = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -21111,12 +21238,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.16.f16_mulAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.16,1,1,1,1.f16_mulAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
 
 #if 0
   - ID: FFMAWP
@@ -21134,7 +21261,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
       for (i range 2) {
-        result1.32[i] = f32_mulAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f32_mulAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+        result1.32[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21144,12 +21276,17 @@ Instruction:
             (CONST.0x80000000)
             (CONST.0)))
         (FOR.I (RANGE.2)
-          (WRITE.32[(INDEX.I)].result1
-            (APPLY.32.f32_mulAdd
-              (READ.RM)
-              (READ.32[(INDEX.I)].argument3)
-              (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.32,1,1,1,1.f32_mulAdd
+                (READ.RM)
+                (READ.32[(INDEX.I)].argument3)
+                (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.32[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #elif defined(_LVX_V2_)
   - ID: FFMAWQ
     what: Floating-Point Fused Multiply Add Word Quadruple
@@ -21166,7 +21303,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
       for (i range 4) {
-        result1.32[i] = f32_mulAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f32_mulAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+        result1.32[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21176,12 +21318,17 @@ Instruction:
             (CONST.0x80000000)
             (CONST.0)))
         (FOR.I (RANGE.4)
-          (WRITE.32[(INDEX.I)].result1
-            (APPLY.32.f32_mulAdd
-              (READ.RM)
-              (READ.32[(INDEX.I)].argument3)
-              (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.32,1,1,1,1.f32_mulAdd
+                (READ.RM)
+                (READ.32[(INDEX.I)].argument3)
+                (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.32[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #endif//_LVX_V2_
 
 #if 0
@@ -21200,7 +21347,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x8000 : 0;
       for (i range 4) {
-        result1.16[i] = f16_mulAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f16_mulAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+        result1.16[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21210,12 +21362,17 @@ Instruction:
             (CONST.0x8000)
             (CONST.0)))
         (FOR.I (RANGE.4)
-          (WRITE.16[(INDEX.I)].result1
-            (APPLY.16.f16_mulAdd
-              (READ.RM)
-              (READ.16[(INDEX.I)].argument3)
-              (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.16,1,1,1,1.f16_mulAdd
+                (READ.RM)
+                (READ.16[(INDEX.I)].argument3)
+                (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.16[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #elif defined(_LVX_V2_)
   - ID: FFMAHO
     what: Floating-Point Fused Multiply Add Half Word Octuple
@@ -21232,7 +21389,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x8000 : 0;
       for (i range 8) {
-        result1.16[i] = f16_mulAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f16_mulAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+        result1.16[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21242,12 +21404,17 @@ Instruction:
             (CONST.0x8000)
             (CONST.0)))
         (FOR.I (RANGE.8)
-          (WRITE.16[(INDEX.I)].result1
-            (APPLY.16.f16_mulAdd
-              (READ.RM)
-              (READ.16[(INDEX.I)].argument3)
-              (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.16,1,1,1,1.f16_mulAdd
+                (READ.RM)
+                (READ.16[(INDEX.I)].argument3)
+                (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.16[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #endif//_LVX_V2_
 
   - ID: FFMSD
@@ -21262,7 +21429,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000000000000000 : 0;
-      result1 = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -21270,12 +21437,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000000000000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.64.f64_mulnAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.64,1,1,1,1.f64_mulnAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
 
 #ifdef _LVX_V2_
   - ID: FFMSDP
@@ -21293,7 +21460,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x8000000000000000 : 0;
       for (i range 2) {
-        result1.64[i] = f64_mulnAdd(RM, argument3.64[i], argument2.64[i]^fsign, argument1.64[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f64_mulnAdd(RM, argument3.64[i], argument2.64[i]^fsign, argument1.64[i]^fsign);
+        result1.64[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21303,12 +21475,17 @@ Instruction:
             (CONST.0x8000000000000000)
             (CONST.0)))
         (FOR.I (RANGE.2)
-          (WRITE.64[(INDEX.I)].result1
-            (APPLY.64.f64_mulnAdd
-              (READ.RM)
-              (READ.64[(INDEX.I)].argument3)
-              (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.64,1,1,1,1.f64_mulnAdd
+                (READ.RM)
+                (READ.64[(INDEX.I)].argument3)
+                (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.64[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #endif//_LVX_V2_
 
   - ID: FFMSW
@@ -21323,7 +21500,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
-      result1 = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -21331,12 +21508,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x80000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.32.f32_mulnAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.32,1,1,1,1.f32_mulnAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
 
   - ID: FFMSH
     what: Floating-Point Fused Multiply Subtract From Half Word
@@ -21350,7 +21527,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000 : 0;
-      result1 = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -21358,12 +21535,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.16.f16_mulnAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.16,1,1,1,1.f16_mulnAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
 
 #if 0
   - ID: FFMSWP
@@ -21381,7 +21558,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
       for (i range 2) {
-        result1.32[i] = f32_mulnAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f32_mulnAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+        result1.32[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21391,12 +21573,17 @@ Instruction:
             (CONST.0x80000000)
             (CONST.0)))
         (FOR.I (RANGE.2)
-          (WRITE.32[(INDEX.I)].result1
-            (APPLY.32.f32_mulnAdd
-              (READ.RM)
-              (READ.32[(INDEX.I)].argument3)
-              (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.32,1,1,1,1.f32_mulnAdd
+                (READ.RM)
+                (READ.32[(INDEX.I)].argument3)
+                (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.32[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #elif defined(_LVX_V2_)
   - ID: FFMSWQ
     what: Floating-Point Fused Multiply Subtract From Word Quadruple
@@ -21413,7 +21600,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
       for (i range 4) {
-        result1.32[i] = f32_mulnAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f32_mulnAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+        result1.32[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21423,12 +21615,17 @@ Instruction:
             (CONST.0x80000000)
             (CONST.0)))
         (FOR.I (RANGE.4)
-          (WRITE.32[(INDEX.I)].result1
-            (APPLY.32.f32_mulnAdd
-              (READ.RM)
-              (READ.32[(INDEX.I)].argument3)
-              (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.32,1,1,1,1.f32_mulnAdd
+                (READ.RM)
+                (READ.32[(INDEX.I)].argument3)
+                (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.32[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #endif//_LVX_V2_
 
 #if 0
@@ -21447,7 +21644,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x8000 : 0;
       for (i range 4) {
-        result1.16[i] = f16_mulnAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f16_mulnAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+        result1.16[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21457,12 +21659,17 @@ Instruction:
             (CONST.0x8000)
             (CONST.0)))
         (FOR.I (RANGE.4)
-          (WRITE.16[(INDEX.I)].result1
-            (APPLY.16.f16_mulnAdd
-              (READ.RM)
-              (READ.16[(INDEX.I)].argument3)
-              (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.16,1,1,1,1.f16_mulnAdd
+                (READ.RM)
+                (READ.16[(INDEX.I)].argument3)
+                (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.16[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #elif defined(_LVX_V2_)
   - ID: FFMSHO
     what: Floating-Point Fused Multiply Subtract From Half Word Octuple
@@ -21479,7 +21686,12 @@ Instruction:
     execution: |
       fsign = fnegate ? 0x8000 : 0;
       for (i range 8) {
-        result1.16[i] = f16_mulnAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+        new (lane, lio, lov, lun, lin) = f16_mulnAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+        result1.16[i] = lane;
+        fio |= lio;
+        fov |= lov;
+        fun |= lun;
+        fin |= lin;
       }
     behavior: |
       (SEQ
@@ -21489,12 +21701,17 @@ Instruction:
             (CONST.0x8000)
             (CONST.0)))
         (FOR.I (RANGE.8)
-          (WRITE.16[(INDEX.I)].result1
-            (APPLY.16.f16_mulnAdd
-              (READ.RM)
-              (READ.16[(INDEX.I)].argument3)
-              (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
-              (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
+          (BIND.lane,lio,lov,lun,lin
+            (APPLY.16,1,1,1,1.f16_mulnAdd
+                (READ.RM)
+                (READ.16[(INDEX.I)].argument3)
+                (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
+                (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))
+          (WRITE.16[(INDEX.I)].result1 (READ.lane))
+          (WRITE.fio (IOR (READ.fio) (READ.lio)))
+          (WRITE.fov (IOR (READ.fov) (READ.lov)))
+          (WRITE.fun (IOR (READ.fun) (READ.lun)))
+          (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 #endif//_LVX_V2_
 
   - ID: FADDWC

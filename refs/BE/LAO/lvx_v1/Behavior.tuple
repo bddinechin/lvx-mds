@@ -58358,6 +58358,9 @@ Int256_toUInt64(
 
 }
 #endif /* Behavior_EXECUTE */
+#ifdef Behavior_TYPES
+typedef struct { uint64_t _0; uint8_t _1; } Tuple_64_1;
+#endif /* Behavior_TYPES */
 #ifdef Behavior_EXECUTE
 static void
 execute_lvx_v1_FMIND_registerW_registerZ_registerY_simple(void *this, OperandDecoded *decoded, Processor processor)
@@ -58376,10 +58379,90 @@ execute_lvx_v1_FMIND_registerW_registerZ_registerY_simple(void *this, OperandDec
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.64.f64_min
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.64,1.f64_min
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58389,6 +58472,16 @@ execute_lvx_v1_FMIND_registerW_registerZ_registerY_simple(void *this, OperandDec
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58400,7 +58493,17 @@ execute_lvx_v1_FMIND_registerW_registerZ_registerY_simple(void *this, OperandDec
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_64_1 _bind0 = 
     HELPER(f64_min)(this,
       
 Int256_toUInt64(
@@ -58410,6 +58513,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58418,6 +58583,18 @@ Int256_toUInt64(
 
 }
 #endif /* Behavior_EXECUTE */
+#ifdef Behavior_COMMIT
+static void
+commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple(void *this, __attribute__((unused)) OperandDecoded *decoded, __attribute__((unused)) Processor processor)
+{
+  HELPER(operandToRegFile_GPR)(this, 2, 1, 0, decoded[0] - Register_lvx_v1_R0);
+  /* Commits of: CS */
+  HELPER(commitRegFiles)(this);
+}
+#endif /* Behavior_COMMIT */
+#ifdef Behavior_TYPES
+typedef struct { uint32_t _0; uint8_t _1; } Tuple_32_1;
+#endif /* Behavior_TYPES */
 #ifdef Behavior_EXECUTE
 static void
 execute_lvx_v1_FMINW_registerW_registerZ_registerY_simple(void *this, OperandDecoded *decoded, Processor processor)
@@ -58436,10 +58613,90 @@ execute_lvx_v1_FMINW_registerW_registerZ_registerY_simple(void *this, OperandDec
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.32.f32_min
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.32,1.f32_min
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58449,6 +58706,16 @@ execute_lvx_v1_FMINW_registerW_registerZ_registerY_simple(void *this, OperandDec
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58460,7 +58727,17 @@ execute_lvx_v1_FMINW_registerW_registerZ_registerY_simple(void *this, OperandDec
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_32_1 _bind0 = 
     HELPER(f32_min)(this,
       
 Int256_toUInt64(
@@ -58470,6 +58747,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58478,6 +58817,9 @@ Int256_toUInt64(
 
 }
 #endif /* Behavior_EXECUTE */
+#ifdef Behavior_TYPES
+typedef struct { uint16_t _0; uint8_t _1; } Tuple_16_1;
+#endif /* Behavior_TYPES */
 #ifdef Behavior_EXECUTE
 static void
 execute_lvx_v1_FMINH_registerW_registerZ_registerY_simple(void *this, OperandDecoded *decoded, Processor processor)
@@ -58496,10 +58838,90 @@ execute_lvx_v1_FMINH_registerW_registerZ_registerY_simple(void *this, OperandDec
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.16.f16_min
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.16,1.f16_min
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58509,6 +58931,16 @@ execute_lvx_v1_FMINH_registerW_registerZ_registerY_simple(void *this, OperandDec
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58520,7 +58952,17 @@ execute_lvx_v1_FMINH_registerW_registerZ_registerY_simple(void *this, OperandDec
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_16_1 _bind0 = 
     HELPER(f16_min)(this,
       
 Int256_toUInt64(
@@ -58530,6 +58972,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58556,10 +59060,90 @@ execute_lvx_v1_FMINND_registerW_registerZ_registerY_simple(void *this, OperandDe
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.64.f64_minNum
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.64,1.f64_minNum
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58569,6 +59153,16 @@ execute_lvx_v1_FMINND_registerW_registerZ_registerY_simple(void *this, OperandDe
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58580,7 +59174,17 @@ execute_lvx_v1_FMINND_registerW_registerZ_registerY_simple(void *this, OperandDe
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_64_1 _bind0 = 
     HELPER(f64_minNum)(this,
       
 Int256_toUInt64(
@@ -58590,6 +59194,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58616,10 +59282,90 @@ execute_lvx_v1_FMINNW_registerW_registerZ_registerY_simple(void *this, OperandDe
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.32.f32_minNum
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.32,1.f32_minNum
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58629,6 +59375,16 @@ execute_lvx_v1_FMINNW_registerW_registerZ_registerY_simple(void *this, OperandDe
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58640,7 +59396,17 @@ execute_lvx_v1_FMINNW_registerW_registerZ_registerY_simple(void *this, OperandDe
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_32_1 _bind0 = 
     HELPER(f32_minNum)(this,
       
 Int256_toUInt64(
@@ -58650,6 +59416,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58676,10 +59504,90 @@ execute_lvx_v1_FMINNH_registerW_registerZ_registerY_simple(void *this, OperandDe
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.16.f16_minNum
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.16,1.f16_minNum
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58689,6 +59597,16 @@ execute_lvx_v1_FMINNH_registerW_registerZ_registerY_simple(void *this, OperandDe
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58700,7 +59618,17 @@ execute_lvx_v1_FMINNH_registerW_registerZ_registerY_simple(void *this, OperandDe
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_16_1 _bind0 = 
     HELPER(f16_minNum)(this,
       
 Int256_toUInt64(
@@ -58710,6 +59638,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58736,10 +59726,90 @@ execute_lvx_v1_FMAXD_registerW_registerZ_registerY_simple(void *this, OperandDec
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.64.f64_max
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.64,1.f64_max
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58749,6 +59819,16 @@ execute_lvx_v1_FMAXD_registerW_registerZ_registerY_simple(void *this, OperandDec
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58760,7 +59840,17 @@ execute_lvx_v1_FMAXD_registerW_registerZ_registerY_simple(void *this, OperandDec
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_64_1 _bind0 = 
     HELPER(f64_max)(this,
       
 Int256_toUInt64(
@@ -58770,6 +59860,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58796,10 +59948,90 @@ execute_lvx_v1_FMAXW_registerW_registerZ_registerY_simple(void *this, OperandDec
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.32.f32_max
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.32,1.f32_max
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58809,6 +60041,16 @@ execute_lvx_v1_FMAXW_registerW_registerZ_registerY_simple(void *this, OperandDec
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58820,7 +60062,17 @@ execute_lvx_v1_FMAXW_registerW_registerZ_registerY_simple(void *this, OperandDec
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_32_1 _bind0 = 
     HELPER(f32_max)(this,
       
 Int256_toUInt64(
@@ -58830,6 +60082,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58856,10 +60170,90 @@ execute_lvx_v1_FMAXH_registerW_registerZ_registerY_simple(void *this, OperandDec
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.16.f16_max
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.16,1.f16_max
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58869,6 +60263,16 @@ execute_lvx_v1_FMAXH_registerW_registerZ_registerY_simple(void *this, OperandDec
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58880,7 +60284,17 @@ execute_lvx_v1_FMAXH_registerW_registerZ_registerY_simple(void *this, OperandDec
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_16_1 _bind0 = 
     HELPER(f16_max)(this,
       
 Int256_toUInt64(
@@ -58890,6 +60304,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58916,10 +60392,90 @@ execute_lvx_v1_FMAXND_registerW_registerZ_registerY_simple(void *this, OperandDe
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.64.f64_maxNum
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.64,1.f64_maxNum
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58929,6 +60485,16 @@ execute_lvx_v1_FMAXND_registerW_registerZ_registerY_simple(void *this, OperandDe
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -58940,7 +60506,17 @@ execute_lvx_v1_FMAXND_registerW_registerZ_registerY_simple(void *this, OperandDe
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_64_1 _bind0 = 
     HELPER(f64_maxNum)(this,
       
 Int256_toUInt64(
@@ -58950,6 +60526,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -58976,10 +60614,90 @@ execute_lvx_v1_FMAXNW_registerW_registerZ_registerY_simple(void *this, OperandDe
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.32.f32_maxNum
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.32,1.f32_maxNum
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -58989,6 +60707,16 @@ execute_lvx_v1_FMAXNW_registerW_registerZ_registerY_simple(void *this, OperandDe
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59000,7 +60728,17 @@ execute_lvx_v1_FMAXNW_registerW_registerZ_registerY_simple(void *this, OperandDe
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_32_1 _bind0 = 
     HELPER(f32_maxNum)(this,
       
 Int256_toUInt64(
@@ -59010,6 +60748,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59036,10 +60836,90 @@ execute_lvx_v1_FMAXNH_registerW_registerZ_registerY_simple(void *this, OperandDe
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
-  (WRITE.result1
-    (APPLY.16.f16_maxNum
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio
+    (APPLY.16,1.f16_maxNum
       (READ.argument2)
       (READ.argument3)))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59049,6 +60929,16 @@ execute_lvx_v1_FMAXNH_registerW_registerZ_registerY_simple(void *this, OperandDe
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59060,7 +60950,17 @@ execute_lvx_v1_FMAXNH_registerW_registerZ_registerY_simple(void *this, OperandDe
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
-  result1 = 
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
+  Tuple_16_1 _bind0 = 
     HELPER(f16_maxNum)(this,
       
 Int256_toUInt64(
@@ -59070,6 +60970,68 @@ Int256_toUInt64(
 Int256_toUInt64(
       argument3
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59096,6 +61058,16 @@ execute_lvx_v1_FSIGND_registerW_registerZ_registerY_simple(void *this, OperandDe
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (IOR
       (AND
@@ -59104,6 +61076,76 @@ execute_lvx_v1_FSIGND_registerW_registerZ_registerY_simple(void *this, OperandDe
       (AND
         (READ.argument3)
         (CONST.9223372036854775808))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59113,6 +61155,16 @@ execute_lvx_v1_FSIGND_registerW_registerZ_registerY_simple(void *this, OperandDe
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59124,6 +61176,16 @@ execute_lvx_v1_FSIGND_registerW_registerZ_registerY_simple(void *this, OperandDe
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
   result1 = 
     Int256_or(
       Int256_and(
@@ -59135,6 +61197,66 @@ execute_lvx_v1_FSIGND_registerW_registerZ_registerY_simple(void *this, OperandDe
         Int256_fromUInt64(0x8000000000000000LL)
       )
     );
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59161,6 +61283,16 @@ execute_lvx_v1_FSIGNW_registerW_registerZ_registerY_simple(void *this, OperandDe
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (IOR
       (AND
@@ -59169,6 +61301,76 @@ execute_lvx_v1_FSIGNW_registerW_registerZ_registerY_simple(void *this, OperandDe
       (AND
         (READ.argument3)
         (CONST.2147483648))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59178,6 +61380,16 @@ execute_lvx_v1_FSIGNW_registerW_registerZ_registerY_simple(void *this, OperandDe
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59189,6 +61401,16 @@ execute_lvx_v1_FSIGNW_registerW_registerZ_registerY_simple(void *this, OperandDe
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
   result1 = 
     Int256_or(
       Int256_and(
@@ -59200,6 +61422,66 @@ execute_lvx_v1_FSIGNW_registerW_registerZ_registerY_simple(void *this, OperandDe
         Int256_fromUInt64(0x80000000LL)
       )
     );
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59226,6 +61508,16 @@ execute_lvx_v1_FSIGNH_registerW_registerZ_registerY_simple(void *this, OperandDe
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (IOR
       (AND
@@ -59234,6 +61526,76 @@ execute_lvx_v1_FSIGNH_registerW_registerZ_registerY_simple(void *this, OperandDe
       (AND
         (READ.argument3)
         (CONST.32768))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59243,6 +61605,16 @@ execute_lvx_v1_FSIGNH_registerW_registerZ_registerY_simple(void *this, OperandDe
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59254,6 +61626,16 @@ execute_lvx_v1_FSIGNH_registerW_registerZ_registerY_simple(void *this, OperandDe
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
   result1 = 
     Int256_or(
       Int256_and(
@@ -59265,6 +61647,66 @@ execute_lvx_v1_FSIGNH_registerW_registerZ_registerY_simple(void *this, OperandDe
         Int256_fromUInt64(0x8000LL)
       )
     );
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59291,6 +61733,16 @@ execute_lvx_v1_FSIGNND_registerW_registerZ_registerY_simple(void *this, OperandD
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (IOR
       (AND
@@ -59300,6 +61752,76 @@ execute_lvx_v1_FSIGNND_registerW_registerZ_registerY_simple(void *this, OperandD
         (NOT
           (READ.argument3))
         (CONST.9223372036854775808))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59309,6 +61831,16 @@ execute_lvx_v1_FSIGNND_registerW_registerZ_registerY_simple(void *this, OperandD
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59320,6 +61852,16 @@ execute_lvx_v1_FSIGNND_registerW_registerZ_registerY_simple(void *this, OperandD
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
   result1 = 
     Int256_or(
       Int256_and(
@@ -59333,6 +61875,66 @@ execute_lvx_v1_FSIGNND_registerW_registerZ_registerY_simple(void *this, OperandD
         Int256_fromUInt64(0x8000000000000000LL)
       )
     );
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59359,6 +61961,16 @@ execute_lvx_v1_FSIGNNW_registerW_registerZ_registerY_simple(void *this, OperandD
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (IOR
       (AND
@@ -59368,6 +61980,76 @@ execute_lvx_v1_FSIGNNW_registerW_registerZ_registerY_simple(void *this, OperandD
         (NOT
           (READ.argument3))
         (CONST.2147483648))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59377,6 +62059,16 @@ execute_lvx_v1_FSIGNNW_registerW_registerZ_registerY_simple(void *this, OperandD
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59388,6 +62080,16 @@ execute_lvx_v1_FSIGNNW_registerW_registerZ_registerY_simple(void *this, OperandD
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
   result1 = 
     Int256_or(
       Int256_and(
@@ -59401,6 +62103,66 @@ execute_lvx_v1_FSIGNNW_registerW_registerZ_registerY_simple(void *this, OperandD
         Int256_fromUInt64(0x80000000LL)
       )
     );
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59427,6 +62189,16 @@ execute_lvx_v1_FSIGNNH_registerW_registerZ_registerY_simple(void *this, OperandD
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (IOR
       (AND
@@ -59436,6 +62208,76 @@ execute_lvx_v1_FSIGNNH_registerW_registerZ_registerY_simple(void *this, OperandD
         (NOT
           (READ.argument3))
         (CONST.32768))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59445,6 +62287,16 @@ execute_lvx_v1_FSIGNNH_registerW_registerZ_registerY_simple(void *this, OperandD
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59456,6 +62308,16 @@ execute_lvx_v1_FSIGNNH_registerW_registerZ_registerY_simple(void *this, OperandD
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
   result1 = 
     Int256_or(
       Int256_and(
@@ -59469,6 +62331,66 @@ execute_lvx_v1_FSIGNNH_registerW_registerZ_registerY_simple(void *this, OperandD
         Int256_fromUInt64(0x8000LL)
       )
     );
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59495,6 +62417,16 @@ execute_lvx_v1_FSIGNMD_registerW_registerZ_registerY_simple(void *this, OperandD
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (XOR
       (READ.argument2)
@@ -59502,6 +62434,76 @@ execute_lvx_v1_FSIGNMD_registerW_registerZ_registerY_simple(void *this, OperandD
         (NOT
           (READ.argument3))
         (CONST.9223372036854775808))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59511,6 +62513,16 @@ execute_lvx_v1_FSIGNMD_registerW_registerZ_registerY_simple(void *this, OperandD
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59522,6 +62534,16 @@ execute_lvx_v1_FSIGNMD_registerW_registerZ_registerY_simple(void *this, OperandD
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
   result1 = 
     Int256_xor(
       argument2, 
@@ -59532,6 +62554,66 @@ execute_lvx_v1_FSIGNMD_registerW_registerZ_registerY_simple(void *this, OperandD
         Int256_fromUInt64(0x8000000000000000LL)
       )
     );
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59558,6 +62640,16 @@ execute_lvx_v1_FSIGNMW_registerW_registerZ_registerY_simple(void *this, OperandD
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (XOR
       (READ.argument2)
@@ -59565,6 +62657,76 @@ execute_lvx_v1_FSIGNMW_registerW_registerZ_registerY_simple(void *this, OperandD
         (NOT
           (READ.argument3))
         (CONST.2147483648))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59574,6 +62736,16 @@ execute_lvx_v1_FSIGNMW_registerW_registerZ_registerY_simple(void *this, OperandD
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59585,6 +62757,16 @@ execute_lvx_v1_FSIGNMW_registerW_registerZ_registerY_simple(void *this, OperandD
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
   result1 = 
     Int256_xor(
       argument2, 
@@ -59595,6 +62777,66 @@ execute_lvx_v1_FSIGNMW_registerW_registerZ_registerY_simple(void *this, OperandD
         Int256_fromUInt64(0x80000000LL)
       )
     );
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -59621,6 +62863,16 @@ execute_lvx_v1_FSIGNMH_registerW_registerZ_registerY_simple(void *this, OperandD
         (AGGL.GPR
           (METHOD.%2)
           (CONST.1)))))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (XOR
       (READ.argument2)
@@ -59628,6 +62880,76 @@ execute_lvx_v1_FSIGNMH_registerW_registerZ_registerY_simple(void *this, OperandD
         (NOT
           (READ.argument3))
         (CONST.32768))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.2
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.2
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.2
     (AGGL.GPR
       (METHOD.%1)
@@ -59637,6 +62959,16 @@ execute_lvx_v1_FSIGNMH_registerW_registerZ_registerY_simple(void *this, OperandD
 */
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
+  Int256_ cs_dz = Int256_zero;
+  Int256_ cs_in = Int256_zero;
+  Int256_ cs_io = Int256_zero;
+  Int256_ cs_ov = Int256_zero;
+  Int256_ cs_un = Int256_zero;
+  Int256_ fdz = Int256_zero;
+  Int256_ fin = Int256_zero;
+  Int256_ fio = Int256_zero;
+  Int256_ fov = Int256_zero;
+  Int256_ fun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -59648,6 +62980,16 @@ execute_lvx_v1_FSIGNMH_registerW_registerZ_registerY_simple(void *this, OperandD
     Int256_zx(
       HELPER(operandRead)(this, 1), 64
     );
+  fio = 
+    Int256_fromUInt64(0LL);
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fov = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
+  fin = 
+    Int256_fromUInt64(0LL);
   result1 = 
     Int256_xor(
       argument2, 
@@ -59658,6 +63000,66 @@ execute_lvx_v1_FSIGNMH_registerW_registerZ_registerY_simple(void *this, OperandD
         Int256_fromUInt64(0x8000LL)
       )
     );
+  cs_io = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 1, 1, 1), 1
+    );
+  cs_dz = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 2, 1, 1), 1
+    );
+  cs_ov = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 3, 1, 1), 1
+    );
+  cs_un = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 4, 1, 1), 1
+    );
+  cs_in = 
+    Int256_zx(
+      HELPER(readFromStorage_CS)(this, 2, 5, 1, 1), 1
+    );
+  HELPER(writeToStorage_CS)(this, 2, 1, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fio, 
+        cs_io
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 2, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fdz, 
+        cs_dz
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 3, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fov, 
+        cs_ov
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 4, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fun, 
+        cs_un
+      ), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 2, 5, 1, 1, 
+    Int256_zx(
+      Int256_or(
+        fin, 
+        cs_in
+      ), 1
+    )
+  );
   HELPER(operandFromValue)(this, 1, 0, 0, 
     Int256_zx(
       result1, 64
@@ -75823,8 +79225,8 @@ execute_lvx_v1_FFMAD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
         (READ.fnegate))
       (CONST.9223372036854775808)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.64.f64_mulAdd
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.64,1,1,1,1.f64_mulAdd
       (READ.RM)
       (READ.argument3)
       (XOR
@@ -75976,7 +79378,7 @@ execute_lvx_v1_FFMAD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
     :
     Int256_fromUInt64(0LL)
 );
-  result1 = 
+  Tuple_64_1_1_1_1 _bind0 = 
     HELPER(f64_mulAdd)(this,
       
 (uint8_t)Int256_toUInt64(
@@ -76000,6 +79402,11 @@ Int256_toUInt64(
         fsign
       )
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  fov = Int256_fromUInt64((uint64_t)(_bind0._2));
+  fun = Int256_fromUInt64((uint64_t)(_bind0._3));
+  fin = Int256_fromUInt64((uint64_t)(_bind0._4));
   cs_io = 
     Int256_zx(
       HELPER(readFromStorage_CS)(this, 5, 1, 1, 1), 1
@@ -76117,8 +79524,8 @@ execute_lvx_v1_FFMAW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
         (READ.fnegate))
       (CONST.2147483648)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.32.f32_mulAdd
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.32,1,1,1,1.f32_mulAdd
       (READ.RM)
       (READ.argument3)
       (XOR
@@ -76270,7 +79677,7 @@ execute_lvx_v1_FFMAW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
     :
     Int256_fromUInt64(0LL)
 );
-  result1 = 
+  Tuple_32_1_1_1_1 _bind0 = 
     HELPER(f32_mulAdd)(this,
       
 (uint8_t)Int256_toUInt64(
@@ -76294,6 +79701,11 @@ Int256_toUInt64(
         fsign
       )
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  fov = Int256_fromUInt64((uint64_t)(_bind0._2));
+  fun = Int256_fromUInt64((uint64_t)(_bind0._3));
+  fin = Int256_fromUInt64((uint64_t)(_bind0._4));
   cs_io = 
     Int256_zx(
       HELPER(readFromStorage_CS)(this, 5, 1, 1, 1), 1
@@ -76411,8 +79823,8 @@ execute_lvx_v1_FFMAH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
         (READ.fnegate))
       (CONST.32768)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.16.f16_mulAdd
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.16,1,1,1,1.f16_mulAdd
       (READ.RM)
       (READ.argument3)
       (XOR
@@ -76564,7 +79976,7 @@ execute_lvx_v1_FFMAH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
     :
     Int256_fromUInt64(0LL)
 );
-  result1 = 
+  Tuple_16_1_1_1_1 _bind0 = 
     HELPER(f16_mulAdd)(this,
       
 (uint8_t)Int256_toUInt64(
@@ -76588,6 +80000,11 @@ Int256_toUInt64(
         fsign
       )
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  fov = Int256_fromUInt64((uint64_t)(_bind0._2));
+  fun = Int256_fromUInt64((uint64_t)(_bind0._3));
+  fin = Int256_fromUInt64((uint64_t)(_bind0._4));
   cs_io = 
     Int256_zx(
       HELPER(readFromStorage_CS)(this, 4, 1, 1, 1), 1
@@ -76705,8 +80122,8 @@ execute_lvx_v1_FFMSD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
         (READ.fnegate))
       (CONST.9223372036854775808)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.64.f64_mulnAdd
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.64,1,1,1,1.f64_mulnAdd
       (READ.RM)
       (READ.argument3)
       (XOR
@@ -76858,7 +80275,7 @@ execute_lvx_v1_FFMSD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
     :
     Int256_fromUInt64(0LL)
 );
-  result1 = 
+  Tuple_64_1_1_1_1 _bind0 = 
     HELPER(f64_mulnAdd)(this,
       
 (uint8_t)Int256_toUInt64(
@@ -76882,6 +80299,11 @@ Int256_toUInt64(
         fsign
       )
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  fov = Int256_fromUInt64((uint64_t)(_bind0._2));
+  fun = Int256_fromUInt64((uint64_t)(_bind0._3));
+  fin = Int256_fromUInt64((uint64_t)(_bind0._4));
   cs_io = 
     Int256_zx(
       HELPER(readFromStorage_CS)(this, 5, 1, 1, 1), 1
@@ -76999,8 +80421,8 @@ execute_lvx_v1_FFMSW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
         (READ.fnegate))
       (CONST.2147483648)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.32.f32_mulnAdd
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.32,1,1,1,1.f32_mulnAdd
       (READ.RM)
       (READ.argument3)
       (XOR
@@ -77152,7 +80574,7 @@ execute_lvx_v1_FFMSW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
     :
     Int256_fromUInt64(0LL)
 );
-  result1 = 
+  Tuple_32_1_1_1_1 _bind0 = 
     HELPER(f32_mulnAdd)(this,
       
 (uint8_t)Int256_toUInt64(
@@ -77176,6 +80598,11 @@ Int256_toUInt64(
         fsign
       )
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  fov = Int256_fromUInt64((uint64_t)(_bind0._2));
+  fun = Int256_fromUInt64((uint64_t)(_bind0._3));
+  fin = Int256_fromUInt64((uint64_t)(_bind0._4));
   cs_io = 
     Int256_zx(
       HELPER(readFromStorage_CS)(this, 5, 1, 1, 1), 1
@@ -77293,8 +80720,8 @@ execute_lvx_v1_FFMSH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
         (READ.fnegate))
       (CONST.32768)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.16.f16_mulnAdd
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.16,1,1,1,1.f16_mulnAdd
       (READ.RM)
       (READ.argument3)
       (XOR
@@ -77446,7 +80873,7 @@ execute_lvx_v1_FFMSH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
     :
     Int256_fromUInt64(0LL)
 );
-  result1 = 
+  Tuple_16_1_1_1_1 _bind0 = 
     HELPER(f16_mulnAdd)(this,
       
 (uint8_t)Int256_toUInt64(
@@ -77470,6 +80897,11 @@ Int256_toUInt64(
         fsign
       )
 ));
+  result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
+  fio = Int256_fromUInt64((uint64_t)(_bind0._1));
+  fov = Int256_fromUInt64((uint64_t)(_bind0._2));
+  fun = Int256_fromUInt64((uint64_t)(_bind0._3));
+  fin = Int256_fromUInt64((uint64_t)(_bind0._4));
   cs_io = 
     Int256_zx(
       HELPER(readFromStorage_CS)(this, 4, 1, 1, 1), 1
@@ -85150,27 +88582,27 @@ Behavior(lvx_v1_FCOMPW_floatcomp_registerW_registerZ_registerY_simple,FETCH(fetc
 Behavior(lvx_v1_FCOMPW_floatcomp_registerW_registerZ_upper27_lower5_double,FETCH(fetch_lvx_v1_ABDW_signextw_registerW_registerZ_upper27_lower5_double),EXECUTE(execute_lvx_v1_FCOMPW_floatcomp_registerW_registerZ_upper27_lower5_double),COMMIT(commit_lvx_v1_STSUW_signextw_registerW_registerZ_registerY_simple))
 Behavior(lvx_v1_FCOMPH_floatcomp_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_LBZ_variant_registerW_registerY_registerZ_simple),EXECUTE(execute_lvx_v1_FCOMPH_floatcomp_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_STSUW_signextw_registerW_registerZ_registerY_simple))
 Behavior(lvx_v1_FCOMPH_floatcomp_registerW_registerZ_upper27_lower5_double,FETCH(fetch_lvx_v1_ABDW_signextw_registerW_registerZ_upper27_lower5_double),EXECUTE(execute_lvx_v1_FCOMPH_floatcomp_registerW_registerZ_upper27_lower5_double),COMMIT(commit_lvx_v1_STSUW_signextw_registerW_registerZ_registerY_simple))
-Behavior(lvx_v1_FMIND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMIND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMINW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMINH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMINND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMINNW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINNW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMINNH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINNH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMAXD_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXD_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMAXW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMAXH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMAXND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMAXNW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXNW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FMAXNH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXNH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FSIGND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FSIGNW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FSIGNH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FSIGNND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FSIGNNW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNNW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FSIGNNH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNNH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FSIGNMD_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNMD_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FSIGNMW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNMW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
-Behavior(lvx_v1_FSIGNMH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNMH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_GET_registerZ_systemS2_simple))
+Behavior(lvx_v1_FMIND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMIND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMINW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMINH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMINND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMINNW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINNW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMINNH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMINNH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMAXD_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXD_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMAXW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMAXH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMAXND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMAXNW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXNW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FMAXNH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FMAXNH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FSIGND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FSIGNW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FSIGNH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FSIGNND_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNND_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FSIGNNW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNNW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FSIGNNH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNNH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FSIGNMD_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNMD_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FSIGNMW_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNMW_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
+Behavior(lvx_v1_FSIGNMH_registerW_registerZ_registerY_simple,FETCH(fetch_lvx_v1_STSUD_registerW_registerZ_registerY_simple),EXECUTE(execute_lvx_v1_FSIGNMH_registerW_registerZ_registerY_simple),COMMIT(commit_lvx_v1_FMIND_registerW_registerZ_registerY_simple))
 Behavior(lvx_v1_FLOATD_floatmode_registerW_registerZ_simple,FETCH(fetch_lvx_v1_ALB_coherency_registerW_registerZ_simple),EXECUTE(execute_lvx_v1_FLOATD_floatmode_registerW_registerZ_simple),COMMIT(commit_lvx_v1_FLOATD_floatmode_registerW_registerZ_simple))
 Behavior(lvx_v1_FLOATW_floatmode_registerW_registerZ_simple,FETCH(fetch_lvx_v1_ALB_coherency_registerW_registerZ_simple),EXECUTE(execute_lvx_v1_FLOATW_floatmode_registerW_registerZ_simple),COMMIT(commit_lvx_v1_FLOATD_floatmode_registerW_registerZ_simple))
 Behavior(lvx_v1_FLOATWP_floatmode_registerW_registerZ_simple,FETCH(fetch_lvx_v1_ALB_coherency_registerW_registerZ_simple),EXECUTE(execute_lvx_v1_FLOATWP_floatmode_registerW_registerZ_simple),COMMIT(commit_lvx_v1_FLOATD_floatmode_registerW_registerZ_simple))
@@ -85509,24 +88941,24 @@ BehaviorDeclare(f16_div,DECLARE_ALT(Tuple_16_1_1_1_1_1 HELPER(f16_div)(void *thi
 BehaviorDeclare(f16_div,DECLARE(Tuple_16_1_1_1_1_1 HELPER(f16_div)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
 #endif
 #ifdef BehaviorDeclareAlt_f16_max
-BehaviorDeclare(f16_max,DECLARE_ALT(Int256_ HELPER(f16_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f16_max,DECLARE_ALT(Tuple_16_1 HELPER(f16_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f16_max,DECLARE(Int256_ HELPER(f16_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f16_max,DECLARE(Tuple_16_1 HELPER(f16_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f16_maxNum
-BehaviorDeclare(f16_maxNum,DECLARE_ALT(Int256_ HELPER(f16_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f16_maxNum,DECLARE_ALT(Tuple_16_1 HELPER(f16_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f16_maxNum,DECLARE(Int256_ HELPER(f16_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f16_maxNum,DECLARE(Tuple_16_1 HELPER(f16_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f16_min
-BehaviorDeclare(f16_min,DECLARE_ALT(Int256_ HELPER(f16_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f16_min,DECLARE_ALT(Tuple_16_1 HELPER(f16_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f16_min,DECLARE(Int256_ HELPER(f16_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f16_min,DECLARE(Tuple_16_1 HELPER(f16_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f16_minNum
-BehaviorDeclare(f16_minNum,DECLARE_ALT(Int256_ HELPER(f16_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f16_minNum,DECLARE_ALT(Tuple_16_1 HELPER(f16_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f16_minNum,DECLARE(Int256_ HELPER(f16_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f16_minNum,DECLARE(Tuple_16_1 HELPER(f16_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f16_mul
 BehaviorDeclare(f16_mul,DECLARE_ALT(Tuple_16_1_1_1_1 HELPER(f16_mul)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
@@ -85534,14 +88966,14 @@ BehaviorDeclare(f16_mul,DECLARE_ALT(Tuple_16_1_1_1_1 HELPER(f16_mul)(void *this,
 BehaviorDeclare(f16_mul,DECLARE(Tuple_16_1_1_1_1 HELPER(f16_mul)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
 #endif
 #ifdef BehaviorDeclareAlt_f16_mulAdd
-BehaviorDeclare(f16_mulAdd,DECLARE_ALT(Int256_ HELPER(f16_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f16_mulAdd,DECLARE_ALT(Tuple_16_1_1_1_1 HELPER(f16_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #else
-BehaviorDeclare(f16_mulAdd,DECLARE(Int256_ HELPER(f16_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f16_mulAdd,DECLARE(Tuple_16_1_1_1_1 HELPER(f16_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #endif
 #ifdef BehaviorDeclareAlt_f16_mulnAdd
-BehaviorDeclare(f16_mulnAdd,DECLARE_ALT(Int256_ HELPER(f16_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f16_mulnAdd,DECLARE_ALT(Tuple_16_1_1_1_1 HELPER(f16_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #else
-BehaviorDeclare(f16_mulnAdd,DECLARE(Int256_ HELPER(f16_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f16_mulnAdd,DECLARE(Tuple_16_1_1_1_1 HELPER(f16_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #endif
 #ifdef BehaviorDeclareAlt_f16_rint
 BehaviorDeclare(f16_rint,DECLARE_ALT(Tuple_16_1_1 HELPER(f16_rint)(void *this, uint8_t opnd1, uint64_t opnd2);))
@@ -85589,24 +89021,24 @@ BehaviorDeclare(f32_fast_rsqrt,DECLARE_ALT(Int256_ HELPER(f32_fast_rsqrt)(void *
 BehaviorDeclare(f32_fast_rsqrt,DECLARE(Int256_ HELPER(f32_fast_rsqrt)(void *this, uint64_t opnd1);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_max
-BehaviorDeclare(f32_max,DECLARE_ALT(Int256_ HELPER(f32_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f32_max,DECLARE_ALT(Tuple_32_1 HELPER(f32_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f32_max,DECLARE(Int256_ HELPER(f32_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f32_max,DECLARE(Tuple_32_1 HELPER(f32_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_maxNum
-BehaviorDeclare(f32_maxNum,DECLARE_ALT(Int256_ HELPER(f32_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f32_maxNum,DECLARE_ALT(Tuple_32_1 HELPER(f32_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f32_maxNum,DECLARE(Int256_ HELPER(f32_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f32_maxNum,DECLARE(Tuple_32_1 HELPER(f32_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_min
-BehaviorDeclare(f32_min,DECLARE_ALT(Int256_ HELPER(f32_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f32_min,DECLARE_ALT(Tuple_32_1 HELPER(f32_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f32_min,DECLARE(Int256_ HELPER(f32_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f32_min,DECLARE(Tuple_32_1 HELPER(f32_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_minNum
-BehaviorDeclare(f32_minNum,DECLARE_ALT(Int256_ HELPER(f32_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f32_minNum,DECLARE_ALT(Tuple_32_1 HELPER(f32_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f32_minNum,DECLARE(Int256_ HELPER(f32_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f32_minNum,DECLARE(Tuple_32_1 HELPER(f32_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_mul
 BehaviorDeclare(f32_mul,DECLARE_ALT(Tuple_32_1_1_1_1 HELPER(f32_mul)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
@@ -85614,14 +89046,14 @@ BehaviorDeclare(f32_mul,DECLARE_ALT(Tuple_32_1_1_1_1 HELPER(f32_mul)(void *this,
 BehaviorDeclare(f32_mul,DECLARE(Tuple_32_1_1_1_1 HELPER(f32_mul)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_mulAdd
-BehaviorDeclare(f32_mulAdd,DECLARE_ALT(Int256_ HELPER(f32_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f32_mulAdd,DECLARE_ALT(Tuple_32_1_1_1_1 HELPER(f32_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #else
-BehaviorDeclare(f32_mulAdd,DECLARE(Int256_ HELPER(f32_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f32_mulAdd,DECLARE(Tuple_32_1_1_1_1 HELPER(f32_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_mulnAdd
-BehaviorDeclare(f32_mulnAdd,DECLARE_ALT(Int256_ HELPER(f32_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f32_mulnAdd,DECLARE_ALT(Tuple_32_1_1_1_1 HELPER(f32_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #else
-BehaviorDeclare(f32_mulnAdd,DECLARE(Int256_ HELPER(f32_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f32_mulnAdd,DECLARE(Tuple_32_1_1_1_1 HELPER(f32_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_rint
 BehaviorDeclare(f32_rint,DECLARE_ALT(Tuple_32_1_1 HELPER(f32_rint)(void *this, uint8_t opnd1, uint64_t opnd2);))
@@ -85694,24 +89126,24 @@ BehaviorDeclare(f64_fast_rsqrt,DECLARE_ALT(Int256_ HELPER(f64_fast_rsqrt)(void *
 BehaviorDeclare(f64_fast_rsqrt,DECLARE(Int256_ HELPER(f64_fast_rsqrt)(void *this, uint64_t opnd1);))
 #endif
 #ifdef BehaviorDeclareAlt_f64_max
-BehaviorDeclare(f64_max,DECLARE_ALT(Int256_ HELPER(f64_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f64_max,DECLARE_ALT(Tuple_64_1 HELPER(f64_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f64_max,DECLARE(Int256_ HELPER(f64_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f64_max,DECLARE(Tuple_64_1 HELPER(f64_max)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f64_maxNum
-BehaviorDeclare(f64_maxNum,DECLARE_ALT(Int256_ HELPER(f64_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f64_maxNum,DECLARE_ALT(Tuple_64_1 HELPER(f64_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f64_maxNum,DECLARE(Int256_ HELPER(f64_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f64_maxNum,DECLARE(Tuple_64_1 HELPER(f64_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f64_min
-BehaviorDeclare(f64_min,DECLARE_ALT(Int256_ HELPER(f64_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f64_min,DECLARE_ALT(Tuple_64_1 HELPER(f64_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f64_min,DECLARE(Int256_ HELPER(f64_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f64_min,DECLARE(Tuple_64_1 HELPER(f64_min)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f64_minNum
-BehaviorDeclare(f64_minNum,DECLARE_ALT(Int256_ HELPER(f64_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f64_minNum,DECLARE_ALT(Tuple_64_1 HELPER(f64_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #else
-BehaviorDeclare(f64_minNum,DECLARE(Int256_ HELPER(f64_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
+BehaviorDeclare(f64_minNum,DECLARE(Tuple_64_1 HELPER(f64_minNum)(void *this, uint64_t opnd1, uint64_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f64_mul
 BehaviorDeclare(f64_mul,DECLARE_ALT(Tuple_64_1_1_1_1 HELPER(f64_mul)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
@@ -85719,14 +89151,14 @@ BehaviorDeclare(f64_mul,DECLARE_ALT(Tuple_64_1_1_1_1 HELPER(f64_mul)(void *this,
 BehaviorDeclare(f64_mul,DECLARE(Tuple_64_1_1_1_1 HELPER(f64_mul)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
 #endif
 #ifdef BehaviorDeclareAlt_f64_mulAdd
-BehaviorDeclare(f64_mulAdd,DECLARE_ALT(Int256_ HELPER(f64_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f64_mulAdd,DECLARE_ALT(Tuple_64_1_1_1_1 HELPER(f64_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #else
-BehaviorDeclare(f64_mulAdd,DECLARE(Int256_ HELPER(f64_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f64_mulAdd,DECLARE(Tuple_64_1_1_1_1 HELPER(f64_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #endif
 #ifdef BehaviorDeclareAlt_f64_mulnAdd
-BehaviorDeclare(f64_mulnAdd,DECLARE_ALT(Int256_ HELPER(f64_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f64_mulnAdd,DECLARE_ALT(Tuple_64_1_1_1_1 HELPER(f64_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #else
-BehaviorDeclare(f64_mulnAdd,DECLARE(Int256_ HELPER(f64_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
+BehaviorDeclare(f64_mulnAdd,DECLARE(Tuple_64_1_1_1_1 HELPER(f64_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4);))
 #endif
 #ifdef BehaviorDeclareAlt_f64_rint
 BehaviorDeclare(f64_rint,DECLARE_ALT(Tuple_64_1_1 HELPER(f64_rint)(void *this, uint8_t opnd1, uint64_t opnd2);))

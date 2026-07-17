@@ -290,6 +290,50 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (MACRO.Instruction)
         (COMMIT.E1.%1 (READ.result1)))
+  - ID: GWRRE
+    execution: &executionGWRRE |
+      stage RR:
+      new argument3 = %3;
+      new argument2 = %2;
+      new fio = 0;
+      new fdz = 0;
+      new fov = 0;
+      new fun = 0;
+      new fin = 0;
+      @Instruction
+      stage E1:
+      %1 = result1;
+      CS.IO |= fio;
+      CS.DZ |= fdz;
+      CS.OV |= fov;
+      CS.UN |= fun;
+      CS.IN |= fin;
+    behavior: &behaviorGWRRE |
+      (SEQ
+        (WRITE.argument3 (ACCESS.RR.%3))
+        (WRITE.argument2 (ACCESS.RR.%2))
+        (WRITE.fio (CONST.0))
+        (WRITE.fdz (CONST.0))
+        (WRITE.fov (CONST.0))
+        (WRITE.fun (CONST.0))
+        (WRITE.fin (CONST.0))
+        (MACRO.Instruction)
+        (COMMIT.E1.%1 (READ.result1))
+        (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+        (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+          (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+        (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+          (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+        (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+          (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+        (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+          (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+        (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+          (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWRRM
     execution: &executionGWRRM |
       stage ID:
@@ -10048,8 +10092,8 @@ Format:
     syntax: "%0 %1 = %2, %3"
     properties: { '%CS': NoEffects }
     scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
+    execution: *executionGWRRE
+    behavior: *behaviorGWRRE
   - ID: ALU_FDMO1
     what: ALU Floating-Point Double Word Operations 1
     fields:
@@ -10409,8 +10453,8 @@ Format:
     syntax: "%0 %1 = %2, %3"
     properties: { '%CS': NoEffects }
     scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
+    execution: *executionGWRRE
+    behavior: *behaviorGWRRE
   - ID: ALU_FWMO1
     what: ALU Floating-Point Word Operations 1
     fields:
@@ -10677,8 +10721,8 @@ Format:
     syntax: "%0 %1 = %2, %3"
     properties: { '%CS': NoEffects }
     scheduling: ALU_LITE
-    execution: *executionGWRR
-    behavior: *behaviorGWRR
+    execution: *executionGWRRE
+    behavior: *behaviorGWRRE
   - ID: ALU_FHMO1
     what: ALU Floating-Point Half Word Monadic 1
     fields:
@@ -11027,19 +11071,25 @@ Helper:
     result: [16, 1, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f16_max
+    result: [16, 1]
     arguments: [64, 64]
   - ID: f16_maxNum
+    result: [16, 1]
     arguments: [64, 64]
   - ID: f16_min
+    result: [16, 1]
     arguments: [64, 64]
   - ID: f16_minNum
+    result: [16, 1]
     arguments: [64, 64]
   - ID: f16_mul
     result: [16, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f16_mulAdd
+    result: [16, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
   - ID: f16_mulnAdd
+    result: [16, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
   - ID: f16_rint
     result: [16, 1, 1]
@@ -11071,19 +11121,25 @@ Helper:
   - ID: f32_fast_rsqrt
     arguments: [64]
   - ID: f32_max
+    result: [32, 1]
     arguments: [64, 64]
   - ID: f32_maxNum
+    result: [32, 1]
     arguments: [64, 64]
   - ID: f32_min
+    result: [32, 1]
     arguments: [64, 64]
   - ID: f32_minNum
+    result: [32, 1]
     arguments: [64, 64]
   - ID: f32_mul
     result: [32, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f32_mulAdd
+    result: [32, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
   - ID: f32_mulnAdd
+    result: [32, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
   - ID: f32_rint
     result: [32, 1, 1]
@@ -11124,19 +11180,25 @@ Helper:
   - ID: f64_fast_rsqrt
     arguments: [64]
   - ID: f64_max
+    result: [64, 1]
     arguments: [64, 64]
   - ID: f64_maxNum
+    result: [64, 1]
     arguments: [64, 64]
   - ID: f64_min
+    result: [64, 1]
     arguments: [64, 64]
   - ID: f64_minNum
+    result: [64, 1]
     arguments: [64, 64]
   - ID: f64_mul
     result: [64, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f64_mulAdd
+    result: [64, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
   - ID: f64_mulnAdd
+    result: [64, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
   - ID: f64_rint
     result: [64, 1, 1]
@@ -16428,13 +16490,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 64
       floating-point numbers. The minimum is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_min(argument2, argument3);
+      new (result1, fio) = f64_min(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_min
-        (READ.argument2)
-        (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.64,1.f64_min
+          (READ.argument2)
+          (READ.argument3)))
   - ID: FMINW
     what: Floating-Point Minimum Word
     class: FPU
@@ -16442,13 +16505,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 32 floating-point
       numbers. The minimum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_min(argument2, argument3);
+      new (result1, fio) = f32_min(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_min
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.32,1.f32_min
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FMINH
     what: Floating-Point Minimum Half Word
     class: FPU
@@ -16456,13 +16520,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 16 floating-point
       numbers. The minimum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_min(argument2, argument3);
+      new (result1, fio) = f16_min(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_min
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.16,1.f16_min
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FMINND
     what: Floating-Point Minimum Number Double Word
     class: FPU
@@ -16470,13 +16535,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 64
       floating-point numbers. The minimum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_minNum(argument2, argument3);
+      new (result1, fio) = f64_minNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_minNum
-        (READ.argument2)
-        (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.64,1.f64_minNum
+          (READ.argument2)
+          (READ.argument3)))
   - ID: FMINNW
     what: Floating-Point Minimum Number Word
     class: FPU
@@ -16484,13 +16550,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 32 floating-point
       numbers. The minimum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_minNum(argument2, argument3);
+      new (result1, fio) = f32_minNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_minNum
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.32,1.f32_minNum
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FMINNH
     what: Floating-Point Minimum Number Half Word
     class: FPU
@@ -16498,13 +16565,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 16 floating-point
       numbers. The minimum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_minNum(argument2, argument3);
+      new (result1, fio) = f16_minNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_minNum
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.16,1.f16_minNum
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FMAXD
     what: Floating-Point Maximum Double Word
     class: FPU
@@ -16512,13 +16580,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 64
       floating-point numbers. The maximum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_max(argument2, argument3);
+      new (result1, fio) = f64_max(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_max
-        (READ.argument2)
-        (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.64,1.f64_max
+          (READ.argument2)
+          (READ.argument3)))
   - ID: FMAXW
     what: Floating-Point Maximum Word
     class: FPU
@@ -16526,13 +16595,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 32 floating-point
       numbers. The maximum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_max(argument2, argument3);
+      new (result1, fio) = f32_max(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_max
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.32,1.f32_max
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FMAXH
     what: Floating-Point Maximum Half Word
     class: FPU
@@ -16540,13 +16610,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 16 floating-point
       numbers. The maximum value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_max(argument2, argument3);
+      new (result1, fio) = f16_max(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_max
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.16,1.f16_max
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FMAXND
     what: Floating-Point Maximum Number Double Word
     class: FPU
@@ -16554,13 +16625,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 64
       floating-point numbers. The maximum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_maxNum(argument2, argument3);
+      new (result1, fio) = f64_maxNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_maxNum
-        (READ.argument2)
-        (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.64,1.f64_maxNum
+          (READ.argument2)
+          (READ.argument3)))
   - ID: FMAXNW
     what: Floating-Point Maximum Number Word
     class: FPU
@@ -16568,13 +16640,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 32 floating-point
       numbers. The maximum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_maxNum(argument2, argument3);
+      new (result1, fio) = f32_maxNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_maxNum
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.32,1.f32_maxNum
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FMAXNH
     what: Floating-Point Maximum Number Half Word
     class: FPU
@@ -16582,13 +16655,14 @@ Instruction:
     description: >
       The %2 is compared to the %3, assuming binary 16 floating-point
       numbers. The maximum number value is stored into the %1.
+      This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_maxNum(argument2, argument3);
+      new (result1, fio) = f16_maxNum(argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_maxNum
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio
+        (APPLY.16,1.f16_maxNum
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FSIGND
     what: Floating-Point Sign Transfer Double Word
     class: FPU
@@ -18475,7 +18549,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000000000000000 : 0;
-      result1 = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18483,12 +18557,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000000000000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.64.f64_mulAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.64,1,1,1,1.f64_mulAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
   - ID: FFMAW
     what: Floating-Point Fused Multiply Add Word
     class: FPU
@@ -18501,7 +18575,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
-      result1 = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18509,12 +18583,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x80000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.32.f32_mulAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.32,1,1,1,1.f32_mulAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
   - ID: FFMAH
     what: Floating-Point Fused Multiply Add Half Word
     class: FPU
@@ -18527,7 +18601,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000 : 0;
-      result1 = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18535,12 +18609,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.16.f16_mulAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.16,1,1,1,1.f16_mulAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
   - ID: FFMSD
     what: Floating-Point Fused Multiply Subtract From Double Word
     class: FPU
@@ -18553,7 +18627,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000000000000000 : 0;
-      result1 = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18561,12 +18635,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000000000000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.64.f64_mulnAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.64,1,1,1,1.f64_mulnAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
   - ID: FFMSW
     what: Floating-Point Fused Multiply Subtract From Word
     class: FPU
@@ -18579,7 +18653,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
-      result1 = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18587,12 +18661,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x80000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.32.f32_mulnAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.32,1,1,1,1.f32_mulnAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
   - ID: FFMSH
     what: Floating-Point Fused Multiply Subtract From Half Word
     class: FPU
@@ -18605,7 +18679,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000 : 0;
-      result1 = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+      new (result1, fio, fov, fun, fin) = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18613,12 +18687,12 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.16.f16_mulnAdd
-            (READ.RM)
-            (READ.argument3)
-            (XOR (READ.argument2) (READ.fsign))
-            (XOR (READ.argument1) (READ.fsign)))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.16,1,1,1,1.f16_mulnAdd
+              (READ.RM)
+              (READ.argument3)
+              (XOR (READ.argument2) (READ.fsign))
+              (XOR (READ.argument1) (READ.fsign)))))
   - ID: FADDWC
     what: Floating-Point Add to Word Complex
     class: FPU

@@ -38880,7 +38880,7 @@ stage E4:
 
 \paragraph{Syntax} \texttt{fadddp}\emph{floatmode} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are added to the \emph{registerO} double words. The two resulting double words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are added to the \emph{registerO} double words. The two resulting double words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Modifier(s)}
@@ -38980,7 +38980,7 @@ stage E3:
 
 \paragraph{Syntax} \texttt{faddho}\emph{floatmode} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are added to the \emph{registerO} half words. The eight resulting half words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are added to the \emph{registerO} half words. The eight resulting half words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Modifier(s)}
@@ -39143,7 +39143,7 @@ stage E4:
 
 \paragraph{Syntax} \texttt{faddwq}\emph{floatmode} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are added to the \emph{registerO} words. The four resulting words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are added to the \emph{registerO} words. The four resulting words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Modifier(s)}
@@ -39970,7 +39970,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
-  new result1 = f64_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
+  new (result1, fio, fov, fun, fin) = f64_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40022,7 +40022,12 @@ stage RR:
   new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_mulAdd(RM, argument3.64[I], argument2.64[I] ^ fsign, argument1.64[I] ^ fsign)
+    new (lane, lio, lov, lun, lin) = f64_mulAdd(RM, argument3.64[I], argument2.64[I] ^ fsign, argument1.64[I] ^ fsign)
+    result1.64[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fun = fun | lun
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -40074,7 +40079,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
-  new result1 = f16_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
+  new (result1, fio, fov, fun, fin) = f16_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E3:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40126,7 +40131,12 @@ stage RR:
   new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_mulAdd(RM, argument3.16[I], argument2.16[I] ^ fsign, argument1.16[I] ^ fsign)
+    new (lane, lio, lov, lun, lin) = f16_mulAdd(RM, argument3.16[I], argument2.16[I] ^ fsign, argument1.16[I] ^ fsign)
+    result1.16[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fun = fun | lun
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -40178,7 +40188,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
-  new result1 = f32_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
+  new (result1, fio, fov, fun, fin) = f32_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40293,7 +40303,12 @@ stage RR:
   new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_mulAdd(RM, argument3.32[I], argument2.32[I] ^ fsign, argument1.32[I] ^ fsign)
+    new (lane, lio, lov, lun, lin) = f32_mulAdd(RM, argument3.32[I], argument2.32[I] ^ fsign, argument1.32[I] ^ fsign)
+    result1.32[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fun = fun | lun
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -40345,7 +40360,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
-  new result1 = f64_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
+  new (result1, fio, fov, fun, fin) = f64_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40397,7 +40412,12 @@ stage RR:
   new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_mulnAdd(RM, argument3.64[I], argument2.64[I] ^ fsign, argument1.64[I] ^ fsign)
+    new (lane, lio, lov, lun, lin) = f64_mulnAdd(RM, argument3.64[I], argument2.64[I] ^ fsign, argument1.64[I] ^ fsign)
+    result1.64[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fun = fun | lun
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -40449,7 +40469,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
-  new result1 = f16_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
+  new (result1, fio, fov, fun, fin) = f16_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E3:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40501,7 +40521,12 @@ stage RR:
   new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_mulnAdd(RM, argument3.16[I], argument2.16[I] ^ fsign, argument1.16[I] ^ fsign)
+    new (lane, lio, lov, lun, lin) = f16_mulnAdd(RM, argument3.16[I], argument2.16[I] ^ fsign, argument1.16[I] ^ fsign)
+    result1.16[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fun = fun | lun
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -40553,7 +40578,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
-  new result1 = f32_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
+  new (result1, fio, fov, fun, fin) = f32_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40605,7 +40630,12 @@ stage RR:
   new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_mulnAdd(RM, argument3.32[I], argument2.32[I] ^ fsign, argument1.32[I] ^ fsign)
+    new (lane, lio, lov, lun, lin) = f32_mulnAdd(RM, argument3.32[I], argument2.32[I] ^ fsign, argument1.32[I] ^ fsign)
+    result1.32[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fun = fun | lun
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -42183,7 +42213,7 @@ stage E4:
 
 \paragraph{Syntax} \texttt{fmaxd} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 64 floating-point numbers. The maximum value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 64 floating-point numbers. The maximum value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42192,9 +42222,24 @@ stage E4:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f64_max(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f64_max(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXDP: Floating-Point Maximum Double Word Pair}]{FMAXDP\hfill Floating-Point Maximum Double Word Pair}
@@ -42207,7 +42252,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxdp} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are compared to the \emph{registerO} double words. The two maximum double words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are compared to the \emph{registerO} double words. The two maximum double words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42216,11 +42261,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_max(argument2.64[I], argument3.64[I])
+    new (lane, lio) = f64_max(argument2.64[I], argument3.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXH: Floating-Point Maximum Half Word}]{FMAXH\hfill Floating-Point Maximum Half Word}
@@ -42233,7 +42295,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxh} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 16 floating-point numbers. The maximum value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 16 floating-point numbers. The maximum value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42242,9 +42304,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f16_max(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f16_max(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXHO: Floating-Point Maximum Half Word Octuple}]{FMAXHO\hfill Floating-Point Maximum Half Word Octuple}
@@ -42257,7 +42334,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxho} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are compared to the \emph{registerO} half words. The eight maximum half words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are compared to the \emph{registerO} half words. The eight maximum half words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42266,11 +42343,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_max(argument2.16[I], argument3.16[I])
+    new (lane, lio) = f16_max(argument2.16[I], argument3.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXND: Floating-Point Maximum Number Double Word}]{FMAXND\hfill Floating-Point Maximum Number Double Word}
@@ -42283,7 +42377,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxnd} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 64 floating-point numbers. The maximum number value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 64 floating-point numbers. The maximum number value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42292,9 +42386,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f64_maxNum(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f64_maxNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXNDP: Floating-Point Maximum Number Double Word Pair}]{FMAXNDP\hfill Floating-Point Maximum Number Double Word Pair}
@@ -42307,7 +42416,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxndp} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are compared to the \emph{registerO} double words. The two maximum number double words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are compared to the \emph{registerO} double words. The two maximum number double words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42316,11 +42425,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_maxNum(argument2.64[I], argument3.64[I])
+    new (lane, lio) = f64_maxNum(argument2.64[I], argument3.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXNH: Floating-Point Maximum Number Half Word}]{FMAXNH\hfill Floating-Point Maximum Number Half Word}
@@ -42333,7 +42459,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxnh} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 16 floating-point numbers. The maximum number value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 16 floating-point numbers. The maximum number value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42342,9 +42468,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f16_maxNum(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f16_maxNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXNHO: Floating-Point Maximum Number Half Word Octuple}]{FMAXNHO\hfill Floating-Point Maximum Number Half Word Octuple}
@@ -42357,7 +42498,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxnho} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are compared to the \emph{registerO} half words. The eight maximum number half words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are compared to the \emph{registerO} half words. The eight maximum number half words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42366,11 +42507,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_maxNum(argument2.16[I], argument3.16[I])
+    new (lane, lio) = f16_maxNum(argument2.16[I], argument3.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXNW: Floating-Point Maximum Number Word}]{FMAXNW\hfill Floating-Point Maximum Number Word}
@@ -42383,7 +42541,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxnw} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 32 floating-point numbers. The maximum number value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 32 floating-point numbers. The maximum number value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42392,9 +42550,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f32_maxNum(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f32_maxNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXNWQ: Floating-Point Maximum Number Word Quadruple}]{FMAXNWQ\hfill Floating-Point Maximum Number Word Quadruple}
@@ -42407,7 +42580,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxnwq} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are compared to the \emph{registerO} words. The four maximum number words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are compared to the \emph{registerO} words. The four maximum number words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42416,11 +42589,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_maxNum(argument2.32[I], argument3.32[I])
+    new (lane, lio) = f32_maxNum(argument2.32[I], argument3.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXW: Floating-Point Maximum Word}]{FMAXW\hfill Floating-Point Maximum Word}
@@ -42433,7 +42623,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxw} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 32 floating-point numbers. The maximum value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 32 floating-point numbers. The maximum value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42442,9 +42632,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f32_max(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f32_max(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXWQ: Floating-Point Maximum Word Quadruple}]{FMAXWQ\hfill Floating-Point Maximum Word Quadruple}
@@ -42457,7 +42662,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmaxwq} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are compared to the \emph{registerO} words. The four maximum words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are compared to the \emph{registerO} words. The four maximum words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42466,11 +42671,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_max(argument2.32[I], argument3.32[I])
+    new (lane, lio) = f32_max(argument2.32[I], argument3.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMIND: Floating-Point Minimum Double Word}]{FMIND\hfill Floating-Point Minimum Double Word}
@@ -42483,7 +42705,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmind} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 64 floating-point numbers. The minimum is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 64 floating-point numbers. The minimum is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42492,9 +42714,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f64_min(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f64_min(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINDP: Floating-Point Minimum Double Word Pair}]{FMINDP\hfill Floating-Point Minimum Double Word Pair}
@@ -42507,7 +42744,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fmindp} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are compared to the \emph{registerO} double words. The two minimum double words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are compared to the \emph{registerO} double words. The two minimum double words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42516,11 +42753,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_min(argument2.64[I], argument3.64[I])
+    new (lane, lio) = f64_min(argument2.64[I], argument3.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINH: Floating-Point Minimum Half Word}]{FMINH\hfill Floating-Point Minimum Half Word}
@@ -42533,7 +42787,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminh} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 16 floating-point numbers. The minimum value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 16 floating-point numbers. The minimum value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42542,9 +42796,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f16_min(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f16_min(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINHO: Floating-Point Minimum Half Word Octuple}]{FMINHO\hfill Floating-Point Minimum Half Word Octuple}
@@ -42557,7 +42826,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminho} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are compared to the \emph{registerO} half words. The eight minimum half words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are compared to the \emph{registerO} half words. The eight minimum half words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42566,11 +42835,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_min(argument2.16[I], argument3.16[I])
+    new (lane, lio) = f16_min(argument2.16[I], argument3.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINND: Floating-Point Minimum Number Double Word}]{FMINND\hfill Floating-Point Minimum Number Double Word}
@@ -42583,7 +42869,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminnd} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 64 floating-point numbers. The minimum value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 64 floating-point numbers. The minimum value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42592,9 +42878,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f64_minNum(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f64_minNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINNDP: Floating-Point Minimum Number Double Word Pair}]{FMINNDP\hfill Floating-Point Minimum Number Double Word Pair}
@@ -42607,7 +42908,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminndp} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are compared to the \emph{registerO} double words. The two minimum number double words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are compared to the \emph{registerO} double words. The two minimum number double words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42616,11 +42917,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_minNum(argument2.64[I], argument3.64[I])
+    new (lane, lio) = f64_minNum(argument2.64[I], argument3.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINNH: Floating-Point Minimum Number Half Word}]{FMINNH\hfill Floating-Point Minimum Number Half Word}
@@ -42633,7 +42951,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminnh} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 16 floating-point numbers. The minimum number value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 16 floating-point numbers. The minimum number value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42642,9 +42960,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f16_minNum(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f16_minNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINNHO: Floating-Point Minimum Number Half Word Octuple}]{FMINNHO\hfill Floating-Point Minimum Number Half Word Octuple}
@@ -42657,7 +42990,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminnho} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are compared to the \emph{registerO} half words. The eight minimum number half words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are compared to the \emph{registerO} half words. The eight minimum number half words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42666,11 +42999,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_minNum(argument2.16[I], argument3.16[I])
+    new (lane, lio) = f16_minNum(argument2.16[I], argument3.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINNW: Floating-Point Minimum Number Word}]{FMINNW\hfill Floating-Point Minimum Number Word}
@@ -42683,7 +43033,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminnw} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 32 floating-point numbers. The minimum number value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 32 floating-point numbers. The minimum number value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42692,9 +43042,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f32_minNum(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f32_minNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINNWQ: Floating-Point Minimum Number Word Quadruple}]{FMINNWQ\hfill Floating-Point Minimum Number Word Quadruple}
@@ -42707,7 +43072,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminnwq} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are compared to the \emph{registerO} words. The four minimum number words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are compared to the \emph{registerO} words. The four minimum number words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42716,11 +43081,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_minNum(argument2.32[I], argument3.32[I])
+    new (lane, lio) = f32_minNum(argument2.32[I], argument3.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINW: Floating-Point Minimum Word}]{FMINW\hfill Floating-Point Minimum Word}
@@ -42733,7 +43115,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminw} \emph{registerW} = \emph{registerZ}, \emph{registerY}
 
-\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 32 floating-point numbers. The minimum value is stored into the \emph{registerW}.
+\paragraph{Description} The \emph{registerZ} is compared to the \emph{registerY}, assuming binary 32 floating-point numbers. The minimum value is stored into the \emph{registerW}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42742,9 +43124,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new result1 = f32_min(argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio) = f32_min(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINWQ: Floating-Point Minimum Word Quadruple}]{FMINWQ\hfill Floating-Point Minimum Word Quadruple}
@@ -42757,7 +43154,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{fminwq} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are compared to the \emph{registerO} words. The four minimum words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are compared to the \emph{registerO} words. The four minimum words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALU\_LITE} (Section~\ref{sec:reservation-ALU-LITE})}
@@ -42766,11 +43163,28 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_min(argument2.32[I], argument3.32[I])
+    new (lane, lio) = f32_min(argument2.32[I], argument3.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULD: Floating-Point Multiply Double Word}]{FMULD\hfill Floating-Point Multiply Double Word}
@@ -42833,7 +43247,7 @@ stage E4:
 
 \paragraph{Syntax} \texttt{fmuldp}\emph{fnegate}\emph{floatmode} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. If \emph{fnegate} is set, the \emph{registerP} double words are negated prior to the operation. The \emph{registerP} double words are multiplied by the \emph{registerO} double words. The two resulting double words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. If \emph{fnegate} is set, the \emph{registerP} double words are negated prior to the operation. The \emph{registerP} double words are multiplied by the \emph{registerO} double words. The two resulting double words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Modifier(s)}
@@ -42940,7 +43354,7 @@ stage E3:
 
 \paragraph{Syntax} \texttt{fmulho}\emph{fnegate}\emph{floatmode} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. If \emph{fnegate} is set, the \emph{registerP} half words are negated prior to the operation. The \emph{registerP} half words are multiplied by the \emph{registerO} half words. The eight resulting half words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. If \emph{fnegate} is set, the \emph{registerP} half words are negated prior to the operation. The \emph{registerP} half words are multiplied by the \emph{registerO} half words. The eight resulting half words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Modifier(s)}
@@ -43110,7 +43524,7 @@ stage E4:
 
 \paragraph{Syntax} \texttt{fmulwq}\emph{fnegate}\emph{floatmode} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. If \emph{fnegate} is set, the \emph{registerP} words are negated prior to the operation. The \emph{registerP} words are multiplied by the \emph{registerO} words. The four resulting words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. If \emph{fnegate} is set, the \emph{registerP} words are negated prior to the operation. The \emph{registerP} words are multiplied by the \emph{registerO} words. The four resulting words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Modifier(s)}
@@ -43613,7 +44027,7 @@ stage E4:
 
 \paragraph{Syntax} \texttt{fsbfdp}\emph{floatmode} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are subtracted from the \emph{registerO} double words. The two resulting double words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as two binary 64 floating-point numbers packed into 128 bits. The \emph{registerP} double words are subtracted from the \emph{registerO} double words. The two resulting double words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Modifier(s)}
@@ -43713,7 +44127,7 @@ stage E3:
 
 \paragraph{Syntax} \texttt{fsbfho}\emph{floatmode} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are subtracted from the \emph{registerO} half words. The eight resulting half words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as eight binary 16 floating-point numbers packed into 128 bits. The \emph{registerP} half words are subtracted from the \emph{registerO} half words. The eight resulting half words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Modifier(s)}
@@ -43879,7 +44293,7 @@ stage E4:
 
 \paragraph{Syntax} \texttt{fsbfwq}\emph{floatmode} \emph{registerM} = \emph{registerP}, \emph{registerO}
 
-\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are subtracted from to the \emph{registerO} words. The four resulting words are packed and stored into the \emph{registerM}.
+\paragraph{Description} The \emph{registerP} and the \emph{registerO} are interpreted as four binary 32 floating-point numbers packed into 128 bits. The \emph{registerP} words are subtracted from to the \emph{registerO} words. The four resulting words are packed and stored into the \emph{registerM}. This instruction may raise exception bits in the CS register.
 
 
 \paragraph{Modifier(s)}
@@ -43941,9 +44355,24 @@ stage E4:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = (argument2 & 0x3FFFFFFFFFFFFFFF) | (argument3 & 0x8000000000000000);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNDP: Floating-Point Sign Transfer Double Word Pair}]{FSIGNDP\hfill Floating-Point Sign Transfer Double Word Pair}
@@ -43965,11 +44394,26 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = (argument2.64[I] & 0x3FFFFFFFFFFFFFFF) | (argument3.64[I] & 0x8000000000000000)
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNH: Floating-Point Sign Transfer Half Word}]{FSIGNH\hfill Floating-Point Sign Transfer Half Word}
@@ -43991,9 +44435,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = (argument2 & 0x3FFF) | (argument3 & 0x8000);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNHO: Floating-Point Sign Transfer Half Word Octuple}]{FSIGNHO\hfill Floating-Point Sign Transfer Half Word Octuple}
@@ -44015,11 +44474,26 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = (argument2.16[I] & 0x3FFF) | (argument3.16[I] & 0x8000)
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNMD: Floating-Point Sign Combine Transfer Double Word}]{FSIGNMD\hfill Floating-Point Sign Combine Transfer Double Word}
@@ -44041,9 +44515,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = argument2 ^ (~argument3 & 0x8000000000000000);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNMDP: Floating-Point Sign Combine Transfer Double Word Pair}]{FSIGNMDP\hfill Floating-Point Sign Combine Transfer Double Word Pair}
@@ -44065,11 +44554,26 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = argument2.64[I] ^ (~argument3.64[I] & 0x8000000000000000)
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNMH: Floating-Point Sign Combine Transfer Half Word}]{FSIGNMH\hfill Floating-Point Sign Combine Transfer Half Word}
@@ -44091,9 +44595,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = argument2 ^ (~argument3 & 0x8000);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNMHO: Floating-Point Sign Combine Transfer Half Word Octuple}]{FSIGNMHO\hfill Floating-Point Sign Combine Transfer Half Word Octuple}
@@ -44115,11 +44634,26 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = argument2.16[I] ^ (~argument3.16[I] & 0x8000000000000000)
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNMW: Floating-Point Sign Combine Transfer Word}]{FSIGNMW\hfill Floating-Point Sign Combine Transfer Word}
@@ -44141,9 +44675,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = argument2 ^ (~argument3 & 0x80000000);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNMWQ: Floating-Point Sign Combine Transfer Double Word Quadruple}]{FSIGNMWQ\hfill Floating-Point Sign Combine Transfer Double Word Quadruple}
@@ -44165,11 +44714,26 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = argument2.32[I] ^ (~argument3.32[I] & 0x80000000)
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNND: Floating-Point Sign Negate Transfer Double Word}]{FSIGNND\hfill Floating-Point Sign Negate Transfer Double Word}
@@ -44191,9 +44755,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = (argument2 & 0x3FFFFFFFFFFFFFFF) | (~argument3 & 0x8000000000000000);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNNDP: Floating-Point Sign Negate Transfer Double Word Pair}]{FSIGNNDP\hfill Floating-Point Sign Negate Transfer Double Word Pair}
@@ -44215,11 +44794,26 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 2; I += 1) {
     result1.64[I] = (argument2.64[I] & 0x3FFFFFFFFFFFFFFF) | (~argument3.64[I] & 0x8000000000000000)
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNNH: Floating-Point Sign Negate Transfer Half Word}]{FSIGNNH\hfill Floating-Point Sign Negate Transfer Half Word}
@@ -44241,9 +44835,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = (argument2 & 0x3FFF) | (~argument3 & 0x8000);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNNHO: Floating-Point Sign Negate Transfer Half Word Octuple}]{FSIGNNHO\hfill Floating-Point Sign Negate Transfer Half Word Octuple}
@@ -44265,11 +44874,26 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 8; I += 1) {
     result1.16[I] = (argument2.16[I] & 0x3FFF) | (~argument3.16[I] & 0x8000)
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNNW: Floating-Point Sign Negate Transfer Word}]{FSIGNNW\hfill Floating-Point Sign Negate Transfer Word}
@@ -44291,9 +44915,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = (argument2 & 0x3FFFFFFF) | (~argument3 & 0x80000000);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNNWQ: Floating-Point Sign Negate Transfer Word Quadruple}]{FSIGNNWQ\hfill Floating-Point Sign Negate Transfer Word Quadruple}
@@ -44315,11 +44954,26 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = (argument2.32[I] & 0x3FFFFFFF) | (~argument3.32[I] & 0x80000000)
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNW: Floating-Point Sign Transfer Word}]{FSIGNW\hfill Floating-Point Sign Transfer Word}
@@ -44341,9 +44995,24 @@ stage E1:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = (argument2 & 0x3FFFFFFF) | (argument3 & 0x80000000);
 stage E1:
   GPR[registerW] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNWQ: Floating-Point Sign Transfer Word Quadruple}]{FSIGNWQ\hfill Floating-Point Sign Transfer Word Quadruple}
@@ -44365,11 +45034,26 @@ stage E1:
 stage RR:
   new argument3 = PGR[registerO];
   new argument2 = PGR[registerP];
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (I = 0; I < 4; I += 1) {
     result1.32[I] = (argument2.32[I] & 0x3FFFFFFF) | (argument3.32[I] & 0x80000000)
   };
 stage E1:
   PGR[registerM] = result1;
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSQRTD: Floating Point Square Root Double Word}]{FSQRTD\hfill Floating Point Square Root Double Word}

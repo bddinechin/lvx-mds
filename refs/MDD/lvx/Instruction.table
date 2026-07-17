@@ -5964,12 +5964,12 @@ new result1 = floatcomp_16(argument4, argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Minimum Double Word"
 ><Execution>
-new result1 = f64_min(argument2, argument3);
+new (result1, fio) = f64_min(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_min
-  (READ.argument2)
-  (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.64,1.f64_min
+    (READ.argument2)
+    (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINW"
@@ -5980,12 +5980,12 @@ new result1 = f64_min(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Minimum Word"
 ><Execution>
-new result1 = f32_min(argument2, argument3);
+new (result1, fio) = f32_min(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_min
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.32,1.f32_min
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINH"
@@ -5996,12 +5996,12 @@ new result1 = f32_min(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Minimum Half Word"
 ><Execution>
-new result1 = f16_min(argument2, argument3);
+new (result1, fio) = f16_min(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_min
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.16,1.f16_min
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINND"
@@ -6012,12 +6012,12 @@ new result1 = f16_min(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Minimum Number Double Word"
 ><Execution>
-new result1 = f64_minNum(argument2, argument3);
+new (result1, fio) = f64_minNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_minNum
-  (READ.argument2)
-  (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.64,1.f64_minNum
+    (READ.argument2)
+    (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINNW"
@@ -6028,12 +6028,12 @@ new result1 = f64_minNum(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Minimum Number Word"
 ><Execution>
-new result1 = f32_minNum(argument2, argument3);
+new (result1, fio) = f32_minNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_minNum
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.32,1.f32_minNum
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINNH"
@@ -6044,12 +6044,12 @@ new result1 = f32_minNum(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Minimum Number Half Word"
 ><Execution>
-new result1 = f16_minNum(argument2, argument3);
+new (result1, fio) = f16_minNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_minNum
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.16,1.f16_minNum
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXD"
@@ -6060,12 +6060,12 @@ new result1 = f16_minNum(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Maximum Double Word"
 ><Execution>
-new result1 = f64_max(argument2, argument3);
+new (result1, fio) = f64_max(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_max
-  (READ.argument2)
-  (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.64,1.f64_max
+    (READ.argument2)
+    (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXW"
@@ -6076,12 +6076,12 @@ new result1 = f64_max(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Maximum Word"
 ><Execution>
-new result1 = f32_max(argument2, argument3);
+new (result1, fio) = f32_max(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_max
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.32,1.f32_max
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXH"
@@ -6092,12 +6092,12 @@ new result1 = f32_max(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Maximum Half Word"
 ><Execution>
-new result1 = f16_max(argument2, argument3);
+new (result1, fio) = f16_max(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_max
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.16,1.f16_max
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXND"
@@ -6108,12 +6108,12 @@ new result1 = f16_max(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Maximum Number Double Word"
 ><Execution>
-new result1 = f64_maxNum(argument2, argument3);
+new (result1, fio) = f64_maxNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_maxNum
-  (READ.argument2)
-  (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.64,1.f64_maxNum
+    (READ.argument2)
+    (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXNW"
@@ -6124,12 +6124,12 @@ new result1 = f64_maxNum(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Maximum Number Word"
 ><Execution>
-new result1 = f32_maxNum(argument2, argument3);
+new (result1, fio) = f32_maxNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_maxNum
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.32,1.f32_maxNum
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXNH"
@@ -6140,12 +6140,12 @@ new result1 = f32_maxNum(argument2, argument3);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating-Point Maximum Number Half Word"
 ><Execution>
-new result1 = f16_maxNum(argument2, argument3);
+new (result1, fio) = f16_maxNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_maxNum
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.16,1.f16_maxNum
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FSIGND"
@@ -8085,7 +8085,7 @@ new (result1, fio, fdz, fov, fun, fin) = f16_div(RM, argument2, argument3);
   what=	"Floating-Point Fused Multiply Add Double Word"
 ><Execution>
 fsign = fnegate ? 0x8000000000000000 : 0;
-result1 = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -8093,12 +8093,12 @@ result1 = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x8000000000000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.64.f64_mulAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.64,1,1,1,1.f64_mulAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMAW"
@@ -8110,7 +8110,7 @@ result1 = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Add Word"
 ><Execution>
 fsign = fnegate ? 0x80000000 : 0;
-result1 = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -8118,12 +8118,12 @@ result1 = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x80000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.32.f32_mulAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.32,1,1,1,1.f32_mulAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMAH"
@@ -8135,7 +8135,7 @@ result1 = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Add Half Word"
 ><Execution>
 fsign = fnegate ? 0x8000 : 0;
-result1 = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -8143,12 +8143,12 @@ result1 = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x8000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.16.f16_mulAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.16,1,1,1,1.f16_mulAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMSD"
@@ -8160,7 +8160,7 @@ result1 = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Subtract From Double Word"
 ><Execution>
 fsign = fnegate ? 0x8000000000000000 : 0;
-result1 = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -8168,12 +8168,12 @@ result1 = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x8000000000000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.64.f64_mulnAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.64,1,1,1,1.f64_mulnAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMSW"
@@ -8185,7 +8185,7 @@ result1 = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Subtract From Word"
 ><Execution>
 fsign = fnegate ? 0x80000000 : 0;
-result1 = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -8193,12 +8193,12 @@ result1 = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x80000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.32.f32_mulnAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.32,1,1,1,1.f32_mulnAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMSH"
@@ -8210,7 +8210,7 @@ result1 = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Subtract From Half Word"
 ><Execution>
 fsign = fnegate ? 0x8000 : 0;
-result1 = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -8218,12 +8218,12 @@ result1 = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x8000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.16.f16_mulnAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.16,1,1,1,1.f16_mulnAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FADDWC"
@@ -13250,14 +13250,18 @@ for (i range 8) {
   what=	"Floating-Point Minimum Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = f64_min(argument2.64[i], argument3.64[i]);
+  new (lane, lio) = f64_min(argument2.64[i], argument3.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.f64_min
-    (READ.64[(INDEX.I)].argument2)
-    (READ.64[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.64,1.f64_min
+      (READ.64[(INDEX.I)].argument2)
+      (READ.64[(INDEX.I)].argument3)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINWQ"
@@ -13269,14 +13273,18 @@ for (i range 2) {
   what=	"Floating-Point Minimum Word Quadruple"
 ><Execution>
 for (i range 4) {
-  result1.32[i] = f32_min(argument2.32[i], argument3.32[i]);
+  new (lane, lio) = f32_min(argument2.32[i], argument3.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.4)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.f32_min
-    (READ.32[(INDEX.I)].argument2)
-    (READ.32[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.32,1.f32_min
+      (READ.32[(INDEX.I)].argument2)
+      (READ.32[(INDEX.I)].argument3)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINHO"
@@ -13288,14 +13296,18 @@ for (i range 4) {
   what=	"Floating-Point Minimum Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = f16_min(argument2.16[i], argument3.16[i]);
+  new (lane, lio) = f16_min(argument2.16[i], argument3.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.f16_min
-    (READ.16[(INDEX.I)].argument2)
-    (READ.16[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.16,1.f16_min
+      (READ.16[(INDEX.I)].argument2)
+      (READ.16[(INDEX.I)].argument3)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINNDP"
@@ -13307,14 +13319,18 @@ for (i range 8) {
   what=	"Floating-Point Minimum Number Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = f64_minNum(argument2.64[i], argument3.64[i]);
+  new (lane, lio) = f64_minNum(argument2.64[i], argument3.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.f64_minNum
-    (READ.64[(INDEX.I)].argument2)
-    (READ.64[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.64,1.f64_minNum
+      (READ.64[(INDEX.I)].argument2)
+      (READ.64[(INDEX.I)].argument3)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINNWQ"
@@ -13326,14 +13342,18 @@ for (i range 2) {
   what=	"Floating-Point Minimum Number Word Quadruple"
 ><Execution>
 for (i range 4) {
-  result1.32[i] = f32_minNum(argument2.32[i], argument3.32[i]);
+  new (lane, lio) = f32_minNum(argument2.32[i], argument3.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.4)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.f32_minNum
-    (READ.32[(INDEX.I)].argument2)
-    (READ.32[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.32,1.f32_minNum
+      (READ.32[(INDEX.I)].argument2)
+      (READ.32[(INDEX.I)].argument3)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMINNHO"
@@ -13345,14 +13365,18 @@ for (i range 4) {
   what=	"Floating-Point Minimum Number Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = f16_minNum(argument2.16[i], argument3.16[i]);
+  new (lane, lio) = f16_minNum(argument2.16[i], argument3.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.f16_minNum
-    (READ.16[(INDEX.I)].argument2)
-    (READ.16[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.16,1.f16_minNum
+      (READ.16[(INDEX.I)].argument2)
+      (READ.16[(INDEX.I)].argument3)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXDP"
@@ -13364,14 +13388,18 @@ for (i range 8) {
   what=	"Floating-Point Maximum Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = f64_max(argument2.64[i], argument3.64[i]);
+  new (lane, lio) = f64_max(argument2.64[i], argument3.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.f64_max
-    (READ.64[(INDEX.I)].argument2)
-    (READ.64[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.64,1.f64_max
+      (READ.64[(INDEX.I)].argument2)
+      (READ.64[(INDEX.I)].argument3)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXWQ"
@@ -13383,14 +13411,18 @@ for (i range 2) {
   what=	"Floating-Point Maximum Word Quadruple"
 ><Execution>
 for (i range 4) {
-  result1.32[i] = f32_max(argument2.32[i], argument3.32[i]);
+  new (lane, lio) = f32_max(argument2.32[i], argument3.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.4)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.f32_max
-    (READ.32[(INDEX.I)].argument2)
-    (READ.32[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.32,1.f32_max
+      (READ.32[(INDEX.I)].argument2)
+      (READ.32[(INDEX.I)].argument3)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXHO"
@@ -13402,14 +13434,18 @@ for (i range 4) {
   what=	"Floating-Point Maximum Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = f16_max(argument2.16[i], argument3.16[i]);
+  new (lane, lio) = f16_max(argument2.16[i], argument3.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.f16_max
-    (READ.16[(INDEX.I)].argument2)
-    (READ.16[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.16,1.f16_max
+      (READ.16[(INDEX.I)].argument2)
+      (READ.16[(INDEX.I)].argument3)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXNDP"
@@ -13421,14 +13457,18 @@ for (i range 8) {
   what=	"Floating-Point Maximum Number Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = f64_maxNum(argument2.64[i], argument3.64[i]);
+  new (lane, lio) = f64_maxNum(argument2.64[i], argument3.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.f64_maxNum
-    (READ.64[(INDEX.I)].argument2)
-    (READ.64[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.64,1.f64_maxNum
+      (READ.64[(INDEX.I)].argument2)
+      (READ.64[(INDEX.I)].argument3)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXNWQ"
@@ -13440,14 +13480,18 @@ for (i range 2) {
   what=	"Floating-Point Maximum Number Word Quadruple"
 ><Execution>
 for (i range 4) {
-  result1.32[i] = f32_maxNum(argument2.32[i], argument3.32[i]);
+  new (lane, lio) = f32_maxNum(argument2.32[i], argument3.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.4)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.f32_maxNum
-    (READ.32[(INDEX.I)].argument2)
-    (READ.32[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.32,1.f32_maxNum
+      (READ.32[(INDEX.I)].argument2)
+      (READ.32[(INDEX.I)].argument3)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FMAXNHO"
@@ -13459,14 +13503,18 @@ for (i range 4) {
   what=	"Floating-Point Maximum Number Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = f16_maxNum(argument2.16[i], argument3.16[i]);
+  new (lane, lio) = f16_maxNum(argument2.16[i], argument3.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.f16_maxNum
-    (READ.16[(INDEX.I)].argument2)
-    (READ.16[(INDEX.I)].argument3))))
+  (BIND.lane,lio
+    (APPLY.16,1.f16_maxNum
+      (READ.16[(INDEX.I)].argument2)
+      (READ.16[(INDEX.I)].argument3)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FSIGNDP"
@@ -16086,7 +16134,12 @@ for (i range 8) {
 ><Execution>
 fsign = fnegate ? 0x8000000000000000 : 0;
 for (i range 2) {
-  result1.64[i] = f64_mulAdd(RM, argument3.64[i], argument2.64[i]^fsign, argument1.64[i]^fsign);
+  new (lane, lio, lov, lun, lin) = f64_mulAdd(RM, argument3.64[i], argument2.64[i]^fsign, argument1.64[i]^fsign);
+  result1.64[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fun |= lun;
+  fin |= lin;
 }
 </Execution><Behavior>
 (SEQ
@@ -16096,12 +16149,17 @@ for (i range 2) {
       (CONST.0x8000000000000000)
       (CONST.0)))
   (FOR.I (RANGE.2)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.f64_mulAdd
-        (READ.RM)
-        (READ.64[(INDEX.I)].argument3)
-        (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
-        (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))))
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.64,1,1,1,1.f64_mulAdd
+          (READ.RM)
+          (READ.64[(INDEX.I)].argument3)
+          (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
+          (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))
+    (WRITE.64[(INDEX.I)].result1 (READ.lane))
+    (WRITE.fio (IOR (READ.fio) (READ.lio)))
+    (WRITE.fov (IOR (READ.fov) (READ.lov)))
+    (WRITE.fun (IOR (READ.fun) (READ.lun)))
+    (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMAWQ"
@@ -16114,7 +16172,12 @@ for (i range 2) {
 ><Execution>
 fsign = fnegate ? 0x80000000 : 0;
 for (i range 4) {
-  result1.32[i] = f32_mulAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+  new (lane, lio, lov, lun, lin) = f32_mulAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+  result1.32[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fun |= lun;
+  fin |= lin;
 }
 </Execution><Behavior>
 (SEQ
@@ -16124,12 +16187,17 @@ for (i range 4) {
       (CONST.0x80000000)
       (CONST.0)))
   (FOR.I (RANGE.4)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_mulAdd
-        (READ.RM)
-        (READ.32[(INDEX.I)].argument3)
-        (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
-        (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.32,1,1,1,1.f32_mulAdd
+          (READ.RM)
+          (READ.32[(INDEX.I)].argument3)
+          (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
+          (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))
+    (WRITE.32[(INDEX.I)].result1 (READ.lane))
+    (WRITE.fio (IOR (READ.fio) (READ.lio)))
+    (WRITE.fov (IOR (READ.fov) (READ.lov)))
+    (WRITE.fun (IOR (READ.fun) (READ.lun)))
+    (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMAHO"
@@ -16142,7 +16210,12 @@ for (i range 4) {
 ><Execution>
 fsign = fnegate ? 0x8000 : 0;
 for (i range 8) {
-  result1.16[i] = f16_mulAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+  new (lane, lio, lov, lun, lin) = f16_mulAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+  result1.16[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fun |= lun;
+  fin |= lin;
 }
 </Execution><Behavior>
 (SEQ
@@ -16152,12 +16225,17 @@ for (i range 8) {
       (CONST.0x8000)
       (CONST.0)))
   (FOR.I (RANGE.8)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.f16_mulAdd
-        (READ.RM)
-        (READ.16[(INDEX.I)].argument3)
-        (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
-        (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.16,1,1,1,1.f16_mulAdd
+          (READ.RM)
+          (READ.16[(INDEX.I)].argument3)
+          (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
+          (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))
+    (WRITE.16[(INDEX.I)].result1 (READ.lane))
+    (WRITE.fio (IOR (READ.fio) (READ.lio)))
+    (WRITE.fov (IOR (READ.fov) (READ.lov)))
+    (WRITE.fun (IOR (READ.fun) (READ.lun)))
+    (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMSDP"
@@ -16170,7 +16248,12 @@ for (i range 8) {
 ><Execution>
 fsign = fnegate ? 0x8000000000000000 : 0;
 for (i range 2) {
-  result1.64[i] = f64_mulnAdd(RM, argument3.64[i], argument2.64[i]^fsign, argument1.64[i]^fsign);
+  new (lane, lio, lov, lun, lin) = f64_mulnAdd(RM, argument3.64[i], argument2.64[i]^fsign, argument1.64[i]^fsign);
+  result1.64[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fun |= lun;
+  fin |= lin;
 }
 </Execution><Behavior>
 (SEQ
@@ -16180,12 +16263,17 @@ for (i range 2) {
       (CONST.0x8000000000000000)
       (CONST.0)))
   (FOR.I (RANGE.2)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.f64_mulnAdd
-        (READ.RM)
-        (READ.64[(INDEX.I)].argument3)
-        (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
-        (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))))
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.64,1,1,1,1.f64_mulnAdd
+          (READ.RM)
+          (READ.64[(INDEX.I)].argument3)
+          (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
+          (XOR (READ.64[(INDEX.I)].argument1) (READ.fsign))))
+    (WRITE.64[(INDEX.I)].result1 (READ.lane))
+    (WRITE.fio (IOR (READ.fio) (READ.lio)))
+    (WRITE.fov (IOR (READ.fov) (READ.lov)))
+    (WRITE.fun (IOR (READ.fun) (READ.lun)))
+    (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMSWQ"
@@ -16198,7 +16286,12 @@ for (i range 2) {
 ><Execution>
 fsign = fnegate ? 0x80000000 : 0;
 for (i range 4) {
-  result1.32[i] = f32_mulnAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+  new (lane, lio, lov, lun, lin) = f32_mulnAdd(RM, argument3.32[i], argument2.32[i]^fsign, argument1.32[i]^fsign);
+  result1.32[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fun |= lun;
+  fin |= lin;
 }
 </Execution><Behavior>
 (SEQ
@@ -16208,12 +16301,17 @@ for (i range 4) {
       (CONST.0x80000000)
       (CONST.0)))
   (FOR.I (RANGE.4)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_mulnAdd
-        (READ.RM)
-        (READ.32[(INDEX.I)].argument3)
-        (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
-        (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))))
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.32,1,1,1,1.f32_mulnAdd
+          (READ.RM)
+          (READ.32[(INDEX.I)].argument3)
+          (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
+          (XOR (READ.32[(INDEX.I)].argument1) (READ.fsign))))
+    (WRITE.32[(INDEX.I)].result1 (READ.lane))
+    (WRITE.fio (IOR (READ.fio) (READ.lio)))
+    (WRITE.fov (IOR (READ.fov) (READ.lov)))
+    (WRITE.fun (IOR (READ.fun) (READ.lun)))
+    (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FFMSHO"
@@ -16226,7 +16324,12 @@ for (i range 4) {
 ><Execution>
 fsign = fnegate ? 0x8000 : 0;
 for (i range 8) {
-  result1.16[i] = f16_mulnAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+  new (lane, lio, lov, lun, lin) = f16_mulnAdd(RM, argument3.16[i], argument2.16[i]^fsign, argument1.16[i]^fsign);
+  result1.16[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fun |= lun;
+  fin |= lin;
 }
 </Execution><Behavior>
 (SEQ
@@ -16236,12 +16339,17 @@ for (i range 8) {
       (CONST.0x8000)
       (CONST.0)))
   (FOR.I (RANGE.8)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.f16_mulnAdd
-        (READ.RM)
-        (READ.16[(INDEX.I)].argument3)
-        (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
-        (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))))
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.16,1,1,1,1.f16_mulnAdd
+          (READ.RM)
+          (READ.16[(INDEX.I)].argument3)
+          (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
+          (XOR (READ.16[(INDEX.I)].argument1) (READ.fsign))))
+    (WRITE.16[(INDEX.I)].result1 (READ.lane))
+    (WRITE.fio (IOR (READ.fio) (READ.lio)))
+    (WRITE.fov (IOR (READ.fov) (READ.lov)))
+    (WRITE.fun (IOR (READ.fun) (READ.lun)))
+    (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-ALU:XMOVETO"

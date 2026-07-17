@@ -16,45 +16,37 @@ Int256_ HELPER(_BMT_8)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(crc32_be_u32)(void *this, uint32_t opnd1, uint32_t opnd2) { lvx_behavior_unimpl(); }
 Int256_ HELPER(decode_riscv_float_rounding_mode)(void *this, uint8_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f16_classify)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f16_max)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f16_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f16_min)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f16_minNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f16_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f16_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f16_to_f32)(void *this, uint16_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f32_classify)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f32_fast_rec)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f32_fast_rsqrt)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f32_max)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f32_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f32_min)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f32_minNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f32_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f32_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f32_to_f64)(void *this, uint32_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f64_classify)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f64_fast_rec)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f64_fast_rsqrt)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f64_max)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f64_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f64_min)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f64_minNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f64_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
-Int256_ HELPER(f64_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
 Int256_ HELPER(fconj_32_32)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(get)(void *this, uint16_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Int256_ HELPER(reflect_32)(void *this, uint32_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(waitit)(void *this, uint32_t opnd1, uint32_t opnd2) { lvx_behavior_unimpl(); }
 Int256_ HELPER(wfxl)(void *this, uint16_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Int256_ HELPER(wfxm)(void *this, uint16_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_16_1 HELPER(f16_max)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_16_1 HELPER(f16_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_16_1 HELPER(f16_min)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_16_1 HELPER(f16_minNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_16_1_1 HELPER(f16_rint)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_16_1_1 HELPER(f16_sqrt)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_16_1_1_1 HELPER(f16_add)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
 Tuple_16_1_1_1 HELPER(f16_sub)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
 Tuple_16_1_1_1_1 HELPER(f16_mul)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
+Tuple_16_1_1_1_1 HELPER(f16_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
+Tuple_16_1_1_1_1 HELPER(f16_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
 Tuple_16_1_1_1_1 HELPER(f32_to_f16)(void *this, uint8_t opnd1, uint32_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_16_1_1_1_1_1 HELPER(f16_div)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
+Tuple_32_1 HELPER(f32_max)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_32_1 HELPER(f32_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_32_1 HELPER(f32_min)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_32_1 HELPER(f32_minNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_32_1_1 HELPER(f32_rint)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_32_1_1 HELPER(f32_sqrt)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_32_1_1 HELPER(f32_to_i32)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
@@ -68,8 +60,14 @@ Tuple_32_1_1 HELPER(ui64_to_f32)(void *this, uint8_t opnd1, uint64_t opnd2) { lv
 Tuple_32_1_1_1 HELPER(f32_add)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
 Tuple_32_1_1_1 HELPER(f32_sub)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
 Tuple_32_1_1_1_1 HELPER(f32_mul)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
+Tuple_32_1_1_1_1 HELPER(f32_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
+Tuple_32_1_1_1_1 HELPER(f32_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
 Tuple_32_1_1_1_1 HELPER(f64_to_f32)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_32_1_1_1_1_1 HELPER(f32_div)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
+Tuple_64_1 HELPER(f64_max)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_64_1 HELPER(f64_maxNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_64_1 HELPER(f64_min)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
+Tuple_64_1 HELPER(f64_minNum)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_64_1_1 HELPER(f32_to_i64)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_64_1_1 HELPER(f32_to_ui64)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Tuple_64_1_1 HELPER(f64_rint)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
@@ -85,6 +83,8 @@ Tuple_64_1_1_1 HELPER(f64_sub)(void *this, uint8_t opnd1, uint64_t opnd2, uint64
 Tuple_64_1_1_1 HELPER(ffmac_32_32)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
 Tuple_64_1_1_1 HELPER(fmulc_32_32)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
 Tuple_64_1_1_1_1 HELPER(f64_mul)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
+Tuple_64_1_1_1_1 HELPER(f64_mulAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
+Tuple_64_1_1_1_1 HELPER(f64_mulnAdd)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3, uint64_t opnd4) { lvx_behavior_unimpl(); }
 Tuple_64_1_1_1_1_1 HELPER(f64_div)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }
 bool HELPER(bcucond)(void *this, uint8_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 bool HELPER(ccbcomp)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3) { lvx_behavior_unimpl(); }

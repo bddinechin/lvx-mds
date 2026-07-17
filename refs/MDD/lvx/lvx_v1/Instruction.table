@@ -5652,12 +5652,12 @@ new result1 = floatcomp_16(argument4, argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Minimum Double Word"
 ><Execution>
-new result1 = f64_min(argument2, argument3);
+new (result1, fio) = f64_min(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_min
-  (READ.argument2)
-  (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.64,1.f64_min
+    (READ.argument2)
+    (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMINW"
@@ -5667,12 +5667,12 @@ new result1 = f64_min(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Minimum Word"
 ><Execution>
-new result1 = f32_min(argument2, argument3);
+new (result1, fio) = f32_min(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_min
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.32,1.f32_min
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMINH"
@@ -5682,12 +5682,12 @@ new result1 = f32_min(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Minimum Half Word"
 ><Execution>
-new result1 = f16_min(argument2, argument3);
+new (result1, fio) = f16_min(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_min
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.16,1.f16_min
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMINND"
@@ -5697,12 +5697,12 @@ new result1 = f16_min(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Minimum Number Double Word"
 ><Execution>
-new result1 = f64_minNum(argument2, argument3);
+new (result1, fio) = f64_minNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_minNum
-  (READ.argument2)
-  (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.64,1.f64_minNum
+    (READ.argument2)
+    (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMINNW"
@@ -5712,12 +5712,12 @@ new result1 = f64_minNum(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Minimum Number Word"
 ><Execution>
-new result1 = f32_minNum(argument2, argument3);
+new (result1, fio) = f32_minNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_minNum
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.32,1.f32_minNum
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMINNH"
@@ -5727,12 +5727,12 @@ new result1 = f32_minNum(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Minimum Number Half Word"
 ><Execution>
-new result1 = f16_minNum(argument2, argument3);
+new (result1, fio) = f16_minNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_minNum
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.16,1.f16_minNum
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMAXD"
@@ -5742,12 +5742,12 @@ new result1 = f16_minNum(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Maximum Double Word"
 ><Execution>
-new result1 = f64_max(argument2, argument3);
+new (result1, fio) = f64_max(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_max
-  (READ.argument2)
-  (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.64,1.f64_max
+    (READ.argument2)
+    (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMAXW"
@@ -5757,12 +5757,12 @@ new result1 = f64_max(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Maximum Word"
 ><Execution>
-new result1 = f32_max(argument2, argument3);
+new (result1, fio) = f32_max(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_max
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.32,1.f32_max
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMAXH"
@@ -5772,12 +5772,12 @@ new result1 = f32_max(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Maximum Half Word"
 ><Execution>
-new result1 = f16_max(argument2, argument3);
+new (result1, fio) = f16_max(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_max
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.16,1.f16_max
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMAXND"
@@ -5787,12 +5787,12 @@ new result1 = f16_max(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Maximum Number Double Word"
 ><Execution>
-new result1 = f64_maxNum(argument2, argument3);
+new (result1, fio) = f64_maxNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_maxNum
-  (READ.argument2)
-  (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.64,1.f64_maxNum
+    (READ.argument2)
+    (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMAXNW"
@@ -5802,12 +5802,12 @@ new result1 = f64_maxNum(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Maximum Number Word"
 ><Execution>
-new result1 = f32_maxNum(argument2, argument3);
+new (result1, fio) = f32_maxNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_maxNum
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.32,1.f32_maxNum
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FMAXNH"
@@ -5817,12 +5817,12 @@ new result1 = f32_maxNum(argument2, argument3);
   schedulings=	"Scheduling-lvx_v1-ALU_LITE"
   what=	"Floating-Point Maximum Number Half Word"
 ><Execution>
-new result1 = f16_maxNum(argument2, argument3);
+new (result1, fio) = f16_maxNum(argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_maxNum
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio
+  (APPLY.16,1.f16_maxNum
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FSIGND"
@@ -7690,7 +7690,7 @@ new (result1, fio, fdz, fov, fun, fin) = f16_div(RM, argument2, argument3);
   what=	"Floating-Point Fused Multiply Add Double Word"
 ><Execution>
 fsign = fnegate ? 0x8000000000000000 : 0;
-result1 = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -7698,12 +7698,12 @@ result1 = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x8000000000000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.64.f64_mulAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.64,1,1,1,1.f64_mulAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FFMAW"
@@ -7714,7 +7714,7 @@ result1 = f64_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Add Word"
 ><Execution>
 fsign = fnegate ? 0x80000000 : 0;
-result1 = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -7722,12 +7722,12 @@ result1 = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x80000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.32.f32_mulAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.32,1,1,1,1.f32_mulAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FFMAH"
@@ -7738,7 +7738,7 @@ result1 = f32_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Add Half Word"
 ><Execution>
 fsign = fnegate ? 0x8000 : 0;
-result1 = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -7746,12 +7746,12 @@ result1 = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x8000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.16.f16_mulAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.16,1,1,1,1.f16_mulAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FFMSD"
@@ -7762,7 +7762,7 @@ result1 = f16_mulAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Subtract From Double Word"
 ><Execution>
 fsign = fnegate ? 0x8000000000000000 : 0;
-result1 = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -7770,12 +7770,12 @@ result1 = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x8000000000000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.64.f64_mulnAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.64,1,1,1,1.f64_mulnAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FFMSW"
@@ -7786,7 +7786,7 @@ result1 = f64_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Subtract From Word"
 ><Execution>
 fsign = fnegate ? 0x80000000 : 0;
-result1 = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -7794,12 +7794,12 @@ result1 = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x80000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.32.f32_mulnAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.32,1,1,1,1.f32_mulnAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FFMSH"
@@ -7810,7 +7810,7 @@ result1 = f32_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
   what=	"Floating-Point Fused Multiply Subtract From Half Word"
 ><Execution>
 fsign = fnegate ? 0x8000 : 0;
-result1 = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
+new (result1, fio, fov, fun, fin) = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -7818,12 +7818,12 @@ result1 = f16_mulnAdd(RM, argument3, argument2^fsign, argument1^fsign);
       (I2B (READ.fnegate))
       (CONST.0x8000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.16.f16_mulnAdd
-      (READ.RM)
-      (READ.argument3)
-      (XOR (READ.argument2) (READ.fsign))
-      (XOR (READ.argument1) (READ.fsign)))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.16,1,1,1,1.f16_mulnAdd
+        (READ.RM)
+        (READ.argument3)
+        (XOR (READ.argument2) (READ.fsign))
+        (XOR (READ.argument1) (READ.fsign)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-FPU:FADDWC"

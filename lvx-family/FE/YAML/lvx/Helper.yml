@@ -184,15 +184,19 @@ Helper:
     arguments: [8, 64, 64]
 
   - ID: f16_max
+    result: [16, 1]
     arguments: [64, 64]
 
   - ID: f16_maxNum
+    result: [16, 1]
     arguments: [64, 64]
 
   - ID: f16_min
+    result: [16, 1]
     arguments: [64, 64]
 
   - ID: f16_minNum
+    result: [16, 1]
     arguments: [64, 64]
 
   - ID: f16_mul
@@ -200,9 +204,11 @@ Helper:
     arguments: [8, 64, 64]
 
   - ID: f16_mulAdd
+    result: [16, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
 
   - ID: f16_mulnAdd
+    result: [16, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
 
   - ID: f16_rint
@@ -246,15 +252,19 @@ Helper:
     arguments: [64]
 
   - ID: f32_max
+    result: [32, 1]
     arguments: [64, 64]
 
   - ID: f32_maxNum
+    result: [32, 1]
     arguments: [64, 64]
 
   - ID: f32_min
+    result: [32, 1]
     arguments: [64, 64]
 
   - ID: f32_minNum
+    result: [32, 1]
     arguments: [64, 64]
 
   - ID: f32_mul
@@ -262,9 +272,11 @@ Helper:
     arguments: [8, 64, 64]
 
   - ID: f32_mulAdd
+    result: [32, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
 
   - ID: f32_mulnAdd
+    result: [32, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
 
   - ID: f32_rint
@@ -320,15 +332,19 @@ Helper:
     arguments: [64]
 
   - ID: f64_max
+    result: [64, 1]
     arguments: [64, 64]
 
   - ID: f64_maxNum
+    result: [64, 1]
     arguments: [64, 64]
 
   - ID: f64_min
+    result: [64, 1]
     arguments: [64, 64]
 
   - ID: f64_minNum
+    result: [64, 1]
     arguments: [64, 64]
 
   - ID: f64_mul
@@ -336,9 +352,11 @@ Helper:
     arguments: [8, 64, 64]
 
   - ID: f64_mulAdd
+    result: [64, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
 
   - ID: f64_mulnAdd
+    result: [64, 1, 1, 1, 1]
     arguments: [8, 64, 64, 64]
 
   - ID: f64_rint

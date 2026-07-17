@@ -176,18 +176,22 @@
 <Helper
   ID=	"Helper-lvx_v2-f16_max"
   arguments=	"64 64"
+  result=	"16 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f16_maxNum"
   arguments=	"64 64"
+  result=	"16 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f16_min"
   arguments=	"64 64"
+  result=	"16 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f16_minNum"
   arguments=	"64 64"
+  result=	"16 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f16_mul"
@@ -197,10 +201,12 @@
 <Helper
   ID=	"Helper-lvx_v2-f16_mulAdd"
   arguments=	"8 64 64 64"
+  result=	"16 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f16_mulnAdd"
   arguments=	"8 64 64 64"
+  result=	"16 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f16_rint"
@@ -256,18 +262,22 @@
 <Helper
   ID=	"Helper-lvx_v2-f32_max"
   arguments=	"64 64"
+  result=	"32 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f32_maxNum"
   arguments=	"64 64"
+  result=	"32 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f32_min"
   arguments=	"64 64"
+  result=	"32 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f32_minNum"
   arguments=	"64 64"
+  result=	"32 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f32_mul"
@@ -277,10 +287,12 @@
 <Helper
   ID=	"Helper-lvx_v2-f32_mulAdd"
   arguments=	"8 64 64 64"
+  result=	"32 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f32_mulnAdd"
   arguments=	"8 64 64 64"
+  result=	"32 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f32_rint"
@@ -351,18 +363,22 @@
 <Helper
   ID=	"Helper-lvx_v2-f64_max"
   arguments=	"64 64"
+  result=	"64 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f64_maxNum"
   arguments=	"64 64"
+  result=	"64 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f64_min"
   arguments=	"64 64"
+  result=	"64 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f64_minNum"
   arguments=	"64 64"
+  result=	"64 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f64_mul"
@@ -372,10 +388,12 @@
 <Helper
   ID=	"Helper-lvx_v2-f64_mulAdd"
   arguments=	"8 64 64 64"
+  result=	"64 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f64_mulnAdd"
   arguments=	"8 64 64 64"
+  result=	"64 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f64_rint"
