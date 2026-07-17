@@ -4127,10 +4127,19 @@ Macro:
       new argument3 = %3;
       new argument2 = %2;
       new RM = decode_riscv_float_rounding_mode(floatmode);
+      new fio = 0;
+      new fdz = 0;
+      new fov = 0;
+      new fun = 0;
+      new fin = 0;
       @Instruction
       stage E4:
       %1 = result1;
-      commit_float_exception_flags();
+      CS.IO |= fio;
+      CS.DZ |= fdz;
+      CS.OV |= fov;
+      CS.UN |= fun;
+      CS.IN |= fin;
     behavior: &behaviorGW4RRF |
       (SEQ
         (WRITE.floatmode (ACCESS.ID.%4))
@@ -4138,9 +4147,28 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+        (WRITE.fio (CONST.0))
+        (WRITE.fdz (CONST.0))
+        (WRITE.fov (CONST.0))
+        (WRITE.fun (CONST.0))
+        (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (EFFECT.E4.commit_float_exception_flags))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+          (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+          (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+          (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+          (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+          (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
 
   - ID: GW4RRCF
     execution: &executionGW4RRCF |

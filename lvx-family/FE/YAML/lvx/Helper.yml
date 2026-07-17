@@ -13,12 +13,14 @@
 ## header made and nothing kept: CodeGen types the call from the declaration here, the
 ## width analysis bounds it from the APPLY, and the two never met.
 ##
-## `result` takes two or more widths for a TUPLE-valued helper -- `result: [32, 5]` is a
-## flag-returning FP operator returning (result, flags).  Its call site is then a BIND of
-## an APPLY with the matching widths, which destructures the tuple into ordinary
-## variables:
+## `result` takes two or more widths for a TUPLE-valued helper -- `result: [32, 1, 1, 1,
+## 1, 1]` is a flag-returning FP operator returning (result, io, dz, ov, un, in), one
+## element per IEEE flag so each goes straight to its own CS bitfield with no bit
+## arithmetic.  Its call site is then a BIND of an APPLY with the matching widths, which
+## destructures the tuple into ordinary variables:
 ##
-##   (BIND.value,flags (APPLY.32,5.f32_add (READ.RM) (READ.a) (READ.b)))
+##   (BIND.result1,fio,fdz,fov,fun,fin
+##     (APPLY.32,1,1,1,1,1.f32_add (READ.RM) (READ.argument2) (READ.argument3)))
 ##
 ## Declaring a tuple therefore means converting every APPLY of that helper in the same
 ## edit -- `helper-result` will not let it land half done.  See DOC/FP-helpers.md.
@@ -219,6 +221,7 @@ Helper:
     arguments: [8, 16]
 
   - ID: f32_add
+    result: [32, 1, 1, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f32_classify

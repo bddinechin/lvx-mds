@@ -2160,6 +2160,37 @@ sub pretty {
     my $omit_1 = $$this[0] =~ /\b(APPLY|READ|WRITE)\b/;
     my $indent = $spacing x $nesting;
 
+    # BIND and APPLYT carry a LIST where every other node carries a scalar -- the bound
+    # names, and the element widths.  The generic walk below would take each list for a
+    # child node and emit "(BIND (a.b.c) ...)", which is not what the grammar reads, so
+    # the tree would not survive the round trip through Opcode.table.  It does not fail
+    # quietly: BE/LAO and MDD/MDE re-parse that file, and a malformed emission is a
+    # syntax error there.  (Which is how this was found.)
+    #
+    # APPLYT prints as APPLY: the surface syntax distinguishes the two by the comma in
+    # the width list, not by the keyword -- DOC/Behavior.y's Tuple production.  The node
+    # name differs so that an unported consumer meets an unknown operator rather than a
+    # scalar slot holding a ref; the printed form must not.
+    if ($$this[0] eq 'BIND') {
+        my ($names, $tuple) = @{$this}[1, 2];
+        push @$pretty, "(BIND." . join(',', @{$names});
+        push @$pretty, "\n", $indent;
+        &pretty($pretty, $tuple, $spacing, $nesting + 1, $print_attributes);
+        push @$pretty, ")";
+        return;
+    }
+    if ($$this[0] eq 'APPLYT') {
+        my ($widths, $name) = @{$this}[1, 2];
+        push @$pretty, "(APPLY." . join(',', @{$widths}) . ".$name";
+        foreach my $item (@{$this}[3 .. $#{$this}]) {
+            next unless ref $item eq 'ARRAY';
+            push @$pretty, "\n", $indent;
+            &pretty($pretty, $item, $spacing, $nesting + 1, $print_attributes);
+        }
+        push @$pretty, ")";
+        return;
+    }
+
     my $sep = "";
     push @$pretty, "(";
     my $index = 0;

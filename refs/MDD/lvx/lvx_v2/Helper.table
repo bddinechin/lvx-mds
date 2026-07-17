@@ -226,6 +226,7 @@
 <Helper
   ID=	"Helper-lvx_v2-f32_add"
   arguments=	"8 64 64"
+  result=	"32 1 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v2-f32_classify"

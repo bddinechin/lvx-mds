@@ -4020,10 +4020,19 @@ Macro:
       new argument3 = %3;
       new argument2 = %2;
       new RM = decode_riscv_float_rounding_mode(floatmode);
+      new fio = 0;
+      new fdz = 0;
+      new fov = 0;
+      new fun = 0;
+      new fin = 0;
       @Instruction
       stage E4:
       %1 = result1;
-      commit_float_exception_flags();
+      CS.IO |= fio;
+      CS.DZ |= fdz;
+      CS.OV |= fov;
+      CS.UN |= fun;
+      CS.IN |= fin;
     behavior: &behaviorGW4RRF |
       (SEQ
         (WRITE.floatmode (ACCESS.ID.%4))
@@ -4031,9 +4040,28 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+        (WRITE.fio (CONST.0))
+        (WRITE.fdz (CONST.0))
+        (WRITE.fov (CONST.0))
+        (WRITE.fun (CONST.0))
+        (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (EFFECT.E4.commit_float_exception_flags))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
+        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+          (I2F.1 (IOR (READ.fio) (READ.cs_io))))
+        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+          (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
+        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+          (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
+        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+          (I2F.1 (IOR (READ.fun) (READ.cs_un))))
+        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+          (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RRCF
     execution: &executionGW4RRCF |
       stage ID:
@@ -10270,8 +10298,24 @@ Generic:
 ##
 ## `arguments` is the width in bits of each argument, in the order the behaviour passes
 ## them, counting the ones it leaves UNDEF. `result` is the width of what the helper
-## returns, and must agree with the width every APPLY of it declares. A width of 256 is
+## returns, and must agree with what every APPLY of it declares. A width of 256 is
 ## the container, and saying it is the same as saying nothing.
+##
+## That agreement is CHECKED -- `helper-result`, and fatal. It used to be a promise this
+## header made and nothing kept: CodeGen types the call from the declaration here, the
+## width analysis bounds it from the APPLY, and the two never met.
+##
+## `result` takes two or more widths for a TUPLE-valued helper -- `result: [32, 1, 1, 1,
+## 1, 1]` is a flag-returning FP operator returning (result, io, dz, ov, un, in), one
+## element per IEEE flag so each goes straight to its own CS bitfield with no bit
+## arithmetic. Its call site is then a BIND of an APPLY with the matching widths, which
+## destructures the tuple into ordinary variables:
+##
+## (BIND.result1,fio,fdz,fov,fun,fin
+## (APPLY.32,1,1,1,1,1.f32_add (READ.RM) (READ.argument2) (READ.argument3)))
+##
+## Declaring a tuple therefore means converting every APPLY of that helper in the same
+## edit -- `helper-result` will not let it land half done. See DOC/FP-helpers.md.
 ##
 ## A helper with no entry here takes and returns Int256_ -- a 32-byte union passed by
 ## value -- which is what all ~137 of them did. So this file is a migration, not a
@@ -10418,6 +10462,7 @@ Helper:
   - ID: f16_to_ui16
     arguments: [8, 16]
   - ID: f32_add
+    result: [32, 1, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f32_classify
     arguments: [64]
@@ -17536,10 +17581,10 @@ Instruction:
       according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      result1 = f32_add(RM, argument2, argument3);
+      new (result1, fio, fdz, fov, fun, fin) = f32_add(RM, argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_add
+      (BIND.result1,fio,fdz,fov,fun,fin
+        (APPLY.32,1,1,1,1,1.f32_add
           (READ.RM)
           (READ.argument2)
           (READ.argument3)))
@@ -17933,8 +17978,10 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fconj = conjugate ? 0x80000000 : 0;
-      result1.32[0] = f32_add(RM, argument2.32[0], argument3.32[0]);
-      result1.32[1] = f32_add(RM, argument2.32[1]^fconj, argument3.32[1]);
+      new (lane0, io0, dz0, ov0, un0, in0) = f32_add(RM, argument2.32[0], argument3.32[0]);
+      result1.32[0] = lane0;
+      new (lane1, io1, dz1, ov1, un1, in1) = f32_add(RM, argument2.32[1]^fconj, argument3.32[1]);
+      result1.32[1] = lane1;
       if (imultiply) {
         result1 = _SWAP_32(result1);
         result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -17946,17 +17993,19 @@ Instruction:
             (I2B (READ.conjugate))
             (CONST.0x80000000)
             (CONST.0)))
-        (WRITE.32[0].result1
-          (APPLY.32.f32_add
+        (BIND.lane0,io0,dz0,ov0,un0,in0
+          (APPLY.32,1,1,1,1,1.f32_add
             (READ.RM)
             (READ.32[0].argument2)
             (READ.32[0].argument3)))
-        (WRITE.32[1].result1
-          (APPLY.32.f32_add
+        (WRITE.32[0].result1 (READ.lane0))
+        (BIND.lane1,io1,dz1,ov1,un1,in1
+          (APPLY.32,1,1,1,1,1.f32_add
             (READ.RM)
             (XOR (READ.32[1].argument2)
                  (READ.fconj))
             (READ.32[1].argument3)))
+        (WRITE.32[1].result1 (READ.lane1))
         (IF
           (I2B (READ.imultiply))
           (SEQ

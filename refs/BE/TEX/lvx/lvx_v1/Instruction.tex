@@ -21749,10 +21749,24 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f64_add(RM, argument2, argument3);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FADDH: Floating-Point Add Half Word}]{FADDH\hfill Floating-Point Add Half Word}
@@ -21815,10 +21829,24 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
-  new result1 = f32_add(RM, argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio, fdz, fov, fun, fin) = f32_add(RM, argument2, argument3);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FADDWC: Floating-Point Add to Word Complex}]{FADDWC\hfill Floating-Point Add to Word Complex}
@@ -21854,8 +21882,10 @@ stage RR:
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
   new fconj = conjugate ? 0x80000000 : 0;
-  result1.32[0] = f32_add(RM, argument2.32[0], argument3.32[0]);
-  result1.32[1] = f32_add(RM, argument2.32[1] ^ fconj, argument3.32[1]);
+  new (lane0, io0, dz0, ov0, un0, in0) = f32_add(RM, argument2.32[0], argument3.32[0]);
+  result1.32[0] = lane0;
+  new (lane1, io1, dz1, ov1, un1, in1) = f32_add(RM, argument2.32[1] ^ fconj, argument3.32[1]);
+  result1.32[1] = lane1;
   if (imultiply) {
     new result1 = _SWAP_32(result1);
     result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -23884,10 +23914,24 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f64_sub(RM, argument3, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSBFH: Floating-Point Subtract From Half Word}]{FSBFH\hfill Floating-Point Subtract From Half Word}
@@ -23950,10 +23994,24 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new result1 = f32_sub(RM, argument3, argument2);
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSBFWC: Floating-Point Subtract from Word Complex}]{FSBFWC\hfill Floating-Point Subtract from Word Complex}

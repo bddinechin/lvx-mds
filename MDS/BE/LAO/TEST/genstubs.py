@@ -25,6 +25,26 @@ for i, (name, (ret, args)) in enumerate(sorted(protos.items()), start=100):
         pass
     elif ret == 'bool':
         body.append(f'    Int256_ v = result(c, {i}); mix256(c, v); return (v.dwords[0] & 1);')
+    elif ret.startswith('Tuple_'):
+        # A flag-returning helper (DOC/FP-helpers.md 6a).  The struct's name IS its
+        # shape -- Tuple_32_1_1_1_1_1 is (result, io, dz, ov, un, in) -- so the widths
+        # come from it and nothing else has to be parsed.  Every element is carved from
+        # the one deterministic value the other stubs return whole, which keeps the
+        # trace a function of the arguments exactly as before.
+        widths = [int(x) for x in ret[len('Tuple_'):].split('_')]
+        body.append(f'    Int256_ v = result(c, {i}); mix256(c, v);')
+        body.append(f'    {ret} r;')
+        off = 0
+        for k, w in enumerate(widths):
+            cty = ('uint8_t' if w <= 8 else 'uint16_t' if w <= 16
+                   else 'uint32_t' if w <= 32 else 'uint64_t')
+            if off % 64 + w > 64:              # never straddle a limb: start the next
+                off = (off // 64 + 1) * 64
+            d, s = off // 64, off % 64
+            mask = '~(uint64_t)0' if w >= 64 else f'0x{(1 << w) - 1:x}ULL'
+            body.append(f'    r._{k} = ({cty})((v.dwords[{d}] >> {s}) & {mask});')
+            off += w
+        body.append('    return r;')
     else:                                      # Int256_
         body.append(f'    Int256_ v = result(c, {i}); mix256(c, v); return v;')
     out.append(f'{ret} HELPER({name})({sig_args})\n{{\n' + '\n'.join(body) + '\n}\n')

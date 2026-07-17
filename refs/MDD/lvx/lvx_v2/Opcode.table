@@ -91561,10 +91561,19 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   result1 = f64_add(RM, argument2, argument3);
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -91588,12 +91597,91 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (APPLY.64.f64_add
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
       (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
       (METHOD.%2(*hi:63,lo:0*))
@@ -91622,12 +91710,21 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (i range 2) {
     result1.64[i] = f64_add(RM, argument2.64[i], argument3.64[i]);
   }
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -91651,6 +91748,16 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
     (WRITE.64[(INDEX.I)].result1
@@ -91658,7 +91765,76 @@ stage 5:
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))
         (READ.64[(INDEX.I)].argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
       (METHOD.%2(*hi:31,lo:0*))
@@ -91687,10 +91863,19 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
-  result1 = f32_add(RM, argument2, argument3);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
+  new (result1, fio, fdz, fov, fun, fin) = f32_add(RM, argument2, argument3);
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -91714,12 +91899,91 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
-  (WRITE.result1
-    (APPLY.32.f32_add
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
+  (BIND.result1,fio,fdz,fov,fun,fin
+    (APPLY.32,1,1,1,1,1.f32_add
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
-  (EFFECT.5.commit_float_exception_flags)
+      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:1,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:1,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
       (METHOD.%2(*hi:63,lo:0*))
@@ -91748,12 +92012,27 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (i range 4) {
-    result1.32[i] = f32_add(RM, argument2.32[i], argument3.32[i]);
+    new (lane, lio, ldz, lov, lun, lin) = f32_add(RM, argument2.32[i], argument3.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fdz |= ldz;
+    fov |= lov;
+    fun |= lun;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -91777,14 +92056,116 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (FOR.I
     (RANGE.0.4.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_add
-        (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))
-        (READ.32[(INDEX.I)].argument3(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
-  (EFFECT.5.commit_float_exception_flags)
+    (SEQ
+      (BIND.lane,lio,ldz,lov,lun,lin
+        (APPLY.32,1,1,1,1,1.f32_add
+          (READ.RM(*dm:8,hi:7,lo:0*))
+          (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))
+          (READ.32[(INDEX.I)].argument3(*dm:64,hi:4294967295,lo:0*))))
+      (WRITE.32[(INDEX.I)].result1
+        (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+      (WRITE.fio
+        (IOR
+          (READ.fio(*dm:1,hi:1,lo:0*))
+          (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fdz
+        (IOR
+          (READ.fdz(*dm:1,hi:1,lo:0*))
+          (READ.ldz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fov
+        (IOR
+          (READ.fov(*dm:1,hi:1,lo:0*))
+          (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fun
+        (IOR
+          (READ.fun(*dm:1,hi:1,lo:0*))
+          (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fin
+        (IOR
+          (READ.fin(*dm:1,hi:1,lo:0*))
+          (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))))
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:1,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:1,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
       (METHOD.%2(*hi:31,lo:0*))
@@ -91874,12 +92255,21 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (i range 8) {
     result1.16[i] = f16_add(RM, argument2.16[i], argument3.16[i]);
   }
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -91903,6 +92293,16 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (FOR.I
     (RANGE.0.8.1)
     (WRITE.16[(INDEX.I)].result1
@@ -91910,7 +92310,76 @@ stage 5:
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.16[(INDEX.I)].argument2(*dm:64,hi:65535,lo:0*))
         (READ.16[(INDEX.I)].argument3(*dm:64,hi:65535,lo:0*))(*dm:16,hi:65535,lo:0*))))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
       (METHOD.%2(*hi:31,lo:0*))
@@ -91939,10 +92408,19 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   result1 = f64_sub(RM, argument3, argument2);
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -91966,12 +92444,91 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (APPLY.64.f64_sub
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))
       (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
       (METHOD.%2(*hi:63,lo:0*))
@@ -92000,12 +92557,21 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (i range 2) {
     result1.64[i] = f64_sub(RM, argument3.64[i], argument2.64[i]);
   }
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -92029,6 +92595,16 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
     (WRITE.64[(INDEX.I)].result1
@@ -92036,7 +92612,76 @@ stage 5:
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.64[(INDEX.I)].argument3(*dm:64,hi:18446744073709551615,lo:0*))
         (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
       (METHOD.%2(*hi:31,lo:0*))
@@ -92065,10 +92710,19 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   result1 = f32_sub(RM, argument3, argument2);
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -92092,12 +92746,91 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.result1
     (APPLY.32.f32_sub
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))
       (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
       (METHOD.%2(*hi:63,lo:0*))
@@ -92126,12 +92859,21 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (i range 4) {
     result1.32[i] = f32_sub(RM, argument3.32[i], argument2.32[i]);
   }
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -92155,6 +92897,16 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (FOR.I
     (RANGE.0.4.1)
     (WRITE.32[(INDEX.I)].result1
@@ -92162,7 +92914,76 @@ stage 5:
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.32[(INDEX.I)].argument3(*dm:64,hi:4294967295,lo:0*))
         (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
       (METHOD.%2(*hi:31,lo:0*))
@@ -92252,12 +93073,21 @@ stage 1:
   new argument3 = %4;
   new argument2 = %3;
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   for (i range 8) {
     result1.16[i] = f16_sub(RM, argument3.16[i], argument2.16[i]);
   }
 stage 5:
   %2 = result1;
-  commit_float_exception_flags();
+  CS.IO |= fio;
+  CS.DZ |= fdz;
+  CS.OV |= fov;
+  CS.UN |= fun;
+  CS.IN |= fin;
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg Modifier-lvx_v2-floatmode"
   proxies=	"%2 %3 %4 %1"
@@ -92281,6 +93111,16 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (FOR.I
     (RANGE.0.8.1)
     (WRITE.16[(INDEX.I)].result1
@@ -92288,7 +93128,76 @@ stage 5:
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.16[(INDEX.I)].argument3(*dm:64,hi:65535,lo:0*))
         (READ.16[(INDEX.I)].argument2(*dm:64,hi:65535,lo:0*))(*dm:16,hi:65535,lo:0*))))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))(*dm:1,hi:1,lo:0*)))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
       (METHOD.%2(*hi:31,lo:0*))
@@ -94021,8 +94930,10 @@ stage 1:
   new argument1 = %4;
   new RM = decode_riscv_float_rounding_mode(floatmode);
   fconj = conjugate ? 0x80000000 : 0;
-  result1.32[0] = f32_add(RM, argument2.32[0], argument3.32[0]);
-  result1.32[1] = f32_add(RM, argument2.32[1]^fconj, argument3.32[1]);
+  new (lane0, io0, dz0, ov0, un0, in0) = f32_add(RM, argument2.32[0], argument3.32[0]);
+  result1.32[0] = lane0;
+  new (lane1, io1, dz1, ov1, un1, in1) = f32_add(RM, argument2.32[1]^fconj, argument3.32[1]);
+  result1.32[1] = lane1;
   if (imultiply) {
     result1 = _SWAP_32(result1);
     result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -94065,18 +94976,22 @@ stage 5:
         (READ.conjugate(*hi:1,lo:0*)))
       (CONST.2147483648)
       (CONST.0)(*dm:64,hi:2147483648,lo:0*)))
-  (WRITE.32[0].result1
-    (APPLY.32.f32_add
+  (BIND.lane0,io0,dz0,ov0,un0,in0
+    (APPLY.32,1,1,1,1,1.f32_add
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.32[0].argument2(*dm:64,hi:4294967295,lo:0*))
-      (READ.32[0].argument3(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*)))
-  (WRITE.32[1].result1
-    (APPLY.32.f32_add
+      (READ.32[0].argument3(*dm:64,hi:4294967295,lo:0*))))
+  (WRITE.32[0].result1
+    (READ.lane0(*dm:32,hi:4294967295,lo:0*)))
+  (BIND.lane1,io1,dz1,ov1,un1,in1
+    (APPLY.32,1,1,1,1,1.f32_add
       (READ.RM(*dm:8,hi:7,lo:0*))
       (XOR
         (READ.32[1].argument2(*dm:64,hi:4294967295,lo:0*))
         (READ.fconj(*dm:64,hi:2147483648,lo:0*))(*dm:64,hi:4294967295,lo:0*))
-      (READ.32[1].argument3(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*)))
+      (READ.32[1].argument3(*dm:64,hi:4294967295,lo:0*))))
+  (WRITE.32[1].result1
+    (READ.lane1(*dm:32,hi:4294967295,lo:0*)))
   (IF
     (I2B
       (READ.imultiply(*hi:1,lo:0*)))

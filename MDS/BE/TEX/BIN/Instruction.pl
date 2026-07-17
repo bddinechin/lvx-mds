@@ -293,6 +293,17 @@ sub execution_slot_for_stage {
         }
         $res .= " = ";
         $res .= &execution_slot_for_stage($node[3], 0, 0, 1);
+    } elsif ($node_type eq 'BIND') {
+        # The destructuring of a tuple-valued call, rendered in the same shape the
+        # Execution grammar takes for one (DOC/Execution.y's declarator_list):
+        #   new (result1, fio, fdz, fov, fun, fin) = f32_add(RM, argument2, argument3);
+        # All the names are declared here, so mark them seen -- a later READ of one must
+        # not print another "new".
+        my (undef, $names, $tuple) = @node;
+        $res .= " " x $indent;
+        $res .= "new (" . join(', ', @{$names}) . ") = ";
+        $seen_syms{$_} = 1 foreach @{$names};
+        $res .= &execution_slot_for_stage($tuple, 0, 0, 1);
     } elsif ($node_type eq 'READ') {
         $res .= " " x $indent;
         $res .= "$node[2]";
@@ -482,6 +493,19 @@ sub execution_slot_for_stage {
     } elsif ($node_type eq 'CANCEL') {
         $res .= " " x $indent;
         $res .= "cancel()";
+    } elsif ($node_type eq 'APPLYT') {
+        # As APPLY, and for the same reason its width is not shown: the call reads the
+        # same, and it is the BIND above that says what comes back.  Its own width slot
+        # holds a LIST, so it cannot go through APPLY's numeric test below.
+        $res .= " " x $indent;
+        $node[2] =~ s/MEM_/MEM./;
+        $res .= "$node[2](";
+        my $once = 0;
+        foreach my $arg (splice @node, 3) {
+            $res .= ", " if $once++ != 0 && ref $arg eq 'ARRAY';
+            $res .= &execution_slot_for_stage($arg, 0, 0, 1);
+        }
+        $res .= ")";
     } elsif ($node_type eq 'APPLY') {
         $res .= " " x $indent;
         if ($node[1] =~ /^[0-9]+$/) {
