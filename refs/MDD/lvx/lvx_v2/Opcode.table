@@ -69961,7 +69961,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -69982,7 +69982,7 @@ stage 2:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -69990,7 +69990,15 @@ stage 2:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -70101,7 +70109,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -70122,7 +70130,7 @@ stage 2:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -70130,7 +70138,15 @@ stage 2:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*dm:128,hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -70379,7 +70395,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -70400,7 +70416,7 @@ stage 2:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -70408,7 +70424,15 @@ stage 2:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:32,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -70520,7 +70544,7 @@ stage 0:
   new floatmode = %2;
 stage 1:
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -70544,7 +70568,7 @@ stage 2:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -70552,7 +70576,15 @@ stage 2:
           (METHOD.%4(*hi:31,lo:0*))
           (CONST.1)))(*dm:64,hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -84626,7 +84658,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -84647,7 +84679,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -84655,7 +84687,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -84767,7 +84807,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -84793,7 +84833,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -84801,7 +84841,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -84925,7 +84973,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -84946,7 +84994,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -84954,7 +85002,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -85066,7 +85122,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -85092,7 +85148,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -85100,7 +85156,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -85224,7 +85288,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -85250,7 +85314,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -85258,7 +85322,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -85382,7 +85454,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -85408,7 +85480,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -85416,7 +85488,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -85540,7 +85620,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -85561,7 +85641,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -85569,7 +85649,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -85681,7 +85769,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -85707,7 +85795,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -85715,7 +85803,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -85839,7 +85935,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -85860,7 +85956,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -85868,7 +85964,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -85980,7 +86084,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -86006,7 +86110,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -86014,7 +86118,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -86138,7 +86250,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -86164,7 +86276,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -86172,7 +86284,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -86296,7 +86416,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -86322,7 +86442,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -86330,7 +86450,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -86454,7 +86582,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -86475,7 +86603,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -86483,7 +86611,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -86595,7 +86731,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -86616,7 +86752,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -86624,7 +86760,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -86736,7 +86880,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -86757,7 +86901,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -86765,7 +86909,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -86877,7 +87029,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -86898,7 +87050,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -86906,7 +87058,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -87018,7 +87178,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -87039,7 +87199,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -87047,7 +87207,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -87159,7 +87327,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -87185,7 +87353,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -87193,7 +87361,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -87317,7 +87493,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -87338,7 +87514,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -87346,7 +87522,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -87458,7 +87642,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -87484,7 +87668,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -87492,7 +87676,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -87616,7 +87808,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -87642,7 +87834,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -87650,7 +87842,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -87774,7 +87974,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -87800,7 +88000,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -87808,7 +88008,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -87932,7 +88140,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -87953,7 +88161,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -87961,7 +88169,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -88073,7 +88289,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -88099,7 +88315,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -88107,7 +88323,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -88231,7 +88455,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -88252,7 +88476,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -88260,7 +88484,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -88372,7 +88604,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -88398,7 +88630,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -88406,7 +88638,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -88530,7 +88770,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -88556,7 +88796,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -88564,7 +88804,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -88688,7 +88936,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -88714,7 +88962,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.128
       (LOAD.1
@@ -88722,7 +88970,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -88846,7 +89102,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -88867,7 +89123,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -88875,7 +89131,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -88987,7 +89251,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -89008,7 +89272,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -89016,7 +89280,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -89128,7 +89400,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -89149,7 +89421,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -89157,7 +89429,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -89269,7 +89549,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -89290,7 +89570,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -89298,7 +89578,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -89410,7 +89698,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -89431,7 +89719,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -89439,7 +89727,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -89551,7 +89847,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -89572,7 +89868,7 @@ stage 16:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -89580,7 +89876,15 @@ stage 16:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -89692,7 +89996,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -89713,7 +90017,7 @@ stage 16:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -89721,7 +90025,15 @@ stage 16:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -89833,7 +90145,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -89854,7 +90166,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -89862,7 +90174,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -89974,7 +90294,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -89995,7 +90315,7 @@ stage 16:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -90003,7 +90323,15 @@ stage 16:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -90115,7 +90443,7 @@ stage 0:
   new floatmode = %1;
 stage 1:
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -90136,7 +90464,7 @@ stage 16:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument2
     (F2I.64
       (LOAD.1
@@ -90144,7 +90472,15 @@ stage 16:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -99556,7 +99892,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -99577,7 +99913,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -99591,7 +99927,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -99705,7 +100049,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -99732,7 +100076,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -99746,7 +100090,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -99876,7 +100228,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -99897,7 +100249,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -99911,7 +100263,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -100025,7 +100385,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -100052,7 +100412,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -100066,7 +100426,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -100197,7 +100565,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -100218,7 +100586,7 @@ stage 4:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -100232,7 +100600,15 @@ stage 4:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -100346,7 +100722,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -100373,7 +100749,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -100387,7 +100763,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -100517,7 +100901,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -100538,7 +100922,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -100552,7 +100936,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -100666,7 +101058,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -100693,7 +101085,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -100707,7 +101099,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -100837,7 +101237,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -100858,7 +101258,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -100872,7 +101272,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -100986,7 +101394,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -101013,7 +101421,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -101027,7 +101435,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -101157,7 +101573,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -101178,7 +101594,7 @@ stage 4:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -101192,7 +101608,15 @@ stage 4:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -101306,7 +101730,7 @@ stage 0:
 stage 1:
   new argument3 = %4;
   new argument2 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -101333,7 +101757,7 @@ stage 5:
 (SEQ
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%1(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%1(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -101347,7 +101771,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -101478,7 +101910,7 @@ stage 0:
 stage 1:
   new argument3 = %5;
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -101503,7 +101935,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -101517,7 +101949,15 @@ stage 5:
           (METHOD.%4(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -101640,7 +102080,7 @@ stage 0:
 stage 1:
   new argument3 = %5;
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -101672,7 +102112,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -101686,7 +102126,15 @@ stage 5:
           (METHOD.%4(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -101829,7 +102277,7 @@ stage 0:
 stage 1:
   new argument3 = %5;
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -101854,7 +102302,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -101868,7 +102316,15 @@ stage 5:
           (METHOD.%4(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -101991,7 +102447,7 @@ stage 0:
 stage 1:
   new argument3 = %5;
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -102023,7 +102479,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -102037,7 +102493,15 @@ stage 5:
           (METHOD.%4(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -102180,7 +102644,7 @@ stage 0:
 stage 1:
   new argument3 = %5;
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -102205,7 +102669,7 @@ stage 4:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -102219,7 +102683,15 @@ stage 4:
           (METHOD.%4(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -102342,7 +102814,7 @@ stage 0:
 stage 1:
   new argument3 = %5;
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -102374,7 +102846,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -102388,7 +102860,15 @@ stage 5:
           (METHOD.%4(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -102531,7 +103011,7 @@ stage 0:
 stage 1:
   new argument3 = %5;
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -102556,7 +103036,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -102570,7 +103050,15 @@ stage 5:
           (METHOD.%4(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -102693,7 +103181,7 @@ stage 0:
 stage 1:
   new argument3 = %5;
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -102718,7 +103206,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -102732,7 +103220,15 @@ stage 5:
           (METHOD.%4(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -102855,7 +103351,7 @@ stage 0:
 stage 1:
   new argument3 = %5;
   new argument2 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -102880,7 +103376,7 @@ stage 4:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -102894,7 +103390,15 @@ stage 4:
           (METHOD.%4(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -103018,7 +103522,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -103043,7 +103547,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -103063,7 +103567,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -103190,7 +103702,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -103222,7 +103734,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -103242,7 +103754,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -103389,7 +103909,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -103414,7 +103934,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -103434,7 +103954,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -103561,7 +104089,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -103586,7 +104114,7 @@ stage 4:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -103606,7 +104134,15 @@ stage 4:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -103733,7 +104269,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -103765,7 +104301,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -103785,7 +104321,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -103932,7 +104476,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -103964,7 +104508,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -103984,7 +104528,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -104131,7 +104683,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -104156,7 +104708,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -104176,7 +104728,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -104303,7 +104863,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -104335,7 +104895,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -104355,7 +104915,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -104502,7 +105070,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -104527,7 +105095,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -104547,7 +105115,15 @@ stage 5:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -104674,7 +105250,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -104699,7 +105275,7 @@ stage 4:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -104719,7 +105295,15 @@ stage 4:
           (METHOD.%3(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -104846,7 +105430,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -104878,7 +105462,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -104898,7 +105482,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -105045,7 +105637,7 @@ stage 1:
   new argument3 = %5;
   new argument2 = %4;
   new argument1 = %3;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -105077,7 +105669,7 @@ stage 5:
       (METHOD.%1(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%2(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%2(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.128
       (LOAD.1
@@ -105097,7 +105689,15 @@ stage 5:
           (METHOD.%3(*hi:31,lo:0*))
           (CONST.1)))(*hi:340282366920938463463374607431768211455,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -105245,7 +105845,7 @@ stage 1:
   new argument3 = %6;
   new argument2 = %5;
   new argument1 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -105283,7 +105883,7 @@ stage 5:
       (METHOD.%2(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%3(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%3(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -105297,7 +105897,15 @@ stage 5:
           (METHOD.%5(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fdz
     (CONST.0))
@@ -105449,7 +106057,7 @@ stage 1:
   new argument3 = %6;
   new argument2 = %5;
   new argument1 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -105490,7 +106098,7 @@ stage 5:
       (METHOD.%2(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%3(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%3(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -105504,7 +106112,15 @@ stage 5:
           (METHOD.%5(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -105674,7 +106290,7 @@ stage 1:
   new argument3 = %6;
   new argument2 = %5;
   new argument1 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -105712,7 +106328,7 @@ stage 5:
       (METHOD.%2(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%3(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%3(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -105726,7 +106342,15 @@ stage 5:
           (METHOD.%5(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))
@@ -105876,7 +106500,7 @@ stage 1:
   new argument3 = %6;
   new argument2 = %5;
   new argument1 = %4;
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -105914,7 +106538,7 @@ stage 5:
       (METHOD.%2(*dm:1*))(*hi:1,lo:0*)))
   (WRITE.floatmode
     (ZX.3
-      (METHOD.%3(*dm:3*))(*dm:8,hi:7,lo:0*)))
+      (METHOD.%3(*dm:3*))(*hi:7,lo:0*)))
   (WRITE.argument3
     (F2I.64
       (LOAD.1
@@ -105934,7 +106558,15 @@ stage 5:
           (METHOD.%4(*hi:63,lo:0*))
           (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode(*hi:7,lo:0*))
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3)))(*dm:8,hi:7,lo:0*))
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
   (WRITE.fio
     (CONST.0))

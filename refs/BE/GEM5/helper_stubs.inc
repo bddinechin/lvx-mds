@@ -14,7 +14,6 @@ Int256_ HELPER(MEM_atomic_swap)(void *this, uint64_t opnd1, Int256_ opnd2, uint6
 Int256_ HELPER(_BMM_8)(void *this, uint64_t opnd1, uint64_t opnd2) { lvx_behavior_unimpl(); }
 Int256_ HELPER(_BMT_8)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(crc32_be_u32)(void *this, uint32_t opnd1, uint32_t opnd2) { lvx_behavior_unimpl(); }
-Int256_ HELPER(decode_riscv_float_rounding_mode)(void *this, uint8_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f16_classify)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f16_to_f32)(void *this, uint16_t opnd1) { lvx_behavior_unimpl(); }
 Int256_ HELPER(f32_classify)(void *this, uint64_t opnd1) { lvx_behavior_unimpl(); }

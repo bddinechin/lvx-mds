@@ -156,10 +156,6 @@
   arguments=	"32 32"
 />
 <Helper
-  ID=	"Helper-lvx_v1-decode_riscv_float_rounding_mode"
-  arguments=	"8"
-/>
-<Helper
   ID=	"Helper-lvx_v1-f16_add"
   arguments=	"8 64 64"
   result=	"16 1 1 1"
@@ -758,10 +754,6 @@
 <Helper
   ID=	"Helper-lvx_v2-crc32_be_u32"
   arguments=	"32 32"
-/>
-<Helper
-  ID=	"Helper-lvx_v2-decode_riscv_float_rounding_mode"
-  arguments=	"8"
 />
 <Helper
   ID=	"Helper-lvx_v2-f16_add"

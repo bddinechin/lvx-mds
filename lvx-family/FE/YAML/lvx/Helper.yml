@@ -169,9 +169,6 @@ Helper:
   - ID: crc32_be_u32
     arguments: [32, 32]
 
-  - ID: decode_riscv_float_rounding_mode
-    arguments: [8]
-
   - ID: f16_add
     result: [16, 1, 1, 1]
     arguments: [8, 64, 64]

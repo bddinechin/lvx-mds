@@ -21748,7 +21748,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -21795,7 +21795,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -21842,7 +21842,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -21894,7 +21894,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22228,7 +22228,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22278,7 +22278,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22328,7 +22328,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22379,7 +22379,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22430,7 +22430,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22481,7 +22481,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22534,7 +22534,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22595,7 +22595,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22646,7 +22646,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22697,7 +22697,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22744,7 +22744,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22790,7 +22790,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22836,7 +22836,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22882,7 +22882,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22928,7 +22928,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22974,7 +22974,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23020,7 +23020,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23071,7 +23071,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23117,7 +23117,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23163,7 +23163,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23214,7 +23214,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23260,7 +23260,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23306,7 +23306,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23352,7 +23352,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23398,7 +23398,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23444,7 +23444,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23490,7 +23490,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23541,7 +23541,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23587,7 +23587,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23633,7 +23633,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24155,7 +24155,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24205,7 +24205,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24255,7 +24255,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24308,7 +24308,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24365,7 +24365,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24411,7 +24411,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24551,7 +24551,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24597,7 +24597,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24643,7 +24643,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24690,7 +24690,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24737,7 +24737,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24784,7 +24784,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24836,7 +24836,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -25247,7 +25247,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -25293,7 +25293,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -25339,7 +25339,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = decode_riscv_float_rounding_mode(floatmode);
+  new RM = floatmode == 7 ? CS.RM : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;

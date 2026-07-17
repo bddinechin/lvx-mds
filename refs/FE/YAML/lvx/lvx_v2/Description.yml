@@ -18,6 +18,119 @@ Convention:
     static: [ ]
     struct: [ R15 ]
 Macro:
+  - ID: roundOnce
+    execution: &executionRoundOnce |
+      ro_ov = 0;
+      ro_un = 0;
+      ro_in = 0;
+      ro_inf = 0;
+      if (ro_mant == 0) {
+        ro_expo = ro_lsb0;
+      } else {
+        ro_lead = ro_expo + (256 - _CLZ_256(ro_mant)) - 1;
+        ro_lsb = _MAX_(ro_lead + 1 - ro_p, ro_emin + 1 - ro_p);
+        ro_shift = ro_lsb - ro_expo;
+        if (ro_shift <= 0) {
+          ro_mant = ro_mant << _MAX_(-ro_shift, 0);
+          ro_expo = ro_lsb;
+        } else {
+          ro_g = (ro_mant >> _MAX_(ro_shift - 1, 0)) & 1;
+          ro_s = (ro_mant & ((1 << _MAX_(ro_shift - 1, 0)) - 1)) != 0;
+          ro_t = ro_mant >> _MAX_(ro_shift, 0);
+          ro_in = ro_g | ro_s;
+          ro_odd = ro_t & 1;
+          ro_incr = RM == 0 ? ro_g & (ro_s | ro_odd)
+                  : RM == 1 ? 0
+                  : RM == 2 ? ro_sign & ro_in
+                  : RM == 3 ? (ro_sign ^ 1) & ro_in
+                  : RM == 4 ? ro_g
+                  : ro_in & (ro_odd ^ 1);
+          ro_mant = ro_t + ro_incr;
+          ro_expo = ro_lsb;
+          if ((256 - _CLZ_256(ro_mant)) > ro_p) {
+            ro_mant = ro_mant >> 1;
+            ro_expo = ro_expo + 1;
+          }
+        }
+        ro_lead = ro_expo + (256 - _CLZ_256(ro_mant)) - 1;
+        if (ro_lead > ro_emax) {
+          ro_ov = 1;
+          ro_in = 1;
+          ro_inf = RM == 1 ? 0 : RM == 6 ? 0 : RM == 2 ? ro_sign : RM == 3 ? (ro_sign ^ 1) : 1;
+        } else if (ro_lead < ro_emin && ro_in) {
+          ro_un = 1;
+        }
+      }
+    behavior: &behaviorRoundOnce |
+      (SEQ
+        (WRITE.ro_ov (CONST.0))
+        (WRITE.ro_un (CONST.0))
+        (WRITE.ro_in (CONST.0))
+        (WRITE.ro_inf (CONST.0))
+        (IF
+          (EQ (READ.ro_mant) (CONST.0))
+          (WRITE.ro_expo (READ.ro_lsb0))
+          (SEQ
+            (WRITE.ro_lead
+              (SUB (ADD (READ.ro_expo) (SUB (CONST.256) (CLZ.256 (READ.ro_mant)))) (CONST.1)))
+            (WRITE.ro_lsb
+              (MAX (SUB (ADD (READ.ro_lead) (CONST.1)) (READ.ro_p))
+                   (SUB (ADD (READ.ro_emin) (CONST.1)) (READ.ro_p))))
+            (WRITE.ro_shift (SUB (READ.ro_lsb) (READ.ro_expo)))
+            (IF
+              (LE (READ.ro_shift) (CONST.0))
+              (SEQ
+                (WRITE.ro_mant (SHL (READ.ro_mant) (MAX (NEG (READ.ro_shift)) (CONST.0))))
+                (WRITE.ro_expo (READ.ro_lsb)))
+              (SEQ
+                (WRITE.ro_g
+                  (AND (SHR (READ.ro_mant) (MAX (SUB (READ.ro_shift) (CONST.1)) (CONST.0))) (CONST.1)))
+                (WRITE.ro_s
+                  (SELECT
+                    (NE (AND (READ.ro_mant)
+                             (SUB (SHL (CONST.1) (MAX (SUB (READ.ro_shift) (CONST.1)) (CONST.0))) (CONST.1)))
+                        (CONST.0))
+                    (CONST.1) (CONST.0)))
+                (WRITE.ro_t (SHR (READ.ro_mant) (MAX (READ.ro_shift) (CONST.0))))
+                (WRITE.ro_in (IOR (READ.ro_g) (READ.ro_s)))
+                (WRITE.ro_odd (AND (READ.ro_t) (CONST.1)))
+                (WRITE.ro_incr
+                  (SELECT (EQ (READ.RM) (CONST.0))
+                    (AND (READ.ro_g) (IOR (READ.ro_s) (READ.ro_odd)))
+                  (SELECT (EQ (READ.RM) (CONST.1))
+                    (CONST.0)
+                  (SELECT (EQ (READ.RM) (CONST.2))
+                    (AND (READ.ro_sign) (READ.ro_in))
+                  (SELECT (EQ (READ.RM) (CONST.3))
+                    (AND (XOR (READ.ro_sign) (CONST.1)) (READ.ro_in))
+                  (SELECT (EQ (READ.RM) (CONST.4))
+                    (READ.ro_g)
+                    (AND (READ.ro_in) (XOR (READ.ro_odd) (CONST.1)))))))))
+                (WRITE.ro_mant (ADD (READ.ro_t) (READ.ro_incr)))
+                (WRITE.ro_expo (READ.ro_lsb))
+                (IF
+                  (GT (SUB (CONST.256) (CLZ.256 (READ.ro_mant))) (READ.ro_p))
+                  (SEQ
+                    (WRITE.ro_mant (SHR (READ.ro_mant) (CONST.1)))
+                    (WRITE.ro_expo (ADD (READ.ro_expo) (CONST.1))))
+                  (SKIP))))
+            (WRITE.ro_lead
+              (SUB (ADD (READ.ro_expo) (SUB (CONST.256) (CLZ.256 (READ.ro_mant)))) (CONST.1)))
+            (IF
+              (GT (READ.ro_lead) (READ.ro_emax))
+              (SEQ
+                (WRITE.ro_ov (CONST.1))
+                (WRITE.ro_in (CONST.1))
+                (WRITE.ro_inf
+                  (SELECT (EQ (READ.RM) (CONST.1)) (CONST.0)
+                  (SELECT (EQ (READ.RM) (CONST.6)) (CONST.0)
+                  (SELECT (EQ (READ.RM) (CONST.2)) (READ.ro_sign)
+                  (SELECT (EQ (READ.RM) (CONST.3)) (XOR (READ.ro_sign) (CONST.1))
+                    (CONST.1)))))))
+              (IF
+                (ANDL (LT (READ.ro_lead) (READ.ro_emin)) (I2B (READ.ro_in)))
+                (WRITE.ro_un (CONST.1))
+                (SKIP))))))
   - ID: BCV
     execution: &executionBCV |
       stage RR:
@@ -233,7 +346,7 @@ Macro:
       new floatmode = %3;
       stage RR:
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -253,7 +366,9 @@ Macro:
         (WRITE.floatmode (ACCESS.ID.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -381,7 +496,7 @@ Macro:
       stage RR:
       new argument3 = %3;
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -401,7 +516,9 @@ Macro:
         (WRITE.argument3 (ACCESS.RR.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -432,7 +549,7 @@ Macro:
       stage RR:
       new argument3 = %3;
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -453,7 +570,9 @@ Macro:
         (WRITE.argument3 (ACCESS.RR.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -783,7 +902,7 @@ Macro:
       stage RR:
       new argument3 = %3;
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       stage SF:
       new fio = 0;
       new fdz = 0;
@@ -803,7 +922,9 @@ Macro:
         (WRITE.argument3 (ACCESS.RR.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -3862,7 +3983,7 @@ Macro:
       new floatmode = %3;
       stage RR:
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -3881,7 +4002,9 @@ Macro:
         (WRITE.floatmode (ACCESS.ID.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -3910,7 +4033,7 @@ Macro:
       new floatmode = %3;
       stage RR:
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -3929,7 +4052,9 @@ Macro:
         (WRITE.floatmode (ACCESS.ID.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4001,7 +4126,7 @@ Macro:
       new floatmode = %3;
       stage RR:
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4020,7 +4145,9 @@ Macro:
         (WRITE.floatmode (ACCESS.ID.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4050,7 +4177,7 @@ Macro:
       new floatmode = %3;
       stage RR:
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4070,7 +4197,9 @@ Macro:
         (WRITE.floatmode (ACCESS.ID.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4103,7 +4232,7 @@ Macro:
       new floatmode = %3;
       stage RR:
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4122,7 +4251,9 @@ Macro:
         (WRITE.floatmode (ACCESS.ID.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4151,7 +4282,7 @@ Macro:
       new floatmode = %3;
       stage RR:
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4170,7 +4301,9 @@ Macro:
         (WRITE.floatmode (ACCESS.ID.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4321,7 +4454,7 @@ Macro:
       stage RR:
       new argument3 = %3;
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4341,7 +4474,9 @@ Macro:
         (WRITE.argument3 (ACCESS.RR.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4371,7 +4506,7 @@ Macro:
       stage RR:
       new argument3 = %3;
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4391,7 +4526,9 @@ Macro:
         (WRITE.argument3 (ACCESS.RR.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4422,7 +4559,7 @@ Macro:
       stage RR:
       new argument2 = %2;
       new argument1 = %1;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4443,7 +4580,9 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4474,7 +4613,7 @@ Macro:
       stage RR:
       new argument3 = %3;
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4494,7 +4633,9 @@ Macro:
         (WRITE.argument3 (ACCESS.RR.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4525,7 +4666,7 @@ Macro:
       stage RR:
       new argument3 = %3;
       new argument2 = %2;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4546,7 +4687,9 @@ Macro:
         (WRITE.argument3 (ACCESS.RR.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4788,7 +4931,7 @@ Macro:
       new argument3 = %3;
       new argument2 = %2;
       new argument1 = %1;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4809,7 +4952,9 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4841,7 +4986,7 @@ Macro:
       new argument3 = %3;
       new argument2 = %2;
       new argument1 = %1;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4863,7 +5008,9 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4895,7 +5042,7 @@ Macro:
       new argument3 = %3;
       new argument2 = %2;
       new argument1 = %1;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4917,7 +5064,9 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -4948,7 +5097,7 @@ Macro:
       new argument3 = %3;
       new argument2 = %2;
       new argument1 = %1;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -4969,7 +5118,9 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -5001,7 +5152,7 @@ Macro:
       new argument3 = %3;
       new argument2 = %2;
       new argument1 = %1;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -5023,7 +5174,9 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -5056,7 +5209,7 @@ Macro:
       new argument3 = %3;
       new argument2 = %2;
       new argument1 = %1;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -5079,7 +5232,9 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -5111,7 +5266,7 @@ Macro:
       new argument3 = %3;
       new argument2 = %2;
       new argument1 = %1;
-      new RM = decode_riscv_float_rounding_mode(floatmode);
+      new RM = floatmode == 7 ? CS.RM : floatmode;
       new fio = 0;
       new fdz = 0;
       new fov = 0;
@@ -5133,7 +5288,9 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
-          (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+          (SELECT (EQ (READ.floatmode) (CONST.7))
+            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
         (WRITE.fov (CONST.0))
@@ -16263,8 +16420,6 @@ Helper:
     arguments: [8, 64, 64]
   - ID: crc32_be_u32
     arguments: [32, 32]
-  - ID: decode_riscv_float_rounding_mode
-    arguments: [8]
   - ID: f16_add
     result: [16, 1, 1, 1]
     arguments: [8, 64, 64]

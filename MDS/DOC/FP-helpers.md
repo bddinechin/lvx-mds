@@ -74,8 +74,8 @@ macros, written once each; an instruction's own behavior changes by one line, fr
 **One thing LVX drops on purpose:** KVX guards every FP CS write with a `silent` modifier
 (`.S`, "Silent on CS") and LVX has none. That is deliberate — it costs encoding space, and
 RISC-V has no such mode either, only an explicit rounding mode, which is what LVX follows
-(`decode_riscv_float_rounding_mode`). So LVX's FP macros accumulate unconditionally, with
-no `IF` guard around the CS stores.
+(the `floatmode` field, RISC-V's `frm` encoding). So LVX's FP macros accumulate
+unconditionally, with no `IF` guard around the CS stores.
 
 ### The hook is already there, and it is a panic stub
 
@@ -83,7 +83,9 @@ Step (1) does not add a place for the flags to be committed. **It replaces one.*
 macro already ends:
 
 ```
-  (WRITE.RM (APPLY.3.decode_riscv_float_rounding_mode (READ.floatmode)))
+  (WRITE.RM (SELECT (EQ (READ.floatmode) (CONST.7))
+              (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+              (READ.floatmode)))
   (MACRO.Instruction)
   (COMMIT.E4.%1 (READ.result1))
   (EFFECT.E4.commit_float_exception_flags)      <- 57 sites, 29 macros
@@ -148,8 +150,10 @@ to know before planning the work:
   that is not derivable from any table here.
 - **Rounding has six architectural modes.** `Modifier.yml`'s `floatmode` is
   `.RN .RZ .RD .RU .RM .R5 .RO .` — round-to-nearest-ties-even, toward zero, down, up,
-  **nearest-ties-to-max-magnitude**, reserved, **round-to-odd**, and "use CS". The mode is
-  decoded by `decode_riscv_float_rounding_mode`, so the encoding is RISC-V's.
+  **nearest-ties-to-max-magnitude**, reserved, **round-to-odd**, and "use CS". The encoding
+  is RISC-V's `frm`; the `.` ("use CS", `floatmode == 7`) case reads `CS_RM` (CS bits 16..18)
+  directly in Behavior — `SELECT (EQ floatmode 7) (LOAD CS_RM) floatmode` — rather than
+  through a helper, which is the only form that can reach the CSR.
 
 That `.RO` exists in hardware is worth pausing on. Round-to-odd is *the* device for
 accumulating exactly and rounding once without double-rounding error. The architecture

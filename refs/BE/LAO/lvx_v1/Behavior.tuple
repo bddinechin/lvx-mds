@@ -55021,7 +55021,15 @@ execute_lvx_v1_FNARROWDW_floatmode_registerW_registerZ_simple(void *this, Operan
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -55139,11 +55147,18 @@ execute_lvx_v1_FNARROWDW_floatmode_registerW_registerZ_simple(void *this, Operan
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -55265,7 +55280,15 @@ execute_lvx_v1_FNARROWWH_floatmode_registerW_registerZ_simple(void *this, Operan
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -55383,11 +55406,18 @@ execute_lvx_v1_FNARROWWH_floatmode_registerW_registerZ_simple(void *this, Operan
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -63087,7 +63117,15 @@ execute_lvx_v1_FLOATD_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -63205,11 +63243,18 @@ execute_lvx_v1_FLOATD_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -63329,7 +63374,15 @@ execute_lvx_v1_FLOATW_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -63447,11 +63500,18 @@ execute_lvx_v1_FLOATW_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -63559,7 +63619,15 @@ execute_lvx_v1_FLOATWP_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -63692,11 +63760,18 @@ execute_lvx_v1_FLOATWP_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -63846,7 +63921,15 @@ execute_lvx_v1_FLOATUD_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -63964,11 +64047,18 @@ execute_lvx_v1_FLOATUD_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -64076,7 +64166,15 @@ execute_lvx_v1_FLOATUW_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -64194,11 +64292,18 @@ execute_lvx_v1_FLOATUW_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -64306,7 +64411,15 @@ execute_lvx_v1_FLOATUWP_floatmode_registerW_registerZ_simple(void *this, Operand
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -64439,11 +64552,18 @@ execute_lvx_v1_FLOATUWP_floatmode_registerW_registerZ_simple(void *this, Operand
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -64593,7 +64713,15 @@ execute_lvx_v1_FLOATWD_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -64711,11 +64839,18 @@ execute_lvx_v1_FLOATWD_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -64823,7 +64958,15 @@ execute_lvx_v1_FLOATUWD_floatmode_registerW_registerZ_simple(void *this, Operand
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -64941,11 +65084,18 @@ execute_lvx_v1_FLOATUWD_floatmode_registerW_registerZ_simple(void *this, Operand
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -65053,7 +65203,15 @@ execute_lvx_v1_FLOATDW_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -65171,11 +65329,18 @@ execute_lvx_v1_FLOATDW_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -65283,7 +65448,15 @@ execute_lvx_v1_FLOATUDW_floatmode_registerW_registerZ_simple(void *this, Operand
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -65401,11 +65574,18 @@ execute_lvx_v1_FLOATUDW_floatmode_registerW_registerZ_simple(void *this, Operand
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -65513,7 +65693,15 @@ execute_lvx_v1_FIXEDD_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -65631,11 +65819,18 @@ execute_lvx_v1_FIXEDD_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -65743,7 +65938,15 @@ execute_lvx_v1_FIXEDW_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -65861,11 +66064,18 @@ execute_lvx_v1_FIXEDW_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -65973,7 +66183,15 @@ execute_lvx_v1_FIXEDWP_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -66106,11 +66324,18 @@ execute_lvx_v1_FIXEDWP_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -66260,7 +66485,15 @@ execute_lvx_v1_FIXEDUD_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -66378,11 +66611,18 @@ execute_lvx_v1_FIXEDUD_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -66490,7 +66730,15 @@ execute_lvx_v1_FIXEDUW_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -66608,11 +66856,18 @@ execute_lvx_v1_FIXEDUW_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -66720,7 +66975,15 @@ execute_lvx_v1_FIXEDUWP_floatmode_registerW_registerZ_simple(void *this, Operand
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -66853,11 +67116,18 @@ execute_lvx_v1_FIXEDUWP_floatmode_registerW_registerZ_simple(void *this, Operand
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -67007,7 +67277,15 @@ execute_lvx_v1_FIXEDWD_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -67125,11 +67403,18 @@ execute_lvx_v1_FIXEDWD_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -67237,7 +67522,15 @@ execute_lvx_v1_FIXEDUWD_floatmode_registerW_registerZ_simple(void *this, Operand
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -67355,11 +67648,18 @@ execute_lvx_v1_FIXEDUWD_floatmode_registerW_registerZ_simple(void *this, Operand
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -67467,7 +67767,15 @@ execute_lvx_v1_FIXEDDW_floatmode_registerW_registerZ_simple(void *this, OperandD
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -67585,11 +67893,18 @@ execute_lvx_v1_FIXEDDW_floatmode_registerW_registerZ_simple(void *this, OperandD
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -67697,7 +68012,15 @@ execute_lvx_v1_FIXEDUDW_floatmode_registerW_registerZ_simple(void *this, Operand
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -67815,11 +68138,18 @@ execute_lvx_v1_FIXEDUDW_floatmode_registerW_registerZ_simple(void *this, Operand
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -67927,7 +68257,15 @@ execute_lvx_v1_FRINTD_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -68045,11 +68383,18 @@ execute_lvx_v1_FRINTD_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -68157,7 +68502,15 @@ execute_lvx_v1_FRINTW_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -68275,11 +68628,18 @@ execute_lvx_v1_FRINTW_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -68399,7 +68759,15 @@ execute_lvx_v1_FRINTH_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -68517,11 +68885,18 @@ execute_lvx_v1_FRINTH_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -68629,7 +69004,15 @@ execute_lvx_v1_FSQRTD_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -68747,11 +69130,18 @@ execute_lvx_v1_FSQRTD_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -68859,7 +69249,15 @@ execute_lvx_v1_FSQRTW_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -68977,11 +69375,18 @@ execute_lvx_v1_FSQRTW_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -69089,7 +69494,15 @@ execute_lvx_v1_FSQRTH_floatmode_registerW_registerZ_simple(void *this, OperandDe
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -69207,11 +69620,18 @@ execute_lvx_v1_FSQRTH_floatmode_registerW_registerZ_simple(void *this, OperandDe
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -75989,7 +76409,15 @@ execute_lvx_v1_FADDD_floatmode_registerW_registerZ_registerY_simple(void *this, 
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -76113,11 +76541,18 @@ execute_lvx_v1_FADDD_floatmode_registerW_registerZ_registerY_simple(void *this, 
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -76239,7 +76674,15 @@ execute_lvx_v1_FADDW_floatmode_registerW_registerZ_registerY_simple(void *this, 
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -76363,11 +76806,18 @@ execute_lvx_v1_FADDW_floatmode_registerW_registerZ_registerY_simple(void *this, 
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -76489,7 +76939,15 @@ execute_lvx_v1_FADDH_floatmode_registerW_registerZ_registerY_simple(void *this, 
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -76613,11 +77071,18 @@ execute_lvx_v1_FADDH_floatmode_registerW_registerZ_registerY_simple(void *this, 
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -76745,7 +77210,15 @@ execute_lvx_v1_FSBFD_floatmode_registerW_registerZ_registerY_simple(void *this, 
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -76869,11 +77342,18 @@ execute_lvx_v1_FSBFD_floatmode_registerW_registerZ_registerY_simple(void *this, 
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -76992,7 +77472,15 @@ execute_lvx_v1_FSBFW_floatmode_registerW_registerZ_registerY_simple(void *this, 
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -77116,11 +77604,18 @@ execute_lvx_v1_FSBFW_floatmode_registerW_registerZ_registerY_simple(void *this, 
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -77239,7 +77734,15 @@ execute_lvx_v1_FSBFH_floatmode_registerW_registerZ_registerY_simple(void *this, 
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -77363,11 +77866,18 @@ execute_lvx_v1_FSBFH_floatmode_registerW_registerZ_registerY_simple(void *this, 
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -77492,7 +78002,15 @@ execute_lvx_v1_FMULD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%4)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -77630,11 +78148,18 @@ execute_lvx_v1_FMULD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 3), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -77779,7 +78304,15 @@ execute_lvx_v1_FMULW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%4)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -77917,11 +78450,18 @@ execute_lvx_v1_FMULW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 3), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -78057,7 +78597,15 @@ execute_lvx_v1_FMULH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%4)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -78195,11 +78743,18 @@ execute_lvx_v1_FMULH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 3), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -78347,7 +78902,15 @@ execute_lvx_v1_FDIVD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%4)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -78485,11 +79048,18 @@ execute_lvx_v1_FDIVD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 3), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -78629,7 +79199,15 @@ execute_lvx_v1_FDIVW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%4)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -78767,11 +79345,18 @@ execute_lvx_v1_FDIVW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 3), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -78911,7 +79496,15 @@ execute_lvx_v1_FDIVH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%4)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -79049,11 +79642,18 @@ execute_lvx_v1_FDIVH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 3), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -79207,7 +79807,15 @@ execute_lvx_v1_FFMAD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -79353,11 +79961,18 @@ execute_lvx_v1_FFMAD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -79506,7 +80121,15 @@ execute_lvx_v1_FFMAW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -79652,11 +80275,18 @@ execute_lvx_v1_FFMAW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -79805,7 +80435,15 @@ execute_lvx_v1_FFMAH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -79951,11 +80589,18 @@ execute_lvx_v1_FFMAH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -80104,7 +80749,15 @@ execute_lvx_v1_FFMSD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -80250,11 +80903,18 @@ execute_lvx_v1_FFMSD_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -80403,7 +81063,15 @@ execute_lvx_v1_FFMSW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -80549,11 +81217,18 @@ execute_lvx_v1_FFMSW_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -80702,7 +81377,15 @@ execute_lvx_v1_FFMSH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
           (METHOD.%3)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -80848,11 +81531,18 @@ execute_lvx_v1_FFMSH_fnegate_floatmode_registerW_registerZ_registerY_simple(void
       HELPER(operandRead)(this, 2), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -81009,7 +81699,15 @@ execute_lvx_v1_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
           (METHOD.%5)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fdz
     (CONST.0))
@@ -81187,11 +81885,18 @@ execute_lvx_v1_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
       HELPER(operandRead)(this, 4), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fdz = 
     Int256_fromUInt64(0LL);
   fun = 
@@ -81393,7 +82098,15 @@ execute_lvx_v1_FSBFWC_conjugate_imultiply_floatmode_registerW_registerZ_register
           (METHOD.%5)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -81585,11 +82298,18 @@ execute_lvx_v1_FSBFWC_conjugate_imultiply_floatmode_registerW_registerZ_register
       HELPER(operandRead)(this, 4), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -81803,7 +82523,15 @@ execute_lvx_v1_FMULWC_conjugate_imultiply_floatmode_registerW_registerZ_register
           (METHOD.%5)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -81974,11 +82702,18 @@ execute_lvx_v1_FMULWC_conjugate_imultiply_floatmode_registerW_registerZ_register
       HELPER(operandRead)(this, 4), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -82176,7 +82911,15 @@ execute_lvx_v1_FFMAWC_conjugate_imultiply_floatmode_registerW_registerZ_register
           (METHOD.%4)
           (CONST.1)))))
   (WRITE.RM
-    (APPLY.3.decode_riscv_float_rounding_mode
+    (SELECT
+      (EQ
+        (READ.floatmode)
+        (CONST.7))
+      (F2I.3
+        (LOAD.1
+          (AGGL.CS
+            (CONST.16)
+            (CONST.3))))
       (READ.floatmode)))
   (WRITE.fio
     (CONST.0))
@@ -82353,11 +83096,18 @@ execute_lvx_v1_FFMAWC_conjugate_imultiply_floatmode_registerW_registerZ_register
       HELPER(operandRead)(this, 3), 64
     );
   RM = 
-    HELPER(decode_riscv_float_rounding_mode)(this,
-      
-(uint8_t)Int256_toUInt64(
-      floatmode
-));
+(
+    Int256_cmp(
+      floatmode, 
+      Int256_fromUInt64(0x7LL)
+    ) == 0
+    ?
+    Int256_zx(
+        HELPER(readFromStorage_CS)(this, 1, 16, 3, 1), 3
+    )
+    :
+    floatmode
+);
   fio = 
     Int256_fromUInt64(0LL);
   fdz = 
@@ -88914,11 +89664,6 @@ BehaviorDeclare(ccbcomp,DECLARE(bool HELPER(ccbcomp)(void *this, uint8_t opnd1, 
 BehaviorDeclare(crc32_be_u32,DECLARE_ALT(Int256_ HELPER(crc32_be_u32)(void *this, uint32_t opnd1, uint32_t opnd2);))
 #else
 BehaviorDeclare(crc32_be_u32,DECLARE(Int256_ HELPER(crc32_be_u32)(void *this, uint32_t opnd1, uint32_t opnd2);))
-#endif
-#ifdef BehaviorDeclareAlt_decode_riscv_float_rounding_mode
-BehaviorDeclare(decode_riscv_float_rounding_mode,DECLARE_ALT(Int256_ HELPER(decode_riscv_float_rounding_mode)(void *this, uint8_t opnd1);))
-#else
-BehaviorDeclare(decode_riscv_float_rounding_mode,DECLARE(Int256_ HELPER(decode_riscv_float_rounding_mode)(void *this, uint8_t opnd1);))
 #endif
 #ifdef BehaviorDeclareAlt_dinvallsw_owner
 BehaviorDeclare(dinvallsw_owner,DECLARE_ALT(bool HELPER(dinvallsw_owner)(void *this);))
