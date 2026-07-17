@@ -687,10 +687,63 @@ foreach my $modifier (@{$$Description{Modifier}}) {
 
 
 # Process the Macro section
+#
+# A Macro's body is also a splice target: (MACRO.<ID>) in a behavior, and @<ID> in an
+# execution, are replaced by that Macro's behavior and execution here, in the front end.
+#
+# This is the STATIC splice, and it is deliberately not the one MDD/MDE does.  MDE splices
+# (MACRO.Instruction) because that text is per-opcode -- it is the instruction chosen from
+# the format's operands, and it cannot be known until the two are combined.  A named Macro
+# is the same text everywhere, so it expands where the Macro section is visible at all: the
+# tables carry no Macro, and MDE could not resolve one if it wanted to.
+#
+# The motive is that Behavior has no subroutines, and the FP bodies need one: every
+# operator ends in exactly one rounding, so round_once(p, emin, emax) is written once and
+# spliced ~30 times.  See DOC/FP-helpers.md.
+my (%MacroBehavior, %MacroExecution);
 foreach my $macro (@{$$Description{Macro}}) {
     my $ID = $$macro{ID} || die "Missing ID for Format";
     die "Macro $ID already exists" if exists $Section{Macro}{$ID};
+    die "Macro Instruction is reserved: MDD/MDE splices it per opcode" if $ID eq 'Instruction';
     $Section{Macro}{$ID} = 1;
+    $MacroBehavior{$ID} = $$macro{behavior} if defined $$macro{behavior};
+    $MacroExecution{$ID} = $$macro{execution} if defined $$macro{execution};
+}
+
+#
+# Expand the named splices in one text.  Instruction is left alone -- MDE owns it.  An
+# unknown name is fatal: it would otherwise survive to CodeGen, which has no case for a
+# MACRO node (it never needs one, because the splice always removed it first), so a typo
+# would vanish silently rather than fail.
+#
+sub expandMacros {
+    my ($text, $map, $pattern, $what) = @_;
+    return $text unless defined $text;
+    for (my $depth = 0; ; $depth++) {
+        die "$what: macro expansion is $depth deep -- a Macro references itself?\n"
+          if $depth > 16;
+        my $expanded = 0;
+        $text =~ s{$pattern}{
+            my $name = $1;
+            if ($name eq 'Instruction') { $&; }
+            elsif (exists $$map{$name}) { $expanded++; $$map{$name}; }
+            else { die "$what: no Macro named $name\n"; }
+        }ge;
+        last unless $expanded;
+    }
+    return $text;
+}
+
+sub expandBehaviorMacros {
+    my ($text, $what) = @_;
+    return &expandMacros($text, \%MacroBehavior, qr/\(MACRO\.(\w+)\)/, $what);
+}
+
+sub expandExecutionMacros {
+    my ($text, $what) = @_;
+    # An identifier, not \w: the execution language already spells an immediate operand
+    # @2, so @(\w+) matches "@1" and goes looking for a Macro called 1.
+    return &expandMacros($text, \%MacroExecution, qr/\@([A-Za-z_]\w*)\b/, $what);
 }
 
 my %encoding = (
@@ -722,7 +775,7 @@ foreach my $format (@{$$Description{Format}}) {
         die "Wrong suffix '$suffixF' for encoding $encoding in Format $ID" if $encoding{$suffixF} ne $encoding;
         $Encoding{$suffixF} = $encoding unless exists $Encoding{$suffixF};
     }
-    my $execution = $$format{execution};
+    my $execution = &expandExecutionMacros($$format{execution}, "Format $ID");
     my $properties = $$format{properties} || { };
     my $scheduling = $$format{scheduling};
     (my $suffixS = $scheduling) =~ s/[^\.]+//;
@@ -840,7 +893,8 @@ foreach my $format (@{$$Description{Format}}) {
     $Section{Format}{$ID}{methods} = \@methods;
     #
     my $behavior = "";
-    my @behavior = split(/\n/, $$format{behavior}) if defined $$format{behavior};
+    my @behavior = split(/\n/, &expandBehaviorMacros($$format{behavior}, "Format $ID"))
+      if defined $$format{behavior};
     foreach my $line (@behavior) {
         $line =~ s|^\s*#.+$||g;
         $behavior .= $line."\n" if $line ne "";
@@ -1274,9 +1328,12 @@ foreach my $instruction (@{$$Description{Instruction}}) {
         $Section{Instruction}{$ID}{description} = $description if defined $description;
         $Section{Instruction}{$ID}{motivation} = $motivation if defined $motivation;
         $Section{Instruction}{$ID}{properties} = $properties if keys %$properties;
-        $Section{Instruction}{$ID}{execution} = $$instruction{execution} if defined $$instruction{execution};
+        $Section{Instruction}{$ID}{execution} =
+          &expandExecutionMacros($$instruction{execution}, "Instruction $ID")
+          if defined $$instruction{execution};
         my $behavior = "";
-        my @behavior = split(/\n/, $$instruction{behavior}) if defined $$instruction{behavior};
+        my @behavior = split(/\n/, &expandBehaviorMacros($$instruction{behavior}, "Instruction $ID"))
+          if defined $$instruction{behavior};
         foreach my $line (@behavior) {
             $line =~ s|^\s*#.+$||g;
             $behavior .= $line."\n" if $line ne "";
