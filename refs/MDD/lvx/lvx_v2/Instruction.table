@@ -8080,12 +8080,12 @@ for (i range 4) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Narrow Double Word to Word"
 ><Execution>
-new result1 = f64_to_f32(RM, argument2.64[0]);
+new (result1, fio, fov, fun, fin) = f64_to_f32(RM, argument2.64[0]);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f64_to_f32
-    (READ.RM)
-    (READ.64[0].argument2)))
+(BIND.result1,fio,fov,fun,fin
+  (APPLY.32,1,1,1,1.f64_to_f32
+      (READ.RM)
+      (READ.64[0].argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-ALU:FNARROWDWQ"
@@ -8095,8 +8095,8 @@ new result1 = f64_to_f32(RM, argument2.64[0]);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Narrow Double Word to Word Quadruple"
 ><Execution>
-if (ziplanes) { result1.32[0] = f64_to_f32(RM, argument2.64[0]); result1.32[1] = f64_to_f32(RM, argument3.64[0]); result1.32[2] = f64_to_f32(RM, argument2.64[1]); result1.32[3] = f64_to_f32(RM, argument3.64[1]); } else { result1.32[0] = f64_to_f32(RM, argument2.64[0]); result1.32[1] = f64_to_f32(RM, argument2.64[1]); result1.32[2] = f64_to_f32(RM, argument3.64[0]); result1.32[3] = f64_to_f32(RM, argument3.64[1]); }</Execution><Behavior>
-(IF (I2B (READ.ziplanes)) (SEQ (WRITE.32[0].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[0].argument2))) (WRITE.32[1].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[0].argument3))) (WRITE.32[2].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[1].argument2))) (WRITE.32[3].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[1].argument3)))) (SEQ (WRITE.32[0].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[0].argument2))) (WRITE.32[1].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[1].argument2))) (WRITE.32[2].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[0].argument3))) (WRITE.32[3].result1 (APPLY.32.f64_to_f32 (READ.RM) (READ.64[1].argument3)))))
+if (ziplanes) { new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[0]); result1.32[0] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[0]); result1.32[1] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[1]); result1.32[2] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[1]); result1.32[3] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; } else { new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[0]); result1.32[0] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[1]); result1.32[1] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[0]); result1.32[2] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[1]); result1.32[3] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; }</Execution><Behavior>
+(IF (I2B (READ.ziplanes)) (SEQ (BIND.lane,lio,lov,lun,lin (APPLY.32,1,1,1,1.f64_to_f32 (READ.RM) (READ.64[0].argument2))) (WRITE.32[0].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.32,1,1,1,1.f64_to_f32 (READ.RM) (READ.64[0].argument3))) (WRITE.32[1].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.32,1,1,1,1.f64_to_f32 (READ.RM) (READ.64[1].argument2))) (WRITE.32[2].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.32,1,1,1,1.f64_to_f32 (READ.RM) (READ.64[1].argument3))) (WRITE.32[3].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin)))) (SEQ (BIND.lane,lio,lov,lun,lin (APPLY.32,1,1,1,1.f64_to_f32 (READ.RM) (READ.64[0].argument2))) (WRITE.32[0].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.32,1,1,1,1.f64_to_f32 (READ.RM) (READ.64[1].argument2))) (WRITE.32[1].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.32,1,1,1,1.f64_to_f32 (READ.RM) (READ.64[0].argument3))) (WRITE.32[2].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.32,1,1,1,1.f64_to_f32 (READ.RM) (READ.64[1].argument3))) (WRITE.32[3].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FNARROWWH"
@@ -8106,12 +8106,12 @@ if (ziplanes) { result1.32[0] = f64_to_f32(RM, argument2.64[0]); result1.32[1] =
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Narrow Word to Half Word"
 ><Execution>
-new result1 = f32_to_f16(RM, argument2.32[0]);
+new (result1, fio, fov, fun, fin) = f32_to_f16(RM, argument2.32[0]);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f32_to_f16
-    (READ.RM)
-    (READ.32[0].argument2)))
+(BIND.result1,fio,fov,fun,fin
+  (APPLY.16,1,1,1,1.f32_to_f16
+      (READ.RM)
+      (READ.32[0].argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-ALU:FNARROWWHQ"
@@ -8121,8 +8121,8 @@ new result1 = f32_to_f16(RM, argument2.32[0]);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Narrow Word to Half Word Quadruple"
 ><Execution>
-if (ziplanes) { result1.16[0] = f32_to_f16(RM, argument2.32[0]); result1.16[1] = f32_to_f16(RM, argument3.32[0]); result1.16[2] = f32_to_f16(RM, argument2.32[1]); result1.16[3] = f32_to_f16(RM, argument3.32[1]); } else { result1.16[0] = f32_to_f16(RM, argument2.32[0]); result1.16[1] = f32_to_f16(RM, argument2.32[1]); result1.16[2] = f32_to_f16(RM, argument3.32[0]); result1.16[3] = f32_to_f16(RM, argument3.32[1]); }</Execution><Behavior>
-(IF (I2B (READ.ziplanes)) (SEQ (WRITE.16[0].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[0].argument2))) (WRITE.16[1].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[0].argument3))) (WRITE.16[2].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[1].argument2))) (WRITE.16[3].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[1].argument3)))) (SEQ (WRITE.16[0].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[0].argument2))) (WRITE.16[1].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[1].argument2))) (WRITE.16[2].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[0].argument3))) (WRITE.16[3].result1 (APPLY.16.f32_to_f16 (READ.RM) (READ.32[1].argument3)))))
+if (ziplanes) { new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[0]); result1.16[0] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[0]); result1.16[1] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[1]); result1.16[2] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[1]); result1.16[3] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; } else { new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[0]); result1.16[0] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[1]); result1.16[1] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[0]); result1.16[2] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[1]); result1.16[3] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; }</Execution><Behavior>
+(IF (I2B (READ.ziplanes)) (SEQ (BIND.lane,lio,lov,lun,lin (APPLY.16,1,1,1,1.f32_to_f16 (READ.RM) (READ.32[0].argument2))) (WRITE.16[0].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.16,1,1,1,1.f32_to_f16 (READ.RM) (READ.32[0].argument3))) (WRITE.16[1].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.16,1,1,1,1.f32_to_f16 (READ.RM) (READ.32[1].argument2))) (WRITE.16[2].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.16,1,1,1,1.f32_to_f16 (READ.RM) (READ.32[1].argument3))) (WRITE.16[3].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin)))) (SEQ (BIND.lane,lio,lov,lun,lin (APPLY.16,1,1,1,1.f32_to_f16 (READ.RM) (READ.32[0].argument2))) (WRITE.16[0].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.16,1,1,1,1.f32_to_f16 (READ.RM) (READ.32[1].argument2))) (WRITE.16[1].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.16,1,1,1,1.f32_to_f16 (READ.RM) (READ.32[0].argument3))) (WRITE.16[2].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin))) (BIND.lane,lio,lov,lun,lin (APPLY.16,1,1,1,1.f32_to_f16 (READ.RM) (READ.32[1].argument3))) (WRITE.16[3].result1 (READ.lane)) (WRITE.fio (IOR (READ.fio) (READ.lio))) (WRITE.fov (IOR (READ.fov) (READ.lov))) (WRITE.fun (IOR (READ.fun) (READ.lun))) (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-ALU:INSF"
@@ -10973,12 +10973,12 @@ for (i range 8) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Fixed-Point Double Word"
 ><Execution>
-new result1 = i64_to_f64(RM, argument2);
+new (result1, fio, fin) = i64_to_f64(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.i64_to_f64
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.i64_to_f64
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATDP"
@@ -10989,14 +10989,20 @@ new result1 = i64_to_f64(RM, argument2);
   what=	"Floating Point Conversion from Fixed-Point Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = i64_to_f64(RM, argument2.64[i]);
+  new (lane, lio, lin) = i64_to_f64(RM, argument2.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.i64_to_f64
-      (READ.RM)
-      (READ.64[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.64,1,1.i64_to_f64
+        (READ.RM)
+        (READ.64[(INDEX.I)].argument2)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATW"
@@ -11006,12 +11012,12 @@ for (i range 2) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Fixed-Point"
 ><Execution>
-new result1 = i32_to_f32(RM, argument2);
+new (result1, fio, fin) = i32_to_f32(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.i32_to_f32
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.i32_to_f32
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATWP"
@@ -11022,14 +11028,20 @@ new result1 = i32_to_f32(RM, argument2);
   what=	"Floating Point Conversion from Fixed-Point Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.32[i] = i32_to_f32(RM, argument2.32[i]);
+  new (lane, lio, lin) = i32_to_f32(RM, argument2.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.i32_to_f32
-      (READ.RM)
-      (READ.32[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.32,1,1.i32_to_f32
+        (READ.RM)
+        (READ.32[(INDEX.I)].argument2)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATWQ"
@@ -11040,14 +11052,20 @@ for (i range 2) {
   what=	"Floating Point Conversion from Fixed-Point Word Quadruple"
 ><Execution>
 for (i range 4) {
-  result1.32[i] = i32_to_f32(RM, argument2.32[i]);
+  new (lane, lio, lin) = i32_to_f32(RM, argument2.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.4)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.i32_to_f32
-      (READ.RM)
-      (READ.32[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.32,1,1.i32_to_f32
+        (READ.RM)
+        (READ.32[(INDEX.I)].argument2)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATHO"
@@ -11058,14 +11076,20 @@ for (i range 4) {
   what=	"Floating Point Conversion from Fixed-Point Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = i16_to_f16(RM, argument2.16[i]);
+  new (lane, lio, lin) = i16_to_f16(RM, argument2.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.i16_to_f16
-      (READ.RM)
-      (READ.16[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.16,1,1.i16_to_f16
+        (READ.RM)
+        (READ.16[(INDEX.I)].argument2)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATUD"
@@ -11075,12 +11099,12 @@ for (i range 8) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Unsigned Fixed-Point Double Word"
 ><Execution>
-new result1 = ui64_to_f64(RM, argument2);
+new (result1, fio, fin) = ui64_to_f64(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.ui64_to_f64
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.ui64_to_f64
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATUDP"
@@ -11091,14 +11115,20 @@ new result1 = ui64_to_f64(RM, argument2);
   what=	"Floating Point Conversion from Unsigned Fixed-Point Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = ui64_to_f64(RM, argument2.64[i]);
+  new (lane, lio, lin) = ui64_to_f64(RM, argument2.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.ui64_to_f64
-      (READ.RM)
-      (READ.64[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.64,1,1.ui64_to_f64
+        (READ.RM)
+        (READ.64[(INDEX.I)].argument2)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATUW"
@@ -11108,12 +11138,12 @@ for (i range 2) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Unsigned Fixed-Point"
 ><Execution>
-new result1 = ui32_to_f32(RM, argument2);
+new (result1, fio, fin) = ui32_to_f32(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.ui32_to_f32
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.ui32_to_f32
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATUWP"
@@ -11124,14 +11154,20 @@ new result1 = ui32_to_f32(RM, argument2);
   what=	"Floating Point Conversion from Unsigned Fixed-Point Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.32[i] = ui32_to_f32(RM, argument2.32[i]);
+  new (lane, lio, lin) = ui32_to_f32(RM, argument2.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.ui32_to_f32
-      (READ.RM)
-      (READ.32[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.32,1,1.ui32_to_f32
+        (READ.RM)
+        (READ.32[(INDEX.I)].argument2)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATUWQ"
@@ -11142,14 +11178,20 @@ for (i range 2) {
   what=	"Floating Point Conversion from Unsigned Fixed-Point Word Quadruple"
 ><Execution>
 for (i range 4) {
-  result1.32[i] = ui32_to_f32(RM, argument2.32[i]);
+  new (lane, lio, lin) = ui32_to_f32(RM, argument2.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.4)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.ui32_to_f32
-      (READ.RM)
-      (READ.32[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.32,1,1.ui32_to_f32
+        (READ.RM)
+        (READ.32[(INDEX.I)].argument2)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATUHO"
@@ -11160,14 +11202,20 @@ for (i range 4) {
   what=	"Floating Point Conversion from Unsigned Fixed-Point Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = ui16_to_f16(RM, argument2.16[i]);
+  new (lane, lio, lin) = ui16_to_f16(RM, argument2.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.ui16_to_f16
-      (READ.RM)
-      (READ.16[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.16,1,1.ui16_to_f16
+        (READ.RM)
+        (READ.16[(INDEX.I)].argument2)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATWD"
@@ -11177,12 +11225,12 @@ for (i range 8) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Fixed-Point Word to Double Word"
 ><Execution>
-new result1 = i32_to_f64(RM, argument2);
+new (result1, fio, fin) = i32_to_f64(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.i32_to_f64
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.i32_to_f64
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATUWD"
@@ -11192,12 +11240,12 @@ new result1 = i32_to_f64(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Unsigned Fixed-Point Word to Double Word"
 ><Execution>
-new result1 = ui32_to_f64(RM, argument2);
+new (result1, fio, fin) = ui32_to_f64(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.ui32_to_f64
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.ui32_to_f64
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATDW"
@@ -11207,12 +11255,12 @@ new result1 = ui32_to_f64(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Fixed-Point Double Word to Word"
 ><Execution>
-new result1 = i64_to_f32(RM, argument2);
+new (result1, fio, fin) = i64_to_f32(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.i64_to_f32
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.i64_to_f32
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FLOATUDW"
@@ -11222,12 +11270,12 @@ new result1 = i64_to_f32(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Unsigned Fixed-Point Double Word to Word"
 ><Execution>
-new result1 = ui64_to_f32(RM, argument2);
+new (result1, fio, fin) = ui64_to_f32(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.ui64_to_f32
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.ui64_to_f32
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDD"
@@ -11237,12 +11285,12 @@ new result1 = ui64_to_f32(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion to Fixed-Point Double Word"
 ><Execution>
-new result1 = f64_to_i64(RM, argument2);
+new (result1, fio, fin) = f64_to_i64(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_to_i64
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.f64_to_i64
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDDP"
@@ -11253,14 +11301,20 @@ new result1 = f64_to_i64(RM, argument2);
   what=	"Floating Point Conversion to Fixed-Point Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = f64_to_i64(RM, argument2.64[i]);
+  new (lane, lio, lin) = f64_to_i64(RM, argument2.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.f64_to_i64
-      (READ.RM)
-      (READ.64[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.64,1,1.f64_to_i64
+        (READ.RM)
+        (READ.64[(INDEX.I)].argument2)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDW"
@@ -11270,12 +11324,12 @@ for (i range 2) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion to Fixed-Point"
 ><Execution>
-new result1 = f32_to_i32(RM, argument2);
+new (result1, fio, fin) = f32_to_i32(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_to_i32
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.f32_to_i32
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDWP"
@@ -11286,14 +11340,20 @@ new result1 = f32_to_i32(RM, argument2);
   what=	"Floating Point Conversion to Fixed-Point Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.32[i] = f32_to_i32(RM, argument2.32[i]);
+  new (lane, lio, lin) = f32_to_i32(RM, argument2.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.f32_to_i32
-      (READ.RM)
-      (READ.32[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.32,1,1.f32_to_i32
+        (READ.RM)
+        (READ.32[(INDEX.I)].argument2)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDWQ"
@@ -11304,14 +11364,20 @@ for (i range 2) {
   what=	"Floating Point Conversion to Fixed-Point Word Quadruple"
 ><Execution>
 for (i range 4) {
-  result1.32[i] = f32_to_i32(RM, argument2.32[i]);
+  new (lane, lio, lin) = f32_to_i32(RM, argument2.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.4)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.f32_to_i32
-      (READ.RM)
-      (READ.32[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.32,1,1.f32_to_i32
+        (READ.RM)
+        (READ.32[(INDEX.I)].argument2)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDHO"
@@ -11322,14 +11388,20 @@ for (i range 4) {
   what=	"Floating Point Conversion to Fixed-Point Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = f16_to_i16(RM, argument2.16[i]);
+  new (lane, lio, lin) = f16_to_i16(RM, argument2.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.f16_to_i16
-      (READ.RM)
-      (READ.16[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.16,1,1.f16_to_i16
+        (READ.RM)
+        (READ.16[(INDEX.I)].argument2)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDUD"
@@ -11339,12 +11411,12 @@ for (i range 8) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion to Unsigned Fixed-Point Double Word"
 ><Execution>
-new result1 = f64_to_ui64(RM, argument2);
+new (result1, fio, fin) = f64_to_ui64(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_to_ui64
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.f64_to_ui64
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDUDP"
@@ -11355,14 +11427,20 @@ new result1 = f64_to_ui64(RM, argument2);
   what=	"Floating Point Conversion to Unsigned Fixed-Point Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = f64_to_ui64(RM, argument2.64[i]);
+  new (lane, lio, lin) = f64_to_ui64(RM, argument2.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.f64_to_ui64
-      (READ.RM)
-      (READ.64[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.64,1,1.f64_to_ui64
+        (READ.RM)
+        (READ.64[(INDEX.I)].argument2)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDUW"
@@ -11372,12 +11450,12 @@ for (i range 2) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion to Unsigned Fixed-Point"
 ><Execution>
-new result1 = f32_to_ui32(RM, argument2);
+new (result1, fio, fin) = f32_to_ui32(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_to_ui32
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.f32_to_ui32
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDUWP"
@@ -11388,14 +11466,20 @@ new result1 = f32_to_ui32(RM, argument2);
   what=	"Floating Point Conversion to Unsigned Fixed-Point Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.32[i] = f32_to_ui32(RM, argument2.32[i]);
+  new (lane, lio, lin) = f32_to_ui32(RM, argument2.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.f32_to_ui32
-      (READ.RM)
-      (READ.32[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.32,1,1.f32_to_ui32
+        (READ.RM)
+        (READ.32[(INDEX.I)].argument2)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDUWQ"
@@ -11406,14 +11490,20 @@ for (i range 2) {
   what=	"Floating Point Conversion to Unsigned Fixed-Point Word Quadruple"
 ><Execution>
 for (i range 4) {
-  result1.32[i] = f32_to_ui32(RM, argument2.32[i]);
+  new (lane, lio, lin) = f32_to_ui32(RM, argument2.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.4)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.f32_to_ui32
-      (READ.RM)
-      (READ.32[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.32,1,1.f32_to_ui32
+        (READ.RM)
+        (READ.32[(INDEX.I)].argument2)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDUHO"
@@ -11424,14 +11514,20 @@ for (i range 4) {
   what=	"Floating Point Conversion to Unsigned Fixed-Point Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = f16_to_ui16(RM, argument2.16[i]);
+  new (lane, lio, lin) = f16_to_ui16(RM, argument2.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.f16_to_ui16
-      (READ.RM)
-      (READ.16[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lin
+    (APPLY.16,1,1.f16_to_ui16
+        (READ.RM)
+        (READ.16[(INDEX.I)].argument2)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDWD"
@@ -11441,12 +11537,12 @@ for (i range 8) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Word to Fixed-Point Double Word"
 ><Execution>
-new result1 = f32_to_i64(RM, argument2);
+new (result1, fio, fin) = f32_to_i64(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f32_to_i64
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.f32_to_i64
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDUWD"
@@ -11456,12 +11552,12 @@ new result1 = f32_to_i64(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Word to Unsigned Fixed-Point Double Word"
 ><Execution>
-new result1 = f32_to_ui64(RM, argument2);
+new (result1, fio, fin) = f32_to_ui64(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f32_to_ui64
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.f32_to_ui64
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDDW"
@@ -11471,12 +11567,12 @@ new result1 = f32_to_ui64(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Double Word to Fixed-Point Word"
 ><Execution>
-new result1 = f64_to_i32(RM, argument2);
+new (result1, fio, fin) = f64_to_i32(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f64_to_i32
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.f64_to_i32
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FIXEDUDW"
@@ -11486,12 +11582,12 @@ new result1 = f64_to_i32(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Conversion from Double Word to Unsigned Fixed-Point Word"
 ><Execution>
-new result1 = f64_to_ui32(RM, argument2);
+new (result1, fio, fin) = f64_to_ui32(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f64_to_ui32
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.f64_to_ui32
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FRINTD"
@@ -11501,12 +11597,12 @@ new result1 = f64_to_ui32(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Round to Int Double Word"
 ><Execution>
-new result1 = f64_rint(RM, argument2);
+new (result1, fio, fin) = f64_rint(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_rint
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.f64_rint
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FRINTW"
@@ -11516,12 +11612,12 @@ new result1 = f64_rint(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Round to Int Word"
 ><Execution>
-new result1 = f32_rint(RM, argument2);
+new (result1, fio, fin) = f32_rint(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_rint
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.f32_rint
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FRINTH"
@@ -11531,12 +11627,12 @@ new result1 = f32_rint(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating Point Round to Int Half Word"
 ><Execution>
-new result1 = f16_rint(RM, argument2);
+new (result1, fio, fin) = f16_rint(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_rint
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.16,1,1.f16_rint
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FSQRTD"
@@ -11546,12 +11642,12 @@ new result1 = f16_rint(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_FULL"
   what=	"Floating Point Square Root Double Word"
 ><Execution>
-new result1 = f64_sqrt(RM, argument2);
+new (result1, fio, fin) = f64_sqrt(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_sqrt
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.64,1,1.f64_sqrt
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FSQRTW"
@@ -11561,12 +11657,12 @@ new result1 = f64_sqrt(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_FULL"
   what=	"Floating Point Square Root Word"
 ><Execution>
-new result1 = f32_sqrt(RM, argument2);
+new (result1, fio, fin) = f32_sqrt(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_sqrt
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.32,1,1.f32_sqrt
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FSQRTH"
@@ -11576,12 +11672,12 @@ new result1 = f32_sqrt(RM, argument2);
   schedulings=	"Scheduling-lvx_v2-ALU_FULL"
   what=	"Floating Point Square Root Half Word"
 ><Execution>
-new result1 = f16_sqrt(RM, argument2);
+new (result1, fio, fin) = f16_sqrt(RM, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_sqrt
-    (READ.RM)
-    (READ.argument2)))
+(BIND.result1,fio,fin
+  (APPLY.16,1,1.f16_sqrt
+      (READ.RM)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-ALU:MULD"
@@ -14411,13 +14507,13 @@ new result1 = reflect_32(crc32_be_u32(reflect_32(argument1_data.32[0]), reflect_
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating-Point Add Double Word"
 ><Execution>
-result1 = f64_add(RM, argument2, argument3);
+new (result1, fio, fov, fin) = f64_add(RM, argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_add
-    (READ.RM)
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio,fov,fin
+  (APPLY.64,1,1,1.f64_add
+      (READ.RM)
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FADDDP"
@@ -14428,15 +14524,23 @@ result1 = f64_add(RM, argument2, argument3);
   what=	"Floating-Point Add Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = f64_add(RM, argument2.64[i], argument3.64[i]);
+  new (lane, lio, lov, lin) = f64_add(RM, argument2.64[i], argument3.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.f64_add
-      (READ.RM)
-      (READ.64[(INDEX.I)].argument2)
-      (READ.64[(INDEX.I)].argument3))))
+  (BIND.lane,lio,lov,lin
+    (APPLY.64,1,1,1.f64_add
+        (READ.RM)
+        (READ.64[(INDEX.I)].argument2)
+        (READ.64[(INDEX.I)].argument3)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fov (IOR (READ.fov) (READ.lov)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FADDW"
@@ -14490,13 +14594,13 @@ for (i range 4) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating-Point Add Half Word"
 ><Execution>
-result1 = f16_add(RM, argument2, argument3);
+new (result1, fio, fov, fin) = f16_add(RM, argument2, argument3);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_add
-    (READ.RM)
-    (READ.argument2)
-    (READ.argument3)))
+(BIND.result1,fio,fov,fin
+  (APPLY.16,1,1,1.f16_add
+      (READ.RM)
+      (READ.argument2)
+      (READ.argument3)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FADDHO"
@@ -14507,15 +14611,23 @@ result1 = f16_add(RM, argument2, argument3);
   what=	"Floating-Point Add Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = f16_add(RM, argument2.16[i], argument3.16[i]);
+  new (lane, lio, lov, lin) = f16_add(RM, argument2.16[i], argument3.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.f16_add
-      (READ.RM)
-      (READ.16[(INDEX.I)].argument2)
-      (READ.16[(INDEX.I)].argument3))))
+  (BIND.lane,lio,lov,lin
+    (APPLY.16,1,1,1.f16_add
+        (READ.RM)
+        (READ.16[(INDEX.I)].argument2)
+        (READ.16[(INDEX.I)].argument3)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fov (IOR (READ.fov) (READ.lov)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FSBFD"
@@ -14525,13 +14637,13 @@ for (i range 8) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating-Point Subtract From Double Word"
 ><Execution>
-result1 = f64_sub(RM, argument3, argument2);
+new (result1, fio, fov, fin) = f64_sub(RM, argument3, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.64.f64_sub
-    (READ.RM)
-    (READ.argument3)
-    (READ.argument2)))
+(BIND.result1,fio,fov,fin
+  (APPLY.64,1,1,1.f64_sub
+      (READ.RM)
+      (READ.argument3)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FSBFDP"
@@ -14542,15 +14654,23 @@ result1 = f64_sub(RM, argument3, argument2);
   what=	"Floating-Point Subtract From Double Word Pair"
 ><Execution>
 for (i range 2) {
-  result1.64[i] = f64_sub(RM, argument3.64[i], argument2.64[i]);
+  new (lane, lio, lov, lin) = f64_sub(RM, argument3.64[i], argument2.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.2)
-  (WRITE.64[(INDEX.I)].result1
-    (APPLY.64.f64_sub
-      (READ.RM)
-      (READ.64[(INDEX.I)].argument3)
-      (READ.64[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lov,lin
+    (APPLY.64,1,1,1.f64_sub
+        (READ.RM)
+        (READ.64[(INDEX.I)].argument3)
+        (READ.64[(INDEX.I)].argument2)))
+  (WRITE.64[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fov (IOR (READ.fov) (READ.lov)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FSBFW"
@@ -14560,13 +14680,13 @@ for (i range 2) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating-Point Subtract From Word"
 ><Execution>
-result1 = f32_sub(RM, argument3, argument2);
+new (result1, fio, fov, fin) = f32_sub(RM, argument3, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.32.f32_sub
-    (READ.RM)
-    (READ.argument3)
-    (READ.argument2)))
+(BIND.result1,fio,fov,fin
+  (APPLY.32,1,1,1.f32_sub
+      (READ.RM)
+      (READ.argument3)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FSBFWQ"
@@ -14577,15 +14697,23 @@ result1 = f32_sub(RM, argument3, argument2);
   what=	"Floating-Point Subtract From Word Quadruple"
 ><Execution>
 for (i range 4) {
-  result1.32[i] = f32_sub(RM, argument3.32[i], argument2.32[i]);
+  new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[i], argument2.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.4)
-  (WRITE.32[(INDEX.I)].result1
-    (APPLY.32.f32_sub
-      (READ.RM)
-      (READ.32[(INDEX.I)].argument3)
-      (READ.32[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lov,lin
+    (APPLY.32,1,1,1.f32_sub
+        (READ.RM)
+        (READ.32[(INDEX.I)].argument3)
+        (READ.32[(INDEX.I)].argument2)))
+  (WRITE.32[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fov (IOR (READ.fov) (READ.lov)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FSBFH"
@@ -14595,13 +14723,13 @@ for (i range 4) {
   schedulings=	"Scheduling-lvx_v2-ALU_LITE"
   what=	"Floating-Point Subtract From Half Word"
 ><Execution>
-result1 = f16_sub(RM, argument3, argument2);
+new (result1, fio, fov, fin) = f16_sub(RM, argument3, argument2);
 </Execution><Behavior>
-(WRITE.result1
-  (APPLY.16.f16_sub
-    (READ.RM)
-    (READ.argument3)
-    (READ.argument2)))
+(BIND.result1,fio,fov,fin
+  (APPLY.16,1,1,1.f16_sub
+      (READ.RM)
+      (READ.argument3)
+      (READ.argument2)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FSBFHO"
@@ -14612,15 +14740,23 @@ result1 = f16_sub(RM, argument3, argument2);
   what=	"Floating-Point Subtract From Half Word Octuple"
 ><Execution>
 for (i range 8) {
-  result1.16[i] = f16_sub(RM, argument3.16[i], argument2.16[i]);
+  new (lane, lio, lov, lin) = f16_sub(RM, argument3.16[i], argument2.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fin |= lin;
 }
 </Execution><Behavior>
 (FOR.I (RANGE.8)
-  (WRITE.16[(INDEX.I)].result1
-    (APPLY.16.f16_sub
-      (READ.RM)
-      (READ.16[(INDEX.I)].argument3)
-      (READ.16[(INDEX.I)].argument2))))
+  (BIND.lane,lio,lov,lin
+    (APPLY.16,1,1,1.f16_sub
+        (READ.RM)
+        (READ.16[(INDEX.I)].argument3)
+        (READ.16[(INDEX.I)].argument2)))
+  (WRITE.16[(INDEX.I)].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fov (IOR (READ.fov) (READ.lov)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FMULD"
@@ -14631,7 +14767,7 @@ for (i range 8) {
   what=	"Floating-Point Multiply Double Word"
 ><Execution>
 fsign = fnegate ? 0x8000000000000000 : 0;
-result1 = f64_mul(RM, argument2^fsign, argument3);
+new (result1, fio, fov, fun, fin) = f64_mul(RM, argument2^fsign, argument3);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -14639,11 +14775,11 @@ result1 = f64_mul(RM, argument2^fsign, argument3);
       (I2B (READ.fnegate))
       (CONST.0x8000000000000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.64.f64_mul
-      (READ.RM)
-      (XOR (READ.argument2) (READ.fsign))
-      (READ.argument3))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.64,1,1,1,1.f64_mul
+        (READ.RM)
+        (XOR (READ.argument2) (READ.fsign))
+        (READ.argument3))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FMULDP"
@@ -14655,7 +14791,12 @@ result1 = f64_mul(RM, argument2^fsign, argument3);
 ><Execution>
 fsign = fnegate ? 0x8000000000000000 : 0;
 for (i range 2) {
-  result1.64[i] = f64_mul(RM, argument2.64[i]^fsign, argument3.64[i]);
+  new (lane, lio, lov, lun, lin) = f64_mul(RM, argument2.64[i]^fsign, argument3.64[i]);
+  result1.64[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fun |= lun;
+  fin |= lin;
 }
 </Execution><Behavior>
 (SEQ
@@ -14665,11 +14806,16 @@ for (i range 2) {
       (CONST.0x8000000000000000)
       (CONST.0)))
   (FOR.I (RANGE.2)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.f64_mul
-        (READ.RM)
-        (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
-        (READ.64[(INDEX.I)].argument3)))))
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.64,1,1,1,1.f64_mul
+          (READ.RM)
+          (XOR (READ.64[(INDEX.I)].argument2) (READ.fsign))
+          (READ.64[(INDEX.I)].argument3)))
+    (WRITE.64[(INDEX.I)].result1 (READ.lane))
+    (WRITE.fio (IOR (READ.fio) (READ.lio)))
+    (WRITE.fov (IOR (READ.fov) (READ.lov)))
+    (WRITE.fun (IOR (READ.fun) (READ.lun)))
+    (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FMULW"
@@ -14680,7 +14826,7 @@ for (i range 2) {
   what=	"Floating-Point Multiply Word"
 ><Execution>
 fsign = fnegate ? 0x80000000 : 0;
-result1 = f32_mul(RM, argument2^fsign, argument3);
+new (result1, fio, fov, fun, fin) = f32_mul(RM, argument2^fsign, argument3);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -14688,11 +14834,11 @@ result1 = f32_mul(RM, argument2^fsign, argument3);
       (I2B (READ.fnegate))
       (CONST.0x80000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.32.f32_mul
-      (READ.RM)
-      (XOR (READ.argument2) (READ.fsign))
-      (READ.argument3))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.32,1,1,1,1.f32_mul
+        (READ.RM)
+        (XOR (READ.argument2) (READ.fsign))
+        (READ.argument3))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FMULWQ"
@@ -14704,7 +14850,12 @@ result1 = f32_mul(RM, argument2^fsign, argument3);
 ><Execution>
 fsign = fnegate ? 0x80000000 : 0;
 for (i range 4) {
-  result1.32[i] = f32_mul(RM, argument2.32[i]^fsign, argument3.32[i]);
+  new (lane, lio, lov, lun, lin) = f32_mul(RM, argument2.32[i]^fsign, argument3.32[i]);
+  result1.32[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fun |= lun;
+  fin |= lin;
 }
 </Execution><Behavior>
 (SEQ
@@ -14714,11 +14865,16 @@ for (i range 4) {
       (CONST.0x80000000)
       (CONST.0)))
   (FOR.I (RANGE.4)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_mul
-        (READ.RM)
-        (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
-        (READ.32[(INDEX.I)].argument3)))))
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.32,1,1,1,1.f32_mul
+          (READ.RM)
+          (XOR (READ.32[(INDEX.I)].argument2) (READ.fsign))
+          (READ.32[(INDEX.I)].argument3)))
+    (WRITE.32[(INDEX.I)].result1 (READ.lane))
+    (WRITE.fio (IOR (READ.fio) (READ.lio)))
+    (WRITE.fov (IOR (READ.fov) (READ.lov)))
+    (WRITE.fun (IOR (READ.fun) (READ.lun)))
+    (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FMULH"
@@ -14729,7 +14885,7 @@ for (i range 4) {
   what=	"Floating-Point Multiply Half Word"
 ><Execution>
 fsign = fnegate ? 0x8000 : 0;
-result1 = f16_mul(RM, argument2^fsign, argument3);
+new (result1, fio, fov, fun, fin) = f16_mul(RM, argument2^fsign, argument3);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -14737,11 +14893,11 @@ result1 = f16_mul(RM, argument2^fsign, argument3);
       (I2B (READ.fnegate))
       (CONST.0x8000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.16.f16_mul
-      (READ.RM)
-      (XOR (READ.argument2) (READ.fsign))
-      (READ.argument3))))
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.16,1,1,1,1.f16_mul
+        (READ.RM)
+        (XOR (READ.argument2) (READ.fsign))
+        (READ.argument3))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FMULHO"
@@ -14753,7 +14909,12 @@ result1 = f16_mul(RM, argument2^fsign, argument3);
 ><Execution>
 fsign = fnegate ? 0x8000 : 0;
 for (i range 8) {
-  result1.16[i] = f16_mul(RM, argument2.16[i]^fsign, argument3.16[i]);
+  new (lane, lio, lov, lun, lin) = f16_mul(RM, argument2.16[i]^fsign, argument3.16[i]);
+  result1.16[i] = lane;
+  fio |= lio;
+  fov |= lov;
+  fun |= lun;
+  fin |= lin;
 }
 </Execution><Behavior>
 (SEQ
@@ -14763,11 +14924,16 @@ for (i range 8) {
       (CONST.0x8000)
       (CONST.0)))
   (FOR.I (RANGE.8)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.f16_mul
-        (READ.RM)
-        (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
-        (READ.16[(INDEX.I)].argument3)))))
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.16,1,1,1,1.f16_mul
+          (READ.RM)
+          (XOR (READ.16[(INDEX.I)].argument2) (READ.fsign))
+          (READ.16[(INDEX.I)].argument3)))
+    (WRITE.16[(INDEX.I)].result1 (READ.lane))
+    (WRITE.fio (IOR (READ.fio) (READ.lio)))
+    (WRITE.fov (IOR (READ.fov) (READ.lov)))
+    (WRITE.fun (IOR (READ.fun) (READ.lun)))
+    (WRITE.fin (IOR (READ.fin) (READ.lin)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FDIVD"
@@ -14778,7 +14944,7 @@ for (i range 8) {
   what=	"Floating-Point Divide Double Word"
 ><Execution>
 fsign = fnegate ? 0x8000000000000000 : 0;
-result1 = f64_div(RM, argument2^fsign, argument3);
+new (result1, fio, fdz, fov, fun, fin) = f64_div(RM, argument2^fsign, argument3);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -14786,11 +14952,11 @@ result1 = f64_div(RM, argument2^fsign, argument3);
       (I2B (READ.fnegate))
       (CONST.0x8000000000000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.64.f64_div
-      (READ.RM)
-      (XOR (READ.argument2) (READ.fsign))
-      (READ.argument3))))
+  (BIND.result1,fio,fdz,fov,fun,fin
+    (APPLY.64,1,1,1,1,1.f64_div
+        (READ.RM)
+        (XOR (READ.argument2) (READ.fsign))
+        (READ.argument3))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FDIVW"
@@ -14801,7 +14967,7 @@ result1 = f64_div(RM, argument2^fsign, argument3);
   what=	"Floating-Point Divide Word"
 ><Execution>
 fsign = fnegate ? 0x80000000 : 0;
-result1 = f32_div(RM, argument2^fsign, argument3);
+new (result1, fio, fdz, fov, fun, fin) = f32_div(RM, argument2^fsign, argument3);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -14809,11 +14975,11 @@ result1 = f32_div(RM, argument2^fsign, argument3);
       (I2B (READ.fnegate))
       (CONST.0x80000000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.32.f32_div
-      (READ.RM)
-      (XOR (READ.argument2) (READ.fsign))
-      (READ.argument3))))
+  (BIND.result1,fio,fdz,fov,fun,fin
+    (APPLY.32,1,1,1,1,1.f32_div
+        (READ.RM)
+        (XOR (READ.argument2) (READ.fsign))
+        (READ.argument3))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FDIVH"
@@ -14824,7 +14990,7 @@ result1 = f32_div(RM, argument2^fsign, argument3);
   what=	"Floating-Point Divide Half Word"
 ><Execution>
 fsign = fnegate ? 0x8000 : 0;
-result1 = f16_div(RM, argument2, argument3);
+new (result1, fio, fdz, fov, fun, fin) = f16_div(RM, argument2, argument3);
 </Execution><Behavior>
 (SEQ
   (WRITE.fsign
@@ -14832,11 +14998,11 @@ result1 = f16_div(RM, argument2, argument3);
       (I2B (READ.fnegate))
       (CONST.0x8000)
       (CONST.0)))
-  (WRITE.result1
-    (APPLY.16.f16_div
-      (READ.RM)
-      (XOR (READ.argument2) (READ.fsign))
-      (READ.argument3))))
+  (BIND.result1,fio,fdz,fov,fun,fin
+    (APPLY.16,1,1,1,1,1.f16_div
+        (READ.RM)
+        (XOR (READ.argument2) (READ.fsign))
+        (READ.argument3))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-FPU:FFMAD"
@@ -15205,8 +15371,16 @@ if (imultiply) {
   what=	"Floating-Point Subtract from Word Complex"
 ><Execution>
 fconj = conjugate ? 0x80000000 : 0;
-result1.32[0] = f32_sub(RM, argument3.32[0], argument2.32[0]);
-result1.32[1] = f32_sub(RM, argument3.32[1], argument2.32[1]^fconj);
+new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[0], argument2.32[0]);
+result1.32[0] = lane;
+fio |= lio;
+fov |= lov;
+fin |= lin;
+new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[1], argument2.32[1]^fconj);
+result1.32[1] = lane;
+fio |= lio;
+fov |= lov;
+fin |= lin;
 if (imultiply) {
   result1 = _SWAP_32(result1);
   result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -15218,17 +15392,25 @@ if (imultiply) {
       (I2B (READ.conjugate))
       (CONST.0x80000000)
       (CONST.0)))
-  (WRITE.32[0].result1
-    (APPLY.32.f32_sub
-      (READ.RM)
-      (READ.32[0].argument3)
-      (READ.32[0].argument2)))
-  (WRITE.32[1].result1
-    (APPLY.32.f32_sub
-      (READ.RM)
-      (READ.32[1].argument3)
-      (XOR (READ.32[1].argument2)
-           (READ.fconj))))
+  (BIND.lane,lio,lov,lin
+    (APPLY.32,1,1,1.f32_sub
+        (READ.RM)
+        (READ.32[0].argument3)
+        (READ.32[0].argument2)))
+  (WRITE.32[0].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fov (IOR (READ.fov) (READ.lov)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin)))
+  (BIND.lane,lio,lov,lin
+    (APPLY.32,1,1,1.f32_sub
+        (READ.RM)
+        (READ.32[1].argument3)
+        (XOR (READ.32[1].argument2)
+             (READ.fconj))))
+  (WRITE.32[1].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fov (IOR (READ.fov) (READ.lov)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin)))
   (IF
     (I2B (READ.imultiply))
     (SEQ
@@ -15249,7 +15431,11 @@ if (imultiply) {
 if (conjugate) {
   argument2.64[0] = fconj_32_32(argument2.64[0]);
 }
-result1.64[0] = fmulc_32_32(RM, argument2.64[0], argument3.64[0]);
+new (lane, lio, lov, lin) = fmulc_32_32(RM, argument2.64[0], argument3.64[0]);
+result1.64[0] = lane;
+fio |= lio;
+fov |= lov;
+fin |= lin;
 if (imultiply) {
   result1 = _SWAP_32(result1);
   result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -15262,11 +15448,15 @@ if (imultiply) {
       (APPLY.64.fconj_32_32
         (READ.64[0].argument2)))
      (SKIP))
-  (WRITE.64[0].result1
-    (APPLY.64.fmulc_32_32
-      (READ.RM)
-      (READ.64[0].argument2)
-      (READ.64[0].argument3)))
+  (BIND.lane,lio,lov,lin
+    (APPLY.64,1,1,1.fmulc_32_32
+        (READ.RM)
+        (READ.64[0].argument2)
+        (READ.64[0].argument3)))
+  (WRITE.64[0].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fov (IOR (READ.fov) (READ.lov)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin)))
   (IF
     (I2B (READ.imultiply))
     (SEQ
@@ -15287,7 +15477,11 @@ if (imultiply) {
 if (conjugate) {
   argument2.64[0] = fconj_32_32(argument2.64[0]);
 }
-result1.64[0] = ffmac_32_32(RM, argument2.64[0], argument3.64[0], argument1.64[0]);
+new (lane, lio, lov, lin) = ffmac_32_32(RM, argument2.64[0], argument3.64[0], argument1.64[0]);
+result1.64[0] = lane;
+fio |= lio;
+fov |= lov;
+fin |= lin;
 if (imultiply) {
   result1 = _SWAP_32(result1);
   result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -15300,12 +15494,16 @@ if (imultiply) {
       (APPLY.64.fconj_32_32
         (READ.64[0].argument2)))
      (SKIP))
-  (WRITE.64[0].result1
-    (APPLY.64.ffmac_32_32
-      (READ.RM)
-      (READ.64[0].argument2)
-      (READ.64[0].argument3)
-      (READ.64[0].argument1)))
+  (BIND.lane,lio,lov,lin
+    (APPLY.64,1,1,1.ffmac_32_32
+        (READ.RM)
+        (READ.64[0].argument2)
+        (READ.64[0].argument3)
+        (READ.64[0].argument1)))
+  (WRITE.64[0].result1 (READ.lane))
+  (WRITE.fio (IOR (READ.fio) (READ.lio)))
+  (WRITE.fov (IOR (READ.fov) (READ.lov)))
+  (WRITE.fin (IOR (READ.fin) (READ.lin)))
   (IF
     (I2B (READ.imultiply))
     (SEQ

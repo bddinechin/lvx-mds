@@ -26058,15 +26058,45 @@ stage RR:
   new fun = 0;
   new fin = 0;
   if (ziplanes) {
-    result1.32[0] = f64_to_f32(RM, argument2.64[0]);
-    result1.32[1] = f64_to_f32(RM, argument3.64[0]);
-    result1.32[2] = f64_to_f32(RM, argument2.64[1]);
+    new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[0]);
+    result1.32[0] = lane;
+    fio = fio | lio;
+    fov = fov | lov;
+    fun = fun | lun;
+    fin = fin | lin;
+    new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[0]);
+    result1.32[1] = lane;
+    fio = fio | lio;
+    fov = fov | lov;
+    fun = fun | lun;
+    fin = fin | lin;
+    new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[1]);
   } else {
-    result1.32[0] = f64_to_f32(RM, argument2.64[0]);
-    result1.32[1] = f64_to_f32(RM, argument2.64[1]);
-    result1.32[2] = f64_to_f32(RM, argument3.64[0]);
+    new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[0]);
+    result1.32[0] = lane;
+    fio = fio | lio;
+    fov = fov | lov;
+    fun = fun | lun;
+    fin = fin | lin;
+    new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[1]);
+    result1.32[1] = lane;
+    fio = fio | lio;
+    fov = fov | lov;
+    fun = fun | lun;
+    fin = fin | lin;
+    new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[0]);
   }
-  result1.32[3] = f64_to_f32(RM, argument3.64[1]);
+  result1.32[2] = lane;
+  fio = fio | lio;
+  fov = fov | lov;
+  fun = fun | lun;
+  fin = fin | lin;
+  new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[1]);
+  result1.32[3] = lane;
+  fio = fio | lio;
+  fov = fov | lov;
+  fun = fun | lun;
+  fin = fin | lin;
 stage E1:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -26115,15 +26145,45 @@ stage RR:
   new fun = 0;
   new fin = 0;
   if (ziplanes) {
-    result1.16[0] = f32_to_f16(RM, argument2.32[0]);
-    result1.16[1] = f32_to_f16(RM, argument3.32[0]);
-    result1.16[2] = f32_to_f16(RM, argument2.32[1]);
+    new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[0]);
+    result1.16[0] = lane;
+    fio = fio | lio;
+    fov = fov | lov;
+    fun = fun | lun;
+    fin = fin | lin;
+    new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[0]);
+    result1.16[1] = lane;
+    fio = fio | lio;
+    fov = fov | lov;
+    fun = fun | lun;
+    fin = fin | lin;
+    new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[1]);
   } else {
-    result1.16[0] = f32_to_f16(RM, argument2.32[0]);
-    result1.16[1] = f32_to_f16(RM, argument2.32[1]);
-    result1.16[2] = f32_to_f16(RM, argument3.32[0]);
+    new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[0]);
+    result1.16[0] = lane;
+    fio = fio | lio;
+    fov = fov | lov;
+    fun = fun | lun;
+    fin = fin | lin;
+    new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[1]);
+    result1.16[1] = lane;
+    fio = fio | lio;
+    fov = fov | lov;
+    fun = fun | lun;
+    fin = fin | lin;
+    new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[0]);
   }
-  result1.16[3] = f32_to_f16(RM, argument3.32[1]);
+  result1.16[2] = lane;
+  fio = fio | lio;
+  fov = fov | lov;
+  fun = fun | lun;
+  fin = fin | lin;
+  new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[1]);
+  result1.16[3] = lane;
+  fio = fio | lio;
+  fov = fov | lov;
+  fun = fun | lun;
+  fin = fin | lin;
 stage E1:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -38795,7 +38855,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_add(RM, argument2, argument3);
+  new (result1, fio, fov, fin) = f64_add(RM, argument2, argument3);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -38843,7 +38903,11 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_add(RM, argument2.64[I], argument3.64[I])
+    new (lane, lio, lov, lin) = f64_add(RM, argument2.64[I], argument3.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -38891,7 +38955,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f16_add(RM, argument2, argument3);
+  new (result1, fio, fov, fin) = f16_add(RM, argument2, argument3);
 stage E3:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -38939,7 +39003,11 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_add(RM, argument2.16[I], argument3.16[I])
+    new (lane, lio, lov, lin) = f16_add(RM, argument2.16[I], argument3.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -39716,7 +39784,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
-  new result1 = f64_div(RM, argument2 ^ fsign, argument3);
+  new (result1, fio, fdz, fov, fun, fin) = f64_div(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -39766,7 +39834,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
-  new result1 = f16_div(RM, argument2 ^ fsign, argument3);
+  new (result1, fio, fdz, fov, fun, fin) = f16_div(RM, argument2 ^ fsign, argument3);
 stage E3:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -39816,7 +39884,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
-  new result1 = f32_div(RM, argument2 ^ fsign, argument3);
+  new (result1, fio, fdz, fov, fun, fin) = f32_div(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40165,7 +40233,11 @@ stage RR:
   if (conjugate) {
     argument2.64[0] = fconj_32_32(argument2.64[0]);
   }
-  result1.64[0] = ffmac_32_32(RM, argument2.64[0], argument3.64[0], argument1.64[0]);
+  new (lane, lio, lov, lin) = ffmac_32_32(RM, argument2.64[0], argument3.64[0], argument1.64[0]);
+  result1.64[0] = lane;
+  fio = fio | lio;
+  fov = fov | lov;
+  fin = fin | lin;
   if (imultiply) {
     new result1 = _SWAP_32(result1);
     result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -40580,7 +40652,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_i64(RM, argument2);
+  new (result1, fio, fin) = f64_to_i64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40627,7 +40699,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_to_i64(RM, argument2.64[I])
+    new (lane, lio, lin) = f64_to_i64(RM, argument2.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -40674,7 +40749,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_i32(RM, argument2);
+  new (result1, fio, fin) = f64_to_i32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40721,7 +40796,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_to_i16(RM, argument2.16[I])
+    new (lane, lio, lin) = f16_to_i16(RM, argument2.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -40768,7 +40846,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_ui64(RM, argument2);
+  new (result1, fio, fin) = f64_to_ui64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40815,7 +40893,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_to_ui64(RM, argument2.64[I])
+    new (lane, lio, lin) = f64_to_ui64(RM, argument2.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -40862,7 +40943,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_ui32(RM, argument2);
+  new (result1, fio, fin) = f64_to_ui32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -40909,7 +40990,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_to_ui16(RM, argument2.16[I])
+    new (lane, lio, lin) = f16_to_ui16(RM, argument2.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -40956,7 +41040,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_ui32(RM, argument2);
+  new (result1, fio, fin) = f32_to_ui32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41002,7 +41086,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_ui64(RM, argument2);
+  new (result1, fio, fin) = f32_to_ui64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41049,7 +41133,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.32[I] = f32_to_ui32(RM, argument2.32[I])
+    new (lane, lio, lin) = f32_to_ui32(RM, argument2.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   GPR[registerW] = result1;
@@ -41097,7 +41184,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_to_ui32(RM, argument2.32[I])
+    new (lane, lio, lin) = f32_to_ui32(RM, argument2.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -41144,7 +41234,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_i32(RM, argument2);
+  new (result1, fio, fin) = f32_to_i32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41190,7 +41280,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_i64(RM, argument2);
+  new (result1, fio, fin) = f32_to_i64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41237,7 +41327,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.32[I] = f32_to_i32(RM, argument2.32[I])
+    new (lane, lio, lin) = f32_to_i32(RM, argument2.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   GPR[registerW] = result1;
@@ -41285,7 +41378,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_to_i32(RM, argument2.32[I])
+    new (lane, lio, lin) = f32_to_i32(RM, argument2.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -41332,7 +41428,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = i64_to_f64(RM, argument2);
+  new (result1, fio, fin) = i64_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41379,7 +41475,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = i64_to_f64(RM, argument2.64[I])
+    new (lane, lio, lin) = i64_to_f64(RM, argument2.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -41426,7 +41525,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = i64_to_f32(RM, argument2);
+  new (result1, fio, fin) = i64_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41473,7 +41572,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = i16_to_f16(RM, argument2.16[I])
+    new (lane, lio, lin) = i16_to_f16(RM, argument2.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -41520,7 +41622,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = ui64_to_f64(RM, argument2);
+  new (result1, fio, fin) = ui64_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41567,7 +41669,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = ui64_to_f64(RM, argument2.64[I])
+    new (lane, lio, lin) = ui64_to_f64(RM, argument2.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -41614,7 +41719,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = ui64_to_f32(RM, argument2);
+  new (result1, fio, fin) = ui64_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41661,7 +41766,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = ui16_to_f16(RM, argument2.16[I])
+    new (lane, lio, lin) = ui16_to_f16(RM, argument2.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -41708,7 +41816,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = ui32_to_f32(RM, argument2);
+  new (result1, fio, fin) = ui32_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41754,7 +41862,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = ui32_to_f64(RM, argument2);
+  new (result1, fio, fin) = ui32_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41801,7 +41909,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.32[I] = ui32_to_f32(RM, argument2.32[I])
+    new (lane, lio, lin) = ui32_to_f32(RM, argument2.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   GPR[registerW] = result1;
@@ -41849,7 +41960,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = ui32_to_f32(RM, argument2.32[I])
+    new (lane, lio, lin) = ui32_to_f32(RM, argument2.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -41896,7 +42010,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = i32_to_f32(RM, argument2);
+  new (result1, fio, fin) = i32_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41942,7 +42056,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = i32_to_f64(RM, argument2);
+  new (result1, fio, fin) = i32_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -41989,7 +42103,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.32[I] = i32_to_f32(RM, argument2.32[I])
+    new (lane, lio, lin) = i32_to_f32(RM, argument2.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   GPR[registerW] = result1;
@@ -42037,7 +42154,10 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = i32_to_f32(RM, argument2.32[I])
+    new (lane, lio, lin) = i32_to_f32(RM, argument2.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -42688,7 +42808,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
-  new result1 = f64_mul(RM, argument2 ^ fsign, argument3);
+  new (result1, fio, fov, fun, fin) = f64_mul(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -42739,7 +42859,12 @@ stage RR:
   new fin = 0;
   new fsign = fnegate ? 0x8000000000000000 : 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_mul(RM, argument2.64[I] ^ fsign, argument3.64[I])
+    new (lane, lio, lov, lun, lin) = f64_mul(RM, argument2.64[I] ^ fsign, argument3.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fun = fun | lun
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -42790,7 +42915,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
-  new result1 = f16_mul(RM, argument2 ^ fsign, argument3);
+  new (result1, fio, fov, fun, fin) = f16_mul(RM, argument2 ^ fsign, argument3);
 stage E3:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -42841,7 +42966,12 @@ stage RR:
   new fin = 0;
   new fsign = fnegate ? 0x8000 : 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_mul(RM, argument2.16[I] ^ fsign, argument3.16[I])
+    new (lane, lio, lov, lun, lin) = f16_mul(RM, argument2.16[I] ^ fsign, argument3.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fun = fun | lun
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -42892,7 +43022,7 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
-  new result1 = f32_mul(RM, argument2 ^ fsign, argument3);
+  new (result1, fio, fov, fun, fin) = f32_mul(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -42947,7 +43077,11 @@ stage RR:
   if (conjugate) {
     argument2.64[0] = fconj_32_32(argument2.64[0]);
   }
-  result1.64[0] = fmulc_32_32(RM, argument2.64[0], argument3.64[0]);
+  new (lane, lio, lov, lin) = fmulc_32_32(RM, argument2.64[0], argument3.64[0]);
+  result1.64[0] = lane;
+  fio = fio | lio;
+  fov = fov | lov;
+  fin = fin | lin;
   if (imultiply) {
     new result1 = _SWAP_32(result1);
     result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -43002,7 +43136,12 @@ stage RR:
   new fin = 0;
   new fsign = fnegate ? 0x80000000 : 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_mul(RM, argument2.32[I] ^ fsign, argument3.32[I])
+    new (lane, lio, lov, lun, lin) = f32_mul(RM, argument2.32[I] ^ fsign, argument3.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fun = fun | lun
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -43049,7 +43188,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_f32(RM, argument2.64[0]);
+  new (result1, fio, fov, fun, fin) = f64_to_f32(RM, argument2.64[0]);
 stage E1:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -43095,7 +43234,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_f16(RM, argument2.32[0]);
+  new (result1, fio, fov, fun, fin) = f32_to_f16(RM, argument2.32[0]);
 stage E1:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -43310,7 +43449,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_rint(RM, argument2);
+  new (result1, fio, fin) = f64_rint(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -43356,7 +43495,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f16_rint(RM, argument2);
+  new (result1, fio, fin) = f16_rint(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -43402,7 +43541,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_rint(RM, argument2);
+  new (result1, fio, fin) = f32_rint(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -43449,7 +43588,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_sub(RM, argument3, argument2);
+  new (result1, fio, fov, fin) = f64_sub(RM, argument3, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -43497,7 +43636,11 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 2; I += 1) {
-    result1.64[I] = f64_sub(RM, argument3.64[I], argument2.64[I])
+    new (lane, lio, lov, lin) = f64_sub(RM, argument3.64[I], argument2.64[I])
+    result1.64[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -43545,7 +43688,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f16_sub(RM, argument3, argument2);
+  new (result1, fio, fov, fin) = f16_sub(RM, argument3, argument2);
 stage E3:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -43593,7 +43736,11 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 8; I += 1) {
-    result1.16[I] = f16_sub(RM, argument3.16[I], argument2.16[I])
+    new (lane, lio, lov, lin) = f16_sub(RM, argument3.16[I], argument2.16[I])
+    result1.16[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -43641,7 +43788,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_sub(RM, argument3, argument2);
+  new (result1, fio, fov, fin) = f32_sub(RM, argument3, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -43694,8 +43841,16 @@ stage RR:
   new fun = 0;
   new fin = 0;
   new fconj = conjugate ? 0x80000000 : 0;
-  result1.32[0] = f32_sub(RM, argument3.32[0], argument2.32[0]);
-  result1.32[1] = f32_sub(RM, argument3.32[1], argument2.32[1] ^ fconj);
+  new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[0], argument2.32[0]);
+  result1.32[0] = lane;
+  fio = fio | lio;
+  fov = fov | lov;
+  fin = fin | lin;
+  new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[1], argument2.32[1] ^ fconj);
+  result1.32[1] = lane;
+  fio = fio | lio;
+  fov = fov | lov;
+  fin = fin | lin;
   if (imultiply) {
     new result1 = _SWAP_32(result1);
     result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -43747,7 +43902,11 @@ stage RR:
   new fun = 0;
   new fin = 0;
   for (I = 0; I < 4; I += 1) {
-    result1.32[I] = f32_sub(RM, argument3.32[I], argument2.32[I])
+    new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[I], argument2.32[I])
+    result1.32[I] = lane
+    fio = fio | lio
+    fov = fov | lov
+    fin = fin | lin
   };
 stage E4:
   PGR[registerM] = result1;
@@ -44244,7 +44403,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_sqrt(RM, argument2);
+  new (result1, fio, fin) = f64_sqrt(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -44290,7 +44449,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f16_sqrt(RM, argument2);
+  new (result1, fio, fin) = f16_sqrt(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
   new cs_io = CS.IO;
@@ -44336,7 +44495,7 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_sqrt(RM, argument2);
+  new (result1, fio, fin) = f32_sqrt(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
   new cs_io = CS.IO;

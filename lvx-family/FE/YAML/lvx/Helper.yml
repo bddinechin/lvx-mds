@@ -173,12 +173,14 @@ Helper:
     arguments: [8]
 
   - ID: f16_add
+    result: [16, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f16_classify
     arguments: [64]
 
   - ID: f16_div
+    result: [16, 1, 1, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f16_max
@@ -194,6 +196,7 @@ Helper:
     arguments: [64, 64]
 
   - ID: f16_mul
+    result: [16, 1, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f16_mulAdd
@@ -203,21 +206,26 @@ Helper:
     arguments: [8, 64, 64, 64]
 
   - ID: f16_rint
+    result: [16, 1, 1]
     arguments: [8, 64]
 
   - ID: f16_sqrt
+    result: [16, 1, 1]
     arguments: [8, 64]
 
   - ID: f16_sub
+    result: [16, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f16_to_f32
     arguments: [16]
 
   - ID: f16_to_i16
+    result: [16, 1, 1]
     arguments: [8, 16]
 
   - ID: f16_to_ui16
+    result: [16, 1, 1]
     arguments: [8, 16]
 
   - ID: f32_add
@@ -228,6 +236,7 @@ Helper:
     arguments: [64]
 
   - ID: f32_div
+    result: [32, 1, 1, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f32_fast_rec
@@ -249,6 +258,7 @@ Helper:
     arguments: [64, 64]
 
   - ID: f32_mul
+    result: [32, 1, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f32_mulAdd
@@ -258,39 +268,49 @@ Helper:
     arguments: [8, 64, 64, 64]
 
   - ID: f32_rint
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: f32_sqrt
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: f32_sub
+    result: [32, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f32_to_f16
+    result: [16, 1, 1, 1, 1]
     arguments: [8, 32]
 
   - ID: f32_to_f64
     arguments: [32]
 
   - ID: f32_to_i32
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: f32_to_i64
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: f32_to_ui32
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: f32_to_ui64
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: f64_add
+    result: [64, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f64_classify
     arguments: [64]
 
   - ID: f64_div
+    result: [64, 1, 1, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f64_fast_rec
@@ -312,6 +332,7 @@ Helper:
     arguments: [64, 64]
 
   - ID: f64_mul
+    result: [64, 1, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f64_mulAdd
@@ -321,33 +342,42 @@ Helper:
     arguments: [8, 64, 64, 64]
 
   - ID: f64_rint
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: f64_sqrt
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: f64_sub
+    result: [64, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f64_to_f32
+    result: [32, 1, 1, 1, 1]
     arguments: [8, 64]
 
   - ID: f64_to_i32
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: f64_to_i64
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: f64_to_ui32
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: f64_to_ui64
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: fconj_32_32
     arguments: [64]
 
   - ID: ffmac_32_32
+    result: [64, 1, 1, 1]
     arguments: [8, 64, 64, 64]
 
   - ID: floatcomp_16
@@ -360,6 +390,7 @@ Helper:
     arguments: [8, 64, 64]
 
   - ID: fmulc_32_32
+    result: [64, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: get
@@ -372,18 +403,23 @@ Helper:
     arguments: [8, 64, 8]
 
   - ID: i16_to_f16
+    result: [16, 1, 1]
     arguments: [8, 16]
 
   - ID: i32_to_f32
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: i32_to_f64
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: i64_to_f32
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: i64_to_f64
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: idle
@@ -432,18 +468,23 @@ Helper:
     arguments: [64]
 
   - ID: ui16_to_f16
+    result: [16, 1, 1]
     arguments: [8, 16]
 
   - ID: ui32_to_f32
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: ui32_to_f64
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: ui64_to_f32
+    result: [32, 1, 1]
     arguments: [8, 64]
 
   - ID: ui64_to_f64
+    result: [64, 1, 1]
     arguments: [8, 64]
 
   - ID: waitit

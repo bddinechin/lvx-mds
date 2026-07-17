@@ -162,6 +162,7 @@
 <Helper
   ID=	"Helper-lvx_v1-f16_add"
   arguments=	"8 64 64"
+  result=	"16 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f16_classify"
@@ -170,6 +171,7 @@
 <Helper
   ID=	"Helper-lvx_v1-f16_div"
   arguments=	"8 64 64"
+  result=	"16 1 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f16_max"
@@ -190,6 +192,7 @@
 <Helper
   ID=	"Helper-lvx_v1-f16_mul"
   arguments=	"8 64 64"
+  result=	"16 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f16_mulAdd"
@@ -202,14 +205,17 @@
 <Helper
   ID=	"Helper-lvx_v1-f16_rint"
   arguments=	"8 64"
+  result=	"16 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f16_sqrt"
   arguments=	"8 64"
+  result=	"16 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f16_sub"
   arguments=	"8 64 64"
+  result=	"16 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f16_to_f32"
@@ -218,10 +224,12 @@
 <Helper
   ID=	"Helper-lvx_v1-f16_to_i16"
   arguments=	"8 16"
+  result=	"16 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f16_to_ui16"
   arguments=	"8 16"
+  result=	"16 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_add"
@@ -235,6 +243,7 @@
 <Helper
   ID=	"Helper-lvx_v1-f32_div"
   arguments=	"8 64 64"
+  result=	"32 1 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_fast_rec"
@@ -263,6 +272,7 @@
 <Helper
   ID=	"Helper-lvx_v1-f32_mul"
   arguments=	"8 64 64"
+  result=	"32 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_mulAdd"
@@ -275,18 +285,22 @@
 <Helper
   ID=	"Helper-lvx_v1-f32_rint"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_sqrt"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_sub"
   arguments=	"8 64 64"
+  result=	"32 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_to_f16"
   arguments=	"8 32"
+  result=	"16 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_to_f64"
@@ -295,22 +309,27 @@
 <Helper
   ID=	"Helper-lvx_v1-f32_to_i32"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_to_i64"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_to_ui32"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f32_to_ui64"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_add"
   arguments=	"8 64 64"
+  result=	"64 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_classify"
@@ -319,6 +338,7 @@
 <Helper
   ID=	"Helper-lvx_v1-f64_div"
   arguments=	"8 64 64"
+  result=	"64 1 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_fast_rec"
@@ -347,6 +367,7 @@
 <Helper
   ID=	"Helper-lvx_v1-f64_mul"
   arguments=	"8 64 64"
+  result=	"64 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_mulAdd"
@@ -359,34 +380,42 @@
 <Helper
   ID=	"Helper-lvx_v1-f64_rint"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_sqrt"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_sub"
   arguments=	"8 64 64"
+  result=	"64 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_to_f32"
   arguments=	"8 64"
+  result=	"32 1 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_to_i32"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_to_i64"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_to_ui32"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-f64_to_ui64"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-fconj_32_32"
@@ -395,6 +424,7 @@
 <Helper
   ID=	"Helper-lvx_v1-ffmac_32_32"
   arguments=	"8 64 64 64"
+  result=	"64 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-floatcomp_16"
@@ -411,6 +441,7 @@
 <Helper
   ID=	"Helper-lvx_v1-fmulc_32_32"
   arguments=	"8 64 64"
+  result=	"64 1 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-get"
@@ -427,22 +458,27 @@
 <Helper
   ID=	"Helper-lvx_v1-i16_to_f16"
   arguments=	"8 16"
+  result=	"16 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-i32_to_f32"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-i32_to_f64"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-i64_to_f32"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-i64_to_f64"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-idle"
@@ -507,22 +543,27 @@
 <Helper
   ID=	"Helper-lvx_v1-ui16_to_f16"
   arguments=	"8 16"
+  result=	"16 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-ui32_to_f32"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-ui32_to_f64"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-ui64_to_f32"
   arguments=	"8 64"
+  result=	"32 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-ui64_to_f64"
   arguments=	"8 64"
+  result=	"64 1 1"
 />
 <Helper
   ID=	"Helper-lvx_v1-waitit"

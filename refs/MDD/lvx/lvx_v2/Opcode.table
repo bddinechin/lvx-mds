@@ -69967,7 +69967,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_f32(RM, argument2.64[0]);
+  new (result1, fio, fov, fun, fin) = f64_to_f32(RM, argument2.64[0]);
 stage 2:
   %2 = result1;
   CS.IO |= fio;
@@ -70002,10 +70002,10 @@ stage 2:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.f64_to_f32
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.32,1,1,1,1.f64_to_f32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.2
@@ -70042,7 +70042,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70058,7 +70058,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70066,7 +70066,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70074,7 +70074,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.GPR
@@ -70107,7 +70107,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  if (ziplanes) { result1.32[0] = f64_to_f32(RM, argument2.64[0]); result1.32[1] = f64_to_f32(RM, argument3.64[0]); result1.32[2] = f64_to_f32(RM, argument2.64[1]); result1.32[3] = f64_to_f32(RM, argument3.64[1]); } else { result1.32[0] = f64_to_f32(RM, argument2.64[0]); result1.32[1] = f64_to_f32(RM, argument2.64[1]); result1.32[2] = f64_to_f32(RM, argument3.64[0]); result1.32[3] = f64_to_f32(RM, argument3.64[1]); }
+  if (ziplanes) { new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[0]); result1.32[0] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[0]); result1.32[1] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[1]); result1.32[2] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[1]); result1.32[3] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; } else { new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[0]); result1.32[0] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument2.64[1]); result1.32[1] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[0]); result1.32[2] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f64_to_f32(RM, argument3.64[1]); result1.32[3] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; }
 stage 2:
   %2 = result1;
   CS.IO |= fio;
@@ -70146,35 +70146,143 @@ stage 2:
     (I2B
       (READ.ziplanes))
     (SEQ
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.32,1,1,1,1.f64_to_f32
+          (READ.RM(*dm:8,hi:7,lo:0*))
+          (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))))
       (WRITE.32[0].result1
-        (APPLY.32.f64_to_f32
+        (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+      (WRITE.fio
+        (IOR
+          (READ.fio(*dm:1,hi:0,lo:0*))
+          (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fov
+        (IOR
+          (READ.fov(*dm:1,hi:0,lo:0*))
+          (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fun
+        (IOR
+          (READ.fun(*dm:1,hi:0,lo:0*))
+          (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fin
+        (IOR
+          (READ.fin(*dm:1,hi:0,lo:0*))
+          (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.32,1,1,1,1.f64_to_f32
           (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:32,hi:4294967295,lo:0*)))
+          (READ.64[0].argument3(*dm:64,hi:18446744073709551615,lo:0*))))
       (WRITE.32[1].result1
-        (APPLY.32.f64_to_f32
+        (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+      (WRITE.fio
+        (IOR
+          (READ.fio(*dm:1,hi:1,lo:0*))
+          (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fov
+        (IOR
+          (READ.fov(*dm:1,hi:1,lo:0*))
+          (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fun
+        (IOR
+          (READ.fun(*dm:1,hi:1,lo:0*))
+          (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fin
+        (IOR
+          (READ.fin(*dm:1,hi:1,lo:0*))
+          (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.32,1,1,1,1.f64_to_f32
           (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.64[0].argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:32,hi:4294967295,lo:0*)))
-      (WRITE.32[2].result1
-        (APPLY.32.f64_to_f32
-          (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.64[1].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+          (READ.64[1].argument2(*dm:64,hi:18446744073709551615,lo:0*)))))
     (SEQ
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.32,1,1,1,1.f64_to_f32
+          (READ.RM(*dm:8,hi:7,lo:0*))
+          (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))))
       (WRITE.32[0].result1
-        (APPLY.32.f64_to_f32
+        (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+      (WRITE.fio
+        (IOR
+          (READ.fio(*dm:1,hi:0,lo:0*))
+          (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fov
+        (IOR
+          (READ.fov(*dm:1,hi:0,lo:0*))
+          (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fun
+        (IOR
+          (READ.fun(*dm:1,hi:0,lo:0*))
+          (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fin
+        (IOR
+          (READ.fin(*dm:1,hi:0,lo:0*))
+          (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.32,1,1,1,1.f64_to_f32
           (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:32,hi:4294967295,lo:0*)))
+          (READ.64[1].argument2(*dm:64,hi:18446744073709551615,lo:0*))))
       (WRITE.32[1].result1
-        (APPLY.32.f64_to_f32
+        (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+      (WRITE.fio
+        (IOR
+          (READ.fio(*dm:1,hi:1,lo:0*))
+          (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fov
+        (IOR
+          (READ.fov(*dm:1,hi:1,lo:0*))
+          (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fun
+        (IOR
+          (READ.fun(*dm:1,hi:1,lo:0*))
+          (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fin
+        (IOR
+          (READ.fin(*dm:1,hi:1,lo:0*))
+          (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.32,1,1,1,1.f64_to_f32
           (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.64[1].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:32,hi:4294967295,lo:0*)))
-      (WRITE.32[2].result1
-        (APPLY.32.f64_to_f32
-          (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.64[0].argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:32,hi:4294967295,lo:0*)))))
-  (WRITE.32[3].result1
-    (APPLY.32.f64_to_f32
+          (READ.64[0].argument3(*dm:64,hi:18446744073709551615,lo:0*))))))
+  (WRITE.32[2].result1
+    (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+  (WRITE.fio
+    (IOR
+      (READ.fio(*dm:1,hi:1,lo:0*))
+      (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fov
+    (IOR
+      (READ.fov(*dm:1,hi:1,lo:0*))
+      (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fun
+    (IOR
+      (READ.fun(*dm:1,hi:1,lo:0*))
+      (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fin
+    (IOR
+      (READ.fin(*dm:1,hi:1,lo:0*))
+      (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (BIND.lane,lio,lov,lun,lin
+    (APPLY.32,1,1,1,1.f64_to_f32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.64[1].argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:32,hi:4294967295,lo:0*)))
+      (READ.64[1].argument3(*dm:64,hi:18446744073709551615,lo:0*))))
+  (WRITE.32[3].result1
+    (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+  (WRITE.fio
+    (IOR
+      (READ.fio(*dm:1,hi:1,lo:0*))
+      (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fov
+    (IOR
+      (READ.fov(*dm:1,hi:1,lo:0*))
+      (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fun
+    (IOR
+      (READ.fun(*dm:1,hi:1,lo:0*))
+      (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fin
+    (IOR
+      (READ.fin(*dm:1,hi:1,lo:0*))
+      (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
   (WRITE.cs_io
     (F2I.1
       (LOAD.2
@@ -70211,7 +70319,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70227,7 +70335,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70235,7 +70343,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70243,7 +70351,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.GPR
@@ -70277,7 +70385,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_f16(RM, argument2.32[0]);
+  new (result1, fio, fov, fun, fin) = f32_to_f16(RM, argument2.32[0]);
 stage 2:
   %2 = result1;
   CS.IO |= fio;
@@ -70312,10 +70420,10 @@ stage 2:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.16.f32_to_f16
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.16,1,1,1,1.f32_to_f16
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.32[0].argument2(*dm:32,hi:4294967295,lo:0*))(*dm:64,hi:65535,lo:0*)))
+      (READ.32[0].argument2(*dm:32,hi:4294967295,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.2
@@ -70352,7 +70460,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70368,7 +70476,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70376,7 +70484,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70384,7 +70492,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.GPR
@@ -70418,7 +70526,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  if (ziplanes) { result1.16[0] = f32_to_f16(RM, argument2.32[0]); result1.16[1] = f32_to_f16(RM, argument3.32[0]); result1.16[2] = f32_to_f16(RM, argument2.32[1]); result1.16[3] = f32_to_f16(RM, argument3.32[1]); } else { result1.16[0] = f32_to_f16(RM, argument2.32[0]); result1.16[1] = f32_to_f16(RM, argument2.32[1]); result1.16[2] = f32_to_f16(RM, argument3.32[0]); result1.16[3] = f32_to_f16(RM, argument3.32[1]); }
+  if (ziplanes) { new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[0]); result1.16[0] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[0]); result1.16[1] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[1]); result1.16[2] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[1]); result1.16[3] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; } else { new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[0]); result1.16[0] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument2.32[1]); result1.16[1] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[0]); result1.16[2] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; new (lane, lio, lov, lun, lin) = f32_to_f16(RM, argument3.32[1]); result1.16[3] = lane; fio |= lio; fov |= lov; fun |= lun; fin |= lin; }
 stage 2:
   %3 = result1;
   CS.IO |= fio;
@@ -70460,35 +70568,143 @@ stage 2:
     (I2B
       (READ.ziplanes(*hi:1,lo:0*)))
     (SEQ
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.16,1,1,1,1.f32_to_f16
+          (READ.RM(*dm:8,hi:7,lo:0*))
+          (READ.32[0].argument2(*dm:32,hi:4294967295,lo:0*))))
       (WRITE.16[0].result1
-        (APPLY.16.f32_to_f16
+        (READ.lane(*dm:16,hi:65535,lo:0*)))
+      (WRITE.fio
+        (IOR
+          (READ.fio(*dm:1,hi:0,lo:0*))
+          (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fov
+        (IOR
+          (READ.fov(*dm:1,hi:0,lo:0*))
+          (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fun
+        (IOR
+          (READ.fun(*dm:1,hi:0,lo:0*))
+          (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fin
+        (IOR
+          (READ.fin(*dm:1,hi:0,lo:0*))
+          (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.16,1,1,1,1.f32_to_f16
           (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.32[0].argument2(*dm:32,hi:4294967295,lo:0*))(*dm:16,hi:65535,lo:0*)))
+          (READ.32[0].argument3(*dm:32,hi:4294967295,lo:0*))))
       (WRITE.16[1].result1
-        (APPLY.16.f32_to_f16
+        (READ.lane(*dm:16,hi:65535,lo:0*)))
+      (WRITE.fio
+        (IOR
+          (READ.fio(*dm:1,hi:1,lo:0*))
+          (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fov
+        (IOR
+          (READ.fov(*dm:1,hi:1,lo:0*))
+          (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fun
+        (IOR
+          (READ.fun(*dm:1,hi:1,lo:0*))
+          (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fin
+        (IOR
+          (READ.fin(*dm:1,hi:1,lo:0*))
+          (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.16,1,1,1,1.f32_to_f16
           (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.32[0].argument3(*dm:32,hi:4294967295,lo:0*))(*dm:16,hi:65535,lo:0*)))
-      (WRITE.16[2].result1
-        (APPLY.16.f32_to_f16
-          (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.32[1].argument2(*dm:32,hi:4294967295,lo:0*))(*dm:16,hi:65535,lo:0*))))
+          (READ.32[1].argument2(*dm:32,hi:4294967295,lo:0*)))))
     (SEQ
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.16,1,1,1,1.f32_to_f16
+          (READ.RM(*dm:8,hi:7,lo:0*))
+          (READ.32[0].argument2(*dm:32,hi:4294967295,lo:0*))))
       (WRITE.16[0].result1
-        (APPLY.16.f32_to_f16
+        (READ.lane(*dm:16,hi:65535,lo:0*)))
+      (WRITE.fio
+        (IOR
+          (READ.fio(*dm:1,hi:0,lo:0*))
+          (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fov
+        (IOR
+          (READ.fov(*dm:1,hi:0,lo:0*))
+          (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fun
+        (IOR
+          (READ.fun(*dm:1,hi:0,lo:0*))
+          (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fin
+        (IOR
+          (READ.fin(*dm:1,hi:0,lo:0*))
+          (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.16,1,1,1,1.f32_to_f16
           (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.32[0].argument2(*dm:32,hi:4294967295,lo:0*))(*dm:16,hi:65535,lo:0*)))
+          (READ.32[1].argument2(*dm:32,hi:4294967295,lo:0*))))
       (WRITE.16[1].result1
-        (APPLY.16.f32_to_f16
+        (READ.lane(*dm:16,hi:65535,lo:0*)))
+      (WRITE.fio
+        (IOR
+          (READ.fio(*dm:1,hi:1,lo:0*))
+          (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fov
+        (IOR
+          (READ.fov(*dm:1,hi:1,lo:0*))
+          (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fun
+        (IOR
+          (READ.fun(*dm:1,hi:1,lo:0*))
+          (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (WRITE.fin
+        (IOR
+          (READ.fin(*dm:1,hi:1,lo:0*))
+          (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+      (BIND.lane,lio,lov,lun,lin
+        (APPLY.16,1,1,1,1.f32_to_f16
           (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.32[1].argument2(*dm:32,hi:4294967295,lo:0*))(*dm:16,hi:65535,lo:0*)))
-      (WRITE.16[2].result1
-        (APPLY.16.f32_to_f16
-          (READ.RM(*dm:8,hi:7,lo:0*))
-          (READ.32[0].argument3(*dm:32,hi:4294967295,lo:0*))(*dm:16,hi:65535,lo:0*)))))
-  (WRITE.16[3].result1
-    (APPLY.16.f32_to_f16
+          (READ.32[0].argument3(*dm:32,hi:4294967295,lo:0*))))))
+  (WRITE.16[2].result1
+    (READ.lane(*dm:16,hi:65535,lo:0*)))
+  (WRITE.fio
+    (IOR
+      (READ.fio(*dm:1,hi:1,lo:0*))
+      (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fov
+    (IOR
+      (READ.fov(*dm:1,hi:1,lo:0*))
+      (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fun
+    (IOR
+      (READ.fun(*dm:1,hi:1,lo:0*))
+      (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fin
+    (IOR
+      (READ.fin(*dm:1,hi:1,lo:0*))
+      (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (BIND.lane,lio,lov,lun,lin
+    (APPLY.16,1,1,1,1.f32_to_f16
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.32[1].argument3(*dm:32,hi:4294967295,lo:0*))(*dm:16,hi:65535,lo:0*)))
+      (READ.32[1].argument3(*dm:32,hi:4294967295,lo:0*))))
+  (WRITE.16[3].result1
+    (READ.lane(*dm:16,hi:65535,lo:0*)))
+  (WRITE.fio
+    (IOR
+      (READ.fio(*dm:1,hi:1,lo:0*))
+      (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fov
+    (IOR
+      (READ.fov(*dm:1,hi:1,lo:0*))
+      (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fun
+    (IOR
+      (READ.fun(*dm:1,hi:1,lo:0*))
+      (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fin
+    (IOR
+      (READ.fin(*dm:1,hi:1,lo:0*))
+      (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
   (WRITE.cs_io
     (F2I.1
       (LOAD.2
@@ -70525,7 +70741,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70541,7 +70757,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70549,7 +70765,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.CS
@@ -70557,7 +70773,7 @@ stage 2:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.2
     (AGGL.GPR
@@ -80540,7 +80756,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = i64_to_f64(RM, argument2);
+  new (result1, fio, fin) = i64_to_f64(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -80575,10 +80791,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.i64_to_f64
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.i64_to_f64
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -80615,7 +80831,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -80647,7 +80863,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -80682,7 +80898,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.64[i] = i64_to_f64(RM, argument2.64[i]);
+    new (lane, lio, lin) = i64_to_f64(RM, argument2.64[i]);
+    result1.64[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -80720,10 +80939,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.i64_to_f64
+    (BIND.lane,lio,lin
+      (APPLY.64,1,1.i64_to_f64
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))))
+    (WRITE.64[(INDEX.I)].result1
+      (READ.lane(*dm:64,hi:18446744073709551615,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -80760,7 +80989,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -80792,7 +81021,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -80826,7 +81055,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = i32_to_f32(RM, argument2);
+  new (result1, fio, fin) = i32_to_f32(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -80861,10 +81090,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.i32_to_f32
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.i32_to_f32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -80901,7 +81130,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -80933,7 +81162,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -80968,7 +81197,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.32[i] = i32_to_f32(RM, argument2.32[i]);
+    new (lane, lio, lin) = i32_to_f32(RM, argument2.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -81006,10 +81238,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.i32_to_f32
+    (BIND.lane,lio,lin
+      (APPLY.32,1,1.i32_to_f32
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -81046,7 +81288,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -81078,7 +81320,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -81113,7 +81355,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 4) {
-    result1.32[i] = i32_to_f32(RM, argument2.32[i]);
+    new (lane, lio, lin) = i32_to_f32(RM, argument2.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -81151,10 +81396,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.4.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.i32_to_f32
+    (BIND.lane,lio,lin
+      (APPLY.32,1,1.i32_to_f32
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -81191,7 +81446,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -81223,7 +81478,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -81258,7 +81513,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 8) {
-    result1.16[i] = i16_to_f16(RM, argument2.16[i]);
+    new (lane, lio, lin) = i16_to_f16(RM, argument2.16[i]);
+    result1.16[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -81296,10 +81554,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.8.1)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.i16_to_f16
+    (BIND.lane,lio,lin
+      (APPLY.16,1,1.i16_to_f16
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.16[(INDEX.I)].argument2(*dm:16,hi:65535,lo:0*))(*dm:16,hi:65535,lo:0*))))
+        (READ.16[(INDEX.I)].argument2(*dm:16,hi:65535,lo:0*))))
+    (WRITE.16[(INDEX.I)].result1
+      (READ.lane(*dm:16,hi:65535,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -81336,7 +81604,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -81368,7 +81636,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -81402,7 +81670,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = ui64_to_f64(RM, argument2);
+  new (result1, fio, fin) = ui64_to_f64(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -81437,10 +81705,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.ui64_to_f64
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.ui64_to_f64
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -81477,7 +81745,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -81509,7 +81777,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -81544,7 +81812,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.64[i] = ui64_to_f64(RM, argument2.64[i]);
+    new (lane, lio, lin) = ui64_to_f64(RM, argument2.64[i]);
+    result1.64[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -81582,10 +81853,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.ui64_to_f64
+    (BIND.lane,lio,lin
+      (APPLY.64,1,1.ui64_to_f64
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))))
+    (WRITE.64[(INDEX.I)].result1
+      (READ.lane(*dm:64,hi:18446744073709551615,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -81622,7 +81903,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -81654,7 +81935,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -81688,7 +81969,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = ui32_to_f32(RM, argument2);
+  new (result1, fio, fin) = ui32_to_f32(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -81723,10 +82004,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.ui32_to_f32
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.ui32_to_f32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -81763,7 +82044,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -81795,7 +82076,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -81830,7 +82111,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.32[i] = ui32_to_f32(RM, argument2.32[i]);
+    new (lane, lio, lin) = ui32_to_f32(RM, argument2.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -81868,10 +82152,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.ui32_to_f32
+    (BIND.lane,lio,lin
+      (APPLY.32,1,1.ui32_to_f32
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -81908,7 +82202,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -81940,7 +82234,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -81975,7 +82269,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 4) {
-    result1.32[i] = ui32_to_f32(RM, argument2.32[i]);
+    new (lane, lio, lin) = ui32_to_f32(RM, argument2.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -82013,10 +82310,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.4.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.ui32_to_f32
+    (BIND.lane,lio,lin
+      (APPLY.32,1,1.ui32_to_f32
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -82053,7 +82360,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -82085,7 +82392,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -82120,7 +82427,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 8) {
-    result1.16[i] = ui16_to_f16(RM, argument2.16[i]);
+    new (lane, lio, lin) = ui16_to_f16(RM, argument2.16[i]);
+    result1.16[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -82158,10 +82468,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.8.1)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.ui16_to_f16
+    (BIND.lane,lio,lin
+      (APPLY.16,1,1.ui16_to_f16
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.16[(INDEX.I)].argument2(*dm:16,hi:65535,lo:0*))(*dm:16,hi:65535,lo:0*))))
+        (READ.16[(INDEX.I)].argument2(*dm:16,hi:65535,lo:0*))))
+    (WRITE.16[(INDEX.I)].result1
+      (READ.lane(*dm:16,hi:65535,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -82198,7 +82518,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -82230,7 +82550,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -82264,7 +82584,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = i32_to_f64(RM, argument2);
+  new (result1, fio, fin) = i32_to_f64(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -82299,10 +82619,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.i32_to_f64
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.i32_to_f64
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -82339,7 +82659,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -82371,7 +82691,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -82405,7 +82725,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = ui32_to_f64(RM, argument2);
+  new (result1, fio, fin) = ui32_to_f64(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -82440,10 +82760,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.ui32_to_f64
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.ui32_to_f64
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -82480,7 +82800,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -82512,7 +82832,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -82546,7 +82866,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = i64_to_f32(RM, argument2);
+  new (result1, fio, fin) = i64_to_f32(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -82581,10 +82901,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.i64_to_f32
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.i64_to_f32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -82621,7 +82941,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -82653,7 +82973,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -82687,7 +83007,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = ui64_to_f32(RM, argument2);
+  new (result1, fio, fin) = ui64_to_f32(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -82722,10 +83042,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.ui64_to_f32
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.ui64_to_f32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -82762,7 +83082,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -82794,7 +83114,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -82828,7 +83148,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_i64(RM, argument2);
+  new (result1, fio, fin) = f64_to_i64(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -82863,10 +83183,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.f64_to_i64
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.f64_to_i64
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -82903,7 +83223,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -82935,7 +83255,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -82970,7 +83290,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.64[i] = f64_to_i64(RM, argument2.64[i]);
+    new (lane, lio, lin) = f64_to_i64(RM, argument2.64[i]);
+    result1.64[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -83008,10 +83331,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.f64_to_i64
+    (BIND.lane,lio,lin
+      (APPLY.64,1,1.f64_to_i64
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))))
+    (WRITE.64[(INDEX.I)].result1
+      (READ.lane(*dm:64,hi:18446744073709551615,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -83048,7 +83381,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -83080,7 +83413,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -83114,7 +83447,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_i32(RM, argument2);
+  new (result1, fio, fin) = f32_to_i32(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -83149,10 +83482,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.f32_to_i32
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.f32_to_i32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -83189,7 +83522,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -83221,7 +83554,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -83256,7 +83589,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.32[i] = f32_to_i32(RM, argument2.32[i]);
+    new (lane, lio, lin) = f32_to_i32(RM, argument2.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -83294,10 +83630,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_to_i32
+    (BIND.lane,lio,lin
+      (APPLY.32,1,1.f32_to_i32
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -83334,7 +83680,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -83366,7 +83712,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -83401,7 +83747,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 4) {
-    result1.32[i] = f32_to_i32(RM, argument2.32[i]);
+    new (lane, lio, lin) = f32_to_i32(RM, argument2.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -83439,10 +83788,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.4.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_to_i32
+    (BIND.lane,lio,lin
+      (APPLY.32,1,1.f32_to_i32
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -83479,7 +83838,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -83511,7 +83870,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -83546,7 +83905,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 8) {
-    result1.16[i] = f16_to_i16(RM, argument2.16[i]);
+    new (lane, lio, lin) = f16_to_i16(RM, argument2.16[i]);
+    result1.16[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -83584,10 +83946,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.8.1)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.f16_to_i16
+    (BIND.lane,lio,lin
+      (APPLY.16,1,1.f16_to_i16
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.16[(INDEX.I)].argument2(*dm:16,hi:65535,lo:0*))(*dm:16,hi:65535,lo:0*))))
+        (READ.16[(INDEX.I)].argument2(*dm:16,hi:65535,lo:0*))))
+    (WRITE.16[(INDEX.I)].result1
+      (READ.lane(*dm:16,hi:65535,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -83624,7 +83996,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -83656,7 +84028,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -83690,7 +84062,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_ui64(RM, argument2);
+  new (result1, fio, fin) = f64_to_ui64(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -83725,10 +84097,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.f64_to_ui64
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.f64_to_ui64
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -83765,7 +84137,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -83797,7 +84169,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -83832,7 +84204,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.64[i] = f64_to_ui64(RM, argument2.64[i]);
+    new (lane, lio, lin) = f64_to_ui64(RM, argument2.64[i]);
+    result1.64[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -83870,10 +84245,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.f64_to_ui64
+    (BIND.lane,lio,lin
+      (APPLY.64,1,1.f64_to_ui64
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))))
+    (WRITE.64[(INDEX.I)].result1
+      (READ.lane(*dm:64,hi:18446744073709551615,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -83910,7 +84295,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -83942,7 +84327,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -83976,7 +84361,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_ui32(RM, argument2);
+  new (result1, fio, fin) = f32_to_ui32(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -84011,10 +84396,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.f32_to_ui32
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.f32_to_ui32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -84051,7 +84436,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -84083,7 +84468,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -84118,7 +84503,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.32[i] = f32_to_ui32(RM, argument2.32[i]);
+    new (lane, lio, lin) = f32_to_ui32(RM, argument2.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -84156,10 +84544,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_to_ui32
+    (BIND.lane,lio,lin
+      (APPLY.32,1,1.f32_to_ui32
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -84196,7 +84594,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -84228,7 +84626,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -84263,7 +84661,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 4) {
-    result1.32[i] = f32_to_ui32(RM, argument2.32[i]);
+    new (lane, lio, lin) = f32_to_ui32(RM, argument2.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -84301,10 +84702,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.4.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_to_ui32
+    (BIND.lane,lio,lin
+      (APPLY.32,1,1.f32_to_ui32
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -84341,7 +84752,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -84373,7 +84784,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -84408,7 +84819,10 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 8) {
-    result1.16[i] = f16_to_ui16(RM, argument2.16[i]);
+    new (lane, lio, lin) = f16_to_ui16(RM, argument2.16[i]);
+    result1.16[i] = lane;
+    fio |= lio;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -84446,10 +84860,20 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.8.1)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.f16_to_ui16
+    (BIND.lane,lio,lin
+      (APPLY.16,1,1.f16_to_ui16
         (READ.RM(*dm:8,hi:7,lo:0*))
-        (READ.16[(INDEX.I)].argument2(*dm:16,hi:65535,lo:0*))(*dm:16,hi:65535,lo:0*))))
+        (READ.16[(INDEX.I)].argument2(*dm:16,hi:65535,lo:0*))))
+    (WRITE.16[(INDEX.I)].result1
+      (READ.lane(*dm:16,hi:65535,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -84486,7 +84910,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -84518,7 +84942,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -84552,7 +84976,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_i64(RM, argument2);
+  new (result1, fio, fin) = f32_to_i64(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -84587,10 +85011,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.f32_to_i64
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.f32_to_i64
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -84627,7 +85051,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -84659,7 +85083,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -84693,7 +85117,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_to_ui64(RM, argument2);
+  new (result1, fio, fin) = f32_to_ui64(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -84728,10 +85152,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.f32_to_ui64
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.f32_to_ui64
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -84768,7 +85192,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -84800,7 +85224,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -84834,7 +85258,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_i32(RM, argument2);
+  new (result1, fio, fin) = f64_to_i32(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -84869,10 +85293,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.f64_to_i32
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.f64_to_i32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -84909,7 +85333,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -84941,7 +85365,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -84975,7 +85399,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_to_ui32(RM, argument2);
+  new (result1, fio, fin) = f64_to_ui32(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -85010,10 +85434,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.f64_to_ui32
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.f64_to_ui32
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -85050,7 +85474,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -85082,7 +85506,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -85116,7 +85540,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_rint(RM, argument2);
+  new (result1, fio, fin) = f64_rint(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -85151,10 +85575,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.f64_rint
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.f64_rint
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -85191,7 +85615,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -85223,7 +85647,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -85257,7 +85681,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_rint(RM, argument2);
+  new (result1, fio, fin) = f32_rint(RM, argument2);
 stage 16:
   %2 = result1;
   CS.IO |= fio;
@@ -85292,10 +85716,10 @@ stage 16:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.f32_rint
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.f32_rint
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.16
@@ -85332,7 +85756,7 @@ stage 16:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.16
     (AGGL.CS
@@ -85364,7 +85788,7 @@ stage 16:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.16
     (AGGL.GPR
@@ -85398,7 +85822,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f16_rint(RM, argument2);
+  new (result1, fio, fin) = f16_rint(RM, argument2);
 stage 16:
   %2 = result1;
   CS.IO |= fio;
@@ -85433,10 +85857,10 @@ stage 16:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.16.f16_rint
+  (BIND.result1,fio,fin
+    (APPLY.16,1,1.f16_rint
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:65535,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.16
@@ -85473,7 +85897,7 @@ stage 16:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.16
     (AGGL.CS
@@ -85505,7 +85929,7 @@ stage 16:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.16
     (AGGL.GPR
@@ -85539,7 +85963,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f64_sqrt(RM, argument2);
+  new (result1, fio, fin) = f64_sqrt(RM, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -85574,10 +85998,10 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.f64_sqrt
+  (BIND.result1,fio,fin
+    (APPLY.64,1,1.f64_sqrt
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -85614,7 +86038,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -85646,7 +86070,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -85680,7 +86104,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f32_sqrt(RM, argument2);
+  new (result1, fio, fin) = f32_sqrt(RM, argument2);
 stage 16:
   %2 = result1;
   CS.IO |= fio;
@@ -85715,10 +86139,10 @@ stage 16:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.f32_sqrt
+  (BIND.result1,fio,fin
+    (APPLY.32,1,1.f32_sqrt
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.16
@@ -85755,7 +86179,7 @@ stage 16:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.16
     (AGGL.CS
@@ -85787,7 +86211,7 @@ stage 16:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.16
     (AGGL.GPR
@@ -85821,7 +86245,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new result1 = f16_sqrt(RM, argument2);
+  new (result1, fio, fin) = f16_sqrt(RM, argument2);
 stage 16:
   %2 = result1;
   CS.IO |= fio;
@@ -85856,10 +86280,10 @@ stage 16:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.16.f16_sqrt
+  (BIND.result1,fio,fin
+    (APPLY.16,1,1.f16_sqrt
       (READ.RM(*dm:8,hi:7,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:65535,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.16
@@ -85896,7 +86320,7 @@ stage 16:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.16
     (AGGL.CS
@@ -85928,7 +86352,7 @@ stage 16:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.16
     (AGGL.GPR
@@ -95262,7 +95686,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  result1 = f64_add(RM, argument2, argument3);
+  new (result1, fio, fov, fin) = f64_add(RM, argument2, argument3);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -95303,11 +95727,11 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.f64_add
+  (BIND.result1,fio,fov,fin
+    (APPLY.64,1,1,1.f64_add
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -95344,7 +95768,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -95360,7 +95784,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -95376,7 +95800,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -95412,7 +95836,11 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.64[i] = f64_add(RM, argument2.64[i], argument3.64[i]);
+    new (lane, lio, lov, lin) = f64_add(RM, argument2.64[i], argument3.64[i]);
+    result1.64[i] = lane;
+    fio |= lio;
+    fov |= lov;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -95456,11 +95884,25 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.f64_add
+    (BIND.lane,lio,lov,lin
+      (APPLY.64,1,1,1.f64_add
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))
-        (READ.64[(INDEX.I)].argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+        (READ.64[(INDEX.I)].argument3(*dm:64,hi:18446744073709551615,lo:0*))))
+    (WRITE.64[(INDEX.I)].result1
+      (READ.lane(*dm:64,hi:18446744073709551615,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fov
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -95497,7 +95939,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -95513,7 +95955,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -95529,7 +95971,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -95885,7 +96327,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  result1 = f16_add(RM, argument2, argument3);
+  new (result1, fio, fov, fin) = f16_add(RM, argument2, argument3);
 stage 4:
   %2 = result1;
   CS.IO |= fio;
@@ -95926,11 +96368,11 @@ stage 4:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.16.f16_add
+  (BIND.result1,fio,fov,fin
+    (APPLY.16,1,1,1.f16_add
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:65535,lo:0*)))
+      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.4
@@ -95967,7 +96409,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -95983,7 +96425,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -95999,7 +96441,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.GPR
@@ -96035,7 +96477,11 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 8) {
-    result1.16[i] = f16_add(RM, argument2.16[i], argument3.16[i]);
+    new (lane, lio, lov, lin) = f16_add(RM, argument2.16[i], argument3.16[i]);
+    result1.16[i] = lane;
+    fio |= lio;
+    fov |= lov;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -96079,11 +96525,25 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.8.1)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.f16_add
+    (BIND.lane,lio,lov,lin
+      (APPLY.16,1,1,1.f16_add
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.16[(INDEX.I)].argument2(*dm:64,hi:65535,lo:0*))
-        (READ.16[(INDEX.I)].argument3(*dm:64,hi:65535,lo:0*))(*dm:16,hi:65535,lo:0*))))
+        (READ.16[(INDEX.I)].argument3(*dm:64,hi:65535,lo:0*))))
+    (WRITE.16[(INDEX.I)].result1
+      (READ.lane(*dm:16,hi:65535,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fov
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -96120,7 +96580,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96136,7 +96596,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96152,7 +96612,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -96187,7 +96647,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  result1 = f64_sub(RM, argument3, argument2);
+  new (result1, fio, fov, fin) = f64_sub(RM, argument3, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -96228,11 +96688,11 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.64.f64_sub
+  (BIND.result1,fio,fov,fin
+    (APPLY.64,1,1,1.f64_sub
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -96269,7 +96729,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96285,7 +96745,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96301,7 +96761,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -96337,7 +96797,11 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 2) {
-    result1.64[i] = f64_sub(RM, argument3.64[i], argument2.64[i]);
+    new (lane, lio, lov, lin) = f64_sub(RM, argument3.64[i], argument2.64[i]);
+    result1.64[i] = lane;
+    fio |= lio;
+    fov |= lov;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -96381,11 +96845,25 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.f64_sub
+    (BIND.lane,lio,lov,lin
+      (APPLY.64,1,1,1.f64_sub
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.64[(INDEX.I)].argument3(*dm:64,hi:18446744073709551615,lo:0*))
-        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+        (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))))
+    (WRITE.64[(INDEX.I)].result1
+      (READ.lane(*dm:64,hi:18446744073709551615,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fov
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -96422,7 +96900,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96438,7 +96916,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96454,7 +96932,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -96489,7 +96967,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  result1 = f32_sub(RM, argument3, argument2);
+  new (result1, fio, fov, fin) = f32_sub(RM, argument3, argument2);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -96530,11 +97008,11 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.32.f32_sub
+  (BIND.result1,fio,fov,fin
+    (APPLY.32,1,1,1.f32_sub
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -96571,7 +97049,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96587,7 +97065,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96603,7 +97081,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -96639,7 +97117,11 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 4) {
-    result1.32[i] = f32_sub(RM, argument3.32[i], argument2.32[i]);
+    new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[i], argument2.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fov |= lov;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -96683,11 +97165,25 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.4.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_sub
+    (BIND.lane,lio,lov,lin
+      (APPLY.32,1,1,1.f32_sub
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.32[(INDEX.I)].argument3(*dm:64,hi:4294967295,lo:0*))
-        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fov
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -96724,7 +97220,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96740,7 +97236,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -96756,7 +97252,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -96791,7 +97287,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  result1 = f16_sub(RM, argument3, argument2);
+  new (result1, fio, fov, fin) = f16_sub(RM, argument3, argument2);
 stage 4:
   %2 = result1;
   CS.IO |= fio;
@@ -96832,11 +97328,11 @@ stage 4:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (WRITE.result1
-    (APPLY.16.f16_sub
+  (BIND.result1,fio,fov,fin
+    (APPLY.16,1,1,1.f16_sub
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:65535,lo:0*)))
+      (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.4
@@ -96873,7 +97369,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -96889,7 +97385,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -96905,7 +97401,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.GPR
@@ -96941,7 +97437,11 @@ stage 1:
   new fun = 0;
   new fin = 0;
   for (i range 8) {
-    result1.16[i] = f16_sub(RM, argument3.16[i], argument2.16[i]);
+    new (lane, lio, lov, lin) = f16_sub(RM, argument3.16[i], argument2.16[i]);
+    result1.16[i] = lane;
+    fio |= lio;
+    fov |= lov;
+    fin |= lin;
   }
 stage 5:
   %2 = result1;
@@ -96985,11 +97485,25 @@ stage 5:
     (CONST.0))
   (FOR.I
     (RANGE.0.8.1)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.f16_sub
+    (BIND.lane,lio,lov,lin
+      (APPLY.16,1,1,1.f16_sub
         (READ.RM(*dm:8,hi:7,lo:0*))
         (READ.16[(INDEX.I)].argument3(*dm:64,hi:65535,lo:0*))
-        (READ.16[(INDEX.I)].argument2(*dm:64,hi:65535,lo:0*))(*dm:16,hi:65535,lo:0*))))
+        (READ.16[(INDEX.I)].argument2(*dm:64,hi:65535,lo:0*))))
+    (WRITE.16[(INDEX.I)].result1
+      (READ.lane(*dm:16,hi:65535,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fov
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -97026,7 +97540,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97042,7 +97556,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97058,7 +97572,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -97102,7 +97616,7 @@ stage 5:
   CS.UN |= fun;
   CS.IN |= fin;
   fsign = fnegate ? 0x8000000000000000 : 0;
-  result1 = f64_mul(RM, argument2^fsign, argument3);
+  new (result1, fio, fov, fun, fin) = f64_mul(RM, argument2^fsign, argument3);
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-floatmode Modifier-lvx_v2-fnegate"
   proxies=	"%3 %4 %5 %2 %1"
@@ -97145,13 +97659,13 @@ stage 5:
         (READ.fnegate(*hi:1,lo:0*)))
       (CONST.9223372036854775808)
       (CONST.0)(*dm:64,hi:9223372036854775808,lo:0*)))
-  (WRITE.result1
-    (APPLY.64.f64_mul
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.64,1,1,1,1.f64_mul
       (READ.RM(*dm:8,hi:7,lo:0*))
       (XOR
         (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
         (READ.fsign(*dm:64,hi:9223372036854775808,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -97188,7 +97702,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97204,7 +97718,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97212,7 +97726,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97220,7 +97734,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -97265,7 +97779,12 @@ stage 5:
   CS.IN |= fin;
   fsign = fnegate ? 0x8000000000000000 : 0;
   for (i range 2) {
-    result1.64[i] = f64_mul(RM, argument2.64[i]^fsign, argument3.64[i]);
+    new (lane, lio, lov, lun, lin) = f64_mul(RM, argument2.64[i]^fsign, argument3.64[i]);
+    result1.64[i] = lane;
+    fio |= lio;
+    fov |= lov;
+    fun |= lun;
+    fin |= lin;
   }
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg Modifier-lvx_v2-floatmode Modifier-lvx_v2-fnegate"
@@ -97311,13 +97830,31 @@ stage 5:
       (CONST.0)(*dm:64,hi:9223372036854775808,lo:0*)))
   (FOR.I
     (RANGE.0.2.1)
-    (WRITE.64[(INDEX.I)].result1
-      (APPLY.64.f64_mul
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.64,1,1,1,1.f64_mul
         (READ.RM(*dm:8,hi:7,lo:0*))
         (XOR
           (READ.64[(INDEX.I)].argument2(*dm:64,hi:18446744073709551615,lo:0*))
           (READ.fsign(*dm:64,hi:9223372036854775808,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))
-        (READ.64[(INDEX.I)].argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+        (READ.64[(INDEX.I)].argument3(*dm:64,hi:18446744073709551615,lo:0*))))
+    (WRITE.64[(INDEX.I)].result1
+      (READ.lane(*dm:64,hi:18446744073709551615,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fov
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fun
+      (IOR
+        (READ.fun(*dm:1,hi:1,lo:0*))
+        (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -97354,7 +97891,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97370,7 +97907,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97378,7 +97915,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97386,7 +97923,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -97430,7 +97967,7 @@ stage 5:
   CS.UN |= fun;
   CS.IN |= fin;
   fsign = fnegate ? 0x80000000 : 0;
-  result1 = f32_mul(RM, argument2^fsign, argument3);
+  new (result1, fio, fov, fun, fin) = f32_mul(RM, argument2^fsign, argument3);
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-floatmode Modifier-lvx_v2-fnegate"
   proxies=	"%3 %4 %5 %2 %1"
@@ -97473,13 +98010,13 @@ stage 5:
         (READ.fnegate(*hi:1,lo:0*)))
       (CONST.2147483648)
       (CONST.0)(*dm:64,hi:2147483648,lo:0*)))
-  (WRITE.result1
-    (APPLY.32.f32_mul
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.32,1,1,1,1.f32_mul
       (READ.RM(*dm:8,hi:7,lo:0*))
       (XOR
         (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
         (READ.fsign(*dm:64,hi:2147483648,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -97516,7 +98053,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97532,7 +98069,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97540,7 +98077,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97548,7 +98085,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -97593,7 +98130,12 @@ stage 5:
   CS.IN |= fin;
   fsign = fnegate ? 0x80000000 : 0;
   for (i range 4) {
-    result1.32[i] = f32_mul(RM, argument2.32[i]^fsign, argument3.32[i]);
+    new (lane, lio, lov, lun, lin) = f32_mul(RM, argument2.32[i]^fsign, argument3.32[i]);
+    result1.32[i] = lane;
+    fio |= lio;
+    fov |= lov;
+    fun |= lun;
+    fin |= lin;
   }
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg Modifier-lvx_v2-floatmode Modifier-lvx_v2-fnegate"
@@ -97639,13 +98181,31 @@ stage 5:
       (CONST.0)(*dm:64,hi:2147483648,lo:0*)))
   (FOR.I
     (RANGE.0.4.1)
-    (WRITE.32[(INDEX.I)].result1
-      (APPLY.32.f32_mul
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.32,1,1,1,1.f32_mul
         (READ.RM(*dm:8,hi:7,lo:0*))
         (XOR
           (READ.32[(INDEX.I)].argument2(*dm:64,hi:4294967295,lo:0*))
           (READ.fsign(*dm:64,hi:2147483648,lo:0*))(*dm:64,hi:4294967295,lo:0*))
-        (READ.32[(INDEX.I)].argument3(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*))))
+        (READ.32[(INDEX.I)].argument3(*dm:64,hi:4294967295,lo:0*))))
+    (WRITE.32[(INDEX.I)].result1
+      (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fov
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fun
+      (IOR
+        (READ.fun(*dm:1,hi:1,lo:0*))
+        (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -97682,7 +98242,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97698,7 +98258,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97706,7 +98266,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -97714,7 +98274,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -97751,7 +98311,7 @@ stage 1:
   new fun = 0;
   new fin = 0;
   fsign = fnegate ? 0x8000 : 0;
-  result1 = f16_mul(RM, argument2^fsign, argument3);
+  new (result1, fio, fov, fun, fin) = f16_mul(RM, argument2^fsign, argument3);
 stage 4:
   %3 = result1;
   CS.IO |= fio;
@@ -97801,13 +98361,13 @@ stage 4:
         (READ.fnegate(*hi:1,lo:0*)))
       (CONST.32768)
       (CONST.0)(*dm:64,hi:32768,lo:0*)))
-  (WRITE.result1
-    (APPLY.16.f16_mul
+  (BIND.result1,fio,fov,fun,fin
+    (APPLY.16,1,1,1,1.f16_mul
       (READ.RM(*dm:8,hi:7,lo:0*))
       (XOR
         (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
         (READ.fsign(*dm:64,hi:32768,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:65535,lo:0*)))
+      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.4
@@ -97844,7 +98404,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -97860,7 +98420,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -97868,7 +98428,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -97876,7 +98436,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.GPR
@@ -97921,7 +98481,12 @@ stage 5:
   CS.IN |= fin;
   fsign = fnegate ? 0x8000 : 0;
   for (i range 8) {
-    result1.16[i] = f16_mul(RM, argument2.16[i]^fsign, argument3.16[i]);
+    new (lane, lio, lov, lun, lin) = f16_mul(RM, argument2.16[i]^fsign, argument3.16[i]);
+    result1.16[i] = lane;
+    fio |= lio;
+    fov |= lov;
+    fun |= lun;
+    fin |= lin;
   }
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg RegClass-lvx_v2-pairedReg Modifier-lvx_v2-floatmode Modifier-lvx_v2-fnegate"
@@ -97967,13 +98532,31 @@ stage 5:
       (CONST.0)(*dm:64,hi:32768,lo:0*)))
   (FOR.I
     (RANGE.0.8.1)
-    (WRITE.16[(INDEX.I)].result1
-      (APPLY.16.f16_mul
+    (BIND.lane,lio,lov,lun,lin
+      (APPLY.16,1,1,1,1.f16_mul
         (READ.RM(*dm:8,hi:7,lo:0*))
         (XOR
           (READ.16[(INDEX.I)].argument2(*dm:64,hi:65535,lo:0*))
           (READ.fsign(*dm:64,hi:32768,lo:0*))(*dm:64,hi:65535,lo:0*))
-        (READ.16[(INDEX.I)].argument3(*dm:64,hi:65535,lo:0*))(*dm:16,hi:65535,lo:0*))))
+        (READ.16[(INDEX.I)].argument3(*dm:64,hi:65535,lo:0*))))
+    (WRITE.16[(INDEX.I)].result1
+      (READ.lane(*dm:16,hi:65535,lo:0*)))
+    (WRITE.fio
+      (IOR
+        (READ.fio(*dm:1,hi:1,lo:0*))
+        (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fov
+      (IOR
+        (READ.fov(*dm:1,hi:1,lo:0*))
+        (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fun
+      (IOR
+        (READ.fun(*dm:1,hi:1,lo:0*))
+        (READ.lun(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+    (WRITE.fin
+      (IOR
+        (READ.fin(*dm:1,hi:1,lo:0*))
+        (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -98010,7 +98593,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98026,7 +98609,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98034,7 +98617,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98042,7 +98625,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.PGR
@@ -98086,7 +98669,7 @@ stage 5:
   CS.UN |= fun;
   CS.IN |= fin;
   fsign = fnegate ? 0x8000000000000000 : 0;
-  result1 = f64_div(RM, argument2^fsign, argument3);
+  new (result1, fio, fdz, fov, fun, fin) = f64_div(RM, argument2^fsign, argument3);
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-floatmode Modifier-lvx_v2-fnegate"
   proxies=	"%3 %4 %5 %2 %1"
@@ -98129,13 +98712,13 @@ stage 5:
         (READ.fnegate(*hi:1,lo:0*)))
       (CONST.9223372036854775808)
       (CONST.0)(*dm:64,hi:9223372036854775808,lo:0*)))
-  (WRITE.result1
-    (APPLY.64.f64_div
+  (BIND.result1,fio,fdz,fov,fun,fin
+    (APPLY.64,1,1,1,1,1.f64_div
       (READ.RM(*dm:8,hi:7,lo:0*))
       (XOR
         (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
         (READ.fsign(*dm:64,hi:9223372036854775808,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -98172,7 +98755,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98180,7 +98763,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.fdz(*dm:1,hi:1,lo:0*))
         (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98188,7 +98771,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98196,7 +98779,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98204,7 +98787,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -98248,7 +98831,7 @@ stage 5:
   CS.UN |= fun;
   CS.IN |= fin;
   fsign = fnegate ? 0x80000000 : 0;
-  result1 = f32_div(RM, argument2^fsign, argument3);
+  new (result1, fio, fdz, fov, fun, fin) = f32_div(RM, argument2^fsign, argument3);
 </Execution><Behavior
   methods=	"RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg RegClass-lvx_v2-singleReg Modifier-lvx_v2-floatmode Modifier-lvx_v2-fnegate"
   proxies=	"%3 %4 %5 %2 %1"
@@ -98291,13 +98874,13 @@ stage 5:
         (READ.fnegate(*hi:1,lo:0*)))
       (CONST.2147483648)
       (CONST.0)(*dm:64,hi:2147483648,lo:0*)))
-  (WRITE.result1
-    (APPLY.32.f32_div
+  (BIND.result1,fio,fdz,fov,fun,fin
+    (APPLY.32,1,1,1,1,1.f32_div
       (READ.RM(*dm:8,hi:7,lo:0*))
       (XOR
         (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
         (READ.fsign(*dm:64,hi:2147483648,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:4294967295,lo:0*)))
+      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.5
@@ -98334,7 +98917,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98342,7 +98925,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.fdz(*dm:1,hi:1,lo:0*))
         (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98350,7 +98933,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98358,7 +98941,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -98366,7 +98949,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -98403,7 +98986,7 @@ stage 1:
   new fun = 0;
   new fin = 0;
   fsign = fnegate ? 0x8000 : 0;
-  result1 = f16_div(RM, argument2, argument3);
+  new (result1, fio, fdz, fov, fun, fin) = f16_div(RM, argument2, argument3);
 stage 4:
   %3 = result1;
   CS.IO |= fio;
@@ -98453,13 +99036,13 @@ stage 4:
         (READ.fnegate(*hi:1,lo:0*)))
       (CONST.32768)
       (CONST.0)(*dm:64,hi:32768,lo:0*)))
-  (WRITE.result1
-    (APPLY.16.f16_div
+  (BIND.result1,fio,fdz,fov,fun,fin
+    (APPLY.16,1,1,1,1,1.f16_div
       (READ.RM(*dm:8,hi:7,lo:0*))
       (XOR
         (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
         (READ.fsign(*dm:64,hi:32768,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:65535,lo:0*)))
+      (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
   (WRITE.cs_io
     (F2I.1
       (LOAD.4
@@ -98496,7 +99079,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -98504,7 +99087,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fdz(*dm:1,hi:0,lo:0*))
+        (READ.fdz(*dm:1,hi:1,lo:0*))
         (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -98512,7 +99095,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -98520,7 +99103,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:0,lo:0*))
+        (READ.fun(*dm:1,hi:1,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.CS
@@ -98528,7 +99111,7 @@ stage 4:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.4
     (AGGL.GPR
@@ -100859,8 +101442,16 @@ stage 1:
   new fun = 0;
   new fin = 0;
   fconj = conjugate ? 0x80000000 : 0;
-  result1.32[0] = f32_sub(RM, argument3.32[0], argument2.32[0]);
-  result1.32[1] = f32_sub(RM, argument3.32[1], argument2.32[1]^fconj);
+  new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[0], argument2.32[0]);
+  result1.32[0] = lane;
+  fio |= lio;
+  fov |= lov;
+  fin |= lin;
+  new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[1], argument2.32[1]^fconj);
+  result1.32[1] = lane;
+  fio |= lio;
+  fov |= lov;
+  fin |= lin;
   if (imultiply) {
     result1 = _SWAP_32(result1);
     result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -100917,18 +101508,46 @@ stage 5:
         (READ.conjugate(*hi:1,lo:0*)))
       (CONST.2147483648)
       (CONST.0)(*dm:64,hi:2147483648,lo:0*)))
-  (WRITE.32[0].result1
-    (APPLY.32.f32_sub
+  (BIND.lane,lio,lov,lin
+    (APPLY.32,1,1,1.f32_sub
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.32[0].argument3(*dm:64,hi:4294967295,lo:0*))
-      (READ.32[0].argument2(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*)))
-  (WRITE.32[1].result1
-    (APPLY.32.f32_sub
+      (READ.32[0].argument2(*dm:64,hi:4294967295,lo:0*))))
+  (WRITE.32[0].result1
+    (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+  (WRITE.fio
+    (IOR
+      (READ.fio(*dm:1,hi:0,lo:0*))
+      (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fov
+    (IOR
+      (READ.fov(*dm:1,hi:0,lo:0*))
+      (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fin
+    (IOR
+      (READ.fin(*dm:1,hi:0,lo:0*))
+      (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (BIND.lane,lio,lov,lin
+    (APPLY.32,1,1,1.f32_sub
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.32[1].argument3(*dm:64,hi:4294967295,lo:0*))
       (XOR
         (READ.32[1].argument2(*dm:64,hi:4294967295,lo:0*))
-        (READ.fconj(*dm:64,hi:2147483648,lo:0*))(*dm:64,hi:4294967295,lo:0*))(*dm:32,hi:4294967295,lo:0*)))
+        (READ.fconj(*dm:64,hi:2147483648,lo:0*))(*dm:64,hi:4294967295,lo:0*))))
+  (WRITE.32[1].result1
+    (READ.lane(*dm:32,hi:4294967295,lo:0*)))
+  (WRITE.fio
+    (IOR
+      (READ.fio(*dm:1,hi:1,lo:0*))
+      (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fov
+    (IOR
+      (READ.fov(*dm:1,hi:1,lo:0*))
+      (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fin
+    (IOR
+      (READ.fin(*dm:1,hi:1,lo:0*))
+      (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
   (IF
     (I2B
       (READ.imultiply(*hi:1,lo:0*)))
@@ -100977,7 +101596,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -100993,7 +101612,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -101009,7 +101628,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -101050,7 +101669,11 @@ stage 1:
   if (conjugate) {
     argument2.64[0] = fconj_32_32(argument2.64[0]);
   }
-  result1.64[0] = fmulc_32_32(RM, argument2.64[0], argument3.64[0]);
+  new (lane, lio, lov, lin) = fmulc_32_32(RM, argument2.64[0], argument3.64[0]);
+  result1.64[0] = lane;
+  fio |= lio;
+  fov |= lov;
+  fin |= lin;
   if (imultiply) {
     result1 = _SWAP_32(result1);
     result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -101108,11 +101731,25 @@ stage 5:
       (APPLY.64.fconj_32_32
         (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
     (SKIP))
-  (WRITE.64[0].result1
-    (APPLY.64.fmulc_32_32
+  (BIND.lane,lio,lov,lin
+    (APPLY.64,1,1,1.fmulc_32_32
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.64[0].argument3(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.64[0].argument3(*dm:64,hi:18446744073709551615,lo:0*))))
+  (WRITE.64[0].result1
+    (READ.lane(*dm:64,hi:18446744073709551615,lo:0*)))
+  (WRITE.fio
+    (IOR
+      (READ.fio(*dm:1,hi:0,lo:0*))
+      (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fov
+    (IOR
+      (READ.fov(*dm:1,hi:0,lo:0*))
+      (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fin
+    (IOR
+      (READ.fin(*dm:1,hi:0,lo:0*))
+      (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
   (IF
     (I2B
       (READ.imultiply(*hi:1,lo:0*)))
@@ -101161,7 +101798,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -101177,7 +101814,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -101193,7 +101830,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR
@@ -101234,7 +101871,11 @@ stage 1:
   if (conjugate) {
     argument2.64[0] = fconj_32_32(argument2.64[0]);
   }
-  result1.64[0] = ffmac_32_32(RM, argument2.64[0], argument3.64[0], argument1.64[0]);
+  new (lane, lio, lov, lin) = ffmac_32_32(RM, argument2.64[0], argument3.64[0], argument1.64[0]);
+  result1.64[0] = lane;
+  fio |= lio;
+  fov |= lov;
+  fin |= lin;
   if (imultiply) {
     result1 = _SWAP_32(result1);
     result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -101298,12 +101939,26 @@ stage 5:
       (APPLY.64.fconj_32_32
         (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
     (SKIP))
-  (WRITE.64[0].result1
-    (APPLY.64.ffmac_32_32
+  (BIND.lane,lio,lov,lin
+    (APPLY.64,1,1,1.ffmac_32_32
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.64[0].argument2(*dm:64,hi:18446744073709551615,lo:0*))
       (READ.64[0].argument3(*dm:64,hi:18446744073709551615,lo:0*))
-      (READ.64[0].argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*)))
+      (READ.64[0].argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+  (WRITE.64[0].result1
+    (READ.lane(*dm:64,hi:18446744073709551615,lo:0*)))
+  (WRITE.fio
+    (IOR
+      (READ.fio(*dm:1,hi:0,lo:0*))
+      (READ.lio(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fov
+    (IOR
+      (READ.fov(*dm:1,hi:0,lo:0*))
+      (READ.lov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
+  (WRITE.fin
+    (IOR
+      (READ.fin(*dm:1,hi:0,lo:0*))
+      (READ.lin(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
   (IF
     (I2B
       (READ.imultiply(*hi:1,lo:0*)))
@@ -101352,7 +102007,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fio(*dm:1,hi:0,lo:0*))
+        (READ.fio(*dm:1,hi:1,lo:0*))
         (READ.cs_io(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -101368,7 +102023,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fov(*dm:1,hi:0,lo:0*))
+        (READ.fov(*dm:1,hi:1,lo:0*))
         (READ.cs_ov(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -101384,7 +102039,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fin(*dm:1,hi:0,lo:0*))
+        (READ.fin(*dm:1,hi:1,lo:0*))
         (READ.cs_in(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.GPR

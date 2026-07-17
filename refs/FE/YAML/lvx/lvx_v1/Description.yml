@@ -11019,10 +11019,12 @@ Helper:
   - ID: decode_riscv_float_rounding_mode
     arguments: [8]
   - ID: f16_add
+    result: [16, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f16_classify
     arguments: [64]
   - ID: f16_div
+    result: [16, 1, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f16_max
     arguments: [64, 64]
@@ -11033,22 +11035,28 @@ Helper:
   - ID: f16_minNum
     arguments: [64, 64]
   - ID: f16_mul
+    result: [16, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f16_mulAdd
     arguments: [8, 64, 64, 64]
   - ID: f16_mulnAdd
     arguments: [8, 64, 64, 64]
   - ID: f16_rint
+    result: [16, 1, 1]
     arguments: [8, 64]
   - ID: f16_sqrt
+    result: [16, 1, 1]
     arguments: [8, 64]
   - ID: f16_sub
+    result: [16, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f16_to_f32
     arguments: [16]
   - ID: f16_to_i16
+    result: [16, 1, 1]
     arguments: [8, 16]
   - ID: f16_to_ui16
+    result: [16, 1, 1]
     arguments: [8, 16]
   - ID: f32_add
     result: [32, 1, 1, 1]
@@ -11056,6 +11064,7 @@ Helper:
   - ID: f32_classify
     arguments: [64]
   - ID: f32_div
+    result: [32, 1, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f32_fast_rec
     arguments: [64]
@@ -11070,34 +11079,45 @@ Helper:
   - ID: f32_minNum
     arguments: [64, 64]
   - ID: f32_mul
+    result: [32, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f32_mulAdd
     arguments: [8, 64, 64, 64]
   - ID: f32_mulnAdd
     arguments: [8, 64, 64, 64]
   - ID: f32_rint
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: f32_sqrt
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: f32_sub
+    result: [32, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f32_to_f16
+    result: [16, 1, 1, 1, 1]
     arguments: [8, 32]
   - ID: f32_to_f64
     arguments: [32]
   - ID: f32_to_i32
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: f32_to_i64
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: f32_to_ui32
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: f32_to_ui64
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: f64_add
+    result: [64, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f64_classify
     arguments: [64]
   - ID: f64_div
+    result: [64, 1, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f64_fast_rec
     arguments: [64]
@@ -11112,30 +11132,40 @@ Helper:
   - ID: f64_minNum
     arguments: [64, 64]
   - ID: f64_mul
+    result: [64, 1, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f64_mulAdd
     arguments: [8, 64, 64, 64]
   - ID: f64_mulnAdd
     arguments: [8, 64, 64, 64]
   - ID: f64_rint
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: f64_sqrt
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: f64_sub
+    result: [64, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f64_to_f32
+    result: [32, 1, 1, 1, 1]
     arguments: [8, 64]
   - ID: f64_to_i32
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: f64_to_i64
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: f64_to_ui32
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: f64_to_ui64
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: fconj_32_32
     arguments: [64]
   - ID: ffmac_32_32
+    result: [64, 1, 1, 1]
     arguments: [8, 64, 64, 64]
   - ID: floatcomp_16
     arguments: [8, 64, 64]
@@ -11144,6 +11174,7 @@ Helper:
   - ID: floatcomp_64
     arguments: [8, 64, 64]
   - ID: fmulc_32_32
+    result: [64, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: get
     arguments: [16, 64]
@@ -11152,14 +11183,19 @@ Helper:
   - ID: guard
     arguments: [8, 64, 8]
   - ID: i16_to_f16
+    result: [16, 1, 1]
     arguments: [8, 16]
   - ID: i32_to_f32
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: i32_to_f64
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: i64_to_f32
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: i64_to_f64
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: idle
     arguments: [8]
@@ -11192,14 +11228,19 @@ Helper:
   - ID: syscall
     arguments: [64]
   - ID: ui16_to_f16
+    result: [16, 1, 1]
     arguments: [8, 16]
   - ID: ui32_to_f32
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: ui32_to_f64
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: ui64_to_f32
+    result: [32, 1, 1]
     arguments: [8, 64]
   - ID: ui64_to_f64
+    result: [64, 1, 1]
     arguments: [8, 64]
   - ID: waitit
     arguments: [32, 32]
@@ -15883,12 +15924,12 @@ Instruction:
       converted to a binary 32 floating-point number according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_to_f32(RM, argument2.64[0]);
+      new (result1, fio, fov, fun, fin) = f64_to_f32(RM, argument2.64[0]);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f64_to_f32
-          (READ.RM)
-          (READ.64[0].argument2)))
+      (BIND.result1,fio,fov,fun,fin
+        (APPLY.32,1,1,1,1.f64_to_f32
+            (READ.RM)
+            (READ.64[0].argument2)))
   - ID: FNARROWWH
     what: Floating Point Narrow Word to Half Word
     class: FPU
@@ -15898,12 +15939,12 @@ Instruction:
       converted to a binary 16 floating-point number according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_to_f16(RM, argument2.32[0]);
+      new (result1, fio, fov, fun, fin) = f32_to_f16(RM, argument2.32[0]);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f32_to_f16
-          (READ.RM)
-          (READ.32[0].argument2)))
+      (BIND.result1,fio,fov,fun,fin
+        (APPLY.16,1,1,1,1.f32_to_f16
+            (READ.RM)
+            (READ.32[0].argument2)))
   - ID: INSF
     what: Insert Bit Field into Word
     formats: [ ALU_BFWR ]
@@ -16722,12 +16763,12 @@ Instruction:
       64-bit floating-point number according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = i64_to_f64(RM, argument2);
+      new (result1, fio, fin) = i64_to_f64(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.i64_to_f64
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.i64_to_f64
+            (READ.RM)
+            (READ.argument2)))
   - ID: FLOATW
     what: Floating Point Conversion from Fixed-Point
     class: FPU
@@ -16737,12 +16778,12 @@ Instruction:
       32-bit floating-point number according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = i32_to_f32(RM, argument2);
+      new (result1, fio, fin) = i32_to_f32(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.i32_to_f32
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.i32_to_f32
+            (READ.RM)
+            (READ.argument2)))
   - ID: FLOATWP
     what: Floating Point Conversion from Fixed-Point Word Pair
     class: FPU
@@ -16754,14 +16795,20 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.32[i] = i32_to_f32(RM, argument2.32[i]);
+        new (lane, lio, lin) = i32_to_f32(RM, argument2.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
+        fin |= lin;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.i32_to_f32
-            (READ.RM)
-            (READ.32[(INDEX.I)].argument2))))
+        (BIND.lane,lio,lin
+          (APPLY.32,1,1.i32_to_f32
+              (READ.RM)
+              (READ.32[(INDEX.I)].argument2)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio)))
+        (WRITE.fin (IOR (READ.fin) (READ.lin))))
   - ID: FLOATUD
     what: Floating Point Conversion from Unsigned Fixed-Point Double Word
     class: FPU
@@ -16771,12 +16818,12 @@ Instruction:
       64-bit floating-point number according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = ui64_to_f64(RM, argument2);
+      new (result1, fio, fin) = ui64_to_f64(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.ui64_to_f64
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.ui64_to_f64
+            (READ.RM)
+            (READ.argument2)))
   - ID: FLOATUW
     what: Floating Point Conversion from Unsigned Fixed-Point
     class: FPU
@@ -16786,12 +16833,12 @@ Instruction:
       32-bit floating-point number according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = ui32_to_f32(RM, argument2);
+      new (result1, fio, fin) = ui32_to_f32(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.ui32_to_f32
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.ui32_to_f32
+            (READ.RM)
+            (READ.argument2)))
   - ID: FLOATUWP
     what: Floating Point Conversion from Unsigned Fixed-Point Word Pair
     class: FPU
@@ -16803,14 +16850,20 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.32[i] = ui32_to_f32(RM, argument2.32[i]);
+        new (lane, lio, lin) = ui32_to_f32(RM, argument2.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
+        fin |= lin;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.ui32_to_f32
-            (READ.RM)
-            (READ.32[(INDEX.I)].argument2))))
+        (BIND.lane,lio,lin
+          (APPLY.32,1,1.ui32_to_f32
+              (READ.RM)
+              (READ.32[(INDEX.I)].argument2)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio)))
+        (WRITE.fin (IOR (READ.fin) (READ.lin))))
   - ID: FLOATWD
     what: Floating Point Conversion from Fixed-Point Word to Double Word
     class: FPU
@@ -16820,12 +16873,12 @@ Instruction:
       64-bit floating-point number according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = i32_to_f64(RM, argument2);
+      new (result1, fio, fin) = i32_to_f64(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.i32_to_f64
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.i32_to_f64
+            (READ.RM)
+            (READ.argument2)))
   - ID: FLOATUWD
     what: Floating Point Conversion from Unsigned Fixed-Point Word to Double Word
     class: FPU
@@ -16835,12 +16888,12 @@ Instruction:
       64-bit floating-point number according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = ui32_to_f64(RM, argument2);
+      new (result1, fio, fin) = ui32_to_f64(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.ui32_to_f64
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.ui32_to_f64
+            (READ.RM)
+            (READ.argument2)))
   - ID: FLOATDW
     what: Floating Point Conversion from Fixed-Point Double Word to Word
     class: FPU
@@ -16850,12 +16903,12 @@ Instruction:
       32-bit floating-point number according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = i64_to_f32(RM, argument2);
+      new (result1, fio, fin) = i64_to_f32(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.i64_to_f32
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.i64_to_f32
+            (READ.RM)
+            (READ.argument2)))
   - ID: FLOATUDW
     what: Floating Point Conversion from Unsigned Fixed-Point Double Word to Word
     class: FPU
@@ -16865,12 +16918,12 @@ Instruction:
       32-bit floating-point number according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = ui64_to_f32(RM, argument2);
+      new (result1, fio, fin) = ui64_to_f32(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.ui64_to_f32
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.ui64_to_f32
+            (READ.RM)
+            (READ.argument2)))
   - ID: FIXEDD
     what: Floating Point Conversion to Fixed-Point Double Word
     class: FPU
@@ -16880,12 +16933,12 @@ Instruction:
       converted to a 64-bit signed integer according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_to_i64(RM, argument2);
+      new (result1, fio, fin) = f64_to_i64(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_to_i64
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.f64_to_i64
+            (READ.RM)
+            (READ.argument2)))
   - ID: FIXEDW
     what: Floating Point Conversion to Fixed-Point
     class: FPU
@@ -16895,12 +16948,12 @@ Instruction:
       converted to a 32-bit signed integer according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_to_i32(RM, argument2);
+      new (result1, fio, fin) = f32_to_i32(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_to_i32
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.f32_to_i32
+            (READ.RM)
+            (READ.argument2)))
   - ID: FIXEDWP
     what: Floating Point Conversion to Fixed-Point Word Pair
     class: FPU
@@ -16912,14 +16965,20 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.32[i] = f32_to_i32(RM, argument2.32[i]);
+        new (lane, lio, lin) = f32_to_i32(RM, argument2.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
+        fin |= lin;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_to_i32
-            (READ.RM)
-            (READ.32[(INDEX.I)].argument2))))
+        (BIND.lane,lio,lin
+          (APPLY.32,1,1.f32_to_i32
+              (READ.RM)
+              (READ.32[(INDEX.I)].argument2)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio)))
+        (WRITE.fin (IOR (READ.fin) (READ.lin))))
   - ID: FIXEDUD
     what: Floating Point Conversion to Unsigned Fixed-Point Double Word
     class: FPU
@@ -16929,12 +16988,12 @@ Instruction:
       converted to a 64-bit unsigned integer according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_to_ui64(RM, argument2);
+      new (result1, fio, fin) = f64_to_ui64(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_to_ui64
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.f64_to_ui64
+            (READ.RM)
+            (READ.argument2)))
   - ID: FIXEDUW
     what: Floating Point Conversion to Unsigned Fixed-Point
     class: FPU
@@ -16944,12 +17003,12 @@ Instruction:
       converted to a 32-bit unsigned integer according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_to_ui32(RM, argument2);
+      new (result1, fio, fin) = f32_to_ui32(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_to_ui32
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.f32_to_ui32
+            (READ.RM)
+            (READ.argument2)))
   - ID: FIXEDUWP
     what: Floating Point Conversion to Unsigned Fixed-Point Word Pair
     class: FPU
@@ -16961,14 +17020,20 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       for (i range 2) {
-        result1.32[i] = f32_to_ui32(RM, argument2.32[i]);
+        new (lane, lio, lin) = f32_to_ui32(RM, argument2.32[i]);
+        result1.32[i] = lane;
+        fio |= lio;
+        fin |= lin;
       }
     behavior: |
       (FOR.I (RANGE.2)
-        (WRITE.32[(INDEX.I)].result1
-          (APPLY.32.f32_to_ui32
-            (READ.RM)
-            (READ.32[(INDEX.I)].argument2))))
+        (BIND.lane,lio,lin
+          (APPLY.32,1,1.f32_to_ui32
+              (READ.RM)
+              (READ.32[(INDEX.I)].argument2)))
+        (WRITE.32[(INDEX.I)].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio)))
+        (WRITE.fin (IOR (READ.fin) (READ.lin))))
   - ID: FIXEDWD
     what: Floating Point Conversion from Word to Fixed-Point Double Word
     class: FPU
@@ -16978,12 +17043,12 @@ Instruction:
       converted to a 64-bit signed integer according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_to_i64(RM, argument2);
+      new (result1, fio, fin) = f32_to_i64(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f32_to_i64
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.f32_to_i64
+            (READ.RM)
+            (READ.argument2)))
   - ID: FIXEDUWD
     what: Floating Point Conversion from Word to Unsigned Fixed-Point Double Word
     class: FPU
@@ -16993,12 +17058,12 @@ Instruction:
       converted to a 64-bit unsigned integer according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_to_ui64(RM, argument2);
+      new (result1, fio, fin) = f32_to_ui64(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f32_to_ui64
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.f32_to_ui64
+            (READ.RM)
+            (READ.argument2)))
   - ID: FIXEDDW
     what: Floating Point Conversion from Double Word to Fixed-Point Word
     class: FPU
@@ -17008,12 +17073,12 @@ Instruction:
       converted to a 32-bit signed integer according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_to_i32(RM, argument2);
+      new (result1, fio, fin) = f64_to_i32(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f64_to_i32
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.f64_to_i32
+            (READ.RM)
+            (READ.argument2)))
   - ID: FIXEDUDW
     what: Floating Point Conversion from Double Word to Unsigned Fixed-Point Word
     class: FPU
@@ -17023,12 +17088,12 @@ Instruction:
       converted to a 32-bit unsigned integer according to the rounding mode.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_to_ui32(RM, argument2);
+      new (result1, fio, fin) = f64_to_ui32(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f64_to_ui32
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.f64_to_ui32
+            (READ.RM)
+            (READ.argument2)))
   - ID: FRINTD
     what: Floating Point Round to Int Double Word
     class: FPU
@@ -17039,12 +17104,12 @@ Instruction:
       according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_rint(RM, argument2);
+      new (result1, fio, fin) = f64_rint(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_rint
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.f64_rint
+            (READ.RM)
+            (READ.argument2)))
   - ID: FRINTW
     what: Floating Point Round to Int Word
     class: FPU
@@ -17055,12 +17120,12 @@ Instruction:
       according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_rint(RM, argument2);
+      new (result1, fio, fin) = f32_rint(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_rint
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.f32_rint
+            (READ.RM)
+            (READ.argument2)))
   - ID: FRINTH
     what: Floating Point Round to Int Half Word
     class: FPU
@@ -17071,12 +17136,12 @@ Instruction:
       according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_rint(RM, argument2);
+      new (result1, fio, fin) = f16_rint(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_rint
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.16,1,1.f16_rint
+            (READ.RM)
+            (READ.argument2)))
   - ID: FSQRTD
     what: Floating Point Square Root Double Word
     class: FPU
@@ -17087,12 +17152,12 @@ Instruction:
       computed according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f64_sqrt(RM, argument2);
+      new (result1, fio, fin) = f64_sqrt(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_sqrt
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.64,1,1.f64_sqrt
+            (READ.RM)
+            (READ.argument2)))
   - ID: FSQRTW
     what: Floating Point Square Root Word
     class: FPU
@@ -17103,12 +17168,12 @@ Instruction:
       computed according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f32_sqrt(RM, argument2);
+      new (result1, fio, fin) = f32_sqrt(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_sqrt
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.32,1,1.f32_sqrt
+            (READ.RM)
+            (READ.argument2)))
   - ID: FSQRTH
     what: Floating Point Square Root Half Word
     class: FPU
@@ -17119,12 +17184,12 @@ Instruction:
       computed according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new result1 = f16_sqrt(RM, argument2);
+      new (result1, fio, fin) = f16_sqrt(RM, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_sqrt
-          (READ.RM)
-          (READ.argument2)))
+      (BIND.result1,fio,fin
+        (APPLY.16,1,1.f16_sqrt
+            (READ.RM)
+            (READ.argument2)))
   - ID: MULD
     what: Multiply Double Word
     formats: [ ALU_DMWRR, ALU_DMWRR.M ]
@@ -18153,13 +18218,13 @@ Instruction:
       according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      result1 = f64_add(RM, argument2, argument3);
+      new (result1, fio, fov, fin) = f64_add(RM, argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_add
-          (READ.RM)
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio,fov,fin
+        (APPLY.64,1,1,1.f64_add
+            (READ.RM)
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FADDW
     what: Floating-Point Add Word
     class: FPU
@@ -18187,13 +18252,13 @@ Instruction:
       according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      result1 = f16_add(RM, argument2, argument3);
+      new (result1, fio, fov, fin) = f16_add(RM, argument2, argument3);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_add
-          (READ.RM)
-          (READ.argument2)
-          (READ.argument3)))
+      (BIND.result1,fio,fov,fin
+        (APPLY.16,1,1,1.f16_add
+            (READ.RM)
+            (READ.argument2)
+            (READ.argument3)))
   - ID: FSBFD
     what: Floating-Point Subtract From Double Word
     class: FPU
@@ -18204,13 +18269,13 @@ Instruction:
       floating-point format according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      result1 = f64_sub(RM, argument3, argument2);
+      new (result1, fio, fov, fin) = f64_sub(RM, argument3, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.64.f64_sub
-          (READ.RM)
-          (READ.argument3)
-          (READ.argument2)))
+      (BIND.result1,fio,fov,fin
+        (APPLY.64,1,1,1.f64_sub
+            (READ.RM)
+            (READ.argument3)
+            (READ.argument2)))
   - ID: FSBFW
     what: Floating-Point Subtract From Word
     class: FPU
@@ -18221,13 +18286,13 @@ Instruction:
       according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      result1 = f32_sub(RM, argument3, argument2);
+      new (result1, fio, fov, fin) = f32_sub(RM, argument3, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.32.f32_sub
-          (READ.RM)
-          (READ.argument3)
-          (READ.argument2)))
+      (BIND.result1,fio,fov,fin
+        (APPLY.32,1,1,1.f32_sub
+            (READ.RM)
+            (READ.argument3)
+            (READ.argument2)))
   - ID: FSBFH
     what: Floating-Point Subtract From Half Word
     class: FPU
@@ -18238,13 +18303,13 @@ Instruction:
       according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      result1 = f16_sub(RM, argument3, argument2);
+      new (result1, fio, fov, fin) = f16_sub(RM, argument3, argument2);
     behavior: |
-      (WRITE.result1
-        (APPLY.16.f16_sub
-          (READ.RM)
-          (READ.argument3)
-          (READ.argument2)))
+      (BIND.result1,fio,fov,fin
+        (APPLY.16,1,1,1.f16_sub
+            (READ.RM)
+            (READ.argument3)
+            (READ.argument2)))
   - ID: FMULD
     what: Floating-Point Multiply Double Word
     class: FPU
@@ -18257,7 +18322,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000000000000000 : 0;
-      result1 = f64_mul(RM, argument2^fsign, argument3);
+      new (result1, fio, fov, fun, fin) = f64_mul(RM, argument2^fsign, argument3);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18265,11 +18330,11 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000000000000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.64.f64_mul
-            (READ.RM)
-            (XOR (READ.argument2) (READ.fsign))
-            (READ.argument3))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.64,1,1,1,1.f64_mul
+              (READ.RM)
+              (XOR (READ.argument2) (READ.fsign))
+              (READ.argument3))))
   - ID: FMULW
     what: Floating-Point Multiply Word
     class: FPU
@@ -18282,7 +18347,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
-      result1 = f32_mul(RM, argument2^fsign, argument3);
+      new (result1, fio, fov, fun, fin) = f32_mul(RM, argument2^fsign, argument3);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18290,11 +18355,11 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x80000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.32.f32_mul
-            (READ.RM)
-            (XOR (READ.argument2) (READ.fsign))
-            (READ.argument3))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.32,1,1,1,1.f32_mul
+              (READ.RM)
+              (XOR (READ.argument2) (READ.fsign))
+              (READ.argument3))))
   - ID: FMULH
     what: Floating-Point Multiply Half Word
     class: FPU
@@ -18307,7 +18372,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000 : 0;
-      result1 = f16_mul(RM, argument2^fsign, argument3);
+      new (result1, fio, fov, fun, fin) = f16_mul(RM, argument2^fsign, argument3);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18315,11 +18380,11 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.16.f16_mul
-            (READ.RM)
-            (XOR (READ.argument2) (READ.fsign))
-            (READ.argument3))))
+        (BIND.result1,fio,fov,fun,fin
+          (APPLY.16,1,1,1,1.f16_mul
+              (READ.RM)
+              (XOR (READ.argument2) (READ.fsign))
+              (READ.argument3))))
   - ID: FDIVD
     what: Floating-Point Divide Double Word
     class: FPU
@@ -18333,7 +18398,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000000000000000 : 0;
-      result1 = f64_div(RM, argument2^fsign, argument3);
+      new (result1, fio, fdz, fov, fun, fin) = f64_div(RM, argument2^fsign, argument3);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18341,11 +18406,11 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000000000000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.64.f64_div
-            (READ.RM)
-            (XOR (READ.argument2) (READ.fsign))
-            (READ.argument3))))
+        (BIND.result1,fio,fdz,fov,fun,fin
+          (APPLY.64,1,1,1,1,1.f64_div
+              (READ.RM)
+              (XOR (READ.argument2) (READ.fsign))
+              (READ.argument3))))
   - ID: FDIVW
     what: Floating-Point Divide Word
     class: FPU
@@ -18359,7 +18424,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x80000000 : 0;
-      result1 = f32_div(RM, argument2^fsign, argument3);
+      new (result1, fio, fdz, fov, fun, fin) = f32_div(RM, argument2^fsign, argument3);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18367,11 +18432,11 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x80000000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.32.f32_div
-            (READ.RM)
-            (XOR (READ.argument2) (READ.fsign))
-            (READ.argument3))))
+        (BIND.result1,fio,fdz,fov,fun,fin
+          (APPLY.32,1,1,1,1,1.f32_div
+              (READ.RM)
+              (XOR (READ.argument2) (READ.fsign))
+              (READ.argument3))))
   - ID: FDIVH
     what: Floating-Point Divide Half Word
     class: FPU
@@ -18385,7 +18450,7 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fsign = fnegate ? 0x8000 : 0;
-      result1 = f16_div(RM, argument2, argument3);
+      new (result1, fio, fdz, fov, fun, fin) = f16_div(RM, argument2, argument3);
     behavior: |
       (SEQ
         (WRITE.fsign
@@ -18393,11 +18458,11 @@ Instruction:
             (I2B (READ.fnegate))
             (CONST.0x8000)
             (CONST.0)))
-        (WRITE.result1
-          (APPLY.16.f16_div
-            (READ.RM)
-            (XOR (READ.argument2) (READ.fsign))
-            (READ.argument3))))
+        (BIND.result1,fio,fdz,fov,fun,fin
+          (APPLY.16,1,1,1,1,1.f16_div
+              (READ.RM)
+              (XOR (READ.argument2) (READ.fsign))
+              (READ.argument3))))
   - ID: FFMAD
     what: Floating-Point Fused Multiply Add Double Word
     class: FPU
@@ -18622,8 +18687,16 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fconj = conjugate ? 0x80000000 : 0;
-      result1.32[0] = f32_sub(RM, argument3.32[0], argument2.32[0]);
-      result1.32[1] = f32_sub(RM, argument3.32[1], argument2.32[1]^fconj);
+      new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[0], argument2.32[0]);
+      result1.32[0] = lane;
+      fio |= lio;
+      fov |= lov;
+      fin |= lin;
+      new (lane, lio, lov, lin) = f32_sub(RM, argument3.32[1], argument2.32[1]^fconj);
+      result1.32[1] = lane;
+      fio |= lio;
+      fov |= lov;
+      fin |= lin;
       if (imultiply) {
         result1 = _SWAP_32(result1);
         result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -18635,17 +18708,25 @@ Instruction:
             (I2B (READ.conjugate))
             (CONST.0x80000000)
             (CONST.0)))
-        (WRITE.32[0].result1
-          (APPLY.32.f32_sub
-            (READ.RM)
-            (READ.32[0].argument3)
-            (READ.32[0].argument2)))
-        (WRITE.32[1].result1
-          (APPLY.32.f32_sub
-            (READ.RM)
-            (READ.32[1].argument3)
-            (XOR (READ.32[1].argument2)
-                 (READ.fconj))))
+        (BIND.lane,lio,lov,lin
+          (APPLY.32,1,1,1.f32_sub
+              (READ.RM)
+              (READ.32[0].argument3)
+              (READ.32[0].argument2)))
+        (WRITE.32[0].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio)))
+        (WRITE.fov (IOR (READ.fov) (READ.lov)))
+        (WRITE.fin (IOR (READ.fin) (READ.lin)))
+        (BIND.lane,lio,lov,lin
+          (APPLY.32,1,1,1.f32_sub
+              (READ.RM)
+              (READ.32[1].argument3)
+              (XOR (READ.32[1].argument2)
+                   (READ.fconj))))
+        (WRITE.32[1].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio)))
+        (WRITE.fov (IOR (READ.fov) (READ.lov)))
+        (WRITE.fin (IOR (READ.fin) (READ.lin)))
         (IF
           (I2B (READ.imultiply))
           (SEQ
@@ -18669,7 +18750,11 @@ Instruction:
       if (conjugate) {
         argument2.64[0] = fconj_32_32(argument2.64[0]);
       }
-      result1.64[0] = fmulc_32_32(RM, argument2.64[0], argument3.64[0]);
+      new (lane, lio, lov, lin) = fmulc_32_32(RM, argument2.64[0], argument3.64[0]);
+      result1.64[0] = lane;
+      fio |= lio;
+      fov |= lov;
+      fin |= lin;
       if (imultiply) {
         result1 = _SWAP_32(result1);
         result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -18682,11 +18767,15 @@ Instruction:
             (APPLY.64.fconj_32_32
               (READ.64[0].argument2)))
            (SKIP))
-        (WRITE.64[0].result1
-          (APPLY.64.fmulc_32_32
-            (READ.RM)
-            (READ.64[0].argument2)
-            (READ.64[0].argument3)))
+        (BIND.lane,lio,lov,lin
+          (APPLY.64,1,1,1.fmulc_32_32
+              (READ.RM)
+              (READ.64[0].argument2)
+              (READ.64[0].argument3)))
+        (WRITE.64[0].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio)))
+        (WRITE.fov (IOR (READ.fov) (READ.lov)))
+        (WRITE.fin (IOR (READ.fin) (READ.lin)))
         (IF
           (I2B (READ.imultiply))
           (SEQ
@@ -18710,7 +18799,11 @@ Instruction:
       if (conjugate) {
         argument2.64[0] = fconj_32_32(argument2.64[0]);
       }
-      result1.64[0] = ffmac_32_32(RM, argument2.64[0], argument3.64[0], argument1.64[0]);
+      new (lane, lio, lov, lin) = ffmac_32_32(RM, argument2.64[0], argument3.64[0], argument1.64[0]);
+      result1.64[0] = lane;
+      fio |= lio;
+      fov |= lov;
+      fin |= lin;
       if (imultiply) {
         result1 = _SWAP_32(result1);
         result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -18723,12 +18816,16 @@ Instruction:
             (APPLY.64.fconj_32_32
               (READ.64[0].argument2)))
            (SKIP))
-        (WRITE.64[0].result1
-          (APPLY.64.ffmac_32_32
-            (READ.RM)
-            (READ.64[0].argument2)
-            (READ.64[0].argument3)
-            (READ.64[0].argument1)))
+        (BIND.lane,lio,lov,lin
+          (APPLY.64,1,1,1.ffmac_32_32
+              (READ.RM)
+              (READ.64[0].argument2)
+              (READ.64[0].argument3)
+              (READ.64[0].argument1)))
+        (WRITE.64[0].result1 (READ.lane))
+        (WRITE.fio (IOR (READ.fio) (READ.lio)))
+        (WRITE.fov (IOR (READ.fov) (READ.lov)))
+        (WRITE.fin (IOR (READ.fin) (READ.lin)))
         (IF
           (I2B (READ.imultiply))
           (SEQ
