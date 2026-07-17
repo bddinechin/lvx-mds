@@ -21881,18 +21881,37 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fconj = conjugate ? 0x80000000 : 0;
   new (lane0, io0, dz0, ov0, un0, in0) = f32_add(RM, argument2.32[0], argument3.32[0]);
   result1.32[0] = lane0;
   new (lane1, io1, dz1, ov1, un1, in1) = f32_add(RM, argument2.32[1] ^ fconj, argument3.32[1]);
   result1.32[1] = lane1;
+  fio = io0 | io1;
+  fdz = dz0 | dz1;
+  fov = ov0 | ov1;
+  fun = un0 | un1;
+  fin = in0 | in1;
   if (imultiply) {
     new result1 = _SWAP_32(result1);
     result1.32[0] = result1.32[0] ^ 0x80000000;
   }
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FCLASSD: Floating-Point Classify Double Word}]{FCLASSD\hfill Floating-Point Classify Double Word}
@@ -22420,6 +22439,11 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   if (conjugate) {
     argument2.64[0] = fconj_32_32(argument2.64[0]);
   }
@@ -22430,7 +22454,16 @@ stage RR:
   }
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSD: Floating-Point Fused Multiply Subtract From Double Word}]{FFMSD\hfill Floating-Point Fused Multiply Subtract From Double Word}
@@ -23620,6 +23653,11 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   if (conjugate) {
     argument2.64[0] = fconj_32_32(argument2.64[0]);
   }
@@ -23630,7 +23668,16 @@ stage RR:
   }
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FNARROWDW: Floating Point Narrow Double Word to Word}]{FNARROWDW\hfill Floating Point Narrow Double Word to Word}
@@ -24046,6 +24093,11 @@ stage RR:
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
   new RM = decode_riscv_float_rounding_mode(floatmode);
+  new fio = 0;
+  new fdz = 0;
+  new fov = 0;
+  new fun = 0;
+  new fin = 0;
   new fconj = conjugate ? 0x80000000 : 0;
   result1.32[0] = f32_sub(RM, argument3.32[0], argument2.32[0]);
   result1.32[1] = f32_sub(RM, argument3.32[1], argument2.32[1] ^ fconj);
@@ -24055,7 +24107,16 @@ stage RR:
   }
 stage E4:
   GPR[registerW] = result1;
-  commit_float_exception_flags();
+  new cs_io = CS.IO;
+  new cs_dz = CS.DZ;
+  new cs_ov = CS.OV;
+  new cs_un = CS.UN;
+  new cs_in = CS.IN;
+  CS.IO = fio | cs_io;
+  CS.DZ = fdz | cs_dz;
+  CS.OV = fov | cs_ov;
+  CS.UN = fun | cs_un;
+  CS.IN = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGND: Floating-Point Sign Transfer Double Word}]{FSIGND\hfill Floating-Point Sign Transfer Double Word}

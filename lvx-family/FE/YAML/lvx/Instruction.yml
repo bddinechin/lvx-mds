@@ -20982,6 +20982,11 @@ Instruction:
       result1.32[0] = lane0;
       new (lane1, io1, dz1, ov1, un1, in1) = f32_add(RM, argument2.32[1]^fconj, argument3.32[1]);
       result1.32[1] = lane1;
+      fio = io0 | io1;
+      fdz = dz0 | dz1;
+      fov = ov0 | ov1;
+      fun = un0 | un1;
+      fin = in0 | in1;
       if (imultiply) {
         result1 = _SWAP_32(result1);
         result1.32[0] = result1.32[0] ^ 0x80000000;
@@ -21006,6 +21011,11 @@ Instruction:
                  (READ.fconj))
             (READ.32[1].argument3)))
         (WRITE.32[1].result1 (READ.lane1))
+        (WRITE.fio (IOR (READ.io0) (READ.io1)))
+        (WRITE.fdz (IOR (READ.dz0) (READ.dz1)))
+        (WRITE.fov (IOR (READ.ov0) (READ.ov1)))
+        (WRITE.fun (IOR (READ.un0) (READ.un1)))
+        (WRITE.fin (IOR (READ.in0) (READ.in1)))
         (IF
           (I2B (READ.imultiply))
           (SEQ

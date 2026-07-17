@@ -81463,6 +81463,26 @@ execute_lvx_v1_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
       (READ.32[1].argument3)))
   (WRITE.32[1].result1
     (READ.lane1))
+  (WRITE.fio
+    (IOR
+      (READ.io0)
+      (READ.io1)))
+  (WRITE.fdz
+    (IOR
+      (READ.dz0)
+      (READ.dz1)))
+  (WRITE.fov
+    (IOR
+      (READ.ov0)
+      (READ.ov1)))
+  (WRITE.fun
+    (IOR
+      (READ.un0)
+      (READ.un1)))
+  (WRITE.fin
+    (IOR
+      (READ.in0)
+      (READ.in1)))
   (IF
     (I2B
       (READ.imultiply))
@@ -81475,7 +81495,76 @@ execute_lvx_v1_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
           (READ.32[0].result1)
           (CONST.2147483648))))
     (SKIP))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.5
     (AGGL.GPR
       (METHOD.%4)
@@ -81487,10 +81576,20 @@ execute_lvx_v1_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
   uint8_t conjugate = 0;
+  uint8_t cs_dz = 0;
+  uint8_t cs_in = 0;
+  uint8_t cs_io = 0;
+  uint8_t cs_ov = 0;
+  uint8_t cs_un = 0;
   uint8_t dz0 = 0;
   uint8_t dz1 = 0;
   uint32_t fconj = 0;
+  uint8_t fdz = 0;
+  uint8_t fin = 0;
+  uint8_t fio = 0;
   uint8_t floatmode = 0;
+  uint8_t fov = 0;
+  uint8_t fun = 0;
   uint8_t imultiply = 0;
   uint8_t in0 = 0;
   uint8_t in1 = 0;
@@ -81616,6 +81715,56 @@ Int256_fromUInt64((uint64_t)(
 ))
 )  .words[0]
 ;
+  fio = 
+    (uint8_t)((uint32_t)(
+(uint32_t)(
+      io0
+)
+      ) | (uint32_t)(
+(uint32_t)(
+      io1
+)
+    ));
+  fdz = 
+    (uint8_t)((uint32_t)(
+(uint32_t)(
+      dz0
+)
+      ) | (uint32_t)(
+(uint32_t)(
+      dz1
+)
+    ));
+  fov = 
+    (uint8_t)((uint32_t)(
+(uint32_t)(
+      ov0
+)
+      ) | (uint32_t)(
+(uint32_t)(
+      ov1
+)
+    ));
+  fun = 
+    (uint8_t)((uint32_t)(
+(uint32_t)(
+      un0
+)
+      ) | (uint32_t)(
+(uint32_t)(
+      un1
+)
+    ));
+  fin = 
+    (uint8_t)((uint32_t)(
+(uint32_t)(
+      in0
+)
+      ) | (uint32_t)(
+(uint32_t)(
+      in1
+)
+    ));
   if (
     Int256_toBool(
 Int256_fromUInt64((uint64_t)(
@@ -81643,7 +81792,106 @@ Int256_fromUInt64((uint64_t)(
     ;
   }
 ;
-  HELPER(commit_float_exception_flags)(this);
+  cs_io = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 1, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_dz = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 2, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_ov = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 3, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_un = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 4, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_in = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 5, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  HELPER(writeToStorage_CS)(this, 5, 1, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fio
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_io
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 2, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fdz
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_dz
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 3, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fov
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_ov
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 4, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fun
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_un
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 5, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fin
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_in
+)
+      ))
+)), 1
+    )
+  );
   HELPER(operandFromValue)(this, 4, 3, 0, 
     Int256_zx(
       result1, 64
@@ -81654,9 +81902,11 @@ Int256_fromUInt64((uint64_t)(
 #endif /* Behavior_EXECUTE */
 #ifdef Behavior_COMMIT
 static void
-commit_lvx_v1_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_registerY_simple(void *this, OperandDecoded *decoded, __attribute__((unused)) Processor processor)
+commit_lvx_v1_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_registerY_simple(void *this, __attribute__((unused)) OperandDecoded *decoded, __attribute__((unused)) Processor processor)
 {
   HELPER(operandToRegFile_GPR)(this, 5, 4, 3, decoded[3] - Register_lvx_v1_R0);
+  /* Commits of: CS */
+  HELPER(commitRegFiles)(this);
 }
 #endif /* Behavior_COMMIT */
 #ifdef Behavior_EXECUTE
@@ -81689,6 +81939,16 @@ execute_lvx_v1_FSBFWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (WRITE.fconj
     (SELECT
       (I2B
@@ -81719,7 +81979,76 @@ execute_lvx_v1_FSBFWC_conjugate_imultiply_floatmode_registerW_registerZ_register
           (READ.32[0].result1)
           (CONST.2147483648))))
     (SKIP))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.5
     (AGGL.GPR
       (METHOD.%4)
@@ -81731,8 +82060,18 @@ execute_lvx_v1_FSBFWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
   uint8_t conjugate = 0;
+  uint8_t cs_dz = 0;
+  uint8_t cs_in = 0;
+  uint8_t cs_io = 0;
+  uint8_t cs_ov = 0;
+  uint8_t cs_un = 0;
   uint32_t fconj = 0;
+  uint8_t fdz = 0;
+  uint8_t fin = 0;
+  uint8_t fio = 0;
   uint8_t floatmode = 0;
+  uint8_t fov = 0;
+  uint8_t fun = 0;
   uint8_t imultiply = 0;
   Int256_ result1 = Int256_zero;
 
@@ -81776,6 +82115,16 @@ Int256_fromUInt64((uint64_t)(
     HELPER(decode_riscv_float_rounding_mode)(this,
       
       floatmode);
+  fio = 
+    (uint8_t)UINT64_C(0);
+  fdz = 
+    (uint8_t)UINT64_C(0);
+  fov = 
+    (uint8_t)UINT64_C(0);
+  fun = 
+    (uint8_t)UINT64_C(0);
+  fin = 
+    (uint8_t)UINT64_C(0);
   fconj = 
     (uint32_t)(
     Int256_toBool(
@@ -81855,7 +82204,106 @@ Int256_fromUInt64((uint64_t)(
     ;
   }
 ;
-  HELPER(commit_float_exception_flags)(this);
+  cs_io = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 1, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_dz = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 2, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_ov = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 3, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_un = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 4, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_in = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 5, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  HELPER(writeToStorage_CS)(this, 5, 1, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fio
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_io
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 2, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fdz
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_dz
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 3, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fov
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_ov
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 4, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fun
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_un
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 5, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fin
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_in
+)
+      ))
+)), 1
+    )
+  );
   HELPER(operandFromValue)(this, 4, 3, 0, 
     Int256_zx(
       result1, 64
@@ -81894,6 +82342,16 @@ execute_lvx_v1_FMULWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (IF
     (I2B
       (READ.conjugate))
@@ -81918,7 +82376,76 @@ execute_lvx_v1_FMULWC_conjugate_imultiply_floatmode_registerW_registerZ_register
           (READ.32[0].result1)
           (CONST.2147483648))))
     (SKIP))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.5
     (AGGL.GPR
       (METHOD.%4)
@@ -81930,7 +82457,17 @@ execute_lvx_v1_FMULWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
   uint8_t conjugate = 0;
+  uint8_t cs_dz = 0;
+  uint8_t cs_in = 0;
+  uint8_t cs_io = 0;
+  uint8_t cs_ov = 0;
+  uint8_t cs_un = 0;
+  uint8_t fdz = 0;
+  uint8_t fin = 0;
+  uint8_t fio = 0;
   uint8_t floatmode = 0;
+  uint8_t fov = 0;
+  uint8_t fun = 0;
   uint8_t imultiply = 0;
   Int256_ result1 = Int256_zero;
 
@@ -81974,6 +82511,16 @@ Int256_fromUInt64((uint64_t)(
     HELPER(decode_riscv_float_rounding_mode)(this,
       
       floatmode);
+  fio = 
+    (uint8_t)UINT64_C(0);
+  fdz = 
+    (uint8_t)UINT64_C(0);
+  fov = 
+    (uint8_t)UINT64_C(0);
+  fun = 
+    (uint8_t)UINT64_C(0);
+  fin = 
+    (uint8_t)UINT64_C(0);
   if (
     Int256_toBool(
 Int256_fromUInt64((uint64_t)(
@@ -82035,7 +82582,106 @@ Int256_fromUInt64((uint64_t)(
     ;
   }
 ;
-  HELPER(commit_float_exception_flags)(this);
+  cs_io = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 1, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_dz = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 2, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_ov = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 3, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_un = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 4, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_in = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 5, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  HELPER(writeToStorage_CS)(this, 5, 1, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fio
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_io
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 2, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fdz
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_dz
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 3, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fov
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_ov
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 4, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fun
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_un
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 5, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fin
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_in
+)
+      ))
+)), 1
+    )
+  );
   HELPER(operandFromValue)(this, 4, 3, 0, 
     Int256_zx(
       result1, 64
@@ -82092,6 +82738,16 @@ execute_lvx_v1_FFMAWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode)))
+  (WRITE.fio
+    (CONST.0))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fov
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
+  (WRITE.fin
+    (CONST.0))
   (IF
     (I2B
       (READ.conjugate))
@@ -82117,7 +82773,76 @@ execute_lvx_v1_FFMAWC_conjugate_imultiply_floatmode_registerW_registerZ_register
           (READ.32[0].result1)
           (CONST.2147483648))))
     (SKIP))
-  (EFFECT.5.commit_float_exception_flags)
+  (WRITE.cs_io
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.1)
+          (CONST.1)))))
+  (WRITE.cs_dz
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.2)
+          (CONST.1)))))
+  (WRITE.cs_ov
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.3)
+          (CONST.1)))))
+  (WRITE.cs_un
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.4)
+          (CONST.1)))))
+  (WRITE.cs_in
+    (F2I.1
+      (LOAD.5
+        (AGGL.CS
+          (CONST.5)
+          (CONST.1)))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.1)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fio)
+        (READ.cs_io))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.2)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fdz)
+        (READ.cs_dz))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.3)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fov)
+        (READ.cs_ov))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.4)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fun)
+        (READ.cs_un))))
+  (STORE.5
+    (AGGL.CS
+      (CONST.5)
+      (CONST.1))
+    (I2F.1
+      (IOR
+        (READ.fin)
+        (READ.cs_in))))
   (STORE.5
     (AGGL.GPR
       (METHOD.%4)
@@ -82130,7 +82855,17 @@ execute_lvx_v1_FFMAWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   Int256_ argument2 = Int256_zero;
   Int256_ argument3 = Int256_zero;
   uint8_t conjugate = 0;
+  uint8_t cs_dz = 0;
+  uint8_t cs_in = 0;
+  uint8_t cs_io = 0;
+  uint8_t cs_ov = 0;
+  uint8_t cs_un = 0;
+  uint8_t fdz = 0;
+  uint8_t fin = 0;
+  uint8_t fio = 0;
   uint8_t floatmode = 0;
+  uint8_t fov = 0;
+  uint8_t fun = 0;
   uint8_t imultiply = 0;
   Int256_ result1 = Int256_zero;
 
@@ -82181,6 +82916,16 @@ Int256_fromUInt64((uint64_t)(
     HELPER(decode_riscv_float_rounding_mode)(this,
       
       floatmode);
+  fio = 
+    (uint8_t)UINT64_C(0);
+  fdz = 
+    (uint8_t)UINT64_C(0);
+  fov = 
+    (uint8_t)UINT64_C(0);
+  fun = 
+    (uint8_t)UINT64_C(0);
+  fin = 
+    (uint8_t)UINT64_C(0);
   if (
     Int256_toBool(
 Int256_fromUInt64((uint64_t)(
@@ -82246,7 +82991,106 @@ Int256_fromUInt64((uint64_t)(
     ;
   }
 ;
-  HELPER(commit_float_exception_flags)(this);
+  cs_io = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 1, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_dz = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 2, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_ov = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 3, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_un = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 4, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  cs_in = 
+    (uint8_t)(Int256_toUInt64(
+      HELPER(readFromStorage_CS)(this, 5, 5, 1, 1)
+      ) & (uint8_t)UINT64_C(1)
+    );
+  HELPER(writeToStorage_CS)(this, 5, 1, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fio
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_io
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 2, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fdz
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_dz
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 3, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fov
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_ov
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 4, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fun
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_un
+)
+      ))
+)), 1
+    )
+  );
+  HELPER(writeToStorage_CS)(this, 5, 5, 1, 1, 
+    Int256_zx(
+Int256_fromUInt64((uint64_t)(
+      (uint8_t)((uint32_t)(
+(uint32_t)(
+        fin
+)
+        ) | (uint32_t)(
+(uint32_t)(
+        cs_in
+)
+      ))
+)), 1
+    )
+  );
   HELPER(operandFromValue)(this, 4, 3, 0, 
     Int256_zx(
       result1, 64
