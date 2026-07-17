@@ -221,7 +221,7 @@ Helper:
     arguments: [8, 16]
 
   - ID: f32_add
-    result: [32, 1, 1, 1, 1, 1]
+    result: [32, 1, 1, 1]
     arguments: [8, 64, 64]
 
   - ID: f32_classify

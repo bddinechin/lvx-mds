@@ -50137,7 +50137,7 @@ stage 1:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new (result1, fio, fdz, fov, fun, fin) = f32_add(RM, argument2, argument3);
+  new (result1, fio, fov, fin) = f32_add(RM, argument2, argument3);
 stage 5:
   %2 = result1;
   CS.IO |= fio;
@@ -50178,8 +50178,8 @@ stage 5:
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (BIND.result1,fio,fdz,fov,fun,fin
-    (APPLY.32,1,1,1,1,1.f32_add
+  (BIND.result1,fio,fov,fin
+    (APPLY.32,1,1,1.f32_add
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.argument2(*dm:64,hi:18446744073709551615,lo:0*))
       (READ.argument3(*dm:64,hi:18446744073709551615,lo:0*))))
@@ -50227,7 +50227,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fdz(*dm:1,hi:1,lo:0*))
+        (READ.fdz(*dm:1,hi:0,lo:0*))
         (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -50243,7 +50243,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:1,lo:0*))
+        (READ.fun(*dm:1,hi:0,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -52890,14 +52890,12 @@ stage 1:
   new fun = 0;
   new fin = 0;
   fconj = conjugate ? 0x80000000 : 0;
-  new (lane0, io0, dz0, ov0, un0, in0) = f32_add(RM, argument2.32[0], argument3.32[0]);
+  new (lane0, io0, ov0, in0) = f32_add(RM, argument2.32[0], argument3.32[0]);
   result1.32[0] = lane0;
-  new (lane1, io1, dz1, ov1, un1, in1) = f32_add(RM, argument2.32[1]^fconj, argument3.32[1]);
+  new (lane1, io1, ov1, in1) = f32_add(RM, argument2.32[1]^fconj, argument3.32[1]);
   result1.32[1] = lane1;
   fio = io0 | io1;
-  fdz = dz0 | dz1;
   fov = ov0 | ov1;
-  fun = un0 | un1;
   fin = in0 | in1;
   if (imultiply) {
     result1 = _SWAP_32(result1);
@@ -52939,21 +52937,25 @@ stage 5:
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode(*dm:8,hi:7,lo:0*))(*dm:8,hi:7,lo:0*)))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
   (WRITE.fconj
     (SELECT
       (I2B
         (READ.conjugate(*hi:1,lo:0*)))
       (CONST.2147483648)
       (CONST.0)(*dm:64,hi:2147483648,lo:0*)))
-  (BIND.lane0,io0,dz0,ov0,un0,in0
-    (APPLY.32,1,1,1,1,1.f32_add
+  (BIND.lane0,io0,ov0,in0
+    (APPLY.32,1,1,1.f32_add
       (READ.RM(*dm:8,hi:7,lo:0*))
       (READ.32[0].argument2(*dm:64,hi:4294967295,lo:0*))
       (READ.32[0].argument3(*dm:64,hi:4294967295,lo:0*))))
   (WRITE.32[0].result1
     (READ.lane0(*dm:32,hi:4294967295,lo:0*)))
-  (BIND.lane1,io1,dz1,ov1,un1,in1
-    (APPLY.32,1,1,1,1,1.f32_add
+  (BIND.lane1,io1,ov1,in1
+    (APPLY.32,1,1,1.f32_add
       (READ.RM(*dm:8,hi:7,lo:0*))
       (XOR
         (READ.32[1].argument2(*dm:64,hi:4294967295,lo:0*))
@@ -52965,18 +52967,10 @@ stage 5:
     (IOR
       (READ.io0(*dm:1,hi:1,lo:0*))
       (READ.io1(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
-  (WRITE.fdz
-    (IOR
-      (READ.dz0(*dm:1,hi:1,lo:0*))
-      (READ.dz1(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
   (WRITE.fov
     (IOR
       (READ.ov0(*dm:1,hi:1,lo:0*))
       (READ.ov1(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
-  (WRITE.fun
-    (IOR
-      (READ.un0(*dm:1,hi:1,lo:0*))
-      (READ.un1(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*)))
   (WRITE.fin
     (IOR
       (READ.in0(*dm:1,hi:1,lo:0*))
@@ -53037,7 +53031,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fdz(*dm:1,hi:1,lo:0*))
+        (READ.fdz(*dm:1,hi:0,lo:0*))
         (READ.cs_dz(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS
@@ -53053,7 +53047,7 @@ stage 5:
       (CONST.1))
     (I2F.1
       (IOR
-        (READ.fun(*dm:1,hi:1,lo:0*))
+        (READ.fun(*dm:1,hi:0,lo:0*))
         (READ.cs_un(*dm:1,hi:1,lo:0*))(*dm:1,hi:1,lo:0*))))
   (STORE.5
     (AGGL.CS

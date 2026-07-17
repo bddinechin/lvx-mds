@@ -341,6 +341,54 @@ the type map would both need tuple support — a far larger change for no gain h
 - `CodeGen`: a struct return, or out-parameters. `BE/LAO/TEST`'s `genstubs.py` and
   `BE/GEM5`'s `helper_stubs.inc` follow the prototype.
 
+## 6b. Which flags each helper raises, and where that came from
+
+**Half of this table is inference, and it is a specification claim.** It is written down
+here because nothing else in the description states it, and because a reader who assumes
+it was read off a document would be wrong for half the rows.
+
+**LVX's own prose cannot answer the question.** All 53 CS-claiming instructions say the
+generic *"may raise exception bits in the CS register"* — which flags is never named. KVX
+names them in every case (zero generic), so this specificity was lost in the port, along
+with the CS modelling itself. KVX kv3_v1 is therefore the document, and it covers 28 of
+the 53; the rest are kv4_v1 features it does not have — and **kv4_v1's `Description.yml`
+is not available**, only its architecture chapters (`kv4-v1-*.tex`).
+
+Two rules from the architect close the gap:
+
+- **`F*H` and `F*D` raise the same flags as the corresponding `F*W`** — width does not
+  change the set.
+- **LVX FP arithmetic is RISC-V FP arithmetic**, including canonical NaN generation and
+  NaN handling, which is *not* SoftFloat's.
+
+| helper | flags | source |
+|---|---|---|
+| `f{16,32,64}_add`, `_sub` | IN IO OV | kv3_v1 for f32/f64; width rule for f16 |
+| `f{16,32,64}_mul`, `_muln` | IN IO OV UN | kv3_v1 for f32/f64; width rule for f16 |
+| `f{16,32,64}_div` | DZ IN IO OV UN | **inferred**: RISC-V FDIV |
+| `f{16,32,64}_sqrt` | IN IO | **inferred**: RISC-V FSQRT |
+| `f{16,32,64}_rint` | IN IO | **inferred**: IEEE roundToIntegralExact |
+| `f32_to_f16`, `f64_to_f32` | IN IO OV UN | kv3_v1 |
+| `f{32,64}_to_{i,ui}{32,64}` | IN IO | kv3_v1 for the same-width four; width rule for the cross-width four |
+| `{i,ui}{32,64}_to_f{32,64}` | IN IO | kv3_v1 for the same-width four; width rule for the cross-width four |
+| `fconj_32_32`, `fmulc_32_32`, `ffmac_32_32` | IN IO OV | kv3_v1 for the first two; analogy for `ffmac_32_32` |
+| `f{32,64}_fast_rec`, `f{32,64}_fast_rsqrt` | **none** | architect: no CS effects; to be revised with new hardware |
+
+**The width rule cross-checks itself**, which is the reason to trust the inferred rows: it
+predicts `f64_add` raises what `f32_add` raises, and kv3_v1 independently documents both
+as IN IO OV. Same for `mul`/`muln`. Rule and document agree wherever both apply.
+
+**And the document is right where intuition is wrong.** Addition looks like it should be
+able to underflow and does not: a sum that lands in the subnormal range is *exact*, so it
+is never both tiny and inexact, and IEEE therefore raises nothing. `add`/`sub` are IN IO OV
+and `mul` is IN IO OV UN for that reason, not by oversight. RISC-V agrees. Anyone
+"fixing" add to raise UN would be wrong.
+
+**`fast_rec`/`fast_rsqrt` are an override, not a reading.** kv3_v1 documents them as
+DZ IN IO OV; LVX's raise nothing, pending a new hardware implementation. The three
+instructions that use them (`FSRECW`, `FSRECWP`, `FSRECD`) still claim CS effects in their
+`description:`, and that prose is now wrong — it should go when they are revised.
+
 ## 7. Recommendation, in order
 
 0. **Make `Helper`'s `result` checkable** — *done*. The convention in (1) works by

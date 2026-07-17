@@ -179503,7 +179503,7 @@ Int256_toUInt64(
 }
 #endif /* Behavior_EXECUTE */
 #ifdef Behavior_TYPES
-typedef struct { uint32_t _0; uint8_t _1; uint8_t _2; uint8_t _3; uint8_t _4; uint8_t _5; } Tuple_32_1_1_1_1_1;
+typedef struct { uint32_t _0; uint8_t _1; uint8_t _2; uint8_t _3; } Tuple_32_1_1_1;
 #endif /* Behavior_TYPES */
 #ifdef Behavior_EXECUTE
 static void
@@ -179539,8 +179539,8 @@ execute_lvx_v2_FADDW_floatmode_registerW_registerZ_registerY_simple(void *this, 
     (CONST.0))
   (WRITE.fin
     (CONST.0))
-  (BIND.result1,fio,fdz,fov,fun,fin
-    (APPLY.32,1,1,1,1,1.f32_add
+  (BIND.result1,fio,fov,fin
+    (APPLY.32,1,1,1.f32_add
       (READ.RM)
       (READ.argument2)
       (READ.argument3)))
@@ -179666,7 +179666,7 @@ execute_lvx_v2_FADDW_floatmode_registerW_registerZ_registerY_simple(void *this, 
     Int256_fromUInt64(0LL);
   fin = 
     Int256_fromUInt64(0LL);
-  Tuple_32_1_1_1_1_1 _bind0 = 
+  Tuple_32_1_1_1 _bind0 = 
     HELPER(f32_add)(this,
       
 (uint8_t)Int256_toUInt64(
@@ -179682,10 +179682,8 @@ Int256_toUInt64(
 ));
   result1 = Int256_fromUInt64((uint64_t)(_bind0._0));
   fio = Int256_fromUInt64((uint64_t)(_bind0._1));
-  fdz = Int256_fromUInt64((uint64_t)(_bind0._2));
-  fov = Int256_fromUInt64((uint64_t)(_bind0._3));
-  fun = Int256_fromUInt64((uint64_t)(_bind0._4));
-  fin = Int256_fromUInt64((uint64_t)(_bind0._5));
+  fov = Int256_fromUInt64((uint64_t)(_bind0._2));
+  fin = Int256_fromUInt64((uint64_t)(_bind0._3));
   cs_io = 
     Int256_zx(
       HELPER(readFromStorage_CS)(this, 5, 1, 1, 1), 1
@@ -179791,8 +179789,8 @@ execute_lvx_v2_FADDWQ_floatmode_registerM_registerP_registerO_simple(void *this,
   (FOR.I
     (RANGE.0.4.1)
     (SEQ
-      (BIND.lane,lio,ldz,lov,lun,lin
-        (APPLY.32,1,1,1,1,1.f32_add
+      (BIND.lane,lio,lov,lin
+        (APPLY.32,1,1,1.f32_add
           (READ.RM)
           (READ.32[(INDEX.I)].argument2)
           (READ.32[(INDEX.I)].argument3)))
@@ -179802,18 +179800,10 @@ execute_lvx_v2_FADDWQ_floatmode_registerM_registerP_registerO_simple(void *this,
         (IOR
           (READ.fio)
           (READ.lio)))
-      (WRITE.fdz
-        (IOR
-          (READ.fdz)
-          (READ.ldz)))
       (WRITE.fov
         (IOR
           (READ.fov)
           (READ.lov)))
-      (WRITE.fun
-        (IOR
-          (READ.fun)
-          (READ.lun)))
       (WRITE.fin
         (IOR
           (READ.fin)
@@ -179910,11 +179900,9 @@ execute_lvx_v2_FADDWQ_floatmode_registerM_registerP_registerO_simple(void *this,
   Int256_ fov = Int256_zero;
   Int256_ fun = Int256_zero;
   Int256_ lane = Int256_zero;
-  Int256_ ldz = Int256_zero;
   Int256_ lin = Int256_zero;
   Int256_ lio = Int256_zero;
   Int256_ lov = Int256_zero;
-  Int256_ lun = Int256_zero;
   Int256_ result1 = Int256_zero;
 
 
@@ -179946,7 +179934,7 @@ execute_lvx_v2_FADDWQ_floatmode_registerM_registerP_registerO_simple(void *this,
     Int256_fromUInt64(0LL);
   fin = 
     Int256_fromUInt64(0LL);
-    Tuple_32_1_1_1_1_1 _bind0 = 
+    Tuple_32_1_1_1 _bind0 = 
       HELPER(f32_add)(this,
         
 (uint8_t)Int256_toUInt64(
@@ -179962,10 +179950,8 @@ Int256_toUInt64(
 ));
     lane = Int256_fromUInt64((uint64_t)(_bind0._0));
     lio = Int256_fromUInt64((uint64_t)(_bind0._1));
-    ldz = Int256_fromUInt64((uint64_t)(_bind0._2));
-    lov = Int256_fromUInt64((uint64_t)(_bind0._3));
-    lun = Int256_fromUInt64((uint64_t)(_bind0._4));
-    lin = Int256_fromUInt64((uint64_t)(_bind0._5));
+    lov = Int256_fromUInt64((uint64_t)(_bind0._2));
+    lin = Int256_fromUInt64((uint64_t)(_bind0._3));
     result1.words[0] = (
       lane
 )    .words[0]
@@ -179975,20 +179961,10 @@ Int256_toUInt64(
         fio, 
         lio
       );
-    fdz = 
-      Int256_or(
-        fdz, 
-        ldz
-      );
     fov = 
       Int256_or(
         fov, 
         lov
-      );
-    fun = 
-      Int256_or(
-        fun, 
-        lun
       );
     fin = 
       Int256_or(
@@ -179996,7 +179972,7 @@ Int256_toUInt64(
         lin
       );
 ;
-    Tuple_32_1_1_1_1_1 _bind1 = 
+    Tuple_32_1_1_1 _bind1 = 
       HELPER(f32_add)(this,
         
 (uint8_t)Int256_toUInt64(
@@ -180012,10 +179988,8 @@ Int256_toUInt64(
 ));
     lane = Int256_fromUInt64((uint64_t)(_bind1._0));
     lio = Int256_fromUInt64((uint64_t)(_bind1._1));
-    ldz = Int256_fromUInt64((uint64_t)(_bind1._2));
-    lov = Int256_fromUInt64((uint64_t)(_bind1._3));
-    lun = Int256_fromUInt64((uint64_t)(_bind1._4));
-    lin = Int256_fromUInt64((uint64_t)(_bind1._5));
+    lov = Int256_fromUInt64((uint64_t)(_bind1._2));
+    lin = Int256_fromUInt64((uint64_t)(_bind1._3));
     result1.words[1] = (
       lane
 )    .words[0]
@@ -180025,20 +179999,10 @@ Int256_toUInt64(
         fio, 
         lio
       );
-    fdz = 
-      Int256_or(
-        fdz, 
-        ldz
-      );
     fov = 
       Int256_or(
         fov, 
         lov
-      );
-    fun = 
-      Int256_or(
-        fun, 
-        lun
       );
     fin = 
       Int256_or(
@@ -180046,7 +180010,7 @@ Int256_toUInt64(
         lin
       );
 ;
-    Tuple_32_1_1_1_1_1 _bind2 = 
+    Tuple_32_1_1_1 _bind2 = 
       HELPER(f32_add)(this,
         
 (uint8_t)Int256_toUInt64(
@@ -180062,10 +180026,8 @@ Int256_toUInt64(
 ));
     lane = Int256_fromUInt64((uint64_t)(_bind2._0));
     lio = Int256_fromUInt64((uint64_t)(_bind2._1));
-    ldz = Int256_fromUInt64((uint64_t)(_bind2._2));
-    lov = Int256_fromUInt64((uint64_t)(_bind2._3));
-    lun = Int256_fromUInt64((uint64_t)(_bind2._4));
-    lin = Int256_fromUInt64((uint64_t)(_bind2._5));
+    lov = Int256_fromUInt64((uint64_t)(_bind2._2));
+    lin = Int256_fromUInt64((uint64_t)(_bind2._3));
     result1.words[2] = (
       lane
 )    .words[0]
@@ -180075,20 +180037,10 @@ Int256_toUInt64(
         fio, 
         lio
       );
-    fdz = 
-      Int256_or(
-        fdz, 
-        ldz
-      );
     fov = 
       Int256_or(
         fov, 
         lov
-      );
-    fun = 
-      Int256_or(
-        fun, 
-        lun
       );
     fin = 
       Int256_or(
@@ -180096,7 +180048,7 @@ Int256_toUInt64(
         lin
       );
 ;
-    Tuple_32_1_1_1_1_1 _bind3 = 
+    Tuple_32_1_1_1 _bind3 = 
       HELPER(f32_add)(this,
         
 (uint8_t)Int256_toUInt64(
@@ -180112,10 +180064,8 @@ Int256_toUInt64(
 ));
     lane = Int256_fromUInt64((uint64_t)(_bind3._0));
     lio = Int256_fromUInt64((uint64_t)(_bind3._1));
-    ldz = Int256_fromUInt64((uint64_t)(_bind3._2));
-    lov = Int256_fromUInt64((uint64_t)(_bind3._3));
-    lun = Int256_fromUInt64((uint64_t)(_bind3._4));
-    lin = Int256_fromUInt64((uint64_t)(_bind3._5));
+    lov = Int256_fromUInt64((uint64_t)(_bind3._2));
+    lin = Int256_fromUInt64((uint64_t)(_bind3._3));
     result1.words[3] = (
       lane
 )    .words[0]
@@ -180125,20 +180075,10 @@ Int256_toUInt64(
         fio, 
         lio
       );
-    fdz = 
-      Int256_or(
-        fdz, 
-        ldz
-      );
     fov = 
       Int256_or(
         fov, 
         lov
-      );
-    fun = 
-      Int256_or(
-        fun, 
-        lun
       );
     fin = 
       Int256_or(
@@ -189377,21 +189317,25 @@ execute_lvx_v2_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   (WRITE.RM
     (APPLY.3.decode_riscv_float_rounding_mode
       (READ.floatmode)))
+  (WRITE.fdz
+    (CONST.0))
+  (WRITE.fun
+    (CONST.0))
   (WRITE.fconj
     (SELECT
       (I2B
         (READ.conjugate))
       (CONST.2147483648)
       (CONST.0)))
-  (BIND.lane0,io0,dz0,ov0,un0,in0
-    (APPLY.32,1,1,1,1,1.f32_add
+  (BIND.lane0,io0,ov0,in0
+    (APPLY.32,1,1,1.f32_add
       (READ.RM)
       (READ.32[0].argument2)
       (READ.32[0].argument3)))
   (WRITE.32[0].result1
     (READ.lane0))
-  (BIND.lane1,io1,dz1,ov1,un1,in1
-    (APPLY.32,1,1,1,1,1.f32_add
+  (BIND.lane1,io1,ov1,in1
+    (APPLY.32,1,1,1.f32_add
       (READ.RM)
       (XOR
         (READ.32[1].argument2)
@@ -189403,18 +189347,10 @@ execute_lvx_v2_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
     (IOR
       (READ.io0)
       (READ.io1)))
-  (WRITE.fdz
-    (IOR
-      (READ.dz0)
-      (READ.dz1)))
   (WRITE.fov
     (IOR
       (READ.ov0)
       (READ.ov1)))
-  (WRITE.fun
-    (IOR
-      (READ.un0)
-      (READ.un1)))
   (WRITE.fin
     (IOR
       (READ.in0)
@@ -189517,8 +189453,6 @@ execute_lvx_v2_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   Int256_ cs_io = Int256_zero;
   Int256_ cs_ov = Int256_zero;
   Int256_ cs_un = Int256_zero;
-  Int256_ dz0 = Int256_zero;
-  Int256_ dz1 = Int256_zero;
   Int256_ fconj = Int256_zero;
   Int256_ fdz = Int256_zero;
   Int256_ fin = Int256_zero;
@@ -189536,8 +189470,6 @@ execute_lvx_v2_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
   Int256_ ov0 = Int256_zero;
   Int256_ ov1 = Int256_zero;
   Int256_ result1 = Int256_zero;
-  Int256_ un0 = Int256_zero;
-  Int256_ un1 = Int256_zero;
 
 
   conjugate = 
@@ -189566,6 +189498,10 @@ execute_lvx_v2_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
 (uint8_t)Int256_toUInt64(
       floatmode
 ));
+  fdz = 
+    Int256_fromUInt64(0LL);
+  fun = 
+    Int256_fromUInt64(0LL);
   fconj = 
 (
     Int256_toBool(
@@ -189576,7 +189512,7 @@ execute_lvx_v2_FADDWC_conjugate_imultiply_floatmode_registerW_registerZ_register
     :
     Int256_fromUInt64(0LL)
 );
-  Tuple_32_1_1_1_1_1 _bind0 = 
+  Tuple_32_1_1_1 _bind0 = 
     HELPER(f32_add)(this,
       
 (uint8_t)Int256_toUInt64(
@@ -189592,15 +189528,13 @@ Int256_toUInt64(
 ));
   lane0 = Int256_fromUInt64((uint64_t)(_bind0._0));
   io0 = Int256_fromUInt64((uint64_t)(_bind0._1));
-  dz0 = Int256_fromUInt64((uint64_t)(_bind0._2));
-  ov0 = Int256_fromUInt64((uint64_t)(_bind0._3));
-  un0 = Int256_fromUInt64((uint64_t)(_bind0._4));
-  in0 = Int256_fromUInt64((uint64_t)(_bind0._5));
+  ov0 = Int256_fromUInt64((uint64_t)(_bind0._2));
+  in0 = Int256_fromUInt64((uint64_t)(_bind0._3));
   result1.words[0] = (
     lane0
 )  .words[0]
 ;
-  Tuple_32_1_1_1_1_1 _bind1 = 
+  Tuple_32_1_1_1 _bind1 = 
     HELPER(f32_add)(this,
       
 (uint8_t)Int256_toUInt64(
@@ -189619,10 +189553,8 @@ Int256_toUInt64(
 ));
   lane1 = Int256_fromUInt64((uint64_t)(_bind1._0));
   io1 = Int256_fromUInt64((uint64_t)(_bind1._1));
-  dz1 = Int256_fromUInt64((uint64_t)(_bind1._2));
-  ov1 = Int256_fromUInt64((uint64_t)(_bind1._3));
-  un1 = Int256_fromUInt64((uint64_t)(_bind1._4));
-  in1 = Int256_fromUInt64((uint64_t)(_bind1._5));
+  ov1 = Int256_fromUInt64((uint64_t)(_bind1._2));
+  in1 = Int256_fromUInt64((uint64_t)(_bind1._3));
   result1.words[1] = (
     lane1
 )  .words[0]
@@ -189632,20 +189564,10 @@ Int256_toUInt64(
       io0, 
       io1
     );
-  fdz = 
-    Int256_or(
-      dz0, 
-      dz1
-    );
   fov = 
     Int256_or(
       ov0, 
       ov1
-    );
-  fun = 
-    Int256_or(
-      un0, 
-      un1
     );
   fin = 
     Int256_or(
@@ -199485,9 +199407,9 @@ BehaviorDeclare(f16_to_ui16,DECLARE_ALT(Int256_ HELPER(f16_to_ui16)(void *this, 
 BehaviorDeclare(f16_to_ui16,DECLARE(Int256_ HELPER(f16_to_ui16)(void *this, uint8_t opnd1, uint16_t opnd2);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_add
-BehaviorDeclare(f32_add,DECLARE_ALT(Tuple_32_1_1_1_1_1 HELPER(f32_add)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
+BehaviorDeclare(f32_add,DECLARE_ALT(Tuple_32_1_1_1 HELPER(f32_add)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
 #else
-BehaviorDeclare(f32_add,DECLARE(Tuple_32_1_1_1_1_1 HELPER(f32_add)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
+BehaviorDeclare(f32_add,DECLARE(Tuple_32_1_1_1 HELPER(f32_add)(void *this, uint8_t opnd1, uint64_t opnd2, uint64_t opnd3);))
 #endif
 #ifdef BehaviorDeclareAlt_f32_classify
 BehaviorDeclare(f32_classify,DECLARE_ALT(Int256_ HELPER(f32_classify)(void *this, uint64_t opnd1);))

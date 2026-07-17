@@ -16254,7 +16254,7 @@ Helper:
   - ID: f16_to_ui16
     arguments: [8, 16]
   - ID: f32_add
-    result: [32, 1, 1, 1, 1, 1]
+    result: [32, 1, 1, 1]
     arguments: [8, 64, 64]
   - ID: f32_classify
     arguments: [64]
@@ -30462,10 +30462,10 @@ Instruction:
       according to the rounding mode and stored into the %1.
       This instruction may raise exception bits in the CS register.
     execution: |
-      new (result1, fio, fdz, fov, fun, fin) = f32_add(RM, argument2, argument3);
+      new (result1, fio, fov, fin) = f32_add(RM, argument2, argument3);
     behavior: |
-      (BIND.result1,fio,fdz,fov,fun,fin
-        (APPLY.32,1,1,1,1,1.f32_add
+      (BIND.result1,fio,fov,fin
+        (APPLY.32,1,1,1.f32_add
           (READ.RM)
           (READ.argument2)
           (READ.argument3)))
@@ -30479,27 +30479,23 @@ Instruction:
       The four resulting words are packed and stored into the %1.
     execution: |
       for (i range 4) {
-        new (lane, lio, ldz, lov, lun, lin) = f32_add(RM, argument2.32[i], argument3.32[i]);
+        new (lane, lio, lov, lin) = f32_add(RM, argument2.32[i], argument3.32[i]);
         result1.32[i] = lane;
         fio |= lio;
-        fdz |= ldz;
         fov |= lov;
-        fun |= lun;
         fin |= lin;
       }
     behavior: |
       (FOR.I (RANGE.4)
         (SEQ
-          (BIND.lane,lio,ldz,lov,lun,lin
-            (APPLY.32,1,1,1,1,1.f32_add
+          (BIND.lane,lio,lov,lin
+            (APPLY.32,1,1,1.f32_add
               (READ.RM)
               (READ.32[(INDEX.I)].argument2)
               (READ.32[(INDEX.I)].argument3)))
           (WRITE.32[(INDEX.I)].result1 (READ.lane))
           (WRITE.fio (IOR (READ.fio) (READ.lio)))
-          (WRITE.fdz (IOR (READ.fdz) (READ.ldz)))
           (WRITE.fov (IOR (READ.fov) (READ.lov)))
-          (WRITE.fun (IOR (READ.fun) (READ.lun)))
           (WRITE.fin (IOR (READ.fin) (READ.lin)))))
   - ID: FADDH
     what: Floating-Point Add Half Word
@@ -31234,14 +31230,12 @@ Instruction:
       This instruction may raise exception bits in the CS register.
     execution: |
       fconj = conjugate ? 0x80000000 : 0;
-      new (lane0, io0, dz0, ov0, un0, in0) = f32_add(RM, argument2.32[0], argument3.32[0]);
+      new (lane0, io0, ov0, in0) = f32_add(RM, argument2.32[0], argument3.32[0]);
       result1.32[0] = lane0;
-      new (lane1, io1, dz1, ov1, un1, in1) = f32_add(RM, argument2.32[1]^fconj, argument3.32[1]);
+      new (lane1, io1, ov1, in1) = f32_add(RM, argument2.32[1]^fconj, argument3.32[1]);
       result1.32[1] = lane1;
       fio = io0 | io1;
-      fdz = dz0 | dz1;
       fov = ov0 | ov1;
-      fun = un0 | un1;
       fin = in0 | in1;
       if (imultiply) {
         result1 = _SWAP_32(result1);
@@ -31254,23 +31248,21 @@ Instruction:
             (I2B (READ.conjugate))
             (CONST.0x80000000)
             (CONST.0)))
-        (BIND.lane0,io0,dz0,ov0,un0,in0
-          (APPLY.32,1,1,1,1,1.f32_add
+        (BIND.lane0,io0,ov0,in0
+          (APPLY.32,1,1,1.f32_add
             (READ.RM)
             (READ.32[0].argument2)
             (READ.32[0].argument3)))
         (WRITE.32[0].result1 (READ.lane0))
-        (BIND.lane1,io1,dz1,ov1,un1,in1
-          (APPLY.32,1,1,1,1,1.f32_add
+        (BIND.lane1,io1,ov1,in1
+          (APPLY.32,1,1,1.f32_add
             (READ.RM)
             (XOR (READ.32[1].argument2)
                  (READ.fconj))
             (READ.32[1].argument3)))
         (WRITE.32[1].result1 (READ.lane1))
         (WRITE.fio (IOR (READ.io0) (READ.io1)))
-        (WRITE.fdz (IOR (READ.dz0) (READ.dz1)))
         (WRITE.fov (IOR (READ.ov0) (READ.ov1)))
-        (WRITE.fun (IOR (READ.un0) (READ.un1)))
         (WRITE.fin (IOR (READ.in0) (READ.in1)))
         (IF
           (I2B (READ.imultiply))
