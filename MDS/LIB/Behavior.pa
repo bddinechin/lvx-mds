@@ -2526,7 +2526,7 @@ sub _signature_type {
     my ($widths, $position) = @_;
     return &_ctype_box() unless ref $widths eq 'ARRAY';
     my $width = $widths->[$position - 1];
-    return &_ctype_box() unless defined $width && $width > 0 && $width <= 64;
+    return &_ctype_box() unless defined $width && $width > 0 && $width <= 128;
     return { W => &_ctype_native($width), S => 0, E => 1 };
 }
 
@@ -2540,7 +2540,7 @@ sub _signature_result {
     # fails the build for.  Decline to type it rather than guess which element was meant.
     return undef unless @{$result} == 1;
     my $width = $result->[0];
-    return &_ctype_box() if $width > 64;
+    return &_ctype_box() if $width > 128;
     return { W => &_ctype_native($width), S => 0, E => 1 };
 }
 
@@ -2601,7 +2601,7 @@ sub _vartypes_lanes {
 # helper -- f32_add, f32_sub and f32_mul all return Tuple_32_5.
 sub _ctype_element {
     my ($width) = @_;
-    return &_ctype_box() if $width > 64;
+    return &_ctype_box() if $width > 128;
     return { W => &_ctype_native($width), S => 0, E => 1 };
 }
 
@@ -2658,7 +2658,7 @@ sub _ctype_box { return { W => $BOX, S => 1, E => 1 }; }
 
 sub _ctype_native {		# the native width holding $bits
     my ($bits) = @_;
-    foreach my $w (8, 16, 32, 64) {
+    foreach my $w (8, 16, 32, 64, 128) {
         return $w if $bits <= $w;
     }
     return $BOX;
@@ -2738,7 +2738,7 @@ sub _ctype_rep {
     return ($BOX, 1) unless defined $lo && defined $hi;
     $lo = Math::BigInt->new("$lo");
     $hi = Math::BigInt->new("$hi");
-    foreach my $w (8, 16, 32, 64) {
+    foreach my $w (8, 16, 32, 64, 128) {
         my $top = Math::BigInt->new(2)->bpow($w);
         my $half = $top->copy()->bdiv(2);
         return ($w, 0) if $lo >= 0 && $hi < $top;
@@ -2831,9 +2831,9 @@ sub ctype {
         # Truncation-safe: computing modulo 2^dm agrees on every bit anyone reads.
         $width = $dm if $dm < $rep;
     }
-    return _ctype_box() if $width > 64;
+    return _ctype_box() if $width > 128;
 
-    foreach my $w (8, 16, 32, 64) {
+    foreach my $w (8, 16, 32, 64, 128) {
         next if $w < $width;
         # Exact when the interval still fits after the demand narrowed it: only then
         # is the mathematical value recoverable from the bits.
@@ -2860,12 +2860,21 @@ sub cconv {
 
     if ($$from{W} == $BOX) {			# Int256_ -> native: take the low limb
         my $w = $$to{W};
+        # 128 has no Int256_toUInt128; the low 128 bits are the first qword of the union.
+        return ("(", ").qwords[0]") if $w == 128;
         return ($w == 64 ? "Int256_toUInt64(" : "(uint${w}_t)Int256_toUInt64(", ")");
     }
     if ($$to{W} == $BOX) {			# native -> Int256_
         # An exact signed value must be sign-extended into the container, or the
         # Int256_ holds a large positive number instead of a negative one, and every
         # operator that reads the sign misreads it.
+        # 128 has no Int256_fromInt128 taking a native, so box the bits with
+        # fromUInt128 and sign-extend from bit 128 when the reading is signed.
+        if ($$from{W} == 128) {
+            return $$from{S} && $$from{E}
+                ? ("Int256_sx(Int256_fromUInt128((uint128_t)(", ")), 128)")
+                : ("Int256_fromUInt128((uint128_t)(", "))");
+        }
         return ($$from{S} && $$from{E}
                 ? "Int256_fromInt64((int64_t)(int$$from{W}_t)("
                 : "Int256_fromUInt64((uint64_t)(", "))");
