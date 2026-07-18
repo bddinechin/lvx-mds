@@ -3498,11 +3498,18 @@ sub codegen {
             }
             if($$this[1] =~ /^[\-0-9]+$/) {
                 use bigint;
-                my $value = sprintf("%#x%08xLL", ($$this[1] >> 32) & 0xffffffff, $$this[1] & 0xffffffff);
-                if($$this[1]>>32 == 0) {
-                    $value = sprintf("%#xLL", $$this[1] & 0xffffffff);
+                my $value = sprintf("%#x%08xULL", ($$this[1] >> 32) & 0xffffffff, $$this[1] & 0xffffffff);
+                if($$this[1] >> 32 == 0) {
+                    $value = sprintf("%#xULL", $$this[1] & 0xffffffff);
                 }
-                push(@$pretty, "${indent}Int256_fromUInt64($value)");
+                # A negative constant is a 64-bit two's-complement pattern; fromUInt64 would
+                # zero-extend it into a huge positive across the container, so sign-extend
+                # it with fromInt64 instead.
+                if($$this[1] < 0) {
+                    push(@$pretty, "${indent}Int256_fromInt64((int64_t)$value)");
+                } else {
+                    push(@$pretty, "${indent}Int256_fromUInt64($value)");
+                }
             } else {
                 # SYMBOLIC CONSTANT
                 $cst0 = $$this[1];
