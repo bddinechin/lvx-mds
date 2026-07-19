@@ -30,8 +30,27 @@
 use strict;
 use warnings;
 
-my ($tuple) = @ARGV;
-die "usage: $0 <Behavior.tuple>\n" unless defined $tuple;
+my ($tuple, $proctable) = @ARGV;
+die "usage: $0 <Behavior.tuple> <Processor.table>\n" unless defined $proctable;
+
+# The register-read stage (RR) from the Processor pipeline: a result's
+# dependence latency is its write stage minus this.  Read it rather than assume,
+# so it stays tied to the same ISA description that lvx_stages.h is built from.
+my $READ_STAGE;
+{
+    open(my $p, '<', $proctable) or die "cannot open $proctable: $!";
+    my ($names, $stages);
+    while (<$p>) {
+        $names  = $1 if /pipeline=\s*"([^"]*)"/;
+        $stages = $1 if /stages=\s*"([^"]*)"/;
+    }
+    close($p);
+    die "no pipeline in $proctable\n" unless defined $names && defined $stages;
+    my @n = split ' ', $names;
+    my @s = split ' ', $stages;
+    for my $i (0 .. $#n) { $READ_STAGE = $s[$i] if $n[$i] eq 'RR'; }
+    die "no RR stage in $proctable\n" unless defined $READ_STAGE;
+}
 
 # Register files we model as gem5 register classes.  Anything else (PC, NPC,
 # PS, memory) is not a scoreboard register here and is ignored.
@@ -43,27 +62,32 @@ my %REGFILE = (GPR => 1, SFR => 1);
 # register is often read in EXECUTE (e.g. RET reads $ra = SFR 3 there to compute
 # the branch target).  So classify by the helper's direction, not the phase.
 # Many opcodes share a body, so key by function name and resolve per opcode next.
-my (%rd, %wr);            # fn name => [ "file:slot" | "file:#num", ... ]
+my (%rd, %wr, %ws);       # fn name => [ "file:slot" | "file:#num", ... ]; %ws => write stages
 my $fn;
 open(my $t, '<', $tuple) or die "cannot open $tuple: $!";
 while (<$t>) {
     if (/^(?:fetch|execute|commit)_(lvx_\w+?)\(/) {   # function definition line
         $fn = $&; $fn =~ s/\($//;
-        $rd{$fn} = []; $wr{$fn} = [];
+        $rd{$fn} = []; $wr{$fn} = []; $ws{$fn} = [];
         next;
     }
     next unless defined $fn;
     if (/^\}/) { $fn = undef; next; }                 # end of body
 
-    # Operand register: index carried by decoded[K].
-    if (/operand(From|To)RegFile_(\w+)\)\(this,[^,]+,[^,]+,[^,]+,\s*decoded\[(\d+)\]/) {
+    # Operand register: index carried by decoded[K]; 2nd arg is the pipeline
+    # stage (read at ACCESS stage, written at COMMIT stage -- the dependence
+    # latency is a write stage minus a read stage, all resource hazards being
+    # handled by the assembler's bundling).
+    if (/operand(From|To)RegFile_(\w+)\)\(this,\s*(\d+),[^,]+,[^,]+,\s*decoded\[(\d+)\]/) {
         next unless $REGFILE{$2};
-        push @{ $1 eq 'From' ? $rd{$fn} : $wr{$fn} }, "$2:$3";
+        push @{ $1 eq 'From' ? $rd{$fn} : $wr{$fn} }, "$2:$4";
+        push @{ $ws{$fn} }, $3 if $1 eq 'To';
     }
     # Fixed/implicit register: a literal storage cell number.
-    elsif (/(read|write)FromStorage_(\w+)\)\(this,[^,]+,\s*(\d+)\s*,/) {
+    elsif (/(read|write)FromStorage_(\w+)\)\(this,\s*(\d+),\s*(\d+)\s*,/) {
         next unless $REGFILE{$2};
-        push @{ $1 eq 'read' ? $rd{$fn} : $wr{$fn} }, "$2:#$3";
+        push @{ $1 eq 'read' ? $rd{$fn} : $wr{$fn} }, "$2:#$4";
+        push @{ $ws{$fn} }, $3 if $1 eq 'write';
     }
 }
 close($t);
@@ -71,14 +95,20 @@ close($t);
 # Resolve the dispatch: an opcode reads the union of the reads of its three
 # bodies, and writes the union of their writes (deduped, order preserved).
 sub uniq { my %s; grep { !$s{$_}++ } @_ }
+sub maxv { my $m = 0; for (@_) { $m = $_ if $_ > $m } $m }
 my %src;   # opcode enum => [accesses]
 my %dst;
+my %lat;   # opcode enum => result latency in cycles (max write stage - RR)
 open($t, '<', $tuple) or die "cannot open $tuple: $!";
 while (<$t>) {
     next unless /^Behavior\((\w+),FETCH\((\w+)\),EXECUTE\((\w+)\),COMMIT\((\w+)\)\)/;
     my ($opcode, $fetch, $execute, $commit) = ($1, $2, $3, $4);
     $src{$opcode} = [ &uniq(map { @{$rd{$_} || []} } $fetch, $execute, $commit) ];
     $dst{$opcode} = [ &uniq(map { @{$wr{$_} || []} } $fetch, $execute, $commit) ];
+    my $maxw = &maxv(map { @{$ws{$_} || []} } $fetch, $execute, $commit);
+    # A result written at write stage W is available W-RR cycles after issue; a
+    # bundle with no result gets 0 (its FU latency is irrelevant to any RAW dep).
+    $lat{$opcode} = $maxw > $READ_STAGE ? $maxw - $READ_STAGE : ($maxw ? 1 : 0);
 }
 close($t);
 
@@ -115,6 +145,12 @@ print <<'HEAD';
  * names a register file and how to find the register index: `slot >= 0` reads
  * decoded[slot] (an operand register, index = decoded[slot] - file base);
  * `slot < 0` is a fixed register whose number is `fixed`.
+ *
+ * `lat` is the result's dependence latency in cycles -- the operand write stage
+ * minus the register-read stage (RR), from the Behavior pipeline annotations.
+ * A MinorCPU FU with this latency makes a dependent bundle stall the right
+ * number of cycles: 1 for an ALU result (E1), 3 for a load (E3), 15 for
+ * divide/sqrt (SF), 23 for an atomic read-modify-write (SR).
  */
 #ifndef LVX_REGOP
 /* file codes */
@@ -141,14 +177,14 @@ for my $a (@arrays) {
 }
 
 print "\n#ifndef LVX_REGOP\ntypedef struct { const LvxRegOperand *src; unsigned char nsrc;",
-      " const LvxRegOperand *dst; unsigned char ndst; } LvxRegDeps;\n#endif\n\n";
+      " const LvxRegOperand *dst; unsigned char ndst; unsigned char lat; } LvxRegDeps;\n#endif\n\n";
 # External linkage (defined in behavior.c, compiled as C so the designated array
 # initializer is standard): LvxStaticInst reads it through reg_operands.hh.
 print "const LvxRegDeps lvx_reg_deps[Opcode__NUM] = {\n";
 for my $op (sort keys %src) {
     my $ns = scalar @{$src{$op}};
     my $nd = scalar @{$dst{$op}};
-    printf "  [Opcode_%s] = { %s, %d, %s, %d },\n",
-        $op, $opSrc{$op}, $ns, $opDst{$op}, $nd;
+    printf "  [Opcode_%s] = { %s, %d, %s, %d, %d },\n",
+        $op, $opSrc{$op}, $ns, $opDst{$op}, $nd, $lat{$op};
 }
 print "};\n";

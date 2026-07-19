@@ -8,6 +8,8 @@ MANIFEST:=	$(ARCHDIR)/BE/GEM5/shim-helpers
 # The LVX variant the gem5 port targets, and where BE/LAO left its output.
 GEM5_CORE:=	lvx_v1
 LAO_OUT:=	../LAO/$(GEM5_CORE)
+# The MDD Processor table carries the pipeline stages the latency model reads.
+PROC_TABLE:=	../../MDD/lvx/$(GEM5_CORE)/Processor.table
 
 # BE/LAO tuples + decode consumed verbatim by the gem5 build.
 LAO_COPY:=	Decode.c Behavior.tuple Opcode.tuple Register.tuple \
@@ -15,7 +17,7 @@ LAO_COPY:=	Decode.c Behavior.tuple Opcode.tuple Register.tuple \
 
 # Glue delivered on top: the panic-stub file (generated) plus the two static
 # integration files (behavior.c, MDT/MDT_.h templates).
-GEM5_products:=	helper_stubs.inc reg_operands.inc
+GEM5_products:=	helper_stubs.inc reg_operands.inc lvx_stages.h lvx_stages.py
 
 # Install destination inside the lvx-gem5 checkout.
 gem5_gen_dir:=	$(GEM5_prefix)/src/arch/lvx/generated
@@ -25,13 +27,21 @@ all: $(GEM5_products)
 helper_stubs.inc: $(PERLBIN)/helper-stubs.pl $(MANIFEST) $(LAO_OUT)/Behavior.tuple
 	$(PERL) $(PERLINC) $(PERLBIN)/helper-stubs.pl $(MANIFEST) $(LAO_OUT)/Behavior.tuple > $@ || $(ABORT)
 
-reg_operands.inc: $(PERLBIN)/reg-operands.pl $(LAO_OUT)/Behavior.tuple
-	$(PERL) $(PERLINC) $(PERLBIN)/reg-operands.pl $(LAO_OUT)/Behavior.tuple > $@ || $(ABORT)
+reg_operands.inc: $(PERLBIN)/reg-operands.pl $(LAO_OUT)/Behavior.tuple $(PROC_TABLE)
+	$(PERL) $(PERLINC) $(PERLBIN)/reg-operands.pl $(LAO_OUT)/Behavior.tuple $(PROC_TABLE) > $@ || $(ABORT)
+
+lvx_stages.h: $(PERLBIN)/pipeline-stages.pl $(PROC_TABLE)
+	$(PERL) $(PERLINC) $(PERLBIN)/pipeline-stages.pl $(PROC_TABLE) > $@ || $(ABORT)
+
+lvx_stages.py: $(PERLBIN)/pipeline-stages.pl $(PROC_TABLE)
+	$(PERL) $(PERLINC) $(PERLBIN)/pipeline-stages.pl --py $(PROC_TABLE) > $@ || $(ABORT)
 
 install: all
 	$(INSTALL) -d $(gem5_gen_dir) $(gem5_gen_dir)/MDT
 	$(INSTALL) -m 644 helper_stubs.inc      $(gem5_gen_dir)/helper_stubs.inc
 	$(INSTALL) -m 644 reg_operands.inc      $(gem5_gen_dir)/reg_operands.inc
+	$(INSTALL) -m 644 lvx_stages.h          $(gem5_gen_dir)/lvx_stages.h
+	$(INSTALL) -m 644 lvx_stages.py         $(gem5_gen_dir)/lvx_stages.py
 	$(INSTALL) -m 644 $(TEMPLATE)/behavior.c $(gem5_gen_dir)/behavior.c
 	$(INSTALL) -m 644 $(TEMPLATE)/MDT_.h      $(gem5_gen_dir)/MDT/MDT_.h
 	for f in $(LAO_COPY); do \
