@@ -48,7 +48,7 @@ our @EXPORT = qw(
   Error Check Constant Storage Symbol Reorder Normalize Simplify Clone Expand Parallel proxyActions Pretty CodeGen
   F2I I2F B2I I2B SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL NOTL ANDL IORL XORL MIN MAX NOT NEG ABS
   SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX ABS NE EQ GT LE GE LT TRUE FALSE TEST
-  UNDEF CONST METHOD APPLY APPLYT EFFECT THROW WRITE BIND READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB
+  UNDEF CONST METHOD APPLY APPLYT EFFECT THROW WRITE BIND READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB SLICE
   );
 
 # The operator helpers' signatures, from the Helper elements (DOC/MDD.dtd), keyed by name:
@@ -1191,16 +1191,24 @@ sub COMMIT {
     return [ 'COMMIT', $stage, $proxy, &castI($expression), $mask ];
 }
 
+# The bit width a LOAD/STORE sees at a Location.  An AGGL/AGGB aggregate is
+# `extent` cells of the storage's cell width (extent 0 when not a constant, as
+# before).  A SLICE is its own static width (array-child 1) -- it does not read a
+# storage width, because its child Location already carries one.
+sub locationWidth {
+    my ($location) = @_;
+    return $$location[1] if $$location[0] eq 'SLICE';
+    my $extent = $$location[3];
+    my $cells = ($$extent[0] eq 'CONST')? $$extent[1]: 0;
+    return $cells * $Storage{$$location[1]}->{WIDTH};
+}
+
 sub LOAD {
     my ($stage, $location) = @_;
     $stage = "_" unless defined $stage;
-    my $name = $$location[1];
-    my $extent = $$location[3];
-    my $cells = ($$extent[0] eq 'CONST')? $$extent[1]: 0;
-    my $width = $Storage{$name}->{WIDTH};
     my $attributes = {};
     unless ($partial_initialization) {
-        $attributes = { TYPE=>'BitField', WIDTH=>$cells*$width };
+        $attributes = { TYPE=>'BitField', WIDTH=>&locationWidth($location) };
     }
     return [ 'LOAD', $stage, $location, $attributes ];
 }
@@ -1208,14 +1216,9 @@ sub LOAD {
 sub STORE {
     my ($stage, $location, $field, $mask) = @_;
     $stage = "_" unless defined $stage;
-    my $name = $$location[1];
-    my $extent = $$location[3];
-    my $width = $Storage{$name}->{WIDTH};
     unless ($partial_initialization) {
         if ($field->[-1]->{TYPE} ne 'BitField') {
-            my $cells = ($$extent[0] eq 'CONST')? $$extent[1]: 0;
-            my $width = $cells*$width;
-            $field = &I2F($width, &castI($field));
+            $field = &I2F(&locationWidth($location), &castI($field));
         }
     }
     return [ 'STORE', $stage, $location, $field ] unless defined $mask;
@@ -1253,6 +1256,24 @@ sub AGGB {
     &Error("$storage width undefined", @_) unless defined $width;
     return [ 'AGGB', $storage, $address, $extent ] unless defined $proxy;
     return [ 'AGGB', $storage, $address, $extent, $proxy ];
+}
+
+# A sub-cell slice of a Location: the SLICE_LOC of lambda-RTL (Ramsey & Davidson
+# 1999, the ADL this Location model descends from -- see DOC/Behavior.md #8).  It
+# carves a $width-bit field at bit $offset out of the whole-cell $location, and is
+# an assignable location in its own right.  $width is a static constant (the
+# field's type is known); $offset is an Integer, constant for [k]/[k1..k2] or an
+# expression for [k bits at e] (the run-time-indexed lane select).  A lowering
+# pass rewrites SLICE to whole-cell LOAD/STORE plus ring operations before CodeGen
+# and Width ever see it, so nothing downstream is taught the node -- read becomes a
+# value slice, write a bitInsert read-modify-write.
+sub SLICE {
+    my ($width, $location, $offset) = @_;
+    &Error("SLICE width must be a positive constant", @_)
+        unless defined $width && $width =~ /^\d+$/ && $width > 0;
+    &Error("SLICE of a non-location", @_) unless ref $location eq 'ARRAY';
+    &Error("SLICE offset is not an Integer", @_) unless ref $offset eq 'ARRAY';
+    return [ 'SLICE', $width, $location, $offset ];
 }
 
 sub MACRO {
@@ -4057,7 +4078,7 @@ sub yylex {
     return '' unless (@yyin);
     my $value = shift @yyin;
 #%token INTNUM SYMNUM IDENT PROXY
-#%token SEQ IF EFFECT STORE COMMIT WRITE BIND THROW MACRO SKIP LOAD ACCESS READ PROBE AGGL AGGB
+#%token SEQ IF EFFECT STORE COMMIT WRITE BIND THROW MACRO SKIP LOAD ACCESS READ PROBE AGGL AGGB SLICE
 #%token UNDEF PROPERTY CONST METHOD APPLY F2I SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL
 #%token SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX NOT NEG ABS B2I
 #%token TRUE FALSE TEST NE EQ GT LE GE LT ANDL IORL XORL NOTL I2B I2F
@@ -4180,7 +4201,13 @@ return [ @{$_[0]}, $_[1] ];
 #rule Location -> '(' AGGB '.' Storage '.' Proxy Address Extent ')'
 &AGGB($_[3], $_[6], $_[7], $_[5]);
 
+#rule Location -> '(' SLICE '.' Width Location Offset ')'
+&SLICE($_[3], $_[4], $_[5]);
+
 #rule Address -> Integer
+return $_[0];
+
+#rule Offset -> Integer
 return $_[0];
 
 #rule Extent -> Integer

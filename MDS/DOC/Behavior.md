@@ -823,3 +823,136 @@ runtime.** The `SHR` fix of §3 needs no new runtime support.
    does need from this work is the width analysis (0), and that is done: Sail's type
    checker will reject width-sloppy code too, which is why (0) was worth doing on home
    ground first.
+
+
+## 8. Slices: addressing sub-cell fields
+
+### The problem, and the construct that is missing
+
+State is addressed through `Location = (AGGL|AGGB storage address extent)` (§1): an
+endian-explicit aggregate of `extent` cells of the named storage, each cell exactly
+`Storage{WIDTH}` bits. **The addressing granularity is welded to the cell width** — the
+`AGGL`/`AGGB` builders read the width straight out of `%Storage` — so there is no way to
+name *fewer* bits than a cell. To address a bit-field, the model declares the storage at
+one bit per cell: `PS`, `SPS`, `SPS_PL0..3`, `CS`, … are `width:1 count:64`, so a
+`RegField` at `location:[PS, 0..31]` means "address 0, extent 32" over a 1-bit array — a
+32-bit field. The consequence is a register file (`SFR`, declared `width:64`) physically
+backed by a *heterogeneous* pile of storages: 64×1-bit arrays for the fielded control
+registers, 1×64-bit cells for the word registers, where the 1-bit declaration encodes
+nothing architectural — it is an addressability workaround.
+
+The workaround is the symptom of a missing operator. This part of Behavior descends,
+near-verbatim, from λ-RTL (Ramsey & Davidson, *Specifying Instructions' Semantics Using
+λ-RTL*, 1999): its Figure 2.1 is `AGG(aggregation, cell)`, `CELL(space, exp)`,
+`FETCH(location, ty)`, `STORE(location, exp, ty)` — our `AGGL`/`AGGB`, `Storage`, `LOAD`,
+`STORE`, down to the `AGG B`/`AGG L` big/little-endian labels. And λ-RTL has **two**
+storage operators that go in opposite directions:
+
+- **`AGG` aggregates *up*** — several *whole cells* into a wider location. `AGG B #8 #32`
+  is a big-endian aggregate of four 8-bit cells into a 32-bit word; `#8` is the space's
+  *real* cell width, and the result is never *narrower* than a cell.
+- **`SLICE` carves *down*** — a sub-range of a cell or location, written `x @ [σ]`, with
+  three slice specifications σ:
+  - `x@[k]` — bit *k*;
+  - `x@[k1..k2]` — bits *k1..k2* inclusive;
+  - `x@[k bits at e]` — a *k*-bit slice at low bit *e*, where **`k` is a static constant
+    and `e` is an arbitrary expression**.
+
+Behavior kept `AGG` (as `AGGL`/`AGGB`) and **dropped `SLICE`**, then simulated the
+*down* direction with the *up* operator by making cells one bit wide. λ-RTL's own
+motivating example for `SLICE` is exactly the case Behavior fakes: "some machines
+represent condition codes as individual bits within a program status word… instructions
+that assign to the least-significant 8 bits of a 32-bit register… λ-RTL creates the
+illusion that a sub-range or 'slice' of a cell can be a location in its own right." That
+is `PS`/`CS`/`SPS` verbatim. The fix is to add the operator, not to keep re-granulating
+the storage.
+
+### Not the `Mask` argument
+
+`STORE`/`COMMIT` carry an optional trailing `Mask` (a `Section` = `width[index]`). It is a
+**late, unfinished** addition for SIMD lane masking and is **to be removed and
+re-engineered** — do not build slicing on it. The relationship runs the other way: a
+`[k bits at e]` slice with a run-time lane index `e` *is* a masked lane write, so once
+`SLICE` exists it is the principled construct that will re-engineer the lane masking the
+ad-hoc `Mask` was reaching for. `SLICE` supersedes `Mask`; it does not consume it.
+
+### Shape in the IR
+
+`SLICE` is a **`Location` constructor** — a sub-location of a `Location`:
+
+```
+Location
+    : … the four existing AGGL/AGGB forms …
+    | '(' SLICE Location Offset Width ')'      ; Offset an Integer, Width a constant
+```
+
+The three λ-RTL specs normalise to one `(Offset, Width)` pair: `[k]` → `(k, 1)`;
+`[k1..k2]` → `(k1, k2−k1+1)`; `[k bits at e]` → `(e, k)`. `Width` is always a static
+constant (the slice's type is known); `Offset` is a constant for the first two forms and
+an arbitrary `Integer` for the third. No *value*-form `SLICE` node is needed: slicing a
+value that is not a location is already `(AND (SHR x off) mask)` — Behavior has `SLICE_BITS`
+already; what it lacks is `SLICE_LOC`, the assignable sub-location, and its store rewrite.
+
+### Semantics, by rewriting to primitives already present
+
+`SLICE` is lowered **before `CodeGen` and `Width`**, exactly as λ-RTL rewrites it
+(`FETCH(SLICE_LOC σ l) ↦ SLICE_BITS σ (FETCH l)` and
+`SLICE_LOC σ l ← n ↦ l ← bitInsert σ (FETCH l, n)`), so both passes see only whole-cell
+`LOAD`/`STORE` plus the ring operations they already handle. Let `W` be the width of `l`'s
+aggregate and `m = (1<<Width)−1`.
+
+**Read** — a `LOAD` of a slice is a value-slice of the whole-cell load:
+
+```
+(LOAD.s (SLICE l Offset Width))
+    ⇒  (I2F.Width (SHR (F2I.W (LOAD.s l)) Offset))
+```
+
+The loaded pattern is non-negative, so the `SHR` is logical and `I2F.Width` keeps the low
+`Width` bits — an unsigned field extraction.
+
+**Write** — a `STORE` to a slice is a read-modify-write, `bitInsert` built from the ring
+operations (`AND`/`IOR`/`SHL`/`NOT`), which are the operators that commute with truncation:
+
+```
+(STORE.s (SLICE l Offset Width) field)
+    ⇒  (STORE.s l
+          (I2F.W (IOR
+            (AND (F2I.W (LOAD.s l)) (NOT (SHL m Offset)))    ; old cell, field bits cleared
+            (SHL (AND (F2I.Width field) m) Offset))))        ; new field bits placed
+```
+
+It reads the cell at the store's own stage, clears the `Width` bits at `Offset`, ORs in
+the shifted field, and stores the whole cell back. This is the write side the old plan
+would have welded into `AGG`; here it falls out of the standard slice rewrite and touches
+neither `AGG` nor any existing 4-arg `Location`.
+
+### The run-time offset unifies XACCESSO/XALIGNO
+
+`[k bits at e]` — static width, run-time offset — is the run-time-indexed register access
+that motivated the operand-attributed `AGGL.storage.proxy` slot-4 machinery.
+`XACCESSO`/`XALIGNO` select a 64-bit lane `e` of a 256-bit `XVR` buffer: that is
+`(SLICE <buffer-aggregate> (e·64) 64)`, a slice at a dynamic offset. Under the rewrite the
+offset `e` is an ordinary `Integer` sub-expression whose operand read is a normal `READ`,
+so the dependency attribution the gem5 ISS needs is recovered for free — the slot-4 proxy
+(and its special-casing in `AGGL`/`AGGB`, `Pretty`, and `proxyActions`) is **retired**, not
+extended. It was a bespoke encoding of a slice; the slice is the general form.
+
+### Width analysis
+
+`Width` is static, so on a read `I2F.Width` narrows the demanded width to exactly the
+field — the backward pass already does this. On a write with a *dynamic* offset the
+`bitInsert` result cannot be narrowed below the cell width `W` (the shifted field can land
+anywhere), so it types at `W`; that is sound — wider, never narrower — and is the same
+conclusion the `lvx_v2` byte-lane `ZX.256` reached (§3). No new width rule is required.
+
+### Adoption and acceptance
+
+`MDD/MDE/BIN/Access.pl` emits a `SLICE` when a `RegField` names a sub-range of a
+natural-width cell; the `width:1 count:64` control-register storages collapse to
+`width:64 count:1`, their fields becoming slices. Because the *state* is bit-identical and
+only its declaration changed, the acceptance bar is the same one every schema change here
+answers to: `BE/LAO/TEST` **0 trace diffs on both cores**, and `refs/BE/` **byte-identical**
+except where an emitted register table legitimately reflects the storage-width change
+(`refs/MDD/` free to move). The XACCESSO/XALIGNO gem5 dependency tracking must still fire —
+now through the offset operand's `READ` rather than the proxy.
