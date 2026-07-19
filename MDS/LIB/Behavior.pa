@@ -1232,19 +1232,27 @@ sub PROBE {
 }
 
 sub AGGL {
-    my ($storage, $address, $extent) = @_;
+    my ($storage, $address, $extent, $proxy) = @_;
     &Error("PROBE unknown storage", @_) if ref $Storage{$storage} ne 'HASH';
     my $width = $Storage{$storage}->{WIDTH};
     &Error("$storage width undefined", @_) unless defined $width;
-    return [ 'AGGL', $storage, $address, $extent ];
+    # The optional $proxy attributes this storage access to an instruction
+    # operand -- a run-time-indexed register-file read/write whose Storage
+    # address cannot be a decode-time operand (e.g. XACCESSO/XALIGNO reading a
+    # register selected by a run-time value within the block operand names).
+    # It rides in slot 4, invisible to CodeGen/Width (which read [1..3]); the
+    # dependency back-ends recover the block's registers from it.
+    return [ 'AGGL', $storage, $address, $extent ] unless defined $proxy;
+    return [ 'AGGL', $storage, $address, $extent, $proxy ];
 }
 
 sub AGGB {
-    my ($storage, $address, $extent) = @_;
+    my ($storage, $address, $extent, $proxy) = @_;
     &Error("PROBE unknown storage", @_) if ref $Storage{$storage} ne 'HASH';
     my $width = $Storage{$storage}->{WIDTH};
     &Error("$storage width undefined", @_) unless defined $width;
-    return [ 'AGGB', $storage, $address, $extent ];
+    return [ 'AGGB', $storage, $address, $extent ] unless defined $proxy;
+    return [ 'AGGB', $storage, $address, $extent, $proxy ];
 }
 
 sub MACRO {
@@ -2179,6 +2187,21 @@ sub pretty {
         push @$pretty, "(APPLY." . join(',', @{$widths}) . ".$name";
         foreach my $item (@{$this}[3 .. $#{$this}]) {
             next unless ref $item eq 'ARRAY';
+            push @$pretty, "\n", $indent;
+            &pretty($pretty, $item, $spacing, $nesting + 1, $print_attributes);
+        }
+        push @$pretty, ")";
+        return;
+    }
+
+    # An operand-attributed Location (AGGL/AGGB with a proxy in slot 4) must
+    # print as (AGGL.storage.proxy addr extent) so it re-parses through the
+    # Location -> '(' AGGL '.' Storage '.' Proxy Address Extent ')' rule.  The
+    # generic scalar walk below would emit the proxy as a trailing " %k", which
+    # is not grammar and would not survive the Opcode.table round trip.
+    if (($$this[0] eq 'AGGL' || $$this[0] eq 'AGGB') && defined $$this[4]) {
+        push @$pretty, "($$this[0].$$this[1].$$this[4]";
+        foreach my $item ($$this[2], $$this[3]) {
             push @$pretty, "\n", $indent;
             &pretty($pretty, $item, $spacing, $nesting + 1, $print_attributes);
         }
@@ -4150,6 +4173,12 @@ return [ @{$_[0]}, $_[1] ];
 
 #rule Location -> '(' AGGB '.' Storage Address Extent ')'
 &AGGB($_[3], $_[4], $_[5]);
+
+#rule Location -> '(' AGGL '.' Storage '.' Proxy Address Extent ')'
+&AGGL($_[3], $_[6], $_[7], $_[5]);
+
+#rule Location -> '(' AGGB '.' Storage '.' Proxy Address Extent ')'
+&AGGB($_[3], $_[6], $_[7], $_[5]);
 
 #rule Address -> Integer
 return $_[0];

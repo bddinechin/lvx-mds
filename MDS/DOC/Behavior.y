@@ -62,6 +62,8 @@ Variables
 Location
 	: '(' AGGL '.' Storage Address Extent ')'
 	| '(' AGGB '.' Storage Address Extent ')'
+	| '(' AGGL '.' Storage '.' Proxy Address Extent ')'
+	| '(' AGGB '.' Storage '.' Proxy Address Extent ')'
 	;
 
 Address
