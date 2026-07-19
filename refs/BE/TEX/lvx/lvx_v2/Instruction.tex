@@ -45507,16 +45507,12 @@ stage E1:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 1;
-  new buffer = registerCg << 1;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45542,16 +45538,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 3;
-  new buffer = registerCh << 2;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45577,16 +45569,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 7;
-  new buffer = registerCi << 3;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45612,16 +45600,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 15;
-  new buffer = registerCj << 4;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45647,16 +45631,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 31;
-  new buffer = registerCk << 5;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45682,16 +45662,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 63;
-  new buffer = registerCl;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45719,16 +45695,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 1;
-  new buffer = registerCg << 1;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45754,16 +45726,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 3;
-  new buffer = registerCh << 2;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45789,16 +45757,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 7;
-  new buffer = registerCi << 3;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45824,16 +45788,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 15;
-  new buffer = registerCj << 4;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45859,16 +45819,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 31;
-  new buffer = registerCk << 5;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));
@@ -45894,16 +45850,12 @@ stage E3:
 ~
 {\begin{lstlisting}
 stage RR:
-  new mask = 63;
-  new buffer = registerCl;
   new address = GPR[registerZ];
   new shift = (address & 31) * 8;
   new index_0 = address >> 5;
   new index_1 = index_0 + 1;
-  new where_0 = buffer + (index_0 & mask);
-  new where_1 = buffer + (index_1 & mask);
-  new result1_0 = XVR[where_0];
-  new result1_1 = XVR[where_1];
+  new result1_0 = XVR[index_0];
+  new result1_1 = XVR[index_1];
   new result1 = result1_0;
   if (shift) {
     result1 = (_ZX_256(result1_0) >> shift) | _ZX_256(_ZX_256(result1_1) << (256 - shift));

@@ -107343,12 +107343,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.1))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:31,lo:0*))
-      (CONST.1)(*hi:62,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -107369,29 +107363,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:62,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:1,lo:1*))(*hi:1,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:62,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:1,lo:1*))(*hi:1,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:31,lo:0*))
+              (CONST.1)(*hi:62,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.1)(*hi:1,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:31,lo:0*))
+              (CONST.1)(*hi:62,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.1)(*hi:1,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -107464,12 +107458,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.3))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:15,lo:0*))
-      (CONST.2)(*hi:60,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -107490,29 +107478,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:60,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:3,lo:3*))(*hi:3,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:60,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:3,lo:3*))(*hi:3,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:15,lo:0*))
+              (CONST.2)(*hi:60,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.3)(*hi:3,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:15,lo:0*))
+              (CONST.2)(*hi:60,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.3)(*hi:3,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -107585,12 +107573,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.7))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:7,lo:0*))
-      (CONST.3)(*hi:56,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -107611,29 +107593,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:56,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:7,lo:7*))(*hi:7,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:56,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:7,lo:7*))(*hi:7,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:7,lo:0*))
+              (CONST.3)(*hi:56,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.7)(*hi:7,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:7,lo:0*))
+              (CONST.3)(*hi:56,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.7)(*hi:7,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -107706,12 +107688,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.15))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:3,lo:0*))
-      (CONST.4)(*hi:48,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -107732,29 +107708,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:48,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:15,lo:15*))(*hi:15,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:48,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:15,lo:15*))(*hi:15,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:3,lo:0*))
+              (CONST.4)(*hi:48,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.15)(*hi:15,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:3,lo:0*))
+              (CONST.4)(*hi:48,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.15)(*hi:15,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -107827,12 +107803,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.31))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:1,lo:0*))
-      (CONST.5)(*hi:32,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -107853,29 +107823,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:32,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:31,lo:31*))(*hi:31,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:32,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:31,lo:31*))(*hi:31,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:1,lo:0*))
+              (CONST.5)(*hi:32,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.31)(*hi:31,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:1,lo:0*))
+              (CONST.5)(*hi:32,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.31)(*hi:31,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -107948,10 +107918,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.63))
-  (WRITE.buffer
-    (METHOD.%2(*hi:0,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -107972,29 +107938,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:0,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:63,lo:63*))(*hi:63,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:0,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:63,lo:63*))(*hi:63,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:0,lo:0*))
+              (CONST.6)(*hi:0,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.63)(*hi:63,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:0,lo:0*))
+              (CONST.6)(*hi:0,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.63)(*hi:63,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -108115,12 +108081,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.1))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:31,lo:0*))
-      (CONST.1)(*hi:62,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -108141,29 +108101,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:62,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:1,lo:1*))(*hi:1,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:62,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:1,lo:1*))(*hi:1,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:31,lo:0*))
+              (CONST.1)(*hi:62,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.1)(*hi:1,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:31,lo:0*))
+              (CONST.1)(*hi:62,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.1)(*hi:1,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -108236,12 +108196,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.3))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:15,lo:0*))
-      (CONST.2)(*hi:60,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -108262,29 +108216,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:60,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:3,lo:3*))(*hi:3,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:60,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:3,lo:3*))(*hi:3,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:15,lo:0*))
+              (CONST.2)(*hi:60,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.3)(*hi:3,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:15,lo:0*))
+              (CONST.2)(*hi:60,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.3)(*hi:3,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -108357,12 +108311,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.7))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:7,lo:0*))
-      (CONST.3)(*hi:56,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -108383,29 +108331,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:56,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:7,lo:7*))(*hi:7,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:56,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:7,lo:7*))(*hi:7,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:7,lo:0*))
+              (CONST.3)(*hi:56,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.7)(*hi:7,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:7,lo:0*))
+              (CONST.3)(*hi:56,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.7)(*hi:7,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -108478,12 +108426,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.15))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:3,lo:0*))
-      (CONST.4)(*hi:48,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -108504,29 +108446,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:48,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:15,lo:15*))(*hi:15,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:48,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:15,lo:15*))(*hi:15,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:3,lo:0*))
+              (CONST.4)(*hi:48,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.15)(*hi:15,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:3,lo:0*))
+              (CONST.4)(*hi:48,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.15)(*hi:15,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -108599,12 +108541,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.31))
-  (WRITE.buffer
-    (SHL
-      (METHOD.%2(*hi:1,lo:0*))
-      (CONST.5)(*hi:32,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -108625,29 +108561,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:32,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:31,lo:31*))(*hi:31,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:32,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:31,lo:31*))(*hi:31,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:1,lo:0*))
+              (CONST.5)(*hi:32,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.31)(*hi:31,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:1,lo:0*))
+              (CONST.5)(*hi:32,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.31)(*hi:31,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
@@ -108720,10 +108656,6 @@ stage 4:
   proxies=	"%1 %2 %3"
 >
 (SEQ
-  (WRITE.mask
-    (CONST.63))
-  (WRITE.buffer
-    (METHOD.%2(*hi:0,lo:0*)))
   (WRITE.address
     (F2I.64
       (LOAD.1
@@ -108744,29 +108676,29 @@ stage 4:
     (ADD
       (READ.index_0(*hi:576460752303423487,lo:0*))
       (CONST.1)(*hi:576460752303423488,lo:1*)))
-  (WRITE.where_0
-    (ADD
-      (READ.buffer(*hi:0,lo:0*))
-      (AND
-        (READ.index_0(*hi:576460752303423487,lo:0*))
-        (READ.mask(*hi:63,lo:63*))(*hi:63,lo:0*))(*hi:63,lo:0*)))
-  (WRITE.where_1
-    (ADD
-      (READ.buffer(*hi:0,lo:0*))
-      (AND
-        (READ.index_1(*hi:576460752303423488,lo:1*))
-        (READ.mask(*hi:63,lo:63*))(*hi:63,lo:0*))(*hi:63,lo:0*)))
   (WRITE.result1_0
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_0(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:0,lo:0*))
+              (CONST.6)(*hi:0,lo:0*))
+            (AND
+              (READ.index_0(*hi:576460752303423487,lo:0*))
+              (CONST.63)(*hi:63,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1_1
     (F2I.256
       (LOAD.1
-        (AGGL.XVR
-          (READ.where_1(*hi:63,lo:0*))
+        (AGGL.XVR.%2
+          (ADD
+            (SHL
+              (METHOD.%2(*hi:0,lo:0*))
+              (CONST.6)(*hi:0,lo:0*))
+            (AND
+              (READ.index_1(*hi:576460752303423488,lo:1*))
+              (CONST.63)(*hi:63,lo:0*))(*hi:63,lo:0*))
           (CONST.1)))(*dm:248,hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
   (WRITE.result1
     (READ.result1_0(*hi:115792089237316195423570985008687907853269984665640564039457584007913129639935,lo:0*)))
