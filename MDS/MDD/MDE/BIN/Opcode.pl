@@ -363,6 +363,8 @@ sub behavior {
     &blockExpand($tree, \%methodID);
     ($tree, $actions) = &Expand($tree, $AccessTable, $CommitTable, 'METHOD', \%replaceTable, 0);
     #print STDERR "Expanded $instructionID:", &Pretty($tree, "  ") if $dump;
+    ($tree) = &Deslice($tree);
+    #print STDERR "Desliced $instructionID:", &Pretty($tree, "  ") if $dump;
     &widthCheck($tree, "$instructionID $formatID");
     &Behavior::Symbol();
     map { $AccessTable->{$_} = $CommitTable->{$_} = undef } (@proxies, keys %$forced);

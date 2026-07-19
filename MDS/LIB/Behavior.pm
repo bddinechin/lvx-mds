@@ -50,7 +50,7 @@ use strict;
 require Exporter;
 our @ISA = qw(Exporter MDS);
 our @EXPORT = qw(
-  Error Check Constant Storage Symbol Reorder Normalize Simplify Clone Expand Parallel proxyActions Pretty CodeGen
+  Error Check Constant Storage Symbol Reorder Normalize Simplify Clone Expand Deslice Parallel proxyActions Pretty CodeGen
   F2I I2F B2I I2B SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL NOTL ANDL IORL XORL MIN MAX NOT NEG ABS
   SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX ABS NE EQ GT LE GE LT TRUE FALSE TEST
   UNDEF CONST METHOD APPLY APPLYT EFFECT THROW WRITE BIND READ COMMIT ACCESS STORE LOAD PROBE MACRO SKIP CANCEL SEQ IF AGGL AGGB SLICE
@@ -1279,6 +1279,51 @@ sub SLICE {
     &Error("SLICE of a non-location", @_) unless ref $location eq 'ARRAY';
     &Error("SLICE offset is not an Integer", @_) unless ref $offset eq 'ARRAY';
     return [ 'SLICE', $width, $location, $offset ];
+}
+
+# Lower every SLICE location to whole-cell LOAD/STORE plus ring operations, so
+# nothing downstream (Width, CodeGen) is ever taught the node.  This is lambda-
+# RTL's slice rewrite (Ramsey & Davidson 1999; DOC/Behavior.md #8):
+#
+#   read   LOAD.s (SLICE.w l off)          -> I2F.w (SHR (F2I.W (LOAD.s l)) off)
+#   write  STORE.s (SLICE.w l off) field   -> STORE.s l
+#            (I2F.W (IOR (AND (F2I.W (LOAD.s l)) (NOT (SHL m off)))   ; cell, window cleared
+#                        (SHL (ZX.w (F2I.w field)) off)))            ; new field placed
+#
+# with W the underlying aggregate's width and m = 2^w-1 (built as ZX.w of -1, so
+# no big literal is minted for a 256-bit XVR lane).  castI turns the LOAD BitField
+# into the unsigned W-bit integer ZX.W(F2I.W(.)), which is what makes the read SHR
+# logical.  A dynamic offset (the [k bits at e] lane select) rides through
+# unchanged; its result types at W under the enclosing I2F.W, which is sound.
+# Runs after Expand (so an operand's register file, substituted in as a SLICE by
+# Access.pl, is lowered too) and before the width check.  Bottom-up, so a slice in
+# an offset or a stored value is lowered first; a slice of a slice is refused
+# rather than mis-lowered (it is not needed, and silence would be worse).
+sub Deslice {
+    my ($this) = @_;
+    return $this unless ref $this eq 'ARRAY';
+    for my $i (0 .. $#$this) {
+        $this->[$i] = &Deslice($this->[$i]) if ref $this->[$i] eq 'ARRAY';
+    }
+    my $location = $this->[2];
+    return $this unless ref $location eq 'ARRAY' && $location->[0] eq 'SLICE';
+    my ($tag, $stage) = @{$this}[0, 1];
+    my ($w, $l, $off) = @{$location}[1, 2, 3];
+    &Error("Deslice: a slice of a slice is not supported", $this)
+        if ref $l eq 'ARRAY' && $l->[0] eq 'SLICE';
+    if ($tag eq 'LOAD') {
+        return &I2F($w, &SHR(&castI(&LOAD($stage, $l)), $off));
+    }
+    if ($tag eq 'STORE') {
+        &Error("Deslice: a masked STORE to a slice", $this) if defined $this->[4];
+        my $field   = $this->[3];
+        my $W       = &locationWidth($l);
+        my $mask    = &ZX($w, &CONST(-1));                        # 2^w - 1
+        my $cleared = &AND(&castI(&LOAD($stage, $l)), &NOT(&SHL($mask, $off)));
+        my $placed  = &SHL(&ZX($w, &F2I($w, $field)), $off);
+        return &STORE($stage, $l, &I2F($W, &IOR($cleared, $placed)));
+    }
+    return $this;
 }
 
 sub MACRO {
