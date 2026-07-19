@@ -15,7 +15,7 @@ LAO_COPY:=	Decode.c Behavior.tuple Opcode.tuple Register.tuple \
 
 # Glue delivered on top: the panic-stub file (generated) plus the two static
 # integration files (behavior.c, MDT/MDT_.h templates).
-GEM5_products:=	helper_stubs.inc
+GEM5_products:=	helper_stubs.inc reg_operands.inc
 
 # Install destination inside the lvx-gem5 checkout.
 gem5_gen_dir:=	$(GEM5_prefix)/src/arch/lvx/generated
@@ -25,9 +25,13 @@ all: $(GEM5_products)
 helper_stubs.inc: $(PERLBIN)/helper-stubs.pl $(MANIFEST) $(LAO_OUT)/Behavior.tuple
 	$(PERL) $(PERLINC) $(PERLBIN)/helper-stubs.pl $(MANIFEST) $(LAO_OUT)/Behavior.tuple > $@ || $(ABORT)
 
+reg_operands.inc: $(PERLBIN)/reg-operands.pl $(LAO_OUT)/Behavior.tuple
+	$(PERL) $(PERLINC) $(PERLBIN)/reg-operands.pl $(LAO_OUT)/Behavior.tuple > $@ || $(ABORT)
+
 install: all
 	$(INSTALL) -d $(gem5_gen_dir) $(gem5_gen_dir)/MDT
 	$(INSTALL) -m 644 helper_stubs.inc      $(gem5_gen_dir)/helper_stubs.inc
+	$(INSTALL) -m 644 reg_operands.inc      $(gem5_gen_dir)/reg_operands.inc
 	$(INSTALL) -m 644 $(TEMPLATE)/behavior.c $(gem5_gen_dir)/behavior.c
 	$(INSTALL) -m 644 $(TEMPLATE)/MDT_.h      $(gem5_gen_dir)/MDT/MDT_.h
 	for f in $(LAO_COPY); do \

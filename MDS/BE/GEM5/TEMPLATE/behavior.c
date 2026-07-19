@@ -26,6 +26,12 @@
 #include "arch/lvx/shim.h"
 #include "arch/lvx/generated/MDT/MDT_.h"
 
+/* Per-opcode source/destination register-operand table for gem5 dependency
+ * tracking (see reg-operands.pl). Compiled here as C so the Opcode-indexed
+ * designated initializer is standard; LvxStaticInst reads lvx_reg_deps through
+ * the C++ shim in arch/lvx/reg_operands.hh. Needs the Opcode enum above. */
+#include "arch/lvx/generated/reg_operands.inc"
+
 #define HELPER(routine) Behavior_##routine
 
 /* Tuple types returned by flag-returning helpers, e.g.
