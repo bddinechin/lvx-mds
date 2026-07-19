@@ -208,6 +208,51 @@ sub proxyBound {
     &Behavior::Symbol($proxy, { LO=>$lo, HI=>$hi }) if defined $lo;
 }
 
+# The RegClass carrying a given regFileName (a register file), or die.
+sub fineFileByName {
+    my ($name) = @_;
+    foreach my $rc (&MDS::regFiles()) {
+        return $rc if $rc->regFileName() eq $name;
+    }
+    die "blockExpand: no register file named $name";
+}
+
+# Phase 2: expand operand-attributed Locations.  An (AGGL|AGGB <storage> <idx> <ext>
+# <proxy>) reads/writes a register of <storage> selected at run time within the aligned
+# block the buffer operand <proxy> names.  <idx> is the element index within that block;
+# rewrite it to (METHOD(<proxy>) << log2N) + (<idx> & (N-1)) where N = registers of the
+# fine file <storage> per block register = count(<storage> file) / count(<proxy>'s
+# RegClass).  So the block size has one source of truth -- the operand's RegClass -- in
+# place of a hand-written shift and mask; and because METHOD(<proxy>) now sits inside the
+# LOAD/STORE location, proxyActions sees <proxy> as a Read/Write, i.e. the block
+# dependency the run-time-indexed direct path used to hide.  The proxy stays in slot 4
+# for the dependency back-end.
+sub blockExpand {
+    my ($this, $methodID) = @_;
+    return unless ref $this eq 'ARRAY';
+    if (($this->[0] eq 'AGGL' || $this->[0] eq 'AGGB') && defined $this->[4]) {
+        my ($storage, $idx, $proxy) = ($this->[1], $this->[2], $this->[4]);
+        my $mID = $methodID->{$proxy};
+        die "blockExpand: attributed Location proxy $proxy is not a RegClass operand"
+            unless defined $mID && $mID =~ /^RegClass/;
+        my @opRegs = &MDS::fetch($mID)->access("registers");
+        my @fineRegs = &fineFileByName($storage)->access("registers");
+        my ($opCount, $fineCount) = (scalar @opRegs, scalar @fineRegs);
+        die "blockExpand: fine file $storage ($fineCount) is not a multiple of the block class ($opCount)"
+            if $opCount == 0 || $fineCount % $opCount;
+        my $N = $fineCount / $opCount;
+        die "blockExpand: block size $N is not a power of two" if $N & ($N - 1);
+        my $log2N = 0;
+        for (my $v = $N; $v > 1; $v >>= 1) { $log2N++; }
+        my $base = $log2N ? &SHL(&METHOD($proxy), &CONST($log2N)) : &METHOD($proxy);
+        my $elem = ($N > 1) ? &AND($idx, &CONST($N - 1)) : $idx;
+        $this->[2] = &ADD($base, $elem);
+    }
+    foreach my $child (@{$this}) {
+        &blockExpand($child, $methodID) if ref $child eq 'ARRAY';
+    }
+}
+
 #
 # Make the Behavior of an Opcode by expanding ACCESS(es) and COMMIT(s) to the proxies.
 #
@@ -315,6 +360,7 @@ sub behavior {
    #print STDERR "Simplified $instructionID:", &Pretty($tree, "  ", 1) if $dump;
     ($tree) = &Normalize($tree);
    #print STDERR "Normalized $instructionID:", &Pretty($tree, "  ", 1) if $dump;
+    &blockExpand($tree, \%methodID);
     ($tree, $actions) = &Expand($tree, $AccessTable, $CommitTable, 'METHOD', \%replaceTable, 0);
     #print STDERR "Expanded $instructionID:", &Pretty($tree, "  ") if $dump;
     &widthCheck($tree, "$instructionID $formatID");

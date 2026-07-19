@@ -143,9 +143,6 @@ Macro:
       %1 = result1;
     behavior: &behaviorBIA2 |
       (SEQ
-        (WRITE.mask (CONST.1))
-        (WRITE.buffer
-          (SHL (METHOD.%2) (CONST.1)))
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
@@ -164,9 +161,6 @@ Macro:
       %1 = result1;
     behavior: &behaviorBIA4 |
       (SEQ
-        (WRITE.mask (CONST.3))
-        (WRITE.buffer
-          (SHL (METHOD.%2) (CONST.2)))
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
@@ -185,9 +179,6 @@ Macro:
       %1 = result1;
     behavior: &behaviorBIA8 |
       (SEQ
-        (WRITE.mask (CONST.7))
-        (WRITE.buffer
-          (SHL (METHOD.%2) (CONST.3)))
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
@@ -206,9 +197,6 @@ Macro:
       %1 = result1;
     behavior: &behaviorBIA16 |
       (SEQ
-        (WRITE.mask (CONST.15))
-        (WRITE.buffer
-          (SHL (METHOD.%2) (CONST.4)))
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
@@ -227,9 +215,6 @@ Macro:
       %1 = result1;
     behavior: &behaviorBIA32 |
       (SEQ
-        (WRITE.mask (CONST.31))
-        (WRITE.buffer
-          (SHL (METHOD.%2) (CONST.5)))
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
@@ -248,8 +233,6 @@ Macro:
       %1 = result1;
     behavior: &behaviorBIA64 |
       (SEQ
-        (WRITE.mask (CONST.63))
-        (WRITE.buffer (METHOD.%2))
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
         (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))

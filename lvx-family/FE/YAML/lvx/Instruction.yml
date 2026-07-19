@@ -22124,22 +22124,10 @@ Instruction:
           (ADD
             (READ.index_0)
             (CONST.1)))
-        (WRITE.where_0
-          (ADD
-            (READ.buffer)
-            (AND
-              (READ.index_0)
-              (READ.mask))))
-        (WRITE.where_1
-          (ADD
-            (READ.buffer)
-            (AND
-              (READ.index_1)
-              (READ.mask))))
         (WRITE.result1_0
-          (F2I.256 (LOAD.RR (AGGL.XVR.%2 (READ.where_0) (CONST.1)))))
+          (F2I.256 (LOAD.RR (AGGL.XVR.%2 (READ.index_0) (CONST.1)))))
         (WRITE.result1_1
-          (F2I.256 (LOAD.RR (AGGL.XVR.%2 (READ.where_1) (CONST.1)))))
+          (F2I.256 (LOAD.RR (AGGL.XVR.%2 (READ.index_1) (CONST.1)))))
         (WRITE.result1
           (READ.result1_0))
         (IF
