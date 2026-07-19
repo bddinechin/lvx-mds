@@ -23547,7 +23547,53 @@ stage RR:
   new fov = 0;
   new fun = 0;
   new fin = 0;
-  new (result1, fio, fin) = i32_to_f32(RM, argument2);
+  new x32 = argument2 & 4294967295;
+  new ro_sign = (x32 >> 31) & 1;
+  new ro_mant = ro_sign ? 4294967296 - x32 : x32;
+  new ro_expo = 0;
+  new ro_p = 24;
+  new ro_emin = -126;
+  new ro_emax = 127;
+  new ro_lsb0 = 0;
+  new ro_ov = 0;
+  new ro_un = 0;
+  new ro_in = 0;
+  new ro_inf = 0;
+  if (ro_mant == 0) {
+    ro_expo = ro_lsb0;
+  } else {
+    new ro_lead = (ro_expo + (256 - _CLZ_256(ro_mant))) - 1;
+    new ro_lsb = _MAX((ro_lead + 1) - ro_p, (ro_emin + 1) - ro_p);
+    new ro_shift = ro_lsb - ro_expo;
+    if (ro_shift <= 0) {
+      ro_mant = ro_mant << _MAX(-ro_shift, 0);
+      ro_expo = ro_lsb;
+    } else {
+      new ro_g = (ro_mant >> _MAX(ro_shift - 1, 0)) & 1;
+      new ro_s = (ro_mant & ((1 << _MAX(ro_shift - 1, 0)) - 1)) != 0 ? 1 : 0;
+      new ro_t = ro_mant >> _MAX(ro_shift, 0);
+      ro_in = ro_g | ro_s;
+      new ro_odd = ro_t & 1;
+      new ro_incr = RM == 0 ? ro_g & (ro_s | ro_odd) : RM == 1 ? 0 : RM == 2 ? ro_sign & ro_in : RM == 3 ? (ro_sign ^ 1) & ro_in : RM == 4 ? ro_g : ro_in & (ro_odd ^ 1);
+      ro_mant = ro_t + ro_incr;
+      ro_expo = ro_lsb;
+      if ((256 - _CLZ_256(ro_mant)) < ro_p) {
+        ro_mant = ro_mant >> 1;
+        ro_expo = ro_expo + 1;
+      };
+    };
+    ro_lead = (ro_expo + (256 - _CLZ_256(ro_mant))) - 1;
+    if (ro_lead < ro_emax) {
+      ro_ov = 1;
+      ro_in = 1;
+      ro_inf = RM == 1 ? 0 : RM == 6 ? 0 : RM == 2 ? ro_sign : RM == 3 ? ro_sign ^ 1 : 1;
+    } else if ((ro_lead < ro_emin) && ro_in) {
+      ro_un = 1;
+    };
+  }
+  new result1 = ro_mant == 0 ? ro_sign << 31 : ((ro_sign << 31) | ((ro_expo + 150) << 23)) | (ro_mant & 8388607);
+  fio = 0;
+  fin = ro_in;
 stage E4:
   GPR[registerW] = result1;
   new cs_io = CS.IO;

@@ -6346,12 +6346,150 @@ new (result1, fio, fin) = i64_to_f64(RM, argument2);
   schedulings=	"Scheduling-lvx-ALU_LITE"
   what=	"Floating Point Conversion from Fixed-Point"
 ><Execution>
-new (result1, fio, fin) = i32_to_f32(RM, argument2);
+new x32 = argument2 &amp; 0xffffffff;
+new ro_sign = (x32 &gt;&gt; 31) &amp; 1;
+new ro_mant = ro_sign ? (4294967296 - x32) : x32;
+new ro_expo = 0;
+new ro_p = 24;
+new ro_emin = -126;
+new ro_emax = 127;
+new ro_lsb0 = 0;
+ro_ov = 0;
+ro_un = 0;
+ro_in = 0;
+ro_inf = 0;
+if (ro_mant == 0) {
+  ro_expo = ro_lsb0;
+} else {
+  ro_lead = ro_expo + (256 - _CLZ_256(ro_mant)) - 1;
+  ro_lsb = _MAX_(ro_lead + 1 - ro_p, ro_emin + 1 - ro_p);
+  ro_shift = ro_lsb - ro_expo;
+  if (ro_shift &lt;= 0) {
+    ro_mant = ro_mant &lt;&lt; _MAX_(-ro_shift, 0);
+    ro_expo = ro_lsb;
+  } else {
+    ro_g = (ro_mant &gt;&gt; _MAX_(ro_shift - 1, 0)) &amp; 1;
+    ro_s = (ro_mant &amp; ((1 &lt;&lt; _MAX_(ro_shift - 1, 0)) - 1)) != 0;
+    ro_t = ro_mant &gt;&gt; _MAX_(ro_shift, 0);
+    ro_in = ro_g | ro_s;
+    ro_odd = ro_t &amp; 1;
+    ro_incr = RM == 0 ? ro_g &amp; (ro_s | ro_odd)
+            : RM == 1 ? 0
+            : RM == 2 ? ro_sign &amp; ro_in
+            : RM == 3 ? (ro_sign ^ 1) &amp; ro_in
+            : RM == 4 ? ro_g
+            : ro_in &amp; (ro_odd ^ 1);
+    ro_mant = ro_t + ro_incr;
+    ro_expo = ro_lsb;
+    if ((256 - _CLZ_256(ro_mant)) &gt; ro_p) {
+      ro_mant = ro_mant &gt;&gt; 1;
+      ro_expo = ro_expo + 1;
+    }
+  }
+  ro_lead = ro_expo + (256 - _CLZ_256(ro_mant)) - 1;
+  if (ro_lead &gt; ro_emax) {
+    ro_ov = 1;
+    ro_in = 1;
+    ro_inf = RM == 1 ? 0 : RM == 6 ? 0 : RM == 2 ? ro_sign : RM == 3 ? (ro_sign ^ 1) : 1;
+  } else if (ro_lead &lt; ro_emin &amp;&amp; ro_in) {
+    ro_un = 1;
+  }
+}
+
+new result1 = ro_mant == 0 ? (ro_sign &lt;&lt; 31)
+            : (ro_sign &lt;&lt; 31) | ((ro_expo + 150) &lt;&lt; 23) | (ro_mant &amp; 0x7fffff);
+fio = 0;
+fin = ro_in;
 </Execution><Behavior>
-(BIND.result1,fio,fin
-  (APPLY.32,1,1.i32_to_f32
-      (READ.RM)
-      (READ.argument2)))
+(SEQ
+  (WRITE.x32 (AND (READ.argument2) (CONST.4294967295)))
+  (WRITE.ro_sign (AND (SHR (READ.x32) (CONST.31)) (CONST.1)))
+  (WRITE.ro_mant
+    (SELECT (I2B (READ.ro_sign))
+      (SUB (CONST.4294967296) (READ.x32))
+      (READ.x32)))
+  (WRITE.ro_expo (CONST.0))
+  (WRITE.ro_p (CONST.24))
+  (WRITE.ro_emin (NEG (CONST.126)))
+  (WRITE.ro_emax (CONST.127))
+  (WRITE.ro_lsb0 (CONST.0))
+  (SEQ
+  (WRITE.ro_ov (CONST.0))
+  (WRITE.ro_un (CONST.0))
+  (WRITE.ro_in (CONST.0))
+  (WRITE.ro_inf (CONST.0))
+  (IF
+    (EQ (READ.ro_mant) (CONST.0))
+    (WRITE.ro_expo (READ.ro_lsb0))
+    (SEQ
+      (WRITE.ro_lead
+        (SUB (ADD (READ.ro_expo) (SUB (CONST.256) (CLZ.256 (READ.ro_mant)))) (CONST.1)))
+      (WRITE.ro_lsb
+        (MAX (SUB (ADD (READ.ro_lead) (CONST.1)) (READ.ro_p))
+             (SUB (ADD (READ.ro_emin) (CONST.1)) (READ.ro_p))))
+      (WRITE.ro_shift (SUB (READ.ro_lsb) (READ.ro_expo)))
+      (IF
+        (LE (READ.ro_shift) (CONST.0))
+        (SEQ
+          (WRITE.ro_mant (SHL (READ.ro_mant) (MAX (NEG (READ.ro_shift)) (CONST.0))))
+          (WRITE.ro_expo (READ.ro_lsb)))
+        (SEQ
+          (WRITE.ro_g
+            (AND (SHR (READ.ro_mant) (MAX (SUB (READ.ro_shift) (CONST.1)) (CONST.0))) (CONST.1)))
+          (WRITE.ro_s
+            (SELECT
+              (NE (AND (READ.ro_mant)
+                       (SUB (SHL (CONST.1) (MAX (SUB (READ.ro_shift) (CONST.1)) (CONST.0))) (CONST.1)))
+                  (CONST.0))
+              (CONST.1) (CONST.0)))
+          (WRITE.ro_t (SHR (READ.ro_mant) (MAX (READ.ro_shift) (CONST.0))))
+          (WRITE.ro_in (IOR (READ.ro_g) (READ.ro_s)))
+          (WRITE.ro_odd (AND (READ.ro_t) (CONST.1)))
+          (WRITE.ro_incr
+            (SELECT (EQ (READ.RM) (CONST.0))
+              (AND (READ.ro_g) (IOR (READ.ro_s) (READ.ro_odd)))
+            (SELECT (EQ (READ.RM) (CONST.1))
+              (CONST.0)
+            (SELECT (EQ (READ.RM) (CONST.2))
+              (AND (READ.ro_sign) (READ.ro_in))
+            (SELECT (EQ (READ.RM) (CONST.3))
+              (AND (XOR (READ.ro_sign) (CONST.1)) (READ.ro_in))
+            (SELECT (EQ (READ.RM) (CONST.4))
+              (READ.ro_g)
+              (AND (READ.ro_in) (XOR (READ.ro_odd) (CONST.1)))))))))
+          (WRITE.ro_mant (ADD (READ.ro_t) (READ.ro_incr)))
+          (WRITE.ro_expo (READ.ro_lsb))
+          (IF
+            (GT (SUB (CONST.256) (CLZ.256 (READ.ro_mant))) (READ.ro_p))
+            (SEQ
+              (WRITE.ro_mant (SHR (READ.ro_mant) (CONST.1)))
+              (WRITE.ro_expo (ADD (READ.ro_expo) (CONST.1))))
+            (SKIP))))
+      (WRITE.ro_lead
+        (SUB (ADD (READ.ro_expo) (SUB (CONST.256) (CLZ.256 (READ.ro_mant)))) (CONST.1)))
+      (IF
+        (GT (READ.ro_lead) (READ.ro_emax))
+        (SEQ
+          (WRITE.ro_ov (CONST.1))
+          (WRITE.ro_in (CONST.1))
+          (WRITE.ro_inf
+            (SELECT (EQ (READ.RM) (CONST.1)) (CONST.0)
+            (SELECT (EQ (READ.RM) (CONST.6)) (CONST.0)
+            (SELECT (EQ (READ.RM) (CONST.2)) (READ.ro_sign)
+            (SELECT (EQ (READ.RM) (CONST.3)) (XOR (READ.ro_sign) (CONST.1))
+              (CONST.1)))))))
+        (IF
+          (ANDL (LT (READ.ro_lead) (READ.ro_emin)) (I2B (READ.ro_in)))
+          (WRITE.ro_un (CONST.1))
+          (SKIP))))))
+  (WRITE.result1
+    (SELECT (EQ (READ.ro_mant) (CONST.0))
+      (SHL (READ.ro_sign) (CONST.31))
+      (IOR (IOR (SHL (READ.ro_sign) (CONST.31))
+                (SHL (ADD (READ.ro_expo) (CONST.150)) (CONST.23)))
+           (AND (READ.ro_mant) (CONST.8388607)))))
+  (WRITE.fio (CONST.0))
+  (WRITE.fin (READ.ro_in)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx-FPU:FLOATWP"
