@@ -4,7 +4,7 @@ RegField:
 
   - ID: MEN_MEN
     what: Miscellaneous External Notifications
-    location: [ MEN, 0..15 ]
+    location: [ SRS, 0..15 ]
     owners: [ MO_MEN ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -15,29 +15,33 @@ RegField:
 
   - ID: SYO_Q0
     what: Quarter 0 syscalls 0 to 1023 owner
-    location: [ SYO, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: SYO
     reset: 0
 
   - ID: SYO_Q1
     what: Quarter 1 syscalls 1024 to 2047 owner
-    location: [ SYO, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: SYO
     reset: 0
 
   - ID: SYO_Q2
     what: Quarter 2 syscalls 2048 to 3071 owner
-    location: [ SYO, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: SYO
     reset: 0
 
   - ID: SYO_Q3
     what: Quarter 3 syscalls 3072 to 4095 owner
-    location: [ SYO, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: SYO
     reset: 0
 
 ################ SYOW ################
 
   - ID: SYOW_Q0
     what: Quarter 0 syscalls 0 to 1023 owner
-    location: [ SYO, 0..1 ]
+    location: [ SRS, 0..1 ]
     owners: [ SYO_Q0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -46,7 +50,7 @@ RegField:
 
   - ID: SYOW_Q1
     what: Quarter 1 syscalls 1024 to 2047 owner
-    location: [ SYO, 2..3 ]
+    location: [ SRS, 2..3 ]
     owners: [ SYO_Q1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -55,7 +59,7 @@ RegField:
 
   - ID: SYOW_Q2
     what: Quarter 2 syscalls 2048 to 3071 owner
-    location: [ SYO, 4..5 ]
+    location: [ SRS, 4..5 ]
     owners: [ SYO_Q2 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -64,7 +68,7 @@ RegField:
 
   - ID: SYOW_Q3
     what: Quarter 3 syscalls 3072 to 4095 owner
-    location: [ SYO, 6..7 ]
+    location: [ SRS, 6..7 ]
     owners: [ SYO_Q3 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -75,74 +79,87 @@ RegField:
 
   - ID: HTO_OPC
     what: OPCode trap owner
-    location: [ HTO, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_DMIS
     what: Data MISalign access trap owner
-    location: [ HTO, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_PSYS
     what: Program System Error trap owner
-    location: [ HTO, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_DSYS
     what: Data System Error trap owner
-    location: [ HTO, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_DECCG
     what: Double ECC traps group owner
-    location: [ HTO, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_SECCG
     what: Single ECC traps group owner
-    location: [ HTO, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_NOMAP
     what: No mapping trap owner
-    location: [ HTO, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_PROT
     what: PROTection trap owner
-    location: [ HTO, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_W2CL
     what: Write to clean trap owner
-    location: [ HTO, 16..17 ]
+    location: [ SRS, 16..17 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_A2CL
     what: Atomic to clean trap owner
-    location: [ HTO, 18..19 ]
+    location: [ SRS, 18..19 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_DE
     what: Double Exception trap owner
-    location: [ HTO, 20..21 ]
+    location: [ SRS, 20..21 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_VSFR
     what: Virtual SFR trap owner
-    location: [ HTO, 22..23 ]
+    location: [ SRS, 22..23 ]
+    register: HTO
     reset: 0
 
   - ID: HTO_PLO
     what: Privilege Level Overflow trap owner
-    location: [ HTO, 24..25 ]
+    location: [ SRS, 24..25 ]
+    register: HTO
     reset: 0
 
 ################ HTOW ################
 
   - ID: HTOW_OPC
     what: OPCode trap owner
-    location: [ HTO, 0..1 ]
+    location: [ SRS, 0..1 ]
     owners: [ HTO_OPC ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -151,7 +168,7 @@ RegField:
 
   - ID: HTOW_DMIS
     what: Data MISalign access trap owner
-    location: [ HTO, 2..3 ]
+    location: [ SRS, 2..3 ]
     owners: [ HTO_DMIS ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -160,7 +177,7 @@ RegField:
 
   - ID: HTOW_PSYS
     what: Program System Error trap owner
-    location: [ HTO, 4..5 ]
+    location: [ SRS, 4..5 ]
     owners: [ HTO_PSYS ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -169,7 +186,7 @@ RegField:
 
   - ID: HTOW_DSYS
     what: Data System Error trap owner
-    location: [ HTO, 6..7 ]
+    location: [ SRS, 6..7 ]
     owners: [ HTO_DSYS ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -178,7 +195,7 @@ RegField:
 
   - ID: HTOW_DECCG
     what: Double ECC traps group owner
-    location: [ HTO, 8..9 ]
+    location: [ SRS, 8..9 ]
     owners: [ HTO_DECCG ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -187,7 +204,7 @@ RegField:
 
   - ID: HTOW_SECCG
     what: Single ECC traps group owner
-    location: [ HTO, 10..11 ]
+    location: [ SRS, 10..11 ]
     owners: [ HTO_SECCG ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -196,7 +213,7 @@ RegField:
 
   - ID: HTOW_NOMAP
     what: No mapping trap owner
-    location: [ HTO, 12..13 ]
+    location: [ SRS, 12..13 ]
     owners: [ HTO_NOMAP ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -205,7 +222,7 @@ RegField:
 
   - ID: HTOW_PROT
     what: PROTection trap owner
-    location: [ HTO, 14..15 ]
+    location: [ SRS, 14..15 ]
     owners: [ HTO_PROT ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -214,7 +231,7 @@ RegField:
 
   - ID: HTOW_W2CL
     what: Write to clean trap owner
-    location: [ HTO, 16..17 ]
+    location: [ SRS, 16..17 ]
     owners: [ HTO_W2CL ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -223,7 +240,7 @@ RegField:
 
   - ID: HTOW_A2CL
     what: Atomic to clean trap owner
-    location: [ HTO, 18..19 ]
+    location: [ SRS, 18..19 ]
     owners: [ HTO_A2CL ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -232,7 +249,7 @@ RegField:
 
   - ID: HTOW_DE
     what: Double Exception trap owner
-    location: [ HTO, 20..21 ]
+    location: [ SRS, 20..21 ]
     owners: [ HTO_DE ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -241,7 +258,7 @@ RegField:
 
   - ID: HTOW_VSFR
     what: Virtual SFR trap owner
-    location: [ HTO, 22..23 ]
+    location: [ SRS, 22..23 ]
     owners: [ HTO_VSFR ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -250,7 +267,7 @@ RegField:
 
   - ID: HTOW_PLO
     what: Privilege Level Overflow trap owner
-    location: [ HTO, 24..25 ]
+    location: [ SRS, 24..25 ]
     owners: [ HTO_PLO ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -261,169 +278,202 @@ RegField:
 
   - ID: ITO_IT0
     what: Interrupt 0 owner
-    location: [ ITO, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT1
     what: Interrupt 1 owner
-    location: [ ITO, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT2
     what: Interrupt 2 owner
-    location: [ ITO, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT3
     what: Interrupt 3 owner
-    location: [ ITO, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT4
     what: Interrupt 4 owner
-    location: [ ITO, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT5
     what: Interrupt 5 owner
-    location: [ ITO, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT6
     what: Interrupt 6 owner
-    location: [ ITO, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT7
     what: Interrupt 7 owner
-    location: [ ITO, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT8
     what: Interrupt 8 owner
-    location: [ ITO, 16..17 ]
+    location: [ SRS, 16..17 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT9
     what: Interrupt 9 owner
-    location: [ ITO, 18..19 ]
+    location: [ SRS, 18..19 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT10
     what: Interrupt 10 owner
-    location: [ ITO, 20..21 ]
+    location: [ SRS, 20..21 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT11
     what: Interrupt 11 owner
-    location: [ ITO, 22..23 ]
+    location: [ SRS, 22..23 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT12
     what: Interrupt 12 owner
-    location: [ ITO, 24..25 ]
+    location: [ SRS, 24..25 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT13
     what: Interrupt 13 owner
-    location: [ ITO, 26..27 ]
+    location: [ SRS, 26..27 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT14
     what: Interrupt 14 owner
-    location: [ ITO, 28..29 ]
+    location: [ SRS, 28..29 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT15
     what: Interrupt 15 owner
-    location: [ ITO, 30..31 ]
+    location: [ SRS, 30..31 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT16
     what: Interrupt 16 owner
-    location: [ ITO, 32..33 ]
+    location: [ SRS, 32..33 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT17
     what: Interrupt 17 owner
-    location: [ ITO, 34..35 ]
+    location: [ SRS, 34..35 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT18
     what: Interrupt 18 owner
-    location: [ ITO, 36..37 ]
+    location: [ SRS, 36..37 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT19
     what: Interrupt 19 owner
-    location: [ ITO, 38..39 ]
+    location: [ SRS, 38..39 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT20
     what: Interrupt 20 owner
-    location: [ ITO, 40..41 ]
+    location: [ SRS, 40..41 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT21
     what: Interrupt 21 owner
-    location: [ ITO, 42..43 ]
+    location: [ SRS, 42..43 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT22
     what: Interrupt 22 owner
-    location: [ ITO, 44..45 ]
+    location: [ SRS, 44..45 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT23
     what: Interrupt 23 owner
-    location: [ ITO, 46..47 ]
+    location: [ SRS, 46..47 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT24
     what: Interrupt 24 owner
-    location: [ ITO, 48..49 ]
+    location: [ SRS, 48..49 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT25
     what: Interrupt 25 owner
-    location: [ ITO, 50..51 ]
+    location: [ SRS, 50..51 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT26
     what: Interrupt 26 owner
-    location: [ ITO, 52..53 ]
+    location: [ SRS, 52..53 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT27
     what: Interrupt 27 owner
-    location: [ ITO, 54..55 ]
+    location: [ SRS, 54..55 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT28
     what: Interrupt 28 owner
-    location: [ ITO, 56..57 ]
+    location: [ SRS, 56..57 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT29
     what: Interrupt 29 owner
-    location: [ ITO, 58..59 ]
+    location: [ SRS, 58..59 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT30
     what: Interrupt 30 owner
-    location: [ ITO, 60..61 ]
+    location: [ SRS, 60..61 ]
+    register: ITO
     reset: 0
 
   - ID: ITO_IT31
     what: Interrupt 31 owner
-    location: [ ITO, 62..63 ]
+    location: [ SRS, 62..63 ]
+    register: ITO
     reset: 0
 
 ################ ILE ################
 
   - ID: ILE_IT0
     what: Interrupt 0 owner
-    location: [ ILE, 0 ]
+    location: [ SRS, 0 ]
+    register: ILE
     owners: [ ITO_IT0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -431,7 +481,8 @@ RegField:
 
   - ID: ILE_IT1
     what: Interrupt 1 owner
-    location: [ ILE, 1 ]
+    location: [ SRS, 1 ]
+    register: ILE
     owners: [ ITO_IT1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -439,7 +490,8 @@ RegField:
 
   - ID: ILE_IT2
     what: Interrupt 2 owner
-    location: [ ILE, 2 ]
+    location: [ SRS, 2 ]
+    register: ILE
     owners: [ ITO_IT2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -447,7 +499,8 @@ RegField:
 
   - ID: ILE_IT3
     what: Interrupt 3 owner
-    location: [ ILE, 3 ]
+    location: [ SRS, 3 ]
+    register: ILE
     owners: [ ITO_IT3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -455,7 +508,8 @@ RegField:
 
   - ID: ILE_IT4
     what: Interrupt 4 owner
-    location: [ ILE, 4 ]
+    location: [ SRS, 4 ]
+    register: ILE
     owners: [ ITO_IT4 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -463,7 +517,8 @@ RegField:
 
   - ID: ILE_IT5
     what: Interrupt 5 owner
-    location: [ ILE, 5 ]
+    location: [ SRS, 5 ]
+    register: ILE
     owners: [ ITO_IT5 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -471,7 +526,8 @@ RegField:
 
   - ID: ILE_IT6
     what: Interrupt 6 owner
-    location: [ ILE, 6 ]
+    location: [ SRS, 6 ]
+    register: ILE
     owners: [ ITO_IT6 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -479,7 +535,8 @@ RegField:
 
   - ID: ILE_IT7
     what: Interrupt 7 owner
-    location: [ ILE, 7 ]
+    location: [ SRS, 7 ]
+    register: ILE
     owners: [ ITO_IT7 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -487,7 +544,8 @@ RegField:
 
   - ID: ILE_IT8
     what: Interrupt 8 owner
-    location: [ ILE, 8 ]
+    location: [ SRS, 8 ]
+    register: ILE
     owners: [ ITO_IT8 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -495,7 +553,8 @@ RegField:
 
   - ID: ILE_IT9
     what: Interrupt 9 owner
-    location: [ ILE, 9 ]
+    location: [ SRS, 9 ]
+    register: ILE
     owners: [ ITO_IT9 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -503,7 +562,8 @@ RegField:
 
   - ID: ILE_IT10
     what: Interrupt 10 owner
-    location: [ ILE, 10 ]
+    location: [ SRS, 10 ]
+    register: ILE
     owners: [ ITO_IT10 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -511,7 +571,8 @@ RegField:
 
   - ID: ILE_IT11
     what: Interrupt 11 owner
-    location: [ ILE, 11 ]
+    location: [ SRS, 11 ]
+    register: ILE
     owners: [ ITO_IT11 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -519,7 +580,8 @@ RegField:
 
   - ID: ILE_IT12
     what: Interrupt 12 owner
-    location: [ ILE, 12 ]
+    location: [ SRS, 12 ]
+    register: ILE
     owners: [ ITO_IT12 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -527,7 +589,8 @@ RegField:
 
   - ID: ILE_IT13
     what: Interrupt 13 owner
-    location: [ ILE, 13 ]
+    location: [ SRS, 13 ]
+    register: ILE
     owners: [ ITO_IT13 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -535,7 +598,8 @@ RegField:
 
   - ID: ILE_IT14
     what: Interrupt 14 owner
-    location: [ ILE, 14 ]
+    location: [ SRS, 14 ]
+    register: ILE
     owners: [ ITO_IT14 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -543,7 +607,8 @@ RegField:
 
   - ID: ILE_IT15
     what: Interrupt 15 owner
-    location: [ ILE, 15 ]
+    location: [ SRS, 15 ]
+    register: ILE
     owners: [ ITO_IT15 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -551,7 +616,8 @@ RegField:
 
   - ID: ILE_IT16
     what: Interrupt 16 owner
-    location: [ ILE, 16 ]
+    location: [ SRS, 16 ]
+    register: ILE
     owners: [ ITO_IT16 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -559,7 +625,8 @@ RegField:
 
   - ID: ILE_IT17
     what: Interrupt 17 owner
-    location: [ ILE, 17 ]
+    location: [ SRS, 17 ]
+    register: ILE
     owners: [ ITO_IT17 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -567,7 +634,8 @@ RegField:
 
   - ID: ILE_IT18
     what: Interrupt 18 owner
-    location: [ ILE, 18 ]
+    location: [ SRS, 18 ]
+    register: ILE
     owners: [ ITO_IT18 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -575,7 +643,8 @@ RegField:
 
   - ID: ILE_IT19
     what: Interrupt 19 owner
-    location: [ ILE, 19 ]
+    location: [ SRS, 19 ]
+    register: ILE
     owners: [ ITO_IT19 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -583,7 +652,8 @@ RegField:
 
   - ID: ILE_IT20
     what: Interrupt 20 owner
-    location: [ ILE, 20 ]
+    location: [ SRS, 20 ]
+    register: ILE
     owners: [ ITO_IT20 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -591,7 +661,8 @@ RegField:
 
   - ID: ILE_IT21
     what: Interrupt 21 owner
-    location: [ ILE, 21 ]
+    location: [ SRS, 21 ]
+    register: ILE
     owners: [ ITO_IT21 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -599,7 +670,8 @@ RegField:
 
   - ID: ILE_IT22
     what: Interrupt 22 owner
-    location: [ ILE, 22 ]
+    location: [ SRS, 22 ]
+    register: ILE
     owners: [ ITO_IT22 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -607,7 +679,8 @@ RegField:
 
   - ID: ILE_IT23
     what: Interrupt 23 owner
-    location: [ ILE, 23 ]
+    location: [ SRS, 23 ]
+    register: ILE
     owners: [ ITO_IT23 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -615,7 +688,8 @@ RegField:
 
   - ID: ILE_IT24
     what: Interrupt 24 owner
-    location: [ ILE, 24 ]
+    location: [ SRS, 24 ]
+    register: ILE
     owners: [ ITO_IT24 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -623,7 +697,8 @@ RegField:
 
   - ID: ILE_IT25
     what: Interrupt 25 owner
-    location: [ ILE, 25 ]
+    location: [ SRS, 25 ]
+    register: ILE
     owners: [ ITO_IT25 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -631,7 +706,8 @@ RegField:
 
   - ID: ILE_IT26
     what: Interrupt 26 owner
-    location: [ ILE, 26 ]
+    location: [ SRS, 26 ]
+    register: ILE
     owners: [ ITO_IT26 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -639,7 +715,8 @@ RegField:
 
   - ID: ILE_IT27
     what: Interrupt 27 owner
-    location: [ ILE, 27 ]
+    location: [ SRS, 27 ]
+    register: ILE
     owners: [ ITO_IT27 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -647,7 +724,8 @@ RegField:
 
   - ID: ILE_IT28
     what: Interrupt 28 owner
-    location: [ ILE, 28 ]
+    location: [ SRS, 28 ]
+    register: ILE
     owners: [ ITO_IT28 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -655,7 +733,8 @@ RegField:
 
   - ID: ILE_IT29
     what: Interrupt 29 owner
-    location: [ ILE, 29 ]
+    location: [ SRS, 29 ]
+    register: ILE
     owners: [ ITO_IT29 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -663,7 +742,8 @@ RegField:
 
   - ID: ILE_IT30
     what: Interrupt 30 owner
-    location: [ ILE, 30 ]
+    location: [ SRS, 30 ]
+    register: ILE
     owners: [ ITO_IT30 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -671,7 +751,8 @@ RegField:
 
   - ID: ILE_IT31
     what: Interrupt 31 owner
-    location: [ ILE, 31 ]
+    location: [ SRS, 31 ]
+    register: ILE
     owners: [ ITO_IT31 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -681,7 +762,8 @@ RegField:
 
   - ID: ILL_IT0
     what: Interrupt 0 owner
-    location: [ ILL, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: ILL
     owners: [ ITO_IT0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -689,7 +771,8 @@ RegField:
 
   - ID: ILL_IT1
     what: Interrupt 1 owner
-    location: [ ILL, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: ILL
     owners: [ ITO_IT1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -697,7 +780,8 @@ RegField:
 
   - ID: ILL_IT2
     what: Interrupt 2 owner
-    location: [ ILL, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: ILL
     owners: [ ITO_IT2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -705,7 +789,8 @@ RegField:
 
   - ID: ILL_IT3
     what: Interrupt 3 owner
-    location: [ ILL, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: ILL
     owners: [ ITO_IT3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -713,7 +798,8 @@ RegField:
 
   - ID: ILL_IT4
     what: Interrupt 4 owner
-    location: [ ILL, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: ILL
     owners: [ ITO_IT4 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -721,7 +807,8 @@ RegField:
 
   - ID: ILL_IT5
     what: Interrupt 5 owner
-    location: [ ILL, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: ILL
     owners: [ ITO_IT5 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -729,7 +816,8 @@ RegField:
 
   - ID: ILL_IT6
     what: Interrupt 6 owner
-    location: [ ILL, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: ILL
     owners: [ ITO_IT6 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -737,7 +825,8 @@ RegField:
 
   - ID: ILL_IT7
     what: Interrupt 7 owner
-    location: [ ILL, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: ILL
     owners: [ ITO_IT7 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -745,7 +834,8 @@ RegField:
 
   - ID: ILL_IT8
     what: Interrupt 8 owner
-    location: [ ILL, 16..17 ]
+    location: [ SRS, 16..17 ]
+    register: ILL
     owners: [ ITO_IT8 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -753,7 +843,8 @@ RegField:
 
   - ID: ILL_IT9
     what: Interrupt 9 owner
-    location: [ ILL, 18..19 ]
+    location: [ SRS, 18..19 ]
+    register: ILL
     owners: [ ITO_IT9 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -761,7 +852,8 @@ RegField:
 
   - ID: ILL_IT10
     what: Interrupt 10 owner
-    location: [ ILL, 20..21 ]
+    location: [ SRS, 20..21 ]
+    register: ILL
     owners: [ ITO_IT10 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -769,7 +861,8 @@ RegField:
 
   - ID: ILL_IT11
     what: Interrupt 11 owner
-    location: [ ILL, 22..23 ]
+    location: [ SRS, 22..23 ]
+    register: ILL
     owners: [ ITO_IT11 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -777,7 +870,8 @@ RegField:
 
   - ID: ILL_IT12
     what: Interrupt 12 owner
-    location: [ ILL, 24..25 ]
+    location: [ SRS, 24..25 ]
+    register: ILL
     owners: [ ITO_IT12 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -785,7 +879,8 @@ RegField:
 
   - ID: ILL_IT13
     what: Interrupt 13 owner
-    location: [ ILL, 26..27 ]
+    location: [ SRS, 26..27 ]
+    register: ILL
     owners: [ ITO_IT13 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -793,7 +888,8 @@ RegField:
 
   - ID: ILL_IT14
     what: Interrupt 14 owner
-    location: [ ILL, 28..29 ]
+    location: [ SRS, 28..29 ]
+    register: ILL
     owners: [ ITO_IT14 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -801,7 +897,8 @@ RegField:
 
   - ID: ILL_IT15
     what: Interrupt 15 owner
-    location: [ ILL, 30..31 ]
+    location: [ SRS, 30..31 ]
+    register: ILL
     owners: [ ITO_IT15 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -809,7 +906,8 @@ RegField:
 
   - ID: ILL_IT16
     what: Interrupt 16 owner
-    location: [ ILL, 32..33 ]
+    location: [ SRS, 32..33 ]
+    register: ILL
     owners: [ ITO_IT16 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -817,7 +915,8 @@ RegField:
 
   - ID: ILL_IT17
     what: Interrupt 17 owner
-    location: [ ILL, 34..35 ]
+    location: [ SRS, 34..35 ]
+    register: ILL
     owners: [ ITO_IT17 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -825,7 +924,8 @@ RegField:
 
   - ID: ILL_IT18
     what: Interrupt 18 owner
-    location: [ ILL, 36..37 ]
+    location: [ SRS, 36..37 ]
+    register: ILL
     owners: [ ITO_IT18 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -833,7 +933,8 @@ RegField:
 
   - ID: ILL_IT19
     what: Interrupt 19 owner
-    location: [ ILL, 38..39 ]
+    location: [ SRS, 38..39 ]
+    register: ILL
     owners: [ ITO_IT19 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -841,7 +942,8 @@ RegField:
 
   - ID: ILL_IT20
     what: Interrupt 20 owner
-    location: [ ILL, 40..41 ]
+    location: [ SRS, 40..41 ]
+    register: ILL
     owners: [ ITO_IT20 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -849,7 +951,8 @@ RegField:
 
   - ID: ILL_IT21
     what: Interrupt 21 owner
-    location: [ ILL, 42..43 ]
+    location: [ SRS, 42..43 ]
+    register: ILL
     owners: [ ITO_IT21 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -857,7 +960,8 @@ RegField:
 
   - ID: ILL_IT22
     what: Interrupt 22 owner
-    location: [ ILL, 44..45 ]
+    location: [ SRS, 44..45 ]
+    register: ILL
     owners: [ ITO_IT22 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -865,7 +969,8 @@ RegField:
 
   - ID: ILL_IT23
     what: Interrupt 23 owner
-    location: [ ILL, 46..47 ]
+    location: [ SRS, 46..47 ]
+    register: ILL
     owners: [ ITO_IT23 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -873,7 +978,8 @@ RegField:
 
   - ID: ILL_IT24
     what: Interrupt 24 owner
-    location: [ ILL, 48..49 ]
+    location: [ SRS, 48..49 ]
+    register: ILL
     owners: [ ITO_IT24 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -881,7 +987,8 @@ RegField:
 
   - ID: ILL_IT25
     what: Interrupt 25 owner
-    location: [ ILL, 50..51 ]
+    location: [ SRS, 50..51 ]
+    register: ILL
     owners: [ ITO_IT25 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -889,7 +996,8 @@ RegField:
 
   - ID: ILL_IT26
     what: Interrupt 26 owner
-    location: [ ILL, 52..53 ]
+    location: [ SRS, 52..53 ]
+    register: ILL
     owners: [ ITO_IT26 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -897,7 +1005,8 @@ RegField:
 
   - ID: ILL_IT27
     what: Interrupt 27 owner
-    location: [ ILL, 54..55 ]
+    location: [ SRS, 54..55 ]
+    register: ILL
     owners: [ ITO_IT27 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -905,7 +1014,8 @@ RegField:
 
   - ID: ILL_IT28
     what: Interrupt 28 owner
-    location: [ ILL, 56..57 ]
+    location: [ SRS, 56..57 ]
+    register: ILL
     owners: [ ITO_IT28 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -913,7 +1023,8 @@ RegField:
 
   - ID: ILL_IT29
     what: Interrupt 29 owner
-    location: [ ILL, 58..59 ]
+    location: [ SRS, 58..59 ]
+    register: ILL
     owners: [ ITO_IT29 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -921,7 +1032,8 @@ RegField:
 
   - ID: ILL_IT30
     what: Interrupt 30 owner
-    location: [ ILL, 60..61 ]
+    location: [ SRS, 60..61 ]
+    register: ILL
     owners: [ ITO_IT30 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -929,7 +1041,8 @@ RegField:
 
   - ID: ILL_IT31
     what: Interrupt 31 owner
-    location: [ ILL, 62..63 ]
+    location: [ SRS, 62..63 ]
+    register: ILL
     owners: [ ITO_IT31 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -939,7 +1052,8 @@ RegField:
 
   - ID: ILR_IT0
     what: Interrupt 0 owner
-    location: [ ILR, 0 ]
+    location: [ SRS, 0 ]
+    register: ILR
     owners: [ ITO_IT0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -947,7 +1061,8 @@ RegField:
 
   - ID: ILR_IT1
     what: Interrupt 1 owner
-    location: [ ILR, 1 ]
+    location: [ SRS, 1 ]
+    register: ILR
     owners: [ ITO_IT1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -955,7 +1070,8 @@ RegField:
 
   - ID: ILR_IT2
     what: Interrupt 2 owner
-    location: [ ILR, 2 ]
+    location: [ SRS, 2 ]
+    register: ILR
     owners: [ ITO_IT2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -963,7 +1079,8 @@ RegField:
 
   - ID: ILR_IT3
     what: Interrupt 3 owner
-    location: [ ILR, 3 ]
+    location: [ SRS, 3 ]
+    register: ILR
     owners: [ ITO_IT3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -971,7 +1088,8 @@ RegField:
 
   - ID: ILR_IT4
     what: Interrupt 4 owner
-    location: [ ILR, 4 ]
+    location: [ SRS, 4 ]
+    register: ILR
     owners: [ ITO_IT4 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -979,7 +1097,8 @@ RegField:
 
   - ID: ILR_IT5
     what: Interrupt 5 owner
-    location: [ ILR, 5 ]
+    location: [ SRS, 5 ]
+    register: ILR
     owners: [ ITO_IT5 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -987,7 +1106,8 @@ RegField:
 
   - ID: ILR_IT6
     what: Interrupt 6 owner
-    location: [ ILR, 6 ]
+    location: [ SRS, 6 ]
+    register: ILR
     owners: [ ITO_IT6 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -995,7 +1115,8 @@ RegField:
 
   - ID: ILR_IT7
     what: Interrupt 7 owner
-    location: [ ILR, 7 ]
+    location: [ SRS, 7 ]
+    register: ILR
     owners: [ ITO_IT7 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1003,7 +1124,8 @@ RegField:
 
   - ID: ILR_IT8
     what: Interrupt 8 owner
-    location: [ ILR, 8 ]
+    location: [ SRS, 8 ]
+    register: ILR
     owners: [ ITO_IT8 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1011,7 +1133,8 @@ RegField:
 
   - ID: ILR_IT9
     what: Interrupt 9 owner
-    location: [ ILR, 9 ]
+    location: [ SRS, 9 ]
+    register: ILR
     owners: [ ITO_IT9 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1019,7 +1142,8 @@ RegField:
 
   - ID: ILR_IT10
     what: Interrupt 10 owner
-    location: [ ILR, 10 ]
+    location: [ SRS, 10 ]
+    register: ILR
     owners: [ ITO_IT10 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1027,7 +1151,8 @@ RegField:
 
   - ID: ILR_IT11
     what: Interrupt 11 owner
-    location: [ ILR, 11 ]
+    location: [ SRS, 11 ]
+    register: ILR
     owners: [ ITO_IT11 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1035,7 +1160,8 @@ RegField:
 
   - ID: ILR_IT12
     what: Interrupt 12 owner
-    location: [ ILR, 12 ]
+    location: [ SRS, 12 ]
+    register: ILR
     owners: [ ITO_IT12 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1043,7 +1169,8 @@ RegField:
 
   - ID: ILR_IT13
     what: Interrupt 13 owner
-    location: [ ILR, 13 ]
+    location: [ SRS, 13 ]
+    register: ILR
     owners: [ ITO_IT13 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1051,7 +1178,8 @@ RegField:
 
   - ID: ILR_IT14
     what: Interrupt 14 owner
-    location: [ ILR, 14 ]
+    location: [ SRS, 14 ]
+    register: ILR
     owners: [ ITO_IT14 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1059,7 +1187,8 @@ RegField:
 
   - ID: ILR_IT15
     what: Interrupt 15 owner
-    location: [ ILR, 15 ]
+    location: [ SRS, 15 ]
+    register: ILR
     owners: [ ITO_IT15 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1067,7 +1196,8 @@ RegField:
 
   - ID: ILR_IT16
     what: Interrupt 16 owner
-    location: [ ILR, 16 ]
+    location: [ SRS, 16 ]
+    register: ILR
     owners: [ ITO_IT16 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1075,7 +1205,8 @@ RegField:
 
   - ID: ILR_IT17
     what: Interrupt 17 owner
-    location: [ ILR, 17 ]
+    location: [ SRS, 17 ]
+    register: ILR
     owners: [ ITO_IT17 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1083,7 +1214,8 @@ RegField:
 
   - ID: ILR_IT18
     what: Interrupt 18 owner
-    location: [ ILR, 18 ]
+    location: [ SRS, 18 ]
+    register: ILR
     owners: [ ITO_IT18 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1091,7 +1223,8 @@ RegField:
 
   - ID: ILR_IT19
     what: Interrupt 19 owner
-    location: [ ILR, 19 ]
+    location: [ SRS, 19 ]
+    register: ILR
     owners: [ ITO_IT19 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1099,7 +1232,8 @@ RegField:
 
   - ID: ILR_IT20
     what: Interrupt 20 owner
-    location: [ ILR, 20 ]
+    location: [ SRS, 20 ]
+    register: ILR
     owners: [ ITO_IT20 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1107,7 +1241,8 @@ RegField:
 
   - ID: ILR_IT21
     what: Interrupt 21 owner
-    location: [ ILR, 21 ]
+    location: [ SRS, 21 ]
+    register: ILR
     owners: [ ITO_IT21 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1115,7 +1250,8 @@ RegField:
 
   - ID: ILR_IT22
     what: Interrupt 22 owner
-    location: [ ILR, 22 ]
+    location: [ SRS, 22 ]
+    register: ILR
     owners: [ ITO_IT22 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1123,7 +1259,8 @@ RegField:
 
   - ID: ILR_IT23
     what: Interrupt 23 owner
-    location: [ ILR, 23 ]
+    location: [ SRS, 23 ]
+    register: ILR
     owners: [ ITO_IT23 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1131,7 +1268,8 @@ RegField:
 
   - ID: ILR_IT24
     what: Interrupt 24 owner
-    location: [ ILR, 24 ]
+    location: [ SRS, 24 ]
+    register: ILR
     owners: [ ITO_IT24 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1139,7 +1277,8 @@ RegField:
 
   - ID: ILR_IT25
     what: Interrupt 25 owner
-    location: [ ILR, 25 ]
+    location: [ SRS, 25 ]
+    register: ILR
     owners: [ ITO_IT25 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1147,7 +1286,8 @@ RegField:
 
   - ID: ILR_IT26
     what: Interrupt 26 owner
-    location: [ ILR, 26 ]
+    location: [ SRS, 26 ]
+    register: ILR
     owners: [ ITO_IT26 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1155,7 +1295,8 @@ RegField:
 
   - ID: ILR_IT27
     what: Interrupt 27 owner
-    location: [ ILR, 27 ]
+    location: [ SRS, 27 ]
+    register: ILR
     owners: [ ITO_IT27 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1163,7 +1304,8 @@ RegField:
 
   - ID: ILR_IT28
     what: Interrupt 28 owner
-    location: [ ILR, 28 ]
+    location: [ SRS, 28 ]
+    register: ILR
     owners: [ ITO_IT28 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1171,7 +1313,8 @@ RegField:
 
   - ID: ILR_IT29
     what: Interrupt 29 owner
-    location: [ ILR, 29 ]
+    location: [ SRS, 29 ]
+    register: ILR
     owners: [ ITO_IT29 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1179,7 +1322,8 @@ RegField:
 
   - ID: ILR_IT30
     what: Interrupt 30 owner
-    location: [ ILR, 30 ]
+    location: [ SRS, 30 ]
+    register: ILR
     owners: [ ITO_IT30 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1187,7 +1331,8 @@ RegField:
 
   - ID: ILR_IT31
     what: Interrupt 31 owner
-    location: [ ILR, 31 ]
+    location: [ SRS, 31 ]
+    register: ILR
     owners: [ ITO_IT31 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1197,7 +1342,7 @@ RegField:
 
   - ID: ITOW_IT0
     what: Interrupt 0 owner
-    location: [ ITO, 0..1 ]
+    location: [ SRS, 0..1 ]
     owners: [ ITO_IT0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1206,7 +1351,7 @@ RegField:
 
   - ID: ITOW_IT1
     what: Interrupt 1 owner
-    location: [ ITO, 2..3 ]
+    location: [ SRS, 2..3 ]
     owners: [ ITO_IT1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1215,7 +1360,7 @@ RegField:
 
   - ID: ITOW_IT2
     what: Interrupt 2 owner
-    location: [ ITO, 4..5 ]
+    location: [ SRS, 4..5 ]
     owners: [ ITO_IT2 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1224,7 +1369,7 @@ RegField:
 
   - ID: ITOW_IT3
     what: Interrupt 3 owner
-    location: [ ITO, 6..7 ]
+    location: [ SRS, 6..7 ]
     owners: [ ITO_IT3 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1233,7 +1378,7 @@ RegField:
 
   - ID: ITOW_IT4
     what: Interrupt 4 owner
-    location: [ ITO, 8..9 ]
+    location: [ SRS, 8..9 ]
     owners: [ ITO_IT4 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1242,7 +1387,7 @@ RegField:
 
   - ID: ITOW_IT5
     what: Interrupt 5 owner
-    location: [ ITO, 10..11 ]
+    location: [ SRS, 10..11 ]
     owners: [ ITO_IT5 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1251,7 +1396,7 @@ RegField:
 
   - ID: ITOW_IT6
     what: Interrupt 6 owner
-    location: [ ITO, 12..13 ]
+    location: [ SRS, 12..13 ]
     owners: [ ITO_IT6 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1260,7 +1405,7 @@ RegField:
 
   - ID: ITOW_IT7
     what: Interrupt 7 owner
-    location: [ ITO, 14..15 ]
+    location: [ SRS, 14..15 ]
     owners: [ ITO_IT7 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1269,7 +1414,7 @@ RegField:
 
   - ID: ITOW_IT8
     what: Interrupt 8 owner
-    location: [ ITO, 16..17 ]
+    location: [ SRS, 16..17 ]
     owners: [ ITO_IT8 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1278,7 +1423,7 @@ RegField:
 
   - ID: ITOW_IT9
     what: Interrupt 9 owner
-    location: [ ITO, 18..19 ]
+    location: [ SRS, 18..19 ]
     owners: [ ITO_IT9 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1287,7 +1432,7 @@ RegField:
 
   - ID: ITOW_IT10
     what: Interrupt 10 owner
-    location: [ ITO, 20..21 ]
+    location: [ SRS, 20..21 ]
     owners: [ ITO_IT10 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1296,7 +1441,7 @@ RegField:
 
   - ID: ITOW_IT11
     what: Interrupt 11 owner
-    location: [ ITO, 22..23 ]
+    location: [ SRS, 22..23 ]
     owners: [ ITO_IT11 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1305,7 +1450,7 @@ RegField:
 
   - ID: ITOW_IT12
     what: Interrupt 12 owner
-    location: [ ITO, 24..25 ]
+    location: [ SRS, 24..25 ]
     owners: [ ITO_IT12 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1314,7 +1459,7 @@ RegField:
 
   - ID: ITOW_IT13
     what: Interrupt 13 owner
-    location: [ ITO, 26..27 ]
+    location: [ SRS, 26..27 ]
     owners: [ ITO_IT13 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1323,7 +1468,7 @@ RegField:
 
   - ID: ITOW_IT14
     what: Interrupt 14 owner
-    location: [ ITO, 28..29 ]
+    location: [ SRS, 28..29 ]
     owners: [ ITO_IT14 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1332,7 +1477,7 @@ RegField:
 
   - ID: ITOW_IT15
     what: Interrupt 15 owner
-    location: [ ITO, 30..31 ]
+    location: [ SRS, 30..31 ]
     owners: [ ITO_IT15 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1341,7 +1486,7 @@ RegField:
 
   - ID: ITOW_IT16
     what: Interrupt 16 owner
-    location: [ ITO, 32..33 ]
+    location: [ SRS, 32..33 ]
     owners: [ ITO_IT16 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1350,7 +1495,7 @@ RegField:
 
   - ID: ITOW_IT17
     what: Interrupt 17 owner
-    location: [ ITO, 34..35 ]
+    location: [ SRS, 34..35 ]
     owners: [ ITO_IT17 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1359,7 +1504,7 @@ RegField:
 
   - ID: ITOW_IT18
     what: Interrupt 18 owner
-    location: [ ITO, 36..37 ]
+    location: [ SRS, 36..37 ]
     owners: [ ITO_IT18 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1368,7 +1513,7 @@ RegField:
 
   - ID: ITOW_IT19
     what: Interrupt 19 owner
-    location: [ ITO, 38..39 ]
+    location: [ SRS, 38..39 ]
     owners: [ ITO_IT19 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1377,7 +1522,7 @@ RegField:
 
   - ID: ITOW_IT20
     what: Interrupt 20 owner
-    location: [ ITO, 40..41 ]
+    location: [ SRS, 40..41 ]
     owners: [ ITO_IT20 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1386,7 +1531,7 @@ RegField:
 
   - ID: ITOW_IT21
     what: Interrupt 21 owner
-    location: [ ITO, 42..43 ]
+    location: [ SRS, 42..43 ]
     owners: [ ITO_IT21 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1395,7 +1540,7 @@ RegField:
 
   - ID: ITOW_IT22
     what: Interrupt 22 owner
-    location: [ ITO, 44..45 ]
+    location: [ SRS, 44..45 ]
     owners: [ ITO_IT22 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1404,7 +1549,7 @@ RegField:
 
   - ID: ITOW_IT23
     what: Interrupt 23 owner
-    location: [ ITO, 46..47 ]
+    location: [ SRS, 46..47 ]
     owners: [ ITO_IT23 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1413,7 +1558,7 @@ RegField:
 
   - ID: ITOW_IT24
     what: Interrupt 24 owner
-    location: [ ITO, 48..49 ]
+    location: [ SRS, 48..49 ]
     owners: [ ITO_IT24 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1422,7 +1567,7 @@ RegField:
 
   - ID: ITOW_IT25
     what: Interrupt 25 owner
-    location: [ ITO, 50..51 ]
+    location: [ SRS, 50..51 ]
     owners: [ ITO_IT25 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1431,7 +1576,7 @@ RegField:
 
   - ID: ITOW_IT26
     what: Interrupt 26 owner
-    location: [ ITO, 52..53 ]
+    location: [ SRS, 52..53 ]
     owners: [ ITO_IT26 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1440,7 +1585,7 @@ RegField:
 
   - ID: ITOW_IT27
     what: Interrupt 27 owner
-    location: [ ITO, 54..55 ]
+    location: [ SRS, 54..55 ]
     owners: [ ITO_IT27 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1449,7 +1594,7 @@ RegField:
 
   - ID: ITOW_IT28
     what: Interrupt 28 owner
-    location: [ ITO, 56..57 ]
+    location: [ SRS, 56..57 ]
     owners: [ ITO_IT28 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1458,7 +1603,7 @@ RegField:
 
   - ID: ITOW_IT29
     what: Interrupt 29 owner
-    location: [ ITO, 58..59 ]
+    location: [ SRS, 58..59 ]
     owners: [ ITO_IT29 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1467,7 +1612,7 @@ RegField:
 
   - ID: ITOW_IT30
     what: Interrupt 30 owner
-    location: [ ITO, 60..61 ]
+    location: [ SRS, 60..61 ]
     owners: [ ITO_IT30 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1476,7 +1621,7 @@ RegField:
 
   - ID: ITOW_IT31
     what: Interrupt 31 owner
-    location: [ ITO, 62..63 ]
+    location: [ SRS, 62..63 ]
     owners: [ ITO_IT31 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1487,62 +1632,74 @@ RegField:
 
   - ID: DO_B0
     what: Breakpoint 0 owner.
-    location: [ DO, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: DO
     reset: 0
 
   - ID: DO_B1
     what: Breakpoint 1 owner.
-    location: [ DO, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: DO
     reset: 0
 
   - ID: DO_W0
     what: Watchpoint 0 owner.
-    location: [ DO, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: DO
     reset: 0
 
   - ID: DO_W1
     what: Watchpoint 1 owner.
-    location: [ DO, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: DO
     reset: 0
 
   - ID: DO_B2
     what: Breakpoint 2 owner.
-    location: [ DO, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: DO
     reset: 0
 
   - ID: DO_B3
     what: Breakpoint 3 owner.
-    location: [ DO, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: DO
     reset: 0
 
   - ID: DO_W2
     what: Watchpoint 2 owner.
-    location: [ DO, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: DO
     reset: 0
 
   - ID: DO_W3
     what: Watchpoint 3 owner.
-    location: [ DO, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: DO
     reset: 0
 
   - ID: DO_BI0
     what: Breakpoint instruction 0 owner.
-    location: [ DO, 16..17 ]
+    location: [ SRS, 16..17 ]
+    register: DO
     reset: 0
 
   - ID: DO_BI1
     what: Breakpoint instruction 1 owner.
-    location: [ DO, 18..19 ]
+    location: [ SRS, 18..19 ]
+    register: DO
     reset: 0
 
   - ID: DO_BI2
     what: Breakpoint instruction 2 owner.
-    location: [ DO, 20..21 ]
+    location: [ SRS, 20..21 ]
+    register: DO
     reset: 0
 
   - ID: DO_BI3
     what: Breakpoint instruction 3 owner.
-    location: [ DO, 22..23 ]
+    location: [ SRS, 22..23 ]
+    register: DO
     reset: 0
 
 ################ DBA0 ################
@@ -1637,7 +1794,7 @@ RegField:
 
   - ID: DOW_B0
     what: Breakpoint 0 owner.
-    location: [ DO, 0..1 ]
+    location: [ SRS, 0..1 ]
     owners: [ DO_B0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1646,7 +1803,7 @@ RegField:
 
   - ID: DOW_B1
     what: Breakpoint 1 owner.
-    location: [ DO, 2..3 ]
+    location: [ SRS, 2..3 ]
     owners: [ DO_B1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1655,7 +1812,7 @@ RegField:
 
   - ID: DOW_W0
     what: Watchpoint 0 owner.
-    location: [ DO, 4..5 ]
+    location: [ SRS, 4..5 ]
     owners: [ DO_W0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1664,7 +1821,7 @@ RegField:
 
   - ID: DOW_W1
     what: Watchpoint 1 owner.
-    location: [ DO, 6..7 ]
+    location: [ SRS, 6..7 ]
     owners: [ DO_W1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1673,7 +1830,7 @@ RegField:
 
   - ID: DOW_B2
     what: Breakpoint 2 owner.
-    location: [ DO, 8..9 ]
+    location: [ SRS, 8..9 ]
     owners: [ DO_B2 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1682,7 +1839,7 @@ RegField:
 
   - ID: DOW_B3
     what: Breakpoint 3 owner.
-    location: [ DO, 10..11 ]
+    location: [ SRS, 10..11 ]
     owners: [ DO_B3 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1691,7 +1848,7 @@ RegField:
 
   - ID: DOW_W2
     what: Watchpoint 2 owner.
-    location: [ DO, 12..13 ]
+    location: [ SRS, 12..13 ]
     owners: [ DO_W2 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1700,7 +1857,7 @@ RegField:
 
   - ID: DOW_W3
     what: Watchpoint 3 owner.
-    location: [ DO, 14..15 ]
+    location: [ SRS, 14..15 ]
     owners: [ DO_W3 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1709,7 +1866,7 @@ RegField:
 
   - ID: DOW_BI0
     what: Breakpoint instruction 0 owner.
-    location: [ DO, 16..17 ]
+    location: [ SRS, 16..17 ]
     owners: [ DO_BI0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1718,7 +1875,7 @@ RegField:
 
   - ID: DOW_BI1
     what: Breakpoint instruction 1 owner.
-    location: [ DO, 18..19 ]
+    location: [ SRS, 18..19 ]
     owners: [ DO_BI1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1727,7 +1884,7 @@ RegField:
 
   - ID: DOW_BI2
     what: Breakpoint instruction 2 owner.
-    location: [ DO, 20..21 ]
+    location: [ SRS, 20..21 ]
     owners: [ DO_BI2 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1736,7 +1893,7 @@ RegField:
 
   - ID: DOW_BI3
     what: Breakpoint instruction 3 owner.
-    location: [ DO, 22..23 ]
+    location: [ SRS, 22..23 ]
     owners: [ DO_BI3 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1747,140 +1904,166 @@ RegField:
 
   - ID: MO_MMI
     what: Memory Management Instructions owner.
-    location: [ MO, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: MO
     reset: 0
 
   - ID: MO_RFE
     what: RFE instruction owner.
-    location: [ MO, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: MO
     reset: 0
 
   - ID: MO_STOP
     what: STOP instruction owner.
-    location: [ MO, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: MO
     reset: 0
 
   - ID: MO_SYNC
     what: SYNCGROUP instruction owner.
-    location: [ MO, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: MO
     reset: 0
 
   - ID: MO_PCR
     what: PCR register owner.
-    location: [ MO, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: MO
     reset: 0
 
   - ID: MO_MSG
     what: MMU SFR GROUP registers owner.
-    location: [ MO, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: MO
     reset: 0
 
   - ID: MO_MEN
     what: Miscellaneous External Notifications register owner.
-    location: [ MO, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: MO
     reset: 0
 
   - ID: MO_MES
     what: Memory Error Status register owner.
-    location: [ MO, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: MO
     reset: 0
 
   - ID: MO_CSIT
     what: Compute Status Artithmetic Interrupt register owner.
-    location: [ MO, 16..17 ]
+    location: [ SRS, 16..17 ]
+    register: MO
     reset: 0
 
   - ID: MO_T0
     what: Timer 0 register group owner
-    location: [ MO, 18..19 ]
+    location: [ SRS, 18..19 ]
+    register: MO
     reset: 0
 
   - ID: MO_T1
     what: Timer 1 register group owner
-    location: [ MO, 20..21 ]
+    location: [ SRS, 20..21 ]
+    register: MO
     reset: 0
 
   - ID: MO_WD
     what: Watch Dog register group owner.
-    location: [ MO, 22..23 ]
+    location: [ SRS, 22..23 ]
+    register: MO
     reset: 0
 
   - ID: MO_PM0
     what: Performance Monitor 0 register owner.
-    location: [ MO, 24..25 ]
+    location: [ SRS, 24..25 ]
+    register: MO
     reset: 0
 
   - ID: MO_PM1
     what: Performance Monitor 1 register owner.
-    location: [ MO, 26..27 ]
+    location: [ SRS, 26..27 ]
+    register: MO
     reset: 0
 
   - ID: MO_PM2
     what: Performance Monitor 2 register owner.
-    location: [ MO, 28..29 ]
+    location: [ SRS, 28..29 ]
+    register: MO
     reset: 0
 
   - ID: MO_PM3
     what: Performance Monitor 3 register owner.
-    location: [ MO, 30..31 ]
+    location: [ SRS, 30..31 ]
+    register: MO
     reset: 0
 
   - ID: MO_PMIT
     what: Performance Monitor Interrupt register group owner.
-    location: [ MO, 32..33 ]
+    location: [ SRS, 32..33 ]
+    register: MO
     reset: 0
 
   - ID: MO_COMM
     what: SENDV and RECVV instruction owner.
-    location: [ MO, 34..35 ]
+    location: [ SRS, 34..35 ]
+    register: MO
     reset: 0
 
   - ID: MO_TPCM
     what: TPCM 0, 1, 2 & control register owner.
-    location: [ MO, 36..37 ]
+    location: [ SRS, 36..37 ]
+    register: MO
     reset: 0
 
   - ID: MO_DISW
     what: DINVALSW instruction owner.
-    location: [ MO, 38..39 ]
+    location: [ SRS, 38..39 ]
+    register: MO
     reset: 0
 
 
   - ID: MO_PM4
     what: Performance Monitor 4 register owner.
-    location: [ MO, 40..41 ]
+    location: [ SRS, 40..41 ]
+    register: MO
     reset: 0
 
   - ID: MO_PM5
     what: Performance Monitor 5 register owner.
-    location: [ MO, 42..43 ]
+    location: [ SRS, 42..43 ]
+    register: MO
     reset: 0
 
   - ID: MO_PM6
     what: Performance Monitor 6 register owner.
-    location: [ MO, 44..45 ]
+    location: [ SRS, 44..45 ]
+    register: MO
     reset: 0
 
   - ID: MO_PM7
     what: Performance Monitor 7 register owner.
-    location: [ MO, 46..47 ]
+    location: [ SRS, 46..47 ]
+    register: MO
     reset: 0
 
   - ID: MO_SRHPC
     what: SRHPC register owner.
-    location: [ MO, 48..49 ]
+    location: [ SRS, 48..49 ]
+    register: MO
     reset: 0
 
   - ID: MO_RVC
     what: RVC instruction owner.
-    location: [ MO, 50..51 ]
+    location: [ SRS, 50..51 ]
+    register: MO
     reset: 0
 
 ################ MOW ################
 
   - ID: MOW_MMI
     what: Memory Management Instructions owner.
-    location: [ MO, 0..1 ]
+    location: [ SRS, 0..1 ]
     owners: [ MO_MMI ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1889,7 +2072,7 @@ RegField:
 
   - ID: MOW_RFE
     what: RFE instruction owner.
-    location: [ MO, 2..3 ]
+    location: [ SRS, 2..3 ]
     owners: [ MO_RFE ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1898,7 +2081,7 @@ RegField:
 
   - ID: MOW_STOP
     what: STOP instruction owner.
-    location: [ MO, 4..5 ]
+    location: [ SRS, 4..5 ]
     owners: [ MO_STOP ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1907,7 +2090,7 @@ RegField:
 
   - ID: MOW_SYNC
     what: SYNCGROUP instruction owner.
-    location: [ MO, 6..7 ]
+    location: [ SRS, 6..7 ]
     owners: [ MO_SYNC ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1916,7 +2099,7 @@ RegField:
 
   - ID: MOW_PCR
     what: PCR register owner.
-    location: [ MO, 8..9 ]
+    location: [ SRS, 8..9 ]
     owners: [ MO_PCR ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1925,7 +2108,7 @@ RegField:
 
   - ID: MOW_MSG
     what: MMU SFR GROUP registers owner.
-    location: [ MO, 10..11 ]
+    location: [ SRS, 10..11 ]
     owners: [ MO_MSG ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1934,7 +2117,7 @@ RegField:
 
   - ID: MOW_MEN
     what: Miscellaneous External Notifications register owner.
-    location: [ MO, 12..13 ]
+    location: [ SRS, 12..13 ]
     owners: [ MO_MEN ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1943,7 +2126,7 @@ RegField:
 
   - ID: MOW_MES
     what: Memory Error Status register owner.
-    location: [ MO, 14..15 ]
+    location: [ SRS, 14..15 ]
     owners: [ MO_MES ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1952,7 +2135,7 @@ RegField:
 
   - ID: MOW_CSIT
     what: Compute Status Artithmetic Interrupt register owner.
-    location: [ MO, 16..17 ]
+    location: [ SRS, 16..17 ]
     owners: [ MO_CSIT ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1961,7 +2144,7 @@ RegField:
 
   - ID: MOW_T0
     what: Timer 0 register group owner
-    location: [ MO, 18..19 ]
+    location: [ SRS, 18..19 ]
     owners: [ MO_T0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1970,7 +2153,7 @@ RegField:
 
   - ID: MOW_T1
     what: Timer 1 register group owner
-    location: [ MO, 20..21 ]
+    location: [ SRS, 20..21 ]
     owners: [ MO_T1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1979,7 +2162,7 @@ RegField:
 
   - ID: MOW_WD
     what: Watch Dog register group owner.
-    location: [ MO, 22..23 ]
+    location: [ SRS, 22..23 ]
     owners: [ MO_WD ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1988,7 +2171,7 @@ RegField:
 
   - ID: MOW_PM0
     what: Performance Monitor 0 register owner.
-    location: [ MO, 24..25 ]
+    location: [ SRS, 24..25 ]
     owners: [ MO_PM0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1997,7 +2180,7 @@ RegField:
 
   - ID: MOW_PM1
     what: Performance Monitor 1 register owner.
-    location: [ MO, 26..27 ]
+    location: [ SRS, 26..27 ]
     owners: [ MO_PM1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2006,7 +2189,7 @@ RegField:
 
   - ID: MOW_PM2
     what: Performance Monitor 2 register owner.
-    location: [ MO, 28..29 ]
+    location: [ SRS, 28..29 ]
     owners: [ MO_PM2 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2015,7 +2198,7 @@ RegField:
 
   - ID: MOW_PM3
     what: Performance Monitor 3 register owner.
-    location: [ MO, 30..31 ]
+    location: [ SRS, 30..31 ]
     owners: [ MO_PM3 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2024,7 +2207,7 @@ RegField:
 
   - ID: MOW_PMIT
     what: Performance Monitor Interrupt register group owner.
-    location: [ MO, 32..33 ]
+    location: [ SRS, 32..33 ]
     owners: [ MO_PMIT ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2033,7 +2216,7 @@ RegField:
 
   - ID: MOW_COMM
     what: SENDV and RECVV instruction owner.
-    location: [ MO, 34..35 ]
+    location: [ SRS, 34..35 ]
     owners: [ MO_COMM ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2042,7 +2225,7 @@ RegField:
 
   - ID: MOW_TPCM
     what: TPCM 0, 1, 2 & control register owner.
-    location: [ MO, 36..37 ]
+    location: [ SRS, 36..37 ]
     owners: [ MO_TPCM ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2051,7 +2234,7 @@ RegField:
 
   - ID: MOW_DISW
     what: DINVALSW instruction owner.
-    location: [ MO, 38..39 ]
+    location: [ SRS, 38..39 ]
     owners: [ MO_DISW ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2061,7 +2244,7 @@ RegField:
 
   - ID: MOW_PM4
     what: Performance Monitor 4 register owner.
-    location: [ MO, 40..41 ]
+    location: [ SRS, 40..41 ]
     owners: [ MO_PM4 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2070,7 +2253,7 @@ RegField:
 
   - ID: MOW_PM5
     what: Performance Monitor 5 register owner.
-    location: [ MO, 42..43 ]
+    location: [ SRS, 42..43 ]
     owners: [ MO_PM5 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2079,7 +2262,7 @@ RegField:
 
   - ID: MOW_PM6
     what: Performance Monitor 6 register owner.
-    location: [ MO, 44..45 ]
+    location: [ SRS, 44..45 ]
     owners: [ MO_PM6 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2088,7 +2271,7 @@ RegField:
 
   - ID: MOW_PM7
     what: Performance Monitor 7 register owner.
-    location: [ MO, 46..47 ]
+    location: [ SRS, 46..47 ]
     owners: [ MO_PM7 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2097,7 +2280,7 @@ RegField:
 
   - ID: MOW_SRHPC
     what: SRHPC register owner.
-    location: [ MO, 48..49 ]
+    location: [ SRS, 48..49 ]
     owners: [ MO_SRHPC ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2107,7 +2290,7 @@ RegField:
 
   - ID: MOW_RVC
     what: RVC instruction owner.
-    location: [ MO, 50..51 ]
+    location: [ SRS, 50..51 ]
     owners: [ MO_RVC ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2279,7 +2462,8 @@ RegField:
 
   - ID: SPS_PL
     what: Current Privilege Level
-    location: [ SPS, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: SPS
     owners: [ PSO_PL0, PSO_PL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2287,7 +2471,8 @@ RegField:
 
   - ID: SPS_ET
     what: Exception Taken
-    location: [ SPS, 2 ]
+    location: [ SRS, 2 ]
+    register: SPS
     owners: [ PSO_ET ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2295,7 +2480,8 @@ RegField:
 
   - ID: SPS_HTD
     what: Hardware Trap Disable
-    location: [ SPS, 3 ]
+    location: [ SRS, 3 ]
+    register: SPS
     owners: [ PSO_HTD ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2303,7 +2489,8 @@ RegField:
 
   - ID: SPS_IE
     what: Interrupt Enable
-    location: [ SPS, 4 ]
+    location: [ SRS, 4 ]
+    register: SPS
     owners: [ PSO_IE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2311,7 +2498,8 @@ RegField:
 
   - ID: SPS_HLE
     what: Hardware Loop Enable
-    location: [ SPS, 5 ]
+    location: [ SRS, 5 ]
+    register: SPS
     owners: [ PSO_HLE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2319,7 +2507,8 @@ RegField:
 
   - ID: SPS_SRE
     what:  Software REserved
-    location: [ SPS, 6 ]
+    location: [ SRS, 6 ]
+    register: SPS
     owners: [ PSO_SRE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2327,7 +2516,8 @@ RegField:
 
   - ID: SPS_DAUS
     what:  Data Accesses Use SPS settings
-    location: [ SPS, 7 ]
+    location: [ SRS, 7 ]
+    register: SPS
     owners: [ PSO_DAUS ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2335,7 +2525,8 @@ RegField:
 
   - ID: SPS_ICE
     what: Instruction Cache Enable
-    location: [ SPS, 8 ]
+    location: [ SRS, 8 ]
+    register: SPS
     owners: [ PSO_ICE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2343,7 +2534,8 @@ RegField:
 
   - ID: SPS_USE
     what: Uncached Streaming Enable
-    location: [ SPS, 9 ]
+    location: [ SRS, 9 ]
+    register: SPS
     owners: [ PSO_USE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2351,7 +2543,8 @@ RegField:
 
   - ID: SPS_DCE
     what: Data Cache Enable
-    location: [ SPS, 10 ]
+    location: [ SRS, 10 ]
+    register: SPS
     owners: [ PSO_DCE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2359,7 +2552,8 @@ RegField:
 
   - ID: SPS_MME
     what: Memory Management Enable
-    location: [ SPS, 11 ]
+    location: [ SRS, 11 ]
+    register: SPS
     owners: [ PSO_MME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2367,7 +2561,8 @@ RegField:
 
   - ID: SPS_IL
     what: Interrupt Level
-    location: [ SPS, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: SPS
     owners: [ PSO_IL0, PSO_IL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2375,7 +2570,8 @@ RegField:
 
   - ID: SPS_VS
     what: Virtual Space
-    location: [ SPS, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: SPS
     owners: [ PSO_VS0, PSO_VS1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2383,12 +2579,14 @@ RegField:
 
   - ID: SPS_V64
     what: Reserved. Harcoded to 1. Writes ignored.
-    location: [ SPS, 16 ]
+    location: [ SRS, 16 ]
+    register: SPS
     reset: 1
 
   - ID: SPS_L2E
     what: L2 cache Enable.
-    location: [ SPS, 17 ]
+    location: [ SRS, 17 ]
+    register: SPS
     owners: [ PSO_L2E ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2396,7 +2594,8 @@ RegField:
 
   - ID: SPS_SME
     what: Step Mode Enabled
-    location: [ SPS, 18 ]
+    location: [ SRS, 18 ]
+    register: SPS
     owners: [ PSO_SME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2404,7 +2603,8 @@ RegField:
 
   - ID: SPS_SMR
     what: Step Mode Ready
-    location: [ SPS, 19 ]
+    location: [ SRS, 19 ]
+    register: SPS
     owners: [ PSO_SMR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2412,7 +2612,8 @@ RegField:
 
   - ID: SPS_PMJ
     what: Page Mask in JTLB.
-    location: [ SPS, 20..23 ]
+    location: [ SRS, 20..23 ]
+    register: SPS
     owners: [ PSO_PMJ0, PSO_PMJ1, PSO_PMJ2, PSO_PMJ3 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2422,7 +2623,8 @@ RegField:
 
   - ID: SPS_MMUP
     what: Privileged on MMU.
-    location: [ SPS, 24 ]
+    location: [ SRS, 24 ]
+    register: SPS
     owners: [ PSO_MMUP ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2430,7 +2632,8 @@ RegField:
 
   - ID: SPS_RV
     what: RiscV mode.
-    location: [ SPS, 25 ]
+    location: [ SRS, 25 ]
+    register: SPS
     owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2440,7 +2643,8 @@ RegField:
 
   - ID: SPS_PL0_PL
     what: Current Privilege Level
-    location: [ SPS_PL0, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: SPS_PL0
     owners: [ PSO_PL0, PSO_PL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2448,7 +2652,8 @@ RegField:
 
   - ID: SPS_PL0_ET
     what: Exception Taken
-    location: [ SPS_PL0, 2 ]
+    location: [ SRS, 2 ]
+    register: SPS_PL0
     owners: [ PSO_ET ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2456,7 +2661,8 @@ RegField:
 
   - ID: SPS_PL0_HTD
     what: Hardware Trap Disable
-    location: [ SPS_PL0, 3 ]
+    location: [ SRS, 3 ]
+    register: SPS_PL0
     owners: [ PSO_HTD ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2464,7 +2670,8 @@ RegField:
 
   - ID: SPS_PL0_IE
     what: Interrupt Enable
-    location: [ SPS_PL0, 4 ]
+    location: [ SRS, 4 ]
+    register: SPS_PL0
     owners: [ PSO_IE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2472,7 +2679,8 @@ RegField:
 
   - ID: SPS_PL0_HLE
     what: Hardware Loop Enable
-    location: [ SPS_PL0, 5 ]
+    location: [ SRS, 5 ]
+    register: SPS_PL0
     owners: [ PSO_HLE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2480,7 +2688,8 @@ RegField:
 
   - ID: SPS_PL0_SRE
     what:  Software REserved
-    location: [ SPS_PL0, 6 ]
+    location: [ SRS, 6 ]
+    register: SPS_PL0
     owners: [ PSO_SRE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2488,7 +2697,8 @@ RegField:
 
   - ID: SPS_PL0_DAUS
     what:  Data Accesses Use SPS settings
-    location: [ SPS_PL0, 7 ]
+    location: [ SRS, 7 ]
+    register: SPS_PL0
     owners: [ PSO_DAUS ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2496,7 +2706,8 @@ RegField:
 
   - ID: SPS_PL0_ICE
     what: Instruction Cache Enable
-    location: [ SPS_PL0, 8 ]
+    location: [ SRS, 8 ]
+    register: SPS_PL0
     owners: [ PSO_ICE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2504,7 +2715,8 @@ RegField:
 
   - ID: SPS_PL0_USE
     what: Uncached Streaming Enable
-    location: [ SPS_PL0, 9 ]
+    location: [ SRS, 9 ]
+    register: SPS_PL0
     owners: [ PSO_USE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2512,7 +2724,8 @@ RegField:
 
   - ID: SPS_PL0_DCE
     what: Data Cache Enable
-    location: [ SPS_PL0, 10 ]
+    location: [ SRS, 10 ]
+    register: SPS_PL0
     owners: [ PSO_DCE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2520,7 +2733,8 @@ RegField:
 
   - ID: SPS_PL0_MME
     what: Memory Management Enable
-    location: [ SPS_PL0, 11 ]
+    location: [ SRS, 11 ]
+    register: SPS_PL0
     owners: [ PSO_MME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2528,7 +2742,8 @@ RegField:
 
   - ID: SPS_PL0_IL
     what: Interrupt Level
-    location: [ SPS_PL0, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: SPS_PL0
     owners: [ PSO_IL0, PSO_IL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2536,7 +2751,8 @@ RegField:
 
   - ID: SPS_PL0_VS
     what: Virtual Space
-    location: [ SPS_PL0, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: SPS_PL0
     owners: [ PSO_VS0, PSO_VS1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2544,12 +2760,14 @@ RegField:
 
   - ID: SPS_PL0_V64
     what: Reserved. Harcoded to 1. Writes ignored.
-    location: [ SPS_PL0, 16 ]
+    location: [ SRS, 16 ]
+    register: SPS_PL0
     reset: 1
 
   - ID: SPS_PL0_L2E
     what: L2 cache Enable.
-    location: [ SPS_PL0, 17 ]
+    location: [ SRS, 17 ]
+    register: SPS_PL0
     owners: [ PSO_L2E ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2557,7 +2775,8 @@ RegField:
 
   - ID: SPS_PL0_SME
     what: Step Mode Enabled
-    location: [ SPS_PL0, 18 ]
+    location: [ SRS, 18 ]
+    register: SPS_PL0
     owners: [ PSO_SME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2565,7 +2784,8 @@ RegField:
 
   - ID: SPS_PL0_SMR
     what: Step Mode Ready
-    location: [ SPS_PL0, 19 ]
+    location: [ SRS, 19 ]
+    register: SPS_PL0
     owners: [ PSO_SMR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2573,7 +2793,8 @@ RegField:
 
   - ID: SPS_PL0_PMJ
     what: Page Mask in JTLB.
-    location: [ SPS_PL0, 20..23 ]
+    location: [ SRS, 20..23 ]
+    register: SPS_PL0
     owners: [ PSO_PMJ0, PSO_PMJ1, PSO_PMJ2, PSO_PMJ3 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2583,7 +2804,8 @@ RegField:
 
   - ID: SPS_PL0_MMUP
     what: Privileged on MMU.
-    location: [ SPS_PL0, 24 ]
+    location: [ SRS, 24 ]
+    register: SPS_PL0
     owners: [ PSO_MMUP ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2591,7 +2813,8 @@ RegField:
 
   - ID: SPS_PL0_RV
     what: RiscV mode.
-    location: [ SPS_PL0, 25 ]
+    location: [ SRS, 25 ]
+    register: SPS_PL0
     owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2601,7 +2824,8 @@ RegField:
 
   - ID: SPS_PL1_PL
     what: Current Privilege Level
-    location: [ SPS_PL1, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: SPS_PL1
     owners: [ PSO_PL0, PSO_PL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2609,7 +2833,8 @@ RegField:
 
   - ID: SPS_PL1_ET
     what: Exception Taken
-    location: [ SPS_PL1, 2 ]
+    location: [ SRS, 2 ]
+    register: SPS_PL1
     owners: [ PSO_ET ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2617,7 +2842,8 @@ RegField:
 
   - ID: SPS_PL1_HTD
     what: Hardware Trap Disable
-    location: [ SPS_PL1, 3 ]
+    location: [ SRS, 3 ]
+    register: SPS_PL1
     owners: [ PSO_HTD ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2625,7 +2851,8 @@ RegField:
 
   - ID: SPS_PL1_IE
     what: Interrupt Enable
-    location: [ SPS_PL1, 4 ]
+    location: [ SRS, 4 ]
+    register: SPS_PL1
     owners: [ PSO_IE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2633,7 +2860,8 @@ RegField:
 
   - ID: SPS_PL1_HLE
     what: Hardware Loop Enable
-    location: [ SPS_PL1, 5 ]
+    location: [ SRS, 5 ]
+    register: SPS_PL1
     owners: [ PSO_HLE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2641,7 +2869,8 @@ RegField:
 
   - ID: SPS_PL1_SRE
     what:  Software REserved
-    location: [ SPS_PL1, 6 ]
+    location: [ SRS, 6 ]
+    register: SPS_PL1
     owners: [ PSO_SRE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2649,7 +2878,8 @@ RegField:
 
   - ID: SPS_PL1_DAUS
     what:  Data Accesses Use SPS settings
-    location: [ SPS_PL1, 7 ]
+    location: [ SRS, 7 ]
+    register: SPS_PL1
     owners: [ PSO_DAUS ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2657,7 +2887,8 @@ RegField:
 
   - ID: SPS_PL1_ICE
     what: Instruction Cache Enable
-    location: [ SPS_PL1, 8 ]
+    location: [ SRS, 8 ]
+    register: SPS_PL1
     owners: [ PSO_ICE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2665,7 +2896,8 @@ RegField:
 
   - ID: SPS_PL1_USE
     what: Uncached Streaming Enable
-    location: [ SPS_PL1, 9 ]
+    location: [ SRS, 9 ]
+    register: SPS_PL1
     owners: [ PSO_USE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2673,7 +2905,8 @@ RegField:
 
   - ID: SPS_PL1_DCE
     what: Data Cache Enable
-    location: [ SPS_PL1, 10 ]
+    location: [ SRS, 10 ]
+    register: SPS_PL1
     owners: [ PSO_DCE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2681,7 +2914,8 @@ RegField:
 
   - ID: SPS_PL1_MME
     what: Memory Management Enable
-    location: [ SPS_PL1, 11 ]
+    location: [ SRS, 11 ]
+    register: SPS_PL1
     owners: [ PSO_MME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2689,7 +2923,8 @@ RegField:
 
   - ID: SPS_PL1_IL
     what: Interrupt Level
-    location: [ SPS_PL1, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: SPS_PL1
     owners: [ PSO_IL0, PSO_IL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2697,7 +2932,8 @@ RegField:
 
   - ID: SPS_PL1_VS
     what: Virtual Space
-    location: [ SPS_PL1, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: SPS_PL1
     owners: [ PSO_VS0, PSO_VS1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2705,12 +2941,14 @@ RegField:
 
   - ID: SPS_PL1_V64
     what: Reserved. Harcoded to 1. Writes ignored.
-    location: [ SPS_PL1, 16 ]
+    location: [ SRS, 16 ]
+    register: SPS_PL1
     reset: 1
 
   - ID: SPS_PL1_L2E
     what: L2 cache Enable.
-    location: [ SPS_PL1, 17 ]
+    location: [ SRS, 17 ]
+    register: SPS_PL1
     owners: [ PSO_L2E ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2718,7 +2956,8 @@ RegField:
 
   - ID: SPS_PL1_SME
     what: Step Mode Enabled
-    location: [ SPS_PL1, 18 ]
+    location: [ SRS, 18 ]
+    register: SPS_PL1
     owners: [ PSO_SME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2726,7 +2965,8 @@ RegField:
 
   - ID: SPS_PL1_SMR
     what: Step Mode Ready
-    location: [ SPS_PL1, 19 ]
+    location: [ SRS, 19 ]
+    register: SPS_PL1
     owners: [ PSO_SMR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2734,7 +2974,8 @@ RegField:
 
   - ID: SPS_PL1_PMJ
     what: Page Mask in JTLB.
-    location: [ SPS_PL1, 20..23 ]
+    location: [ SRS, 20..23 ]
+    register: SPS_PL1
     owners: [ PSO_PMJ0, PSO_PMJ1, PSO_PMJ2, PSO_PMJ3 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2744,7 +2985,8 @@ RegField:
 
   - ID: SPS_PL1_MMUP
     what: Privileged on MMU.
-    location: [ SPS_PL1, 24 ]
+    location: [ SRS, 24 ]
+    register: SPS_PL1
     owners: [ PSO_MMUP ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2752,7 +2994,8 @@ RegField:
 
   - ID: SPS_PL1_RV
     what: RiscV mode.
-    location: [ SPS_PL1, 25 ]
+    location: [ SRS, 25 ]
+    register: SPS_PL1
     owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2762,7 +3005,8 @@ RegField:
 
   - ID: SPS_PL2_PL
     what: Current Privilege Level
-    location: [ SPS_PL2, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: SPS_PL2
     owners: [ PSO_PL0, PSO_PL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2770,7 +3014,8 @@ RegField:
 
   - ID: SPS_PL2_ET
     what: Exception Taken
-    location: [ SPS_PL2, 2 ]
+    location: [ SRS, 2 ]
+    register: SPS_PL2
     owners: [ PSO_ET ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2778,7 +3023,8 @@ RegField:
 
   - ID: SPS_PL2_HTD
     what: Hardware Trap Disable
-    location: [ SPS_PL2, 3 ]
+    location: [ SRS, 3 ]
+    register: SPS_PL2
     owners: [ PSO_HTD ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2786,7 +3032,8 @@ RegField:
 
   - ID: SPS_PL2_IE
     what: Interrupt Enable
-    location: [ SPS_PL2, 4 ]
+    location: [ SRS, 4 ]
+    register: SPS_PL2
     owners: [ PSO_IE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2794,7 +3041,8 @@ RegField:
 
   - ID: SPS_PL2_HLE
     what: Hardware Loop Enable
-    location: [ SPS_PL2, 5 ]
+    location: [ SRS, 5 ]
+    register: SPS_PL2
     owners: [ PSO_HLE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2802,7 +3050,8 @@ RegField:
 
   - ID: SPS_PL2_SRE
     what:  Software REserved
-    location: [ SPS_PL2, 6 ]
+    location: [ SRS, 6 ]
+    register: SPS_PL2
     owners: [ PSO_SRE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2810,7 +3059,8 @@ RegField:
 
   - ID: SPS_PL2_DAUS
     what:  Data Accesses Use SPS settings
-    location: [ SPS_PL2, 7 ]
+    location: [ SRS, 7 ]
+    register: SPS_PL2
     owners: [ PSO_DAUS ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2818,7 +3068,8 @@ RegField:
 
   - ID: SPS_PL2_ICE
     what: Instruction Cache Enable
-    location: [ SPS_PL2, 8 ]
+    location: [ SRS, 8 ]
+    register: SPS_PL2
     owners: [ PSO_ICE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2826,7 +3077,8 @@ RegField:
 
   - ID: SPS_PL2_USE
     what: Uncached Streaming Enable
-    location: [ SPS_PL2, 9 ]
+    location: [ SRS, 9 ]
+    register: SPS_PL2
     owners: [ PSO_USE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2834,7 +3086,8 @@ RegField:
 
   - ID: SPS_PL2_DCE
     what: Data Cache Enable
-    location: [ SPS_PL2, 10 ]
+    location: [ SRS, 10 ]
+    register: SPS_PL2
     owners: [ PSO_DCE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2842,7 +3095,8 @@ RegField:
 
   - ID: SPS_PL2_MME
     what: Memory Management Enable
-    location: [ SPS_PL2, 11 ]
+    location: [ SRS, 11 ]
+    register: SPS_PL2
     owners: [ PSO_MME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2850,7 +3104,8 @@ RegField:
 
   - ID: SPS_PL2_IL
     what: Interrupt Level
-    location: [ SPS_PL2, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: SPS_PL2
     owners: [ PSO_IL0, PSO_IL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2858,7 +3113,8 @@ RegField:
 
   - ID: SPS_PL2_VS
     what: Virtual Space
-    location: [ SPS_PL2, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: SPS_PL2
     owners: [ PSO_VS0, PSO_VS1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2866,12 +3122,14 @@ RegField:
 
   - ID: SPS_PL2_V64
     what: Reserved. Harcoded to 1. Writes ignored.
-    location: [ SPS_PL2, 16 ]
+    location: [ SRS, 16 ]
+    register: SPS_PL2
     reset: 1
 
   - ID: SPS_PL2_L2E
     what: L2 cache Enable.
-    location: [ SPS_PL2, 17 ]
+    location: [ SRS, 17 ]
+    register: SPS_PL2
     owners: [ PSO_L2E ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2879,7 +3137,8 @@ RegField:
 
   - ID: SPS_PL2_SME
     what: Step Mode Enabled
-    location: [ SPS_PL2, 18 ]
+    location: [ SRS, 18 ]
+    register: SPS_PL2
     owners: [ PSO_SME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2887,7 +3146,8 @@ RegField:
 
   - ID: SPS_PL2_SMR
     what: Step Mode Ready
-    location: [ SPS_PL2, 19 ]
+    location: [ SRS, 19 ]
+    register: SPS_PL2
     owners: [ PSO_SMR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2895,7 +3155,8 @@ RegField:
 
   - ID: SPS_PL2_PMJ
     what: Page Mask in JTLB.
-    location: [ SPS_PL2, 20..23 ]
+    location: [ SRS, 20..23 ]
+    register: SPS_PL2
     owners: [ PSO_PMJ0, PSO_PMJ1, PSO_PMJ2, PSO_PMJ3 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2905,7 +3166,8 @@ RegField:
 
   - ID: SPS_PL2_MMUP
     what: Privileged on MMU.
-    location: [ SPS_PL2, 24 ]
+    location: [ SRS, 24 ]
+    register: SPS_PL2
     owners: [ PSO_MMUP ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2913,7 +3175,8 @@ RegField:
 
   - ID: SPS_PL2_RV
     what: RiscV mode.
-    location: [ SPS_PL2, 25 ]
+    location: [ SRS, 25 ]
+    register: SPS_PL2
     owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2923,7 +3186,8 @@ RegField:
 
   - ID: SPS_PL3_PL
     what: Current Privilege Level
-    location: [ SPS_PL3, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: SPS_PL3
     owners: [ PSO_PL0, PSO_PL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2931,7 +3195,8 @@ RegField:
 
   - ID: SPS_PL3_ET
     what: Exception Taken
-    location: [ SPS_PL3, 2 ]
+    location: [ SRS, 2 ]
+    register: SPS_PL3
     owners: [ PSO_ET ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2939,7 +3204,8 @@ RegField:
 
   - ID: SPS_PL3_HTD
     what: Hardware Trap Disable
-    location: [ SPS_PL3, 3 ]
+    location: [ SRS, 3 ]
+    register: SPS_PL3
     owners: [ PSO_HTD ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2947,7 +3213,8 @@ RegField:
 
   - ID: SPS_PL3_IE
     what: Interrupt Enable
-    location: [ SPS_PL3, 4 ]
+    location: [ SRS, 4 ]
+    register: SPS_PL3
     owners: [ PSO_IE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2955,7 +3222,8 @@ RegField:
 
   - ID: SPS_PL3_HLE
     what: Hardware Loop Enable
-    location: [ SPS_PL3, 5 ]
+    location: [ SRS, 5 ]
+    register: SPS_PL3
     owners: [ PSO_HLE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2963,7 +3231,8 @@ RegField:
 
   - ID: SPS_PL3_SRE
     what:  Software REserved
-    location: [ SPS_PL3, 6 ]
+    location: [ SRS, 6 ]
+    register: SPS_PL3
     owners: [ PSO_SRE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2971,7 +3240,8 @@ RegField:
 
   - ID: SPS_PL3_DAUS
     what:  Data Accesses Use SPS settings
-    location: [ SPS_PL3, 7 ]
+    location: [ SRS, 7 ]
+    register: SPS_PL3
     owners: [ PSO_DAUS ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2979,7 +3249,8 @@ RegField:
 
   - ID: SPS_PL3_ICE
     what: Instruction Cache Enable
-    location: [ SPS_PL3, 8 ]
+    location: [ SRS, 8 ]
+    register: SPS_PL3
     owners: [ PSO_ICE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2987,7 +3258,8 @@ RegField:
 
   - ID: SPS_PL3_USE
     what: Uncached Streaming Enable
-    location: [ SPS_PL3, 9 ]
+    location: [ SRS, 9 ]
+    register: SPS_PL3
     owners: [ PSO_USE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2995,7 +3267,8 @@ RegField:
 
   - ID: SPS_PL3_DCE
     what: Data Cache Enable
-    location: [ SPS_PL3, 10 ]
+    location: [ SRS, 10 ]
+    register: SPS_PL3
     owners: [ PSO_DCE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3003,7 +3276,8 @@ RegField:
 
   - ID: SPS_PL3_MME
     what: Memory Management Enable
-    location: [ SPS_PL3, 11 ]
+    location: [ SRS, 11 ]
+    register: SPS_PL3
     owners: [ PSO_MME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3011,7 +3285,8 @@ RegField:
 
   - ID: SPS_PL3_IL
     what: Interrupt Level
-    location: [ SPS_PL3, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: SPS_PL3
     owners: [ PSO_IL0, PSO_IL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3019,7 +3294,8 @@ RegField:
 
   - ID: SPS_PL3_VS
     what: Virtual Space
-    location: [ SPS_PL3, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: SPS_PL3
     owners: [ PSO_VS0, PSO_VS1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3027,12 +3303,14 @@ RegField:
 
   - ID: SPS_PL3_V64
     what: Reserved. Harcoded to 1. Writes ignored.
-    location: [ SPS_PL3, 16 ]
+    location: [ SRS, 16 ]
+    register: SPS_PL3
     reset: 1
 
   - ID: SPS_PL3_L2E
     what: L2 cache Enable.
-    location: [ SPS_PL3, 17 ]
+    location: [ SRS, 17 ]
+    register: SPS_PL3
     owners: [ PSO_L2E ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3040,7 +3318,8 @@ RegField:
 
   - ID: SPS_PL3_SME
     what: Step Mode Enabled
-    location: [ SPS_PL3, 18 ]
+    location: [ SRS, 18 ]
+    register: SPS_PL3
     owners: [ PSO_SME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3048,7 +3327,8 @@ RegField:
 
   - ID: SPS_PL3_SMR
     what: Step Mode Ready
-    location: [ SPS_PL3, 19 ]
+    location: [ SRS, 19 ]
+    register: SPS_PL3
     owners: [ PSO_SMR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3056,7 +3336,8 @@ RegField:
 
   - ID: SPS_PL3_PMJ
     what: Page Mask in JTLB.
-    location: [ SPS_PL3, 20..23 ]
+    location: [ SRS, 20..23 ]
+    register: SPS_PL3
     owners: [ PSO_PMJ0, PSO_PMJ1, PSO_PMJ2, PSO_PMJ3 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3066,7 +3347,8 @@ RegField:
 
   - ID: SPS_PL3_MMUP
     what: Privileged on MMU.
-    location: [ SPS_PL3, 24 ]
+    location: [ SRS, 24 ]
+    register: SPS_PL3
     owners: [ PSO_MMUP ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3074,7 +3356,8 @@ RegField:
 
   - ID: SPS_PL3_RV
     what: RiscV mode.
-    location: [ SPS_PL3, 25 ]
+    location: [ SRS, 25 ]
+    register: SPS_PL3
     owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3084,134 +3367,159 @@ RegField:
 
   - ID: PSO_PL0
     what: Current Privilege Level bit 0 owner
-    location: [ PSO, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_PL1
     what: Current Privilege Level bit 1 owner
-    location: [ PSO, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_ET
     what: Exception Taken owner
-    location: [ PSO, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_HTD
     what: Hardware Trap Disable owner
-    location: [ PSO, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_IE
     what: Interrupt Enable owner
-    location: [ PSO, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_HLE
     what: Hardware Loop Enable owner
-    location: [ PSO, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_SRE
     what: Software REserved owner
-    location: [ PSO, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_DAUS
     what: Data Accesses Use SPS settings owner
-    location: [ PSO, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_ICE
     what: Instruction Cache Enable owner
-    location: [ PSO, 16..17 ]
+    location: [ SRS, 16..17 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_USE
     what: Uncached Streaming Enable owner
-    location: [ PSO, 18..19 ]
+    location: [ SRS, 18..19 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_DCE
     what: Data Cache Enable owner
-    location: [ PSO, 20..21 ]
+    location: [ SRS, 20..21 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_MME
     what: Memory Management Enable owner
-    location: [ PSO, 22..23 ]
+    location: [ SRS, 22..23 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_IL0
     what: Interrupt Level bit 0 owner
-    location: [ PSO, 24..25 ]
+    location: [ SRS, 24..25 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_IL1
     what: Interrupt Level bit 1 owner
-    location: [ PSO, 26..27 ]
+    location: [ SRS, 26..27 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_VS0
     what: Virtual Space bit 0 owner
-    location: [ PSO, 28..29 ]
+    location: [ SRS, 28..29 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_VS1
     what: Virtual Space bit 1 owner
-    location: [ PSO, 30..31 ]
+    location: [ SRS, 30..31 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_L2E
     what: L2 cache Enable owner
-    location: [ PSO, 34..35 ]
+    location: [ SRS, 34..35 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_SME
     what: Step Mode Enabled owner
-    location: [ PSO, 36..37 ]
+    location: [ SRS, 36..37 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_SMR
     what: Step Mode Ready owner
-    location: [ PSO, 38..39 ]
+    location: [ SRS, 38..39 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_PMJ0
     what: Page Mask in JTLB bit 0 owner
-    location: [ PSO, 40..41 ]
+    location: [ SRS, 40..41 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_PMJ1
     what: Page Mask in JTLB bit 1 owner
-    location: [ PSO, 42..43 ]
+    location: [ SRS, 42..43 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_PMJ2
     what: Page Mask in JTLB bit 2 owner
-    location: [ PSO, 44..45 ]
+    location: [ SRS, 44..45 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_PMJ3
     what: Page Mask in JTLB bit 3 owner
-    location: [ PSO, 46..47 ]
+    location: [ SRS, 46..47 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_MMUP
     what: Privileged on MMU owner.
-    location: [ PSO, 48..49 ]
+    location: [ SRS, 48..49 ]
+    register: PSO
     reset: 0
 
   - ID: PSO_RV
     what: RiscV mode owner
-    location: [ PSO, 50..51 ]
+    location: [ SRS, 50..51 ]
+    register: PSO
     reset: 0
 
 ################ PSOW ################
 
   - ID: PSOW_PL0
     what: Current Privilege Level bit 0 owner
-    location: [ PSO, 0..1 ]
+    location: [ SRS, 0..1 ]
     owners: [ PSO_PL0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3220,7 +3528,7 @@ RegField:
 
   - ID: PSOW_PL1
     what: Current Privilege Level bit 1 owner
-    location: [ PSO, 2..3 ]
+    location: [ SRS, 2..3 ]
     owners: [ PSO_PL1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3229,7 +3537,7 @@ RegField:
 
   - ID: PSOW_ET
     what: Exception Taken owner
-    location: [ PSO, 4..5 ]
+    location: [ SRS, 4..5 ]
     owners: [ PSO_ET ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3238,7 +3546,7 @@ RegField:
 
   - ID: PSOW_HTD
     what: Hardware Trap Disable owner
-    location: [ PSO, 6..7 ]
+    location: [ SRS, 6..7 ]
     owners: [ PSO_HTD ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3247,7 +3555,7 @@ RegField:
 
   - ID: PSOW_IE
     what: Interrupt Enable owner
-    location: [ PSO, 8..9 ]
+    location: [ SRS, 8..9 ]
     owners: [ PSO_IE ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3256,7 +3564,7 @@ RegField:
 
   - ID: PSOW_HLE
     what: Hardware Loop Enable owner
-    location: [ PSO, 10..11 ]
+    location: [ SRS, 10..11 ]
     owners: [ PSO_HLE ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3265,7 +3573,7 @@ RegField:
 
   - ID: PSOW_SRE
     what: Software REserved owner
-    location: [ PSO, 12..13 ]
+    location: [ SRS, 12..13 ]
     owners: [ PSO_SRE ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3274,7 +3582,7 @@ RegField:
 
   - ID: PSOW_DAUS
     what: Data Accesses Use SPS settings owner
-    location: [ PSO, 14..15 ]
+    location: [ SRS, 14..15 ]
     owners: [ PSO_DAUS ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3283,7 +3591,7 @@ RegField:
 
   - ID: PSOW_ICE
     what: Instruction Cache Enable owner
-    location: [ PSO, 16..17 ]
+    location: [ SRS, 16..17 ]
     owners: [ PSO_ICE ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3292,7 +3600,7 @@ RegField:
 
   - ID: PSOW_USE
     what: Uncached Streaming Enable owner
-    location: [ PSO, 18..19 ]
+    location: [ SRS, 18..19 ]
     owners: [ PSO_USE ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3301,7 +3609,7 @@ RegField:
 
   - ID: PSOW_DCE
     what: Data Cache Enable owner
-    location: [ PSO, 20..21 ]
+    location: [ SRS, 20..21 ]
     owners: [ PSO_DCE ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3310,7 +3618,7 @@ RegField:
 
   - ID: PSOW_MME
     what: Memory Management Enable owner
-    location: [ PSO, 22..23 ]
+    location: [ SRS, 22..23 ]
     owners: [ PSO_MME ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3319,7 +3627,7 @@ RegField:
 
   - ID: PSOW_IL0
     what: Interrupt Level bit 0 owner
-    location: [ PSO, 24..25 ]
+    location: [ SRS, 24..25 ]
     owners: [ PSO_IL0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3328,7 +3636,7 @@ RegField:
 
   - ID: PSOW_IL1
     what: Interrupt Level bit 1 owner
-    location: [ PSO, 26..27 ]
+    location: [ SRS, 26..27 ]
     owners: [ PSO_IL1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3337,7 +3645,7 @@ RegField:
 
   - ID: PSOW_VS0
     what: Virtual Space bit 0 owner
-    location: [ PSO, 28..29 ]
+    location: [ SRS, 28..29 ]
     owners: [ PSO_VS0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3346,7 +3654,7 @@ RegField:
 
   - ID: PSOW_VS1
     what: Virtual Space bit 1 owner
-    location: [ PSO, 30..31 ]
+    location: [ SRS, 30..31 ]
     owners: [ PSO_VS1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3355,7 +3663,7 @@ RegField:
 
   - ID: PSOW_L2E
     what: L2 cache Enable owner
-    location: [ PSO, 34..35 ]
+    location: [ SRS, 34..35 ]
     owners: [ PSO_L2E ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3364,7 +3672,7 @@ RegField:
 
   - ID: PSOW_SME
     what: Step Mode Enabled owner
-    location: [ PSO, 36..37 ]
+    location: [ SRS, 36..37 ]
     owners: [ PSO_SME ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3373,7 +3681,7 @@ RegField:
 
   - ID: PSOW_SMR
     what: Step Mode Ready owner
-    location: [ PSO, 38..39 ]
+    location: [ SRS, 38..39 ]
     owners: [ PSO_SMR ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3382,7 +3690,7 @@ RegField:
 
   - ID: PSOW_PMJ0
     what: Page Mask in JTLB bit 0 owner
-    location: [ PSO, 40..41 ]
+    location: [ SRS, 40..41 ]
     owners: [ PSO_PMJ0 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3391,7 +3699,7 @@ RegField:
 
   - ID: PSOW_PMJ1
     what: Page Mask in JTLB bit 1 owner
-    location: [ PSO, 42..43 ]
+    location: [ SRS, 42..43 ]
     owners: [ PSO_PMJ1 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3400,7 +3708,7 @@ RegField:
 
   - ID: PSOW_PMJ2
     what: Page Mask in JTLB bit 2 owner
-    location: [ PSO, 44..45 ]
+    location: [ SRS, 44..45 ]
     owners: [ PSO_PMJ2 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3409,7 +3717,7 @@ RegField:
 
   - ID: PSOW_PMJ3
     what: Page Mask in JTLB bit 3 owner
-    location: [ PSO, 46..47 ]
+    location: [ SRS, 46..47 ]
     owners: [ PSO_PMJ3 ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3418,7 +3726,7 @@ RegField:
 
   - ID: PSOW_MMUP
     what: Privileged on MMU owner.
-    location: [ PSO, 48..49 ]
+    location: [ SRS, 48..49 ]
     owners: [ PSO_MMUP ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3427,7 +3735,7 @@ RegField:
 
   - ID: PSOW_RV
     what: RiscV mode owner
-    location: [ PSO, 50..51 ]
+    location: [ SRS, 50..51 ]
     owners: [ PSO_RV ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3526,7 +3834,8 @@ RegField:
 
   - ID: CSIT_ICIE
     what: Integer Carry Interrupt Enable
-    location: [ CSIT, 0 ]
+    location: [ SRS, 0 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3534,7 +3843,8 @@ RegField:
 
   - ID: CSIT_IOIE
     what: IEEE 754 Invalid Operation Interrupt Enable
-    location: [ CSIT, 1 ]
+    location: [ SRS, 1 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3542,7 +3852,8 @@ RegField:
 
   - ID: CSIT_DZIE
     what: IEEE 754 Divide by Zero Interrupt Enable
-    location: [ CSIT, 2 ]
+    location: [ SRS, 2 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3550,7 +3861,8 @@ RegField:
 
   - ID: CSIT_OVIE
     what: IEEE 754 Overflow Interrupt Enable
-    location: [ CSIT, 3 ]
+    location: [ SRS, 3 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3558,7 +3870,8 @@ RegField:
 
   - ID: CSIT_UNIE
     what: IEEE 754 Underflow Interrupt Enable
-    location: [ CSIT, 4 ]
+    location: [ SRS, 4 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3566,7 +3879,8 @@ RegField:
 
   - ID: CSIT_INIE
     what: IEEE 754 Inexact Interrupt Enable
-    location: [ CSIT, 5 ]
+    location: [ SRS, 5 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3574,7 +3888,8 @@ RegField:
 
   - ID: CSIT_XIOIE
     what: Extension IEEE 754 Invalid Operation Interrupt Enable
-    location: [ CSIT, 9 ]
+    location: [ SRS, 9 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3582,7 +3897,8 @@ RegField:
 
   - ID: CSIT_XDZIE
     what: Extension IEEE 754 Divide by Zero Interrupt Enable
-    location: [ CSIT, 10 ]
+    location: [ SRS, 10 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3590,7 +3906,8 @@ RegField:
 
   - ID: CSIT_XOVIE
     what: Extension IEEE 754 Overflow Interrupt Enable
-    location: [ CSIT, 11 ]
+    location: [ SRS, 11 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3598,7 +3915,8 @@ RegField:
 
   - ID: CSIT_XUNIE
     what: Extension IEEE 754 Underflow Interrupt Enable
-    location: [ CSIT, 12 ]
+    location: [ SRS, 12 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3606,7 +3924,8 @@ RegField:
 
   - ID: CSIT_XINIE
     what: Extension IEEE 754 Inexact Interrupt Enable
-    location: [ CSIT, 13 ]
+    location: [ SRS, 13 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3614,7 +3933,8 @@ RegField:
 
   - ID: CSIT_AEIR
     what: Arithmetic Exception Interrupt Raised
-    location: [ CSIT, 16 ]
+    location: [ SRS, 16 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3622,7 +3942,8 @@ RegField:
 
   - ID: CSIT_AEC
     what: Arithmetic Exception Code
-    location: [ CSIT, 17..19 ]
+    location: [ SRS, 17..19 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3630,7 +3951,8 @@ RegField:
 
   - ID: CSIT_SPCV
     what: SPC Valid
-    location: [ CSIT, 20 ]
+    location: [ SRS, 20 ]
+    register: CSIT
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3641,146 +3963,173 @@ RegField:
 ## Those are common to all ECs
   - ID: ES_EC
     what: Exception Class
-    location: [ ES, 0..3 ]
+    location: [ SRS, 0..3 ]
+    register: ES
     reset: 4
 
   - ID: ES_ED
     what: Exception Details
-    location: [ ES, 4..63 ]
+    location: [ SRS, 4..63 ]
+    register: ES
     reset: 0
 
   - ID: ES_OAPL
     what: Origin Absolute PL
-    location: [ ES, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: ES
     reset: 0
 
   - ID: ES_ORPL
     what: Origin Relative PL
-    location: [ ES, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: ES
     reset: 0
 
   - ID: ES_PTAPL
     what: Primary Target Absolute PL
-    location: [ ES, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: ES
     reset: 0
 
   - ID: ES_PTRPL
     what: Primary Target Relative PL
-    location: [ ES, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: ES
     reset: 0
 
 ## Those are particular to each EC
 #### Interrupts
   - ID: ES_ITN
     what: InTerrupt Number
-    location: [ ES, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES
     reset: 0
 
   - ID: ES_ITL
     what: InTerrupt Level
-    location: [ ES, 17..18 ]
+    location: [ SRS, 17..18 ]
+    register: ES
     reset: 0
 
   - ID: ES_ITI
     what: InTerrupt Info
-    location: [ ES, 19..28 ]
+    location: [ SRS, 19..28 ]
+    register: ES
     reset: 0
 
 #### Scalls
   - ID: ES_SN
     what: Syscall Number
-    location: [ ES, 12..23 ]
+    location: [ SRS, 12..23 ]
+    register: ES
     reset: 0
 
 #### HW traps
   - ID: ES_HTC
     what: Hardware Trap Cause
-    location: [ ES, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES
     reset: 0
 
   - ID: ES_SFRT
     what: SFR Trap
-    location: [ ES, 17 ]
+    location: [ SRS, 17 ]
+    register: ES
     reset: 0
     description: >
       Trap caused by a SFR access
 
   - ID: ES_SFRI
     what: SFR Instruction
-    location: [ ES, 18..20 ]
+    location: [ SRS, 18..20 ]
+    register: ES
     reset: 0
     description: >
       Encoding of the SFR access instruction
 
   - ID: ES_GPRP
     what: GPR Pointer
-    location: [ ES, 21..26 ]
+    location: [ SRS, 21..26 ]
+    register: ES
     reset: 0
 
   - ID: ES_SFRP
     what: SFR Pointer
-    location: [ ES, 27..35 ]
+    location: [ SRS, 27..35 ]
+    register: ES
     reset: 0
 
   - ID: ES_DHT
     what: Disabled Hardware Trap
-    location: [ ES, 36 ]
+    location: [ SRS, 36 ]
+    register: ES
     reset: 0
 
   - ID: ES_DRX
     what: Data Register eXtension
-    location: [ ES, 37 ]
+    location: [ SRS, 37 ]
+    register: ES
     reset: 0
 
   - ID: ES_DAF
     what: Data Access Format
-    location: [ ES, 38 ]
+    location: [ SRS, 38 ]
+    register: ES
     reset: 0
 
   - ID: ES_RWX
     what: Read Write Execute
-    location: [ ES, 39..41 ]
+    location: [ SRS, 39..41 ]
+    register: ES
     reset: 0
 
   - ID: ES_NTA
     what: Non-Trapping Access
-    location: [ ES, 42 ]
+    location: [ SRS, 42 ]
+    register: ES
     reset: 0
 
   - ID: ES_UCA
     what: Un-Cached Access
-    location: [ ES, 43 ]
+    location: [ SRS, 43 ]
+    register: ES
     reset: 0
 
   - ID: ES_AS
     what: Access Size
-    location: [ ES, 44..49 ]
+    location: [ SRS, 44..49 ]
+    register: ES
     reset: 0
 
   - ID: ES_BS
     what: Bundle Size
-    location: [ ES, 50..53 ]
+    location: [ SRS, 50..53 ]
+    register: ES
     reset: 0
 
   - ID: ES_DRI
     what: Data Register Index
-    location: [ ES, 54..59 ]
+    location: [ SRS, 54..59 ]
+    register: ES
     reset: 0
 
   - ID: ES_PIC
     what: Privileged Instruction Code
-    location: [ ES, 60..63 ]
+    location: [ SRS, 60..63 ]
+    register: ES
     reset: 0
 
 #### debug exceptions
   - ID: ES_DCV2
     what: Debug Cause
-    location: [ ES, 12..14 ]
+    location: [ SRS, 12..14 ]
+    register: ES
     reset: 0
 
   - ID: ES_WBN
     what: Watchpoint/Breakpoint Number
-    location: [ ES, 15..16 ]
+    location: [ SRS, 15..16 ]
+    register: ES
     reset: 0
 
 ## common with hwtraps => described only once
@@ -3846,146 +4195,173 @@ RegField:
 ## Those are common to all ECs
   - ID: ES_PL0_EC
     what: Exception Class
-    location: [ ES_PL0, 0..3 ]
+    location: [ SRS, 0..3 ]
+    register: ES_PL0
     reset: 4
 
   - ID: ES_PL0_ED
     what: Exception Details
-    location: [ ES_PL0, 4..63 ]
+    location: [ SRS, 4..63 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_OAPL
     what: Origin Absolute PL
-    location: [ ES_PL0, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_ORPL
     what: Origin Relative PL
-    location: [ ES_PL0, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_PTAPL
     what: Target Absolute PL
-    location: [ ES_PL0, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_PTRPL
     what: Target Relative PL
-    location: [ ES_PL0, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: ES_PL0
     reset: 0
 
 ## Those are particular to each EC
 #### Interrupts
   - ID: ES_PL0_ITN
     what: InTerrupt Number
-    location: [ ES_PL0, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_ITL
     what: InTerrupt Level
-    location: [ ES_PL0, 17..18 ]
+    location: [ SRS, 17..18 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_ITI
     what: InTerrupt Info
-    location: [ ES_PL0, 19..28 ]
+    location: [ SRS, 19..28 ]
+    register: ES_PL0
     reset: 0
 
 #### Scalls
   - ID: ES_PL0_SN
     what: Syscall Number
-    location: [ ES_PL0, 12..23 ]
+    location: [ SRS, 12..23 ]
+    register: ES_PL0
     reset: 0
 
 #### HW traps
   - ID: ES_PL0_HTC
     what: Hardware Trap Cause
-    location: [ ES_PL0, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_SFRT
     what: SFR Trap
-    location: [ ES_PL0, 17 ]
+    location: [ SRS, 17 ]
+    register: ES_PL0
     reset: 0
     description: >
       Trap caused by a SFR access
 
   - ID: ES_PL0_SFRI
     what: SFR Instruction
-    location: [ ES_PL0, 18..20 ]
+    location: [ SRS, 18..20 ]
+    register: ES_PL0
     reset: 0
     description: >
       Encoding of the SFR access instruction
 
   - ID: ES_PL0_GPRP
     what: GPR Pointer
-    location: [ ES_PL0, 21..26 ]
+    location: [ SRS, 21..26 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_SFRP
     what: SFR Pointer
-    location: [ ES_PL0, 27..35 ]
+    location: [ SRS, 27..35 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_DHT
     what: Disabled Hardware Trap
-    location: [ ES_PL0, 36 ]
+    location: [ SRS, 36 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_DRX
     what: Data Register from eXtension
-    location: [ ES_PL0, 37 ]
+    location: [ SRS, 37 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_DAF
     what: Data Access Format
-    location: [ ES_PL0, 38 ]
+    location: [ SRS, 38 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_RWX
     what: Read Write Execute
-    location: [ ES_PL0, 39..41 ]
+    location: [ SRS, 39..41 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_NTA
     what: Non-Trapping Access
-    location: [ ES_PL0, 42 ]
+    location: [ SRS, 42 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_UCA
     what: Un-Cached Access
-    location: [ ES_PL0, 43 ]
+    location: [ SRS, 43 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_AS
     what: Access Size
-    location: [ ES_PL0, 44..49 ]
+    location: [ SRS, 44..49 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_BS
     what: Bundle Size
-    location: [ ES_PL0, 50..53 ]
+    location: [ SRS, 50..53 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_DRI
     what: Data Register Index
-    location: [ ES_PL0, 54..59 ]
+    location: [ SRS, 54..59 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_PIC
     what: Privileged Instruction Code
-    location: [ ES_PL0, 60..63 ]
+    location: [ SRS, 60..63 ]
+    register: ES_PL0
     reset: 0
 
 #### debug exceptions
   - ID: ES_PL0_DCV2
     what: Debug Cause
-    location: [ ES_PL0, 12..14 ]
+    location: [ SRS, 12..14 ]
+    register: ES_PL0
     reset: 0
 
   - ID: ES_PL0_WBN
     what: Watchpoint/Breakpoint Number
-    location: [ ES_PL0, 15..16 ]
+    location: [ SRS, 15..16 ]
+    register: ES_PL0
     reset: 0
 
 ################ ES_PL1 ################
@@ -3993,146 +4369,173 @@ RegField:
 ## Those are common to all ECs
   - ID: ES_PL1_EC
     what: Exception Class
-    location: [ ES_PL1, 0..3 ]
+    location: [ SRS, 0..3 ]
+    register: ES_PL1
     reset: 4
 
   - ID: ES_PL1_ED
     what: Exception Details
-    location: [ ES_PL1, 4..63 ]
+    location: [ SRS, 4..63 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_OAPL
     what: Origin Absolute PL
-    location: [ ES_PL1, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_ORPL
     what: Origin Relative PL
-    location: [ ES_PL1, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_PTAPL
     what: Target Absolute PL
-    location: [ ES_PL1, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_PTRPL
     what: Target Relative PL
-    location: [ ES_PL1, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: ES_PL1
     reset: 0
 
 ## Those are particular to each EC
 #### Interrupts
   - ID: ES_PL1_ITN
     what: InTerrupt Number
-    location: [ ES_PL1, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_ITL
     what: InTerrupt Level
-    location: [ ES_PL1, 17..18 ]
+    location: [ SRS, 17..18 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_ITI
     what: InTerrupt Info
-    location: [ ES_PL1, 19..28 ]
+    location: [ SRS, 19..28 ]
+    register: ES_PL1
     reset: 0
 
 #### Scalls
   - ID: ES_PL1_SN
     what: Syscall Number
-    location: [ ES_PL1, 12..23 ]
+    location: [ SRS, 12..23 ]
+    register: ES_PL1
     reset: 0
 
 #### HW traps
   - ID: ES_PL1_HTC
     what: Hardware Trap Cause
-    location: [ ES_PL1, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_SFRT
     what: SFR Trap
-    location: [ ES_PL1, 17 ]
+    location: [ SRS, 17 ]
+    register: ES_PL1
     reset: 0
     description: >
       Trap caused by a SFR access
 
   - ID: ES_PL1_SFRI
     what: SFR Instruction
-    location: [ ES_PL1, 18..20 ]
+    location: [ SRS, 18..20 ]
+    register: ES_PL1
     reset: 0
     description: >
       Encoding of the SFR access instruction
 
   - ID: ES_PL1_GPRP
     what: GPR Pointer
-    location: [ ES_PL1, 21..26 ]
+    location: [ SRS, 21..26 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_SFRP
     what: SFR Pointer
-    location: [ ES_PL1, 27..35 ]
+    location: [ SRS, 27..35 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_DHT
     what: Disabled Hardware Trap
-    location: [ ES_PL1, 36 ]
+    location: [ SRS, 36 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_DRX
     what: Data Register from eXtension
-    location: [ ES_PL1, 37 ]
+    location: [ SRS, 37 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_DAF
     what: Data  Access Format
-    location: [ ES_PL1, 38 ]
+    location: [ SRS, 38 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_RWX
     what: Read Write Execute
-    location: [ ES_PL1, 39..41 ]
+    location: [ SRS, 39..41 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_NTA
     what: Non-Trapping Access
-    location: [ ES_PL1, 42 ]
+    location: [ SRS, 42 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_UCA
     what: Un-Cached Access
-    location: [ ES_PL1, 43 ]
+    location: [ SRS, 43 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_AS
     what: Access Size
-    location: [ ES_PL1, 44..49 ]
+    location: [ SRS, 44..49 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_BS
     what: Bundle Size
-    location: [ ES_PL1, 50..53 ]
+    location: [ SRS, 50..53 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_DRI
     what: Data Register Index
-    location: [ ES_PL1, 54..59 ]
+    location: [ SRS, 54..59 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_PIC
     what: Privileged Instruction Code
-    location: [ ES_PL1, 60..63 ]
+    location: [ SRS, 60..63 ]
+    register: ES_PL1
     reset: 0
 
 #### debug exceptions
   - ID: ES_PL1_DCV2
     what: Debug Cause
-    location: [ ES_PL1, 12..14 ]
+    location: [ SRS, 12..14 ]
+    register: ES_PL1
     reset: 0
 
   - ID: ES_PL1_WBN
     what: Watchpoint/Breakpoint Number
-    location: [ ES_PL1, 15..16 ]
+    location: [ SRS, 15..16 ]
+    register: ES_PL1
     reset: 0
 
 ################ ES_PL2 ################
@@ -4140,146 +4543,173 @@ RegField:
 ## Those are common to all ECs
   - ID: ES_PL2_EC
     what: Exception Class
-    location: [ ES_PL2, 0..3 ]
+    location: [ SRS, 0..3 ]
+    register: ES_PL2
     reset: 4
 
   - ID: ES_PL2_ED
     what: Exception Details
-    location: [ ES_PL2, 4..63 ]
+    location: [ SRS, 4..63 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_OAPL
     what: Origin Absolute PL
-    location: [ ES_PL2, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_ORPL
     what: Origin Relative PL
-    location: [ ES_PL2, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_PTAPL
     what: Target Absolute PL
-    location: [ ES_PL2, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_PTRPL
     what: Target Relative PL
-    location: [ ES_PL2, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: ES_PL2
     reset: 0
 
 ## Those are particular to each EC
 #### Interrupts
   - ID: ES_PL2_ITN
     what: InTerrupt Number
-    location: [ ES_PL2, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_ITL
     what: InTerrupt Level
-    location: [ ES_PL2, 17..18 ]
+    location: [ SRS, 17..18 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_ITI
     what: InTerrupt Info
-    location: [ ES_PL2, 19..28 ]
+    location: [ SRS, 19..28 ]
+    register: ES_PL2
     reset: 0
 
 #### Scalls
   - ID: ES_PL2_SN
     what: Syscall Number
-    location: [ ES_PL2, 12..23 ]
+    location: [ SRS, 12..23 ]
+    register: ES_PL2
     reset: 0
 
 #### HW traps
   - ID: ES_PL2_HTC
     what: Hardware Trap Cause
-    location: [ ES_PL2, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_SFRT
     what: SFR Trap
-    location: [ ES_PL2, 17 ]
+    location: [ SRS, 17 ]
+    register: ES_PL2
     reset: 0
     description: >
       Trap caused by a SFR access
 
   - ID: ES_PL2_SFRI
     what: SFR Instruction
-    location: [ ES_PL2, 18..20 ]
+    location: [ SRS, 18..20 ]
+    register: ES_PL2
     reset: 0
     description: >
       Encoding of the SFR access instruction
 
   - ID: ES_PL2_GPRP
     what: GPR Pointer
-    location: [ ES_PL2, 21..26 ]
+    location: [ SRS, 21..26 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_SFRP
     what: SFR Pointer
-    location: [ ES_PL2, 27..35 ]
+    location: [ SRS, 27..35 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_DHT
     what: Disabled Hardware Trap
-    location: [ ES_PL2, 36 ]
+    location: [ SRS, 36 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_DRX
     what: Data Register from eXtension
-    location: [ ES_PL2, 37 ]
+    location: [ SRS, 37 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_DAF
     what: Data Access Format
-    location: [ ES_PL2, 38 ]
+    location: [ SRS, 38 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_RWX
     what: Read Write Execute
-    location: [ ES_PL2, 39..41 ]
+    location: [ SRS, 39..41 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_NTA
     what: Non-Trapping Access
-    location: [ ES_PL2, 42 ]
+    location: [ SRS, 42 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_UCA
     what: Un-Cached Access
-    location: [ ES_PL2, 43 ]
+    location: [ SRS, 43 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_AS
     what: Access Size
-    location: [ ES_PL2, 44..49 ]
+    location: [ SRS, 44..49 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_BS
     what: Bundle Size
-    location: [ ES_PL2, 50..53 ]
+    location: [ SRS, 50..53 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_DRI
     what: Data Register Index
-    location: [ ES_PL2, 54..59 ]
+    location: [ SRS, 54..59 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_PIC
     what: Privileged Instruction Code
-    location: [ ES_PL2, 60..63 ]
+    location: [ SRS, 60..63 ]
+    register: ES_PL2
     reset: 0
 
 #### debug exceptions
   - ID: ES_PL2_DCV2
     what: Debug Cause
-    location: [ ES_PL2, 12..14 ]
+    location: [ SRS, 12..14 ]
+    register: ES_PL2
     reset: 0
 
   - ID: ES_PL2_WBN
     what: Watchpoint/Breakpoint Number
-    location: [ ES_PL2, 15..16 ]
+    location: [ SRS, 15..16 ]
+    register: ES_PL2
     reset: 0
 
 ################ ES_PL3 ################
@@ -4287,153 +4717,180 @@ RegField:
 ## Those are common to all ECs
   - ID: ES_PL3_EC
     what: Exception Class
-    location: [ ES_PL3, 0..3 ]
+    location: [ SRS, 0..3 ]
+    register: ES_PL3
     reset: 4
 
   - ID: ES_PL3_ED
     what: Exception Details
-    location: [ ES_PL3, 4..63 ]
+    location: [ SRS, 4..63 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_OAPL
     what: Origin Absolute PL
-    location: [ ES_PL3, 4..5 ]
+    location: [ SRS, 4..5 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_ORPL
     what: Origin Relative PL
-    location: [ ES_PL3, 6..7 ]
+    location: [ SRS, 6..7 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_PTAPL
     what: Target Absolute PL
-    location: [ ES_PL3, 8..9 ]
+    location: [ SRS, 8..9 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_PTRPL
     what: Target Relative PL
-    location: [ ES_PL3, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: ES_PL3
     reset: 0
 
 ## Those are particular to each EC
 #### Interrupts
   - ID: ES_PL3_ITN
     what: InTerrupt Number
-    location: [ ES_PL3, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_ITL
     what: InTerrupt Level
-    location: [ ES_PL3, 17..18 ]
+    location: [ SRS, 17..18 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_ITI
     what: InTerrupt Info
-    location: [ ES_PL3, 19..28 ]
+    location: [ SRS, 19..28 ]
+    register: ES_PL3
     reset: 0
 
 #### Scalls
   - ID: ES_PL3_SN
     what: Syscall Number
-    location: [ ES_PL3, 12..23 ]
+    location: [ SRS, 12..23 ]
+    register: ES_PL3
     reset: 0
 
 #### HW traps
   - ID: ES_PL3_HTC
     what: Hardware Trap Cause
-    location: [ ES_PL3, 12..16 ]
+    location: [ SRS, 12..16 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_SFRT
     what: SFR Trap
-    location: [ ES_PL3, 17 ]
+    location: [ SRS, 17 ]
+    register: ES_PL3
     reset: 0
     description: >
       Trap caused by a SFR access
 
   - ID: ES_PL3_SFRI
     what: SFR Instruction
-    location: [ ES_PL3, 18..20 ]
+    location: [ SRS, 18..20 ]
+    register: ES_PL3
     reset: 0
     description: >
       Encoding of the SFR access instruction
 
   - ID: ES_PL3_GPRP
     what: GPR Pointer
-    location: [ ES_PL3, 21..26 ]
+    location: [ SRS, 21..26 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_SFRP
     what: SFR Pointer
-    location: [ ES_PL3, 27..35 ]
+    location: [ SRS, 27..35 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_DHT
     what: Disabled Hardware Trap
-    location: [ ES_PL3, 36 ]
+    location: [ SRS, 36 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_DRX
     what: Data Register from eXtension
-    location: [ ES_PL3, 37 ]
+    location: [ SRS, 37 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_DAF
     what: Data Access Format
-    location: [ ES_PL3, 38 ]
+    location: [ SRS, 38 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_RWX
     what: Read Write Execute
-    location: [ ES_PL3, 39..41 ]
+    location: [ SRS, 39..41 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_NTA
     what: Non-Trapping Access
-    location: [ ES_PL3, 42 ]
+    location: [ SRS, 42 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_UCA
     what: Un-Cached Access
-    location: [ ES_PL3, 43 ]
+    location: [ SRS, 43 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_AS
     what: Access Size
-    location: [ ES_PL3, 44..49 ]
+    location: [ SRS, 44..49 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_BS
     what: Bundle Size
-    location: [ ES_PL3, 50..53 ]
+    location: [ SRS, 50..53 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_DRI
     what: Data Register Index
-    location: [ ES_PL3, 54..59 ]
+    location: [ SRS, 54..59 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_PIC
     what: Privileged Instruction Code
-    location: [ ES_PL3, 60..63 ]
+    location: [ SRS, 60..63 ]
+    register: ES_PL3
     reset: 0
 
 #### debug exceptions
   - ID: ES_PL3_DCV2
     what: Debug Cause
-    location: [ ES_PL3, 12..14 ]
+    location: [ SRS, 12..14 ]
+    register: ES_PL3
     reset: 0
 
   - ID: ES_PL3_WBN
     what: Watchpoint/Breakpoint Number
-    location: [ ES_PL3, 15..16 ]
+    location: [ SRS, 15..16 ]
+    register: ES_PL3
     reset: 0
 
 ################ SID ################
 
   - ID: SID_SID
     what: Stream ID
-    location: [ SID, 0..8 ]
+    location: [ SRS, 0..8 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: SID
@@ -4444,7 +4901,7 @@ RegField:
 
   - ID: SID_PL0_SID
     what: Stream ID
-    location: [ SID_PL0, 0..8 ]
+    location: [ SRS, 0..8 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: SID_PL0
@@ -4455,7 +4912,7 @@ RegField:
 
   - ID: SID_PL1_SID
     what: Stream ID
-    location: [ SID_PL1, 0..8 ]
+    location: [ SRS, 0..8 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: SID_PL1
@@ -4466,7 +4923,7 @@ RegField:
 
   - ID: SID_PL2_SID
     what: Stream ID
-    location: [ SID_PL2, 0..8 ]
+    location: [ SRS, 0..8 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: SID_PL2
@@ -4477,7 +4934,7 @@ RegField:
 
   - ID: SID_PL3_SID
     what: Stream ID
-    location: [ SID_PL3, 0..8 ]
+    location: [ SRS, 0..8 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: SID_PL3
@@ -4488,7 +4945,8 @@ RegField:
 
   - ID: TCR_T0CE
     what: Timer 0 Count Enable
-    location: [ TCR, 16 ]
+    location: [ SRS, 16 ]
+    register: TCR
     owners: [ MO_T0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4498,7 +4956,8 @@ RegField:
 
   - ID: TCR_T1CE
     what: Timer 1 Count Enable
-    location: [ TCR, 17 ]
+    location: [ SRS, 17 ]
+    register: TCR
     owners: [ MO_T1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4508,7 +4967,8 @@ RegField:
 
   - ID: TCR_T0IE
     what: Timer 0 Interrupt Enable
-    location: [ TCR, 18 ]
+    location: [ SRS, 18 ]
+    register: TCR
     owners: [ MO_T0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4518,7 +4978,8 @@ RegField:
 
   - ID: TCR_T1IE
     what: Timer 1 Interrupt Enable
-    location: [ TCR, 19 ]
+    location: [ SRS, 19 ]
+    register: TCR
     owners: [ MO_T1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4528,7 +4989,8 @@ RegField:
 
   - ID: TCR_T0ST
     what: Timer 0 Status
-    location: [ TCR, 20 ]
+    location: [ SRS, 20 ]
+    register: TCR
     owners: [ MO_T0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4538,7 +5000,8 @@ RegField:
 
   - ID: TCR_T1ST
     what: Timer 1 Status
-    location: [ TCR, 21 ]
+    location: [ SRS, 21 ]
+    register: TCR
     owners: [ MO_T1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4548,7 +5011,8 @@ RegField:
 
   - ID: TCR_T0SI
     what: Stop Timer 0 in Idle
-    location: [ TCR, 22 ]
+    location: [ SRS, 22 ]
+    register: TCR
     owners: [ MO_T0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4558,7 +5022,8 @@ RegField:
 
   - ID: TCR_T1SI
     what: Stop Timer 1 in Idle
-    location: [ TCR, 23 ]
+    location: [ SRS, 23 ]
+    register: TCR
     owners: [ MO_T1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4568,7 +5033,8 @@ RegField:
 
   - ID: TCR_WCE
     what: Watchdog Counting Enable
-    location: [ TCR, 24 ]
+    location: [ SRS, 24 ]
+    register: TCR
     owners: [ MO_WD ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4578,7 +5044,8 @@ RegField:
 
   - ID: TCR_WIE
     what: Watchdog Interrupt Enable
-    location: [ TCR, 25 ]
+    location: [ SRS, 25 ]
+    register: TCR
     owners: [ MO_WD ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4588,7 +5055,8 @@ RegField:
 
   - ID: TCR_WUI
     what: Watchdog Underflow Inform
-    location: [ TCR, 26 ]
+    location: [ SRS, 26 ]
+    register: TCR
     owners: [ MO_WD ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4598,7 +5066,8 @@ RegField:
 
   - ID: TCR_WUS
     what: Watchdog Underflow Status
-    location: [ TCR, 27 ]
+    location: [ SRS, 27 ]
+    register: TCR
     owners: [ MO_WD ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4608,7 +5077,8 @@ RegField:
 
   - ID: TCR_WSI
     what: Watchdog Stop in Idle
-    location: [ TCR, 28 ]
+    location: [ SRS, 28 ]
+    register: TCR
     owners: [ MO_WD ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4722,7 +5192,8 @@ RegField:
 ################ RVC ################
   - ID: RVC_ECRID
     what: The GPR register to be used by the RISC-V ecall for LVX scall
-    location: [ RVC, 0..4 ]
+    location: [ SRS, 0..4 ]
+    register: DC
     owners: [ MO_RVC ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4810,7 +5281,8 @@ RegField:
 
   - ID: PMC_PM0C
     what: PM0 Configuration
-    location: [ PMC, 0..5 ]
+    location: [ SRS, 0..5 ]
+    register: PMC
     owners: [ MO_PM0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4820,7 +5292,8 @@ RegField:
 
   - ID: PMC_PM1C
     what: PM1 Configuration
-    location: [ PMC, 7..12 ]
+    location: [ SRS, 7..12 ]
+    register: PMC
     owners: [ MO_PM1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4830,7 +5303,8 @@ RegField:
 
   - ID: PMC_PM2C
     what: PM2 Configuration
-    location: [ PMC, 14..19 ]
+    location: [ SRS, 14..19 ]
+    register: PMC
     owners: [ MO_PM2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4840,7 +5314,8 @@ RegField:
 
   - ID: PMC_PM3C
     what: PM3 Configuration
-    location: [ PMC, 21..26 ]
+    location: [ SRS, 21..26 ]
+    register: PMC
     owners: [ MO_PM3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4850,7 +5325,8 @@ RegField:
 
   - ID: PMC_SAV
     what: Saved Address Valid
-    location: [ PMC, 30 ]
+    location: [ SRS, 30 ]
+    register: PMC
     owners: [ MO_PMIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4860,7 +5336,8 @@ RegField:
 
   - ID: PMC_PM0IE
     what: PM0 Interrupt Enable
-    location: [ PMC, 32 ]
+    location: [ SRS, 32 ]
+    register: PMC
     owners: [ MO_PMIT MO_PM0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4870,7 +5347,8 @@ RegField:
 
   - ID: PMC_PM1IE
     what: PM1 Interrupt Enable
-    location: [ PMC, 33 ]
+    location: [ SRS, 33 ]
+    register: PMC
     owners: [ MO_PMIT MO_PM1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4880,7 +5358,8 @@ RegField:
 
   - ID: PMC_PM2IE
     what: PM2 Interrupt Enable
-    location: [ PMC, 34 ]
+    location: [ SRS, 34 ]
+    register: PMC
     owners: [ MO_PMIT MO_PM2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4890,7 +5369,8 @@ RegField:
 
   - ID: PMC_PM3IE
     what: PM3 Interrupt Enable
-    location: [ PMC, 35 ]
+    location: [ SRS, 35 ]
+    register: PMC
     owners: [ MO_PMIT MO_PM3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4900,7 +5380,8 @@ RegField:
 
   - ID: PMC_SAT
     what: Saved Address Type
-    location: [ PMC, 36..37 ]
+    location: [ SRS, 36..37 ]
+    register: PMC
     owners: [ MO_PMIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4910,7 +5391,8 @@ RegField:
 
   - ID: PMC_SAF
     what: Saved Address From
-    location: [ PMC, 38..40 ]
+    location: [ SRS, 38..40 ]
+    register: PMC
     owners: [ MO_PMIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4923,7 +5405,8 @@ RegField:
 
   - ID: PMC2_PM4C
     what: PM4 Configuration
-    location: [ PMC_2, 0..5 ]
+    location: [ SRS, 0..5 ]
+    register: PMC2
     owners: [ MO_PM4 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4933,7 +5416,8 @@ RegField:
 
   - ID: PMC2_PM5C
     what: PM5 Configuration
-    location: [ PMC_2, 7..12 ]
+    location: [ SRS, 7..12 ]
+    register: PMC2
     owners: [ MO_PM5 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4943,7 +5427,8 @@ RegField:
 
   - ID: PMC2_PM6C
     what: PM6 Configuration
-    location: [ PMC_2, 14..19 ]
+    location: [ SRS, 14..19 ]
+    register: PMC2
     owners: [ MO_PM6 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4953,7 +5438,8 @@ RegField:
 
   - ID: PMC2_PM7C
     what: PM7 Configuration
-    location: [ PMC_2, 21..26 ]
+    location: [ SRS, 21..26 ]
+    register: PMC2
     owners: [ MO_PM7 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4963,7 +5449,8 @@ RegField:
 
   - ID: PMC2_PM4IE
     what: PM4 Interrupt Enable
-    location: [ PMC_2, 32 ]
+    location: [ SRS, 32 ]
+    register: PMC2
     owners: [ MO_PMIT MO_PM4 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4973,7 +5460,8 @@ RegField:
 
   - ID: PMC2_PM5IE
     what: PM5 Interrupt Enable
-    location: [ PMC_2, 33 ]
+    location: [ SRS, 33 ]
+    register: PMC2
     owners: [ MO_PMIT MO_PM5 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4983,7 +5471,8 @@ RegField:
 
   - ID: PMC2_PM6IE
     what: PM6 Interrupt Enable
-    location: [ PMC_2, 34 ]
+    location: [ SRS, 34 ]
+    register: PMC2
     owners: [ MO_PMIT MO_PM6 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4993,7 +5482,8 @@ RegField:
 
   - ID: PMC2_PM7IE
     what: PM7 Interrupt Enable
-    location: [ PMC_2, 35 ]
+    location: [ SRS, 35 ]
+    register: PMC2
     owners: [ MO_PMIT MO_PM7 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5005,7 +5495,8 @@ RegField:
 
   - ID: PCR_PID
     what: Processing Identifier in cluster
-    location: [ PCR, 0..7 ]
+    location: [ SRS, 0..7 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5015,7 +5506,8 @@ RegField:
 
   - ID: PCR_CID
     what: Cluster Identifier in system
-    location: [ PCR, 8..15 ]
+    location: [ SRS, 8..15 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5025,7 +5517,8 @@ RegField:
 
   - ID: PCR_MID
     what: MPPA Identifier
-    location: [ PCR, 16..23 ]
+    location: [ SRS, 16..23 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5035,7 +5528,8 @@ RegField:
 
   - ID: PCR_CAR
     what: Core Architecture Revision ID
-    location: [ PCR, 24..27 ]
+    location: [ SRS, 24..27 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5045,7 +5539,8 @@ RegField:
 
   - ID: PCR_CMA
     what: Core Micro-Architecture Revision ID
-    location: [ PCR, 28..31 ]
+    location: [ SRS, 28..31 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5055,7 +5550,8 @@ RegField:
 
   - ID: PCR_SV
     what: System-On-Chip Version
-    location: [ PCR, 32..39 ]
+    location: [ SRS, 32..39 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5065,7 +5561,8 @@ RegField:
 
   - ID: PCR_ST
     what: System-On-Chip Type
-    location: [ PCR, 40..43 ]
+    location: [ SRS, 40..43 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5075,7 +5572,8 @@ RegField:
 
   - ID: PCR_BM
     what: Boot Mode
-    location: [ PCR, 44..51 ]
+    location: [ SRS, 44..51 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5085,7 +5583,8 @@ RegField:
 
   - ID: PCR_COE
     what: COprocessor Enable
-    location: [ PCR, 52 ]
+    location: [ SRS, 52 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5095,7 +5594,8 @@ RegField:
 
   - ID: PCR_L1CE
     what: L1 cache Coherency Enable
-    location: [ PCR, 53 ]
+    location: [ SRS, 53 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5105,7 +5605,8 @@ RegField:
 
   - ID: PCR_DSEM
     what: Data Simple Ecc exception Mode
-    location: [ PCR, 54 ]
+    location: [ SRS, 54 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5115,7 +5616,8 @@ RegField:
 
   - ID: PCR_TPCE
     what: Trace PC Enable
-    location: [ PCR, 55 ]
+    location: [ SRS, 55 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5125,7 +5627,8 @@ RegField:
 
   - ID: PCR_TPCUM
     what: Trace PC Uninferable Mode
-    location: [ PCR, 56 ]
+    location: [ SRS, 56 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5135,7 +5638,8 @@ RegField:
 
   - ID: PCR_TPCIS
     what: Trace PC Ignore Stall
-    location: [ PCR, 57 ]
+    location: [ SRS, 57 ]
+    register: PCR
     owners: [ MO_PCR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5146,7 +5650,8 @@ RegField:
 
   - ID: MMC_ASN
     what: Address Space Number
-    location: [ MMC, 0..8 ]
+    location: [ SRS, 0..8 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5156,7 +5661,8 @@ RegField:
 
   - ID: MMC_S
     what: Speculative
-    location: [ MMC, 9 ]
+    location: [ SRS, 9 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5166,7 +5672,8 @@ RegField:
 
   - ID: MMC_SNE
     what: Speculative NOMAPPING Enable
-    location: [ MMC, 14 ]
+    location: [ SRS, 14 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5176,7 +5683,8 @@ RegField:
 
   - ID: MMC_SPE
     what: Speculative PROTECTION Enable
-    location: [ MMC, 15 ]
+    location: [ SRS, 15 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5186,7 +5694,8 @@ RegField:
 
   - ID: MMC_PTC
     what: Protection Trap Cause
-    location: [ MMC, 16..17 ]
+    location: [ SRS, 16..17 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5196,7 +5705,8 @@ RegField:
 
   - ID: MMC_SW
     what: Select Way
-    location: [ MMC, 18..21 ]
+    location: [ SRS, 18..21 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5206,7 +5716,8 @@ RegField:
 
   - ID: MMC_SS
     what: Select Set
-    location: [ MMC, 22..27 ]
+    location: [ SRS, 22..27 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5216,7 +5727,8 @@ RegField:
 
   - ID: MMC_SB
     what: Select Buffer
-    location: [ MMC, 28 ]
+    location: [ SRS, 28 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5226,7 +5738,8 @@ RegField:
 
   - ID: MMC_PAR
     what: PARity error flag
-    location: [ MMC, 30 ]
+    location: [ SRS, 30 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5236,7 +5749,8 @@ RegField:
 
   - ID: MMC_E
     what: Error Flag
-    location: [ MMC, 31 ]
+    location: [ SRS, 31 ]
+    register: MMC
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5248,7 +5762,8 @@ RegField:
 
   - ID: TEL_ES
     what: Entry Status
-    location: [ TEL, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: TEL
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5256,7 +5771,8 @@ RegField:
 
   - ID: TEL_CP2
     what: Cache Policy on V2
-    location: [ TEL, 2..5 ]
+    location: [ SRS, 2..5 ]
+    register: TEL
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5264,7 +5780,8 @@ RegField:
 
   - ID: TEL_PA2
     what: Protection Attributes on V2
-    location: [ TEL, 6..9 ]
+    location: [ SRS, 6..9 ]
+    register: TEL
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5272,7 +5789,8 @@ RegField:
 
   - ID: TEL_PS
     what: Page Size
-    location: [ TEL, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: TEL
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5280,7 +5798,8 @@ RegField:
 
   - ID: TEL_FN
     what: Frame Number
-    location: [ TEL, 12..39 ]
+    location: [ SRS, 12..39 ]
+    register: TEL
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5290,7 +5809,8 @@ RegField:
 
   - ID: TEH_ASN
     what: Address Space Number
-    location: [ TEH, 0..8 ]
+    location: [ SRS, 0..8 ]
+    register: TEH
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5298,7 +5818,8 @@ RegField:
 
   - ID: TEH_G
     what: Global page indicator
-    location: [ TEH, 9 ]
+    location: [ SRS, 9 ]
+    register: TEH
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5306,7 +5827,8 @@ RegField:
 
   - ID: TEH_VS
     what: Virtual Space
-    location: [ TEH, 10..11 ]
+    location: [ SRS, 10..11 ]
+    register: TEH
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5314,7 +5836,8 @@ RegField:
 
   - ID: TEH_PN
     what: Page Number
-    location: [ TEH, 12..40 ]
+    location: [ SRS, 12..40 ]
+    register: TEH
     owners: [ MO_MSG ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5342,7 +5865,8 @@ RegField:
 
   - ID: TPCM_2
     what: Trace PC message 2
-    location: [ TPCM2, 0..63 ]
+    location: [ SRS, 0..63 ]
+    register: TPCM2
     owners: [ MO_TPCM ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5350,7 +5874,8 @@ RegField:
 
   - ID: TPCM_PLD
     what: Trace PC message payload size
-    location: [ TPCMC, 0..4 ]
+    location: [ SRS, 0..4 ]
+    register: TPCMC
     owners: [ MO_TPCM ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5358,7 +5883,8 @@ RegField:
 
   - ID: TPCM_STS
     what: Trace PC message status
-    location: [ TPCMC, 5..6 ]
+    location: [ SRS, 5..6 ]
+    register: TPCMC
     owners: [ MO_TPCM ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5369,7 +5895,8 @@ RegField:
 ################ DC0 ################
   - ID: DC0_BE
     what: Breakpoint 0 Enable
-    location: [ DCV2_0, 0 ]
+    location: [ SRS, 0 ]
+    register: DC0
     owners: [ DO_B0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5377,7 +5904,8 @@ RegField:
 
   - ID: DC0_WE
     what: Watchpoint 0 Enable
-    location: [ DCV2_0, 1 ]
+    location: [ SRS, 1 ]
+    register: DC0
     owners: [ DO_W0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5385,7 +5913,8 @@ RegField:
 
   - ID: DC0_WTYP
     what: Watchpoint 0 Type
-    location: [ DCV2_0, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: DC0
     owners: [ DO_W0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5393,7 +5922,8 @@ RegField:
 
   - ID: DC0_WSZ
     what: Watchpoint 0 Size
-    location: [ DCV2_0, 4..31 ]
+    location: [ SRS, 4..31 ]
+    register: DC0
     owners: [ DO_W0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5401,7 +5931,8 @@ RegField:
 
   - ID: DC1_BE
     what: Breakpoint 1 Enable
-    location: [ DCV2_1, 0 ]
+    location: [ SRS, 0 ]
+    register: DC1
     owners: [ DO_B1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5409,7 +5940,8 @@ RegField:
 
   - ID: DC1_WE
     what: Watchpoint 1 Enable
-    location: [ DCV2_1, 1 ]
+    location: [ SRS, 1 ]
+    register: DC1
     owners: [ DO_W1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5417,7 +5949,8 @@ RegField:
 
   - ID: DC1_WTYP
     what: Watchpoint 1 Type
-    location: [ DCV2_1, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: DC1
     owners: [ DO_W1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5425,7 +5958,8 @@ RegField:
 
   - ID: DC1_WSZ
     what: Watchpoint 1 Size
-    location: [ DCV2_1, 4..31 ]
+    location: [ SRS, 4..31 ]
+    register: DC1
     owners: [ DO_W1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5433,7 +5967,8 @@ RegField:
 
   - ID: DC2_BE
     what: Breakpoint 2 Enable
-    location: [ DCV2_2, 0 ]
+    location: [ SRS, 0 ]
+    register: DC2
     owners: [ DO_B2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5441,7 +5976,8 @@ RegField:
 
   - ID: DC2_WE
     what: Watchpoint 2 Enable
-    location: [ DCV2_2, 1 ]
+    location: [ SRS, 1 ]
+    register: DC2
     owners: [ DO_W2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5449,7 +5985,8 @@ RegField:
 
   - ID: DC2_WTYP
     what: Watchpoint 2 Type
-    location: [ DCV2_2, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: DC2
     owners: [ DO_W2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5457,7 +5994,8 @@ RegField:
 
   - ID: DC2_WSZ
     what: Watchpoint 2 Size
-    location: [ DCV2_2, 4..31 ]
+    location: [ SRS, 4..31 ]
+    register: DC2
     owners: [ DO_W2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5465,7 +6003,8 @@ RegField:
 
   - ID: DC3_BE
     what: Breakpoint 3 Enable
-    location: [ DCV2_3, 0 ]
+    location: [ SRS, 0 ]
+    register: DC3
     owners: [ DO_B3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5473,7 +6012,8 @@ RegField:
 
   - ID: DC3_WE
     what: Watchpoint 3 Enable
-    location: [ DCV2_3, 1 ]
+    location: [ SRS, 1 ]
+    register: DC3
     owners: [ DO_W3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5481,7 +6021,8 @@ RegField:
 
   - ID: DC3_WTYP
     what: Watchpoint 3 Type
-    location: [ DCV2_3, 2..3 ]
+    location: [ SRS, 2..3 ]
+    register: DC3
     owners: [ DO_W3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5489,7 +6030,8 @@ RegField:
 
   - ID: DC3_WSZ
     what: Watchpoint 3 Size
-    location: [ DCV2_3, 4..31 ]
+    location: [ SRS, 4..31 ]
+    register: DC3
     owners: [ DO_W3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5499,7 +6041,8 @@ RegField:
 
   - ID: MES_PSE
     what: Program Simple Ecc
-    location: [ MES, 0 ]
+    location: [ SRS, 0 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5509,7 +6052,8 @@ RegField:
 
   - ID: MES_PILSY
     what: Program cache Invalidated Line following pSYs error.
-    location: [ MES, 1 ]
+    location: [ SRS, 1 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5517,7 +6061,8 @@ RegField:
 
   - ID: MES_PILDE
     what: Program cache Invalidated Line following pDEcc error.
-    location: [ MES, 2 ]
+    location: [ SRS, 2 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5525,7 +6070,8 @@ RegField:
 
   - ID: MES_PILPA
     what: Program cache Invalidated Line following pPArity error.
-    location: [ MES, 3 ]
+    location: [ SRS, 3 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5533,7 +6079,8 @@ RegField:
 
   - ID: MES_DSE
     what: Data Simple Ecc
-    location: [ MES, 4 ]
+    location: [ SRS, 4 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5543,7 +6090,8 @@ RegField:
 
   - ID: MES_DILSY
     what: Data cache Invalidated Line following dSYs error.
-    location: [ MES, 5 ]
+    location: [ SRS, 5 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5551,14 +6099,16 @@ RegField:
 
   - ID: MES_DILDE
     what: Data cache Invalidated Line following dDEcc error.
-    location: [ MES, 6 ]
+    location: [ SRS, 6 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
 
   - ID: MES_DILPA
     what: Data cache Invalidated Line following dPArity error.
-    location: [ MES, 7 ]
+    location: [ SRS, 7 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5566,7 +6116,8 @@ RegField:
 
   - ID: MES_DDEE
     what: Data DEcc Error.
-    location: [ MES, 8 ]
+    location: [ SRS, 8 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5574,7 +6125,8 @@ RegField:
 
   - ID: MES_DSYE
     what: Data dSYs Error.
-    location: [ MES, 9 ]
+    location: [ SRS, 9 ]
+    register: MES
     owners: [ MO_MES ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5584,24 +6136,28 @@ RegField:
 
   - ID: WS_WU0
     what: Wake-Up 0
-    location: [ WS, 0 ]
+    location: [ SRS, 0 ]
+    register: WS
     reset: 1
 
   - ID: WS_WU1
     what: Wake-Up 1
-    location: [ WS, 1 ]
+    location: [ SRS, 1 ]
+    register: WS
     reset: 1
 
   - ID: WS_WU2
     what: Wake-Up 2
-    location: [ WS, 2 ]
+    location: [ SRS, 2 ]
+    register: WS
     reset: 1
 
 ################ IPE ################
 
   - ID: IPE_FE
     what: Forward Events
-    location: [ IPE, 0..15 ]
+    location: [ SRS, 0..15 ]
+    register: IPE
     owners: [ MO_SYNC ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5609,7 +6165,8 @@ RegField:
 
   - ID: IPE_BE
     what: Backward Events
-    location: [ IPE, 16..31 ]
+    location: [ SRS, 16..31 ]
+    register: IPE
     owners: [ MO_SYNC ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5617,7 +6174,8 @@ RegField:
 
   - ID: IPE_FM
     what: Forward Mode
-    location: [ IPE, 32..47 ]
+    location: [ SRS, 32..47 ]
+    register: IPE
     owners: [ MO_SYNC ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5625,7 +6183,8 @@ RegField:
 
   - ID: IPE_BM
     what: Backward Modes
-    location: [ IPE, 48..63 ]
+    location: [ SRS, 48..63 ]
+    register: IPE
     owners: [ MO_SYNC ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5635,7 +6194,8 @@ RegField:
 
   - ID: IXC_FCB
     what: Forward Channel Busy
-    location: [ IXC, 0 ]
+    location: [ SRS, 0 ]
+    register: IXC
     owners: [ MO_COMM ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5643,7 +6203,8 @@ RegField:
 
   - ID: IXC_SFB
     what: Swap Forward and Backward
-    location: [ IXC, 8 ]
+    location: [ SRS, 8 ]
+    register: IXC
     owners: [ MO_COMM ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5651,7 +6212,8 @@ RegField:
 
   - ID: IXC_BCB
     what: Backward Channel Busy
-    location: [ IXC, 16 ]
+    location: [ SRS, 16 ]
+    register: IXC
     owners: [ MO_COMM ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5661,7 +6223,7 @@ RegField:
 
   - ID: TPCC_TPCC
     what: Trace PC Context
-    location: [ TPCC, 0..31 ]
+    location: [ SRS, 0..31 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: TPCC
@@ -5671,7 +6233,7 @@ RegField:
 
   - ID: TPCC_PL0_TPCC
     what: Trace PC Context
-    location: [ TPCC_PL0, 0..31 ]
+    location: [ SRS, 0..31 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: TPCC_PL0
@@ -5681,7 +6243,7 @@ RegField:
 
   - ID: TPCC_PL1_TPCC
     what: Trace PC Context
-    location: [ TPCC_PL1, 0..31 ]
+    location: [ SRS, 0..31 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: TPCC_PL1
@@ -5691,7 +6253,7 @@ RegField:
 
   - ID: TPCC_PL2_TPCC
     what: Trace PC Context
-    location: [ TPCC_PL2, 0..31 ]
+    location: [ SRS, 0..31 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: TPCC_PL2
@@ -5701,7 +6263,7 @@ RegField:
 
   - ID: TPCC_PL3_TPCC
     what: Trace PC Context
-    location: [ TPCC_PL3, 0..31 ]
+    location: [ SRS, 0..31 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     register: TPCC_PL3

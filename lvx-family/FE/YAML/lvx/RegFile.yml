@@ -7,100 +7,100 @@ RegFile:
     registers:
       - { ID: PC, location: [ PC, 0 ], names: [ "$pc", "$s0" ], reset: "Hardwired", raccess: "GET", waccess: "NONE", width: 64, what: "Program Counter"}
       - { ID: PS, location: [ PS, 0..31 ], names: [ "$ps", "$s1" ], raccess: "GET", waccess: "WFX", width: 32, what: "Processor State"}
-      - { ID: PCR, location: [ PCR, 0..63 ], names: [ "$pcr", "$s2" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_PCR ], what: "Processing Identification"}
+      - { ID: PCR, location: [ SRS, 2 ], names: [ "$pcr", "$s2" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_PCR ], what: "Processing Identification"}
       - { ID: RA, location: [ SRS, 3 ], names: [ "$ra", "$s3" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Return Address"}
       - { ID: CS, location: [ CS, 0..63 ], names: [ "$cs", "$s4" ], raccess: "GET", waccess: "WFX", width: 64, what: "Compute Status"}
-      - { ID: CSIT, location: [ CSIT, 0..31 ], names: [ "$csit", "$s5" ], raccess: "GET", waccess: "WFX", width: 32, owners: [ MO_CSIT ], what: "Compute Status arithmetic interrupt"}
+      - { ID: CSIT, location: [ SRS, 5 ], names: [ "$csit", "$s5" ], raccess: "GET", waccess: "WFX", width: 32, owners: [ MO_CSIT ], what: "Compute Status arithmetic interrupt"}
       - { ID: AESPC, location: [ SRS, 6 ], names: [ "$aespc", "$s6" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_CSIT ], what: "Arithmetic Exception Saved PC"}
       - { ID: LS, location: [ SRS, 7 ], names: [ "$ls", "$s7" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Loop Start Address"}
       - { ID: LE, location: [ SRS, 8 ], names: [ "$le", "$s8" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Loop Exit Address"}
       - { ID: LC, location: [ SRS, 9 ], names: [ "$lc", "$s9" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Loop Counter"}
-      - { ID: IPE, location: [ IPE, 0..63 ], names: [ "$ipe", "$s10" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_SYNC ], what:   "Inter Processor Event"}
-      - { ID: MEN, location: [ MEN, 0..15 ], names: [ "$men", "$s11" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_MEN ], what: "Misc External Notifications"}
-      - { ID: PMC, location: [ PMC, 0..63 ], names: [ "$pmc", "$s12" ], raccess: "GET", waccess: "WFX", width: 64, what: "Performance Monitor Control"}
+      - { ID: IPE, location: [ SRS, 10 ], names: [ "$ipe", "$s10" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_SYNC ], what:   "Inter Processor Event"}
+      - { ID: MEN, location: [ SRS, 11 ], names: [ "$men", "$s11" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_MEN ], what: "Misc External Notifications"}
+      - { ID: PMC, location: [ SRS, 12 ], names: [ "$pmc", "$s12" ], raccess: "GET", waccess: "WFX", width: 64, what: "Performance Monitor Control"}
       - { ID: PM0, location: [ SRS, 13 ], names: [ "$pm0", "$s13" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_PM0 ], what: "Performance Monitor 0"}
       - { ID: PM1, location: [ SRS, 14 ], names: [ "$pm1", "$s14" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_PM1 ], what: "Performance Monitor 1"}
       - { ID: PM2, location: [ SRS, 15 ], names: [ "$pm2", "$s15" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_PM2 ], what: "Performance Monitor 2"}
       - { ID: PM3, location: [ SRS, 16 ], names: [ "$pm3", "$s16" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_PM3 ], what: "Performance Monitor 3"}
       - { ID: PMSA, location: [ SRS, 17 ], names: [ "$pmsa", "$s17" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_PMIT ], what: "Performance Monitor Saved Address" }
-      - { ID: TCR, location: [ TCR, 0..31 ], names: [ "$tcr", "$s18" ], raccess: "GET", waccess: "WFX", width: 32, what: "Timer Control"}
+      - { ID: TCR, location: [ SRS, 18 ], names: [ "$tcr", "$s18" ], raccess: "GET", waccess: "WFX", width: 32, what: "Timer Control"}
       - { ID: T0V, location: [ SRS, 19 ], names: [ "$t0v", "$s19" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_T0 ], what: "Timer 0 value"}
       - { ID: T1V, location: [ SRS, 20 ], names: [ "$t1v", "$s20" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_T1 ], what: "Timer 1 value"}
       - { ID: T0R, location: [ SRS, 21 ], names: [ "$t0r", "$s21" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_T0 ], what: "Timer 0 reload value"}
       - { ID: T1R, location: [ SRS, 22 ], names: [ "$t1r", "$s22" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_T1 ], what: "Timer 1 reload value"}
       - { ID: WDV, location: [ SRS, 23 ], names: [ "$wdv", "$s23" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_WD ], what: "Watchdog Value"}
       - { ID: WDR, location: [ SRS, 24 ], names: [ "$wdr", "$s24" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_WD ], what: "Watchdog Reload"}
-      - { ID: ILE, location: [ ILE, 0..31 ], names: [ "$ile", "$s25" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "Interrupt Line Enable"}
-      - { ID: ILL, location: [ ILL, 0..63 ], names: [ "$ill", "$s26" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "Interrupt Line Level"}
-      - { ID: ILR, location: [ ILR, 0..31 ], names: [ "$ilr", "$s27" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "Interrupt Line Request"}
-      - { ID: MMC, location: [ MMC, 0..31 ], names: [ "$mmc", "$s28" ], raccess: "GET", waccess: "WFX", width: 32, owners: [ MO_MSG ], what: "Memory Management Control"}
-      - { ID: TEL, location: [ TEL, 0..63 ], names: [ "$tel", "$s29" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_MSG ], what: "TLB Entry Low"}
-      - { ID: TEH, location: [ TEH, 0..63 ], names: [ "$teh", "$s30" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_MSG ], what: "TLB Entry High"}
-      - { ID: IXC, location: [ IXC, 0..31 ], names: [ "$ixc", "$s31" ], reset: "0x00000", raccess: "GET", waccess: "WFX", width: 32, what: "Inter-Extension Communications"}
-      - { ID: SYO, location: [ SYO, 0..31 ], names: [ "$syo", "$s32" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 32, what: "Syscall Owners"}
-      - { ID: HTO, location: [ HTO, 0..31 ], names: [ "$hto", "$s33" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 32, what: "Hardware Trap Owners"}
-      - { ID: ITO, location: [ ITO, 0..63 ], names: [ "$ito", "$s34" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 64, what: "Interrupt Owners"}
-      - { ID: DO, location: [ DO, 0..31 ], names: [ "$do", "$s35" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 32, what: "Debug Owners"}
-      - { ID: MO, location: [ MO, 0..63 ], names: [ "$mo", "$s36" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 64, what: "Miscellaneous Owners"}
-      - { ID: PSO, location: [ PSO, 0..63 ], names: [ "$pso", "$s37" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 64, what: "PS register fields Owners"}
+      - { ID: ILE, location: [ SRS, 25 ], names: [ "$ile", "$s25" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "Interrupt Line Enable"}
+      - { ID: ILL, location: [ SRS, 26 ], names: [ "$ill", "$s26" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "Interrupt Line Level"}
+      - { ID: ILR, location: [ SRS, 27 ], names: [ "$ilr", "$s27" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "Interrupt Line Request"}
+      - { ID: MMC, location: [ SRS, 28 ], names: [ "$mmc", "$s28" ], raccess: "GET", waccess: "WFX", width: 32, owners: [ MO_MSG ], what: "Memory Management Control"}
+      - { ID: TEL, location: [ SRS, 29 ], names: [ "$tel", "$s29" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_MSG ], what: "TLB Entry Low"}
+      - { ID: TEH, location: [ SRS, 30 ], names: [ "$teh", "$s30" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_MSG ], what: "TLB Entry High"}
+      - { ID: IXC, location: [ SRS, 31 ], names: [ "$ixc", "$s31" ], reset: "0x00000", raccess: "GET", waccess: "WFX", width: 32, what: "Inter-Extension Communications"}
+      - { ID: SYO, location: [ SRS, 32 ], names: [ "$syo", "$s32" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 32, what: "Syscall Owners"}
+      - { ID: HTO, location: [ SRS, 33 ], names: [ "$hto", "$s33" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 32, what: "Hardware Trap Owners"}
+      - { ID: ITO, location: [ SRS, 34 ], names: [ "$ito", "$s34" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 64, what: "Interrupt Owners"}
+      - { ID: DO, location: [ SRS, 35 ], names: [ "$do", "$s35" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 32, what: "Debug Owners"}
+      - { ID: MO, location: [ SRS, 36 ], names: [ "$mo", "$s36" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 64, what: "Miscellaneous Owners"}
+      - { ID: PSO, location: [ SRS, 37 ], names: [ "$pso", "$s37" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 64, what: "PS register fields Owners"}
       - { ID: TPCM0, location: [ SRS, 38 ], names: [ "$tpcm0", "$s38" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message register 0"}
       - { ID: TPCM1, location: [ SRS, 39 ], names: [ "$tpcm1", "$s39" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message register 1"}
-      - { ID: DC, location: [ RVC, 0..31 ], names: [ "$rvc", "$s40" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "RISC-V configuration (FIXME rename to RVC)"}
+      - { ID: DC, location: [ SRS, 40 ], names: [ "$rvc", "$s40" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "RISC-V configuration (FIXME rename to RVC)"}
       - { ID: DBA0, location: [ SRS, 41 ], names: [ "$dba0", "$s41" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_B0 ], what: "Breakpoint Address 0"}
       - { ID: DBA1, location: [ SRS, 42 ], names: [ "$dba1", "$s42" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_B1 ], what: "Breakpoint Address 1"}
       - { ID: DWA0, location: [ SRS, 43 ], names: [ "$dwa0", "$s43" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_W0 ], what: "Watchpoint Address 0"}
       - { ID: DWA1, location: [ SRS, 44 ], names: [ "$dwa1", "$s44" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_W1 ], what: "Watchpoint Address 1"}
-      - { ID: MES, location: [ MES, 0..31 ], names: [ "$mes", "$s45" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, owners: [ MO_MES ], what: "Memory Error Status"}
-      - { ID: WS, location: [ WS, 0..31 ], names: [ "$ws", "$s46" ], reset: "0x00000007", raccess: "GET", waccess: "WFX", width: 32, what: "Wake-Up Status"}
-      - { ID: DC0, location: [ DCV2_0, 0..63 ], names: [ "$dc0", "$s47" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "OCE (Debug) Control for hardware watchpoints and breakpoints 0"}
-      - { ID: DC1, location: [ DCV2_1, 0..63 ], names: [ "$dc1", "$s48" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "OCE (Debug) Control for hardware watchpoints and breakpoints 1"}
-      - { ID: DC2, location: [ DCV2_2, 0..63 ], names: [ "$dc2", "$s49" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "OCE (Debug) Control for hardware watchpoints and breakpoints 2"}
-      - { ID: DC3, location: [ DCV2_3, 0..63 ], names: [ "$dc3", "$s50" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "OCE (Debug) Control for hardware watchpoints and breakpoints 3"}
+      - { ID: MES, location: [ SRS, 45 ], names: [ "$mes", "$s45" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, owners: [ MO_MES ], what: "Memory Error Status"}
+      - { ID: WS, location: [ SRS, 46 ], names: [ "$ws", "$s46" ], reset: "0x00000007", raccess: "GET", waccess: "WFX", width: 32, what: "Wake-Up Status"}
+      - { ID: DC0, location: [ SRS, 47 ], names: [ "$dc0", "$s47" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "OCE (Debug) Control for hardware watchpoints and breakpoints 0"}
+      - { ID: DC1, location: [ SRS, 48 ], names: [ "$dc1", "$s48" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "OCE (Debug) Control for hardware watchpoints and breakpoints 1"}
+      - { ID: DC2, location: [ SRS, 49 ], names: [ "$dc2", "$s49" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "OCE (Debug) Control for hardware watchpoints and breakpoints 2"}
+      - { ID: DC3, location: [ SRS, 50 ], names: [ "$dc3", "$s50" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 64, what: "OCE (Debug) Control for hardware watchpoints and breakpoints 3"}
       - { ID: DBA2, location: [ SRS, 51 ], names: [ "$dba2", "$s51" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_B2 ], what: "Breakpoint Address 2"}
       - { ID: DBA3, location: [ SRS, 52 ], names: [ "$dba3", "$s52" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_B3 ], what: "Breakpoint Address 3"}
       - { ID: DWA2, location: [ SRS, 53 ], names: [ "$dwa2", "$s53" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_W2 ], what: "Watchpoint Address 2"}
       - { ID: DWA3, location: [ SRS, 54 ], names: [ "$dwa3", "$s54" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_W3 ], what: "Watchpoint Address 3"}
-      - { ID: TPCM2, location: [ TPCM2, 0 ], names: [ "$tpcm2", "$s55" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message register 2"}
-      - { ID: TPCMC, location: [ TPCMC, 0..63 ], names: [ "$tpcmc", "$s56" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message control register"}
+      - { ID: TPCM2, location: [ SRS, 55 ], names: [ "$tpcm2", "$s55" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message register 2"}
+      - { ID: TPCMC, location: [ SRS, 56 ], names: [ "$tpcmc", "$s56" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message control register"}
       - { ID: PM4, location: [ SRS, 57 ], names: [ "$pm4", "$s57" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_PM4 ], what: "Performance Monitor 4"}
       - { ID: PM5, location: [ SRS, 58 ], names: [ "$pm5", "$s58" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_PM5 ], what: "Performance Monitor 5"}
       - { ID: PM6, location: [ SRS, 59 ], names: [ "$pm6", "$s59" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_PM6 ], what: "Performance Monitor 6"}
       - { ID: PM7, location: [ SRS, 60 ], names: [ "$pm7", "$s60" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_PM7 ], what: "Performance Monitor 7"}
-      - { ID: PMC2, location: [ PMC_2, 0..63 ], names: [ "$pmc2", "$s61" ], raccess: "GET", waccess: "WFX", width: 64, what: "Performance Monitor Control 2"}
+      - { ID: PMC2, location: [ SRS, 61 ], names: [ "$pmc2", "$s61" ], raccess: "GET", waccess: "WFX", width: 64, what: "Performance Monitor Control 2"}
       - { ID: SRHPC, location: [ SRS, 62 ], names: [ "$srhpc", "$s62" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Last sequence rupture helper PC when uninferrable"}
       - { ID: FRCC, location: [ SRS, 63 ], names: [ "$frcc", "$s63" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Free running cycle counter"}
       - { ID: SPC_PL<r>, location: [ SRS, 64..67 ], names: [ "$spc_pl<r>", "$s<i>" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Shadow PC PL <r>"}
-      - { ID: SPS_PL0, location: [ SPS_PL0, 0..31 ], names: [ "$sps_pl0", "$s68" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS PL 0"}
-      - { ID: SPS_PL1, location: [ SPS_PL1, 0..31 ], names: [ "$sps_pl1", "$s69" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS PL 1"}
-      - { ID: SPS_PL2, location: [ SPS_PL2, 0..31 ], names: [ "$sps_pl2", "$s70" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS PL 2"}
-      - { ID: SPS_PL3, location: [ SPS_PL3, 0..31 ], names: [ "$sps_pl3", "$s71" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS PL 3"}
+      - { ID: SPS_PL0, location: [ SRS, 68 ], names: [ "$sps_pl0", "$s68" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS PL 0"}
+      - { ID: SPS_PL1, location: [ SRS, 69 ], names: [ "$sps_pl1", "$s69" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS PL 1"}
+      - { ID: SPS_PL2, location: [ SRS, 70 ], names: [ "$sps_pl2", "$s70" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS PL 2"}
+      - { ID: SPS_PL3, location: [ SRS, 71 ], names: [ "$sps_pl3", "$s71" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS PL 3"}
       - { ID: EA_PL<r>, location: [ SRS, 72..75 ], names: [ "$ea_pl<r>", "$s<i>" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Effective Address PL<r>"}
       - { ID: EV_PL<r>, location: [ SRS, 76..79 ], names: [ "$ev_pl<r>", "$s<i>" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Exception Vector PL <r>"}
       - { ID: SR_PL<r>, location: [ SRS, 80..83 ], names: [ "$sr_pl<r>", "$s<i>" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "System Register PL <r>"}
-      - { ID: ES_PL0, location: [ ES_PL0, 0..63 ], names: [ "$es_pl0", "$s84" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome PL 0"}
-      - { ID: ES_PL1, location: [ ES_PL1, 0..63 ], names: [ "$es_pl1", "$s85" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome PL 1"}
-      - { ID: ES_PL2, location: [ ES_PL2, 0..63 ], names: [ "$es_pl2", "$s86" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome PL 2"}
-      - { ID: ES_PL3, location: [ ES_PL3, 0..63 ], names: [ "$es_pl3", "$s87" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome PL 3"}
-      - { ID: SID_PL0, location: [ SID_PL0, 0..31 ], names: [ "$sid_pl0", "$s88" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID PL 0"}
-      - { ID: SID_PL1, location: [ SID_PL1, 0..31 ], names: [ "$sid_pl1", "$s89" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID PL 1"}
-      - { ID: SID_PL2, location: [ SID_PL2, 0..31 ], names: [ "$sid_pl2", "$s90" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID PL 2"}
-      - { ID: SID_PL3, location: [ SID_PL3, 0..31 ], names: [ "$sid_pl3", "$s91" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID PL 3"}
+      - { ID: ES_PL0, location: [ SRS, 84 ], names: [ "$es_pl0", "$s84" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome PL 0"}
+      - { ID: ES_PL1, location: [ SRS, 85 ], names: [ "$es_pl1", "$s85" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome PL 1"}
+      - { ID: ES_PL2, location: [ SRS, 86 ], names: [ "$es_pl2", "$s86" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome PL 2"}
+      - { ID: ES_PL3, location: [ SRS, 87 ], names: [ "$es_pl3", "$s87" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome PL 3"}
+      - { ID: SID_PL0, location: [ SRS, 88 ], names: [ "$sid_pl0", "$s88" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID PL 0"}
+      - { ID: SID_PL1, location: [ SRS, 89 ], names: [ "$sid_pl1", "$s89" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID PL 1"}
+      - { ID: SID_PL2, location: [ SRS, 90 ], names: [ "$sid_pl2", "$s90" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID PL 2"}
+      - { ID: SID_PL3, location: [ SRS, 91 ], names: [ "$sid_pl3", "$s91" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID PL 3"}
       - { ID: SR1_PL<r>, location: [ SRS, 92..95 ], names: [ "$sr1_pl<r>", "$s<i>" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "System Register 1 PL <r>"}
-      - { ID: SYOW, location: [ SYO, 0..31 ], names: [ "$syow", "$s96" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 32, what: "Alias to SYO register"}
-      - { ID: HTOW, location: [ HTO, 0..31 ], names: [ "$htow", "$s97" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 32, what: "Alias to HTO register"}
-      - { ID: ITOW, location: [ ITO, 0..63 ], names: [ "$itow", "$s98" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 64, what: "Alias to ITO register"}
-      - { ID: DOW, location: [ DO, 0..31 ], names: [ "$dow", "$s99" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 32, what: "Alias to DO register"}
-      - { ID: MOW, location: [ MO, 0..63 ], names: [ "$mow", "$s100" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 64, what: "Alias to MO register"}
-      - { ID: PSOW, location: [ PSO, 0..63 ], names: [ "$psow", "$s101" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 64, what: "Alias to PSO register"}
+      - { ID: SYOW, location: [ SRS, 32 ], names: [ "$syow", "$s96" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 32, what: "Alias to SYO register"}
+      - { ID: HTOW, location: [ SRS, 33 ], names: [ "$htow", "$s97" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 32, what: "Alias to HTO register"}
+      - { ID: ITOW, location: [ SRS, 34 ], names: [ "$itow", "$s98" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 64, what: "Alias to ITO register"}
+      - { ID: DOW, location: [ SRS, 35 ], names: [ "$dow", "$s99" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 32, what: "Alias to DO register"}
+      - { ID: MOW, location: [ SRS, 36 ], names: [ "$mow", "$s100" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 64, what: "Alias to MO register"}
+      - { ID: PSOW, location: [ SRS, 37 ], names: [ "$psow", "$s101" ], reset: "0x00000000", raccess: "NONE", waccess: "WFX", width: 64, what: "Alias to PSO register"}
       - { ID: RES<i>, location: [ SRS, 102..103 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
-      - { ID: TPCC_PL0, location: [ TPCC_PL0, 0..31 ], names: [ "$tpcc_pl0", "$s104" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context"}
-      - { ID: TPCC_PL1, location: [ TPCC_PL1, 0..31 ], names: [ "$tpcc_pl1", "$s105" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context"}
-      - { ID: TPCC_PL2, location: [ TPCC_PL2, 0..31 ], names: [ "$tpcc_pl2", "$s106" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context"}
-      - { ID: TPCC_PL3, location: [ TPCC_PL3, 0..31 ], names: [ "$tpcc_pl3", "$s107" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context"}
+      - { ID: TPCC_PL0, location: [ SRS, 104 ], names: [ "$tpcc_pl0", "$s104" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context"}
+      - { ID: TPCC_PL1, location: [ SRS, 105 ], names: [ "$tpcc_pl1", "$s105" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context"}
+      - { ID: TPCC_PL2, location: [ SRS, 106 ], names: [ "$tpcc_pl2", "$s106" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context"}
+      - { ID: TPCC_PL3, location: [ SRS, 107 ], names: [ "$tpcc_pl3", "$s107" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context"}
       - { ID: RES<i>, location: [ SRS, 108..127 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
       - { ID: SPC, location: [ SRS, 128 ], names: [ "$spc", "$s128" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Shadow PC alias on SPC_PL<i>"}
       - { ID: RES<i>, location: [ SRS, 129..131 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
-      - { ID: SPS, location: [ SPS, 0..31 ], names: [ "$sps", "$s132" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS alias on PS_PL<i>"}
+      - { ID: SPS, location: [ SRS, 132 ], names: [ "$sps", "$s132" ], raccess: "GET", waccess: "WFX", width: 32, what: "Shadow PS alias on PS_PL<i>"}
       - { ID: RES<i>, location: [ SRS, 133..135 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
       - { ID: EA, location: [ SRS, 136 ], names: [ "$ea", "$s136" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Effective Address alias on EA_PL<i>"}
       - { ID: RES<i>, location: [ SRS, 137..139 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
@@ -108,13 +108,13 @@ RegFile:
       - { ID: RES<i>, location: [ SRS, 141..143 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
       - { ID: SR, location: [ SRS, 144 ], names: [ "$sr", "$s144" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "System Register alias on SR_PL<i>"}
       - { ID: RES<i>, location: [ SRS, 145..147 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
-      - { ID: ES, location: [ ES, 0..63 ], names: [ "$es", "$s148" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome alias on ES_PL<i>"}
+      - { ID: ES, location: [ SRS, 148 ], names: [ "$es", "$s148" ], reset: "0x00000004", raccess: "GET", waccess: "WFX", width: 64, what: "Exception Syndrome alias on ES_PL<i>"}
       - { ID: RES<i>, location: [ SRS, 149..151 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
-      - { ID: SID, location: [ SID, 0..31 ], names: [ "$sid", "$s152" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID alias on SID_PL<i>"}
+      - { ID: SID, location: [ SRS, 152 ], names: [ "$sid", "$s152" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 32, what: "Stream ID alias on SID_PL<i>"}
       - { ID: RES<i>, location: [ SRS, 153..155 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
       - { ID: SR1, location: [ SRS, 156 ], names: [ "$sr1", "$s156" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "System Register 1 alias on SR1_PL<i>"}
       - { ID: RES<i>, location: [ SRS, 157..167 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
-      - { ID: TPCC, location: [ TPCC, 0..31 ], names: [ "$tpcc", "$s168" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context alias on TPCC_PL<i>"}
+      - { ID: TPCC, location: [ SRS, 168 ], names: [ "$tpcc", "$s168" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "Trace PC Context alias on TPCC_PL<i>"}
       - { ID: RES<i>, location: [ SRS, 169..255 ], names: [ "$res<i>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
       - { ID: VSFR<r>, location: [ SRS, 256..511 ], names: [ "$vsfr<r>", "$s<i>" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Virtual SFR <r>"}
     nativeTypes: [ Int32, UInt32, Int64, UInt64 ]
