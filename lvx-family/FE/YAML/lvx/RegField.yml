@@ -1549,7 +1549,7 @@ RegField:
 
   - ID: DBA0_DBA0
     what: Debug Breakpoint Address 0
-    location: [ DBA0, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ DO_B0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1560,7 +1560,7 @@ RegField:
 
   - ID: DBA1_DBA1
     what: Debug Breakpoint Address 1
-    location: [ DBA1, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ DO_B1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1571,7 +1571,7 @@ RegField:
 
   - ID: DWA0_DWA0
     what: Debug Breakpoint Address 0
-    location: [ DWA0, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ DO_W0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1582,7 +1582,7 @@ RegField:
 
   - ID: DWA1_DWA1
     what: Debug Breakpoint Address 1
-    location: [ DWA1, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ DO_W1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1593,7 +1593,7 @@ RegField:
 
   - ID: DBA2_DBA2
     what: Debug Breakpoint Address 2
-    location: [ DBA2, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ DO_B2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1604,7 +1604,7 @@ RegField:
 
   - ID: DBA3_DBA3
     what: Debug Breakpoint Address 3
-    location: [ DBA3, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ DO_B3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1615,7 +1615,7 @@ RegField:
 
   - ID: DWA2_DWA2
     what: Debug Breakpoint Address 2
-    location: [ DWA2, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ DO_W2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -1626,7 +1626,7 @@ RegField:
 
   - ID: DWA3_DWA3
     what: Debug Breakpoint Address 3
-    location: [ DWA3, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ DO_W3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3515,7 +3515,7 @@ RegField:
 
   - ID: AESPC_AESPC
     what: Arithmetic Exception Saved PC
-    location: [ AESPC, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_CSIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4620,7 +4620,7 @@ RegField:
 
   - ID: PM0_PM0
     what: Performance Monitor 0
-    location: [ PM0, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_PM0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4631,7 +4631,7 @@ RegField:
 
   - ID: PM1_PM1
     what: Performance Monitor 1
-    location: [ PM1, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_PM1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4642,7 +4642,7 @@ RegField:
 
   - ID: PM2_PM2
     what: Performance Monitor 2
-    location: [ PM2, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_PM2 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4653,7 +4653,7 @@ RegField:
 
   - ID: PM3_PM3
     what: Performance Monitor 3
-    location: [ PM3, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_PM3 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4664,7 +4664,7 @@ RegField:
 
   - ID: PM4_PM4
     what: Performance Monitor 4
-    location: [ PM4, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_PM4 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4675,7 +4675,7 @@ RegField:
 
   - ID: PM5_PM5
     what: Performance Monitor 5
-    location: [ PM5, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_PM5 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4686,7 +4686,7 @@ RegField:
 
   - ID: PM6_PM6
     what: Performance Monitor 6
-    location: [ PM6, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_PM6 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4697,7 +4697,7 @@ RegField:
 
   - ID: PM7_PM7
     what: Performance Monitor 7
-    location: [ PM7, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_PM7 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4709,7 +4709,8 @@ RegField:
 
   - ID: SRHPC_SRHPC
     what: Sequence rupture helper PC
-    location: [ SRHPC, 0..63 ]
+    location: [ SRS, 0..63 ]
+    register: SRHPC
     owners: [ MO_SRHPC ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4732,7 +4733,7 @@ RegField:
 
   - ID: PMSA_PMSA
     what: Performance Monitor Saved Address
-    location: [ PMSA, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_PMIT ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4743,7 +4744,7 @@ RegField:
 
   - ID: T0V_T0V
     what: Timer 0 value
-    location: [ T0V, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_T0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4754,7 +4755,7 @@ RegField:
 
   - ID: T1V_T1V
     what: Timer 1 value
-    location: [ T1V, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_T1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4765,7 +4766,7 @@ RegField:
 
   - ID: T0R_T0R
     what: Timer 0 reload value
-    location: [ T0R, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_T0 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4776,7 +4777,7 @@ RegField:
 
   - ID: T1R_T1R
     what: Timer 1 reload value
-    location: [ T1R, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_T1 ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4787,7 +4788,7 @@ RegField:
 
   - ID: WDV_WDV
     what: Watchdog Value
-    location: [ WDV, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_WD ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -4798,7 +4799,7 @@ RegField:
 
   - ID: WDR_WDR
     what: Watchdog Reload Value
-    location: [ WDR, 0..63 ]
+    location: [ SRS, 0..63 ]
     owners: [ MO_WD ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5323,7 +5324,8 @@ RegField:
 
   - ID: TPCM_0
     what: Trace PC message 0
-    location: [ TPCM0, 0..63 ]
+    location: [ SRS, 0..63 ]
+    register: TPCM0
     owners: [ MO_TPCM ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -5331,7 +5333,8 @@ RegField:
 
   - ID: TPCM_1
     what: Trace PC message 1
-    location: [ TPCM1, 0..63 ]
+    location: [ SRS, 0..63 ]
+    register: TPCM1
     owners: [ MO_TPCM ]
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]

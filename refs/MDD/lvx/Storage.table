@@ -5,118 +5,6 @@
   width=	"0"
 />
 <Storage
-  ID=	"Storage-lvx-AESPC"
-  count=	"1"
-  kind=	"Special"
-  what=	"Arithmetic Exception Saved PC"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-PM0"
-  count=	"1"
-  kind=	"Special"
-  what=	"Performance Monitor 0"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-PM1"
-  count=	"1"
-  kind=	"Special"
-  what=	"Performance Monitor 1"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-PM2"
-  count=	"1"
-  kind=	"Special"
-  what=	"Performance Monitor 2"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-PM3"
-  count=	"1"
-  kind=	"Special"
-  what=	"Performance Monitor 3"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-PM4"
-  count=	"1"
-  kind=	"Special"
-  what=	"Performance Monitor 4"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-PM5"
-  count=	"1"
-  kind=	"Special"
-  what=	"Performance Monitor 5"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-PM6"
-  count=	"1"
-  kind=	"Special"
-  what=	"Performance Monitor 6"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-PM7"
-  count=	"1"
-  kind=	"Special"
-  what=	"Performance Monitor 7"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-PMSA"
-  count=	"1"
-  kind=	"Special"
-  what=	"Performance Monitor Saved Address"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-T0V"
-  count=	"1"
-  kind=	"Special"
-  what=	"Timer 0 value"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-T1V"
-  count=	"1"
-  kind=	"Special"
-  what=	"Timer 1 value"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-T0R"
-  count=	"1"
-  kind=	"Special"
-  what=	"Timer 0 reload value"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-T1R"
-  count=	"1"
-  kind=	"Special"
-  what=	"Timer 1 reload value"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-WDV"
-  count=	"1"
-  kind=	"Special"
-  what=	"Watchdog Value"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-WDR"
-  count=	"1"
-  kind=	"Special"
-  what=	"Watchdog Reload Value"
-  width=	"64"
-/>
-<Storage
   ID=	"Storage-lvx-MEN"
   count=	"16"
   kind=	"Special"
@@ -178,62 +66,6 @@
   kind=	"Special"
   what=	"Compute Status"
   width=	"1"
-/>
-<Storage
-  ID=	"Storage-lvx-DBA0"
-  count=	"1"
-  kind=	"Special"
-  what=	"Debug Breakpoint Address 0"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-DBA1"
-  count=	"1"
-  kind=	"Special"
-  what=	"Debug Breakpoint Address 1"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-DBA2"
-  count=	"1"
-  kind=	"Special"
-  what=	"Debug Breakpoint Address 2"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-DBA3"
-  count=	"1"
-  kind=	"Special"
-  what=	"Debug Breakpoint Address 3"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-DWA0"
-  count=	"1"
-  kind=	"Special"
-  what=	"Debug Watchpoint address 0"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-DWA1"
-  count=	"1"
-  kind=	"Special"
-  what=	"Debug Watchpoint address 1"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-DWA2"
-  count=	"1"
-  kind=	"Special"
-  what=	"Debug Watchpoint address 2"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-DWA3"
-  count=	"1"
-  kind=	"Special"
-  what=	"Debug Watchpoint address 3"
-  width=	"64"
 />
 <Storage
   ID=	"Storage-lvx-CSIT"
@@ -332,20 +164,6 @@
   kind=	"Special"
   what=	"TLB Entry High"
   width=	"1"
-/>
-<Storage
-  ID=	"Storage-lvx-TPCM0"
-  count=	"1"
-  kind=	"Special"
-  what=	"Trace PC Message 0"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-TPCM1"
-  count=	"1"
-  kind=	"Special"
-  what=	"Trace PC Message 1"
-  width=	"64"
 />
 <Storage
   ID=	"Storage-lvx-TPCM2"
@@ -457,20 +275,6 @@
   kind=	"Special"
   what=	"Performance Monitor Control Register 2"
   width=	"1"
-/>
-<Storage
-  ID=	"Storage-lvx-SRHPC"
-  count=	"1"
-  kind=	"Special"
-  what=	"Last sequence rupture helper PC when uninferrable"
-  width=	"64"
-/>
-<Storage
-  ID=	"Storage-lvx-FRCC"
-  count=	"1"
-  kind=	"Special"
-  what=	"Free running cycle counter"
-  width=	"64"
 />
 <Storage
   ID=	"Storage-lvx-PCR"

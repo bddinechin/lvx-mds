@@ -1,101 +1,5 @@
 Storage:
 
-  - ID: AESPC
-    what: Arithmetic Exception Saved PC
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: PM0
-    what: Performance Monitor 0
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: PM1
-    what: Performance Monitor 1
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: PM2
-    what: Performance Monitor 2
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: PM3
-    what: Performance Monitor 3
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: PM4
-    what: Performance Monitor 4
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: PM5
-    what: Performance Monitor 5
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: PM6
-    what: Performance Monitor 6
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: PM7
-    what: Performance Monitor 7
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: PMSA
-    what: Performance Monitor Saved Address
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: T0V
-    what: Timer 0 value
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: T1V
-    what: Timer 1 value
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: T0R
-    what: Timer 0 reload value
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: T1R
-    what: Timer 1 reload value
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: WDV
-    what: Watchdog Value
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: WDR
-    what: Watchdog Reload Value
-    kind: Special
-    width: 64
-    count: 1
-
   - ID: MEN
     what: Miscellaneous External Notifications
     kind: Special
@@ -149,54 +53,6 @@ Storage:
     kind: Special
     width: 1
     count: 64
-
-  - ID: DBA0
-    what: Debug Breakpoint Address 0
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: DBA1
-    what: Debug Breakpoint Address 1
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: DBA2
-    what: Debug Breakpoint Address 2
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: DBA3
-    what: Debug Breakpoint Address 3
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: DWA0
-    what: Debug Watchpoint address 0
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: DWA1
-    what: Debug Watchpoint address 1
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: DWA2
-    what: Debug Watchpoint address 2
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: DWA3
-    what: Debug Watchpoint address 3
-    kind: Special
-    width: 64
-    count: 1
 
   - ID: CSIT
     what: Compute Status arithmetic Interrupt
@@ -281,18 +137,6 @@ Storage:
     kind: Special
     width: 1
     count: 64
-
-  - ID: TPCM0
-    what: Trace PC Message 0
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: TPCM1
-    what: Trace PC Message 1
-    kind: Special
-    width: 64
-    count: 1
 
   - ID: TPCM2
     what: Trace PC Message 2
@@ -388,18 +232,6 @@ Storage:
     kind: Special
     width: 1
     count: 64
-
-  - ID: SRHPC
-    what: Last sequence rupture helper PC when uninferrable
-    kind: Special
-    width: 64
-    count: 1
-
-  - ID: FRCC
-    what: Free running cycle counter
-    kind: Special
-    width: 64
-    count: 1
 
   - ID: PCR
     what: Processing Identification Register
