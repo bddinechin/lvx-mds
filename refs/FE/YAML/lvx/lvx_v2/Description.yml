@@ -36211,31 +36211,6 @@ RegField:
     location: [ SRS, 5 ]
     register: CS
     reset: 0
-  - ID: CS_XIO
-    what: Extension IEEE 754 Invalid Operation
-    location: [ SRS, 9 ]
-    register: CS
-    reset: 0
-  - ID: CS_XDZ
-    what: Extension IEEE 754 Divide by Zero
-    location: [ SRS, 10 ]
-    register: CS
-    reset: 0
-  - ID: CS_XOV
-    what: Extension IEEE 754 Overflow
-    location: [ SRS, 11 ]
-    register: CS
-    reset: 0
-  - ID: CS_XUN
-    what: Extension IEEE 754 Underflow
-    location: [ SRS, 12 ]
-    register: CS
-    reset: 0
-  - ID: CS_XIN
-    what: Extension IEEE 754 Inexact
-    location: [ SRS, 13 ]
-    register: CS
-    reset: 0
   - ID: CS_RM
     what: IEEE 754 Rounding Mode
     location: [ SRS, 16..18 ]

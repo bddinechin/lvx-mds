@@ -65,7 +65,7 @@
   ID=	"Register-lvx_v2-CS"
   addresses=	"4"
   dwarfId=	"68"
-  fields=	"RegField-lvx_v2-CS_IC RegField-lvx_v2-CS_IO RegField-lvx_v2-CS_DZ RegField-lvx_v2-CS_OV RegField-lvx_v2-CS_UN RegField-lvx_v2-CS_IN RegField-lvx_v2-CS_XIO RegField-lvx_v2-CS_XDZ RegField-lvx_v2-CS_XOV RegField-lvx_v2-CS_XUN RegField-lvx_v2-CS_XIN RegField-lvx_v2-CS_RM RegField-lvx_v2-CS_XRM RegField-lvx_v2-CS_XMF RegField-lvx_v2-CS_CC"
+  fields=	"RegField-lvx_v2-CS_IC RegField-lvx_v2-CS_IO RegField-lvx_v2-CS_DZ RegField-lvx_v2-CS_OV RegField-lvx_v2-CS_UN RegField-lvx_v2-CS_IN RegField-lvx_v2-CS_RM RegField-lvx_v2-CS_XRM RegField-lvx_v2-CS_XMF RegField-lvx_v2-CS_CC"
   names=	"$cs $s4"
   raccess=	"GET"
   regFile=	"RegClass-lvx_v2-systemReg"

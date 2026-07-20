@@ -4639,46 +4639,6 @@
   width=	"1"
 />
 <RegField
-  ID=	"RegField-lvx-CS_XIO"
-  offset=	"9"
-  register=	"Register-lvx-CS"
-  reset=	"0"
-  what=	"Extension IEEE 754 Invalid Operation"
-  width=	"1"
-/>
-<RegField
-  ID=	"RegField-lvx-CS_XDZ"
-  offset=	"10"
-  register=	"Register-lvx-CS"
-  reset=	"0"
-  what=	"Extension IEEE 754 Divide by Zero"
-  width=	"1"
-/>
-<RegField
-  ID=	"RegField-lvx-CS_XOV"
-  offset=	"11"
-  register=	"Register-lvx-CS"
-  reset=	"0"
-  what=	"Extension IEEE 754 Overflow"
-  width=	"1"
-/>
-<RegField
-  ID=	"RegField-lvx-CS_XUN"
-  offset=	"12"
-  register=	"Register-lvx-CS"
-  reset=	"0"
-  what=	"Extension IEEE 754 Underflow"
-  width=	"1"
-/>
-<RegField
-  ID=	"RegField-lvx-CS_XIN"
-  offset=	"13"
-  register=	"Register-lvx-CS"
-  reset=	"0"
-  what=	"Extension IEEE 754 Inexact"
-  width=	"1"
-/>
-<RegField
   ID=	"RegField-lvx-CS_RM"
   offset=	"16"
   register=	"Register-lvx-CS"

@@ -69,7 +69,7 @@
   ID=	"Register-lvx-CS"
   addresses=	"4"
   dwarfId=	"68"
-  fields=	"RegField-lvx-CS_IC RegField-lvx-CS_IO RegField-lvx-CS_DZ RegField-lvx-CS_OV RegField-lvx-CS_UN RegField-lvx-CS_IN RegField-lvx-CS_XIO RegField-lvx-CS_XDZ RegField-lvx-CS_XOV RegField-lvx-CS_XUN RegField-lvx-CS_XIN RegField-lvx-CS_RM RegField-lvx-CS_XRM RegField-lvx-CS_XMF RegField-lvx-CS_CC"
+  fields=	"RegField-lvx-CS_IC RegField-lvx-CS_IO RegField-lvx-CS_DZ RegField-lvx-CS_OV RegField-lvx-CS_UN RegField-lvx-CS_IN RegField-lvx-CS_RM RegField-lvx-CS_XRM RegField-lvx-CS_XMF RegField-lvx-CS_CC"
   names=	"$cs $s4"
   processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
   raccess=	"GET"
