@@ -1214,15 +1214,14 @@ sub LOAD {
 }
 
 sub STORE {
-    my ($stage, $location, $field, $mask) = @_;
+    my ($stage, $location, $field) = @_;
     $stage = "_" unless defined $stage;
     unless ($partial_initialization) {
         if ($field->[-1]->{TYPE} ne 'BitField') {
             $field = &I2F(&locationWidth($location), &castI($field));
         }
     }
-    return [ 'STORE', $stage, $location, $field ] unless defined $mask;
-    return [ 'STORE', $stage, $location, $field, $mask ];
+    return [ 'STORE', $stage, $location, $field ];
 }
 
 sub PROBE {
@@ -2560,21 +2559,6 @@ sub codegen_write {
     }
 }
 
-sub codegen_mask {
-    use integer;
-    my ($prefix, $mask_ref) = @_;
-    my @mask = @{$mask_ref};
-    my @mask_value = ( 0, 0, 0, 0 );
-    my ($width, $index) = ($mask[1], $mask[2]);
-    die "Out-of-bounds SECTION index in '@mask'" unless $width*($index+1) <= 256;
-    my $major = ($width*$index) / 64;
-    my $minor = ($width*$index) % 64;
-    my $ones = $width < 64? (1<<$width)-1: -1;
-    $mask_value[$major] = sprintf("0x%016lx", $ones << $minor);
-    my $mask_name = $prefix . join ('_', @mask_value);
-    $mask_name =~ s/0x/_/g;
-    return ($mask_name, \@mask_value);
-}
 
 ################################################################################
 #
@@ -3747,14 +3731,12 @@ sub codegen {
             last SWITCH;
           };
         $$this[0] =~ /^STORE$/ and do {
-            # STORE Stage Location BitField Mask
+            # STORE Stage Location BitField
             my $Stage    = $$this[1];
             my $Location = $$this[2];
             my $BitField = $$this[3];
-            my $Mask = $$this[4];
             if (defined $Storage{$$Location[1]}->{KIND}
                 and $Storage{$$Location[1]}->{KIND} eq "Memory") {
-                confess "Masked STORE not supported" if defined $Mask;
                 push(@$pretty, "${indent}HELPER(store_$$Location[1])(this${indent_incremented}, ");
                 &codegen_boxed($$Location[3], $pretty, $nesting + 1, $context);
                 push(@$pretty, "${indent_incremented}, ");
@@ -3776,25 +3758,10 @@ sub codegen {
                         my $index = $$CodeGen_Proxies{$proxy}{INDEX};
                         $$CodeGen_Operands{WRITE}{$proxy}{REGFILE} = $$Location[1];
                         $$CodeGen_Operands{WRITE}{$proxy}{STAGE} = $Stage;
-                        if (defined $Mask) {
-                            confess "STORE mask not constant" if $Mask->[0] ne 'CONST';
-                            my ($static_name, $static_value) = &codegen_mask("static", $Mask->[1]);
-                            unless (defined $$CodeGen_Statics{$static_name}) {
-                                $$CodeGen_Statics{$static_name} = $static_value;
-                            }
-                            (my $mask_name = "mask" . $proxy) =~ s/\W/_/g;
-  #$$CodeGen_Operands{MASK}{$mask_name} = 1;
-  #push(@$pretty, "${indent}$mask_name = Int256_or($mask_name, $static_name);");
-                            push(@$pretty, "${indent}HELPER(operandFromValue)(this, $rank, $index, &$static_name, ");
-                            &codegen_boxed($BitField, $pretty, $nesting + 1, $context);
-                            push(@$pretty, "${indent})");
-                        } else {
-                            push(@$pretty, "${indent}HELPER(operandFromValue)(this, $rank, $index, 0, ");
-                            &codegen_boxed($BitField, $pretty, $nesting + 1, $context);
-                            push(@$pretty, "${indent})");
-                        }
+                        push(@$pretty, "${indent}HELPER(operandFromValue)(this, $rank, $index, 0, ");
+                        &codegen_boxed($BitField, $pretty, $nesting + 1, $context);
+                        push(@$pretty, "${indent})");
                     } else {
-                        confess "Masked STORE not supported" if defined $Mask;
                         push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, ");
                         # Enable commit stage for this write to storage
                         $$CodeGen_Operands{COMMITS}{$$Location[1]} = 1;
@@ -3805,7 +3772,6 @@ sub codegen {
                         push(@$pretty, "${indent})");
                     }
                 } else {
-                    confess "Masked STORE not supported" if defined $Mask;
                     if ($extent == 1) {
                         push(@$pretty, "${indent}HELPER(writeToStorage_$$Location[1])(this, $Stage, $address, 1, $width, ");
                         # Enable commit stage for this write to storage
@@ -4205,9 +4171,6 @@ $yytree = $_[0];
 
 #rule Command -> '(' STORE '.' Stage Location BitField ')'
 &STORE($_[3], $_[4], $_[5]);
-
-#rule Command -> '(' STORE '.' Stage Location BitField Mask ')'
-&STORE($_[3], $_[4], $_[5], $_[6]);
 
 #rule Command -> '(' COMMIT '.' Stage '.' Proxy Integer Mask ')'
 &COMMIT($_[3], $_[5], $_[6], $_[7]);

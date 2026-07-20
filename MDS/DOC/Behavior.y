@@ -16,7 +16,6 @@ Command
 	| '(' THROW '.' Stage '.' Ident Arguments ')'
 	| '(' EFFECT '.' Stage '.' Ident Arguments ')'
 	| '(' STORE '.' Stage Location BitField ')'
-	| '(' STORE '.' Stage Location BitField Mask ')'
 	| '(' COMMIT '.' Stage '.' Proxy Integer ')'
 	| '(' COMMIT '.' Stage '.' Proxy Integer Mask ')'
 	| '(' WRITE '.' Section '.' Variable Integer ')'
