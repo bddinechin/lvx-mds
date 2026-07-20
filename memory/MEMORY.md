@@ -1,0 +1,6 @@
+- [LVX roadmap](lvx-roadmap.md) — overall goal, validation strategy, near/medium/long sequencing; ISS-first, native-x86 oracle
+- [gem5 runs compiled C](gem5-callret-blocker.md) — call/ret helpers + onlysetReg decode fixed; ISS now passes branches/loops/shifts vs native x86
+- [KVX reference in epi-csw](kvx-reference-epi-csw.md) — use ../epi-csw for KVX issues; Behavior-helper runtime in ../epi-csw/lao/LAO
+- [Operand-attributed Location](operand-attributed-location.md) — AGGL.storage.proxy/blockExpand for run-time-indexed XACCESSO/XALIGN reads; done+verified, and it's FINAL — SLICE can't replace it (XVR regs are Int256-sized)
+- [Named constants, not magic numbers](feedback-named-constants.md) — latencies/stages as an LVX-prefixed enum from a backend-generated header; neutral stage names, not semantic
+- [Behavior SLICE plan](behavior-slice-plan.md) — λ-RTL SLICE done: SFR unified onto SRS (CS/PS bit-fields), cmove Mask→SLICE + Mask path deleted; XACCESSO stays on slot-4 proxy
