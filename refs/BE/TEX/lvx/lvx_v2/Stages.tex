@@ -1236,11 +1236,11 @@ clzwq regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.cmovebx}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rdf{(rd) regM} &  &  &  \\*
 cmovebxlanecond regP? regM = regO &  & \rdf{(rd) regO} &  &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
-cmovebxlanecond regP? regM = upper27\_lower5splat32 &  & \rdf{(rd) regP} &  &  &  &  \\*
+cmovebxlanecond regP? regM = upper27\_lower5splat32 &  & \rdf{(rd) regP} & \rdf{(rd) regM} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
@@ -1259,24 +1259,24 @@ cmovedcmovecond regZ? regW = upper27\_lower5splat32 &  & \rsf{(r) regZ} &  &  & 
 \hline
 \hline
 \hypertarget{lvx_v2.cmovedp}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rdf{(rd) regM} &  &  &  \\*
 cmovedplanecond regP? regM = regO &  & \rdf{(rd) regO} &  &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
-cmovedplanecond regP? regM = upper27\_lower5splat32 &  & \rdf{(rd) regP} &  &  &  &  \\*
+cmovedplanecond regP? regM = upper27\_lower5splat32 &  & \rdf{(rd) regP} & \rdf{(rd) regM} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.cmoveho}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rdf{(rd) regM} &  &  &  \\*
 \crb
 cmoveholanecond regP? regM = regO &  & \rdf{(rd) regO} &  &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \crb
-cmoveholanecond regP? regM = upper27\_lower5splat32 &  & \rdf{(rd) regP} &  &  &  &  \\*
+cmoveholanecond regP? regM = upper27\_lower5splat32 &  & \rdf{(rd) regP} & \rdf{(rd) regM} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
@@ -1289,14 +1289,14 @@ cmoveqcmovecond regZ? regM = regO &  & \rdf{(rd) regO} &  &  &  &  \\*
 \hline
 \hypertarget{lvx_v2.cmovewq}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rdf{(rd) regM} &  &  &  \\*
 \crb
 cmovewqlanecond regP? regM = regO &  & \rdf{(rd) regO} &  &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \crb
-cmovewqlanecond regP? regM = upper27\_lower5splat32 &  & \rdf{(rd) regP} &  &  &  &  \\*
+cmovewqlanecond regP? regM = upper27\_lower5splat32 &  & \rdf{(rd) regP} & \rdf{(rd) regM} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline

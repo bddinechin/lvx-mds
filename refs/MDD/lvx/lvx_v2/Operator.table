@@ -36513,6 +36513,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -36535,6 +36540,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36560,6 +36570,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36588,6 +36603,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -36610,6 +36630,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36635,6 +36660,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36663,6 +36693,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -36685,6 +36720,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36710,6 +36750,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36738,6 +36783,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -36760,6 +36810,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36785,6 +36840,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36813,6 +36873,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -36835,6 +36900,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36860,6 +36930,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36888,6 +36963,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -36910,6 +36990,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36935,6 +37020,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -36963,6 +37053,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -36985,6 +37080,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37010,6 +37110,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37038,6 +37143,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -37060,6 +37170,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37085,6 +37200,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37113,6 +37233,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -37135,6 +37260,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37160,6 +37290,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37188,6 +37323,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -37210,6 +37350,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37235,6 +37380,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37263,6 +37413,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -37285,6 +37440,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37310,6 +37470,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37338,6 +37503,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -37360,6 +37530,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37385,6 +37560,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37413,6 +37593,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -37435,6 +37620,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37460,6 +37650,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37488,6 +37683,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -37510,6 +37710,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37535,6 +37740,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37563,6 +37773,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -37585,6 +37800,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37610,6 +37830,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37638,6 +37863,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -37660,6 +37890,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -37685,6 +37920,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -38763,6 +39003,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -38785,6 +39030,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -38810,6 +39060,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -38838,6 +39093,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -38860,6 +39120,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -38885,6 +39150,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -38913,6 +39183,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -38935,6 +39210,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -38960,6 +39240,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -38988,6 +39273,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -39010,6 +39300,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39035,6 +39330,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39063,6 +39363,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -39085,6 +39390,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39110,6 +39420,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39138,6 +39453,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -39160,6 +39480,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39185,6 +39510,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39213,6 +39543,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -39235,6 +39570,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39260,6 +39600,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39288,6 +39633,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -39310,6 +39660,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39335,6 +39690,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39713,6 +40073,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -39735,6 +40100,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39760,6 +40130,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39788,6 +40163,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -39810,6 +40190,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39835,6 +40220,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39863,6 +40253,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -39885,6 +40280,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39910,6 +40310,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39938,6 +40343,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -39960,6 +40370,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -39985,6 +40400,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -40013,6 +40433,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -40035,6 +40460,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -40060,6 +40490,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -40088,6 +40523,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -40110,6 +40550,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -40135,6 +40580,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -40163,6 +40613,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -40185,6 +40640,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -40210,6 +40670,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -40238,6 +40703,11 @@
 /><Parameter
   action=	"Read"
   method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%4"
   stages=	"1"
 /></Operator>
@@ -40260,6 +40730,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"
@@ -40285,6 +40760,11 @@
   method=	"RegClass-lvx_v2-pairedReg"
   proxy=	"%2"
   stages=	"1"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx_v2-pairedReg"
+  proxy=	"%3"
+  stages=	"2"
 /><Parameter
   action=	"Read"
   method=	"Immediate-lvx_v2-wrapped32"

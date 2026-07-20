@@ -1988,13 +1988,30 @@ sub expand {
                     if ($expand->[0] eq 'STORE') {
                         $expand->[1] = $stage;
                         my $field = $expand->[3];
-                        if ($field->[0] eq 'I2F') {
-                            my $width = $field->[1];
-                            $expand->[3] = &I2F($width, $value);
+                        &Error("Expecting I2F in COMMIT expansion", $expand)
+                            if $field->[0] ne 'I2F';
+                        if (defined $mask) {
+                            # A masked COMMIT writes one width-w lane at index i of the
+                            # destination cell.  Express it as a STORE to a SLICE of the
+                            # cell rather than the (unfinished) STORE Mask arg: Deslice,
+                            # which runs right after Expand, lowers the SLICE to the
+                            # read-modify-write that leaves the other lanes intact.  This
+                            # is how SLICE supersedes Mask -- the lane offset (w*i) and
+                            # width w come straight from the (CONST.w[i]) lane selector.
+                            # The mask is a sectioned CONST (CONST.width[index]); its
+                            # section array holds (_, width, index) -- the same layout
+                            # codegen_mask reads.  Only a static lane index maps to a SLICE.
+                            &Error("COMMIT mask is not a lane CONST", $mask)
+                                if $mask->[0] ne 'CONST' || ref $mask->[1] ne 'ARRAY';
+                            my ($lane_width, $lane_index) = ($mask->[1][1], $mask->[1][2]);
+                            &Error("COMMIT lane mask is not static", $mask)
+                                unless $lane_width =~ /^\d+$/ && $lane_index =~ /^\d+$/;
+                            $expand->[2] = &SLICE($lane_width, $expand->[2],
+                                                  &CONST($lane_width * $lane_index));
+                            $expand->[3] = &I2F($lane_width, $value);
                         } else {
-                            &Error("Expecting I2F in COMMIT expansion", $expand);
+                            $expand->[3] = &I2F($field->[1], $value);
                         }
-                        $expand->[4] = $mask if defined $mask;
                         $actions->{$proxy}->{COMMIT} = $stage;
                     } elsif ($expand->[0] =~ /^SKIP/) {
                     } else {
