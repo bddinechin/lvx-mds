@@ -67,6 +67,9 @@ Operand(lvx_v2_systemS3, METHOD(RegClass,lvx_v2_systemReg), WORDTYPE(uint32_t),
 Operand(lvx_v2_systemS4, METHOD(RegClass,lvx_v2_onlyswapReg), WORDTYPE(uint32_t),
         ENCODE(WORDS[0] &= ~((((uint32_t)1<<9)-1)<<6); WORDS[0] |= (VALUE&(((uint32_t)1<<9)-1))<<6),
         DECODE(VALUE |= (WORDS[0]>>6)&(((uint32_t)1<<9)-1)))
+Operand(lvx_v2_csrnumber, METHOD(Immediate,lvx_v2_csrnumber), WORDTYPE(uint32_t),
+        ENCODE(WORDS[0] &= ~((((uint32_t)1<<12)-1)<<6); WORDS[0] |= (VALUE&(((uint32_t)1<<12)-1))<<6),
+        DECODE(VALUE |= (WORDS[0]>>6)&(((uint32_t)1<<12)-1)))
 Operand(lvx_v2_sysnumber, METHOD(Immediate,lvx_v2_sysnumber), WORDTYPE(uint32_t),
         ENCODE(WORDS[0] &= ~((((uint32_t)1<<12)-1)<<0); WORDS[0] |= (VALUE&(((uint32_t)1<<12)-1))<<0),
         DECODE(VALUE |= (WORDS[0]>>0)&(((uint32_t)1<<12)-1)))
@@ -532,6 +535,9 @@ Operands(lvx_v2_registerZ_lvx_v2_systemS4, OPERANDS(2, OPERAND(lvx_v2_registerZ)
 Operands(lvx_v2_registerZ_lvx_v2_systemAlone, OPERANDS(2, OPERAND(lvx_v2_registerZ) OPERAND(lvx_v2_systemAlone)), RELOCATABLE(RANK(0), OPERAND(_UNDEF), IMMEDIATE(_UNDEF)),
          ENCODE(uint32_t *restrict WORDS = codeWords; { OperandDecoded __decoded = decoded[0]; OperandEncoded VALUE = RegClass_Encode_lvx_v2_singleReg(__decoded); WORDS[0] |= (VALUE&(((uint32_t)1<<6)-1))<<0;  }; { OperandDecoded __decoded = decoded[1]; OperandEncoded VALUE = RegClass_Encode_lvx_v2_aloneReg(__decoded); WORDS[0] |= (VALUE&(((uint32_t)1<<9)-1))<<6;  }),
          DECODE(const uint32_t *restrict WORDS = codeWords; { OperandEncoded VALUE = 0; VALUE |= (WORDS[0]>>0)&(((uint32_t)1<<6)-1); OperandsBuffer_DECODED(buffer)[0] = RegClass_Decode_lvx_v2_singleReg(VALUE);  }; { OperandEncoded VALUE = 0; VALUE |= (WORDS[0]>>6)&(((uint32_t)1<<9)-1); OperandsBuffer_DECODED(buffer)[1] = RegClass_Decode_lvx_v2_aloneReg(VALUE);  }))
+Operands(lvx_v2_registerZ_lvx_v2_csrnumber, OPERANDS(2, OPERAND(lvx_v2_registerZ) OPERAND(lvx_v2_csrnumber)), RELOCATABLE(RANK(0), OPERAND(_UNDEF), IMMEDIATE(_UNDEF)),
+         ENCODE(uint32_t *restrict WORDS = codeWords; { OperandDecoded __decoded = decoded[0]; OperandEncoded VALUE = RegClass_Encode_lvx_v2_singleReg(__decoded); WORDS[0] |= (VALUE&(((uint32_t)1<<6)-1))<<0;  }; { OperandDecoded __decoded = decoded[1]; OperandEncoded VALUE = Immediate_Encode_lvx_v2_csrnumber(__decoded); WORDS[0] |= (VALUE&(((uint32_t)1<<12)-1))<<6;  }),
+         DECODE(const uint32_t *restrict WORDS = codeWords; { OperandEncoded VALUE = 0; VALUE |= (WORDS[0]>>0)&(((uint32_t)1<<6)-1); OperandsBuffer_DECODED(buffer)[0] = RegClass_Decode_lvx_v2_singleReg(VALUE);  }; { OperandEncoded VALUE = 0; VALUE |= (WORDS[0]>>6)&(((uint32_t)1<<12)-1); OperandsBuffer_DECODED(buffer)[1] = Immediate_Decode_lvx_v2_csrnumber(VALUE);  }))
 Operands(lvx_v2_pcrel27s2, OPERANDS(1, OPERAND(lvx_v2_pcrel27s2)), RELOCATABLE(RANK(1), OPERAND(lvx_v2_pcrel27s2), IMMEDIATE(lvx_v2_pcrel27s2)),
          ENCODE(uint32_t *restrict WORDS = codeWords; { OperandDecoded __decoded = decoded[0]; OperandEncoded VALUE = Immediate_Encode_lvx_v2_pcrel27s2(__decoded); WORDS[0] |= (VALUE&(((uint32_t)1<<27)-1))<<0;  }),
          DECODE(const uint32_t *restrict WORDS = codeWords; { OperandEncoded VALUE = 0; VALUE |= (WORDS[0]>>0)&(((uint32_t)1<<27)-1); OperandsBuffer_DECODED(buffer)[0] = Immediate_Decode_lvx_v2_pcrel27s2(VALUE);  }))

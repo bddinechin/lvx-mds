@@ -399,21 +399,23 @@ stage E1:
   (MACRO.Instruction))
 </Behavior></Format>
 <Format
-  ID=	"Format-lvx_v1-BCU_FCSRSW"
+  ID=	"Format-lvx_v1-BCU_CSR"
   encoding=	"Encoding-lvx_v1-simple"
-  operands=	"Operand-lvx_v1-registerZ"
-  patterns=	"Pattern-lvx_v1-BCU_FCSRSW.bcucode2 Pattern-lvx_v1-BCU_FCSRSW.bcucode1 Pattern-lvx_v1-BCU_FCSRSW.steering"
-  syntax=	"%0 %1"
-  what=	"BCU Swap RISC-V FP CSR view of Compute Status with a GPR"
+  operands=	"Operand-lvx_v1-registerZ Operand-lvx_v1-csrnumber"
+  patterns=	"Pattern-lvx_v1-BCU_CSR.bcucode2 Pattern-lvx_v1-BCU_CSR.bcucode1 Pattern-lvx_v1-BCU_CSR.steering"
+  syntax=	"%0 %1 = %2"
+  what=	"BCU RISC-V CSR access (read/write, read/set, read/clear)"
 ><Execution>
 stage RR:
 new argument1 = %1;
+new argument2 = %2;
 @Instruction
 stage E1:
 %1 = result1;
 </Execution><Behavior>
 (SEQ
   (WRITE.argument1 (ACCESS.RR.%1))
+  (WRITE.argument2 (ACCESS.RR.%2))
   (MACRO.Instruction))
 </Behavior></Format>
 <Format

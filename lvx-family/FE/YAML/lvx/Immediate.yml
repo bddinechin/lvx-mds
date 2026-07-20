@@ -40,6 +40,10 @@ Immediate:
     what: System Number
     execution: "_ZX_12(%0)"
 
+  - ID: csrnumber
+    what: RISC-V CSR Number
+    execution: "_ZX_12(%0)"
+
   - ID: unsigned6
     what: Zero Extended Immediate 6 bits
     shortName: u6

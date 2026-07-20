@@ -81,7 +81,7 @@ stage RR:
  
 \paragraph{Encoding} Format \textsf{BCU\_BREAK} (Section~\ref{sec:format-BCU-BREAK}), \verb|bcucode2 = 1111|\\
 
-\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11011, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 4/-- -- -- --, 2/brknumber }
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11101, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 4/-- -- -- --, 2/brknumber }
 
 
 \paragraph{Syntax} \texttt{break} \emph{brknumber}
@@ -294,17 +294,17 @@ stage RR:
   new argument4 = (_SX_38(upper27_lower11)<<2);
 \end{lstlisting}}
 \newpage
-\subsubsection[{\small FCSRSW: Swap RISC-V FP CSR view of Compute Status with a GPR}]{FCSRSW\hfill Swap RISC-V FP CSR view of Compute Status with a GPR}
-\label{instr:FCSRSW}\index{fcsrsw}
+\subsubsection[{\small CSRRC: RISC-V CSR Read/Clear (atomic) of the fcsr view of Compute Status}]{CSRRC\hfill RISC-V CSR Read/Clear (atomic) of the fcsr view of Compute Status}
+\label{instr:CSRRC}\index{csrrc}
  
-\paragraph{Encoding} Format \textsf{BCU\_FCSRSW} (Section~\ref{sec:format-BCU-FCSRSW}), \verb|bcucode3 = 10011|\\
+\paragraph{Encoding} Format \textsf{BCU\_CSR} (Section~\ref{sec:format-BCU-CSR}), \verb|bcucode3 = 10101|\\
 
-\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10011, 3/-- -- --, 9/-- -- -- -- -- -- -- -- --, 6/registerZ }
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10101, 12/csrnumber, 6/registerZ }
 
 
-\paragraph{Syntax} \texttt{fcsrsw} \emph{registerZ}
+\paragraph{Syntax} \texttt{csrrc} \emph{registerZ} = \emph{csrnumber}
 
-\paragraph{Description} Atomically exchanges the \emph{registerZ} with the RISC-V \texttt{fcsr} view of the \textbf{CS} (Compute Status) register. The \emph{registerZ} receives \texttt{fcsr}: \texttt{fflags} in bits 0..4 (NX,UF,OF,DZ,NV -- the CS IEEE flags CS_IN, CS_UN, CS_OV, CS_DZ, CS_IO in reversed order) and \texttt{frm} in bits 5..7 (from CS_RM). The CS IEEE flags and rounding mode are then set from the old \emph{registerZ} in the same layout; all other CS fields (CS_IC, CS_XMF, CS_CC) are preserved.
+\paragraph{Description} RISC-V \texttt{csrrc} for the FP CSR. With \emph{csrnumber} = 0x003 (\texttt{fcsr}), \emph{registerZ} receives the old \texttt{fcsr} and the CS FP fields are set to (old fcsr AND NOT the old \emph{registerZ}) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. Any other \emph{csrnumber} raises an OPCODE exception.
 
 
 \paragraph{Execution} {Reservation table \textsf{BCU2\_TINY\_LSU} (Section~\ref{sec:reservation-BCU2-TINY-LSU})}
@@ -312,15 +312,91 @@ stage RR:
 {\begin{lstlisting}
 stage RR:
   new argument1 = GPR[registerZ];
+  new argument2 = _ZX_12(csrnumber);
 stage E1:
   new result1 = ((((SRS[4]<CS_IN:1> | (SRS[4]<CS_UN:1> << 1)) | (SRS[4]<CS_OV:1> << 2)) | (SRS[4]<CS_DZ:1> << 3)) | (SRS[4]<CS_IO:1> << 4)) | (SRS[4]<CS_RM:3> << 5);
-  SRS[4]<CS_IN:1> = argument1 & 1;
-  SRS[4]<CS_UN:1> = (argument1 >> 1) & 1;
-  SRS[4]<CS_OV:1> = (argument1 >> 2) & 1;
-  SRS[4]<CS_DZ:1> = (argument1 >> 3) & 1;
-  SRS[4]<CS_IO:1> = (argument1 >> 4) & 1;
-  SRS[4]<CS_RM:3> = (argument1 >> 5) & 7;
-  GPR[registerZ] = result1;
+  if (argument2 == 3) {
+    new newval = result1 & ~argument1;
+    SRS[4]<CS_IN:1> = newval & 1;
+    SRS[4]<CS_UN:1> = (newval >> 1) & 1;
+    SRS[4]<CS_OV:1> = (newval >> 2) & 1;
+    SRS[4]<CS_DZ:1> = (newval >> 3) & 1;
+    SRS[4]<CS_IO:1> = (newval >> 4) & 1;
+    SRS[4]<CS_RM:3> = (newval >> 5) & 7;
+    GPR[registerZ] = result1;
+  } else {
+    _THROW(OPCODE);
+  }
+\end{lstlisting}}
+\newpage
+\subsubsection[{\small CSRRS: RISC-V CSR Read/Set (atomic) of the fcsr view of Compute Status}]{CSRRS\hfill RISC-V CSR Read/Set (atomic) of the fcsr view of Compute Status}
+\label{instr:CSRRS}\index{csrrs}
+ 
+\paragraph{Encoding} Format \textsf{BCU\_CSR} (Section~\ref{sec:format-BCU-CSR}), \verb|bcucode3 = 10100|\\
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10100, 12/csrnumber, 6/registerZ }
+
+
+\paragraph{Syntax} \texttt{csrrs} \emph{registerZ} = \emph{csrnumber}
+
+\paragraph{Description} RISC-V \texttt{csrrs} for the FP CSR. With \emph{csrnumber} = 0x003 (\texttt{fcsr}), \emph{registerZ} receives the old \texttt{fcsr} and the CS FP fields are set to (old fcsr OR the old \emph{registerZ}) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. Any other \emph{csrnumber} raises an OPCODE exception.
+
+
+\paragraph{Execution} {Reservation table \textsf{BCU2\_TINY\_LSU} (Section~\ref{sec:reservation-BCU2-TINY-LSU})}
+~
+{\begin{lstlisting}
+stage RR:
+  new argument1 = GPR[registerZ];
+  new argument2 = _ZX_12(csrnumber);
+stage E1:
+  new result1 = ((((SRS[4]<CS_IN:1> | (SRS[4]<CS_UN:1> << 1)) | (SRS[4]<CS_OV:1> << 2)) | (SRS[4]<CS_DZ:1> << 3)) | (SRS[4]<CS_IO:1> << 4)) | (SRS[4]<CS_RM:3> << 5);
+  if (argument2 == 3) {
+    new newval = result1 | argument1;
+    SRS[4]<CS_IN:1> = newval & 1;
+    SRS[4]<CS_UN:1> = (newval >> 1) & 1;
+    SRS[4]<CS_OV:1> = (newval >> 2) & 1;
+    SRS[4]<CS_DZ:1> = (newval >> 3) & 1;
+    SRS[4]<CS_IO:1> = (newval >> 4) & 1;
+    SRS[4]<CS_RM:3> = (newval >> 5) & 7;
+    GPR[registerZ] = result1;
+  } else {
+    _THROW(OPCODE);
+  }
+\end{lstlisting}}
+\newpage
+\subsubsection[{\small CSRRW: RISC-V CSR Read/Write (atomic) of the fcsr view of Compute Status}]{CSRRW\hfill RISC-V CSR Read/Write (atomic) of the fcsr view of Compute Status}
+\label{instr:CSRRW}\index{csrrw}
+ 
+\paragraph{Encoding} Format \textsf{BCU\_CSR} (Section~\ref{sec:format-BCU-CSR}), \verb|bcucode3 = 10011|\\
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10011, 12/csrnumber, 6/registerZ }
+
+
+\paragraph{Syntax} \texttt{csrrw} \emph{registerZ} = \emph{csrnumber}
+
+\paragraph{Description} RISC-V \texttt{csrrw} for the FP CSR. With the CSR number \emph{csrnumber} = 0x003 (\texttt{fcsr}), \emph{registerZ} receives the old \texttt{fcsr} -- \texttt{fflags} in bits 0..4 (NX,UF,OF,DZ,NV: the CS IEEE flags CS_IN,CS_UN,CS_OV,CS_DZ,CS_IO in reversed RISC-V order) and \texttt{frm} in bits 5..7 (from CS_RM) -- and the CS FP fields are written from the old \emph{registerZ} in the same layout, preserving CS_IC, CS_XMF and CS_CC. Any other \emph{csrnumber} raises an OPCODE exception (\texttt{csrnumber} is a single register file so far).
+
+
+\paragraph{Execution} {Reservation table \textsf{BCU2\_TINY\_LSU} (Section~\ref{sec:reservation-BCU2-TINY-LSU})}
+~
+{\begin{lstlisting}
+stage RR:
+  new argument1 = GPR[registerZ];
+  new argument2 = _ZX_12(csrnumber);
+stage E1:
+  new result1 = ((((SRS[4]<CS_IN:1> | (SRS[4]<CS_UN:1> << 1)) | (SRS[4]<CS_OV:1> << 2)) | (SRS[4]<CS_DZ:1> << 3)) | (SRS[4]<CS_IO:1> << 4)) | (SRS[4]<CS_RM:3> << 5);
+  if (argument2 == 3) {
+    new newval = argument1;
+    SRS[4]<CS_IN:1> = newval & 1;
+    SRS[4]<CS_UN:1> = (newval >> 1) & 1;
+    SRS[4]<CS_OV:1> = (newval >> 2) & 1;
+    SRS[4]<CS_DZ:1> = (newval >> 3) & 1;
+    SRS[4]<CS_IO:1> = (newval >> 4) & 1;
+    SRS[4]<CS_RM:3> = (newval >> 5) & 7;
+    GPR[registerZ] = result1;
+  } else {
+    _THROW(OPCODE);
+  }
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small GET: Get System Register}]{GET\hfill Get System Register}
@@ -430,9 +506,9 @@ stage RR:
 \subsubsection[{\small ICALL: Indirect Call from Register}]{ICALL\hfill Indirect Call from Register}
 \label{instr:ICALL}\index{icall}
  
-\paragraph{Encoding} Format \textsf{BCU\_IBC} (Section~\ref{sec:format-BCU-IBC}), \verb|bcucode3 = 11000|\\
+\paragraph{Encoding} Format \textsf{BCU\_IBC} (Section~\ref{sec:format-BCU-IBC}), \verb|bcucode3 = 11010|\\
 
-\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11000, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11010, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
 
 
 \paragraph{Syntax} \texttt{icall} \emph{registerZ}
@@ -455,9 +531,9 @@ stage RR:
 \subsubsection[{\small IGET: Indirect Get System Register}]{IGET\hfill Indirect Get System Register}
 \label{instr:IGET}\index{iget}
  
-\paragraph{Encoding} Format \textsf{BCU\_IGSR} (Section~\ref{sec:format-BCU-IGSR}), \verb|bcucode3 = 10100|\\
+\paragraph{Encoding} Format \textsf{BCU\_IGSR} (Section~\ref{sec:format-BCU-IGSR}), \verb|bcucode3 = 10110|\\
 
-\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10100, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10110, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
 
 
 \paragraph{Syntax} \texttt{iget} \emph{registerZ}
@@ -481,9 +557,9 @@ stage E1:
 \subsubsection[{\small IGOTO: Indirect Branch from Register}]{IGOTO\hfill Indirect Branch from Register}
 \label{instr:IGOTO}\index{igoto}
  
-\paragraph{Encoding} Format \textsf{BCU\_IBC} (Section~\ref{sec:format-BCU-IBC}), \verb|bcucode3 = 10111|\\
+\paragraph{Encoding} Format \textsf{BCU\_IBC} (Section~\ref{sec:format-BCU-IBC}), \verb|bcucode3 = 11001|\\
 
-\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10111, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11001, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
 
 
 \paragraph{Syntax} \texttt{igoto} \emph{registerZ}
@@ -541,9 +617,9 @@ stage E2:
 \subsubsection[{\small RET: Return from Call}]{RET\hfill Return from Call}
 \label{instr:RET}\index{ret}
  
-\paragraph{Encoding} Format \textsf{BCU\_RTS} (Section~\ref{sec:format-BCU-RTS}), \verb|bcucode3 = 10101|\\
+\paragraph{Encoding} Format \textsf{BCU\_RTS} (Section~\ref{sec:format-BCU-RTS}), \verb|bcucode3 = 10111|\\
 
-\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10101, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/-- -- -- -- -- -- }
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10111, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/-- -- -- -- -- -- }
 
 
 \paragraph{Syntax} \texttt{ret}
@@ -564,9 +640,9 @@ stage RR:
 \subsubsection[{\small RFE: Return from Exception}]{RFE\hfill Return from Exception}
 \label{instr:RFE}\index{rfe}
  
-\paragraph{Encoding} Format \textsf{BCU\_RTS} (Section~\ref{sec:format-BCU-RTS}), \verb|bcucode3 = 10110|\\
+\paragraph{Encoding} Format \textsf{BCU\_RTS} (Section~\ref{sec:format-BCU-RTS}), \verb|bcucode3 = 11000|\\
 
-\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10110, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/-- -- -- -- -- -- }
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11000, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/-- -- -- -- -- -- }
 
 
 \paragraph{Syntax} \texttt{rfe}
@@ -644,7 +720,7 @@ stage E1:
  
 \paragraph{Encoding} Format \textsf{BCU\_SCR} (Section~\ref{sec:format-BCU-SCR}), \verb|bcucode2 = 1111|\\
 
-\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11010, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11100, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
 
 
 \paragraph{Syntax} \texttt{scall} \emph{registerZ}
@@ -664,7 +740,7 @@ stage ID:
 
 \paragraph{Encoding} Format \textsf{BCU\_SCI} (Section~\ref{sec:format-BCU-SCI}), \verb|bcucode2 = 1111|\\
 
-\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11001, 6/-- -- -- -- -- --, 12/sysnumber }
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/11011, 6/-- -- -- -- -- --, 12/sysnumber }
 
 
 \paragraph{Syntax} \texttt{scall} \emph{sysnumber}
@@ -46004,6 +46080,7 @@ stage E3:
 \begin{tabular}{|l|l|l|} \hline
 \bf{Immediate classes} & \bf{Operands} & \bf{What} \\ \hline
 brknumber & brknumber & \verb| Break Number |\\
+csrnumber & csrnumber & \verb| RISC-V CSR Number |\\
 pcrel11s2 & pcrel11s2 & \verb| CCB Offset |\\
 pcrel17s2 & pcrel17s2 & \verb| CB Offset |\\
 pcrel27s2 & pcrel27s2 & \verb| GOTO / CALL Offset |\\
@@ -46027,6 +46104,7 @@ wrapped64 & extend27\_\discretionary{}{}{}upper27\_\discretionary{}{}{}lower10 &
 \begin{tabular}{|l|l|l|l|l|} \hline
 \bf{Immediate classes} & \bf{Extend} & \bf{Shift} & \bf{Width} & \bf{Values} \\ \hline
 brknumber & Unsigned & 0 & 2 & 0x0 to 0x3 \\
+csrnumber & Unsigned & 0 & 12 & 0x0 to 0xfff \\
 pcrel11s2 & Signed & 2 & 11 & 0x1000 to 0xffc \\
 pcrel17s2 & Signed & 2 & 17 & 0x40000 to 0x3fffc \\
 pcrel27s2 & Signed & 2 & 27 & 0x10000000 to 0xffffffc \\

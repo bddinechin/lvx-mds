@@ -36272,6 +36272,96 @@
   stages=	"0 0"
 /></Operator>
 <Operator
+  ID=	"Operator-lvx-CSRRC_1singleReg_2csrnumber_simple"
+  mnemonic=	"csrrc"
+  origins=	"Opcode-lvx_v1-CSRRC_registerZ_csrnumber_simple Opcode-lvx_v2-CSRRC_registerZ_csrnumber_simple"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1 = %2"
+><Parameter
+  action=	"Write"
+  method=	"Register-lvx-CS"
+  stages=	"2 2"
+/><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"2 2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx-CS"
+  stages=	"2 2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"1 1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-csrnumber"
+  proxy=	"%2"
+  stages=	"0 0"
+/></Operator>
+<Operator
+  ID=	"Operator-lvx-CSRRS_1singleReg_2csrnumber_simple"
+  mnemonic=	"csrrs"
+  origins=	"Opcode-lvx_v1-CSRRS_registerZ_csrnumber_simple Opcode-lvx_v2-CSRRS_registerZ_csrnumber_simple"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1 = %2"
+><Parameter
+  action=	"Write"
+  method=	"Register-lvx-CS"
+  stages=	"2 2"
+/><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"2 2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx-CS"
+  stages=	"2 2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"1 1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-csrnumber"
+  proxy=	"%2"
+  stages=	"0 0"
+/></Operator>
+<Operator
+  ID=	"Operator-lvx-CSRRW_1singleReg_2csrnumber_simple"
+  mnemonic=	"csrrw"
+  origins=	"Opcode-lvx_v1-CSRRW_registerZ_csrnumber_simple Opcode-lvx_v2-CSRRW_registerZ_csrnumber_simple"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1 = %2"
+><Parameter
+  action=	"Write"
+  method=	"Register-lvx-CS"
+  stages=	"2 2"
+/><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"2 2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx-CS"
+  stages=	"2 2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"1 1"
+/><Parameter
+  action=	"Read"
+  method=	"Immediate-lvx-csrnumber"
+  proxy=	"%2"
+  stages=	"0 0"
+/></Operator>
+<Operator
   ID=	"Operator-lvx-CTZD_1singleReg_2singleReg_simple"
   mnemonic=	"ctzd"
   origins=	"Opcode-lvx_v1-CTZD_registerW_registerZ_simple Opcode-lvx_v2-CTZD_registerW_registerZ_simple"
@@ -40482,31 +40572,6 @@
   method=	"Immediate-lvx-wrapped32"
   proxy=	"%4"
   stages=	"0 0"
-/></Operator>
-<Operator
-  ID=	"Operator-lvx-FCSRSW_1singleReg_simple"
-  mnemonic=	"fcsrsw"
-  origins=	"Opcode-lvx_v1-FCSRSW_registerZ_simple Opcode-lvx_v2-FCSRSW_registerZ_simple"
-  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
-  syntax=	"%0 %1"
-><Parameter
-  action=	"Write"
-  method=	"Register-lvx-CS"
-  stages=	"2 2"
-/><Parameter
-  action=	"Write"
-  method=	"RegClass-lvx-singleReg"
-  proxy=	"%1"
-  stages=	"2 2"
-/><Parameter
-  action=	"Read"
-  method=	"Register-lvx-CS"
-  stages=	"2 2"
-/><Parameter
-  action=	"Read"
-  method=	"RegClass-lvx-singleReg"
-  proxy=	"%1"
-  stages=	"1 1"
 /></Operator>
 <Operator
   ID=	"Operator-lvx-FDIVD_N_R5_3singleReg_4singleReg_5singleReg_simple"

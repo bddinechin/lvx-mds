@@ -60,6 +60,12 @@
   width=	"12"
 />
 <Immediate
+  ID=	"Immediate-lvx-csrnumber"
+  extend=	"Unsigned"
+  what=	"RISC-V CSR Number"
+  width=	"12"
+/>
+<Immediate
   ID=	"Immediate-lvx-unsigned6"
   extend=	"Unsigned"
   what=	"Zero Extended Immediate 6 bits"

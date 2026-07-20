@@ -39,6 +39,10 @@ Immediate(lvx_v2_sysnumber, MINVALUE(0), MAXVALUE(4095), EXTEND(Unsigned),
           RELOCATIONS(1, RELOCATION(_UNDEF)),
           ENCODE(uint32_t __value = VALUE; __value &= ((uint32_t)1<<12)-1; VALUE = __value),
           DECODE(uint32_t __value = VALUE; VALUE = __value))
+Immediate(lvx_v2_csrnumber, MINVALUE(0), MAXVALUE(4095), EXTEND(Unsigned),
+          RELOCATIONS(1, RELOCATION(_UNDEF)),
+          ENCODE(uint32_t __value = VALUE; __value &= ((uint32_t)1<<12)-1; VALUE = __value),
+          DECODE(uint32_t __value = VALUE; VALUE = __value))
 Immediate(lvx_v2_unsigned6, MINVALUE(0), MAXVALUE(63), EXTEND(Unsigned),
           RELOCATIONS(1, RELOCATION(_UNDEF)),
           ENCODE(uint32_t __value = VALUE; __value &= ((uint32_t)1<<6)-1; VALUE = __value),

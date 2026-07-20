@@ -4995,6 +4995,24 @@ static struct lvx_operand lvx_v1_conjugate_opnd  __attribute__((unused)) = {
   .bfield = { { 1, 0, 13 },  }
 };
 
+static struct lvx_reloc *lvx_v1_csrnumber_opnd_relocs[] __attribute__((unused)) = {
+  0
+};
+static struct lvx_operand lvx_v1_csrnumber_opnd  __attribute__((unused)) = {
+  .tname = "lvx_v1_csrnumber_opnd",
+  .type = Immediate_lvx_v1_csrnumber,
+  .width = 12,
+  .shift = 0,
+  .bias = 0,
+  .flags = 0,
+  .reg_nb = 0,
+  .regs = 0,
+  .reloc_nb = 0,
+  .relocs = lvx_v1_csrnumber_opnd_relocs,
+  .bitfields = 1,
+  .bfield = { { 12, 0, 6 },  }
+};
+
 static struct lvx_reloc *lvx_v1_execpred_opnd_relocs[] __attribute__((unused)) = {
   0
 };
@@ -16810,7 +16828,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "break",
     .codewords = {
       {
-        .opcode = 0x0fec0000,
+        .opcode = 0x0ff40000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -17475,6 +17493,63 @@ struct lvx_opc lvx_v1_optab[] = {
       NULL
     },
     .fmtstring = " %s = %s, %s",
+  },
+  { /* Opcode-lvx_v1-CSRRC_registerZ_u012_simple */
+    .as_op = "csrrc",
+    .codewords = {
+      {
+        .opcode = 0x0fd40000,
+        .mask = 0x7ffc0000,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      &lvx_v1_csrnumber_opnd,
+      NULL
+    },
+    .fmtstring = " %s = %s",
+  },
+  { /* Opcode-lvx_v1-CSRRS_registerZ_u012_simple */
+    .as_op = "csrrs",
+    .codewords = {
+      {
+        .opcode = 0x0fd00000,
+        .mask = 0x7ffc0000,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      &lvx_v1_csrnumber_opnd,
+      NULL
+    },
+    .fmtstring = " %s = %s",
+  },
+  { /* Opcode-lvx_v1-CSRRW_registerZ_u012_simple */
+    .as_op = "csrrw",
+    .codewords = {
+      {
+        .opcode = 0x0fcc0000,
+        .mask = 0x7ffc0000,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      &lvx_v1_csrnumber_opnd,
+      NULL
+    },
+    .fmtstring = " %s = %s",
   },
   { /* Opcode-lvx_v1-CTZD_registerW_registerZ_simple */
     .as_op = "ctzd",
@@ -18671,24 +18746,6 @@ struct lvx_opc lvx_v1_optab[] = {
       NULL
     },
     .fmtstring = "%s %s = %s, %s",
-  },
-  { /* Opcode-lvx_v1-FCSRSW_registerZ_simple */
-    .as_op = "fcsrsw",
-    .codewords = {
-      {
-        .opcode = 0x0fcc0000,
-        .mask = 0x7ffc0000,
-        .flags = LVX_OPCODE_FLAG_MODE64
-      },
-    },
-    .wordcount = 1,
-    .bundling = (int)Bundling_lvx_v1_BCU2,
-    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
-    .format = {
-      &lvx_v1_registerz_opnd,
-      NULL
-    },
-    .fmtstring = " %s",
   },
   { /* Opcode-lvx_v1-FDIVD_fnegate_floatmode_registerW_registerZ_registerY_simple */
     .as_op = "fdivd",
@@ -20525,7 +20582,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "icall",
     .codewords = {
       {
-        .opcode = 0x0fe00000,
+        .opcode = 0x0fe80000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -20543,7 +20600,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "iget",
     .codewords = {
       {
-        .opcode = 0x0fd00000,
+        .opcode = 0x0fd80000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -20561,7 +20618,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "igoto",
     .codewords = {
       {
-        .opcode = 0x0fdc0000,
+        .opcode = 0x0fe40000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -24389,7 +24446,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "ret",
     .codewords = {
       {
-        .opcode = 0x0fd40000,
+        .opcode = 0x0fdc0000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -24406,7 +24463,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "rfe",
     .codewords = {
       {
-        .opcode = 0x0fd80000,
+        .opcode = 0x0fe00000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -25473,7 +25530,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "scall",
     .codewords = {
       {
-        .opcode = 0x0fe80000,
+        .opcode = 0x0ff00000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -25491,7 +25548,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "scall",
     .codewords = {
       {
-        .opcode = 0x0fe40000,
+        .opcode = 0x0fec0000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -27756,7 +27813,7 @@ struct lvx_opc lvx_v1_optab[] = {
     },
     .fmtstring = " %s = %s, %s",
   },
-/* Number of instructions: 871 */
+/* Number of instructions: 873 */
   {"", { }, 0, 0, 0, { }, ""}
 };
 
@@ -32727,6 +32784,24 @@ static struct lvx_operand lvx_v2_conjugate_opnd  __attribute__((unused)) = {
   .relocs = lvx_v2_conjugate_opnd_relocs,
   .bitfields = 1,
   .bfield = { { 1, 0, 13 },  }
+};
+
+static struct lvx_reloc *lvx_v2_csrnumber_opnd_relocs[] __attribute__((unused)) = {
+  0
+};
+static struct lvx_operand lvx_v2_csrnumber_opnd  __attribute__((unused)) = {
+  .tname = "lvx_v2_csrnumber_opnd",
+  .type = Immediate_lvx_v2_csrnumber,
+  .width = 12,
+  .shift = 0,
+  .bias = 0,
+  .flags = 0,
+  .reg_nb = 0,
+  .regs = 0,
+  .reloc_nb = 0,
+  .relocs = lvx_v2_csrnumber_opnd_relocs,
+  .bitfields = 1,
+  .bfield = { { 12, 0, 6 },  }
 };
 
 static struct lvx_reloc *lvx_v2_execpred_opnd_relocs[] __attribute__((unused)) = {
@@ -47963,7 +48038,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "break",
     .codewords = {
       {
-        .opcode = 0x0fec0000,
+        .opcode = 0x0ff40000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -49375,6 +49450,63 @@ struct lvx_opc lvx_v2_optab[] = {
       NULL
     },
     .fmtstring = " %s = %s, %s",
+  },
+  { /* Opcode-lvx_v2-CSRRC_registerZ_u012_simple */
+    .as_op = "csrrc",
+    .codewords = {
+      {
+        .opcode = 0x0fd40000,
+        .mask = 0x7ffc0000,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      &lvx_v2_csrnumber_opnd,
+      NULL
+    },
+    .fmtstring = " %s = %s",
+  },
+  { /* Opcode-lvx_v2-CSRRS_registerZ_u012_simple */
+    .as_op = "csrrs",
+    .codewords = {
+      {
+        .opcode = 0x0fd00000,
+        .mask = 0x7ffc0000,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      &lvx_v2_csrnumber_opnd,
+      NULL
+    },
+    .fmtstring = " %s = %s",
+  },
+  { /* Opcode-lvx_v2-CSRRW_registerZ_u012_simple */
+    .as_op = "csrrw",
+    .codewords = {
+      {
+        .opcode = 0x0fcc0000,
+        .mask = 0x7ffc0000,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      &lvx_v2_csrnumber_opnd,
+      NULL
+    },
+    .fmtstring = " %s = %s",
   },
   { /* Opcode-lvx_v2-CTZDP_registerM_registerP_simple */
     .as_op = "ctzdp",
@@ -51295,24 +51427,6 @@ struct lvx_opc lvx_v2_optab[] = {
       NULL
     },
     .fmtstring = "%s %s = %s, %s",
-  },
-  { /* Opcode-lvx_v2-FCSRSW_registerZ_simple */
-    .as_op = "fcsrsw",
-    .codewords = {
-      {
-        .opcode = 0x0fcc0000,
-        .mask = 0x7ffc0000,
-        .flags = LVX_OPCODE_FLAG_MODE64
-      },
-    },
-    .wordcount = 1,
-    .bundling = (int)Bundling_lvx_v2_BCU2,
-    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
-    .format = {
-      &lvx_v2_registerz_opnd,
-      NULL
-    },
-    .fmtstring = " %s",
   },
   { /* Opcode-lvx_v2-FDIVD_fnegate_floatmode_registerW_registerZ_registerY_simple */
     .as_op = "fdivd",
@@ -54326,7 +54440,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "icall",
     .codewords = {
       {
-        .opcode = 0x0fe00000,
+        .opcode = 0x0fe80000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -54344,7 +54458,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "iget",
     .codewords = {
       {
-        .opcode = 0x0fd00000,
+        .opcode = 0x0fd80000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -54362,7 +54476,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "igoto",
     .codewords = {
       {
-        .opcode = 0x0fdc0000,
+        .opcode = 0x0fe40000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -60014,7 +60128,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "ret",
     .codewords = {
       {
-        .opcode = 0x0fd40000,
+        .opcode = 0x0fdc0000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -60031,7 +60145,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "rfe",
     .codewords = {
       {
-        .opcode = 0x0fd80000,
+        .opcode = 0x0fe00000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -61914,7 +62028,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "scall",
     .codewords = {
       {
-        .opcode = 0x0fe80000,
+        .opcode = 0x0ff00000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -61932,7 +62046,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "scall",
     .codewords = {
       {
-        .opcode = 0x0fe40000,
+        .opcode = 0x0fec0000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -69553,7 +69667,7 @@ struct lvx_opc lvx_v2_optab[] = {
     },
     .fmtstring = " %s = %s, %s",
   },
-/* Number of instructions: 1454 */
+/* Number of instructions: 1456 */
   {"", { }, 0, 0, 0, { }, ""}
 };
 

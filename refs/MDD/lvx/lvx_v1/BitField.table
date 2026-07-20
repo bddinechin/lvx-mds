@@ -345,6 +345,11 @@
   width=	"1"
 />
 <BitField
+  ID=	"BitField-lvx_v1-csrnumber"
+  offset=	"6"
+  width=	"12"
+/>
+<BitField
   ID=	"BitField-lvx_v1-doscale"
   offset=	"12"
   width=	"1"

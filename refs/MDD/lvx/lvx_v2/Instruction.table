@@ -418,48 +418,136 @@ new result1 = _ZX_64(argument2);
   (SKIP))
 </Behavior></Instruction>
 <Instruction
-  ID=	"Instruction-lvx_v2-BCU:FCSRSW"
-  formats=	"Format-lvx_v2-BCU_FCSRSW"
-  mnemonic=	"fcsrsw"
-  patterns=	"Pattern-lvx_v2-BCU_FCSRSW:BCU:FCSRSW.bcucode3"
+  ID=	"Instruction-lvx_v2-BCU:CSRRW"
+  formats=	"Format-lvx_v2-BCU_CSR"
+  mnemonic=	"csrrw"
+  patterns=	"Pattern-lvx_v2-BCU_CSR:BCU:CSRRW.bcucode3"
   schedulings=	"Scheduling-lvx_v2-BCU2_TINY_LSU"
-  what=	"Swap RISC-V FP CSR view of Compute Status with a GPR"
+  what=	"RISC-V CSR Read/Write (atomic) of the fcsr view of Compute Status"
 ><Execution>
 stage E1:
 new result1 = (CS.IN &lt;&lt; 0) | (CS.UN &lt;&lt; 1) | (CS.OV &lt;&lt; 2) | (CS.DZ &lt;&lt; 3) | (CS.IO &lt;&lt; 4) | (CS.RM &lt;&lt; 5);
-CS.IN = (argument1 &gt;&gt; 0) &amp; 1;
-CS.UN = (argument1 &gt;&gt; 1) &amp; 1;
-CS.OV = (argument1 &gt;&gt; 2) &amp; 1;
-CS.DZ = (argument1 &gt;&gt; 3) &amp; 1;
-CS.IO = (argument1 &gt;&gt; 4) &amp; 1;
-CS.RM = (argument1 &gt;&gt; 5) &amp; 7;
+if (argument2 == 0x003) {
+  new newval = argument1;
+  CS.IN = (newval &gt;&gt; 0) &amp; 1;
+  CS.UN = (newval &gt;&gt; 1) &amp; 1;
+  CS.OV = (newval &gt;&gt; 2) &amp; 1;
+  CS.DZ = (newval &gt;&gt; 3) &amp; 1;
+  CS.IO = (newval &gt;&gt; 4) &amp; 1;
+  CS.RM = (newval &gt;&gt; 5) &amp; 7;
+} else {
+  _THROW(OPCODE);
+}
 </Execution><Behavior>
 (SEQ
   (WRITE.result1
     (IOR
-      (IOR
-        (IOR
-          (IOR
-            (IOR
-              (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))))
-              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))) (CONST.1)))
-            (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))) (CONST.2)))
-          (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
+      (IOR (IOR (IOR (IOR
+        (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))) (CONST.1)))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))) (CONST.2)))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
       (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
-  (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
-    (I2F.1 (AND (READ.argument1) (CONST.1))))
-  (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
-    (I2F.1 (AND (SHR (READ.argument1) (CONST.1)) (CONST.1))))
-  (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
-    (I2F.1 (AND (SHR (READ.argument1) (CONST.2)) (CONST.1))))
-  (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
-    (I2F.1 (AND (SHR (READ.argument1) (CONST.3)) (CONST.1))))
-  (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
-    (I2F.1 (AND (SHR (READ.argument1) (CONST.4)) (CONST.1))))
-  (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))
-    (I2F.3 (AND (SHR (READ.argument1) (CONST.5)) (CONST.7))))
-  (COMMIT.E1.%1 (READ.result1)))
+  (IF (EQ (READ.argument2) (CONST.3))
+    (SEQ
+      (WRITE.newval (READ.argument1))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+      (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+      (COMMIT.E1.%1 (READ.result1)))
+    (THROW.ID.OPCODE)))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-BCU:CSRRS"
+  formats=	"Format-lvx_v2-BCU_CSR"
+  mnemonic=	"csrrs"
+  patterns=	"Pattern-lvx_v2-BCU_CSR:BCU:CSRRS.bcucode3"
+  schedulings=	"Scheduling-lvx_v2-BCU2_TINY_LSU"
+  what=	"RISC-V CSR Read/Set (atomic) of the fcsr view of Compute Status"
+><Execution>
+stage E1:
+new result1 = (CS.IN &lt;&lt; 0) | (CS.UN &lt;&lt; 1) | (CS.OV &lt;&lt; 2) | (CS.DZ &lt;&lt; 3) | (CS.IO &lt;&lt; 4) | (CS.RM &lt;&lt; 5);
+if (argument2 == 0x003) {
+  new newval = result1 | argument1;
+  CS.IN = (newval &gt;&gt; 0) &amp; 1;
+  CS.UN = (newval &gt;&gt; 1) &amp; 1;
+  CS.OV = (newval &gt;&gt; 2) &amp; 1;
+  CS.DZ = (newval &gt;&gt; 3) &amp; 1;
+  CS.IO = (newval &gt;&gt; 4) &amp; 1;
+  CS.RM = (newval &gt;&gt; 5) &amp; 7;
+} else {
+  _THROW(OPCODE);
+}
+</Execution><Behavior>
+(SEQ
+  (WRITE.result1
+    (IOR
+      (IOR (IOR (IOR (IOR
+        (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))) (CONST.1)))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))) (CONST.2)))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
+      (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
+  (IF (EQ (READ.argument2) (CONST.3))
+    (SEQ
+      (WRITE.newval (IOR (READ.result1) (READ.argument1)))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+      (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+      (COMMIT.E1.%1 (READ.result1)))
+    (THROW.ID.OPCODE)))
+</Behavior></Instruction>
+<Instruction
+  ID=	"Instruction-lvx_v2-BCU:CSRRC"
+  formats=	"Format-lvx_v2-BCU_CSR"
+  mnemonic=	"csrrc"
+  patterns=	"Pattern-lvx_v2-BCU_CSR:BCU:CSRRC.bcucode3"
+  schedulings=	"Scheduling-lvx_v2-BCU2_TINY_LSU"
+  what=	"RISC-V CSR Read/Clear (atomic) of the fcsr view of Compute Status"
+><Execution>
+stage E1:
+new result1 = (CS.IN &lt;&lt; 0) | (CS.UN &lt;&lt; 1) | (CS.OV &lt;&lt; 2) | (CS.DZ &lt;&lt; 3) | (CS.IO &lt;&lt; 4) | (CS.RM &lt;&lt; 5);
+if (argument2 == 0x003) {
+  new newval = result1 &amp; ~argument1;
+  CS.IN = (newval &gt;&gt; 0) &amp; 1;
+  CS.UN = (newval &gt;&gt; 1) &amp; 1;
+  CS.OV = (newval &gt;&gt; 2) &amp; 1;
+  CS.DZ = (newval &gt;&gt; 3) &amp; 1;
+  CS.IO = (newval &gt;&gt; 4) &amp; 1;
+  CS.RM = (newval &gt;&gt; 5) &amp; 7;
+} else {
+  _THROW(OPCODE);
+}
+</Execution><Behavior>
+(SEQ
+  (WRITE.result1
+    (IOR
+      (IOR (IOR (IOR (IOR
+        (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))) (CONST.1)))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))) (CONST.2)))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
+        (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
+      (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
+  (IF (EQ (READ.argument2) (CONST.3))
+    (SEQ
+      (WRITE.newval (AND (READ.result1) (NOT (READ.argument1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+      (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+      (COMMIT.E1.%1 (READ.result1)))
+    (THROW.ID.OPCODE)))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-BCU:WAITIT"

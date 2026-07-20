@@ -135,6 +135,12 @@
   what=	"Only SWAP System Registers without PS"
 />
 <Operand
+  ID=	"Operand-lvx_v1-csrnumber"
+  fields=	"BitField-lvx_v1-csrnumber"
+  method=	"Immediate-lvx_v1-csrnumber"
+  what=	"RISC-V CSR Number"
+/>
+<Operand
   ID=	"Operand-lvx_v1-sysnumber"
   fields=	"BitField-lvx_v1-sysnumber"
   method=	"Immediate-lvx_v1-sysnumber"

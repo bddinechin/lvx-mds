@@ -110,6 +110,11 @@
   write=	"(STORE._(AGGL.SFR(METHOD.%0)(CONST.1))(I2F.64(UNDEF)))"
 />
 <Access
+  ID=	"Access-lvx-Operand.csrnumber"
+  method=	"Immediate-lvx-csrnumber"
+  read=	"(ZX.12(METHOD.%0))"
+/>
+<Access
   ID=	"Access-lvx-Operand.sysnumber"
   method=	"Immediate-lvx-sysnumber"
   read=	"(ZX.12(METHOD.%0))"

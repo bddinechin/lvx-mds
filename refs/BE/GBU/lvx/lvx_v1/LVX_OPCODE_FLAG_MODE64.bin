@@ -728,7 +728,7 @@ Disassembly of section .text:
 
      aa4:	f7 01 84 0f                                     	blend.mt $r55? 7 (0x7);;
 
-     aa8:	00 00 ec 0f                                     	break 0 (0x0);;
+     aa8:	00 00 f4 0f                                     	break 0 (0x0);;
 
      aac:	00 00 00 98 00 00 80 07                         	callx fff0000000000aac <main+0xfff0000000000aac>;;
 
@@ -796,917 +796,921 @@ Disassembly of section .text:
 
      b50:	cc 57 33 e6 ff ff ff 00                         	crclelmw $r12 = $r12, 536870911 (0x1fffffff);;
 
-     b58:	0d a7 36 6f                                     	ctzd $r13 = $r13;;
+     b58:	cd 7f d4 0f                                     	csrrc $r13 = 511 (0x1ff);;
 
-     b5c:	0e a7 3b 6f                                     	ctzw $r14 = $r14;;
+     b5c:	cd 7f d0 0f                                     	csrrs $r13 = 511 (0x1ff);;
 
-     b60:	00 00 8c 3c                                     	d1inval;;
+     b60:	ce 7f cc 0f                                     	csrrw $r14 = 511 (0x1ff);;
 
-     b64:	ce ff 3c bc ff ff ff 97 ff ff ff 10             	dflushl 2305843009213693951 (0x1fffffffffffffff)[$r14];;
+     b64:	0e a7 3a 6f                                     	ctzd $r14 = $r14;;
 
-     b70:	cf e3 3e 3c                                     	dflushl $r15[$r15];;
+     b68:	0f a7 3f 6f                                     	ctzw $r15 = $r15;;
 
-     b74:	0f f0 3c 3c                                     	dflushl -64 (0xffffffc0)[$r15];;
+     b6c:	00 00 8c 3c                                     	d1inval;;
 
-     b78:	10 00 3c bc 00 00 80 17                         	dflushl -8589934592 (0xfffffffe00000000)[$r16];;
+     b70:	cf ff 3c bc ff ff ff 97 ff ff ff 10             	dflushl 2305843009213693951 (0x1fffffffffffffff)[$r15];;
 
-     b80:	10 e4 be 3c                                     	dflushsw.l1 $r16, $r16;;
+     b7c:	10 e4 3e 3c                                     	dflushl $r16[$r16];;
 
-     b84:	d1 ff 1c bc ff ff ff 97 ff ff ff 10             	dinvall 2305843009213693951 (0x1fffffffffffffff)[$r17];;
+     b80:	10 f0 3c 3c                                     	dflushl -64 (0xffffffc0)[$r16];;
 
-     b90:	51 e4 1e 3c                                     	dinvall $r17[$r17];;
+     b84:	11 00 3c bc 00 00 80 17                         	dflushl -8589934592 (0xfffffffe00000000)[$r17];;
 
-     b94:	12 f0 1c 3c                                     	dinvall -64 (0xffffffc0)[$r18];;
+     b8c:	51 e4 be 3c                                     	dflushsw.l1 $r17, $r17;;
 
-     b98:	12 00 1c bc 00 00 80 17                         	dinvall -8589934592 (0xfffffffe00000000)[$r18];;
+     b90:	d2 ff 1c bc ff ff ff 97 ff ff ff 10             	dinvall 2305843009213693951 (0x1fffffffffffffff)[$r18];;
 
-     ba0:	93 e4 9e 3d                                     	dinvalsw.l2 $r18, $r19;;
+     b9c:	92 e4 1e 3c                                     	dinvall $r18[$r18];;
 
-     ba4:	d3 a4 92 6c                                     	divmodd $r36r37 = $r19, $r19;;
+     ba0:	13 f0 1c 3c                                     	dinvall -64 (0xffffffc0)[$r19];;
 
-     ba8:	14 a5 9a 6d                                     	divmodud $r38r39 = $r20, $r20;;
+     ba4:	13 00 1c bc 00 00 80 17                         	dinvall -8589934592 (0xfffffffe00000000)[$r19];;
 
-     bac:	54 b5 9b 6d                                     	divmoduw.sx $r38r39 = $r20, $r21;;
+     bac:	d4 e4 9e 3d                                     	dinvalsw.l2 $r19, $r20;;
 
-     bb0:	55 a5 a3 6c                                     	divmodw $r40r41 = $r21, $r21;;
+     bb0:	14 a5 92 6c                                     	divmodd $r36r37 = $r20, $r20;;
 
-     bb4:	d6 ff 2c bc ff ff ff 97 ff ff ff 10             	dpurgel 2305843009213693951 (0x1fffffffffffffff)[$r22];;
+     bb4:	55 a5 9a 6d                                     	divmodud $r38r39 = $r21, $r21;;
 
-     bc0:	96 e5 2e 3c                                     	dpurgel $r22[$r22];;
+     bb8:	95 b5 9b 6d                                     	divmoduw.sx $r38r39 = $r21, $r22;;
 
-     bc4:	17 f0 2c 3c                                     	dpurgel -64 (0xffffffc0)[$r23];;
+     bbc:	96 a5 a3 6c                                     	divmodw $r40r41 = $r22, $r22;;
 
-     bc8:	17 00 2c bc 00 00 80 17                         	dpurgel -8589934592 (0xfffffffe00000000)[$r23];;
+     bc0:	d7 ff 2c bc ff ff ff 97 ff ff ff 10             	dpurgel 2305843009213693951 (0x1fffffffffffffff)[$r23];;
 
-     bd0:	d8 e5 ae 3c                                     	dpurgesw.l1 $r23, $r24;;
+     bcc:	d7 e5 2e 3c                                     	dpurgel $r23[$r23];;
 
-     bd4:	d8 ff 0c bc ff ff ff 97 ff ff ff 10             	dtouchl 2305843009213693951 (0x1fffffffffffffff)[$r24];;
+     bd0:	18 f0 2c 3c                                     	dpurgel -64 (0xffffffc0)[$r24];;
 
-     be0:	19 e6 0e 3c                                     	dtouchl $r24[$r25];;
+     bd4:	18 00 2c bc 00 00 80 17                         	dpurgel -8589934592 (0xfffffffe00000000)[$r24];;
 
-     be4:	19 f0 0c 3c                                     	dtouchl -64 (0xffffffc0)[$r25];;
+     bdc:	19 e6 ae 3c                                     	dpurgesw.l1 $r24, $r25;;
 
-     be8:	19 00 0c bc 00 00 80 17                         	dtouchl -8589934592 (0xfffffffe00000000)[$r25];;
+     be0:	d9 ff 0c bc ff ff ff 97 ff ff ff 10             	dtouchl 2305843009213693951 (0x1fffffffffffffff)[$r25];;
 
-     bf0:	da ff 68 ec ff ff ff 87 ff ff ff 00             	eord $r26 = $r26, 2305843009213693951 (0x1fffffffffffffff);;
+     bec:	5a e6 0e 3c                                     	dtouchl $r25[$r26];;
 
-     bfc:	db 06 6a 6c                                     	eord $r26 = $r27, $r27;;
+     bf0:	1a f0 0c 3c                                     	dtouchl -64 (0xffffffc0)[$r26];;
 
-     c00:	1c f0 6c 6c                                     	eord $r27 = $r28, -64 (0xffffffc0);;
+     bf4:	1a 00 0c bc 00 00 80 17                         	dtouchl -8589934592 (0xfffffffe00000000)[$r26];;
 
-     c04:	1c 00 70 ec 00 00 80 07                         	eord $r28 = $r28, -8589934592 (0xfffffffe00000000);;
+     bfc:	db ff 6c ec ff ff ff 87 ff ff ff 00             	eord $r27 = $r27, 2305843009213693951 (0x1fffffffffffffff);;
 
-     c0c:	aa 1a a2 6c                                     	eorq $r40r41 = $r42r43, $r42r43;;
+     c08:	1c 07 6e 6c                                     	eord $r27 = $r28, $r28;;
 
-     c10:	ed 1f b2 ec ff ff ff 00                         	eorq $r44r45 = $r44r45, 536870911 (0x1fffffff).@;;
+     c0c:	1d f0 70 6c                                     	eord $r28 = $r29, -64 (0xffffffc0);;
 
-     c18:	5d 17 77 6c                                     	eorw.sx $r29 = $r29, $r29;;
+     c10:	1d 00 74 ec 00 00 80 07                         	eord $r29 = $r29, -8589934592 (0xfffffffe00000000);;
 
-     c1c:	de 07 7b ec ff ff ff 00                         	eorw $r30 = $r30, 536870911 (0x1fffffff);;
+     c18:	aa 1a a2 6c                                     	eorq $r40r41 = $r42r43, $r42r43;;
 
-     c24:	00 00 00 00                                     	errop;;
+     c1c:	ed 1f b2 ec ff ff ff 00                         	eorq $r44r45 = $r44r45, 536870911 (0x1fffffff).@;;
 
-     c28:	df 71 79 68                                     	extfs $r30 = $r31, 7 (0x7), 7 (0x7);;
+     c24:	9e 17 7b 6c                                     	eorw.sx $r30 = $r30, $r30;;
 
-     c2c:	df 71 7d 64                                     	extfz $r31 = $r31, 7 (0x7), 7 (0x7);;
+     c28:	df 07 7f ec ff ff ff 00                         	eorw $r31 = $r31, 536870911 (0x1fffffff);;
 
-     c30:	20 03 80 7f                                     	fabsd $r32 = $r32;;
+     c30:	00 00 00 00                                     	errop;;
 
-     c34:	21 13 81 7f                                     	fabsh $r32 = $r33;;
+     c34:	e0 71 7d 68                                     	extfs $r31 = $r32, 7 (0x7), 7 (0x7);;
 
-     c38:	61 03 84 7f                                     	fabswp $r33 = $r33;;
+     c38:	e0 71 81 64                                     	extfz $r32 = $r32, 7 (0x7), 7 (0x7);;
 
-     c3c:	22 03 89 7f                                     	fabsw $r34 = $r34;;
+     c3c:	21 03 84 7f                                     	fabsd $r33 = $r33;;
 
-     c40:	e3 08 88 70                                     	faddd.rn $r34 = $r35, $r35;;
+     c40:	22 13 85 7f                                     	fabsh $r33 = $r34;;
 
-     c44:	24 19 8d 71                                     	faddh.rz $r35 = $r36, $r36;;
+     c44:	62 03 88 7f                                     	fabswp $r34 = $r34;;
 
-     c48:	65 19 90 72                                     	faddwc.rd $r36 = $r37, $r37;;
+     c48:	23 03 8d 7f                                     	fabsw $r35 = $r35;;
 
-     c4c:	a6 09 95 73                                     	faddw.ru $r37 = $r38, $r38;;
+     c4c:	24 09 8c 70                                     	faddd.rn $r35 = $r36, $r36;;
 
-     c50:	27 06 98 7f                                     	fclassd $r38 = $r39;;
+     c50:	65 19 91 71                                     	faddh.rz $r36 = $r37, $r37;;
 
-     c54:	27 16 9d 7f                                     	fclassh $r39 = $r39;;
+     c54:	a6 19 94 72                                     	faddwc.rd $r37 = $r38, $r38;;
 
-     c58:	68 06 a0 7f                                     	fclasswp $r40 = $r40;;
+     c58:	e7 09 99 73                                     	faddw.ru $r38 = $r39, $r39;;
 
-     c5c:	29 06 a1 7f                                     	fclassw $r40 = $r41;;
+     c5c:	28 06 9c 7f                                     	fclassd $r39 = $r40;;
 
-     c60:	a9 4a a4 70                                     	fcompd.one $r41 = $r41, $r42;;
+     c60:	28 16 a1 7f                                     	fclassh $r40 = $r40;;
 
-     c64:	ea 47 a8 f1 ff ff ff 00                         	fcompd.ueq $r42 = $r42, 536870911 (0x1fffffff);;
+     c64:	69 06 a4 7f                                     	fclasswp $r41 = $r41;;
 
-     c6c:	eb 5a ad 72                                     	fcomph.oeq $r43 = $r43, $r43;;
+     c68:	2a 06 a5 7f                                     	fclassw $r41 = $r42;;
 
-     c70:	ec 57 b1 f3 ff ff ff 00                         	fcomph.une $r44 = $r44, 536870911 (0x1fffffff);;
+     c6c:	ea 4a a8 70                                     	fcompd.one $r42 = $r42, $r43;;
 
-     c78:	6d 4b b1 74                                     	fcompw.olt $r44 = $r45, $r45;;
+     c70:	eb 47 ac f1 ff ff ff 00                         	fcompd.ueq $r43 = $r43, 536870911 (0x1fffffff);;
 
-     c7c:	ee 47 b5 f5 ff ff ff 00                         	fcompw.uge $r45 = $r46, 536870911 (0x1fffffff);;
+     c78:	2c 5b b1 72                                     	fcomph.oeq $r44 = $r44, $r44;;
 
-     c84:	2e 00 cc 0f                                     	fcsrsw $r46;;
+     c7c:	ed 57 b5 f3 ff ff ff 00                         	fcomph.une $r45 = $r45, 536870911 (0x1fffffff);;
 
-     c88:	ef eb b8 74                                     	fdivd.rm $r46 = $r47, $r47;;
+     c84:	ae 4b b5 74                                     	fcompw.olt $r45 = $r46, $r46;;
 
-     c8c:	30 fc bd 7d                                     	fdivh.n.r5 $r47 = $r48, $r48;;
+     c88:	ef 47 b9 f5 ff ff ff 00                         	fcompw.uge $r46 = $r47, 536870911 (0x1fffffff);;
 
-     c90:	71 ec c1 76                                     	fdivw.ro $r48 = $r49, $r49;;
+     c90:	2f ec bc 74                                     	fdivd.rm $r47 = $r47, $r48;;
 
-     c94:	00 00 fc 3c                                     	fence;;
+     c94:	70 fc c1 7d                                     	fdivh.n.r5 $r48 = $r48, $r49;;
 
-     c98:	b2 8c c4 7f                                     	ffmad.n $r49 = $r50, $r50;;
+     c98:	b1 ec c5 76                                     	fdivw.ro $r49 = $r49, $r50;;
 
-     c9c:	f3 9c c9 70                                     	ffmah.rn $r50 = $r51, $r51;;
+     c9c:	00 00 fc 3c                                     	fence;;
 
-     ca0:	34 fd cc 79                                     	ffmawc.c.mi.rz $r51 = $r52, $r52;;
+     ca0:	f2 8c c8 7f                                     	ffmad.n $r50 = $r50, $r51;;
 
-     ca4:	75 8d d1 7a                                     	ffmaw.n.rd $r52 = $r53, $r53;;
+     ca4:	33 9d cd 70                                     	ffmah.rn $r51 = $r51, $r52;;
 
-     ca8:	b6 ad d4 73                                     	ffmsd.ru $r53 = $r54, $r54;;
+     ca8:	74 fd d0 79                                     	ffmawc.c.mi.rz $r52 = $r52, $r53;;
 
-     cac:	f7 bd d9 7c                                     	ffmsh.n.rm $r54 = $r55, $r55;;
+     cac:	b5 8d d5 7a                                     	ffmaw.n.rd $r53 = $r53, $r54;;
 
-     cb0:	38 ae dd 75                                     	ffmsw.r5 $r55 = $r56, $r56;;
+     cb0:	f6 ad d8 73                                     	ffmsd.ru $r54 = $r54, $r55;;
 
-     cb4:	39 26 e1 7e                                     	fixeddw.ro $r56 = $r57;;
+     cb4:	37 be dd 7c                                     	ffmsh.n.rm $r55 = $r55, $r56;;
 
-     cb8:	39 24 e4 7f                                     	fixedd $r57 = $r57;;
+     cb8:	78 ae e1 75                                     	ffmsw.r5 $r56 = $r56, $r57;;
 
-     cbc:	3a 27 e9 78                                     	fixedudw.rn $r58 = $r58;;
+     cbc:	39 26 e5 7e                                     	fixeddw.ro $r57 = $r57;;
 
-     cc0:	3b 25 e8 79                                     	fixedud.rz $r58 = $r59;;
+     cc0:	3a 24 e8 7f                                     	fixedd $r58 = $r58;;
 
-     cc4:	3b 27 ec 7a                                     	fixeduwd.rd $r59 = $r59;;
+     cc4:	3b 27 e9 78                                     	fixedudw.rn $r58 = $r59;;
 
-     cc8:	7c 25 f0 7b                                     	fixeduwp.ru $r60 = $r60;;
+     cc8:	3b 25 ec 79                                     	fixedud.rz $r59 = $r59;;
 
-     ccc:	3d 25 f1 7c                                     	fixeduw.rm $r60 = $r61;;
+     ccc:	3c 27 f0 7a                                     	fixeduwd.rd $r60 = $r60;;
 
-     cd0:	3d 26 f4 7d                                     	fixedwd.r5 $r61 = $r61;;
+     cd0:	7d 25 f0 7b                                     	fixeduwp.ru $r60 = $r61;;
 
-     cd4:	7e 24 f8 7e                                     	fixedwp.ro $r62 = $r62;;
+     cd4:	3d 25 f5 7c                                     	fixeduw.rm $r61 = $r61;;
 
-     cd8:	3f 24 f9 7f                                     	fixedw $r62 = $r63;;
+     cd8:	3e 26 f8 7d                                     	fixedwd.r5 $r62 = $r62;;
 
-     cdc:	3f 22 fd 78                                     	floatdw.rn $r63 = $r63;;
+     cdc:	7f 24 f8 7e                                     	fixedwp.ro $r62 = $r63;;
 
-     ce0:	00 20 00 79                                     	floatd.rz $r0 = $r0;;
+     ce0:	3f 24 fd 7f                                     	fixedw $r63 = $r63;;
 
-     ce4:	01 23 01 7a                                     	floatudw.rd $r0 = $r1;;
+     ce4:	00 22 01 78                                     	floatdw.rn $r0 = $r0;;
 
-     ce8:	01 21 04 7b                                     	floatud.ru $r1 = $r1;;
+     ce8:	01 20 00 79                                     	floatd.rz $r0 = $r1;;
 
-     cec:	02 23 08 7c                                     	floatuwd.rm $r2 = $r2;;
+     cec:	01 23 05 7a                                     	floatudw.rd $r1 = $r1;;
 
-     cf0:	43 21 08 7d                                     	floatuwp.r5 $r2 = $r3;;
+     cf0:	02 21 08 7b                                     	floatud.ru $r2 = $r2;;
 
-     cf4:	03 21 0d 7e                                     	floatuw.ro $r3 = $r3;;
+     cf4:	03 23 08 7c                                     	floatuwd.rm $r2 = $r3;;
 
-     cf8:	04 22 10 7f                                     	floatwd $r4 = $r4;;
+     cf8:	43 21 0c 7d                                     	floatuwp.r5 $r3 = $r3;;
 
-     cfc:	45 20 10 78                                     	floatwp.rn $r4 = $r5;;
+     cfc:	04 21 11 7e                                     	floatuw.ro $r4 = $r4;;
 
-     d00:	05 20 15 79                                     	floatw.rz $r5 = $r5;;
+     d00:	05 22 10 7f                                     	floatwd $r4 = $r5;;
 
-     d04:	86 01 18 79                                     	fmaxd $r6 = $r6, $r6;;
+     d04:	45 20 14 78                                     	floatwp.rn $r5 = $r5;;
 
-     d08:	c7 71 1d 79                                     	fmaxh $r7 = $r7, $r7;;
+     d08:	06 20 19 79                                     	floatw.rz $r6 = $r6;;
 
-     d0c:	08 02 20 7b                                     	fmaxnd $r8 = $r8, $r8;;
+     d0c:	c7 01 18 79                                     	fmaxd $r6 = $r7, $r7;;
 
-     d10:	49 72 25 7b                                     	fmaxnh $r9 = $r9, $r9;;
+     d10:	08 72 1d 79                                     	fmaxh $r7 = $r8, $r8;;
 
-     d14:	8a 02 29 7b                                     	fmaxnw $r10 = $r10, $r10;;
+     d14:	49 02 20 7b                                     	fmaxnd $r8 = $r9, $r9;;
 
-     d18:	cb 02 2d 79                                     	fmaxw $r11 = $r11, $r11;;
+     d18:	8a 72 25 7b                                     	fmaxnh $r9 = $r10, $r10;;
 
-     d1c:	4c 03 30 78                                     	fmind $r12 = $r12, $r13;;
+     d1c:	cb 02 29 7b                                     	fmaxnw $r10 = $r11, $r11;;
 
-     d20:	8e 73 35 78                                     	fminh $r13 = $r14, $r14;;
+     d20:	0c 03 2d 79                                     	fmaxw $r11 = $r12, $r12;;
 
-     d24:	cf 03 38 7a                                     	fminnd $r14 = $r15, $r15;;
+     d24:	8d 03 34 78                                     	fmind $r13 = $r13, $r14;;
 
-     d28:	10 74 3d 7a                                     	fminnh $r15 = $r16, $r16;;
+     d28:	ce 73 39 78                                     	fminh $r14 = $r14, $r15;;
 
-     d2c:	51 04 41 7a                                     	fminnw $r16 = $r17, $r17;;
+     d2c:	0f 04 3c 7a                                     	fminnd $r15 = $r15, $r16;;
 
-     d30:	92 04 45 78                                     	fminw $r17 = $r18, $r18;;
+     d30:	50 74 41 7a                                     	fminnh $r16 = $r16, $r17;;
 
-     d34:	d3 c4 48 7a                                     	fmuld.n.rd $r18 = $r19, $r19;;
+     d34:	91 04 45 7a                                     	fminnw $r17 = $r17, $r18;;
 
-     d38:	14 d5 4d 73                                     	fmulh.ru $r19 = $r20, $r20;;
+     d38:	d2 04 49 78                                     	fminw $r18 = $r18, $r19;;
 
-     d3c:	55 95 50 74                                     	fmulwc.rm $r20 = $r21, $r21;;
+     d3c:	13 c5 4c 7a                                     	fmuld.n.rd $r19 = $r19, $r20;;
 
-     d40:	96 c5 55 7d                                     	fmulw.n.r5 $r21 = $r22, $r22;;
+     d40:	54 d5 51 73                                     	fmulh.ru $r20 = $r20, $r21;;
 
-     d44:	17 2c 59 7e                                     	fnarrowdw.ro $r22 = $r23;;
+     d44:	95 95 54 74                                     	fmulwc.rm $r21 = $r21, $r22;;
 
-     d48:	17 3c 5d 7f                                     	fnarrowwh $r23 = $r23;;
+     d48:	d6 c5 59 7d                                     	fmulw.n.r5 $r22 = $r22, $r23;;
 
-     d4c:	18 02 60 7f                                     	fnegd $r24 = $r24;;
+     d4c:	17 2c 5d 7e                                     	fnarrowdw.ro $r23 = $r23;;
 
-     d50:	19 12 61 7f                                     	fnegh $r24 = $r25;;
+     d50:	18 3c 61 7f                                     	fnarrowwh $r24 = $r24;;
 
-     d54:	59 02 64 7f                                     	fnegwp $r25 = $r25;;
+     d54:	19 02 60 7f                                     	fnegd $r24 = $r25;;
 
-     d58:	1a 02 69 7f                                     	fnegw $r26 = $r26;;
+     d58:	19 12 65 7f                                     	fnegh $r25 = $r25;;
 
-     d5c:	1b 29 68 78                                     	frintd.rn $r26 = $r27;;
+     d5c:	5a 02 68 7f                                     	fnegwp $r26 = $r26;;
 
-     d60:	1b 39 6d 79                                     	frinth.rz $r27 = $r27;;
+     d60:	1b 02 69 7f                                     	fnegw $r26 = $r27;;
 
-     d64:	1c 29 71 7a                                     	frintw.rd $r28 = $r28;;
+     d64:	1b 29 6c 78                                     	frintd.rn $r27 = $r27;;
 
-     d68:	5d 27 70 73                                     	fsbfd.ru $r28 = $r29, $r29;;
+     d68:	1c 39 71 79                                     	frinth.rz $r28 = $r28;;
 
-     d6c:	9e 37 75 74                                     	fsbfh.rm $r29 = $r30, $r30;;
+     d6c:	1d 29 71 7a                                     	frintw.rd $r28 = $r29;;
 
-     d70:	df 77 78 7d                                     	fsbfwc.c.mi.r5 $r30 = $r31, $r31;;
+     d70:	9d 27 74 73                                     	fsbfd.ru $r29 = $r29, $r30;;
 
-     d74:	20 28 7d 76                                     	fsbfw.ro $r31 = $r32, $r32;;
+     d74:	de 37 79 74                                     	fsbfh.rm $r30 = $r30, $r31;;
 
-     d78:	61 08 80 7c                                     	fsignd $r32 = $r33, $r33;;
+     d78:	1f 78 7c 7d                                     	fsbfwc.c.mi.r5 $r31 = $r31, $r32;;
 
-     d7c:	a2 78 85 7c                                     	fsignh $r33 = $r34, $r34;;
+     d7c:	60 28 81 76                                     	fsbfw.ro $r32 = $r32, $r33;;
 
-     d80:	e3 08 88 7e                                     	fsignmd $r34 = $r35, $r35;;
+     d80:	a1 08 84 7c                                     	fsignd $r33 = $r33, $r34;;
 
-     d84:	24 79 8d 7e                                     	fsignmh $r35 = $r36, $r36;;
+     d84:	e2 78 89 7c                                     	fsignh $r34 = $r34, $r35;;
 
-     d88:	65 09 91 7e                                     	fsignmw $r36 = $r37, $r37;;
+     d88:	23 09 8c 7e                                     	fsignmd $r35 = $r35, $r36;;
 
-     d8c:	a6 09 94 7d                                     	fsignnd $r37 = $r38, $r38;;
+     d8c:	64 79 91 7e                                     	fsignmh $r36 = $r36, $r37;;
 
-     d90:	e7 79 99 7d                                     	fsignnh $r38 = $r39, $r39;;
+     d90:	a5 09 95 7e                                     	fsignmw $r37 = $r37, $r38;;
 
-     d94:	28 0a 9d 7d                                     	fsignnw $r39 = $r40, $r40;;
+     d94:	e6 09 98 7d                                     	fsignnd $r38 = $r38, $r39;;
 
-     d98:	69 0a a1 7c                                     	fsignw $r40 = $r41, $r41;;
+     d98:	27 7a 9d 7d                                     	fsignnh $r39 = $r39, $r40;;
 
-     d9c:	2a 28 a4 7f                                     	fsqrtd $r41 = $r42;;
+     d9c:	68 0a a1 7d                                     	fsignnw $r40 = $r40, $r41;;
 
-     da0:	2a 38 a9 78                                     	fsqrth.rn $r42 = $r42;;
+     da0:	a9 0a a5 7c                                     	fsignw $r41 = $r41, $r42;;
 
-     da4:	2b 28 ad 79                                     	fsqrtw.rz $r43 = $r43;;
+     da4:	2a 28 a8 7f                                     	fsqrtd $r42 = $r42;;
 
-     da8:	2c 04 ac 7f                                     	fsrecd $r43 = $r44;;
+     da8:	2b 38 ad 78                                     	fsqrth.rn $r43 = $r43;;
 
-     dac:	6c 04 b0 7f                                     	fsrecwp $r44 = $r44;;
+     dac:	2c 28 ad 79                                     	fsqrtw.rz $r43 = $r44;;
 
-     db0:	2d 04 b5 7f                                     	fsrecw $r45 = $r45;;
+     db0:	2c 04 b0 7f                                     	fsrecd $r44 = $r44;;
 
-     db4:	2e 05 b4 7f                                     	fsrsrd $r45 = $r46;;
+     db4:	6d 04 b4 7f                                     	fsrecwp $r45 = $r45;;
 
-     db8:	6e 05 b8 7f                                     	fsrsrwp $r46 = $r46;;
+     db8:	2e 04 b5 7f                                     	fsrecw $r45 = $r46;;
 
-     dbc:	2f 05 bd 7f                                     	fsrsrw $r47 = $r47;;
+     dbc:	2e 05 b8 7f                                     	fsrsrd $r46 = $r46;;
 
-     dc0:	30 08 bd 7f                                     	fwidenhw $r47 = $r48;;
+     dc0:	6f 05 bc 7f                                     	fsrsrwp $r47 = $r47;;
 
-     dc4:	b0 08 c0 7f                                     	fwidenwd.m $r48 = $r48;;
+     dc4:	30 05 bd 7f                                     	fsrsrw $r47 = $r48;;
 
-     dc8:	31 00 c4 0f                                     	get $r49 = $pc;;
+     dc8:	30 08 c1 7f                                     	fwidenhw $r48 = $r48;;
 
-     dcc:	31 00 c4 0f                                     	get $r49 = $pc;;
+     dcc:	b1 08 c4 7f                                     	fwidenwd.m $r49 = $r49;;
 
-     dd0:	00 00 00 90 00 00 80 07                         	gotox fff0000000000dd0 <main+0xfff0000000000dd0>;;
+     dd0:	31 00 c4 0f                                     	get $r49 = $pc;;
 
-     dd8:	00 00 80 17                                     	goto fffffffffe000dd8 <main+0xfffffffffe000dd8>;;
+     dd4:	32 00 c4 0f                                     	get $r50 = $pc;;
 
-     ddc:	f1 41 81 0f                                     	guard.dnez $r49? 7 (0x7);;
+     dd8:	00 00 00 90 00 00 80 07                         	gotox fff0000000000dd8 <main+0xfff0000000000dd8>;;
 
-     de0:	f2 ff 5c bc ff ff ff 97 ff ff ff 10             	i1invals 2305843009213693951 (0x1fffffffffffffff)[$r50];;
+     de0:	00 00 80 17                                     	goto fffffffffe000de0 <main+0xfffffffffe000de0>;;
 
-     dec:	b2 ec 5e 3c                                     	i1invals $r50[$r50];;
+     de4:	f2 41 81 0f                                     	guard.dnez $r50? 7 (0x7);;
 
-     df0:	33 f0 5c 3c                                     	i1invals -64 (0xffffffc0)[$r51];;
+     de8:	f2 ff 5c bc ff ff ff 97 ff ff ff 10             	i1invals 2305843009213693951 (0x1fffffffffffffff)[$r50];;
 
-     df4:	33 00 5c bc 00 00 80 17                         	i1invals -8589934592 (0xfffffffe00000000)[$r51];;
+     df4:	f3 ec 5e 3c                                     	i1invals $r51[$r51];;
 
-     dfc:	00 00 cc 3c                                     	i1inval;;
+     df8:	33 f0 5c 3c                                     	i1invals -64 (0xffffffc0)[$r51];;
 
-     e00:	33 00 e0 0f                                     	icall $r51;;
+     dfc:	34 00 5c bc 00 00 80 17                         	i1invals -8589934592 (0xfffffffe00000000)[$r52];;
 
-     e04:	34 00 d0 0f                                     	iget $r52;;
+     e04:	00 00 cc 3c                                     	i1inval;;
 
-     e08:	34 00 dc 0f                                     	igoto $r52;;
+     e08:	34 00 e8 0f                                     	icall $r52;;
 
-     e0c:	f5 71 d1 60                                     	insf $r52 = $r53, 7 (0x7), 7 (0x7);;
+     e0c:	34 00 d8 0f                                     	iget $r52;;
 
-     e10:	f5 ff d4 ea ff ff ff 87 ff ff ff 00             	iord $r53 = $r53, 2305843009213693951 (0x1fffffffffffffff);;
+     e10:	35 00 e4 0f                                     	igoto $r53;;
 
-     e1c:	b6 0d da 6a                                     	iord $r54 = $r54, $r54;;
+     e14:	f5 71 d5 60                                     	insf $r53 = $r53, 7 (0x7), 7 (0x7);;
 
-     e20:	37 f0 dc 6a                                     	iord $r55 = $r55, -64 (0xffffffc0);;
+     e18:	f6 ff d8 ea ff ff ff 87 ff ff ff 00             	iord $r54 = $r54, 2305843009213693951 (0x1fffffffffffffff);;
 
-     e24:	38 00 dc ea 00 00 80 07                         	iord $r55 = $r56, -8589934592 (0xfffffffe00000000);;
+     e24:	f7 0d da 6a                                     	iord $r54 = $r55, $r55;;
 
-     e2c:	f8 ff e0 ef ff ff ff 87 ff ff ff 00             	iornd $r56 = $r56, 2305843009213693951 (0x1fffffffffffffff);;
+     e28:	38 f0 dc 6a                                     	iord $r55 = $r56, -64 (0xffffffc0);;
 
-     e38:	79 0e e6 6f                                     	iornd $r57 = $r57, $r57;;
+     e2c:	38 00 e0 ea 00 00 80 07                         	iord $r56 = $r56, -8589934592 (0xfffffffe00000000);;
 
-     e3c:	3a f0 e8 6f                                     	iornd $r58 = $r58, -64 (0xffffffc0);;
+     e34:	f9 ff e4 ef ff ff ff 87 ff ff ff 00             	iornd $r57 = $r57, 2305843009213693951 (0x1fffffffffffffff);;
 
-     e40:	3b 00 e8 ef 00 00 80 07                         	iornd $r58 = $r59, -8589934592 (0xfffffffe00000000);;
+     e40:	ba 0e e6 6f                                     	iornd $r57 = $r58, $r58;;
 
-     e48:	2e 1c ba 6f                                     	iornq $r46r47 = $r46r47, $r48r49;;
+     e44:	3b f0 e8 6f                                     	iornd $r58 = $r59, -64 (0xffffffc0);;
 
-     e4c:	f3 17 c2 ef ff ff ff 00                         	iornq $r48r49 = $r50r51, 536870911 (0x1fffffff);;
+     e48:	3b 00 ec ef 00 00 80 07                         	iornd $r59 = $r59, -8589934592 (0xfffffffe00000000);;
 
-     e54:	3b 1f ef 6f                                     	iornw.sx $r59 = $r59, $r60;;
+     e50:	2e 1c ba 6f                                     	iornq $r46r47 = $r46r47, $r48r49;;
 
-     e58:	fc 07 f3 ef ff ff ff 00                         	iornw $r60 = $r60, 536870911 (0x1fffffff);;
+     e54:	f3 17 c2 ef ff ff ff 00                         	iornq $r48r49 = $r50r51, 536870911 (0x1fffffff);;
 
-     e60:	34 1d ca 6a                                     	iorq $r50r51 = $r52r53, $r52r53;;
+     e5c:	3c 1f f3 6f                                     	iornw.sx $r60 = $r60, $r60;;
 
-     e64:	f7 1f da ea ff ff ff 00                         	iorq $r54r55 = $r54r55, 536870911 (0x1fffffff).@;;
+     e60:	fd 07 f7 ef ff ff ff 00                         	iornw $r61 = $r61, 536870911 (0x1fffffff);;
 
-     e6c:	7d 1f f7 6a                                     	iorw.sx $r61 = $r61, $r61;;
+     e68:	34 1d ca 6a                                     	iorq $r50r51 = $r52r53, $r52r53;;
 
-     e70:	fe 07 fb ea ff ff ff 00                         	iorw $r62 = $r62, 536870911 (0x1fffffff);;
+     e6c:	f7 1f da ea ff ff ff 00                         	iorq $r54r55 = $r54r55, 536870911 (0x1fffffff).@;;
 
-     e78:	ff 4f fa 60                                     	landd $r62 = $r63, $r63;;
+     e74:	be 1f f7 6a                                     	iorw.sx $r61 = $r62, $r62;;
 
-     e7c:	00 40 ff 60                                     	landw $r63 = $r0, $r0;;
+     e78:	ff 07 fb ea ff ff ff 00                         	iorw $r62 = $r63, 536870911 (0x1fffffff);;
 
-     e80:	c1 ff 00 a4 ff ff ff 97 ff ff ff 10             	lbs $r0 = 2305843009213693951 (0x1fffffffffffffff)[$r1];;
+     e80:	3f 40 fe 60                                     	landd $r63 = $r63, $r0;;
 
-     e8c:	42 e0 06 25                                     	lbs.s $r1 = $r1[$r2];;
+     e84:	40 40 03 60                                     	landw $r0 = $r0, $r1;;
 
-     e90:	02 f0 08 26                                     	lbs.u $r2 = -64 (0xffffffc0)[$r2];;
+     e88:	c1 ff 04 a4 ff ff ff 97 ff ff ff 10             	lbs $r1 = 2305843009213693951 (0x1fffffffffffffff)[$r1];;
 
-     e94:	03 00 0c a7 00 00 80 17                         	lbs.us $r3 = -8589934592 (0xfffffffe00000000)[$r3];;
+     e94:	82 e0 0a 25                                     	lbs.s $r2 = $r2[$r2];;
 
-     e9c:	c4 ff 0c a0 ff ff ff 97 ff ff ff 10             	lbz $r3 = 2305843009213693951 (0x1fffffffffffffff)[$r4];;
+     e98:	03 f0 0c 26                                     	lbs.u $r3 = -64 (0xffffffc0)[$r3];;
 
-     ea8:	05 e1 12 21                                     	lbz.s $r4 = $r4[$r5];;
+     e9c:	04 00 0c a7 00 00 80 17                         	lbs.us $r3 = -8589934592 (0xfffffffe00000000)[$r4];;
 
-     eac:	05 f0 14 22                                     	lbz.u $r5 = -64 (0xffffffc0)[$r5];;
+     ea4:	c4 ff 10 a0 ff ff ff 97 ff ff ff 10             	lbz $r4 = 2305843009213693951 (0x1fffffffffffffff)[$r4];;
 
-     eb0:	06 00 18 a3 00 00 80 17                         	lbz.us $r6 = -8589934592 (0xfffffffe00000000)[$r6];;
+     eb0:	45 e1 16 21                                     	lbz.s $r5 = $r5[$r5];;
 
-     eb8:	c7 ff 18 b8 ff ff ff 97 ff ff ff 10             	ld $r6 = 2305843009213693951 (0x1fffffffffffffff)[$r7];;
+     eb4:	06 f0 18 22                                     	lbz.u $r6 = -64 (0xffffffc0)[$r6];;
 
-     ec4:	c8 e1 1e 39                                     	ld.s $r7 = $r7[$r8];;
+     eb8:	07 00 18 a3 00 00 80 17                         	lbz.us $r6 = -8589934592 (0xfffffffe00000000)[$r7];;
 
-     ec8:	08 f0 20 3a                                     	ld.u $r8 = -64 (0xffffffc0)[$r8];;
+     ec0:	c7 ff 1c b8 ff ff ff 97 ff ff ff 10             	ld $r7 = 2305843009213693951 (0x1fffffffffffffff)[$r7];;
 
-     ecc:	09 00 24 bb 00 00 80 17                         	ld.us $r9 = -8589934592 (0xfffffffe00000000)[$r9];;
+     ecc:	08 e2 22 39                                     	ld.s $r8 = $r8[$r8];;
 
-     ed4:	ca ff 24 ac ff ff ff 97 ff ff ff 10             	lhs $r9 = 2305843009213693951 (0x1fffffffffffffff)[$r10];;
+     ed0:	09 f0 24 3a                                     	ld.u $r9 = -64 (0xffffffc0)[$r9];;
 
-     ee0:	8b e2 2a 2d                                     	lhs.s $r10 = $r10[$r11];;
+     ed4:	0a 00 24 bb 00 00 80 17                         	ld.us $r9 = -8589934592 (0xfffffffe00000000)[$r10];;
 
-     ee4:	0b f0 2c 2e                                     	lhs.u $r11 = -64 (0xffffffc0)[$r11];;
+     edc:	ca ff 28 ac ff ff ff 97 ff ff ff 10             	lhs $r10 = 2305843009213693951 (0x1fffffffffffffff)[$r10];;
 
-     ee8:	0c 00 30 af 00 00 80 17                         	lhs.us $r12 = -8589934592 (0xfffffffe00000000)[$r12];;
+     ee8:	cb e2 2e 2d                                     	lhs.s $r11 = $r11[$r11];;
 
-     ef0:	cd ff 34 a8 ff ff ff 97 ff ff ff 10             	lhz $r13 = 2305843009213693951 (0x1fffffffffffffff)[$r13];;
+     eec:	0c f0 30 2e                                     	lhs.u $r12 = -64 (0xffffffc0)[$r12];;
 
-     efc:	8e e3 3a 29                                     	lhz.s $r14 = $r14[$r14];;
+     ef0:	0d 00 34 af 00 00 80 17                         	lhs.us $r13 = -8589934592 (0xfffffffe00000000)[$r13];;
 
-     f00:	0f f0 3c 2a                                     	lhz.u $r15 = -64 (0xffffffc0)[$r15];;
+     ef8:	ce ff 38 a8 ff ff ff 97 ff ff ff 10             	lhz $r14 = 2305843009213693951 (0x1fffffffffffffff)[$r14];;
 
-     f04:	10 00 3c ab 00 00 80 17                         	lhz.us $r15 = -8589934592 (0xfffffffe00000000)[$r16];;
+     f04:	cf e3 3a 29                                     	lhz.s $r14 = $r15[$r15];;
 
-     f0c:	50 44 42 62                                     	liord $r16 = $r16, $r17;;
+     f08:	10 f0 3c 2a                                     	lhz.u $r15 = -64 (0xffffffc0)[$r16];;
 
-     f10:	91 44 47 62                                     	liorw $r17 = $r17, $r18;;
+     f0c:	10 00 40 ab 00 00 80 17                         	lhz.us $r16 = -8589934592 (0xfffffffe00000000)[$r16];;
 
-     f14:	d2 44 4a 61                                     	lnandd $r18 = $r18, $r19;;
+     f14:	51 44 46 62                                     	liord $r17 = $r17, $r17;;
 
-     f18:	13 45 4f 61                                     	lnandw $r19 = $r19, $r20;;
+     f18:	92 44 4b 62                                     	liorw $r18 = $r18, $r18;;
 
-     f1c:	54 45 52 63                                     	lniord $r20 = $r20, $r21;;
+     f1c:	d3 44 4e 61                                     	lnandd $r19 = $r19, $r19;;
 
-     f20:	95 45 57 63                                     	lniorw $r21 = $r21, $r22;;
+     f20:	14 45 53 61                                     	lnandw $r20 = $r20, $r20;;
 
-     f24:	16 00 78 0f                                     	loopdo $r22, ffffffffffff8f24 <main+0xffffffffffff8f24>;;
+     f24:	55 45 56 63                                     	lniord $r21 = $r21, $r21;;
 
-     f28:	d6 ff 54 bc ff ff ff 97 ff ff ff 10             	lo $r20r21r22r23 = 2305843009213693951 (0x1fffffffffffffff)[$r22];;
+     f28:	96 45 5b 63                                     	lniorw $r22 = $r22, $r22;;
 
-     f34:	d7 e5 66 3d                                     	lo.s $r24r25r26r27 = $r23[$r23];;
+     f2c:	17 00 78 0f                                     	loopdo $r23, ffffffffffff8f2c <main+0xffffffffffff8f2c>;;
 
-     f38:	17 f0 74 3e                                     	lo.u $r28r29r30r31 = -64 (0xffffffc0)[$r23];;
+     f30:	d7 ff 54 bc ff ff ff 97 ff ff ff 10             	lo $r20r21r22r23 = 2305843009213693951 (0x1fffffffffffffff)[$r23];;
 
-     f3c:	18 00 84 bf 00 00 80 17                         	lo.us $r32r33r34r35 = -8589934592 (0xfffffffe00000000)[$r24];;
+     f3c:	d8 e5 66 3d                                     	lo.s $r24r25r26r27 = $r23[$r24];;
 
-     f44:	d8 ff e0 bc ff ff ff 97 ff ff ff 10             	lq $r56r57 = 2305843009213693951 (0x1fffffffffffffff)[$r24];;
+     f40:	18 f0 74 3e                                     	lo.u $r28r29r30r31 = -64 (0xffffffc0)[$r24];;
 
-     f50:	19 e6 e2 3d                                     	lq.s $r56r57 = $r24[$r25];;
+     f44:	18 00 84 bf 00 00 80 17                         	lo.us $r32r33r34r35 = -8589934592 (0xfffffffe00000000)[$r24];;
 
-     f54:	19 f0 e8 3e                                     	lq.u $r58r59 = -64 (0xffffffc0)[$r25];;
+     f4c:	d9 ff e0 bc ff ff ff 97 ff ff ff 10             	lq $r56r57 = 2305843009213693951 (0x1fffffffffffffff)[$r25];;
 
-     f58:	19 00 e8 bf 00 00 80 17                         	lq.us $r58r59 = -8589934592 (0xfffffffe00000000)[$r25];;
+     f58:	59 e6 e2 3d                                     	lq.s $r56r57 = $r25[$r25];;
 
-     f60:	da ff 68 b4 ff ff ff 97 ff ff ff 10             	lws $r26 = 2305843009213693951 (0x1fffffffffffffff)[$r26];;
+     f5c:	1a f0 e8 3e                                     	lq.u $r58r59 = -64 (0xffffffc0)[$r26];;
 
-     f6c:	db e6 6a 35                                     	lws.s $r26 = $r27[$r27];;
+     f60:	1a 00 e8 bf 00 00 80 17                         	lq.us $r58r59 = -8589934592 (0xfffffffe00000000)[$r26];;
 
-     f70:	1c f0 6c 36                                     	lws.u $r27 = -64 (0xffffffc0)[$r28];;
+     f68:	db ff 68 b4 ff ff ff 97 ff ff ff 10             	lws $r26 = 2305843009213693951 (0x1fffffffffffffff)[$r27];;
 
-     f74:	1c 00 70 b7 00 00 80 17                         	lws.us $r28 = -8589934592 (0xfffffffe00000000)[$r28];;
+     f74:	dc e6 6e 35                                     	lws.s $r27 = $r27[$r28];;
 
-     f7c:	dd ff 74 b0 ff ff ff 97 ff ff ff 10             	lwz $r29 = 2305843009213693951 (0x1fffffffffffffff)[$r29];;
+     f78:	1c f0 70 36                                     	lws.u $r28 = -64 (0xffffffc0)[$r28];;
 
-     f88:	9e e7 76 31                                     	lwz.s $r29 = $r30[$r30];;
+     f7c:	1d 00 74 b7 00 00 80 17                         	lws.us $r29 = -8589934592 (0xfffffffe00000000)[$r29];;
 
-     f8c:	1f f0 78 32                                     	lwz.u $r30 = -64 (0xffffffc0)[$r31];;
+     f84:	de ff 74 b0 ff ff ff 97 ff ff ff 10             	lwz $r29 = 2305843009213693951 (0x1fffffffffffffff)[$r30];;
 
-     f90:	1f 00 7c b3 00 00 80 17                         	lwz.us $r31 = -8589934592 (0xfffffffe00000000)[$r31];;
+     f90:	9f e7 7a 31                                     	lwz.s $r30 = $r30[$r31];;
 
-     f98:	20 f8 f2 68                                     	madddq $r60r61 = $r32, $r32;;
+     f94:	1f f0 7c 32                                     	lwz.u $r31 = -64 (0xffffffc0)[$r31];;
 
-     f9c:	60 f8 f2 68                                     	madddq $r60r61 = $r32, $r33;;
+     f98:	20 00 80 b3 00 00 80 17                         	lwz.us $r32 = -8589934592 (0xfffffffe00000000)[$r32];;
 
-     fa0:	a1 c8 86 68                                     	maddd $r33 = $r33, $r34;;
+     fa0:	60 f8 f2 68                                     	madddq $r60r61 = $r32, $r33;;
 
-     fa4:	e2 c7 8a e9 ff ff ff 00                         	maddd.h $r34 = $r34, 536870911 (0x1fffffff);;
+     fa4:	61 f8 f2 68                                     	madddq $r60r61 = $r33, $r33;;
 
-     fac:	e3 f8 fa 6a                                     	madddq.su $r62r63 = $r35, $r35;;
+     fa8:	a2 c8 8a 68                                     	maddd $r34 = $r34, $r34;;
 
-     fb0:	24 e9 8e 6a                                     	maddwd.su $r35 = $r36, $r36;;
+     fac:	e3 c7 8e e9 ff ff ff 00                         	maddd.h $r35 = $r35, 536870911 (0x1fffffff);;
 
-     fb4:	e5 e7 92 ea ff ff ff 00                         	maddwd.su $r36 = $r37, 536870911 (0x1fffffff);;
+     fb4:	23 f9 fa 6a                                     	madddq.su $r62r63 = $r35, $r36;;
 
-     fbc:	65 f9 fa 69                                     	madddq.u $r62r63 = $r37, $r37;;
+     fb8:	64 e9 92 6a                                     	maddwd.su $r36 = $r36, $r37;;
 
-     fc0:	a6 e9 9a 69                                     	maddwd.u $r38 = $r38, $r38;;
+     fbc:	e5 e7 96 ea ff ff ff 00                         	maddwd.su $r37 = $r37, 536870911 (0x1fffffff);;
 
-     fc4:	e7 e7 9e e9 ff ff ff 00                         	maddwd.u $r39 = $r39, 536870911 (0x1fffffff);;
+     fc4:	a6 f9 fa 69                                     	madddq.u $r62r63 = $r38, $r38;;
 
-     fcc:	28 ea 9e 69                                     	maddwd.u $r39 = $r40, $r40;;
+     fc8:	e7 e9 9a 69                                     	maddwd.u $r38 = $r39, $r39;;
 
-     fd0:	e9 ef a2 ea ff ff ff 00                         	maddwd.su $r40 = $r41, 536870911 (0x1fffffff).@;;
+     fcc:	e8 e7 9e e9 ff ff ff 00                         	maddwd.u $r39 = $r40, 536870911 (0x1fffffff);;
 
-     fd8:	a9 da a7 6a                                     	maddw.hu.sx $r41 = $r41, $r42;;
+     fd4:	68 ea a2 69                                     	maddwd.u $r40 = $r40, $r41;;
 
-     fdc:	ea c7 ab eb ff ff ff 00                         	maddw.hsu $r42 = $r42, 536870911 (0x1fffffff);;
+     fd8:	e9 ef a6 ea ff ff ff 00                         	maddwd.su $r41 = $r41, 536870911 (0x1fffffff).@;;
 
-     fe4:	c0 ff ac e0 ff ff ff 87 ff ff ff 00             	make $r43 = 2305843009213693951 (0x1fffffffffffffff);;
+     fe0:	aa da ab 6a                                     	maddw.hu.sx $r42 = $r42, $r42;;
 
-     ff0:	3c 00 ac e0 00 00 00 00                         	make $r43 = -549755813888 (0xffffff8000000000);;
+     fe4:	eb c7 af eb ff ff ff 00                         	maddw.hsu $r43 = $r43, 536870911 (0x1fffffff);;
 
-     ff8:	00 f0 ac 60                                     	make $r43 = -4096 (0xfffff000);;
+     fec:	c0 ff ac e0 ff ff ff 87 ff ff ff 00             	make $r43 = 2305843009213693951 (0x1fffffffffffffff);;
 
-     ffc:	ec ff b0 e5 ff ff ff 87 ff ff ff 00             	maxd $r44 = $r44, 2305843009213693951 (0x1fffffffffffffff);;
+     ff8:	3c 00 b0 e0 00 00 00 00                         	make $r44 = -549755813888 (0xffffff8000000000);;
 
-    1008:	6d 0b b2 65                                     	maxd $r44 = $r45, $r45;;
+    1000:	00 f0 b0 60                                     	make $r44 = -4096 (0xfffff000);;
 
-    100c:	2e f0 b4 65                                     	maxd $r45 = $r46, -64 (0xffffffc0);;
+    1004:	ed ff b0 e5 ff ff ff 87 ff ff ff 00             	maxd $r44 = $r45, 2305843009213693951 (0x1fffffffffffffff);;
 
-    1010:	2e 00 b8 e5 00 00 80 07                         	maxd $r46 = $r46, -8589934592 (0xfffffffe00000000);;
+    1010:	ad 0b b6 65                                     	maxd $r45 = $r45, $r46;;
 
-    1018:	ef ff bc e7 ff ff ff 87 ff ff ff 00             	maxud $r47 = $r47, 2305843009213693951 (0x1fffffffffffffff);;
+    1014:	2e f0 b8 65                                     	maxd $r46 = $r46, -64 (0xffffffc0);;
 
-    1024:	30 0c be 67                                     	maxud $r47 = $r48, $r48;;
+    1018:	2f 00 bc e5 00 00 80 07                         	maxd $r47 = $r47, -8589934592 (0xfffffffe00000000);;
 
-    1028:	31 f0 c0 67                                     	maxud $r48 = $r49, -64 (0xffffffc0);;
+    1020:	f0 ff bc e7 ff ff ff 87 ff ff ff 00             	maxud $r47 = $r48, 2305843009213693951 (0x1fffffffffffffff);;
 
-    102c:	31 00 c4 e7 00 00 80 07                         	maxud $r49 = $r49, -8589934592 (0xfffffffe00000000);;
+    102c:	70 0c c2 67                                     	maxud $r48 = $r48, $r49;;
 
-    1034:	b2 1c cb 67                                     	maxuw.sx $r50 = $r50, $r50;;
+    1030:	31 f0 c4 67                                     	maxud $r49 = $r49, -64 (0xffffffc0);;
 
-    1038:	f3 07 cf e7 ff ff ff 00                         	maxuw $r51 = $r51, 536870911 (0x1fffffff);;
+    1034:	32 00 c8 e7 00 00 80 07                         	maxud $r50 = $r50, -8589934592 (0xfffffffe00000000);;
 
-    1040:	34 1d cf 65                                     	maxw.sx $r51 = $r52, $r52;;
+    103c:	f3 1c cb 67                                     	maxuw.sx $r50 = $r51, $r51;;
 
-    1044:	f5 07 d3 e5 ff ff ff 00                         	maxw $r52 = $r53, 536870911 (0x1fffffff);;
+    1040:	f4 07 cf e7 ff ff ff 00                         	maxuw $r51 = $r52, 536870911 (0x1fffffff);;
 
-    104c:	f5 ff d4 e4 ff ff ff 87 ff ff ff 00             	mind $r53 = $r53, 2305843009213693951 (0x1fffffffffffffff);;
+    1048:	74 1d d3 65                                     	maxw.sx $r52 = $r52, $r53;;
 
-    1058:	b6 0d da 64                                     	mind $r54 = $r54, $r54;;
+    104c:	f5 07 d7 e5 ff ff ff 00                         	maxw $r53 = $r53, 536870911 (0x1fffffff);;
 
-    105c:	37 f0 dc 64                                     	mind $r55 = $r55, -64 (0xffffffc0);;
+    1054:	f6 ff d8 e4 ff ff ff 87 ff ff ff 00             	mind $r54 = $r54, 2305843009213693951 (0x1fffffffffffffff);;
 
-    1060:	38 00 dc e4 00 00 80 07                         	mind $r55 = $r56, -8589934592 (0xfffffffe00000000);;
+    1060:	f7 0d da 64                                     	mind $r54 = $r55, $r55;;
 
-    1068:	f8 ff e0 e6 ff ff ff 87 ff ff ff 00             	minud $r56 = $r56, 2305843009213693951 (0x1fffffffffffffff);;
+    1064:	38 f0 dc 64                                     	mind $r55 = $r56, -64 (0xffffffc0);;
 
-    1074:	79 0e e6 66                                     	minud $r57 = $r57, $r57;;
+    1068:	38 00 e0 e4 00 00 80 07                         	mind $r56 = $r56, -8589934592 (0xfffffffe00000000);;
 
-    1078:	3a f0 e8 66                                     	minud $r58 = $r58, -64 (0xffffffc0);;
+    1070:	f9 ff e4 e6 ff ff ff 87 ff ff ff 00             	minud $r57 = $r57, 2305843009213693951 (0x1fffffffffffffff);;
 
-    107c:	3b 00 e8 e6 00 00 80 07                         	minud $r58 = $r59, -8589934592 (0xfffffffe00000000);;
+    107c:	ba 0e e6 66                                     	minud $r57 = $r58, $r58;;
 
-    1084:	3b 1f ef 66                                     	minuw.sx $r59 = $r59, $r60;;
+    1080:	3b f0 e8 66                                     	minud $r58 = $r59, -64 (0xffffffc0);;
 
-    1088:	fc 07 f3 e6 ff ff ff 00                         	minuw $r60 = $r60, 536870911 (0x1fffffff);;
+    1084:	3b 00 ec e6 00 00 80 07                         	minud $r59 = $r59, -8589934592 (0xfffffffe00000000);;
 
-    1090:	7d 1f f7 64                                     	minw.sx $r61 = $r61, $r61;;
+    108c:	3c 1f f3 66                                     	minuw.sx $r60 = $r60, $r60;;
 
-    1094:	fe 07 fb e4 ff ff ff 00                         	minw $r62 = $r62, 536870911 (0x1fffffff);;
+    1090:	fd 07 f7 e6 ff ff ff 00                         	minuw $r61 = $r61, 536870911 (0x1fffffff);;
 
-    109c:	fe ff 02 6c                                     	msbfdq $r0r1 = $r62, $r63;;
+    1098:	be 1f f7 64                                     	minw.sx $r61 = $r62, $r62;;
 
-    10a0:	ff ff 02 6c                                     	msbfdq $r0r1 = $r63, $r63;;
+    109c:	ff 07 fb e4 ff ff ff 00                         	minw $r62 = $r63, 536870911 (0x1fffffff);;
 
-    10a4:	00 c0 02 6c                                     	msbfd $r0 = $r0, $r0;;
+    10a4:	ff ff 02 6c                                     	msbfdq $r0r1 = $r63, $r63;;
 
-    10a8:	c1 c7 06 ed ff ff ff 00                         	msbfd.h $r1 = $r1, 536870911 (0x1fffffff);;
+    10a8:	00 f0 02 6c                                     	msbfdq $r0r1 = $r0, $r0;;
 
-    10b0:	81 f0 0a 6e                                     	msbfdq.su $r2r3 = $r1, $r2;;
+    10ac:	41 c0 02 6c                                     	msbfd $r0 = $r1, $r1;;
 
-    10b4:	c2 e0 0a 6e                                     	msbfwd.su $r2 = $r2, $r3;;
+    10b0:	c2 c7 06 ed ff ff ff 00                         	msbfd.h $r1 = $r2, 536870911 (0x1fffffff);;
 
-    10b8:	c3 e7 0e ee ff ff ff 00                         	msbfwd.su $r3 = $r3, 536870911 (0x1fffffff);;
+    10b8:	82 f0 0a 6e                                     	msbfdq.su $r2r3 = $r2, $r2;;
 
-    10c0:	04 f1 0a 6d                                     	msbfdq.u $r2r3 = $r4, $r4;;
+    10bc:	c3 e0 0e 6e                                     	msbfwd.su $r3 = $r3, $r3;;
 
-    10c4:	45 e1 12 6d                                     	msbfwd.u $r4 = $r5, $r5;;
+    10c0:	c4 e7 12 ee ff ff ff 00                         	msbfwd.su $r4 = $r4, 536870911 (0x1fffffff);;
 
-    10c8:	c6 e7 16 ed ff ff ff 00                         	msbfwd.u $r5 = $r6, 536870911 (0x1fffffff);;
+    10c8:	44 f1 0a 6d                                     	msbfdq.u $r2r3 = $r4, $r5;;
 
-    10d0:	c6 e1 1a 6d                                     	msbfwd.u $r6 = $r6, $r7;;
+    10cc:	85 e1 16 6d                                     	msbfwd.u $r5 = $r5, $r6;;
 
-    10d4:	c7 ef 1e ee ff ff ff 00                         	msbfwd.su $r7 = $r7, 536870911 (0x1fffffff).@;;
+    10d0:	c6 e7 1a ed ff ff ff 00                         	msbfwd.u $r6 = $r6, 536870911 (0x1fffffff);;
 
-    10dc:	08 d2 23 6e                                     	msbfw.hu.sx $r8 = $r8, $r8;;
+    10d8:	c7 e1 1e 6d                                     	msbfwd.u $r7 = $r7, $r7;;
 
-    10e0:	c9 c7 27 ef ff ff ff 00                         	msbfw.hsu $r9 = $r9, 536870911 (0x1fffffff);;
+    10dc:	c8 ef 22 ee ff ff ff 00                         	msbfwd.su $r8 = $r8, 536870911 (0x1fffffff).@;;
 
-    10e8:	89 f2 12 60                                     	muldq $r4r5 = $r9, $r10;;
+    10e4:	49 d2 23 6e                                     	msbfw.hu.sx $r8 = $r9, $r9;;
 
-    10ec:	8a f2 12 60                                     	muldq $r4r5 = $r10, $r10;;
+    10e8:	ca c7 27 ef ff ff ff 00                         	msbfw.hsu $r9 = $r10, 536870911 (0x1fffffff);;
 
-    10f0:	cb c2 2e 60                                     	muld $r11 = $r11, $r11;;
+    10f0:	8a f2 12 60                                     	muldq $r4r5 = $r10, $r10;;
 
-    10f4:	cc c7 32 e1 ff ff ff 00                         	muld.h $r12 = $r12, 536870911 (0x1fffffff);;
+    10f4:	cb f2 12 60                                     	muldq $r4r5 = $r11, $r11;;
 
-    10fc:	4d f3 1a 65                                     	mulndq.u $r6r7 = $r13, $r13;;
+    10f8:	0c c3 2e 60                                     	muld $r11 = $r12, $r12;;
 
-    1100:	8e c3 3a 66                                     	mulnd.hu $r14 = $r14, $r14;;
+    10fc:	cd c7 36 e1 ff ff ff 00                         	muld.h $r13 = $r13, 536870911 (0x1fffffff);;
 
-    1104:	cf cf 3e e7 ff ff ff 00                         	mulnd.hsu $r15 = $r15, 536870911 (0x1fffffff).@;;
+    1104:	8e f3 1a 65                                     	mulndq.u $r6r7 = $r14, $r14;;
 
-    110c:	10 e4 3e 66                                     	mulnwd.su $r15 = $r16, $r16;;
+    1108:	cf c3 3a 66                                     	mulnd.hu $r14 = $r15, $r15;;
 
-    1110:	d1 e7 42 e4 ff ff ff 00                         	mulnwd $r16 = $r17, 536870911 (0x1fffffff);;
+    110c:	d0 cf 3e e7 ff ff ff 00                         	mulnd.hsu $r15 = $r16, 536870911 (0x1fffffff).@;;
 
-    1118:	91 d4 47 64                                     	mulnw.sx $r17 = $r17, $r18;;
+    1114:	50 e4 42 66                                     	mulnwd.su $r16 = $r16, $r17;;
 
-    111c:	d2 c7 4b e5 ff ff ff 00                         	mulnw.h $r18 = $r18, 536870911 (0x1fffffff);;
+    1118:	d1 e7 46 e4 ff ff ff 00                         	mulnwd $r17 = $r17, 536870911 (0x1fffffff);;
 
-    1124:	d3 f4 1a 62                                     	muldq.su $r6r7 = $r19, $r19;;
+    1120:	92 d4 4b 64                                     	mulnw.sx $r18 = $r18, $r18;;
 
-    1128:	14 e5 4e 62                                     	mulwd.su $r19 = $r20, $r20;;
+    1124:	d3 c7 4f e5 ff ff ff 00                         	mulnw.h $r19 = $r19, 536870911 (0x1fffffff);;
 
-    112c:	d5 e7 52 e2 ff ff ff 00                         	mulwd.su $r20 = $r21, 536870911 (0x1fffffff);;
+    112c:	13 f5 1a 62                                     	muldq.su $r6r7 = $r19, $r20;;
 
-    1134:	55 f5 22 61                                     	muldq.u $r8r9 = $r21, $r21;;
+    1130:	54 e5 52 62                                     	mulwd.su $r20 = $r20, $r21;;
 
-    1138:	96 e5 5a 61                                     	mulwd.u $r22 = $r22, $r22;;
+    1134:	d5 e7 56 e2 ff ff ff 00                         	mulwd.su $r21 = $r21, 536870911 (0x1fffffff);;
 
-    113c:	d7 e7 5e e1 ff ff ff 00                         	mulwd.u $r23 = $r23, 536870911 (0x1fffffff);;
+    113c:	96 f5 22 61                                     	muldq.u $r8r9 = $r22, $r22;;
 
-    1144:	18 e6 5e 61                                     	mulwd.u $r23 = $r24, $r24;;
+    1140:	d7 e5 5a 61                                     	mulwd.u $r22 = $r23, $r23;;
 
-    1148:	d9 ef 62 e2 ff ff ff 00                         	mulwd.su $r24 = $r25, 536870911 (0x1fffffff).@;;
+    1144:	d8 e7 5e e1 ff ff ff 00                         	mulwd.u $r23 = $r24, 536870911 (0x1fffffff);;
 
-    1150:	99 d6 67 62                                     	mulw.hu.sx $r25 = $r25, $r26;;
+    114c:	58 e6 62 61                                     	mulwd.u $r24 = $r24, $r25;;
 
-    1154:	da c7 6b e3 ff ff ff 00                         	mulw.hsu $r26 = $r26, 536870911 (0x1fffffff);;
+    1150:	d9 ef 66 e2 ff ff ff 00                         	mulwd.su $r25 = $r25, 536870911 (0x1fffffff).@;;
 
-    115c:	db ff 6c e9 ff ff ff 87 ff ff ff 00             	nandd $r27 = $r27, 2305843009213693951 (0x1fffffffffffffff);;
+    1158:	9a d6 6b 62                                     	mulw.hu.sx $r26 = $r26, $r26;;
 
-    1168:	1c 07 6e 69                                     	nandd $r27 = $r28, $r28;;
+    115c:	db c7 6f e3 ff ff ff 00                         	mulw.hsu $r27 = $r27, 536870911 (0x1fffffff);;
 
-    116c:	1d f0 70 69                                     	nandd $r28 = $r29, -64 (0xffffffc0);;
+    1164:	dc ff 6c e9 ff ff ff 87 ff ff ff 00             	nandd $r27 = $r28, 2305843009213693951 (0x1fffffffffffffff);;
 
-    1170:	1d 00 74 e9 00 00 80 07                         	nandd $r29 = $r29, -8589934592 (0xfffffffe00000000);;
+    1170:	5c 07 72 69                                     	nandd $r28 = $r28, $r29;;
 
-    1178:	8a 12 22 69                                     	nandq $r8r9 = $r10r11, $r10r11;;
+    1174:	1d f0 74 69                                     	nandd $r29 = $r29, -64 (0xffffffc0);;
 
-    117c:	cd 17 32 e9 ff ff ff 00                         	nandq $r12r13 = $r12r13, 536870911 (0x1fffffff);;
+    1178:	1e 00 78 e9 00 00 80 07                         	nandd $r30 = $r30, -8589934592 (0xfffffffe00000000);;
 
-    1184:	9e 17 7b 69                                     	nandw.sx $r30 = $r30, $r30;;
+    1180:	8a 12 22 69                                     	nandq $r8r9 = $r10r11, $r10r11;;
 
-    1188:	df 07 7f e9 ff ff ff 00                         	nandw $r31 = $r31, 536870911 (0x1fffffff);;
+    1184:	cd 17 32 e9 ff ff ff 00                         	nandq $r12r13 = $r12r13, 536870911 (0x1fffffff);;
 
-    1190:	20 a0 7e 6f                                     	negd $r31 = $r32;;
+    118c:	df 17 7b 69                                     	nandw.sx $r30 = $r31, $r31;;
 
-    1194:	0e b0 3a 6f                                     	negq $r14r15 = $r14r15;;
+    1190:	e0 07 7f e9 ff ff ff 00                         	nandw $r31 = $r32, 536870911 (0x1fffffff);;
 
-    1198:	20 a2 82 6f                                     	negsd $r32 = $r32;;
+    1198:	20 a0 82 6f                                     	negd $r32 = $r32;;
 
-    119c:	21 a2 87 6f                                     	negsw $r33 = $r33;;
+    119c:	0e b0 3a 6f                                     	negq $r14r15 = $r14r15;;
 
-    11a0:	22 a0 87 6f                                     	negw $r33 = $r34;;
+    11a0:	21 a2 86 6f                                     	negsd $r33 = $r33;;
 
-    11a4:	e2 ff 88 ed ff ff ff 87 ff ff ff 00             	neord $r34 = $r34, 2305843009213693951 (0x1fffffffffffffff);;
+    11a4:	22 a2 87 6f                                     	negsw $r33 = $r34;;
 
-    11b0:	e3 08 8e 6d                                     	neord $r35 = $r35, $r35;;
+    11a8:	22 a0 8b 6f                                     	negw $r34 = $r34;;
 
-    11b4:	24 f0 90 6d                                     	neord $r36 = $r36, -64 (0xffffffc0);;
+    11ac:	e3 ff 8c ed ff ff ff 87 ff ff ff 00             	neord $r35 = $r35, 2305843009213693951 (0x1fffffffffffffff);;
 
-    11b8:	25 00 90 ed 00 00 80 07                         	neord $r36 = $r37, -8589934592 (0xfffffffe00000000);;
+    11b8:	24 09 8e 6d                                     	neord $r35 = $r36, $r36;;
 
-    11c0:	90 14 42 6d                                     	neorq $r16r17 = $r16r17, $r18r19;;
+    11bc:	25 f0 90 6d                                     	neord $r36 = $r37, -64 (0xffffffc0);;
 
-    11c4:	d5 1f 4a ed ff ff ff 00                         	neorq $r18r19 = $r20r21, 536870911 (0x1fffffff).@;;
+    11c0:	25 00 94 ed 00 00 80 07                         	neord $r37 = $r37, -8589934592 (0xfffffffe00000000);;
 
-    11cc:	a5 19 97 6d                                     	neorw.sx $r37 = $r37, $r38;;
+    11c8:	90 14 42 6d                                     	neorq $r16r17 = $r16r17, $r18r19;;
 
-    11d0:	e6 07 9b ed ff ff ff 00                         	neorw $r38 = $r38, 536870911 (0x1fffffff);;
+    11cc:	d5 1f 4a ed ff ff ff 00                         	neorq $r18r19 = $r20r21, 536870911 (0x1fffffff).@;;
 
-    11d8:	e7 ff 9c eb ff ff ff 87 ff ff ff 00             	niord $r39 = $r39, 2305843009213693951 (0x1fffffffffffffff);;
+    11d4:	a6 19 9b 6d                                     	neorw.sx $r38 = $r38, $r38;;
 
-    11e4:	28 0a 9e 6b                                     	niord $r39 = $r40, $r40;;
+    11d8:	e7 07 9f ed ff ff ff 00                         	neorw $r39 = $r39, 536870911 (0x1fffffff);;
 
-    11e8:	29 f0 a0 6b                                     	niord $r40 = $r41, -64 (0xffffffc0);;
+    11e0:	e8 ff 9c eb ff ff ff 87 ff ff ff 00             	niord $r39 = $r40, 2305843009213693951 (0x1fffffffffffffff);;
 
-    11ec:	29 00 a4 eb 00 00 80 07                         	niord $r41 = $r41, -8589934592 (0xfffffffe00000000);;
+    11ec:	68 0a a2 6b                                     	niord $r40 = $r40, $r41;;
 
-    11f4:	96 15 52 6b                                     	niorq $r20r21 = $r22r23, $r22r23;;
+    11f0:	29 f0 a4 6b                                     	niord $r41 = $r41, -64 (0xffffffc0);;
 
-    11f8:	d9 17 62 eb ff ff ff 00                         	niorq $r24r25 = $r24r25, 536870911 (0x1fffffff);;
+    11f4:	2a 00 a8 eb 00 00 80 07                         	niord $r42 = $r42, -8589934592 (0xfffffffe00000000);;
 
-    1200:	aa 1a ab 6b                                     	niorw.sx $r42 = $r42, $r42;;
+    11fc:	96 15 52 6b                                     	niorq $r20r21 = $r22r23, $r22r23;;
 
-    1204:	eb 07 af eb ff ff ff 00                         	niorw $r43 = $r43, 536870911 (0x1fffffff);;
+    1200:	d9 17 62 eb ff ff ff 00                         	niorq $r24r25 = $r24r25, 536870911 (0x1fffffff);;
 
-    120c:	c1 ff 07 7f                                     	nop;;
+    1208:	eb 1a ab 6b                                     	niorw.sx $r42 = $r43, $r43;;
 
-    1210:	2c a8 ae 6f                                     	notd $r43 = $r44;;
+    120c:	ec 07 af eb ff ff ff 00                         	niorw $r43 = $r44, 536870911 (0x1fffffff);;
 
-    1214:	1a b8 6a 6f                                     	notq $r26r27 = $r26r27;;
+    1214:	c1 ff 07 7f                                     	nop;;
 
-    1218:	2c a8 b3 6f                                     	notw $r44 = $r44;;
+    1218:	2c a8 b2 6f                                     	notd $r44 = $r44;;
 
-    121c:	c0 ff b4 e1 ff ff ff 87 ff ff ff 00             	pcrel $r45 = 2305843009213693951 (0x1fffffffffffffff);;
+    121c:	1a b8 6a 6f                                     	notq $r26r27 = $r26r27;;
 
-    1228:	3c 00 b4 e1 00 00 00 00                         	pcrel $r45 = -549755813888 (0xffffff8000000000);;
+    1220:	2d a8 b7 6f                                     	notw $r45 = $r45;;
 
-    1230:	00 f0 b4 61                                     	pcrel $r45 = -4096 (0xfffff000);;
+    1224:	c0 ff b4 e1 ff ff ff 87 ff ff ff 00             	pcrel $r45 = 2305843009213693951 (0x1fffffffffffffff);;
 
-    1234:	00 00 d4 0f                                     	ret;;
+    1230:	3c 00 b8 e1 00 00 00 00                         	pcrel $r46 = -549755813888 (0xffffff8000000000);;
 
-    1238:	00 00 d8 0f                                     	rfe;;
+    1238:	00 f0 b8 61                                     	pcrel $r46 = -4096 (0xfffff000);;
 
-    123c:	ae 8b ba 66                                     	rold $r46 = $r46, $r46;;
+    123c:	00 00 dc 0f                                     	ret;;
 
-    1240:	ef 81 be 6e                                     	rold $r47 = $r47, 7 (0x7);;
+    1240:	00 00 e0 0f                                     	rfe;;
 
-    1244:	30 9c bf 66                                     	rolw.sx $r47 = $r48, $r48;;
+    1244:	ef 8b ba 66                                     	rold $r46 = $r47, $r47;;
 
-    1248:	f1 81 c3 6e                                     	rolw $r48 = $r49, 7 (0x7);;
+    1248:	f0 81 be 6e                                     	rold $r47 = $r48, 7 (0x7);;
 
-    124c:	b1 8c c6 67                                     	rord $r49 = $r49, $r50;;
+    124c:	70 9c c3 66                                     	rolw.sx $r48 = $r48, $r49;;
 
-    1250:	f2 81 ca 6f                                     	rord $r50 = $r50, 7 (0x7);;
+    1250:	f1 81 c7 6e                                     	rolw $r49 = $r49, 7 (0x7);;
 
-    1254:	f3 9c cf 67                                     	rorw.sx $r51 = $r51, $r51;;
+    1254:	b2 8c ca 67                                     	rord $r50 = $r50, $r50;;
 
-    1258:	f4 81 d3 6f                                     	rorw $r52 = $r52, 7 (0x7);;
+    1258:	f3 81 ce 6f                                     	rord $r51 = $r51, 7 (0x7);;
 
-    125c:	34 07 c8 0f                                     	rswap $r52 = $mmc;;
+    125c:	34 9d cf 67                                     	rorw.sx $r51 = $r52, $r52;;
 
-    1260:	35 00 c8 0f                                     	rswap $r53 = $pc;;
+    1260:	f5 81 d3 6f                                     	rorw $r52 = $r53, 7 (0x7);;
 
-    1264:	35 00 c8 0f                                     	rswap $r53 = $pc;;
+    1264:	35 07 c8 0f                                     	rswap $r53 = $mmc;;
 
-    1268:	f6 ff d4 e3 ff ff ff 87 ff ff ff 00             	sbfd $r53 = $r54, 2305843009213693951 (0x1fffffffffffffff);;
+    1268:	35 00 c8 0f                                     	rswap $r53 = $pc;;
 
-    1274:	f6 0d da 63                                     	sbfd $r54 = $r54, $r55;;
+    126c:	36 00 c8 0f                                     	rswap $r54 = $pc;;
 
-    1278:	37 f0 dc 63                                     	sbfd $r55 = $r55, -64 (0xffffffc0);;
+    1270:	f6 ff d8 e3 ff ff ff 87 ff ff ff 00             	sbfd $r54 = $r54, 2305843009213693951 (0x1fffffffffffffff);;
 
-    127c:	38 00 e0 e3 00 00 80 07                         	sbfd $r56 = $r56, -8589934592 (0xfffffffe00000000);;
+    127c:	f7 0d de 63                                     	sbfd $r55 = $r55, $r55;;
 
-    1284:	9c 17 72 63                                     	sbfq $r28r29 = $r28r29, $r30r31;;
+    1280:	38 f0 e0 63                                     	sbfd $r56 = $r56, -64 (0xffffffc0);;
 
-    1288:	e1 1f 7a e3 ff ff ff 00                         	sbfq $r30r31 = $r32r33, 536870911 (0x1fffffff).@;;
+    1284:	39 00 e0 e3 00 00 80 07                         	sbfd $r56 = $r57, -8589934592 (0xfffffffe00000000);;
 
-    1290:	79 ae e2 69                                     	sbfsd $r56 = $r57, $r57;;
+    128c:	9c 17 72 63                                     	sbfq $r28r29 = $r28r29, $r30r31;;
 
-    1294:	fa a7 e6 e9 ff ff ff 00                         	sbfsd $r57 = $r58, 536870911 (0x1fffffff);;
+    1290:	e1 1f 7a e3 ff ff ff 00                         	sbfq $r30r31 = $r32r33, 536870911 (0x1fffffff).@;;
 
-    129c:	fa be eb 69                                     	sbfsw.sx $r58 = $r58, $r59;;
+    1298:	b9 ae e6 69                                     	sbfsd $r57 = $r57, $r58;;
 
-    12a0:	fb a7 ef e9 ff ff ff 00                         	sbfsw $r59 = $r59, 536870911 (0x1fffffff);;
+    129c:	fa a7 ea e9 ff ff ff 00                         	sbfsd $r58 = $r58, 536870911 (0x1fffffff);;
 
-    12a8:	3c af f2 6b                                     	sbfusd $r60 = $r60, $r60;;
+    12a4:	fb be ef 69                                     	sbfsw.sx $r59 = $r59, $r59;;
 
-    12ac:	fd af f6 eb ff ff ff 00                         	sbfusd $r61 = $r61, 536870911 (0x1fffffff).@;;
+    12a8:	fc a7 f3 e9 ff ff ff 00                         	sbfsw $r60 = $r60, 536870911 (0x1fffffff);;
 
-    12b4:	be bf f7 6b                                     	sbfusw.sx $r61 = $r62, $r62;;
+    12b0:	7d af f2 6b                                     	sbfusd $r60 = $r61, $r61;;
 
-    12b8:	ff a7 fb eb ff ff ff 00                         	sbfusw $r62 = $r63, 536870911 (0x1fffffff);;
+    12b4:	fe af f6 eb ff ff ff 00                         	sbfusd $r61 = $r62, 536870911 (0x1fffffff).@;;
 
-    12c0:	3f 10 ff 63                                     	sbfw.sx $r63 = $r63, $r0;;
+    12bc:	fe bf fb 6b                                     	sbfusw.sx $r62 = $r62, $r63;;
 
-    12c4:	c0 07 03 e3 ff ff ff 00                         	sbfw $r0 = $r0, 536870911 (0x1fffffff);;
+    12c0:	ff a7 ff eb ff ff ff 00                         	sbfusw $r63 = $r63, 536870911 (0x1fffffff);;
 
-    12cc:	c1 ff 05 ee ff ff ff 87 ff ff ff 00             	sbmm8d $r1 = $r1, 2305843009213693951 (0x1fffffffffffffff);;
+    12c8:	00 10 03 63                                     	sbfw.sx $r0 = $r0, $r0;;
 
-    12d8:	82 20 06 6e                                     	sbmm8d $r1 = $r2, $r2;;
+    12cc:	c1 07 07 e3 ff ff ff 00                         	sbfw $r1 = $r1, 536870911 (0x1fffffff);;
 
-    12dc:	03 f0 09 6e                                     	sbmm8d $r2 = $r3, -64 (0xffffffc0);;
+    12d4:	c2 ff 05 ee ff ff ff 87 ff ff ff 00             	sbmm8d $r1 = $r2, 2305843009213693951 (0x1fffffffffffffff);;
 
-    12e0:	03 00 0d ee 00 00 80 07                         	sbmm8d $r3 = $r3, -8589934592 (0xfffffffe00000000);;
+    12e0:	c2 20 0a 6e                                     	sbmm8d $r2 = $r2, $r3;;
 
-    12e8:	04 21 12 6c                                     	sbmm8eord $r4 = $r4, $r4;;
+    12e4:	03 f0 0d 6e                                     	sbmm8d $r3 = $r3, -64 (0xffffffc0);;
 
-    12ec:	c5 27 16 ec ff ff ff 00                         	sbmm8eord $r5 = $r5, 536870911 (0x1fffffff);;
+    12e8:	04 00 11 ee 00 00 80 07                         	sbmm8d $r4 = $r4, -8589934592 (0xfffffffe00000000);;
 
-    12f4:	c6 ff 15 ee ff ff ff 87 ff ff ff 00             	sbmm8d $r5 = $r6, 2305843009213693951 (0x1fffffffffffffff);;
+    12f0:	45 21 12 6c                                     	sbmm8eord $r4 = $r5, $r5;;
 
-    1300:	c6 21 1a 6e                                     	sbmm8d $r6 = $r6, $r7;;
+    12f4:	c6 27 16 ec ff ff ff 00                         	sbmm8eord $r5 = $r6, 536870911 (0x1fffffff);;
 
-    1304:	07 f0 1d 6e                                     	sbmm8d $r7 = $r7, -64 (0xffffffc0);;
+    12fc:	c6 ff 19 ee ff ff ff 87 ff ff ff 00             	sbmm8d $r6 = $r6, 2305843009213693951 (0x1fffffffffffffff);;
 
-    1308:	08 00 21 ee 00 00 80 07                         	sbmm8d $r8 = $r8, -8589934592 (0xfffffffe00000000);;
+    1308:	c7 21 1e 6e                                     	sbmm8d $r7 = $r7, $r7;;
 
-    1310:	c9 ff 21 ef ff ff ff 87 ff ff ff 00             	sbmmt8d $r8 = $r9, 2305843009213693951 (0x1fffffffffffffff);;
+    130c:	08 f0 21 6e                                     	sbmm8d $r8 = $r8, -64 (0xffffffc0);;
 
-    131c:	89 22 26 6f                                     	sbmmt8d $r9 = $r9, $r10;;
+    1310:	09 00 21 ee 00 00 80 07                         	sbmm8d $r8 = $r9, -8589934592 (0xfffffffe00000000);;
 
-    1320:	0a f0 29 6f                                     	sbmmt8d $r10 = $r10, -64 (0xffffffc0);;
+    1318:	c9 ff 25 ef ff ff ff 87 ff ff ff 00             	sbmmt8d $r9 = $r9, 2305843009213693951 (0x1fffffffffffffff);;
 
-    1324:	0b 00 2d ef 00 00 80 07                         	sbmmt8d $r11 = $r11, -8589934592 (0xfffffffe00000000);;
+    1324:	8a 22 2a 6f                                     	sbmmt8d $r10 = $r10, $r10;;
 
-    132c:	0c 23 2e 6d                                     	sbmmt8eord $r11 = $r12, $r12;;
+    1328:	0b f0 2d 6f                                     	sbmmt8d $r11 = $r11, -64 (0xffffffc0);;
 
-    1330:	cd 2f 36 ed ff ff ff 00                         	sbmmt8eord $r13 = $r13, 536870911 (0x1fffffff).@;;
+    132c:	0c 00 2d ef 00 00 80 07                         	sbmmt8d $r11 = $r12, -8589934592 (0xfffffffe00000000);;
 
-    1338:	ce ff 39 ef ff ff ff 87 ff ff ff 00             	sbmmt8d $r14 = $r14, 2305843009213693951 (0x1fffffffffffffff);;
+    1334:	4d 23 32 6d                                     	sbmmt8eord $r12 = $r13, $r13;;
 
-    1344:	cf 23 3a 6f                                     	sbmmt8d $r14 = $r15, $r15;;
+    1338:	ce 2f 3a ed ff ff ff 00                         	sbmmt8eord $r14 = $r14, 536870911 (0x1fffffff).@;;
 
-    1348:	10 f0 3d 6f                                     	sbmmt8d $r15 = $r16, -64 (0xffffffc0);;
+    1340:	cf ff 39 ef ff ff ff 87 ff ff ff 00             	sbmmt8d $r14 = $r15, 2305843009213693951 (0x1fffffffffffffff);;
 
-    134c:	10 00 41 ef 00 00 80 07                         	sbmmt8d $r16 = $r16, -8589934592 (0xfffffffe00000000);;
+    134c:	0f 24 3e 6f                                     	sbmmt8d $r15 = $r15, $r16;;
 
-    1354:	d1 ff 45 b0 ff ff ff 97 ff ff ff 10             	sb 2305843009213693951 (0x1fffffffffffffff)[$r17] = $r17;;
+    1350:	10 f0 41 6f                                     	sbmmt8d $r16 = $r16, -64 (0xffffffc0);;
 
-    1360:	52 e4 4b 30                                     	sb $r17[$r18] = $r18;;
+    1354:	11 00 45 ef 00 00 80 07                         	sbmmt8d $r17 = $r17, -8589934592 (0xfffffffe00000000);;
 
-    1364:	12 f0 4d 30                                     	sb -64 (0xffffffc0)[$r18] = $r19;;
+    135c:	d1 ff 49 b0 ff ff ff 97 ff ff ff 10             	sb 2305843009213693951 (0x1fffffffffffffff)[$r17] = $r18;;
 
-    1368:	13 00 4d b0 00 00 80 17                         	sb -8589934592 (0xfffffffe00000000)[$r19] = $r19;;
+    1368:	92 e4 4f 30                                     	sb $r18[$r18] = $r19;;
 
-    1370:	14 00 e8 0f                                     	scall $r20;;
+    136c:	13 f0 4d 30                                     	sb -64 (0xffffffc0)[$r19] = $r19;;
 
-    1374:	ff 01 e4 0f                                     	scall 511 (0x1ff);;
+    1370:	14 00 51 b0 00 00 80 17                         	sb -8589934592 (0xfffffffe00000000)[$r20] = $r20;;
 
-    1378:	d4 ff 51 b3 ff ff ff 97 ff ff ff 10             	sd 2305843009213693951 (0x1fffffffffffffff)[$r20] = $r20;;
+    1378:	14 00 f0 0f                                     	scall $r20;;
 
-    1384:	55 e5 57 33                                     	sd $r21[$r21] = $r21;;
+    137c:	ff 01 ec 0f                                     	scall 511 (0x1ff);;
 
-    1388:	16 f0 59 33                                     	sd -64 (0xffffffc0)[$r22] = $r22;;
+    1380:	d5 ff 55 b3 ff ff ff 97 ff ff ff 10             	sd 2305843009213693951 (0x1fffffffffffffff)[$r21] = $r21;;
 
-    138c:	16 00 5d b3 00 00 80 17                         	sd -8589934592 (0xfffffffe00000000)[$r22] = $r23;;
+    138c:	56 e5 5b 33                                     	sd $r21[$r22] = $r22;;
 
-    1394:	17 07 c0 0f                                     	set $mmc = $r23;;
+    1390:	16 f0 5d 33                                     	sd -64 (0xffffffc0)[$r22] = $r23;;
 
-    1398:	d7 00 c0 0f                                     	set $ra = $r23;;
+    1394:	17 00 5d b3 00 00 80 17                         	sd -8589934592 (0xfffffffe00000000)[$r23] = $r23;;
 
-    139c:	58 00 c0 0f                                     	set $ps = $r24;;
+    139c:	18 07 c0 0f                                     	set $mmc = $r24;;
 
-    13a0:	58 00 c0 0f                                     	set $ps = $r24;;
+    13a0:	d8 00 c0 0f                                     	set $ra = $r24;;
 
-    13a4:	d8 ff 65 b1 ff ff ff 97 ff ff ff 10             	sh 2305843009213693951 (0x1fffffffffffffff)[$r24] = $r25;;
+    13a4:	58 00 c0 0f                                     	set $ps = $r24;;
 
-    13b0:	59 e6 6b 31                                     	sh $r25[$r25] = $r26;;
+    13a8:	59 00 c0 0f                                     	set $ps = $r25;;
 
-    13b4:	1a f0 69 31                                     	sh -64 (0xffffffc0)[$r26] = $r26;;
+    13ac:	d9 ff 65 b1 ff ff ff 97 ff ff ff 10             	sh 2305843009213693951 (0x1fffffffffffffff)[$r25] = $r25;;
 
-    13b8:	1b 00 6d b1 00 00 80 17                         	sh -8589934592 (0xfffffffe00000000)[$r27] = $r27;;
+    13b8:	9a e6 6b 31                                     	sh $r26[$r26] = $r26;;
 
-    13c0:	1c 07 6e 60                                     	signd $r27 = $r28, $r28;;
+    13bc:	1b f0 6d 31                                     	sh -64 (0xffffffc0)[$r27] = $r27;;
 
-    13c4:	dd 07 72 e0 ff ff ff 00                         	signd $r28 = $r29, 536870911 (0x1fffffff);;
+    13c0:	1b 00 71 b1 00 00 80 17                         	sh -8589934592 (0xfffffffe00000000)[$r27] = $r28;;
 
-    13cc:	9d 07 76 61                                     	signsd $r29 = $r29, $r30;;
+    13c8:	5c 07 72 60                                     	signd $r28 = $r28, $r29;;
 
-    13d0:	de 0f 7a e1 ff ff ff 00                         	signsd $r30 = $r30, 536870911 (0x1fffffff).@;;
+    13cc:	dd 07 76 e0 ff ff ff 00                         	signd $r29 = $r29, 536870911 (0x1fffffff);;
 
-    13d8:	df 17 7f 61                                     	signsw.sx $r31 = $r31, $r31;;
+    13d4:	9e 07 7a 61                                     	signsd $r30 = $r30, $r30;;
 
-    13dc:	e0 07 83 e1 ff ff ff 00                         	signsw $r32 = $r32, 536870911 (0x1fffffff);;
+    13d8:	df 0f 7e e1 ff ff ff 00                         	signsd $r31 = $r31, 536870911 (0x1fffffff).@;;
 
-    13e4:	61 18 83 60                                     	signw.sx $r32 = $r33, $r33;;
+    13e0:	20 18 7f 61                                     	signsw.sx $r31 = $r32, $r32;;
 
-    13e8:	e2 07 87 e0 ff ff ff 00                         	signw $r33 = $r34, 536870911 (0x1fffffff);;
+    13e4:	e1 07 83 e1 ff ff ff 00                         	signsw $r32 = $r33, 536870911 (0x1fffffff);;
 
-    13f0:	00 00 a4 0f                                     	sleep;;
+    13ec:	a1 18 87 60                                     	signw.sx $r33 = $r33, $r34;;
 
-    13f4:	e2 88 8a 61                                     	slld $r34 = $r34, $r35;;
+    13f0:	e2 07 8b e0 ff ff ff 00                         	signw $r34 = $r34, 536870911 (0x1fffffff);;
 
-    13f8:	e3 81 8e 69                                     	slld $r35 = $r35, 7 (0x7);;
+    13f8:	00 00 a4 0f                                     	sleep;;
 
-    13fc:	24 99 93 61                                     	sllw.sx $r36 = $r36, $r36;;
+    13fc:	e3 88 8e 61                                     	slld $r35 = $r35, $r35;;
 
-    1400:	e5 81 97 69                                     	sllw $r37 = $r37, 7 (0x7);;
+    1400:	e4 81 92 69                                     	slld $r36 = $r36, 7 (0x7);;
 
-    1404:	a6 89 96 64                                     	slsd $r37 = $r38, $r38;;
+    1404:	65 99 93 61                                     	sllw.sx $r36 = $r37, $r37;;
 
-    1408:	e7 81 9a 6c                                     	slsd $r38 = $r39, 7 (0x7);;
+    1408:	e6 81 97 69                                     	sllw $r37 = $r38, 7 (0x7);;
 
-    140c:	27 9a 9f 64                                     	slsw.sx $r39 = $r39, $r40;;
+    140c:	e6 89 9a 64                                     	slsd $r38 = $r38, $r39;;
 
-    1410:	e8 81 a3 6c                                     	slsw $r40 = $r40, 7 (0x7);;
+    1410:	e7 81 9e 6c                                     	slsd $r39 = $r39, 7 (0x7);;
 
-    1414:	69 8a a6 65                                     	slusd $r41 = $r41, $r41;;
+    1414:	28 9a a3 64                                     	slsw.sx $r40 = $r40, $r40;;
 
-    1418:	ea 81 aa 6d                                     	slusd $r42 = $r42, 7 (0x7);;
+    1418:	e9 81 a7 6c                                     	slsw $r41 = $r41, 7 (0x7);;
 
-    141c:	eb 9a ab 65                                     	slusw.sx $r42 = $r43, $r43;;
+    141c:	aa 8a a6 65                                     	slusd $r41 = $r42, $r42;;
 
-    1420:	ec 81 af 6d                                     	slusw $r43 = $r44, 7 (0x7);;
+    1420:	eb 81 aa 6d                                     	slusd $r42 = $r43, 7 (0x7);;
 
-    1424:	ec ff 95 b4 ff ff ff 97 ff ff ff 10             	so 2305843009213693951 (0x1fffffffffffffff)[$r44] = $r36r37r38r39;;
+    1424:	2b 9b af 65                                     	slusw.sx $r43 = $r43, $r44;;
 
-    1430:	2d eb a7 34                                     	so $r44[$r45] = $r40r41r42r43;;
+    1428:	ec 81 b3 6d                                     	slusw $r44 = $r44, 7 (0x7);;
 
-    1434:	2d f0 b5 34                                     	so -64 (0xffffffc0)[$r45] = $r44r45r46r47;;
+    142c:	ed ff 95 b4 ff ff ff 97 ff ff ff 10             	so 2305843009213693951 (0x1fffffffffffffff)[$r45] = $r36r37r38r39;;
 
-    1438:	2d 00 c5 b4 00 00 80 17                         	so -8589934592 (0xfffffffe00000000)[$r45] = $r48r49r50r51;;
+    1438:	6d eb a7 34                                     	so $r45[$r45] = $r40r41r42r43;;
 
-    1440:	ee ff 81 b4 ff ff ff 97 ff ff ff 10             	sq 2305843009213693951 (0x1fffffffffffffff)[$r46] = $r32r33;;
+    143c:	2e f0 b5 34                                     	so -64 (0xffffffc0)[$r46] = $r44r45r46r47;;
 
-    144c:	ae eb 8b 34                                     	sq $r46[$r46] = $r34r35;;
+    1440:	2e 00 c5 b4 00 00 80 17                         	so -8589934592 (0xfffffffe00000000)[$r46] = $r48r49r50r51;;
 
-    1450:	2f f0 89 34                                     	sq -64 (0xffffffc0)[$r47] = $r34r35;;
+    1448:	ee ff 81 b4 ff ff ff 97 ff ff ff 10             	sq 2305843009213693951 (0x1fffffffffffffff)[$r46] = $r32r33;;
 
-    1454:	2f 00 91 b4 00 00 80 17                         	sq -8589934592 (0xfffffffe00000000)[$r47] = $r36r37;;
+    1454:	ef eb 8b 34                                     	sq $r47[$r47] = $r34r35;;
 
-    145c:	30 8c be 62                                     	srad $r47 = $r48, $r48;;
+    1458:	2f f0 89 34                                     	sq -64 (0xffffffc0)[$r47] = $r34r35;;
 
-    1460:	f1 81 c2 6a                                     	srad $r48 = $r49, 7 (0x7);;
+    145c:	30 00 91 b4 00 00 80 17                         	sq -8589934592 (0xfffffffe00000000)[$r48] = $r36r37;;
 
-    1464:	b1 9c c7 62                                     	sraw.sx $r49 = $r49, $r50;;
+    1464:	70 8c c2 62                                     	srad $r48 = $r48, $r49;;
 
-    1468:	f2 81 cb 6a                                     	sraw $r50 = $r50, 7 (0x7);;
+    1468:	f1 81 c6 6a                                     	srad $r49 = $r49, 7 (0x7);;
 
-    146c:	f3 8c ce 63                                     	srld $r51 = $r51, $r51;;
+    146c:	b2 9c cb 62                                     	sraw.sx $r50 = $r50, $r50;;
 
-    1470:	f4 81 d2 6b                                     	srld $r52 = $r52, 7 (0x7);;
+    1470:	f3 81 cf 6a                                     	sraw $r51 = $r51, 7 (0x7);;
 
-    1474:	75 9d d3 63                                     	srlw.sx $r52 = $r53, $r53;;
+    1474:	34 8d ce 63                                     	srld $r51 = $r52, $r52;;
 
-    1478:	f6 81 d7 6b                                     	srlw $r53 = $r54, 7 (0x7);;
+    1478:	f5 81 d2 6b                                     	srld $r52 = $r53, 7 (0x7);;
 
-    147c:	f6 8d da 60                                     	srsd $r54 = $r54, $r55;;
+    147c:	b5 9d d7 63                                     	srlw.sx $r53 = $r53, $r54;;
 
-    1480:	f7 81 de 68                                     	srsd $r55 = $r55, 7 (0x7);;
+    1480:	f6 81 db 6b                                     	srlw $r54 = $r54, 7 (0x7);;
 
-    1484:	38 9e e3 60                                     	srsw.sx $r56 = $r56, $r56;;
+    1484:	f7 8d de 60                                     	srsd $r55 = $r55, $r55;;
 
-    1488:	f9 81 e7 68                                     	srsw $r57 = $r57, 7 (0x7);;
+    1488:	f8 81 e2 68                                     	srsd $r56 = $r56, 7 (0x7);;
 
-    148c:	00 00 a8 0f                                     	stop;;
+    148c:	79 9e e3 60                                     	srsw.sx $r56 = $r57, $r57;;
 
-    1490:	ba 4e e6 6f                                     	stsud $r57 = $r58, $r58;;
+    1490:	fa 81 e7 68                                     	srsw $r57 = $r58, 7 (0x7);;
 
-    1494:	fb 5e eb 6f                                     	stsuw.sx $r58 = $r59, $r59;;
+    1494:	00 00 a8 0f                                     	stop;;
 
-    1498:	fb ff f1 b2 ff ff ff 97 ff ff ff 10             	sw 2305843009213693951 (0x1fffffffffffffff)[$r59] = $r60;;
+    1498:	fa 4e ea 6f                                     	stsud $r58 = $r58, $r59;;
 
-    14a4:	3c ef f7 32                                     	sw $r60[$r60] = $r61;;
+    149c:	3b 5f ef 6f                                     	stsuw.sx $r59 = $r59, $r60;;
 
-    14a8:	3d f0 f5 32                                     	sw -64 (0xffffffc0)[$r61] = $r61;;
+    14a0:	fc ff f1 b2 ff ff ff 97 ff ff ff 10             	sw 2305843009213693951 (0x1fffffffffffffff)[$r60] = $r60;;
 
-    14ac:	3e 00 f9 b2 00 00 80 17                         	sw -8589934592 (0xfffffffe00000000)[$r62] = $r62;;
+    14ac:	7d ef f7 32                                     	sw $r61[$r61] = $r61;;
 
-    14b4:	3f 70 f9 68                                     	sxbd $r62 = $r63;;
+    14b0:	3e f0 f9 32                                     	sw -64 (0xffffffc0)[$r62] = $r62;;
 
-    14b8:	3f f0 fd 68                                     	sxhd $r63 = $r63;;
+    14b4:	3e 00 fd b2 00 00 80 17                         	sw -8589934592 (0xfffffffe00000000)[$r62] = $r63;;
 
-    14bc:	00 f0 01 69                                     	sxwd $r0 = $r0;;
+    14bc:	3f 70 fd 68                                     	sxbd $r63 = $r63;;
 
-    14c0:	00 00 b4 0f                                     	syncgroup $r0;;
+    14c0:	00 f0 01 68                                     	sxhd $r0 = $r0;;
 
-    14c4:	00 00 98 0f                                     	tlbdinval;;
+    14c4:	01 f0 01 69                                     	sxwd $r0 = $r1;;
 
-    14c8:	00 00 9c 0f                                     	tlbiinval;;
+    14c8:	01 00 b4 0f                                     	syncgroup $r1;;
 
-    14cc:	00 00 8c 0f                                     	tlbprobe;;
+    14cc:	00 00 98 0f                                     	tlbdinval;;
 
-    14d0:	00 00 88 0f                                     	tlbread;;
+    14d0:	00 00 9c 0f                                     	tlbiinval;;
 
-    14d4:	00 00 90 0f                                     	tlbwrite;;
+    14d4:	00 00 8c 0f                                     	tlbprobe;;
 
-    14d8:	01 00 b0 0f                                     	waitit $r1;;
+    14d8:	00 00 88 0f                                     	tlbread;;
 
-    14dc:	41 00 b8 0f                                     	wfxl $ps, $r1;;
+    14dc:	00 00 90 0f                                     	tlbwrite;;
 
-    14e0:	81 00 b8 0f                                     	wfxl $pcr, $r1;;
+    14e0:	01 00 b0 0f                                     	waitit $r1;;
 
     14e4:	42 00 b8 0f                                     	wfxl $ps, $r2;;
 
-    14e8:	42 00 bc 0f                                     	wfxm $ps, $r2;;
+    14e8:	82 00 b8 0f                                     	wfxl $pcr, $r2;;
 
-    14ec:	82 00 bc 0f                                     	wfxm $pcr, $r2;;
+    14ec:	42 00 b8 0f                                     	wfxl $ps, $r2;;
 
-    14f0:	83 00 bc 0f                                     	wfxm $pcr, $r3;;
+    14f0:	43 00 bc 0f                                     	wfxm $ps, $r3;;
 
-    14f4:	03 70 0d 64                                     	zxbd $r3 = $r3;;
+    14f4:	83 00 bc 0f                                     	wfxm $pcr, $r3;;
 
-    14f8:	04 f0 11 64                                     	zxhd $r4 = $r4;;
+    14f8:	83 00 bc 0f                                     	wfxm $pcr, $r3;;
 
-    14fc:	05 f0 11 65                                     	zxwd $r4 = $r5;;
+    14fc:	04 70 11 64                                     	zxbd $r4 = $r4;;
+
+    1500:	05 f0 11 64                                     	zxhd $r4 = $r5;;
+
+    1504:	05 f0 15 65                                     	zxwd $r5 = $r5;;
 

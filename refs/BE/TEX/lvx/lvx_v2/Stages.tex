@@ -8124,15 +8124,32 @@ ccbxccbcomp regZ, regY ? upper27\_lower11 &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  & \rsf{(r) regY} &  &  &  &  \\*
 \hline
 \hline
-\hypertarget{lvx_v2.errop}
+\hypertarget{lvx_v2.csrrc}
 \crb
-errop & & & & & & \\*
-\hline
-\hline
-\hypertarget{lvx_v2.fcsrsw}
  &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
-fcsrsw regZ &  &  & \wsf{(w) CS} &  &  &  \\*
+\crb
+csrrc regZ = csrnumber &  &  & \wsf{(w) CS} &  &  &  \\*
+\crb
  &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\hline
+\hypertarget{lvx_v2.csrrs}
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
+csrrs regZ = csrnumber &  &  & \wsf{(w) CS} &  &  &  \\*
+ &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\hline
+\hypertarget{lvx_v2.csrrw}
+\crb
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
+\crb
+csrrw regZ = csrnumber &  &  & \wsf{(w) CS} &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\hline
+\hypertarget{lvx_v2.errop}
+errop & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.get}
@@ -8585,6 +8602,9 @@ These point have to be taken into account to form correct bundles when writing a
 \hyperlink{lvx.crcbelmw}{crcbelmw} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.crclellw}{crclellw} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.crclelmw}{crclelmw} & ALU & ALU\_LITE \\ 
+\hyperlink{lvx.csrrc}{csrrc} & BCU & BCU2\_TINY\_LSU \\ 
+\hyperlink{lvx.csrrs}{csrrs} & BCU & BCU2\_TINY\_LSU \\ 
+\hyperlink{lvx.csrrw}{csrrw} & BCU & BCU2\_TINY\_LSU \\ 
 \hyperlink{lvx.ctzd}{ctzd} & ALU & ALU\_TINY \\ 
 \hyperlink{lvx.ctzdp}{ctzdp} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.ctzho}{ctzho} & ALU & ALU\_LITE \\ 
@@ -8648,7 +8668,6 @@ These point have to be taken into account to form correct bundles when writing a
 \hyperlink{lvx.fcompnwq}{fcompnwq} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fcompw}{fcompw} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fcompwq}{fcompwq} & ALU & ALU\_LITE \\ 
-\hyperlink{lvx.fcsrsw}{fcsrsw} & BCU & BCU2\_TINY\_LSU \\ 
 \hyperlink{lvx.fdivd}{fdivd} & ALU & ALU\_FULL \\ 
 \hyperlink{lvx.fdivh}{fdivh} & ALU & ALU\_FULL \\ 
 \hyperlink{lvx.fdivw}{fdivw} & ALU & ALU\_FULL \\ 

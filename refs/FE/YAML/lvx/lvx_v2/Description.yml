@@ -5824,30 +5824,31 @@ Format:
     scheduling: BCU2_TINY_LSU
     execution: *executionRSWAP
     behavior: *behaviorRSWAP
-  - ID: BCU_FCSRSW
-    what: BCU Swap RISC-V FP CSR view of Compute Status with a GPR
+  - ID: BCU_CSR
+    what: BCU RISC-V CSR access (read/write, read/set, read/clear)
     fields:
       - parallel: "-"
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { FCSRSW: "10011" }
-      - bcucode8: "___"
-      - systemS4: "_________"
+      - bcucode3: { "[ CSRRW, CSRRS, CSRRC ]": "10011..10101" }
+      - csrnumber: "------------"
       - registerZ: "------"
     encoding: simple
-    operands: [ { singleReg: registerZ } ]
-    syntax: "%0 %1"
+    operands: [ { singleReg: registerZ }, csrnumber ]
+    syntax: "%0 %1 = %2"
     scheduling: BCU2_TINY_LSU
     execution: |
       stage RR:
       new argument1 = %1;
+      new argument2 = %2;
       @Instruction
       stage E1:
       %1 = result1;
     behavior: |
       (SEQ
         (WRITE.argument1 (ACCESS.RR.%1))
+        (WRITE.argument2 (ACCESS.RR.%2))
         (MACRO.Instruction))
   - ID: BCU_IGSR
     what: BCU Indirect Get System Registers
@@ -5856,7 +5857,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { IGET: "10100" }
+      - bcucode3: { IGET: "10110" }
       - bcucode5: "______"
       - bcucode6: "______"
       - registerZ: "------"
@@ -5883,7 +5884,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { "[ RET, RFE ]": "10101..10110" }
+      - bcucode3: { "[ RET, RFE ]": "10111..11000" }
       - bcucode5: "______"
       - bcucode6: "______"
       - unused6: "______"
@@ -5898,7 +5899,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { "[ IGOTO, ICALL ]": "10111..11000" }
+      - bcucode3: { "[ IGOTO, ICALL ]": "11001..11010" }
       - bcucode5: "______"
       - bcucode6: "______"
       - registerZ: "------"
@@ -5919,7 +5920,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: { SCALL: "1111" }
-      - bcucode3: "11001"
+      - bcucode3: "11011"
       - bcucode5: "______"
       - sysnumber: "------------"
     encoding: simple
@@ -5939,7 +5940,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: { SCALL: "1111" }
-      - bcucode3: "11010"
+      - bcucode3: "11100"
       - bcucode5: "______"
       - bcucode6: "______"
       - registerZ: "------"
@@ -5960,7 +5961,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: { BREAK: "1111" }
-      - bcucode3: "11011"
+      - bcucode3: "11101"
       - bcucode5: "______"
       - bcucode6: "______"
       - brkunused: "____"
@@ -16711,6 +16712,9 @@ Immediate:
   - ID: sysnumber
     what: System Number
     execution: "_ZX_12(%0)"
+  - ID: csrnumber
+    what: RISC-V CSR Number
+    execution: "_ZX_12(%0)"
   - ID: unsigned6
     what: Zero Extended Immediate 6 bits
     shortName: u6
@@ -17129,53 +17133,141 @@ Instruction:
           (COMMIT.E1.%1 (READ.result1))
           (COMMIT.E1.%2 (READ.result2)))
         (SKIP))
-  - ID: FCSRSW
-    what: Swap RISC-V FP CSR view of Compute Status with a GPR
-    formats: [ BCU_FCSRSW ]
+  - ID: CSRRW
+    what: RISC-V CSR Read/Write (atomic) of the fcsr view of Compute Status
+    formats: [ BCU_CSR ]
     description: >
-      Atomically exchanges the %1 with the RISC-V \texttt{fcsr} view of the
-      \textbf{CS} (Compute Status) register. The %1 receives \texttt{fcsr}:
-      \texttt{fflags} in bits 0..4 (NX,UF,OF,DZ,NV -- the CS IEEE flags CS_IN,
-      CS_UN, CS_OV, CS_DZ, CS_IO in reversed order) and \texttt{frm} in bits 5..7
-      (from CS_RM). The CS IEEE flags and rounding mode are then set from the old
-      %1 in the same layout; all other CS fields (CS_IC, CS_XMF, CS_CC) are
-      preserved.
+      RISC-V \texttt{csrrw} for the FP CSR. With the CSR number %2 = 0x003
+      (\texttt{fcsr}), %1 receives the old \texttt{fcsr} -- \texttt{fflags} in bits
+      0..4 (NX,UF,OF,DZ,NV: the CS IEEE flags CS_IN,CS_UN,CS_OV,CS_DZ,CS_IO in
+      reversed RISC-V order) and \texttt{frm} in bits 5..7 (from CS_RM) -- and the CS
+      FP fields are written from the old %1 in the same layout, preserving CS_IC,
+      CS_XMF and CS_CC. Any other %2 raises an OPCODE exception (\texttt{csrnumber}
+      is a single register file so far).
     execution: |
       stage E1:
       new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
-      CS.IN = (argument1 >> 0) & 1;
-      CS.UN = (argument1 >> 1) & 1;
-      CS.OV = (argument1 >> 2) & 1;
-      CS.DZ = (argument1 >> 3) & 1;
-      CS.IO = (argument1 >> 4) & 1;
-      CS.RM = (argument1 >> 5) & 7;
+      if (argument2 == 0x003) {
+        new newval = argument1;
+        CS.IN = (newval >> 0) & 1;
+        CS.UN = (newval >> 1) & 1;
+        CS.OV = (newval >> 2) & 1;
+        CS.DZ = (newval >> 3) & 1;
+        CS.IO = (newval >> 4) & 1;
+        CS.RM = (newval >> 5) & 7;
+      } else {
+        _THROW(OPCODE);
+      }
     behavior: |
       (SEQ
         (WRITE.result1
           (IOR
-            (IOR
-              (IOR
-                (IOR
-                  (IOR
-                    (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))))
-                    (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))) (CONST.1)))
-                  (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))) (CONST.2)))
-                (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
+            (IOR (IOR (IOR (IOR
+              (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))) (CONST.1)))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))) (CONST.2)))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
               (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
             (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
-        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
-          (I2F.1 (AND (READ.argument1) (CONST.1))))
-        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
-          (I2F.1 (AND (SHR (READ.argument1) (CONST.1)) (CONST.1))))
-        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
-          (I2F.1 (AND (SHR (READ.argument1) (CONST.2)) (CONST.1))))
-        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
-          (I2F.1 (AND (SHR (READ.argument1) (CONST.3)) (CONST.1))))
-        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
-          (I2F.1 (AND (SHR (READ.argument1) (CONST.4)) (CONST.1))))
-        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))
-          (I2F.3 (AND (SHR (READ.argument1) (CONST.5)) (CONST.7))))
-        (COMMIT.E1.%1 (READ.result1)))
+        (IF (EQ (READ.argument2) (CONST.3))
+          (SEQ
+            (WRITE.newval (READ.argument1))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+            (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+            (COMMIT.E1.%1 (READ.result1)))
+          (THROW.ID.OPCODE)))
+  - ID: CSRRS
+    what: RISC-V CSR Read/Set (atomic) of the fcsr view of Compute Status
+    formats: [ BCU_CSR ]
+    description: >
+      RISC-V \texttt{csrrs} for the FP CSR. With %2 = 0x003 (\texttt{fcsr}), %1
+      receives the old \texttt{fcsr} and the CS FP fields are set to (old fcsr OR the
+      old %1) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. Any other %2
+      raises an OPCODE exception.
+    execution: |
+      stage E1:
+      new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
+      if (argument2 == 0x003) {
+        new newval = result1 | argument1;
+        CS.IN = (newval >> 0) & 1;
+        CS.UN = (newval >> 1) & 1;
+        CS.OV = (newval >> 2) & 1;
+        CS.DZ = (newval >> 3) & 1;
+        CS.IO = (newval >> 4) & 1;
+        CS.RM = (newval >> 5) & 7;
+      } else {
+        _THROW(OPCODE);
+      }
+    behavior: |
+      (SEQ
+        (WRITE.result1
+          (IOR
+            (IOR (IOR (IOR (IOR
+              (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))) (CONST.1)))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))) (CONST.2)))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
+            (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
+        (IF (EQ (READ.argument2) (CONST.3))
+          (SEQ
+            (WRITE.newval (IOR (READ.result1) (READ.argument1)))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+            (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+            (COMMIT.E1.%1 (READ.result1)))
+          (THROW.ID.OPCODE)))
+  - ID: CSRRC
+    what: RISC-V CSR Read/Clear (atomic) of the fcsr view of Compute Status
+    formats: [ BCU_CSR ]
+    description: >
+      RISC-V \texttt{csrrc} for the FP CSR. With %2 = 0x003 (\texttt{fcsr}), %1
+      receives the old \texttt{fcsr} and the CS FP fields are set to (old fcsr AND NOT
+      the old %1) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. Any other %2
+      raises an OPCODE exception.
+    execution: |
+      stage E1:
+      new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
+      if (argument2 == 0x003) {
+        new newval = result1 & ~argument1;
+        CS.IN = (newval >> 0) & 1;
+        CS.UN = (newval >> 1) & 1;
+        CS.OV = (newval >> 2) & 1;
+        CS.DZ = (newval >> 3) & 1;
+        CS.IO = (newval >> 4) & 1;
+        CS.RM = (newval >> 5) & 7;
+      } else {
+        _THROW(OPCODE);
+      }
+    behavior: |
+      (SEQ
+        (WRITE.result1
+          (IOR
+            (IOR (IOR (IOR (IOR
+              (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))) (CONST.1)))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))) (CONST.2)))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
+            (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
+        (IF (EQ (READ.argument2) (CONST.3))
+          (SEQ
+            (WRITE.newval (AND (READ.result1) (NOT (READ.argument1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+            (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+            (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+            (COMMIT.E1.%1 (READ.result1)))
+          (THROW.ID.OPCODE)))
   - ID: WAITIT
     what: Wait for Interrupt
     formats: [ BCU_PGI ]
