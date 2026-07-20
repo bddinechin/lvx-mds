@@ -1,11 +1,11 @@
 ---
 name: risc-v-csr-unification
-description: LVX SFR is being unified with RISC-V CSRs (FP first); FCSRSW gives RISC-V fcsr access to CS as a SLICE view, RSWAP-shaped
+description: LVX SFR is being unified with RISC-V CSRs (FP first); CSRRW/CSRRS/CSRRC + csrnumber give RISC-V fcsr access to CS as a SLICE view, RSWAP-shaped
 metadata:
   node_type: memory
   type: project
   originSessionId: 6afcafe0-f986-479d-b8bd-483d5bb2bfeb
-  modified: 2026-07-20T17:07:09.144Z
+  modified: 2026-07-20T17:48:02.403Z
 ---
 
 **Goal (user, the architect):** the final evolution of LVX SFR is unification with
@@ -29,18 +29,26 @@ is no per-register view hook. The clean path (user chose it) is a **dedicated in
 whose hand-authored behavior does the SLICE shuffle** — no separate fcsr register/storage,
 no runtime-helper hiding.
 
-**`FCSRSW` = RSWAP-shaped atomic swap** (RSWAP is exactly RISC-V `csrrw`: read-old/write-new;
-LVX even has an `onlyswapReg` class for swap-only regs). `fcsrsw $r`: `$r ← fcsr(CS)` while
-`CS ← unshuffle(old $r)`, atomic. Behavior in `Instruction.yml` (ID FCSRSW): result1 = IOR of
-six SLICE reads of CS (5 flags reversed + RM<<5); six STORE-to-SLICE RMWs distribute old $r
-back (preserving CS_IC/XMF/CC); `COMMIT.E1.%1 result1`. Format `BCU_FCSRSW` in `Format.yml`:
-reuses BCU_RSWAP steering (steering 00, bcucode1 01, bcucode2 1111), one `singleReg`
-operand (%1; CS implicit), 9-bit systemS4 slot reserved. Deslice lowers all SLICEs (Opcode.table
-0 SLICE, 18 AGGL.SRS cell-4 accesses), width clean, GBU roundtrip passes both cores.
+**Access = RSWAP-shaped** (RSWAP is exactly RISC-V `csrrw`: read-old/write-new; LVX even has an
+`onlyswapReg` class for swap-only regs). **First cut was `FCSRSW`, then replaced (user) by the
+three RISC-V primitives `CSRRW`/`CSRRS`/`CSRRC`** (lvx-mds `e48da08`, super `0df5c1a`).
 
-**bcucode3 renumbering (user: no binary-compat requirement):** rotated the BCU block so FCSRSW
-leads — FCSRSW 10011, IGET 10100, RET/RFE 10101..10110, IGOTO/ICALL 10111..11000, SCALL(SCI)
-11001, SCALL(SCR) 11010, BREAK 11011. Free bcucode3 remaining in this group: 11100-11111.
+- New 12-bit immediate **`csrnumber`** in `Immediate.yml` (`_ZX_12` like `sysnumber`), occupying
+  the format's old reserved bcucode8+systemS4 bits. Shared format **`BCU_CSR`** (Format.yml):
+  operands `{ singleReg registerZ, csrnumber }`, bcucode3 RANGE `[CSRRW,CSRRS,CSRRC]:10011..10101`
+  (three instrs share one format, like RET/RFE share BCU_RTS). One register file → rd==rs1 (atomic
+  self-swap): CSRRW CS←$r; CSRRS CS←old|$r; CSRRC CS←old&~$r; rd←old CSR in all three.
+- Behavior (Instruction.yml CSRRW/CSRRS/CSRRC): `WRITE.result1 = IOR of 6 SLICE reads` (assemble
+  old fcsr), then `(IF (EQ (READ.argument2) (CONST.3)) (SEQ WRITE.newval=<op> ; 6 STORE-to-SLICE
+  RMWs distribute newval ; COMMIT.E1.%1 result1) (THROW.ID.OPCODE))`. **Only csrnumber 0x003 (fcsr)
+  accepted; else THROW.ID.OPCODE.** fflags 0x001 / frm 0x002 left as easy extra dispatch arms.
+  `newval` is a behavior variable → must be declared `new newval=…` in execution (WRITE requires
+  `$Symbol{name}` predeclared, from execution's `new`; symbol table is flat, not scoped).
+- Deslice lowers all SLICEs (Opcode.table 0 SLICE), width clean, GBU roundtrip passes all 11.
+
+**bcucode3 renumbering (user: no binary-compat requirement):** block now — CSRRW 10011, CSRRS
+10100, CSRRC 10101, IGET 10110, RET/RFE 10111..11000, IGOTO/ICALL 11001..11010, SCALL(SCI) 11011,
+SCALL(SCR) 11100, BREAK 11101. Free bcucode3 left: **11110-11111**.
 
 **Operand/format facts learned:** `%1`=operands[0], `%2`=operands[1] (1-indexed); `%0` is a
 mnemonic-modifier slot. Format wrapper reads operands + `MACRO.Instruction`; the Instruction

@@ -5,4 +5,4 @@
 - [Named constants, not magic numbers](feedback-named-constants.md) — latencies/stages as an LVX-prefixed enum from a backend-generated header; neutral stage names, not semantic
 - [Mirror memory in lvx-mds](feedback-mirror-memory-in-lvx-mds.md) — refresh the tracked lvx-mds/memory/ copy from the ~/.claude store before committing memory changes there
 - [Behavior SLICE plan](behavior-slice-plan.md) — λ-RTL SLICE done: SFR unified onto SRS (CS/PS bit-fields), cmove Mask→SLICE + Mask path deleted; XACCESSO stays on slot-4 proxy
-- [RISC-V CSR unification](risc-v-csr-unification.md) — SFR→RISC-V CSRs (FP first); FCSRSW gives fcsr access to CS as a SLICE view, RSWAP-shaped (=csrrw); bcucode3 block renumbered
+- [RISC-V CSR unification](risc-v-csr-unification.md) — SFR→RISC-V CSRs (FP first); CSRRW/CSRRS/CSRRC + csrnumber immediate give fcsr(0x003) access to CS as a SLICE view (else THROW), RSWAP-shaped; bcucode3 block renumbered
