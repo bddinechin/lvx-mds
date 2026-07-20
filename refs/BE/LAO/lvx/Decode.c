@@ -1949,20 +1949,22 @@ Decode_Decoding_lvx_v1_simple(const void *buffer)
         case 0x00000012:
           return Opcode_lvx_v1_RSWAP_registerZ_systemS4_simple;
         case 0x00000013:
-          return Opcode_lvx_v1_IGET_registerZ_simple;
+          return Opcode_lvx_v1_FCSRSW_registerZ_simple;
         case 0x00000014:
-          return Opcode_lvx_v1_RET_simple;
+          return Opcode_lvx_v1_IGET_registerZ_simple;
         case 0x00000015:
-          return Opcode_lvx_v1_RFE_simple;
+          return Opcode_lvx_v1_RET_simple;
         case 0x00000016:
-          return Opcode_lvx_v1_IGOTO_registerZ_simple;
+          return Opcode_lvx_v1_RFE_simple;
         case 0x00000017:
-          return Opcode_lvx_v1_ICALL_registerZ_simple;
+          return Opcode_lvx_v1_IGOTO_registerZ_simple;
         case 0x00000018:
-          return Opcode_lvx_v1_SCALL_sysnumber_simple;
+          return Opcode_lvx_v1_ICALL_registerZ_simple;
         case 0x00000019:
-          return Opcode_lvx_v1_SCALL_registerZ_simple;
+          return Opcode_lvx_v1_SCALL_sysnumber_simple;
         case 0x0000001a:
+          return Opcode_lvx_v1_SCALL_registerZ_simple;
+        case 0x0000001b:
           return Opcode_lvx_v1_BREAK_brknumber_simple;
         default:
           return Opcode_lvx_v1_CB_bcucond_registerZ_pcrel17s2_simple;
@@ -7741,20 +7743,22 @@ Decode_Decoding_lvx_v2_simple(const void *buffer)
         case 0x00000012:
           return Opcode_lvx_v2_RSWAP_registerZ_systemS4_simple;
         case 0x00000013:
-          return Opcode_lvx_v2_IGET_registerZ_simple;
+          return Opcode_lvx_v2_FCSRSW_registerZ_simple;
         case 0x00000014:
-          return Opcode_lvx_v2_RET_simple;
+          return Opcode_lvx_v2_IGET_registerZ_simple;
         case 0x00000015:
-          return Opcode_lvx_v2_RFE_simple;
+          return Opcode_lvx_v2_RET_simple;
         case 0x00000016:
-          return Opcode_lvx_v2_IGOTO_registerZ_simple;
+          return Opcode_lvx_v2_RFE_simple;
         case 0x00000017:
-          return Opcode_lvx_v2_ICALL_registerZ_simple;
+          return Opcode_lvx_v2_IGOTO_registerZ_simple;
         case 0x00000018:
-          return Opcode_lvx_v2_SCALL_sysnumber_simple;
+          return Opcode_lvx_v2_ICALL_registerZ_simple;
         case 0x00000019:
-          return Opcode_lvx_v2_SCALL_registerZ_simple;
+          return Opcode_lvx_v2_SCALL_sysnumber_simple;
         case 0x0000001a:
+          return Opcode_lvx_v2_SCALL_registerZ_simple;
+        case 0x0000001b:
           return Opcode_lvx_v2_BREAK_brknumber_simple;
         default:
           return Opcode_lvx_v2_CB_bcucond_registerZ_pcrel17s2_simple;

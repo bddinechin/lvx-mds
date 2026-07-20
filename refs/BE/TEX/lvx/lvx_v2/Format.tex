@@ -89,6 +89,11 @@
 \bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/systemAlone, 6/registerZ }
 
 
+\subsubsection[{\small BCU Swap RISC-V FP CSR view of Compute Status with a GPR}]{BCU Swap RISC-V FP CSR view of Compute Status with a GPR} \label{sec:format-BCU-FCSRSW}
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 3/-- -- --, 9/-- -- -- -- -- -- -- -- --, 6/registerZ }
+
+
 \subsubsection[{\small BCU Indirect Get System Registers}]{BCU Indirect Get System Registers} \label{sec:format-BCU-IGSR}
 
 \bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/bcu3, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
@@ -106,17 +111,17 @@
 
 \subsubsection[{\small BCU Supervisor Call Immediate}]{BCU Supervisor Call Immediate} \label{sec:format-BCU-SCI}
 
-\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 5/11000, 6/-- -- -- -- -- --, 12/sysnumber }
+\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 5/11001, 6/-- -- -- -- -- --, 12/sysnumber }
 
 
 \subsubsection[{\small BCU Supervisor Call Register}]{BCU Supervisor Call Register} \label{sec:format-BCU-SCR}
 
-\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 5/11001, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
+\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 5/11010, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 6/registerZ }
 
 
 \subsubsection[{\small BCU Software Break}]{BCU Software Break} \label{sec:format-BCU-BREAK}
 
-\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 5/11010, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 4/-- -- -- --, 2/brknumber }
+\bitfields{ 1/P, 2/00, 2/01, 4/bcu2, 5/11011, 6/-- -- -- -- -- --, 6/-- -- -- -- -- --, 4/-- -- -- --, 2/brknumber }
 
 
 \subsubsection[{\small BCU Unconditional Branches}]{BCU Unconditional Branches} \label{sec:format-BCU-UB}

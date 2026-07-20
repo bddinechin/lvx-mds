@@ -5442,7 +5442,7 @@
 <Pattern
   ID=	"Pattern-lvx-BCU_BREAK.bcucode3"
   fields=	"BitField-lvx-bcucode3"
-  values=	"0b11010"
+  values=	"0b11011"
 />
 <Pattern
   ID=	"Pattern-lvx-BCU_BREAK.steering"
@@ -5523,6 +5523,26 @@
   ID=	"Pattern-lvx-BCU_CCB:BCU:CCB.bcucode1"
   fields=	"BitField-lvx-bcucode1"
   values=	"0b00"
+/>
+<Pattern
+  ID=	"Pattern-lvx-BCU_FCSRSW.bcucode1"
+  fields=	"BitField-lvx-bcucode1"
+  values=	"0b01"
+/>
+<Pattern
+  ID=	"Pattern-lvx-BCU_FCSRSW.bcucode2"
+  fields=	"BitField-lvx-bcucode2"
+  values=	"0b1111"
+/>
+<Pattern
+  ID=	"Pattern-lvx-BCU_FCSRSW.steering"
+  fields=	"BitField-lvx-steering"
+  values=	"0b00"
+/>
+<Pattern
+  ID=	"Pattern-lvx-BCU_FCSRSW:BCU:FCSRSW.bcucode3"
+  fields=	"BitField-lvx-bcucode3"
+  values=	"0b10011"
 />
 <Pattern
   ID=	"Pattern-lvx-BCU_GSR.bcucode1"
@@ -5617,12 +5637,12 @@
 <Pattern
   ID=	"Pattern-lvx-BCU_IBC:BCU:ICALL.bcucode3"
   fields=	"BitField-lvx-bcucode3"
-  values=	"0b10111"
+  values=	"0b11000"
 />
 <Pattern
   ID=	"Pattern-lvx-BCU_IBC:BCU:IGOTO.bcucode3"
   fields=	"BitField-lvx-bcucode3"
-  values=	"0b10110"
+  values=	"0b10111"
 />
 <Pattern
   ID=	"Pattern-lvx-BCU_IGSR.bcucode1"
@@ -5642,7 +5662,7 @@
 <Pattern
   ID=	"Pattern-lvx-BCU_IGSR:BCU:IGET.bcucode3"
   fields=	"BitField-lvx-bcucode3"
-  values=	"0b10011"
+  values=	"0b10100"
 />
 <Pattern
   ID=	"Pattern-lvx-BCU_IPC.bcucode1"
@@ -5782,12 +5802,12 @@
 <Pattern
   ID=	"Pattern-lvx-BCU_RTS:BCU:RET.bcucode3"
   fields=	"BitField-lvx-bcucode3"
-  values=	"0b10100"
+  values=	"0b10101"
 />
 <Pattern
   ID=	"Pattern-lvx-BCU_RTS:BCU:RFE.bcucode3"
   fields=	"BitField-lvx-bcucode3"
-  values=	"0b10101"
+  values=	"0b10110"
 />
 <Pattern
   ID=	"Pattern-lvx-BCU_SCI.bcucode1"
@@ -5797,7 +5817,7 @@
 <Pattern
   ID=	"Pattern-lvx-BCU_SCI.bcucode3"
   fields=	"BitField-lvx-bcucode3"
-  values=	"0b11000"
+  values=	"0b11001"
 />
 <Pattern
   ID=	"Pattern-lvx-BCU_SCI.steering"
@@ -5817,7 +5837,7 @@
 <Pattern
   ID=	"Pattern-lvx-BCU_SCR.bcucode3"
   fields=	"BitField-lvx-bcucode3"
-  values=	"0b11001"
+  values=	"0b11010"
 />
 <Pattern
   ID=	"Pattern-lvx-BCU_SCR.steering"

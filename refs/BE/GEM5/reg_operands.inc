@@ -501,6 +501,7 @@ const LvxRegDeps lvx_reg_deps[Opcode__NUM] = {
   [Opcode_lvx_v1_FCOMPH_floatcomp_registerW_registerZ_upper27_lower5_double] = { lvx_regops_4, 1, lvx_regops_2, 1, 1 },
   [Opcode_lvx_v1_FCOMPW_floatcomp_registerW_registerZ_registerY_simple] = { lvx_regops_3, 2, lvx_regops_2, 1, 1 },
   [Opcode_lvx_v1_FCOMPW_floatcomp_registerW_registerZ_upper27_lower5_double] = { lvx_regops_4, 1, lvx_regops_2, 1, 1 },
+  [Opcode_lvx_v1_FCSRSW_registerZ_simple] = { lvx_regops_1, 1, lvx_regops_1, 1, 1 },
   [Opcode_lvx_v1_FDIVD_fnegate_floatmode_registerW_registerZ_registerY_simple] = { lvx_regops_8, 2, lvx_regops_4, 1, 4 },
   [Opcode_lvx_v1_FDIVH_fnegate_floatmode_registerW_registerZ_registerY_simple] = { lvx_regops_8, 2, lvx_regops_4, 1, 3 },
   [Opcode_lvx_v1_FDIVW_fnegate_floatmode_registerW_registerZ_registerY_simple] = { lvx_regops_8, 2, lvx_regops_4, 1, 4 },

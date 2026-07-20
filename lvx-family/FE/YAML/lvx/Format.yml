@@ -5983,6 +5983,32 @@ Format:
     execution: *executionRSWAP
     behavior: *behaviorRSWAP
 
+  - ID: BCU_FCSRSW
+    what: BCU Swap RISC-V FP CSR view of Compute Status with a GPR
+    fields:
+      - parallel: "-"
+      - steering: "00"
+      - bcucode1: "01"
+      - bcucode2: "1111"
+      - bcucode3: { FCSRSW: "10011" }
+      - bcucode8: "___"
+      - systemS4: "_________"
+      - registerZ: "------"
+    encoding: simple
+    operands: [ { singleReg: registerZ } ]
+    syntax: "%0 %1"
+    scheduling: BCU2_TINY_LSU
+    execution: |
+      stage RR:
+      new argument1 = %1;
+      @Instruction
+      stage E1:
+      %1 = result1;
+    behavior: |
+      (SEQ
+        (WRITE.argument1 (ACCESS.RR.%1))
+        (MACRO.Instruction))
+
   - ID: BCU_IGSR
     what: BCU Indirect Get System Registers
     fields:
@@ -5990,7 +6016,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { IGET: "10011" }
+      - bcucode3: { IGET: "10100" }
       - bcucode5: "______"
       - bcucode6: "______"
       - registerZ: "------"
@@ -6018,7 +6044,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { "[ RET, RFE ]": "10100..10101" }
+      - bcucode3: { "[ RET, RFE ]": "10101..10110" }
       - bcucode5: "______"
       - bcucode6: "______"
       - unused6: "______"
@@ -6034,7 +6060,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { "[ IGOTO, ICALL ]": "10110..10111" }
+      - bcucode3: { "[ IGOTO, ICALL ]": "10111..11000" }
       - bcucode5: "______"
       - bcucode6: "______"
       - registerZ: "------"
@@ -6056,7 +6082,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: { SCALL: "1111" }
-      - bcucode3: "11000"
+      - bcucode3: "11001"
       - bcucode5: "______"
       - sysnumber: "------------"
     encoding: simple
@@ -6077,7 +6103,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: { SCALL: "1111" }
-      - bcucode3: "11001"
+      - bcucode3: "11010"
       - bcucode5: "______"
       - bcucode6: "______"
       - registerZ: "------"
@@ -6099,7 +6125,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: { BREAK: "1111" }
-      - bcucode3: "11010"
+      - bcucode3: "11011"
       - bcucode5: "______"
       - bcucode6: "______"
       - brkunused: "____"

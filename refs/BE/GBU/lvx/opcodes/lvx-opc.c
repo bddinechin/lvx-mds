@@ -16810,7 +16810,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "break",
     .codewords = {
       {
-        .opcode = 0x0fe80000,
+        .opcode = 0x0fec0000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -18672,6 +18672,24 @@ struct lvx_opc lvx_v1_optab[] = {
     },
     .fmtstring = "%s %s = %s, %s",
   },
+  { /* Opcode-lvx_v1-FCSRSW_registerZ_simple */
+    .as_op = "fcsrsw",
+    .codewords = {
+      {
+        .opcode = 0x0fcc0000,
+        .mask = 0x7ffc0000,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
   { /* Opcode-lvx_v1-FDIVD_fnegate_floatmode_registerW_registerZ_registerY_simple */
     .as_op = "fdivd",
     .codewords = {
@@ -20507,7 +20525,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "icall",
     .codewords = {
       {
-        .opcode = 0x0fdc0000,
+        .opcode = 0x0fe00000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -20525,7 +20543,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "iget",
     .codewords = {
       {
-        .opcode = 0x0fcc0000,
+        .opcode = 0x0fd00000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -20543,7 +20561,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "igoto",
     .codewords = {
       {
-        .opcode = 0x0fd80000,
+        .opcode = 0x0fdc0000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -24371,7 +24389,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "ret",
     .codewords = {
       {
-        .opcode = 0x0fd00000,
+        .opcode = 0x0fd40000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -24388,7 +24406,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "rfe",
     .codewords = {
       {
-        .opcode = 0x0fd40000,
+        .opcode = 0x0fd80000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -25455,7 +25473,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "scall",
     .codewords = {
       {
-        .opcode = 0x0fe40000,
+        .opcode = 0x0fe80000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -25473,7 +25491,7 @@ struct lvx_opc lvx_v1_optab[] = {
     .as_op = "scall",
     .codewords = {
       {
-        .opcode = 0x0fe00000,
+        .opcode = 0x0fe40000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -27738,7 +27756,7 @@ struct lvx_opc lvx_v1_optab[] = {
     },
     .fmtstring = " %s = %s, %s",
   },
-/* Number of instructions: 870 */
+/* Number of instructions: 871 */
   {"", { }, 0, 0, 0, { }, ""}
 };
 
@@ -47945,7 +47963,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "break",
     .codewords = {
       {
-        .opcode = 0x0fe80000,
+        .opcode = 0x0fec0000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -51278,6 +51296,24 @@ struct lvx_opc lvx_v2_optab[] = {
     },
     .fmtstring = "%s %s = %s, %s",
   },
+  { /* Opcode-lvx_v2-FCSRSW_registerZ_simple */
+    .as_op = "fcsrsw",
+    .codewords = {
+      {
+        .opcode = 0x0fcc0000,
+        .mask = 0x7ffc0000,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
   { /* Opcode-lvx_v2-FDIVD_fnegate_floatmode_registerW_registerZ_registerY_simple */
     .as_op = "fdivd",
     .codewords = {
@@ -54290,7 +54326,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "icall",
     .codewords = {
       {
-        .opcode = 0x0fdc0000,
+        .opcode = 0x0fe00000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -54308,7 +54344,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "iget",
     .codewords = {
       {
-        .opcode = 0x0fcc0000,
+        .opcode = 0x0fd00000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -54326,7 +54362,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "igoto",
     .codewords = {
       {
-        .opcode = 0x0fd80000,
+        .opcode = 0x0fdc0000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -59978,7 +60014,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "ret",
     .codewords = {
       {
-        .opcode = 0x0fd00000,
+        .opcode = 0x0fd40000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -59995,7 +60031,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "rfe",
     .codewords = {
       {
-        .opcode = 0x0fd40000,
+        .opcode = 0x0fd80000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -61878,7 +61914,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "scall",
     .codewords = {
       {
-        .opcode = 0x0fe40000,
+        .opcode = 0x0fe80000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -61896,7 +61932,7 @@ struct lvx_opc lvx_v2_optab[] = {
     .as_op = "scall",
     .codewords = {
       {
-        .opcode = 0x0fe00000,
+        .opcode = 0x0fe40000,
         .mask = 0x7ffc0000,
         .flags = LVX_OPCODE_FLAG_MODE64
       },
@@ -69517,7 +69553,7 @@ struct lvx_opc lvx_v2_optab[] = {
     },
     .fmtstring = " %s = %s, %s",
   },
-/* Number of instructions: 1453 */
+/* Number of instructions: 1454 */
   {"", { }, 0, 0, 0, { }, ""}
 };
 

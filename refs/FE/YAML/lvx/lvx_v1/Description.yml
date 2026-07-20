@@ -5824,6 +5824,31 @@ Format:
     scheduling: BCU2_TINY_LSU
     execution: *executionRSWAP
     behavior: *behaviorRSWAP
+  - ID: BCU_FCSRSW
+    what: BCU Swap RISC-V FP CSR view of Compute Status with a GPR
+    fields:
+      - parallel: "-"
+      - steering: "00"
+      - bcucode1: "01"
+      - bcucode2: "1111"
+      - bcucode3: { FCSRSW: "10011" }
+      - bcucode8: "___"
+      - systemS4: "_________"
+      - registerZ: "------"
+    encoding: simple
+    operands: [ { singleReg: registerZ } ]
+    syntax: "%0 %1"
+    scheduling: BCU2_TINY_LSU
+    execution: |
+      stage RR:
+      new argument1 = %1;
+      @Instruction
+      stage E1:
+      %1 = result1;
+    behavior: |
+      (SEQ
+        (WRITE.argument1 (ACCESS.RR.%1))
+        (MACRO.Instruction))
   - ID: BCU_IGSR
     what: BCU Indirect Get System Registers
     fields:
@@ -5831,7 +5856,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { IGET: "10011" }
+      - bcucode3: { IGET: "10100" }
       - bcucode5: "______"
       - bcucode6: "______"
       - registerZ: "------"
@@ -5858,7 +5883,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { "[ RET, RFE ]": "10100..10101" }
+      - bcucode3: { "[ RET, RFE ]": "10101..10110" }
       - bcucode5: "______"
       - bcucode6: "______"
       - unused6: "______"
@@ -5873,7 +5898,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: "1111"
-      - bcucode3: { "[ IGOTO, ICALL ]": "10110..10111" }
+      - bcucode3: { "[ IGOTO, ICALL ]": "10111..11000" }
       - bcucode5: "______"
       - bcucode6: "______"
       - registerZ: "------"
@@ -5894,7 +5919,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: { SCALL: "1111" }
-      - bcucode3: "11000"
+      - bcucode3: "11001"
       - bcucode5: "______"
       - sysnumber: "------------"
     encoding: simple
@@ -5914,7 +5939,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: { SCALL: "1111" }
-      - bcucode3: "11001"
+      - bcucode3: "11010"
       - bcucode5: "______"
       - bcucode6: "______"
       - registerZ: "------"
@@ -5935,7 +5960,7 @@ Format:
       - steering: "00"
       - bcucode1: "01"
       - bcucode2: { BREAK: "1111" }
-      - bcucode3: "11010"
+      - bcucode3: "11011"
       - bcucode5: "______"
       - bcucode6: "______"
       - brkunused: "____"
@@ -11901,6 +11926,53 @@ Instruction:
           (COMMIT.E1.%1 (READ.result1))
           (COMMIT.E1.%2 (READ.result2)))
         (SKIP))
+  - ID: FCSRSW
+    what: Swap RISC-V FP CSR view of Compute Status with a GPR
+    formats: [ BCU_FCSRSW ]
+    description: >
+      Atomically exchanges the %1 with the RISC-V \texttt{fcsr} view of the
+      \textbf{CS} (Compute Status) register. The %1 receives \texttt{fcsr}:
+      \texttt{fflags} in bits 0..4 (NX,UF,OF,DZ,NV -- the CS IEEE flags CS_IN,
+      CS_UN, CS_OV, CS_DZ, CS_IO in reversed order) and \texttt{frm} in bits 5..7
+      (from CS_RM). The CS IEEE flags and rounding mode are then set from the old
+      %1 in the same layout; all other CS fields (CS_IC, CS_XMF, CS_CC) are
+      preserved.
+    execution: |
+      stage E1:
+      new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
+      CS.IN = (argument1 >> 0) & 1;
+      CS.UN = (argument1 >> 1) & 1;
+      CS.OV = (argument1 >> 2) & 1;
+      CS.DZ = (argument1 >> 3) & 1;
+      CS.IO = (argument1 >> 4) & 1;
+      CS.RM = (argument1 >> 5) & 7;
+    behavior: |
+      (SEQ
+        (WRITE.result1
+          (IOR
+            (IOR
+              (IOR
+                (IOR
+                  (IOR
+                    (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))))
+                    (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))) (CONST.1)))
+                  (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))) (CONST.2)))
+                (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
+              (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
+            (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
+          (I2F.1 (AND (READ.argument1) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
+          (I2F.1 (AND (SHR (READ.argument1) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
+          (I2F.1 (AND (SHR (READ.argument1) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
+          (I2F.1 (AND (SHR (READ.argument1) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
+          (I2F.1 (AND (SHR (READ.argument1) (CONST.4)) (CONST.1))))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))
+          (I2F.3 (AND (SHR (READ.argument1) (CONST.5)) (CONST.7))))
+        (COMMIT.E1.%1 (READ.result1)))
   - ID: WAITIT
     what: Wait for Interrupt
     formats: [ BCU_PGI ]

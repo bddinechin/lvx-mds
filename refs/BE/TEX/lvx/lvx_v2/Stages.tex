@@ -8129,166 +8129,189 @@ ccbxccbcomp regZ, regY ? upper27\_lower11 &  & \rsf{(r) regZ} &  &  &  &  \\*
 errop & & & & & & \\*
 \hline
 \hline
-\hypertarget{lvx_v2.get}
-get regZ = sysS2 &  & \rsf{(r) sysS2} &  &  &  &  \\*
+\hypertarget{lvx_v2.fcsrsw}
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
+fcsrsw regZ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regZ} &  &  &  \\*
 \hline
+\hline
+\hypertarget{lvx_v2.get}
+\crb
+get regZ = sysS2 &  & \rsf{(r) sysS2} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\crb
 get regZ = sysS3 &  & \rsf{(r) sysS3} &  &  &  &  \\*
+\crb
  &  &  & \wsf{(w) regZ} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.goto}
-\crb
 goto pcrel27s2 & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.gotox}
+\crb
 gotox upper27\_lower27 & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.guard}
-\crb
 guardexecpred regZ? activate &  & \rsf{(r) regZ} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.icall}
+\crb
 icall regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.iget}
-\crb
 iget regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
-\crb
  &  &  & \wsf{(w) regZ} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.igoto}
+\crb
 igoto regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.loopdo}
-\crb
 loopdo regZ, pcrel17s2 & \rsf{(r) PS} &  &  &  &  &  \\*
-\crb
  & \rsf{(r) regZ} &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ret}
+\crb
 ret & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.rfe}
-\crb
 rfe & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.rswap}
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
 rswap regZ = sysAlone &  & \rsf{(r) sysAlone} &  &  &  &  \\*
+\crb
  &  &  & \wsf{(w) regZ} &  &  &  \\*
+\crb
  &  &  & \wsf{(w) sysAlone} &  &  &  \\*
 \hline
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
 rswap regZ = sysS3 &  & \rsf{(r) sysS3} &  &  &  &  \\*
+\crb
  &  &  & \wsf{(w) regZ} &  &  &  \\*
+\crb
  &  &  & \wsf{(w) sysS3} &  &  &  \\*
 \hline
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
 rswap regZ = sysS4 &  & \rsf{(r) sysS4} &  &  &  &  \\*
+\crb
  &  &  & \wsf{(w) regZ} &  &  &  \\*
+\crb
  &  &  & \wsf{(w) sysS4} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.scall}
-\crb
 scall regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
 \hline
-\crb
 scall sysnumber & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.set}
+\crb
 set sysAlone = regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
+\crb
  &  &  &  &  & \wsf{(w) sysAlone} &  \\*
 \hline
+\crb
 set RA = regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
+\crb
  &  &  &  &  & \wsf{(w) RA} &  \\*
 \hline
+\crb
 set sysT3 = regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
+\crb
  &  &  &  &  & \wsf{(w) sysT3} &  \\*
 \hline
+\crb
 set sysT4 = regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
+\crb
  &  &  &  &  & \wsf{(w) sysT4} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.sleep}
-\crb
 sleep & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.stop}
+\crb
 stop & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.syncgroup}
-\crb
 syncgroup regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.tlbdinval}
+\crb
 tlbdinval & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.tlbiinval}
-\crb
 tlbiinval & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.tlbprobe}
+\crb
 tlbprobe & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.tlbread}
-\crb
 tlbread & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.tlbwrite}
+\crb
 tlbwrite & & & & & & \\*
 \hline
 \hline
 \hypertarget{lvx_v2.waitit}
-\crb
 waitit regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
-\crb
  &  & \wsf{(w) regZ} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.wfxl}
+\crb
 wfxl sysAlone, regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
+\crb
  &  &  &  &  &  & \wsf{(w) sysAlone} \\*
 \hline
+\crb
 wfxl sysT2, regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
+\crb
  &  &  &  &  &  & \wsf{(w) sysT2} \\*
 \hline
+\crb
 wfxl sysT4, regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
+\crb
  &  &  &  &  &  & \wsf{(w) sysT4} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.wfxm}
-\crb
 wfxm sysAlone, regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
-\crb
  &  &  &  &  &  & \wsf{(w) sysAlone} \\*
 \hline
-\crb
 wfxm sysT2, regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
-\crb
  &  &  &  &  &  & \wsf{(w) sysT2} \\*
 \hline
-\crb
 wfxm sysT4, regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
-\crb
  &  &  &  &  &  & \wsf{(w) sysT4} \\*
 \hline
 \end{longtable}
@@ -8625,6 +8648,7 @@ These point have to be taken into account to form correct bundles when writing a
 \hyperlink{lvx.fcompnwq}{fcompnwq} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fcompw}{fcompw} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fcompwq}{fcompwq} & ALU & ALU\_LITE \\ 
+\hyperlink{lvx.fcsrsw}{fcsrsw} & BCU & BCU2\_TINY\_LSU \\ 
 \hyperlink{lvx.fdivd}{fdivd} & ALU & ALU\_FULL \\ 
 \hyperlink{lvx.fdivh}{fdivh} & ALU & ALU\_FULL \\ 
 \hyperlink{lvx.fdivw}{fdivw} & ALU & ALU\_FULL \\ 

@@ -40484,6 +40484,31 @@
   stages=	"0 0"
 /></Operator>
 <Operator
+  ID=	"Operator-lvx-FCSRSW_1singleReg_simple"
+  mnemonic=	"fcsrsw"
+  origins=	"Opcode-lvx_v1-FCSRSW_registerZ_simple Opcode-lvx_v2-FCSRSW_registerZ_simple"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1"
+><Parameter
+  action=	"Write"
+  method=	"Register-lvx-CS"
+  stages=	"2 2"
+/><Parameter
+  action=	"Write"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"2 2"
+/><Parameter
+  action=	"Read"
+  method=	"Register-lvx-CS"
+  stages=	"2 2"
+/><Parameter
+  action=	"Read"
+  method=	"RegClass-lvx-singleReg"
+  proxy=	"%1"
+  stages=	"1 1"
+/></Operator>
+<Operator
   ID=	"Operator-lvx-FDIVD_N_R5_3singleReg_4singleReg_5singleReg_simple"
   expanded=	"%1 %2"
   members=	".N .R5"

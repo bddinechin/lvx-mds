@@ -3097,34 +3097,38 @@
 />
           <Decode
   case=	"0x00000013"
-  opcodes=	"Opcode-lvx_v1-IGET_registerZ_simple"
+  opcodes=	"Opcode-lvx_v1-FCSRSW_registerZ_simple"
 />
           <Decode
   case=	"0x00000014"
-  opcodes=	"Opcode-lvx_v1-RET_simple"
+  opcodes=	"Opcode-lvx_v1-IGET_registerZ_simple"
 />
           <Decode
   case=	"0x00000015"
-  opcodes=	"Opcode-lvx_v1-RFE_simple"
+  opcodes=	"Opcode-lvx_v1-RET_simple"
 />
           <Decode
   case=	"0x00000016"
-  opcodes=	"Opcode-lvx_v1-IGOTO_registerZ_simple"
+  opcodes=	"Opcode-lvx_v1-RFE_simple"
 />
           <Decode
   case=	"0x00000017"
-  opcodes=	"Opcode-lvx_v1-ICALL_registerZ_simple"
+  opcodes=	"Opcode-lvx_v1-IGOTO_registerZ_simple"
 />
           <Decode
   case=	"0x00000018"
-  opcodes=	"Opcode-lvx_v1-SCALL_sysnumber_simple"
+  opcodes=	"Opcode-lvx_v1-ICALL_registerZ_simple"
 />
           <Decode
   case=	"0x00000019"
-  opcodes=	"Opcode-lvx_v1-SCALL_registerZ_simple"
+  opcodes=	"Opcode-lvx_v1-SCALL_sysnumber_simple"
 />
           <Decode
   case=	"0x0000001a"
+  opcodes=	"Opcode-lvx_v1-SCALL_registerZ_simple"
+/>
+          <Decode
+  case=	"0x0000001b"
   opcodes=	"Opcode-lvx_v1-BREAK_brknumber_simple"
 />
           <Decode
@@ -12390,34 +12394,38 @@
 />
           <Decode
   case=	"0x00000013"
-  opcodes=	"Opcode-lvx_v2-IGET_registerZ_simple"
+  opcodes=	"Opcode-lvx_v2-FCSRSW_registerZ_simple"
 />
           <Decode
   case=	"0x00000014"
-  opcodes=	"Opcode-lvx_v2-RET_simple"
+  opcodes=	"Opcode-lvx_v2-IGET_registerZ_simple"
 />
           <Decode
   case=	"0x00000015"
-  opcodes=	"Opcode-lvx_v2-RFE_simple"
+  opcodes=	"Opcode-lvx_v2-RET_simple"
 />
           <Decode
   case=	"0x00000016"
-  opcodes=	"Opcode-lvx_v2-IGOTO_registerZ_simple"
+  opcodes=	"Opcode-lvx_v2-RFE_simple"
 />
           <Decode
   case=	"0x00000017"
-  opcodes=	"Opcode-lvx_v2-ICALL_registerZ_simple"
+  opcodes=	"Opcode-lvx_v2-IGOTO_registerZ_simple"
 />
           <Decode
   case=	"0x00000018"
-  opcodes=	"Opcode-lvx_v2-SCALL_sysnumber_simple"
+  opcodes=	"Opcode-lvx_v2-ICALL_registerZ_simple"
 />
           <Decode
   case=	"0x00000019"
-  opcodes=	"Opcode-lvx_v2-SCALL_registerZ_simple"
+  opcodes=	"Opcode-lvx_v2-SCALL_sysnumber_simple"
 />
           <Decode
   case=	"0x0000001a"
+  opcodes=	"Opcode-lvx_v2-SCALL_registerZ_simple"
+/>
+          <Decode
+  case=	"0x0000001b"
   opcodes=	"Opcode-lvx_v2-BREAK_brknumber_simple"
 />
           <Decode
