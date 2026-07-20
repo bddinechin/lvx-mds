@@ -499,7 +499,7 @@ stage RR:
 stage ID:
   new argument1 = GPR[registerZ];
   new argument2 = (_SX_17(pcrel17s2)<<2);
-  if (!PS.HLE) {
+  if (!SRS[1]<PS_HLE:1>) {
     _THROW(OPCODE);
   }
   invalpfb();
@@ -21748,7 +21748,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -21757,16 +21757,16 @@ stage RR:
   new (result1, fio, fov, fin) = f64_add(RM, argument2, argument3);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FADDH: Floating-Point Add Half Word}]{FADDH\hfill Floating-Point Add Half Word}
@@ -21795,7 +21795,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -21804,16 +21804,16 @@ stage RR:
   new (result1, fio, fov, fin) = f16_add(RM, argument2, argument3);
 stage E3:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FADDW: Floating-Point Add Word}]{FADDW\hfill Floating-Point Add Word}
@@ -21842,7 +21842,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -21851,16 +21851,16 @@ stage RR:
   new (result1, fio, fov, fin) = f32_add(RM, argument2, argument3);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FADDWC: Floating-Point Add to Word Complex}]{FADDWC\hfill Floating-Point Add to Word Complex}
@@ -21894,7 +21894,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -21914,16 +21914,16 @@ stage RR:
   }
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FCLASSD: Floating-Point Classify Double Word}]{FCLASSD\hfill Floating-Point Classify Double Word}
@@ -22228,7 +22228,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22238,16 +22238,16 @@ stage RR:
   new (result1, fio, fdz, fov, fun, fin) = f64_div(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FDIVH: Floating-Point Divide Half Word}]{FDIVH\hfill Floating-Point Divide Half Word}
@@ -22278,7 +22278,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22288,16 +22288,16 @@ stage RR:
   new (result1, fio, fdz, fov, fun, fin) = f16_div(RM, argument2 ^ fsign, argument3);
 stage E3:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FDIVW: Floating-Point Divide Word}]{FDIVW\hfill Floating-Point Divide Word}
@@ -22328,7 +22328,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22338,16 +22338,16 @@ stage RR:
   new (result1, fio, fdz, fov, fun, fin) = f32_div(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMAD: Floating-Point Fused Multiply Add Double Word}]{FFMAD\hfill Floating-Point Fused Multiply Add Double Word}
@@ -22379,7 +22379,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22389,16 +22389,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f64_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMAH: Floating-Point Fused Multiply Add Half Word}]{FFMAH\hfill Floating-Point Fused Multiply Add Half Word}
@@ -22430,7 +22430,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22440,16 +22440,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f16_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E3:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMAW: Floating-Point Fused Multiply Add Word}]{FFMAW\hfill Floating-Point Fused Multiply Add Word}
@@ -22481,7 +22481,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22491,16 +22491,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f32_mulAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMAWC: Floating-Point Multiply Add Word Complex}]{FFMAWC\hfill Floating-Point Multiply Add Word Complex}
@@ -22534,7 +22534,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22554,16 +22554,16 @@ stage RR:
   }
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSD: Floating-Point Fused Multiply Subtract From Double Word}]{FFMSD\hfill Floating-Point Fused Multiply Subtract From Double Word}
@@ -22595,7 +22595,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22605,16 +22605,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f64_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSH: Floating-Point Fused Multiply Subtract From Half Word}]{FFMSH\hfill Floating-Point Fused Multiply Subtract From Half Word}
@@ -22646,7 +22646,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22656,16 +22656,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f16_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E3:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FFMSW: Floating-Point Fused Multiply Subtract From Word}]{FFMSW\hfill Floating-Point Fused Multiply Subtract From Word}
@@ -22697,7 +22697,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22707,16 +22707,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f32_mulnAdd(RM, argument3, argument2 ^ fsign, argument1 ^ fsign);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDD: Floating Point Conversion to Fixed-Point Double Word}]{FIXEDD\hfill Floating Point Conversion to Fixed-Point Double Word}
@@ -22744,7 +22744,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22753,16 +22753,16 @@ stage RR:
   new (result1, fio, fin) = f64_to_i64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDDW: Floating Point Conversion from Double Word to Fixed-Point Word}]{FIXEDDW\hfill Floating Point Conversion from Double Word to Fixed-Point Word}
@@ -22790,7 +22790,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22799,16 +22799,16 @@ stage RR:
   new (result1, fio, fin) = f64_to_i32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUD: Floating Point Conversion to Unsigned Fixed-Point Double Word}]{FIXEDUD\hfill Floating Point Conversion to Unsigned Fixed-Point Double Word}
@@ -22836,7 +22836,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22845,16 +22845,16 @@ stage RR:
   new (result1, fio, fin) = f64_to_ui64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUDW: Floating Point Conversion from Double Word to Unsigned Fixed-Point Word}]{FIXEDUDW\hfill Floating Point Conversion from Double Word to Unsigned Fixed-Point Word}
@@ -22882,7 +22882,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22891,16 +22891,16 @@ stage RR:
   new (result1, fio, fin) = f64_to_ui32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUW: Floating Point Conversion to Unsigned Fixed-Point}]{FIXEDUW\hfill Floating Point Conversion to Unsigned Fixed-Point}
@@ -22928,7 +22928,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22937,16 +22937,16 @@ stage RR:
   new (result1, fio, fin) = f32_to_ui32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUWD: Floating Point Conversion from Word to Unsigned Fixed-Point Double Word}]{FIXEDUWD\hfill Floating Point Conversion from Word to Unsigned Fixed-Point Double Word}
@@ -22974,7 +22974,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -22983,16 +22983,16 @@ stage RR:
   new (result1, fio, fin) = f32_to_ui64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDUWP: Floating Point Conversion to Unsigned Fixed-Point Word Pair}]{FIXEDUWP\hfill Floating Point Conversion to Unsigned Fixed-Point Word Pair}
@@ -23020,7 +23020,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23034,16 +23034,16 @@ stage RR:
   };
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDW: Floating Point Conversion to Fixed-Point}]{FIXEDW\hfill Floating Point Conversion to Fixed-Point}
@@ -23071,7 +23071,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23080,16 +23080,16 @@ stage RR:
   new (result1, fio, fin) = f32_to_i32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDWD: Floating Point Conversion from Word to Fixed-Point Double Word}]{FIXEDWD\hfill Floating Point Conversion from Word to Fixed-Point Double Word}
@@ -23117,7 +23117,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23126,16 +23126,16 @@ stage RR:
   new (result1, fio, fin) = f32_to_i64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FIXEDWP: Floating Point Conversion to Fixed-Point Word Pair}]{FIXEDWP\hfill Floating Point Conversion to Fixed-Point Word Pair}
@@ -23163,7 +23163,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23177,16 +23177,16 @@ stage RR:
   };
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATD: Floating Point Conversion from Fixed-Point Double Word}]{FLOATD\hfill Floating Point Conversion from Fixed-Point Double Word}
@@ -23214,7 +23214,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23223,16 +23223,16 @@ stage RR:
   new (result1, fio, fin) = i64_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATDW: Floating Point Conversion from Fixed-Point Double Word to Word}]{FLOATDW\hfill Floating Point Conversion from Fixed-Point Double Word to Word}
@@ -23260,7 +23260,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23269,16 +23269,16 @@ stage RR:
   new (result1, fio, fin) = i64_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUD: Floating Point Conversion from Unsigned Fixed-Point Double Word}]{FLOATUD\hfill Floating Point Conversion from Unsigned Fixed-Point Double Word}
@@ -23306,7 +23306,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23315,16 +23315,16 @@ stage RR:
   new (result1, fio, fin) = ui64_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUDW: Floating Point Conversion from Unsigned Fixed-Point Double Word to Word}]{FLOATUDW\hfill Floating Point Conversion from Unsigned Fixed-Point Double Word to Word}
@@ -23352,7 +23352,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23361,16 +23361,16 @@ stage RR:
   new (result1, fio, fin) = ui64_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUW: Floating Point Conversion from Unsigned Fixed-Point}]{FLOATUW\hfill Floating Point Conversion from Unsigned Fixed-Point}
@@ -23398,7 +23398,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23407,16 +23407,16 @@ stage RR:
   new (result1, fio, fin) = ui32_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUWD: Floating Point Conversion from Unsigned Fixed-Point Word to Double Word}]{FLOATUWD\hfill Floating Point Conversion from Unsigned Fixed-Point Word to Double Word}
@@ -23444,7 +23444,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23453,16 +23453,16 @@ stage RR:
   new (result1, fio, fin) = ui32_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATUWP: Floating Point Conversion from Unsigned Fixed-Point Word Pair}]{FLOATUWP\hfill Floating Point Conversion from Unsigned Fixed-Point Word Pair}
@@ -23490,7 +23490,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23504,16 +23504,16 @@ stage RR:
   };
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATW: Floating Point Conversion from Fixed-Point}]{FLOATW\hfill Floating Point Conversion from Fixed-Point}
@@ -23541,7 +23541,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23550,16 +23550,16 @@ stage RR:
   new (result1, fio, fin) = i32_to_f32(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATWD: Floating Point Conversion from Fixed-Point Word to Double Word}]{FLOATWD\hfill Floating Point Conversion from Fixed-Point Word to Double Word}
@@ -23587,7 +23587,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23596,16 +23596,16 @@ stage RR:
   new (result1, fio, fin) = i32_to_f64(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FLOATWP: Floating Point Conversion from Fixed-Point Word Pair}]{FLOATWP\hfill Floating Point Conversion from Fixed-Point Word Pair}
@@ -23633,7 +23633,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -23647,16 +23647,16 @@ stage RR:
   };
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXD: Floating-Point Maximum Double Word}]{FMAXD\hfill Floating-Point Maximum Double Word}
@@ -23686,16 +23686,16 @@ stage RR:
   new (result1, fio) = f64_max(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXH: Floating-Point Maximum Half Word}]{FMAXH\hfill Floating-Point Maximum Half Word}
@@ -23725,16 +23725,16 @@ stage RR:
   new (result1, fio) = f16_max(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXND: Floating-Point Maximum Number Double Word}]{FMAXND\hfill Floating-Point Maximum Number Double Word}
@@ -23764,16 +23764,16 @@ stage RR:
   new (result1, fio) = f64_maxNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXNH: Floating-Point Maximum Number Half Word}]{FMAXNH\hfill Floating-Point Maximum Number Half Word}
@@ -23803,16 +23803,16 @@ stage RR:
   new (result1, fio) = f16_maxNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXNW: Floating-Point Maximum Number Word}]{FMAXNW\hfill Floating-Point Maximum Number Word}
@@ -23842,16 +23842,16 @@ stage RR:
   new (result1, fio) = f32_maxNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMAXW: Floating-Point Maximum Word}]{FMAXW\hfill Floating-Point Maximum Word}
@@ -23881,16 +23881,16 @@ stage RR:
   new (result1, fio) = f32_max(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMIND: Floating-Point Minimum Double Word}]{FMIND\hfill Floating-Point Minimum Double Word}
@@ -23920,16 +23920,16 @@ stage RR:
   new (result1, fio) = f64_min(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINH: Floating-Point Minimum Half Word}]{FMINH\hfill Floating-Point Minimum Half Word}
@@ -23959,16 +23959,16 @@ stage RR:
   new (result1, fio) = f16_min(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINND: Floating-Point Minimum Number Double Word}]{FMINND\hfill Floating-Point Minimum Number Double Word}
@@ -23998,16 +23998,16 @@ stage RR:
   new (result1, fio) = f64_minNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINNH: Floating-Point Minimum Number Half Word}]{FMINNH\hfill Floating-Point Minimum Number Half Word}
@@ -24037,16 +24037,16 @@ stage RR:
   new (result1, fio) = f16_minNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINNW: Floating-Point Minimum Number Word}]{FMINNW\hfill Floating-Point Minimum Number Word}
@@ -24076,16 +24076,16 @@ stage RR:
   new (result1, fio) = f32_minNum(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMINW: Floating-Point Minimum Word}]{FMINW\hfill Floating-Point Minimum Word}
@@ -24115,16 +24115,16 @@ stage RR:
   new (result1, fio) = f32_min(argument2, argument3);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULD: Floating-Point Multiply Double Word}]{FMULD\hfill Floating-Point Multiply Double Word}
@@ -24155,7 +24155,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24165,16 +24165,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f64_mul(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULH: Floating-Point Multiply Half Word}]{FMULH\hfill Floating-Point Multiply Half Word}
@@ -24205,7 +24205,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24215,16 +24215,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f16_mul(RM, argument2 ^ fsign, argument3);
 stage E3:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULW: Floating-Point Multiply Word}]{FMULW\hfill Floating-Point Multiply Word}
@@ -24255,7 +24255,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24265,16 +24265,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f32_mul(RM, argument2 ^ fsign, argument3);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FMULWC: Floating-Point Multiply Word Complex}]{FMULWC\hfill Floating-Point Multiply Word Complex}
@@ -24308,7 +24308,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24328,16 +24328,16 @@ stage RR:
   }
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FNARROWDW: Floating Point Narrow Double Word to Word}]{FNARROWDW\hfill Floating Point Narrow Double Word to Word}
@@ -24365,7 +24365,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24374,16 +24374,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f64_to_f32(RM, argument2.64[0]);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FNARROWWH: Floating Point Narrow Word to Half Word}]{FNARROWWH\hfill Floating Point Narrow Word to Half Word}
@@ -24411,7 +24411,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24420,16 +24420,16 @@ stage RR:
   new (result1, fio, fov, fun, fin) = f32_to_f16(RM, argument2.32[0]);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FNEGD: Floating-Point Negate Double Word}]{FNEGD\hfill Floating-Point Negate Double Word}
@@ -24551,7 +24551,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24560,16 +24560,16 @@ stage RR:
   new (result1, fio, fin) = f64_rint(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FRINTH: Floating Point Round to Int Half Word}]{FRINTH\hfill Floating Point Round to Int Half Word}
@@ -24597,7 +24597,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24606,16 +24606,16 @@ stage RR:
   new (result1, fio, fin) = f16_rint(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FRINTW: Floating Point Round to Int Word}]{FRINTW\hfill Floating Point Round to Int Word}
@@ -24643,7 +24643,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24652,16 +24652,16 @@ stage RR:
   new (result1, fio, fin) = f32_rint(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSBFD: Floating-Point Subtract From Double Word}]{FSBFD\hfill Floating-Point Subtract From Double Word}
@@ -24690,7 +24690,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24699,16 +24699,16 @@ stage RR:
   new (result1, fio, fov, fin) = f64_sub(RM, argument3, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSBFH: Floating-Point Subtract From Half Word}]{FSBFH\hfill Floating-Point Subtract From Half Word}
@@ -24737,7 +24737,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24746,16 +24746,16 @@ stage RR:
   new (result1, fio, fov, fin) = f16_sub(RM, argument3, argument2);
 stage E3:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSBFW: Floating-Point Subtract From Word}]{FSBFW\hfill Floating-Point Subtract From Word}
@@ -24784,7 +24784,7 @@ stage ID:
 stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24793,16 +24793,16 @@ stage RR:
   new (result1, fio, fov, fin) = f32_sub(RM, argument3, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSBFWC: Floating-Point Subtract from Word Complex}]{FSBFWC\hfill Floating-Point Subtract from Word Complex}
@@ -24836,7 +24836,7 @@ stage RR:
   new argument3 = GPR[registerY];
   new argument2 = GPR[registerZ];
   new argument1 = GPR[registerW];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -24859,16 +24859,16 @@ stage RR:
   }
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGND: Floating-Point Sign Transfer Double Word}]{FSIGND\hfill Floating-Point Sign Transfer Double Word}
@@ -24898,16 +24898,16 @@ stage RR:
   new result1 = (argument2 & 0x3FFFFFFFFFFFFFFF) | (argument3 & 0x8000000000000000);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNH: Floating-Point Sign Transfer Half Word}]{FSIGNH\hfill Floating-Point Sign Transfer Half Word}
@@ -24937,16 +24937,16 @@ stage RR:
   new result1 = (argument2 & 0x3FFF) | (argument3 & 0x8000);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNMD: Floating-Point Sign Combine Transfer Double Word}]{FSIGNMD\hfill Floating-Point Sign Combine Transfer Double Word}
@@ -24976,16 +24976,16 @@ stage RR:
   new result1 = argument2 ^ (~argument3 & 0x8000000000000000);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNMH: Floating-Point Sign Combine Transfer Half Word}]{FSIGNMH\hfill Floating-Point Sign Combine Transfer Half Word}
@@ -25015,16 +25015,16 @@ stage RR:
   new result1 = argument2 ^ (~argument3 & 0x8000);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNMW: Floating-Point Sign Combine Transfer Word}]{FSIGNMW\hfill Floating-Point Sign Combine Transfer Word}
@@ -25054,16 +25054,16 @@ stage RR:
   new result1 = argument2 ^ (~argument3 & 0x80000000);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNND: Floating-Point Sign Negate Transfer Double Word}]{FSIGNND\hfill Floating-Point Sign Negate Transfer Double Word}
@@ -25093,16 +25093,16 @@ stage RR:
   new result1 = (argument2 & 0x3FFFFFFFFFFFFFFF) | (~argument3 & 0x8000000000000000);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNNH: Floating-Point Sign Negate Transfer Half Word}]{FSIGNNH\hfill Floating-Point Sign Negate Transfer Half Word}
@@ -25132,16 +25132,16 @@ stage RR:
   new result1 = (argument2 & 0x3FFF) | (~argument3 & 0x8000);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNNW: Floating-Point Sign Negate Transfer Word}]{FSIGNNW\hfill Floating-Point Sign Negate Transfer Word}
@@ -25171,16 +25171,16 @@ stage RR:
   new result1 = (argument2 & 0x3FFFFFFF) | (~argument3 & 0x80000000);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSIGNW: Floating-Point Sign Transfer Word}]{FSIGNW\hfill Floating-Point Sign Transfer Word}
@@ -25210,16 +25210,16 @@ stage RR:
   new result1 = (argument2 & 0x3FFFFFFF) | (argument3 & 0x80000000);
 stage E1:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSQRTD: Floating Point Square Root Double Word}]{FSQRTD\hfill Floating Point Square Root Double Word}
@@ -25247,7 +25247,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -25256,16 +25256,16 @@ stage RR:
   new (result1, fio, fin) = f64_sqrt(RM, argument2);
 stage E4:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSQRTH: Floating Point Square Root Half Word}]{FSQRTH\hfill Floating Point Square Root Half Word}
@@ -25293,7 +25293,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -25302,16 +25302,16 @@ stage RR:
   new (result1, fio, fin) = f16_sqrt(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSQRTW: Floating Point Square Root Word}]{FSQRTW\hfill Floating Point Square Root Word}
@@ -25339,7 +25339,7 @@ stage ID:
   new floatmode = _ZX_3(floatmode);
 stage RR:
   new argument2 = GPR[registerZ];
-  new RM = floatmode == 7 ? CS.RM : floatmode;
+  new RM = floatmode == 7 ? SRS[4]<CS_RM:3> : floatmode;
   new fio = 0;
   new fdz = 0;
   new fov = 0;
@@ -25348,16 +25348,16 @@ stage RR:
   new (result1, fio, fin) = f32_sqrt(RM, argument2);
 stage SF:
   GPR[registerW] = result1;
-  new cs_io = CS.IO;
-  new cs_dz = CS.DZ;
-  new cs_ov = CS.OV;
-  new cs_un = CS.UN;
-  new cs_in = CS.IN;
-  CS.IO = fio | cs_io;
-  CS.DZ = fdz | cs_dz;
-  CS.OV = fov | cs_ov;
-  CS.UN = fun | cs_un;
-  CS.IN = fin | cs_in;
+  new cs_io = SRS[4]<CS_IO:1>;
+  new cs_dz = SRS[4]<CS_DZ:1>;
+  new cs_ov = SRS[4]<CS_OV:1>;
+  new cs_un = SRS[4]<CS_UN:1>;
+  new cs_in = SRS[4]<CS_IN:1>;
+  SRS[4]<CS_IO:1> = fio | cs_io;
+  SRS[4]<CS_DZ:1> = fdz | cs_dz;
+  SRS[4]<CS_OV:1> = fov | cs_ov;
+  SRS[4]<CS_UN:1> = fun | cs_un;
+  SRS[4]<CS_IN:1> = fin | cs_in;
 \end{lstlisting}}
 \newpage
 \subsubsection[{\small FSRECD: Floating-Point Seed for Reciprocal Double Word}]{FSRECD\hfill Floating-Point Seed for Reciprocal Double Word}

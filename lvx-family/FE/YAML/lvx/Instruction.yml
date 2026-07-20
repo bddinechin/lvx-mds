@@ -275,7 +275,7 @@ Instruction:
       }
     behavior: |
       (SEQ
-        (IF (NOTL (I2B (F2I.1 (LOAD.ID (AGGL.PS (CONST.PS_HLE) (CONST.1))))))
+        (IF (NOTL (I2B (F2I.1 (LOAD.ID (SLICE.1 (AGGL.SRS (CONST.1) (CONST.1)) (CONST.PS_HLE))))))
           (THROW.ID.OPCODE)
           (SKIP))
         (STORE.E2 (AGGL.SFR (CONST.LS) (CONST.1))

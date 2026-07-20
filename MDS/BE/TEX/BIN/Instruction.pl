@@ -345,6 +345,15 @@ sub execution_slot_for_stage {
             }
             $res .= "[$sub_res]" if $sub_res ne '';
         }
+    } elsif ($node_type eq 'SLICE') {
+        # (SLICE.width location offset): a sub-cell bit-field of location.
+        # Rendered natively as a bit-field <offset:width>, not the lowered
+        # shift/mask (Deslice runs only on the Opcode.table path for BE/LAO).
+        $res .= " " x $indent;
+        $res .= &execution_slot_for_stage($node[2], 0);
+        $res .= "<";
+        $res .= &execution_slot_for_stage($node[3], 0);
+        $res .= ":$node[1]>";
     } elsif ($node_type eq 'COMMIT') {
         $res .= " " x $indent;
         $res .= "$node[2] = ";

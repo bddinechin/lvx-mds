@@ -144,7 +144,7 @@ Macro:
       (SEQ
         (WRITE.argument2 (ACCESS.RR.%2))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E3.%1 (READ.result1)))
   - ID: BIA2
     execution: &executionBIA2 |
@@ -161,7 +161,7 @@ Macro:
       (SEQ
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E3.%1 (READ.result1)))
   - ID: BIA4
     execution: &executionBIA4 |
@@ -178,7 +178,7 @@ Macro:
       (SEQ
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E3.%1 (READ.result1)))
   - ID: BIA8
     execution: &executionBIA8 |
@@ -195,7 +195,7 @@ Macro:
       (SEQ
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E3.%1 (READ.result1)))
   - ID: BIA16
     execution: &executionBIA16 |
@@ -212,7 +212,7 @@ Macro:
       (SEQ
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E3.%1 (READ.result1)))
   - ID: BIA32
     execution: &executionBIA32 |
@@ -229,7 +229,7 @@ Macro:
       (SEQ
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E3.%1 (READ.result1)))
   - ID: BIA64
     execution: &executionBIA64 |
@@ -246,7 +246,7 @@ Macro:
       (SEQ
         (WRITE.address (ACCESS.RR.%3))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E3.%1 (READ.result1)))
   - ID: SET
     execution: &executionSET |
@@ -350,7 +350,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -359,20 +359,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E1.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWRR
     execution: &executionGWRR |
@@ -417,20 +417,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E1.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWRRM
     execution: &executionGWRRM |
@@ -500,7 +500,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -509,20 +509,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E1.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWRRFL
     execution: &executionGWRRFL |
@@ -554,7 +554,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -563,20 +563,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E1.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWRRR
     execution: &executionGWRRR |
@@ -906,7 +906,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -915,20 +915,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.SF.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.SF (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.SF (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.SF (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.SF (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.SF (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWSFRRFX
     execution: &executionGWSFRRX |
@@ -959,7 +959,7 @@ Macro:
       (SEQ
         (WRITE.argument2 (ACCESS.RR.%2))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E1.%1 (READ.result1)))
   - ID: MOVETQ
     execution: &executionMOVETQ |
@@ -975,7 +975,7 @@ Macro:
         (WRITE.argument3 (ACCESS.RR.%3))
         (WRITE.argument2 (ACCESS.RR.%2))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E1.%1 (READ.result1)))
   - ID: OWI
     execution: &executionOWI |
@@ -989,7 +989,7 @@ Macro:
       (SEQ
         (WRITE.argument2 (ACCESS.RR.%2))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E1.%1 (READ.result1)))
   - ID: XWI
     execution: &executionXWI |
@@ -1004,7 +1004,7 @@ Macro:
       (SEQ
         (WRITE.argument2 (ACCESS.RR.%2))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E1.%1:0 (READ.result1_0))
         (COMMIT.E1.%1:1 (READ.result1_1)))
       stage E1:
@@ -1104,7 +1104,7 @@ Macro:
           (ADD
             (READ.base)
             (READ.offset)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (COMMIT.CR.%1 (READ.result1)))
   - ID: LVPBO
@@ -1143,7 +1143,7 @@ Macro:
             (READ.offset)))
         (WRITE.argument1_0 (ACCESS.E1.%1:0))
         (WRITE.argument1_1 (ACCESS.E1.%1:1))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1_0 (READ.64[0].result1))
         (WRITE.result1_1 (READ.64[1].result1))
@@ -1194,7 +1194,7 @@ Macro:
         (WRITE.argument1_1 (ACCESS.E1.%1:1))
         (WRITE.argument1_2 (ACCESS.E1.%1:2))
         (WRITE.argument1_3 (ACCESS.E1.%1:3))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1_0 (ZX.64 (READ.result1)))
         (WRITE.result1_1 (SHR (READ.result1) (CONST.64)))
@@ -1267,7 +1267,7 @@ Macro:
             (READ.base)
             (READ.offset)))
         (WRITE.argument3 (ACCESS.E1.%3))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: SVPBO
     properties: &propertiesSVPBO { '%0': MemoryWrite, '%1': Offset, '%2': Base, '%3': Stored, '%CS': NoEffects }
@@ -1332,7 +1332,7 @@ Macro:
             (APPLY.256.join_64_x4
               (READ.argument3_0_2) (READ.argument3_1_2) (READ.argument3_0_3) (READ.argument3_1_3)))
           (SKIP))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: SVQBO
     execution: &executionSVQBO |
@@ -1432,7 +1432,7 @@ Macro:
             (APPLY.256.join_64_x4
               (READ.argument3_0_3) (READ.argument3_1_3) (READ.argument3_2_3) (READ.argument3_3_3)))
           (SKIP))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: LSPB
     execution: &executionLSPB |
@@ -1653,7 +1653,7 @@ Macro:
           (APPLY.256.lsumask_passbytes (READ.lsumask) (READ.argument2)))
         (WRITE.clearbytes
           (APPLY.256.lsumask_clearbytes (READ.lsumask) (READ.argument2)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (COMMIT.CR.%1
           (IOR
@@ -1696,7 +1696,7 @@ Macro:
           (APPLY.256.lsumask_passbytes (READ.lsumask) (READ.argument2)))
         (WRITE.clearbytes
           (APPLY.256.lsumask_clearbytes (READ.lsumask) (READ.argument2)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (COMMIT.CR.%1
           (IOR
@@ -1777,7 +1777,7 @@ Macro:
           (APPLY.256.lsumask_passbytes (READ.lsumask) (READ.argument2)))
         (WRITE.clearbytes
           (APPLY.256.lsumask_clearbytes (READ.lsumask) (READ.argument2)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -1869,7 +1869,7 @@ Macro:
           (APPLY.256.lsumask_passbytes (READ.lsumask) (READ.argument2)))
         (WRITE.clearbytes
           (APPLY.256.lsumask_clearbytes (READ.lsumask) (READ.argument2)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -1994,7 +1994,7 @@ Macro:
           (APPLY.256.lsumask_passbytes (READ.lsumask) (READ.argument2)))
         (WRITE.clearbytes
           (APPLY.256.lsumask_clearbytes (READ.lsumask) (READ.argument2)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2126,7 +2126,7 @@ Macro:
           (APPLY.256.lsumask_passbytes (READ.lsumask) (READ.argument2)))
         (WRITE.clearbytes
           (APPLY.256.lsumask_clearbytes (READ.lsumask) (READ.argument2)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2178,7 +2178,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2229,7 +2229,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2275,7 +2275,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2326,7 +2326,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2372,7 +2372,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2423,7 +2423,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2469,7 +2469,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2520,7 +2520,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2566,7 +2566,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2617,7 +2617,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2663,7 +2663,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2714,7 +2714,7 @@ Macro:
           (SUB (SHL (CONST.1) (PROPERTY.MemorySize.%0)) (CONST.1)))
         (WRITE.targetbytes
           (ZX.256 (SHL (APPLY.256.bits2bytes (READ.bytemask)) (READ.shift))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1
           (IOR
@@ -2891,7 +2891,7 @@ Macro:
         (WRITE.argument3 (ACCESS.E1.%3))
         (WRITE.bytemask
           (APPLY.32.lsumask_bytemask (READ.lsumask) (READ.argument1)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: SVMBO
     execution: &executionSVMBO |
@@ -2920,7 +2920,7 @@ Macro:
         (WRITE.argument3 (ACCESS.E1.%3))
         (WRITE.bytemask
           (APPLY.32.lsumask_bytemask (READ.lsumask) (READ.argument1)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: SVPMB
     execution: &executionSVPMB |
@@ -2982,7 +2982,7 @@ Macro:
           (SKIP))
         (WRITE.bytemask
           (APPLY.32.lsumask_bytemask (READ.lsumask) (READ.argument1)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: SVPMBO
     execution: &executionSVPMBO |
@@ -3049,7 +3049,7 @@ Macro:
           (SKIP))
         (WRITE.bytemask
           (APPLY.32.lsumask_bytemask (READ.lsumask) (READ.argument1)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: SVQMB
     execution: &executionSVQMB |
@@ -3147,7 +3147,7 @@ Macro:
           (SKIP))
         (WRITE.bytemask
           (APPLY.32.lsumask_bytemask (READ.lsumask) (READ.argument1)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: SVQMBO
     properties: &propertiesSVQMBO { '%0': MemoryWrite;Predicated, '%1': Tested, '%2': Base, '%3': Stored, '%6': Offset, '%CS': NoEffects }
@@ -3251,7 +3251,7 @@ Macro:
           (SKIP))
         (WRITE.bytemask
           (APPLY.32.lsumask_bytemask (READ.lsumask) (READ.argument1)))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: LBOA
     execution: &executionLBOA |
@@ -3563,7 +3563,7 @@ Macro:
             (MUL
               (READ.index)
               (READ.scaling))))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (COMMIT.CR.%1 (READ.result1)))
   - ID: LVPBI
@@ -3612,7 +3612,7 @@ Macro:
               (READ.scaling))))
         (WRITE.argument1_0 (ACCESS.E1.%1:0))
         (WRITE.argument1_1 (ACCESS.E1.%1:1))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1_0 (READ.64[0].result1))
         (WRITE.result1_1 (READ.64[1].result1))
@@ -3672,7 +3672,7 @@ Macro:
         (WRITE.argument1_1 (ACCESS.E1.%1:1))
         (WRITE.argument1_2 (ACCESS.E1.%1:2))
         (WRITE.argument1_3 (ACCESS.E1.%1:3))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction)
         (WRITE.result1_0 (ZX.64 (READ.result1)))
         (WRITE.result1_1 (SHR (READ.result1) (CONST.64)))
@@ -3774,7 +3774,7 @@ Macro:
               (READ.index)
               (READ.scaling))))
         (WRITE.argument3 (ACCESS.E1.%3))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: SVPBI
     execution: &executionSVPBI |
@@ -3848,7 +3848,7 @@ Macro:
             (APPLY.256.join_64_x4
               (READ.argument3_0_2) (READ.argument3_1_2) (READ.argument3_0_3) (READ.argument3_1_3)))
           (SKIP))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: SVQBI
     execution: &executionSVQBI |
@@ -3958,7 +3958,7 @@ Macro:
             (APPLY.256.join_64_x4
               (READ.argument3_0_3) (READ.argument3_1_3) (READ.argument3_2_3) (READ.argument3_3_3)))
           (SKIP))
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (MACRO.Instruction))
   - ID: GWRF
     execution: &executionGWRF |
@@ -3986,7 +3986,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -3995,20 +3995,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E1.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E1 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E1 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E1 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E1 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E1 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RF
     execution: &executionGW4RF |
@@ -4036,7 +4036,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4045,20 +4045,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWRM
     execution: &executionGWRM |
@@ -4129,7 +4129,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4138,20 +4138,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E3.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E3 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E3 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RFX
     execution: &executionGW4RFX |
@@ -4181,7 +4181,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4194,20 +4194,20 @@ Macro:
             (I2B (READ.signextw))
             (SX.32 (READ.result1))
             (ZX.32 (READ.result1))))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWSRF
     execution: &executionGWSRF |
@@ -4235,7 +4235,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4244,20 +4244,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.SF.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.SF (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.SF (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.SF (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.SF (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.SF (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWSFRF
     execution: &executionGWSFRF |
@@ -4285,7 +4285,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4294,20 +4294,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.SF.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.SF (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.SF (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.SF (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.SF (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.SF (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.SF (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.SF (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GWRRCX
     execution: &executionGWRRCX |
@@ -4458,7 +4458,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4467,20 +4467,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E3.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E3 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E3 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RRF
     execution: &executionGW4RRF |
@@ -4510,7 +4510,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4519,20 +4519,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RRCF
     execution: &executionGW4RRCF |
@@ -4564,7 +4564,7 @@ Macro:
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4573,20 +4573,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RRFN
     execution: &executionGW4RRFN |
@@ -4617,7 +4617,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4626,20 +4626,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW3RRFN
     execution: &executionGW3RRFN |
@@ -4671,7 +4671,7 @@ Macro:
         (WRITE.argument2 (ACCESS.RR.%2))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4680,20 +4680,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E3.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E3 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E3 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW2RRR1
     execution: &executionGW2RRR1 |
@@ -4936,7 +4936,7 @@ Macro:
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -4945,20 +4945,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E3.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E3 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E3 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW3RRRFN
     execution: &executionGW3RRRFN |
@@ -4992,7 +4992,7 @@ Macro:
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -5001,20 +5001,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E3.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E3 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E3 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E3 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E3 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E3 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E3 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RRRCF
     execution: &executionGW4RRRCF |
@@ -5048,7 +5048,7 @@ Macro:
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -5057,20 +5057,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RRRF
     execution: &executionGW4RRRF |
@@ -5102,7 +5102,7 @@ Macro:
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -5111,20 +5111,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RRRFN
     execution: &executionGW4RRRFN |
@@ -5158,7 +5158,7 @@ Macro:
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -5167,20 +5167,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RRRFIC
     execution: &executionGW4RRRFIC |
@@ -5216,7 +5216,7 @@ Macro:
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -5225,20 +5225,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: GW4RRRIF
     execution: &executionGW4RRRIF |
@@ -5272,7 +5272,7 @@ Macro:
         (WRITE.argument1 (ACCESS.RR.%1))
         (WRITE.RM
           (SELECT (EQ (READ.floatmode) (CONST.7))
-            (F2I.3 (LOAD.RR (AGGL.CS (CONST.CS_RM) (CONST.3))))
+            (F2I.3 (LOAD.RR (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM))))
             (READ.floatmode)))
         (WRITE.fio (CONST.0))
         (WRITE.fdz (CONST.0))
@@ -5281,20 +5281,20 @@ Macro:
         (WRITE.fin (CONST.0))
         (MACRO.Instruction)
         (COMMIT.E4.%1 (READ.result1))
-        (WRITE.cs_io (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IO) (CONST.1)))))
-        (WRITE.cs_dz (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1)))))
-        (WRITE.cs_ov (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_OV) (CONST.1)))))
-        (WRITE.cs_un (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_UN) (CONST.1)))))
-        (WRITE.cs_in (F2I.1 (LOAD.E4 (AGGL.CS (CONST.CS_IN) (CONST.1)))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IO) (CONST.1))
+        (WRITE.cs_io (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))))
+        (WRITE.cs_dz (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))))
+        (WRITE.cs_ov (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)))))
+        (WRITE.cs_un (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)))))
+        (WRITE.cs_in (F2I.1 (LOAD.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)))))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO))
           (I2F.1 (IOR (READ.fio) (READ.cs_io))))
-        (STORE.E4 (AGGL.CS (CONST.CS_DZ) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ))
           (I2F.1 (IOR (READ.fdz) (READ.cs_dz))))
-        (STORE.E4 (AGGL.CS (CONST.CS_OV) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV))
           (I2F.1 (IOR (READ.fov) (READ.cs_ov))))
-        (STORE.E4 (AGGL.CS (CONST.CS_UN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN))
           (I2F.1 (IOR (READ.fun) (READ.cs_un))))
-        (STORE.E4 (AGGL.CS (CONST.CS_IN) (CONST.1))
+        (STORE.E4 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN))
           (I2F.1 (IOR (READ.fin) (READ.cs_in)))))
   - ID: XWRR
     execution: &executionXWRR |
@@ -5315,7 +5315,7 @@ Macro:
         (WRITE.argument2_0 (ACCESS.RR.%2:0))
         (WRITE.argument2_1 (ACCESS.RR.%2:1))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E1.%1:0 (READ.result1_0))
         (COMMIT.E1.%1:1 (READ.result1_1)))
   - ID: XWRRC
@@ -5340,7 +5340,7 @@ Macro:
         (WRITE.argument2_0 (ACCESS.RR.%2:0))
         (WRITE.argument2_1 (ACCESS.RR.%2:1))
         (MACRO.Instruction)
-        (STORE.E1 (AGGL.CS (CONST.CS_XMF) (CONST.1)) (I2F.1 (CONST.1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_XMF)) (I2F.1 (CONST.1)))
         (COMMIT.E1.%1:0 (READ.result1_0))
         (COMMIT.E1.%1:1 (READ.result1_1)))
 Format:
@@ -11784,7 +11784,7 @@ Instruction:
       }
     behavior: |
       (SEQ
-        (IF (NOTL (I2B (F2I.1 (LOAD.ID (AGGL.PS (CONST.PS_HLE) (CONST.1))))))
+        (IF (NOTL (I2B (F2I.1 (LOAD.ID (SLICE.1 (AGGL.SRS (CONST.1) (CONST.1)) (CONST.PS_HLE))))))
           (THROW.ID.OPCODE)
           (SKIP))
         (STORE.E2 (AGGL.SFR (CONST.LS) (CONST.1))
@@ -21632,123 +21632,141 @@ RegField:
 ################ PS ################
   - ID: PS_PL
     what: Current Privilege Level
-    location: [ PS, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: PS
     owners: [ PSO_PL0, PSO_PL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_ET
     what: Exception Taken
-    location: [ PS, 2 ]
+    location: [ SRS, 2 ]
+    register: PS
     owners: [ PSO_ET ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 1
   - ID: PS_HTD
     what: Hardware Trap Disable
-    location: [ PS, 3 ]
+    location: [ SRS, 3 ]
+    register: PS
     owners: [ PSO_HTD ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_IE
     what: Interrupt Enable
-    location: [ PS, 4 ]
+    location: [ SRS, 4 ]
+    register: PS
     owners: [ PSO_IE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_HLE
     what: Hardware Loop Enable
-    location: [ PS, 5 ]
+    location: [ SRS, 5 ]
+    register: PS
     owners: [ PSO_HLE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_SRE
     what: Software REserved
-    location: [ PS, 6 ]
+    location: [ SRS, 6 ]
+    register: PS
     owners: [ PSO_SRE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_DAUS
     what: Data Accesses Use SPS settings
-    location: [ PS, 7 ]
+    location: [ SRS, 7 ]
+    register: PS
     owners: [ PSO_DAUS ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_ICE
     what: Instruction Cache Enable
-    location: [ PS, 8 ]
+    location: [ SRS, 8 ]
+    register: PS
     owners: [ PSO_ICE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_USE
     what: Uncached Streaming Enable
-    location: [ PS, 9 ]
+    location: [ SRS, 9 ]
+    register: PS
     owners: [ PSO_USE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_DCE
     what: Data Cache Enable
-    location: [ PS, 10 ]
+    location: [ SRS, 10 ]
+    register: PS
     owners: [ PSO_DCE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_MME
     what: Memory Management Enable
-    location: [ PS, 11 ]
+    location: [ SRS, 11 ]
+    register: PS
     owners: [ PSO_MME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_IL
     what: Interrupt Level
-    location: [ PS, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: PS
     owners: [ PSO_IL0, PSO_IL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_VS
     what: Virtual Space
-    location: [ PS, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: PS
     owners: [ PSO_VS0, PSO_VS1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_V64
     what: Reserved. Harcoded to 1. Writes ignored.
-    location: [ PS, 16 ]
+    location: [ SRS, 16 ]
+    register: PS
     reset: 1
   - ID: PS_L2E
     what: L2 cache Enable.
-    location: [ PS, 17 ]
+    location: [ SRS, 17 ]
+    register: PS
     owners: [ PSO_L2E ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_SME
     what: Step Mode Enabled
-    location: [ PS, 18 ]
+    location: [ SRS, 18 ]
+    register: PS
     owners: [ PSO_SME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_SMR
     what: Step Mode Ready
-    location: [ PS, 19 ]
+    location: [ SRS, 19 ]
+    register: PS
     owners: [ PSO_SMR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
   - ID: PS_PMJ
     what: Page Mask in JTLB.
-    location: [ PS, 20..23 ]
+    location: [ SRS, 20..23 ]
+    register: PS
     owners: [ PSO_PMJ0, PSO_PMJ1, PSO_PMJ2, PSO_PMJ3 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -21757,14 +21775,16 @@ RegField:
       Configure the HW to look-up the corresponding page sizes when searching the JTLB.
   - ID: PS_MMUP
     what: Privileged on MMU.
-    location: [ PS, 24 ]
+    location: [ SRS, 24 ]
+    register: PS
     owners: [ PSO_MMUP ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0x1
   - ID: PS_RV
     what: RiscV mode.
-    location: [ PS, 25 ]
+    location: [ SRS, 25 ]
+    register: PS
     owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -22899,63 +22919,78 @@ RegField:
 ################ CS ################
   - ID: CS_IC
     what: Integer Carry
-    location: [ CS, 0 ]
+    location: [ SRS, 0 ]
+    register: CS
     reset: 0
   - ID: CS_IO
     what: IEEE 754 Invalid Operation
-    location: [ CS, 1 ]
+    location: [ SRS, 1 ]
+    register: CS
     reset: 0
   - ID: CS_DZ
     what: IEEE 754 Divide by Zero
-    location: [ CS, 2 ]
+    location: [ SRS, 2 ]
+    register: CS
     reset: 0
   - ID: CS_OV
     what: IEEE 754 Overflow
-    location: [ CS, 3 ]
+    location: [ SRS, 3 ]
+    register: CS
     reset: 0
   - ID: CS_UN
     what: IEEE 754 Underflow
-    location: [ CS, 4 ]
+    location: [ SRS, 4 ]
+    register: CS
     reset: 0
   - ID: CS_IN
     what: IEEE 754 Inexact
-    location: [ CS, 5 ]
+    location: [ SRS, 5 ]
+    register: CS
     reset: 0
   - ID: CS_XIO
     what: Extension IEEE 754 Invalid Operation
-    location: [ CS, 9 ]
+    location: [ SRS, 9 ]
+    register: CS
     reset: 0
   - ID: CS_XDZ
     what: Extension IEEE 754 Divide by Zero
-    location: [ CS, 10 ]
+    location: [ SRS, 10 ]
+    register: CS
     reset: 0
   - ID: CS_XOV
     what: Extension IEEE 754 Overflow
-    location: [ CS, 11 ]
+    location: [ SRS, 11 ]
+    register: CS
     reset: 0
   - ID: CS_XUN
     what: Extension IEEE 754 Underflow
-    location: [ CS, 12 ]
+    location: [ SRS, 12 ]
+    register: CS
     reset: 0
   - ID: CS_XIN
     what: Extension IEEE 754 Inexact
-    location: [ CS, 13 ]
+    location: [ SRS, 13 ]
+    register: CS
     reset: 0
   - ID: CS_RM
     what: IEEE 754 Rounding Mode
-    location: [ CS, 16..18 ]
+    location: [ SRS, 16..18 ]
+    register: CS
     reset: 0
   - ID: CS_XRM
     what: Extension IEEE 754 Rounding Mode
-    location: [ CS, 20..21 ]
+    location: [ SRS, 20..21 ]
+    register: CS
     reset: 0
   - ID: CS_XMF
     what: eXtension ModiFied
-    location: [ CS, 24 ]
+    location: [ SRS, 24 ]
+    register: CS
     reset: 0
   - ID: CS_CC
     what: Carry Counter
-    location: [ CS, 32..47 ]
+    location: [ SRS, 32..47 ]
+    register: CS
     reset: 0
 ################ AESPC ################
   - ID: AESPC_AESPC
@@ -25066,10 +25101,10 @@ RegFile:
     dwarfIds: 64..255
     registers:
       - { ID: PC, location: [ PC, 0 ], names: [ "$pc", "$s0" ], reset: "Hardwired", raccess: "GET", waccess: "NONE", width: 64, what: "Program Counter"}
-      - { ID: PS, location: [ PS, 0..31 ], names: [ "$ps", "$s1" ], raccess: "GET", waccess: "WFX", width: 32, what: "Processor State"}
+      - { ID: PS, location: [ SRS, 1 ], names: [ "$ps", "$s1" ], raccess: "GET", waccess: "WFX", width: 32, what: "Processor State"}
       - { ID: PCR, location: [ SRS, 2 ], names: [ "$pcr", "$s2" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_PCR ], what: "Processing Identification"}
       - { ID: RA, location: [ SRS, 3 ], names: [ "$ra", "$s3" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Return Address"}
-      - { ID: CS, location: [ CS, 0..63 ], names: [ "$cs", "$s4" ], raccess: "GET", waccess: "WFX", width: 64, what: "Compute Status"}
+      - { ID: CS, location: [ SRS, 4 ], names: [ "$cs", "$s4" ], raccess: "GET", waccess: "WFX", width: 64, what: "Compute Status"}
       - { ID: CSIT, location: [ SRS, 5 ], names: [ "$csit", "$s5" ], raccess: "GET", waccess: "WFX", width: 32, owners: [ MO_CSIT ], what: "Compute Status arithmetic interrupt"}
       - { ID: AESPC, location: [ SRS, 6 ], names: [ "$aespc", "$s6" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_CSIT ], what: "Arithmetic Exception Saved PC"}
       - { ID: LS, location: [ SRS, 7 ], names: [ "$ls", "$s7" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Loop Start Address"}
@@ -27188,16 +27223,6 @@ Storage:
     kind: Control
     width: 64
     count: 1
-  - ID: PS
-    what: Processing Status
-    kind: Special
-    width: 1
-    count: 64
-  - ID: CS
-    what: Compute Status
-    kind: Special
-    width: 1
-    count: 64
   - ID: SRS
     what: System Register Storage
     kind: Special

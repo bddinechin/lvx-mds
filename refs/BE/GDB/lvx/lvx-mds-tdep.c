@@ -17,8 +17,8 @@ struct pseudo_desc {
 	struct type *type;
 	int size;
 	int nb_components;
-	int components[32];
-	const char *components_names[32];
+	int components[16];
+	const char *components_names[16];
 };
 
 struct dwarf2gdb_desc {

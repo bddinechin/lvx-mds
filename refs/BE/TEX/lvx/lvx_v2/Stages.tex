@@ -1726,54 +1726,76 @@ fabswq regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
 \hline
 \hypertarget{lvx_v2.faddd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fadddfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fadddp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regP} &  &  &  &  \\*
 fadddpfloatmode regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.faddh}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 faddhfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  & \wsf{(w) CS} &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.faddho}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regP} &  &  &  &  \\*
 faddhofloatmode regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.faddw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 faddwfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.faddwc}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 faddwcconjugateimultiplyfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.faddwq}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rdf{(rd) regP} &  &  &  &  \\*
 \crb
 faddwqfloatmode regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
@@ -1914,23 +1936,31 @@ fcompwqfloatcomp regW = regP, upper27\_lower5splat32 &  & \rdf{(rd) regP} &  &  
 \hline
 \hline
 \hypertarget{lvx_v2.fdivd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fdivdfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fdivh}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fdivhfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  & \wsf{(w) CS} &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fdivw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fdivwfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
@@ -1942,13 +1972,17 @@ fextlhwqoddlanes regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmad}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regW} &  &  &  &  \\*
 ffmadfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmadp}
+\crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 \crb
  &  & \rdf{(rd) regM} &  &  &  &  \\*
 \crb
@@ -1956,17 +1990,23 @@ ffmadpfnegfloatmode regM = regP, regO &  & \rdf{(rd) regP} &  &  &  &  \\*
 \crb
  &  & \rdf{(rd) regO} &  &  &  &  \\*
 \crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
+\crb
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmah}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regW} &  &  &  &  \\*
 ffmahfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  & \wsf{(w) CS} &  \\*
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmaho}
+\crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 \crb
  &  & \rdf{(rd) regM} &  &  &  &  \\*
 \crb
@@ -1974,17 +2014,23 @@ ffmahofnegfloatmode regM = regP, regO &  & \rdf{(rd) regP} &  &  &  &  \\*
 \crb
  &  & \rdf{(rd) regO} &  &  &  &  \\*
 \crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
+\crb
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmaw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regW} &  &  &  &  \\*
 ffmawfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmawc}
+\crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regW} &  &  &  &  \\*
 \crb
@@ -1992,17 +2038,23 @@ ffmawcconjugateimultiplyfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  & 
 \crb
  &  & \rsf{(r) regY} &  &  &  &  \\*
 \crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
+\crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmawq}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regM} &  &  &  &  \\*
 ffmawqfnegfloatmode regM = regP, regO &  & \rdf{(rd) regP} &  &  &  &  \\*
  &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmsd}
+\crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regW} &  &  &  &  \\*
 \crb
@@ -2010,17 +2062,23 @@ ffmsdfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regY} &  &  &  &  \\*
 \crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
+\crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmsdp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regM} &  &  &  &  \\*
 ffmsdpfnegfloatmode regM = regP, regO &  & \rdf{(rd) regP} &  &  &  &  \\*
  &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmsh}
+\crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regW} &  &  &  &  \\*
 \crb
@@ -2028,17 +2086,23 @@ ffmshfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regY} &  &  &  &  \\*
 \crb
+ &  &  &  &  & \wsf{(w) CS} &  \\*
+\crb
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmsho}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regM} &  &  &  &  \\*
 ffmshofnegfloatmode regM = regP, regO &  & \rdf{(rd) regP} &  &  &  &  \\*
  &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmsw}
+\crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regW} &  &  &  &  \\*
 \crb
@@ -2046,444 +2110,604 @@ ffmswfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regY} &  &  &  &  \\*
 \crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
+\crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ffmswq}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regM} &  &  &  &  \\*
 ffmswqfnegfloatmode regM = regP, regO &  & \rdf{(rd) regP} &  &  &  &  \\*
  &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixedd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixeddfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixeddp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixeddpfloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixeddw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixeddwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixedho}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixedhofloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixedud}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixedudfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixedudp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixedudpfloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixedudw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixedudwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixeduho}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixeduhofloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixeduw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixeduwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixeduwd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixeduwdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixeduwp}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixeduwpfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixeduwq}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixeduwqfloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixedw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixedwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixedwd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixedwdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixedwp}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixedwpfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fixedwq}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixedwqfloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatdp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatdpfloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatdw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatdwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatho}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floathofloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatud}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatudfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatudp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatudpfloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatudw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatudwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatuho}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatuhofloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatuw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatuwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatuwd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatuwdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatuwp}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatuwpfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatuwq}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatuwqfloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatwd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatwdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatwp}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatwpfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.floatwq}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatwqfloatmode regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxd}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmaxd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxdp}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fmaxdp regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxh}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmaxh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxho}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fmaxho regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxnd}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmaxnd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxndp}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fmaxndp regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxnh}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmaxnh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxnho}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fmaxnho regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxnw}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmaxnw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxnwq}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fmaxnwq regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxw}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmaxw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmaxwq}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fmaxwq regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmind}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmind regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmindp}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fmindp regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminh}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fminh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminho}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fminho regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminnd}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fminnd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminndp}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fminndp regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminnh}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fminnh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminnho}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fminnho regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminnw}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fminnw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminnwq}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fminnwq regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminw}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fminw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fminwq}
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 fminwq regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmuld}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fmuldfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmuldp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regP} &  &  &  &  \\*
 fmuldpfnegfloatmode regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmulh}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fmulhfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  & \wsf{(w) CS} &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmulho}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regP} &  &  &  &  \\*
 fmulhofnegfloatmode regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmulw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fmulwfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmulwc}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fmulwcconjugateimultiplyfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fmulwq}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rdf{(rd) regP} &  &  &  &  \\*
 \crb
 fmulwqfnegfloatmode regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fnarrowdw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fnarrowdwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
@@ -2499,7 +2723,9 @@ fnarrowdwqfloatmode regW = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fnarrowwh}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fnarrowwhfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
@@ -2575,225 +2801,290 @@ fractwhoziplanes regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.frintd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 frintdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.frinth}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 frinthfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  &  \\*
 \crb
  &  &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.frintw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 frintwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  &  \\*
  &  &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsbfd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fsbfdfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsbfdp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regP} &  &  &  &  \\*
 fsbfdpfloatmode regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsbfh}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fsbfhfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  & \wsf{(w) CS} &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsbfho}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rdf{(rd) regP} &  &  &  &  \\*
 fsbfhofloatmode regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsbfw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fsbfwfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsbfwc}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fsbfwcconjugateimultiplyfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsbfwq}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rdf{(rd) regP} &  &  &  &  \\*
 \crb
 fsbfwqfloatmode regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wdf{(wd) regM} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignd}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsigndp}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsigndp regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignh}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignho}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignho regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignmd}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignmd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignmdp}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignmdp regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignmh}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignmh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignmho}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignmho regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignmw}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignmw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignmwq}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignmwq regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignnd}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignnd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignndp}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignndp regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignnh}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignnh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignnho}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignnho regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignnw}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignnw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignnwq}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignnwq regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignw}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsignwq}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignwq regM = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wdf{(wd) regM} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsqrtd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fsqrtdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsqrth}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fsqrthfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  &  \\*
 \crb
  &  &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.fsqrtw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fsqrtwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  &  \\*
  &  &  &  &  &  &  \\*
 \hline
 \hline
@@ -5362,26 +5653,26 @@ widenzwdpmostsig regM = regP &  & \rdf{(rd) regP} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xmovetd}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 xmovetd regAt = regZ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regAt} &  &  &  \\*
 \hline
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 xmovetd regAx = regZ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regAx} &  &  &  \\*
 \hline
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 xmovetd regAy = regZ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regAy} &  &  &  \\*
 \hline
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 xmovetd regAz = regZ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regAz} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xmoveto}
 \crb
- &  & \rdf{(rd) regP} &  &  &  &  \\*
+ &  & \rdf{(rd) regP} & \rsf{(r) CS} &  &  &  \\*
 \crb
 xmoveto regA = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
 \crb
@@ -5391,12 +5682,12 @@ xmoveto regA = regP, regO &  & \rdf{(rd) regO} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xmovetq}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 xmovetq regAE = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
  &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regAE} &  &  &  \\*
 \hline
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 xmovetq regAO = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
  &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regAO} &  &  &  \\*
@@ -5436,42 +5727,42 @@ zxwd regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \hline
 \hypertarget{lvx_v2.xaccesso}
 \crb
- &  & \rsf{(r) regCg} &  &  &  &  \\*
+ &  & \rsf{(r) regCg} & \rsf{(r) CS} &  &  &  \\*
 \crb
 xaccesso regN = regCg, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regN} &  \\*
 \hline
 \crb
- &  & \rsf{(r) regCh} &  &  &  &  \\*
+ &  & \rsf{(r) regCh} & \rsf{(r) CS} &  &  &  \\*
 \crb
 xaccesso regN = regCh, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regN} &  \\*
 \hline
 \crb
- &  & \rsf{(r) regCi} &  &  &  &  \\*
+ &  & \rsf{(r) regCi} & \rsf{(r) CS} &  &  &  \\*
 \crb
 xaccesso regN = regCi, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regN} &  \\*
 \hline
 \crb
- &  & \rsf{(r) regCj} &  &  &  &  \\*
+ &  & \rsf{(r) regCj} & \rsf{(r) CS} &  &  &  \\*
 \crb
 xaccesso regN = regCj, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regN} &  \\*
 \hline
 \crb
- &  & \rsf{(r) regCk} &  &  &  &  \\*
+ &  & \rsf{(r) regCk} & \rsf{(r) CS} &  &  &  \\*
 \crb
 xaccesso regN = regCk, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regN} &  \\*
 \hline
 \crb
- &  & \rsf{(r) regCl} &  &  &  &  \\*
+ &  & \rsf{(r) regCl} & \rsf{(r) CS} &  &  &  \\*
 \crb
 xaccesso regN = regCl, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
@@ -5479,52 +5770,52 @@ xaccesso regN = regCl, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xaligno}
- &  & \rsf{(r) regCg} &  &  &  &  \\*
+ &  & \rsf{(r) regCg} & \rsf{(r) CS} &  &  &  \\*
 xaligno regA = regCg, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regA} &  \\*
 \hline
- &  & \rsf{(r) regCh} &  &  &  &  \\*
+ &  & \rsf{(r) regCh} & \rsf{(r) CS} &  &  &  \\*
 xaligno regA = regCh, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regA} &  \\*
 \hline
- &  & \rsf{(r) regCi} &  &  &  &  \\*
+ &  & \rsf{(r) regCi} & \rsf{(r) CS} &  &  &  \\*
 xaligno regA = regCi, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regA} &  \\*
 \hline
- &  & \rsf{(r) regCj} &  &  &  &  \\*
+ &  & \rsf{(r) regCj} & \rsf{(r) CS} &  &  &  \\*
 xaligno regA = regCj, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regA} &  \\*
 \hline
- &  & \rsf{(r) regCk} &  &  &  &  \\*
+ &  & \rsf{(r) regCk} & \rsf{(r) CS} &  &  &  \\*
 xaligno regA = regCk, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regA} &  \\*
 \hline
- &  & \rsf{(r) regCl} &  &  &  &  \\*
+ &  & \rsf{(r) regCl} & \rsf{(r) CS} &  &  &  \\*
 xaligno regA = regCl, regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regA} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xcopyo}
 \crb
-xcopyo regA = regC &  & \rsf{(r) regC} &  &  &  &  \\*
+xcopyo regA = regC &  & \rsf{(r) regC} & \rsf{(r) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regA} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xmovefd}
-xmovefd regW = regCc\_qselectC &  & \rsf{(r) regCc\_qselectC} &  &  &  &  \\*
+xmovefd regW = regCc\_qselectC &  & \rsf{(r) regCc\_qselectC} & \rsf{(r) CS} &  &  &  \\*
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xmovefo}
 \crb
-xmovefo regN = regC &  & \rsf{(r) regC} &  &  &  &  \\*
+xmovefo regN = regC &  & \rsf{(r) regC} & \rsf{(r) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) CS} &  & \wsf{(w) regN} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xmovefq}
-xmovefq regM = regCb\_hselectC &  & \rsf{(r) regCb\_hselectC} &  &  &  &  \\*
+xmovefq regM = regCb\_hselectC &  & \rsf{(r) regCb\_hselectC} & \rsf{(r) CS} &  &  &  \\*
  &  &  & \wsf{(w) CS} &  & \wdf{(wd) regM} &  \\*
 \hline
 \end{longtable}
@@ -7022,7 +7313,9 @@ sw upper27\_lower10[regZ] = regT &  & \rsf{(r) regZ} & \rsf{(r) regT} &  &  &  &
 \hline
 \hypertarget{lvx_v2.xlo}
 \crb
- &  & \rsf{(r) regZ} & \rsf{(r) regGq} &  &  &  & & \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
+\crb
+ &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
  &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
@@ -7030,7 +7323,7 @@ sw upper27\_lower10[regZ] = regT &  & \rsf{(r) regZ} & \rsf{(r) regT} &  &  &  &
 \crb
 xlovariantqindex regGq = extend27\_upper27\_lower10[regZ] &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGq} &  & &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
 \crb
@@ -7039,15 +7332,17 @@ xlovariantqindex regGq = extend27\_upper27\_lower10[regZ] &  &  & \rsf{(r) regGq
  &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGq} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
  &  & \rsf{(r) regZ} & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
  &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
+ &  &  & \rsf{(r) regGq} &  &  &  & & \\*
+\crb
 xlovariantqindex regGq = regY[regZ] &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGq} &  & &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
 \crb
@@ -7056,7 +7351,9 @@ xlovariantqindex regGq = regY[regZ] &  &  & \rsf{(r) regGq} &  &  &  & & \\*
  &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regZ} & \rsf{(r) regGq} &  &  &  & & \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
+\crb
+ &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
  &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
@@ -7064,7 +7361,7 @@ xlovariantqindex regGq = regY[regZ] &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
 xlovariantqindex regGq = s10[regZ] &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGq} &  & &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
 \crb
@@ -7073,7 +7370,9 @@ xlovariantqindex regGq = s10[regZ] &  &  & \rsf{(r) regGq} &  &  &  & & \\*
  &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regZ} & \rsf{(r) regGq} &  &  &  & & \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
+\crb
+ &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
  &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
@@ -7081,7 +7380,7 @@ xlovariantqindex regGq = s10[regZ] &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
 xlovariantqindex regGq = upper27\_lower10[regZ] &  &  & \rsf{(r) regGq} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGq} &  & &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
 \crb
@@ -7090,663 +7389,678 @@ xlovariantqindex regGq = upper27\_lower10[regZ] &  &  & \rsf{(r) regGq} &  &  & 
  &  &  &  &  & \wsf{(w) regGq} &  & &  \\*
 \hline
 \crb
-xlovariant regG = extend27\_upper27\_lower10[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xlovariant regG = extend27\_upper27\_lower10[regZ] &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regG} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regG} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} &  &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
 xlovariant regG = regY[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regG} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regG} &  & &  \\*
 \hline
 \crb
-xlovariant regG = s10[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xlovariant regG = s10[regZ] &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regG} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regG} &  & &  \\*
 \hline
 \crb
-xlovariant regG = upper27\_lower10[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xlovariant regG = upper27\_lower10[regZ] &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regG} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regG} &  & &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xplb}
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
-xplbvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
-xplbvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
-xplbvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
-xplbvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
-xplbvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
-xplbvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
-xplbvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
-xplbvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
-xplbvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
-xplbvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
-xplbvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
-xplbvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
-xplbvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
-xplbvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
-xplbvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
-xplbvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
-xplbvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
-xplbvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplbvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xpld}
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xpldvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xpldvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xplh}
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
-xplhvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
-xplhvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
-xplhvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
-xplhvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
-xplhvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
-xplhvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
-xplhvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
-xplhvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
-xplhvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
-xplhvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
-xplhvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
-xplhvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
-xplhvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
-xplhvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
-xplhvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
-xplhvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
-xplhvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
-xplhvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplhvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xplo}
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGg, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGg, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGh, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGh, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGi, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGi, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGj, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGj, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGk, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGk, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplovariant regGl, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplovariant regGl, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xplq}
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
-xplqvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
-xplqvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
-xplqvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
-xplqvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
-xplqvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
-xplqvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
-xplqvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
-xplqvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
-xplqvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
-xplqvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
-xplqvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
-xplqvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
-xplqvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
-xplqvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
-xplqvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
-xplqvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
-xplqvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
-xplqvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xplqvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xplw}
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGg, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGg, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGg} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGg, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGg} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGg} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGg} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGh, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGh, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGh} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGh, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGh} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGh} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGh} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGi, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGi, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGi} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGi, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGi} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGi} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGi} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGj, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGj, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGj} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGj, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGj} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGj} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGj} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGk, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGk, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGk} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGk, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGk} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGk} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGk} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGl, regY = extend27\_offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGl, regY = offset27[regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \crb
- &  & \rsf{(r) regY} & \rsf{(r) regGl} &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
 \crb
-xplwvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+xplwvariant regGl, regY = [regZ] &  & \rsf{(r) regZ} & \rsf{(r) regGl} &  &  &  & & \\*
 \crb
- &  &  &  &  & \wsf{(w) regGl} &  & &  \\*
+ &  &  & \wsf{(w) CS} &  & \wsf{(w) regGl} &  & &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.xso}
-xso extend27\_upper27\_lower10[regZ] = regE &  & \rsf{(r) regZ} & \rsf{(r) regE} &  &  &  & & \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
+xso extend27\_upper27\_lower10[regZ] = regE &  &  & \rsf{(r) regE} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  &  &  & &  \\*
 \hline
- &  & \rsf{(r) regZ} & \rsf{(r) regEq} &  &  &  & & \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
+ &  &  & \rsf{(r) regEq} &  &  &  & & \\*
 xsoqindex extend27\_upper27\_lower10[regZ] = regEq &  &  & \rsf{(r) regEq} &  &  &  & & \\*
  &  &  & \rsf{(r) regEq} &  &  &  & & \\*
  &  &  & \rsf{(r) regEq} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  &  &  & &  \\*
 \hline
- &  & \rsf{(r) regY} & \rsf{(r) regEq} &  &  &  & & \\*
-xsoqindex regY[regZ] = regEq &  & \rsf{(r) regZ} & \rsf{(r) regEq} &  &  &  & & \\*
- &  &  & \rsf{(r) regEq} &  &  &  & & \\*
- &  &  & \rsf{(r) regEq} &  &  &  & & \\*
-\hline
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
  &  & \rsf{(r) regZ} & \rsf{(r) regEq} &  &  &  & & \\*
+xsoqindex regY[regZ] = regEq &  &  & \rsf{(r) regEq} &  &  &  & & \\*
+ &  &  & \rsf{(r) regEq} &  &  &  & & \\*
+ &  &  & \rsf{(r) regEq} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  &  &  & &  \\*
+\hline
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
+ &  &  & \rsf{(r) regEq} &  &  &  & & \\*
 xsoqindex s10[regZ] = regEq &  &  & \rsf{(r) regEq} &  &  &  & & \\*
  &  &  & \rsf{(r) regEq} &  &  &  & & \\*
  &  &  & \rsf{(r) regEq} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  &  &  & &  \\*
 \hline
- &  & \rsf{(r) regZ} & \rsf{(r) regEq} &  &  &  & & \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
+ &  &  & \rsf{(r) regEq} &  &  &  & & \\*
 xsoqindex upper27\_lower10[regZ] = regEq &  &  & \rsf{(r) regEq} &  &  &  & & \\*
  &  &  & \rsf{(r) regEq} &  &  &  & & \\*
  &  &  & \rsf{(r) regEq} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  &  &  & &  \\*
 \hline
-xso regY[regZ] = regE &  & \rsf{(r) regY} & \rsf{(r) regE} &  &  &  & & \\*
- &  & \rsf{(r) regZ} &  &  &  &  & & \\*
+ &  & \rsf{(r) regY} & \rsf{(r) CS} &  &  &  & & \\*
+xso regY[regZ] = regE &  & \rsf{(r) regZ} & \rsf{(r) regE} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  &  &  & &  \\*
 \hline
-xso s10[regZ] = regE &  & \rsf{(r) regZ} & \rsf{(r) regE} &  &  &  & & \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
+xso s10[regZ] = regE &  &  & \rsf{(r) regE} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  &  &  & &  \\*
 \hline
-xso upper27\_lower10[regZ] = regE &  & \rsf{(r) regZ} & \rsf{(r) regE} &  &  &  & & \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  & & \\*
+xso upper27\_lower10[regZ] = regE &  &  & \rsf{(r) regE} &  &  &  & & \\*
+ &  &  & \wsf{(w) CS} &  &  &  & &  \\*
 \hline
 \end{longtable}
 \end{small}
@@ -7854,7 +8168,9 @@ igoto regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
 \hline
 \hypertarget{lvx_v2.loopdo}
 \crb
-loopdo regZ, pcrel17s2 & \rsf{(r) regZ} &  &  &  &  &  \\*
+loopdo regZ, pcrel17s2 & \rsf{(r) PS} &  &  &  &  &  \\*
+\crb
+ & \rsf{(r) regZ} &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v2.ret}

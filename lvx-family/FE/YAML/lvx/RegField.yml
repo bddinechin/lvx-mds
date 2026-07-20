@@ -2301,7 +2301,8 @@ RegField:
 
   - ID: PS_PL
     what: Current Privilege Level
-    location: [ PS, 0..1 ]
+    location: [ SRS, 0..1 ]
+    register: PS
     owners: [ PSO_PL0, PSO_PL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2309,7 +2310,8 @@ RegField:
 
   - ID: PS_ET
     what: Exception Taken
-    location: [ PS, 2 ]
+    location: [ SRS, 2 ]
+    register: PS
     owners: [ PSO_ET ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2317,7 +2319,8 @@ RegField:
 
   - ID: PS_HTD
     what: Hardware Trap Disable
-    location: [ PS, 3 ]
+    location: [ SRS, 3 ]
+    register: PS
     owners: [ PSO_HTD ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2325,7 +2328,8 @@ RegField:
 
   - ID: PS_IE
     what: Interrupt Enable
-    location: [ PS, 4 ]
+    location: [ SRS, 4 ]
+    register: PS
     owners: [ PSO_IE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2333,7 +2337,8 @@ RegField:
 
   - ID: PS_HLE
     what: Hardware Loop Enable
-    location: [ PS, 5 ]
+    location: [ SRS, 5 ]
+    register: PS
     owners: [ PSO_HLE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2341,7 +2346,8 @@ RegField:
 
   - ID: PS_SRE
     what: Software REserved
-    location: [ PS, 6 ]
+    location: [ SRS, 6 ]
+    register: PS
     owners: [ PSO_SRE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2349,7 +2355,8 @@ RegField:
 
   - ID: PS_DAUS
     what: Data Accesses Use SPS settings
-    location: [ PS, 7 ]
+    location: [ SRS, 7 ]
+    register: PS
     owners: [ PSO_DAUS ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2357,7 +2364,8 @@ RegField:
 
   - ID: PS_ICE
     what: Instruction Cache Enable
-    location: [ PS, 8 ]
+    location: [ SRS, 8 ]
+    register: PS
     owners: [ PSO_ICE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2365,7 +2373,8 @@ RegField:
 
   - ID: PS_USE
     what: Uncached Streaming Enable
-    location: [ PS, 9 ]
+    location: [ SRS, 9 ]
+    register: PS
     owners: [ PSO_USE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2373,7 +2382,8 @@ RegField:
 
   - ID: PS_DCE
     what: Data Cache Enable
-    location: [ PS, 10 ]
+    location: [ SRS, 10 ]
+    register: PS
     owners: [ PSO_DCE ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2381,7 +2391,8 @@ RegField:
 
   - ID: PS_MME
     what: Memory Management Enable
-    location: [ PS, 11 ]
+    location: [ SRS, 11 ]
+    register: PS
     owners: [ PSO_MME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2389,7 +2400,8 @@ RegField:
 
   - ID: PS_IL
     what: Interrupt Level
-    location: [ PS, 12..13 ]
+    location: [ SRS, 12..13 ]
+    register: PS
     owners: [ PSO_IL0, PSO_IL1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2397,7 +2409,8 @@ RegField:
 
   - ID: PS_VS
     what: Virtual Space
-    location: [ PS, 14..15 ]
+    location: [ SRS, 14..15 ]
+    register: PS
     owners: [ PSO_VS0, PSO_VS1 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2405,12 +2418,14 @@ RegField:
 
   - ID: PS_V64
     what: Reserved. Harcoded to 1. Writes ignored.
-    location: [ PS, 16 ]
+    location: [ SRS, 16 ]
+    register: PS
     reset: 1
 
   - ID: PS_L2E
     what: L2 cache Enable.
-    location: [ PS, 17 ]
+    location: [ SRS, 17 ]
+    register: PS
     owners: [ PSO_L2E ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2418,7 +2433,8 @@ RegField:
 
   - ID: PS_SME
     what: Step Mode Enabled
-    location: [ PS, 18 ]
+    location: [ SRS, 18 ]
+    register: PS
     owners: [ PSO_SME ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2426,7 +2442,8 @@ RegField:
 
   - ID: PS_SMR
     what: Step Mode Ready
-    location: [ PS, 19 ]
+    location: [ SRS, 19 ]
+    register: PS
     owners: [ PSO_SMR ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2434,7 +2451,8 @@ RegField:
 
   - ID: PS_PMJ
     what: Page Mask in JTLB.
-    location: [ PS, 20..23 ]
+    location: [ SRS, 20..23 ]
+    register: PS
     owners: [ PSO_PMJ0, PSO_PMJ1, PSO_PMJ2, PSO_PMJ3 ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2444,7 +2462,8 @@ RegField:
 
   - ID: PS_MMUP
     what: Privileged on MMU.
-    location: [ PS, 24 ]
+    location: [ SRS, 24 ]
+    register: PS
     owners: [ PSO_MMUP ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -2452,7 +2471,8 @@ RegField:
 
   - ID: PS_RV
     what: RiscV mode.
-    location: [ PS, 25 ]
+    location: [ SRS, 25 ]
+    register: PS
     owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
@@ -3746,77 +3766,92 @@ RegField:
 
   - ID: CS_IC
     what: Integer Carry
-    location: [ CS, 0 ]
+    location: [ SRS, 0 ]
+    register: CS
     reset: 0
 
   - ID: CS_IO
     what: IEEE 754 Invalid Operation
-    location: [ CS, 1 ]
+    location: [ SRS, 1 ]
+    register: CS
     reset: 0
 
   - ID: CS_DZ
     what: IEEE 754 Divide by Zero
-    location: [ CS, 2 ]
+    location: [ SRS, 2 ]
+    register: CS
     reset: 0
 
   - ID: CS_OV
     what: IEEE 754 Overflow
-    location: [ CS, 3 ]
+    location: [ SRS, 3 ]
+    register: CS
     reset: 0
 
   - ID: CS_UN
     what: IEEE 754 Underflow
-    location: [ CS, 4 ]
+    location: [ SRS, 4 ]
+    register: CS
     reset: 0
 
   - ID: CS_IN
     what: IEEE 754 Inexact
-    location: [ CS, 5 ]
+    location: [ SRS, 5 ]
+    register: CS
     reset: 0
 
   - ID: CS_XIO
     what: Extension IEEE 754 Invalid Operation
-    location: [ CS, 9 ]
+    location: [ SRS, 9 ]
+    register: CS
     reset: 0
 
   - ID: CS_XDZ
     what: Extension IEEE 754 Divide by Zero
-    location: [ CS, 10 ]
+    location: [ SRS, 10 ]
+    register: CS
     reset: 0
 
   - ID: CS_XOV
     what: Extension IEEE 754 Overflow
-    location: [ CS, 11 ]
+    location: [ SRS, 11 ]
+    register: CS
     reset: 0
 
   - ID: CS_XUN
     what: Extension IEEE 754 Underflow
-    location: [ CS, 12 ]
+    location: [ SRS, 12 ]
+    register: CS
     reset: 0
 
   - ID: CS_XIN
     what: Extension IEEE 754 Inexact
-    location: [ CS, 13 ]
+    location: [ SRS, 13 ]
+    register: CS
     reset: 0
 
   - ID: CS_RM
     what: IEEE 754 Rounding Mode
-    location: [ CS, 16..18 ]
+    location: [ SRS, 16..18 ]
+    register: CS
     reset: 0
 
   - ID: CS_XRM
     what: Extension IEEE 754 Rounding Mode
-    location: [ CS, 20..21 ]
+    location: [ SRS, 20..21 ]
+    register: CS
     reset: 0
 
   - ID: CS_XMF
     what: eXtension ModiFied
-    location: [ CS, 24 ]
+    location: [ SRS, 24 ]
+    register: CS
     reset: 0
 
   - ID: CS_CC
     what: Carry Counter
-    location: [ CS, 32..47 ]
+    location: [ SRS, 32..47 ]
+    register: CS
     reset: 0
 
 ################ AESPC ################

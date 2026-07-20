@@ -12,20 +12,6 @@
   width=	"64"
 />
 <Storage
-  ID=	"Storage-lvx-PS"
-  count=	"64"
-  kind=	"Special"
-  what=	"Processing Status"
-  width=	"1"
-/>
-<Storage
-  ID=	"Storage-lvx-CS"
-  count=	"64"
-  kind=	"Special"
-  what=	"Compute Status"
-  width=	"1"
-/>
-<Storage
   ID=	"Storage-lvx-SRS"
   count=	"512"
   kind=	"Special"

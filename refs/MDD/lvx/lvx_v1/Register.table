@@ -21,14 +21,14 @@
 />
 <Register
   ID=	"Register-lvx_v1-PS"
-  addresses=	"0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31"
+  addresses=	"1"
   dwarfId=	"65"
   fields=	"RegField-lvx_v1-PS_PL RegField-lvx_v1-PS_ET RegField-lvx_v1-PS_HTD RegField-lvx_v1-PS_IE RegField-lvx_v1-PS_HLE RegField-lvx_v1-PS_SRE RegField-lvx_v1-PS_DAUS RegField-lvx_v1-PS_ICE RegField-lvx_v1-PS_USE RegField-lvx_v1-PS_DCE RegField-lvx_v1-PS_MME RegField-lvx_v1-PS_IL RegField-lvx_v1-PS_VS RegField-lvx_v1-PS_V64 RegField-lvx_v1-PS_L2E RegField-lvx_v1-PS_SME RegField-lvx_v1-PS_SMR RegField-lvx_v1-PS_PMJ RegField-lvx_v1-PS_MMUP RegField-lvx_v1-PS_RV"
   names=	"$ps $s1"
   raccess=	"GET"
   regFile=	"RegClass-lvx_v1-systemReg"
   reset=	"0x01010004"
-  storage=	"Storage-lvx_v1-PS"
+  storage=	"Storage-lvx_v1-SRS"
   waccess=	"WFX"
   what=	"Processor State"
   width=	"32"
@@ -63,14 +63,14 @@
 />
 <Register
   ID=	"Register-lvx_v1-CS"
-  addresses=	"0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63"
+  addresses=	"4"
   dwarfId=	"68"
   fields=	"RegField-lvx_v1-CS_IC RegField-lvx_v1-CS_IO RegField-lvx_v1-CS_DZ RegField-lvx_v1-CS_OV RegField-lvx_v1-CS_UN RegField-lvx_v1-CS_IN RegField-lvx_v1-CS_XIO RegField-lvx_v1-CS_XDZ RegField-lvx_v1-CS_XOV RegField-lvx_v1-CS_XUN RegField-lvx_v1-CS_XIN RegField-lvx_v1-CS_RM RegField-lvx_v1-CS_XRM RegField-lvx_v1-CS_XMF RegField-lvx_v1-CS_CC"
   names=	"$cs $s4"
   raccess=	"GET"
   regFile=	"RegClass-lvx_v1-systemReg"
   reset=	"0x0000000000000000"
-  storage=	"Storage-lvx_v1-CS"
+  storage=	"Storage-lvx_v1-SRS"
   waccess=	"WFX"
   what=	"Compute Status"
   width=	"64"

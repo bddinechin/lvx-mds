@@ -6,10 +6,10 @@ RegFile:
     dwarfIds: 64..255
     registers:
       - { ID: PC, location: [ PC, 0 ], names: [ "$pc", "$s0" ], reset: "Hardwired", raccess: "GET", waccess: "NONE", width: 64, what: "Program Counter"}
-      - { ID: PS, location: [ PS, 0..31 ], names: [ "$ps", "$s1" ], raccess: "GET", waccess: "WFX", width: 32, what: "Processor State"}
+      - { ID: PS, location: [ SRS, 1 ], names: [ "$ps", "$s1" ], raccess: "GET", waccess: "WFX", width: 32, what: "Processor State"}
       - { ID: PCR, location: [ SRS, 2 ], names: [ "$pcr", "$s2" ], raccess: "GET", waccess: "WFX", width: 64, owners: [ MO_PCR ], what: "Processing Identification"}
       - { ID: RA, location: [ SRS, 3 ], names: [ "$ra", "$s3" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Return Address"}
-      - { ID: CS, location: [ CS, 0..63 ], names: [ "$cs", "$s4" ], raccess: "GET", waccess: "WFX", width: 64, what: "Compute Status"}
+      - { ID: CS, location: [ SRS, 4 ], names: [ "$cs", "$s4" ], raccess: "GET", waccess: "WFX", width: 64, what: "Compute Status"}
       - { ID: CSIT, location: [ SRS, 5 ], names: [ "$csit", "$s5" ], raccess: "GET", waccess: "WFX", width: 32, owners: [ MO_CSIT ], what: "Compute Status arithmetic interrupt"}
       - { ID: AESPC, location: [ SRS, 6 ], names: [ "$aespc", "$s6" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_CSIT ], what: "Arithmetic Exception Saved PC"}
       - { ID: LS, location: [ SRS, 7 ], names: [ "$ls", "$s7" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, what: "Loop Start Address"}

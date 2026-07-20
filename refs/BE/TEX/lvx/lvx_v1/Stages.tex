@@ -790,31 +790,43 @@ fabswp regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.faddd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fadddfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.faddh}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 faddhfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  & \wsf{(w) CS} &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.faddw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 faddwfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.faddwc}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 faddwcconjugateimultiplyfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
@@ -877,36 +889,50 @@ fcompwfloatcomp regW = regZ, upper27\_lower5 &  & \rsf{(r) regZ} &  &  &  &  \\*
 \hline
 \hypertarget{lvx_v1.fdivd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fdivdfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fdivh}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fdivhfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  & \wsf{(w) CS} &  \\*
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fdivw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fdivwfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.ffmad}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regW} &  &  &  &  \\*
 ffmadfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.ffmah}
+\crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regW} &  &  &  &  \\*
 \crb
@@ -914,17 +940,23 @@ ffmahfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regY} &  &  &  &  \\*
 \crb
+ &  &  &  &  & \wsf{(w) CS} &  \\*
+\crb
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.ffmaw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regW} &  &  &  &  \\*
 ffmawfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.ffmawc}
+\crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regW} &  &  &  &  \\*
 \crb
@@ -932,17 +964,23 @@ ffmawcconjugateimultiplyfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  & 
 \crb
  &  & \rsf{(r) regY} &  &  &  &  \\*
 \crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
+\crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.ffmsd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regW} &  &  &  &  \\*
 ffmsdfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.ffmsh}
+\crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regW} &  &  &  &  \\*
 \crb
@@ -950,265 +988,365 @@ ffmshfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
  &  & \rsf{(r) regY} &  &  &  &  \\*
 \crb
+ &  &  &  &  & \wsf{(w) CS} &  \\*
+\crb
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.ffmsw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regW} &  &  &  &  \\*
 ffmswfnegfloatmode regW = regZ, regY &  & \rsf{(r) regZ} &  &  &  &  \\*
  &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixedd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixeddfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixeddw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixeddwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixedud}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixedudfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixedudw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixedudwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixeduw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixeduwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixeduwd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixeduwdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixeduwp}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixeduwpfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixedw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixedwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixedwd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fixedwdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fixedwp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fixedwpfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatdw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatdwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatud}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatudfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatudw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatudwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatuw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatuwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatuwd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatuwdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatuwp}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatuwpfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatwd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 floatwdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.floatwp}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 floatwpfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmaxd}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmaxd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmaxh}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fmaxh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmaxnd}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmaxnd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmaxnh}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fmaxnh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmaxnw}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmaxnw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmaxw}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fmaxw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmind}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fmind regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fminh}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fminh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fminnd}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fminnd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fminnh}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fminnh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fminnw}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fminnw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fminw}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fminw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmuld}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fmuldfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmulh}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fmulhfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  & \wsf{(w) CS} &  \\*
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmulw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fmulwfnegfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fmulwc}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fmulwcconjugateimultiplyfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fnarrowdw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fnarrowdwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fnarrowwh}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fnarrowwhfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
@@ -1238,134 +1376,179 @@ fnegwp regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
 \hline
 \hypertarget{lvx_v1.frintd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 frintdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.frinth}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 frinthfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  &  \\*
  &  &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.frintw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 frintwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  &  \\*
 \crb
  &  &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsbfd}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fsbfdfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsbfh}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fsbfhfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  & \wsf{(w) CS} &  \\*
 \crb
  &  &  &  &  & \wsf{(w) regW} &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsbfw}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 fsbfwfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  &  &  &  & \wsf{(w) CS} \\*
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsbfwc}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
  &  & \rsf{(r) regZ} &  &  &  &  \\*
 \crb
 fsbfwcconjugateimultiplyfloatmode regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsignd}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsignh}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsignmd}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignmd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsignmh}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignmh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsignmw}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignmw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsignnd}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignnd regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsignnh}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignnh regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsignnw}
 \crb
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 \crb
 fsignnw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) CS} &  &  &  \\*
 \crb
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsignw}
- &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
 fsignw regW = regZ, regY &  & \rsf{(r) regY} &  &  &  &  \\*
+ &  &  & \wsf{(w) CS} &  &  &  \\*
  &  &  & \wsf{(w) regW} &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsqrtd}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fsqrtdfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  & \wsf{(w) CS} \\*
 \crb
  &  &  &  &  &  & \wsf{(w) regW} \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsqrth}
+ &  & \rsf{(r) CS} &  &  &  &  \\*
 fsqrthfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+ &  &  &  &  &  &  \\*
  &  &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.fsqrtw}
 \crb
+ &  & \rsf{(r) CS} &  &  &  &  \\*
+\crb
 fsqrtwfloatmode regW = regZ &  & \rsf{(r) regZ} &  &  &  &  \\*
+\crb
+ &  &  &  &  &  &  \\*
 \crb
  &  &  &  &  &  &  \\*
 \hline
@@ -4343,7 +4526,9 @@ igoto regZ & \rsf{(r) regZ} &  &  &  &  &  \\*
 \hline
 \hypertarget{lvx_v1.loopdo}
 \crb
-loopdo regZ, pcrel17s2 & \rsf{(r) regZ} &  &  &  &  &  \\*
+loopdo regZ, pcrel17s2 & \rsf{(r) PS} &  &  &  &  &  \\*
+\crb
+ & \rsf{(r) regZ} &  &  &  &  &  \\*
 \hline
 \hline
 \hypertarget{lvx_v1.ret}
