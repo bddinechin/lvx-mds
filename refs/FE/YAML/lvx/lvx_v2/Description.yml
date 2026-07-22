@@ -40915,3 +40915,39 @@ Synthetic:
     instruction: MSBFWD
     specialize: { "%4": "2", "%5": "0" }
     syntax: "%0 %1 = %2, %3"
+  - ID: FRCSR
+    what: Read \texttt{fcsr} (pseudo of \texttt{csrrs} on \texttt{fcsr})
+    formats: [ BCU_CSR ]
+    instruction: CSRRS
+    specialize: { "%2": "3" }
+    syntax: "%0 %1"
+  - ID: FSCSR
+    what: Write \texttt{fcsr} (pseudo of \texttt{csrrw} on \texttt{fcsr})
+    formats: [ BCU_CSR ]
+    instruction: CSRRW
+    specialize: { "%2": "3" }
+    syntax: "%0 %1"
+  - ID: FRFLAGS
+    what: Read \texttt{fflags} (pseudo of \texttt{csrrs} on \texttt{fflags})
+    formats: [ BCU_CSR ]
+    instruction: CSRRS
+    specialize: { "%2": "1" }
+    syntax: "%0 %1"
+  - ID: FSFLAGS
+    what: Write \texttt{fflags} (pseudo of \texttt{csrrw} on \texttt{fflags})
+    formats: [ BCU_CSR ]
+    instruction: CSRRW
+    specialize: { "%2": "1" }
+    syntax: "%0 %1"
+  - ID: FRRM
+    what: Read \texttt{frm} (pseudo of \texttt{csrrs} on \texttt{frm})
+    formats: [ BCU_CSR ]
+    instruction: CSRRS
+    specialize: { "%2": "2" }
+    syntax: "%0 %1"
+  - ID: FSRM
+    what: Write \texttt{frm} (pseudo of \texttt{csrrw} on \texttt{frm})
+    formats: [ BCU_CSR ]
+    instruction: CSRRW
+    specialize: { "%2": "2" }
+    syntax: "%0 %1"

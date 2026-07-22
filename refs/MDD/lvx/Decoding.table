@@ -3097,12 +3097,48 @@
 />
           <Decode
   case=	"0x00000013"
+  mask=	"0x00000fff"
+  shift=	"6"
+>
+            <Decode
+  case=	"0x00000001"
+  opcodes=	"Opcode-lvx_v1-FSFLAGS_registerZ_simple"
+/>
+            <Decode
+  case=	"0x00000002"
+  opcodes=	"Opcode-lvx_v1-FSRM_registerZ_simple"
+/>
+            <Decode
+  case=	"0x00000003"
+  opcodes=	"Opcode-lvx_v1-FSCSR_registerZ_simple"
+/>
+            <Decode
+  case=	"default"
   opcodes=	"Opcode-lvx_v1-CSRRW_registerZ_csrnumber_simple"
 />
+          </Decode>
           <Decode
   case=	"0x00000014"
+  mask=	"0x00000fff"
+  shift=	"6"
+>
+            <Decode
+  case=	"0x00000001"
+  opcodes=	"Opcode-lvx_v1-FRFLAGS_registerZ_simple"
+/>
+            <Decode
+  case=	"0x00000002"
+  opcodes=	"Opcode-lvx_v1-FRRM_registerZ_simple"
+/>
+            <Decode
+  case=	"0x00000003"
+  opcodes=	"Opcode-lvx_v1-FRCSR_registerZ_simple"
+/>
+            <Decode
+  case=	"default"
   opcodes=	"Opcode-lvx_v1-CSRRS_registerZ_csrnumber_simple"
 />
+          </Decode>
           <Decode
   case=	"0x00000015"
   opcodes=	"Opcode-lvx_v1-CSRRC_registerZ_csrnumber_simple"
@@ -12402,12 +12438,48 @@
 />
           <Decode
   case=	"0x00000013"
+  mask=	"0x00000fff"
+  shift=	"6"
+>
+            <Decode
+  case=	"0x00000001"
+  opcodes=	"Opcode-lvx_v2-FSFLAGS_registerZ_simple"
+/>
+            <Decode
+  case=	"0x00000002"
+  opcodes=	"Opcode-lvx_v2-FSRM_registerZ_simple"
+/>
+            <Decode
+  case=	"0x00000003"
+  opcodes=	"Opcode-lvx_v2-FSCSR_registerZ_simple"
+/>
+            <Decode
+  case=	"default"
   opcodes=	"Opcode-lvx_v2-CSRRW_registerZ_csrnumber_simple"
 />
+          </Decode>
           <Decode
   case=	"0x00000014"
+  mask=	"0x00000fff"
+  shift=	"6"
+>
+            <Decode
+  case=	"0x00000001"
+  opcodes=	"Opcode-lvx_v2-FRFLAGS_registerZ_simple"
+/>
+            <Decode
+  case=	"0x00000002"
+  opcodes=	"Opcode-lvx_v2-FRRM_registerZ_simple"
+/>
+            <Decode
+  case=	"0x00000003"
+  opcodes=	"Opcode-lvx_v2-FRCSR_registerZ_simple"
+/>
+            <Decode
+  case=	"default"
   opcodes=	"Opcode-lvx_v2-CSRRS_registerZ_csrnumber_simple"
 />
+          </Decode>
           <Decode
   case=	"0x00000015"
   opcodes=	"Opcode-lvx_v2-CSRRC_registerZ_csrnumber_simple"

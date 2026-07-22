@@ -818,5 +818,89 @@
 .WNONE & Word No bits set after AND-ing & 15 \\
 \hline \end{tabular}
 \newpage
+\subsubsection[{\small FRCSR: Read \texttt{fcsr} (pseudo of \texttt{csrrs} on \texttt{fcsr})}]{FRCSR\hfill Read \texttt{fcsr} (pseudo of \texttt{csrrs} on \texttt{fcsr})}
+\label{instr:FRCSR}\index{frcsr}
+
+\paragraph{Encoding} Format \textsf{BCU\_CSR, bcucode3 = 10100}\\
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10100, 12/000000000011, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction CSRRS, format BCU\_CSR
+
+\paragraph{Forced operands} \emph{csrnumber} = 3
+
+\paragraph{Syntax} \texttt{frcsr} \emph{registerZ}
+\newpage
+\subsubsection[{\small FRFLAGS: Read \texttt{fflags} (pseudo of \texttt{csrrs} on \texttt{fflags})}]{FRFLAGS\hfill Read \texttt{fflags} (pseudo of \texttt{csrrs} on \texttt{fflags})}
+\label{instr:FRFLAGS}\index{frflags}
+
+\paragraph{Encoding} Format \textsf{BCU\_CSR, bcucode3 = 10100}\\
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10100, 12/000000000001, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction CSRRS, format BCU\_CSR
+
+\paragraph{Forced operands} \emph{csrnumber} = 1
+
+\paragraph{Syntax} \texttt{frflags} \emph{registerZ}
+\newpage
+\subsubsection[{\small FRRM: Read \texttt{frm} (pseudo of \texttt{csrrs} on \texttt{frm})}]{FRRM\hfill Read \texttt{frm} (pseudo of \texttt{csrrs} on \texttt{frm})}
+\label{instr:FRRM}\index{frrm}
+
+\paragraph{Encoding} Format \textsf{BCU\_CSR, bcucode3 = 10100}\\
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10100, 12/000000000010, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction CSRRS, format BCU\_CSR
+
+\paragraph{Forced operands} \emph{csrnumber} = 2
+
+\paragraph{Syntax} \texttt{frrm} \emph{registerZ}
+\newpage
+\subsubsection[{\small FSCSR: Write \texttt{fcsr} (pseudo of \texttt{csrrw} on \texttt{fcsr})}]{FSCSR\hfill Write \texttt{fcsr} (pseudo of \texttt{csrrw} on \texttt{fcsr})}
+\label{instr:FSCSR}\index{fscsr}
+
+\paragraph{Encoding} Format \textsf{BCU\_CSR, bcucode3 = 10011}\\
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10011, 12/000000000011, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction CSRRW, format BCU\_CSR
+
+\paragraph{Forced operands} \emph{csrnumber} = 3
+
+\paragraph{Syntax} \texttt{fscsr} \emph{registerZ}
+\newpage
+\subsubsection[{\small FSFLAGS: Write \texttt{fflags} (pseudo of \texttt{csrrw} on \texttt{fflags})}]{FSFLAGS\hfill Write \texttt{fflags} (pseudo of \texttt{csrrw} on \texttt{fflags})}
+\label{instr:FSFLAGS}\index{fsflags}
+
+\paragraph{Encoding} Format \textsf{BCU\_CSR, bcucode3 = 10011}\\
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10011, 12/000000000001, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction CSRRW, format BCU\_CSR
+
+\paragraph{Forced operands} \emph{csrnumber} = 1
+
+\paragraph{Syntax} \texttt{fsflags} \emph{registerZ}
+\newpage
+\subsubsection[{\small FSRM: Write \texttt{frm} (pseudo of \texttt{csrrw} on \texttt{frm})}]{FSRM\hfill Write \texttt{frm} (pseudo of \texttt{csrrw} on \texttt{frm})}
+\label{instr:FSRM}\index{fsrm}
+
+\paragraph{Encoding} Format \textsf{BCU\_CSR, bcucode3 = 10011}\\
+
+\bitfields{ 1/P, 2/00, 2/01, 4/1111, 5/10011, 12/000000000010, 6/registerZ }
+
+
+\paragraph{Specializes} Instruction CSRRW, format BCU\_CSR
+
+\paragraph{Forced operands} \emph{csrnumber} = 2
+
+\paragraph{Syntax} \texttt{fsrm} \emph{registerZ}
+\newpage
 \subsubsectionfont{}
 }

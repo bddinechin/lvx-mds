@@ -274,3 +274,63 @@ _THROW(OPCODE);
   values=	"2 0"
   what=	"alias of MSBFWD.SU"
 />
+<Synthetic
+  ID=	"Synthetic-lvx_v1-BCU:FRCSR"
+  forced=	"%2"
+  formats=	"Format-lvx_v1-BCU_CSR"
+  instruction=	"Instruction-lvx_v1-BCU:CSRRS"
+  mnemonic=	"frcsr"
+  syntax=	"%0 %1"
+  values=	"3"
+  what=	"Read \texttt{fcsr} (pseudo of \texttt{csrrs} on \texttt{fcsr})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v1-BCU:FSCSR"
+  forced=	"%2"
+  formats=	"Format-lvx_v1-BCU_CSR"
+  instruction=	"Instruction-lvx_v1-BCU:CSRRW"
+  mnemonic=	"fscsr"
+  syntax=	"%0 %1"
+  values=	"3"
+  what=	"Write \texttt{fcsr} (pseudo of \texttt{csrrw} on \texttt{fcsr})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v1-BCU:FRFLAGS"
+  forced=	"%2"
+  formats=	"Format-lvx_v1-BCU_CSR"
+  instruction=	"Instruction-lvx_v1-BCU:CSRRS"
+  mnemonic=	"frflags"
+  syntax=	"%0 %1"
+  values=	"1"
+  what=	"Read \texttt{fflags} (pseudo of \texttt{csrrs} on \texttt{fflags})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v1-BCU:FSFLAGS"
+  forced=	"%2"
+  formats=	"Format-lvx_v1-BCU_CSR"
+  instruction=	"Instruction-lvx_v1-BCU:CSRRW"
+  mnemonic=	"fsflags"
+  syntax=	"%0 %1"
+  values=	"1"
+  what=	"Write \texttt{fflags} (pseudo of \texttt{csrrw} on \texttt{fflags})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v1-BCU:FRRM"
+  forced=	"%2"
+  formats=	"Format-lvx_v1-BCU_CSR"
+  instruction=	"Instruction-lvx_v1-BCU:CSRRS"
+  mnemonic=	"frrm"
+  syntax=	"%0 %1"
+  values=	"2"
+  what=	"Read \texttt{frm} (pseudo of \texttt{csrrs} on \texttt{frm})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx_v1-BCU:FSRM"
+  forced=	"%2"
+  formats=	"Format-lvx_v1-BCU_CSR"
+  instruction=	"Instruction-lvx_v1-BCU:CSRRW"
+  mnemonic=	"fsrm"
+  syntax=	"%0 %1"
+  values=	"2"
+  what=	"Write \texttt{frm} (pseudo of \texttt{csrrw} on \texttt{frm})"
+/>

@@ -4510,6 +4510,51 @@ csrrw regZ = csrnumber &  &  & \wsf{(w) CS} &  &  &  \\*
 errop & & & & & & \\*
 \hline
 \hline
+\hypertarget{lvx_v1.frcsr}
+\crb
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
+\crb
+frcsr regZ &  &  & \wsf{(w) CS} &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\hline
+\hypertarget{lvx_v1.frflags}
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
+frflags regZ &  &  & \wsf{(w) CS} &  &  &  \\*
+ &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\hline
+\hypertarget{lvx_v1.frrm}
+\crb
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
+\crb
+frrm regZ &  &  & \wsf{(w) CS} &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\hline
+\hypertarget{lvx_v1.fscsr}
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
+fscsr regZ &  &  & \wsf{(w) CS} &  &  &  \\*
+ &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\hline
+\hypertarget{lvx_v1.fsflags}
+\crb
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
+\crb
+fsflags regZ &  &  & \wsf{(w) CS} &  &  &  \\*
+\crb
+ &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\hline
+\hypertarget{lvx_v1.fsrm}
+ &  & \rsf{(r) regZ} & \rsf{(r) CS} &  &  &  \\*
+fsrm regZ &  &  & \wsf{(w) CS} &  &  &  \\*
+ &  &  & \wsf{(w) regZ} &  &  &  \\*
+\hline
+\hline
 \hypertarget{lvx_v1.get}
 \crb
 get regZ = sysS2 &  & \rsf{(r) sysS2} &  &  &  &  \\*
@@ -4970,13 +5015,18 @@ These point have to be taken into account to form correct bundles when writing a
 \hyperlink{lvx.fnegh}{fnegh} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fnegw}{fnegw} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fnegwp}{fnegwp} & ALU & ALU\_LITE \\ 
+\hyperlink{lvx.frcsr}{frcsr} & BCU & BCU2\_TINY\_LSU \\ 
+\hyperlink{lvx.frflags}{frflags} & BCU & BCU2\_TINY\_LSU \\ 
 \hyperlink{lvx.frintd}{frintd} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.frinth}{frinth} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.frintw}{frintw} & ALU & ALU\_LITE \\ 
+\hyperlink{lvx.frrm}{frrm} & BCU & BCU2\_TINY\_LSU \\ 
 \hyperlink{lvx.fsbfd}{fsbfd} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fsbfh}{fsbfh} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fsbfw}{fsbfw} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fsbfwc}{fsbfwc} & ALU & ALU\_LITE \\ 
+\hyperlink{lvx.fscsr}{fscsr} & BCU & BCU2\_TINY\_LSU \\ 
+\hyperlink{lvx.fsflags}{fsflags} & BCU & BCU2\_TINY\_LSU \\ 
 \hyperlink{lvx.fsignd}{fsignd} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fsignh}{fsignh} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fsignmd}{fsignmd} & ALU & ALU\_LITE \\ 
@@ -4992,6 +5042,7 @@ These point have to be taken into account to form correct bundles when writing a
 \hyperlink{lvx.fsrecd}{fsrecd} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fsrecw}{fsrecw} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fsrecwp}{fsrecwp} & ALU & ALU\_LITE \\ 
+\hyperlink{lvx.fsrm}{fsrm} & BCU & BCU2\_TINY\_LSU \\ 
 \hyperlink{lvx.fsrsrd}{fsrsrd} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fsrsrw}{fsrsrw} & ALU & ALU\_LITE \\ 
 \hyperlink{lvx.fsrsrwp}{fsrsrwp} & ALU & ALU\_LITE \\ 

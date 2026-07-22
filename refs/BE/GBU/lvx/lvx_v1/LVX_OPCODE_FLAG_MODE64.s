@@ -1027,671 +1027,683 @@ main:
 	;;
 	fnegw $r24r25r26r27.z = $r27 	#Opcode-lvx_v1-FNEGW_registerW_registerZ_simple
 	;;
-	frintd.rn $r26r27.hi = $r24r25r26r27.t 	#Opcode-lvx_v1-FRINTD_floatmode_registerW_registerZ_simple
+	frcsr $r26r27.hi 	#Opcode-lvx_v1-FRCSR_registerZ_simple
 	;;
-	frinth.rz $r28 = $r28r29.lo 	#Opcode-lvx_v1-FRINTH_floatmode_registerW_registerZ_simple
+	frflags $r24r25r26r27.t 	#Opcode-lvx_v1-FRFLAGS_registerZ_simple
 	;;
-	frintw.rd $r28r29r30r31.x = $r29 	#Opcode-lvx_v1-FRINTW_floatmode_registerW_registerZ_simple
+	frintd.rn $r28 = $r28r29.lo 	#Opcode-lvx_v1-FRINTD_floatmode_registerW_registerZ_simple
 	;;
-	fsbfd.ru $r28r29.hi = $r28r29r30r31.y, $r30 	#Opcode-lvx_v1-FSBFD_floatmode_registerW_registerZ_registerY_simple
+	frinth.rz $r28r29r30r31.x = $r29 	#Opcode-lvx_v1-FRINTH_floatmode_registerW_registerZ_simple
 	;;
-	fsbfh.rm $r30r31.lo = $r28r29r30r31.z, $r31 	#Opcode-lvx_v1-FSBFH_floatmode_registerW_registerZ_registerY_simple
+	frintw.rd $r28r29.hi = $r28r29r30r31.y 	#Opcode-lvx_v1-FRINTW_floatmode_registerW_registerZ_simple
 	;;
-	fsbfwc.c.mi.r5 $r30r31.hi = $r28r29r30r31.t, $r32 	#Opcode-lvx_v1-FSBFWC_conjugate_imultiply_floatmode_registerW_registerZ_registerY_simple
+	frrm $r30 	#Opcode-lvx_v1-FRRM_registerZ_simple
 	;;
-	fsbfw.ro $r32r33.lo = $r32r33r34r35.x, $r33 	#Opcode-lvx_v1-FSBFW_floatmode_registerW_registerZ_registerY_simple
+	fsbfd.ru $r30r31.lo = $r28r29r30r31.z, $r31 	#Opcode-lvx_v1-FSBFD_floatmode_registerW_registerZ_registerY_simple
 	;;
-	fsignd $r32r33.hi = $r32r33r34r35.y, $r34 	#Opcode-lvx_v1-FSIGND_registerW_registerZ_registerY_simple
+	fsbfh.rm $r30r31.hi = $r28r29r30r31.t, $r32 	#Opcode-lvx_v1-FSBFH_floatmode_registerW_registerZ_registerY_simple
 	;;
-	fsignh $r34r35.lo = $r32r33r34r35.z, $r35 	#Opcode-lvx_v1-FSIGNH_registerW_registerZ_registerY_simple
+	fsbfwc.c.mi.r5 $r32r33.lo = $r32r33r34r35.x, $r33 	#Opcode-lvx_v1-FSBFWC_conjugate_imultiply_floatmode_registerW_registerZ_registerY_simple
 	;;
-	fsignmd $r34r35.hi = $r32r33r34r35.t, $r36 	#Opcode-lvx_v1-FSIGNMD_registerW_registerZ_registerY_simple
+	fsbfw.ro $r32r33.hi = $r32r33r34r35.y, $r34 	#Opcode-lvx_v1-FSBFW_floatmode_registerW_registerZ_registerY_simple
 	;;
-	fsignmh $r36r37.lo = $r36r37r38r39.x, $r37 	#Opcode-lvx_v1-FSIGNMH_registerW_registerZ_registerY_simple
+	fscsr $r34r35.lo 	#Opcode-lvx_v1-FSCSR_registerZ_simple
 	;;
-	fsignmw $r36r37.hi = $r36r37r38r39.y, $r38 	#Opcode-lvx_v1-FSIGNMW_registerW_registerZ_registerY_simple
+	fsflags $r32r33r34r35.z 	#Opcode-lvx_v1-FSFLAGS_registerZ_simple
 	;;
-	fsignnd $r38r39.lo = $r36r37r38r39.z, $r39 	#Opcode-lvx_v1-FSIGNND_registerW_registerZ_registerY_simple
+	fsignd $r35 = $r34r35.hi, $r32r33r34r35.t 	#Opcode-lvx_v1-FSIGND_registerW_registerZ_registerY_simple
 	;;
-	fsignnh $r38r39.hi = $r36r37r38r39.t, $r40 	#Opcode-lvx_v1-FSIGNNH_registerW_registerZ_registerY_simple
+	fsignh $r36 = $r36r37.lo, $r36r37r38r39.x 	#Opcode-lvx_v1-FSIGNH_registerW_registerZ_registerY_simple
 	;;
-	fsignnw $r40r41.lo = $r40r41r42r43.x, $r41 	#Opcode-lvx_v1-FSIGNNW_registerW_registerZ_registerY_simple
+	fsignmd $r37 = $r36r37.hi, $r36r37r38r39.y 	#Opcode-lvx_v1-FSIGNMD_registerW_registerZ_registerY_simple
 	;;
-	fsignw $r40r41.hi = $r40r41r42r43.y, $r42 	#Opcode-lvx_v1-FSIGNW_registerW_registerZ_registerY_simple
+	fsignmh $r38 = $r38r39.lo, $r36r37r38r39.z 	#Opcode-lvx_v1-FSIGNMH_registerW_registerZ_registerY_simple
 	;;
-	fsqrtd $r42r43.lo = $r40r41r42r43.z 	#Opcode-lvx_v1-FSQRTD_floatmode_registerW_registerZ_simple
+	fsignmw $r39 = $r38r39.hi, $r36r37r38r39.t 	#Opcode-lvx_v1-FSIGNMW_registerW_registerZ_registerY_simple
 	;;
-	fsqrth.rn $r43 = $r42r43.hi 	#Opcode-lvx_v1-FSQRTH_floatmode_registerW_registerZ_simple
+	fsignnd $r40 = $r40r41.lo, $r40r41r42r43.x 	#Opcode-lvx_v1-FSIGNND_registerW_registerZ_registerY_simple
 	;;
-	fsqrtw.rz $r40r41r42r43.t = $r44 	#Opcode-lvx_v1-FSQRTW_floatmode_registerW_registerZ_simple
+	fsignnh $r41 = $r40r41.hi, $r40r41r42r43.y 	#Opcode-lvx_v1-FSIGNNH_registerW_registerZ_registerY_simple
 	;;
-	fsrecd $r44r45.lo = $r44r45r46r47.x 	#Opcode-lvx_v1-FSRECD_registerW_registerZ_simple
+	fsignnw $r42 = $r42r43.lo, $r40r41r42r43.z 	#Opcode-lvx_v1-FSIGNNW_registerW_registerZ_registerY_simple
 	;;
-	fsrecwp $r45 = $r44r45.hi 	#Opcode-lvx_v1-FSRECWP_registerW_registerZ_simple
+	fsignw $r43 = $r42r43.hi, $r40r41r42r43.t 	#Opcode-lvx_v1-FSIGNW_registerW_registerZ_registerY_simple
 	;;
-	fsrecw $r44r45r46r47.y = $r46 	#Opcode-lvx_v1-FSRECW_registerW_registerZ_simple
+	fsqrtd $r44 = $r44r45.lo 	#Opcode-lvx_v1-FSQRTD_floatmode_registerW_registerZ_simple
 	;;
-	fsrsrd $r46r47.lo = $r44r45r46r47.z 	#Opcode-lvx_v1-FSRSRD_registerW_registerZ_simple
+	fsqrth.rn $r44r45r46r47.x = $r45 	#Opcode-lvx_v1-FSQRTH_floatmode_registerW_registerZ_simple
 	;;
-	fsrsrwp $r47 = $r46r47.hi 	#Opcode-lvx_v1-FSRSRWP_registerW_registerZ_simple
+	fsqrtw.rz $r44r45.hi = $r44r45r46r47.y 	#Opcode-lvx_v1-FSQRTW_floatmode_registerW_registerZ_simple
 	;;
-	fsrsrw $r44r45r46r47.t = $r48 	#Opcode-lvx_v1-FSRSRW_registerW_registerZ_simple
+	fsrecd $r46 = $r46r47.lo 	#Opcode-lvx_v1-FSRECD_registerW_registerZ_simple
 	;;
-	fwidenhw $r48r49.lo = $r48r49r50r51.x 	#Opcode-lvx_v1-FWIDENHW_mostsig_registerW_registerZ_simple
+	fsrecwp $r44r45r46r47.z = $r47 	#Opcode-lvx_v1-FSRECWP_registerW_registerZ_simple
 	;;
-	fwidenwd.m $r49 = $r48r49.hi 	#Opcode-lvx_v1-FWIDENWD_mostsig_registerW_registerZ_simple
+	fsrecw $r46r47.hi = $r44r45r46r47.t 	#Opcode-lvx_v1-FSRECW_registerW_registerZ_simple
 	;;
-	get $r48r49r50r51.y = $pc 	#Opcode-lvx_v1-GET_registerZ_systemS2_simple
+	fsrm $r48 	#Opcode-lvx_v1-FSRM_registerZ_simple
 	;;
-	get $r50 = $pc 	#Opcode-lvx_v1-GET_registerZ_systemS3_simple
+	fsrsrd $r48r49.lo = $r48r49r50r51.x 	#Opcode-lvx_v1-FSRSRD_registerW_registerZ_simple
+	;;
+	fsrsrwp $r49 = $r48r49.hi 	#Opcode-lvx_v1-FSRSRWP_registerW_registerZ_simple
+	;;
+	fsrsrw $r48r49r50r51.y = $r50 	#Opcode-lvx_v1-FSRSRW_registerW_registerZ_simple
+	;;
+	fwidenhw $r50r51.lo = $r48r49r50r51.z 	#Opcode-lvx_v1-FWIDENHW_mostsig_registerW_registerZ_simple
+	;;
+	fwidenwd.m $r51 = $r50r51.hi 	#Opcode-lvx_v1-FWIDENWD_mostsig_registerW_registerZ_simple
+	;;
+	get $r48r49r50r51.t = $pc 	#Opcode-lvx_v1-GET_registerZ_systemS2_simple
+	;;
+	get $r52 = $pc 	#Opcode-lvx_v1-GET_registerZ_systemS3_simple
 	;;
 	gotox -4503599627370496 	#Opcode-lvx_v1-GOTOX_upper27_lower27_double
 	;;
 	goto -33554432 	#Opcode-lvx_v1-GOTO_pcrel27s2_simple
 	;;
-	guard.dnez $r50r51.lo? 7 	#Opcode-lvx_v1-GUARD_execpred_registerZ_activate_simple
+	guard.dnez $r52r53.lo? 7 	#Opcode-lvx_v1-GUARD_execpred_registerZ_activate_simple
 	;;
-	i1invals 2305843009213693951[$r48r49r50r51.z] 	#Opcode-lvx_v1-I1INVALS_extend27_upper27_lower10_registerZ_triple
+	i1invals 2305843009213693951[$r52r53r54r55.x] 	#Opcode-lvx_v1-I1INVALS_extend27_upper27_lower10_registerZ_triple
 	;;
-	i1invals $r51[$r50r51.hi] 	#Opcode-lvx_v1-I1INVALS_registerY_registerZ_simple
+	i1invals $r53[$r52r53.hi] 	#Opcode-lvx_v1-I1INVALS_registerY_registerZ_simple
 	;;
-	i1invals -64[$r48r49r50r51.t] 	#Opcode-lvx_v1-I1INVALS_signed10_registerZ_simple
+	i1invals -64[$r52r53r54r55.y] 	#Opcode-lvx_v1-I1INVALS_signed10_registerZ_simple
 	;;
-	i1invals -8589934592[$r52] 	#Opcode-lvx_v1-I1INVALS_upper27_lower10_registerZ_double
+	i1invals -8589934592[$r54] 	#Opcode-lvx_v1-I1INVALS_upper27_lower10_registerZ_double
 	;;
 	i1inval 	#Opcode-lvx_v1-I1INVAL_simple
 	;;
-	icall $r52r53.lo 	#Opcode-lvx_v1-ICALL_registerZ_simple
+	icall $r54r55.lo 	#Opcode-lvx_v1-ICALL_registerZ_simple
 	;;
-	iget $r52r53r54r55.x 	#Opcode-lvx_v1-IGET_registerZ_simple
+	iget $r52r53r54r55.z 	#Opcode-lvx_v1-IGET_registerZ_simple
 	;;
-	igoto $r53 	#Opcode-lvx_v1-IGOTO_registerZ_simple
+	igoto $r55 	#Opcode-lvx_v1-IGOTO_registerZ_simple
 	;;
-	insf $r52r53.hi = $r52r53r54r55.y, 7, 7 	#Opcode-lvx_v1-INSF_registerW_registerZ_stopbit2_stopbit4_startbit_simple
+	insf $r54r55.hi = $r52r53r54r55.t, 7, 7 	#Opcode-lvx_v1-INSF_registerW_registerZ_stopbit2_stopbit4_startbit_simple
 	;;
-	iord $r54 = $r54r55.lo, 2305843009213693951 	#Opcode-lvx_v1-IORD_registerW_registerZ_extend27_upper27_lower10_triple
+	iord $r56 = $r56r57.lo, 2305843009213693951 	#Opcode-lvx_v1-IORD_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	iord $r52r53r54r55.z = $r55, $r54r55.hi 	#Opcode-lvx_v1-IORD_registerW_registerZ_registerY_simple
+	iord $r56r57r58r59.x = $r57, $r56r57.hi 	#Opcode-lvx_v1-IORD_registerW_registerZ_registerY_simple
 	;;
-	iord $r52r53r54r55.t = $r56, -64 	#Opcode-lvx_v1-IORD_registerW_registerZ_signed10_simple
+	iord $r56r57r58r59.y = $r58, -64 	#Opcode-lvx_v1-IORD_registerW_registerZ_signed10_simple
 	;;
-	iord $r56r57.lo = $r56r57r58r59.x, -8589934592 	#Opcode-lvx_v1-IORD_registerW_registerZ_upper27_lower10_double
+	iord $r58r59.lo = $r56r57r58r59.z, -8589934592 	#Opcode-lvx_v1-IORD_registerW_registerZ_upper27_lower10_double
 	;;
-	iornd $r57 = $r56r57.hi, 2305843009213693951 	#Opcode-lvx_v1-IORND_registerW_registerZ_extend27_upper27_lower10_triple
+	iornd $r59 = $r58r59.hi, 2305843009213693951 	#Opcode-lvx_v1-IORND_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	iornd $r56r57r58r59.y = $r58, $r58r59.lo 	#Opcode-lvx_v1-IORND_registerW_registerZ_registerY_simple
+	iornd $r56r57r58r59.t = $r60, $r60r61.lo 	#Opcode-lvx_v1-IORND_registerW_registerZ_registerY_simple
 	;;
-	iornd $r56r57r58r59.z = $r59, -64 	#Opcode-lvx_v1-IORND_registerW_registerZ_signed10_simple
+	iornd $r60r61r62r63.x = $r61, -64 	#Opcode-lvx_v1-IORND_registerW_registerZ_signed10_simple
 	;;
-	iornd $r58r59.hi = $r56r57r58r59.t, -8589934592 	#Opcode-lvx_v1-IORND_registerW_registerZ_upper27_lower10_double
+	iornd $r60r61.hi = $r60r61r62r63.y, -8589934592 	#Opcode-lvx_v1-IORND_registerW_registerZ_upper27_lower10_double
 	;;
 	iornq $r46r47 = $r44r45r46r47.hi, $r48r49 	#Opcode-lvx_v1-IORNQ_registerM_registerP_registerO_simple
 	;;
 	iornq $r48r49r50r51.lo = $r50r51, 536870911 	#Opcode-lvx_v1-IORNQ_registerM_registerP_upper27_lower5_splat32_double
 	;;
-	iornw.sx $r60 = $r60r61.lo, $r60r61r62r63.x 	#Opcode-lvx_v1-IORNW_signextw_registerW_registerZ_registerY_simple
+	iornw.sx $r62 = $r62r63.lo, $r60r61r62r63.z 	#Opcode-lvx_v1-IORNW_signextw_registerW_registerZ_registerY_simple
 	;;
-	iornw $r61 = $r60r61.hi, 536870911 	#Opcode-lvx_v1-IORNW_signextw_registerW_registerZ_upper27_lower5_double
+	iornw $r63 = $r62r63.hi, 536870911 	#Opcode-lvx_v1-IORNW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
 	iorq $r48r49r50r51.hi = $r52r53, $r52r53r54r55.lo 	#Opcode-lvx_v1-IORQ_registerM_registerP_registerO_simple
 	;;
 	iorq $r54r55 = $r52r53r54r55.hi, 536870911.@ 	#Opcode-lvx_v1-IORQ_registerM_registerP_upper27_lower5_splat32_double
 	;;
-	iorw.sx $r60r61r62r63.y = $r62, $r62r63.lo 	#Opcode-lvx_v1-IORW_signextw_registerW_registerZ_registerY_simple
+	iorw.sx $r60r61r62r63.t = $r0, $r0r1.lo 	#Opcode-lvx_v1-IORW_signextw_registerW_registerZ_registerY_simple
 	;;
-	iorw $r60r61r62r63.z = $r63, 536870911 	#Opcode-lvx_v1-IORW_signextw_registerW_registerZ_upper27_lower5_double
+	iorw $r0r1r2r3.x = $r1, 536870911 	#Opcode-lvx_v1-IORW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	landd $r62r63.hi = $r60r61r62r63.t, $r0 	#Opcode-lvx_v1-LANDD_registerW_registerZ_registerY_simple
+	landd $r0r1.hi = $r0r1r2r3.y, $r2 	#Opcode-lvx_v1-LANDD_registerW_registerZ_registerY_simple
 	;;
-	landw $r0r1.lo = $r0r1r2r3.x, $r1 	#Opcode-lvx_v1-LANDW_registerW_registerZ_registerY_simple
+	landw $r2r3.lo = $r0r1r2r3.z, $r3 	#Opcode-lvx_v1-LANDW_registerW_registerZ_registerY_simple
 	;;
-	lbs $r0r1.hi = 2305843009213693951[$r0r1r2r3.y] 	#Opcode-lvx_v1-LBS_variant_registerW_extend27_upper27_lower10_registerZ_triple
+	lbs $r2r3.hi = 2305843009213693951[$r0r1r2r3.t] 	#Opcode-lvx_v1-LBS_variant_registerW_extend27_upper27_lower10_registerZ_triple
 	;;
-	lbs.s $r2 = $r2r3.lo[$r0r1r2r3.z] 	#Opcode-lvx_v1-LBS_variant_registerW_registerY_registerZ_simple
+	lbs.s $r4 = $r4r5.lo[$r4r5r6r7.x] 	#Opcode-lvx_v1-LBS_variant_registerW_registerY_registerZ_simple
 	;;
-	lbs.u $r3 = -64[$r2r3.hi] 	#Opcode-lvx_v1-LBS_variant_registerW_signed10_registerZ_simple
+	lbs.u $r5 = -64[$r4r5.hi] 	#Opcode-lvx_v1-LBS_variant_registerW_signed10_registerZ_simple
 	;;
-	lbs.us $r0r1r2r3.t = -8589934592[$r4] 	#Opcode-lvx_v1-LBS_variant_registerW_upper27_lower10_registerZ_double
+	lbs.us $r4r5r6r7.y = -8589934592[$r6] 	#Opcode-lvx_v1-LBS_variant_registerW_upper27_lower10_registerZ_double
 	;;
-	lbz $r4r5.lo = 2305843009213693951[$r4r5r6r7.x] 	#Opcode-lvx_v1-LBZ_variant_registerW_extend27_upper27_lower10_registerZ_triple
+	lbz $r6r7.lo = 2305843009213693951[$r4r5r6r7.z] 	#Opcode-lvx_v1-LBZ_variant_registerW_extend27_upper27_lower10_registerZ_triple
 	;;
-	lbz.s $r5 = $r4r5.hi[$r4r5r6r7.y] 	#Opcode-lvx_v1-LBZ_variant_registerW_registerY_registerZ_simple
+	lbz.s $r7 = $r6r7.hi[$r4r5r6r7.t] 	#Opcode-lvx_v1-LBZ_variant_registerW_registerY_registerZ_simple
 	;;
-	lbz.u $r6 = -64[$r6r7.lo] 	#Opcode-lvx_v1-LBZ_variant_registerW_signed10_registerZ_simple
+	lbz.u $r8 = -64[$r8r9.lo] 	#Opcode-lvx_v1-LBZ_variant_registerW_signed10_registerZ_simple
 	;;
-	lbz.us $r4r5r6r7.z = -8589934592[$r7] 	#Opcode-lvx_v1-LBZ_variant_registerW_upper27_lower10_registerZ_double
+	lbz.us $r8r9r10r11.x = -8589934592[$r9] 	#Opcode-lvx_v1-LBZ_variant_registerW_upper27_lower10_registerZ_double
 	;;
-	ld $r6r7.hi = 2305843009213693951[$r4r5r6r7.t] 	#Opcode-lvx_v1-LD_variant_registerW_extend27_upper27_lower10_registerZ_triple
+	ld $r8r9.hi = 2305843009213693951[$r8r9r10r11.y] 	#Opcode-lvx_v1-LD_variant_registerW_extend27_upper27_lower10_registerZ_triple
 	;;
-	ld.s $r8 = $r8r9.lo[$r8r9r10r11.x] 	#Opcode-lvx_v1-LD_variant_registerW_registerY_registerZ_simple
+	ld.s $r10 = $r10r11.lo[$r8r9r10r11.z] 	#Opcode-lvx_v1-LD_variant_registerW_registerY_registerZ_simple
 	;;
-	ld.u $r9 = -64[$r8r9.hi] 	#Opcode-lvx_v1-LD_variant_registerW_signed10_registerZ_simple
+	ld.u $r11 = -64[$r10r11.hi] 	#Opcode-lvx_v1-LD_variant_registerW_signed10_registerZ_simple
 	;;
-	ld.us $r8r9r10r11.y = -8589934592[$r10] 	#Opcode-lvx_v1-LD_variant_registerW_upper27_lower10_registerZ_double
+	ld.us $r8r9r10r11.t = -8589934592[$r12] 	#Opcode-lvx_v1-LD_variant_registerW_upper27_lower10_registerZ_double
 	;;
-	lhs $r10r11.lo = 2305843009213693951[$r8r9r10r11.z] 	#Opcode-lvx_v1-LHS_variant_registerW_extend27_upper27_lower10_registerZ_triple
+	lhs $sp = 2305843009213693951[$r13] 	#Opcode-lvx_v1-LHS_variant_registerW_extend27_upper27_lower10_registerZ_triple
 	;;
-	lhs.s $r11 = $r10r11.hi[$r8r9r10r11.t] 	#Opcode-lvx_v1-LHS_variant_registerW_registerY_registerZ_simple
+	lhs.s $tp = $r14[$fp] 	#Opcode-lvx_v1-LHS_variant_registerW_registerY_registerZ_simple
 	;;
-	lhs.u $r12 = -64[$sp] 	#Opcode-lvx_v1-LHS_variant_registerW_signed10_registerZ_simple
+	lhs.u $r14r15.lo = -64[$r15] 	#Opcode-lvx_v1-LHS_variant_registerW_signed10_registerZ_simple
 	;;
-	lhs.us $r13 = -8589934592[$tp] 	#Opcode-lvx_v1-LHS_variant_registerW_upper27_lower10_registerZ_double
+	lhs.us $rp = -8589934592[$r14r15.hi] 	#Opcode-lvx_v1-LHS_variant_registerW_upper27_lower10_registerZ_double
 	;;
-	lhz $r14 = 2305843009213693951[$fp] 	#Opcode-lvx_v1-LHZ_variant_registerW_extend27_upper27_lower10_registerZ_triple
+	lhz $r16 = 2305843009213693951[$r16r17.lo] 	#Opcode-lvx_v1-LHZ_variant_registerW_extend27_upper27_lower10_registerZ_triple
 	;;
-	lhz.s $r14r15.lo = $r15[$rp] 	#Opcode-lvx_v1-LHZ_variant_registerW_registerY_registerZ_simple
+	lhz.s $r16r17r18r19.x = $r17[$r16r17.hi] 	#Opcode-lvx_v1-LHZ_variant_registerW_registerY_registerZ_simple
 	;;
-	lhz.u $r14r15.hi = -64[$r16] 	#Opcode-lvx_v1-LHZ_variant_registerW_signed10_registerZ_simple
+	lhz.u $r16r17r18r19.y = -64[$r18] 	#Opcode-lvx_v1-LHZ_variant_registerW_signed10_registerZ_simple
 	;;
-	lhz.us $r16r17.lo = -8589934592[$r16r17r18r19.x] 	#Opcode-lvx_v1-LHZ_variant_registerW_upper27_lower10_registerZ_double
+	lhz.us $r18r19.lo = -8589934592[$r16r17r18r19.z] 	#Opcode-lvx_v1-LHZ_variant_registerW_upper27_lower10_registerZ_double
 	;;
-	liord $r17 = $r16r17.hi, $r16r17r18r19.y 	#Opcode-lvx_v1-LIORD_registerW_registerZ_registerY_simple
+	liord $r19 = $r18r19.hi, $r16r17r18r19.t 	#Opcode-lvx_v1-LIORD_registerW_registerZ_registerY_simple
 	;;
-	liorw $r18 = $r18r19.lo, $r16r17r18r19.z 	#Opcode-lvx_v1-LIORW_registerW_registerZ_registerY_simple
+	liorw $r20 = $r20r21.lo, $r20r21r22r23.x 	#Opcode-lvx_v1-LIORW_registerW_registerZ_registerY_simple
 	;;
-	lnandd $r19 = $r18r19.hi, $r16r17r18r19.t 	#Opcode-lvx_v1-LNANDD_registerW_registerZ_registerY_simple
+	lnandd $r21 = $r20r21.hi, $r20r21r22r23.y 	#Opcode-lvx_v1-LNANDD_registerW_registerZ_registerY_simple
 	;;
-	lnandw $r20 = $r20r21.lo, $r20r21r22r23.x 	#Opcode-lvx_v1-LNANDW_registerW_registerZ_registerY_simple
+	lnandw $r22 = $r22r23.lo, $r20r21r22r23.z 	#Opcode-lvx_v1-LNANDW_registerW_registerZ_registerY_simple
 	;;
-	lniord $r21 = $r20r21.hi, $r20r21r22r23.y 	#Opcode-lvx_v1-LNIORD_registerW_registerZ_registerY_simple
+	lniord $r23 = $r22r23.hi, $r20r21r22r23.t 	#Opcode-lvx_v1-LNIORD_registerW_registerZ_registerY_simple
 	;;
-	lniorw $r22 = $r22r23.lo, $r20r21r22r23.z 	#Opcode-lvx_v1-LNIORW_registerW_registerZ_registerY_simple
+	lniorw $r24 = $r24r25.lo, $r24r25r26r27.x 	#Opcode-lvx_v1-LNIORW_registerW_registerZ_registerY_simple
 	;;
-	loopdo $r23, -32768 	#Opcode-lvx_v1-LOOPDO_registerZ_pcrel17s2_simple
+	loopdo $r25, -32768 	#Opcode-lvx_v1-LOOPDO_registerZ_pcrel17s2_simple
 	;;
-	lo $r20r21r22r23 = 2305843009213693951[$r22r23.hi] 	#Opcode-lvx_v1-LO_variant_registerN_extend27_upper27_lower10_registerZ_triple
+	lo $r20r21r22r23 = 2305843009213693951[$r24r25.hi] 	#Opcode-lvx_v1-LO_variant_registerN_extend27_upper27_lower10_registerZ_triple
 	;;
-	lo.s $r24r25r26r27 = $r20r21r22r23.t[$r24] 	#Opcode-lvx_v1-LO_variant_registerN_registerY_registerZ_simple
+	lo.s $r24r25r26r27 = $r24r25r26r27.y[$r26] 	#Opcode-lvx_v1-LO_variant_registerN_registerY_registerZ_simple
 	;;
-	lo.u $r28r29r30r31 = -64[$r24r25.lo] 	#Opcode-lvx_v1-LO_variant_registerN_signed10_registerZ_simple
+	lo.u $r28r29r30r31 = -64[$r26r27.lo] 	#Opcode-lvx_v1-LO_variant_registerN_signed10_registerZ_simple
 	;;
-	lo.us $r32r33r34r35 = -8589934592[$r24r25r26r27.x] 	#Opcode-lvx_v1-LO_variant_registerN_upper27_lower10_registerZ_double
+	lo.us $r32r33r34r35 = -8589934592[$r24r25r26r27.z] 	#Opcode-lvx_v1-LO_variant_registerN_upper27_lower10_registerZ_double
 	;;
-	lq $r56r57 = 2305843009213693951[$r25] 	#Opcode-lvx_v1-LQ_variant_registerM_extend27_upper27_lower10_registerZ_triple
+	lq $r56r57 = 2305843009213693951[$r27] 	#Opcode-lvx_v1-LQ_variant_registerM_extend27_upper27_lower10_registerZ_triple
 	;;
-	lq.s $r56r57r58r59.lo = $r24r25.hi[$r24r25r26r27.y] 	#Opcode-lvx_v1-LQ_variant_registerM_registerY_registerZ_simple
+	lq.s $r56r57r58r59.lo = $r26r27.hi[$r24r25r26r27.t] 	#Opcode-lvx_v1-LQ_variant_registerM_registerY_registerZ_simple
 	;;
-	lq.u $r58r59 = -64[$r26] 	#Opcode-lvx_v1-LQ_variant_registerM_signed10_registerZ_simple
+	lq.u $r58r59 = -64[$r28] 	#Opcode-lvx_v1-LQ_variant_registerM_signed10_registerZ_simple
 	;;
-	lq.us $r56r57r58r59.hi = -8589934592[$r26r27.lo] 	#Opcode-lvx_v1-LQ_variant_registerM_upper27_lower10_registerZ_double
+	lq.us $r56r57r58r59.hi = -8589934592[$r28r29.lo] 	#Opcode-lvx_v1-LQ_variant_registerM_upper27_lower10_registerZ_double
 	;;
-	lws $r24r25r26r27.z = 2305843009213693951[$r27] 	#Opcode-lvx_v1-LWS_variant_registerW_extend27_upper27_lower10_registerZ_triple
+	lws $r28r29r30r31.x = 2305843009213693951[$r29] 	#Opcode-lvx_v1-LWS_variant_registerW_extend27_upper27_lower10_registerZ_triple
 	;;
-	lws.s $r26r27.hi = $r24r25r26r27.t[$r28] 	#Opcode-lvx_v1-LWS_variant_registerW_registerY_registerZ_simple
+	lws.s $r28r29.hi = $r28r29r30r31.y[$r30] 	#Opcode-lvx_v1-LWS_variant_registerW_registerY_registerZ_simple
 	;;
-	lws.u $r28r29.lo = -64[$r28r29r30r31.x] 	#Opcode-lvx_v1-LWS_variant_registerW_signed10_registerZ_simple
+	lws.u $r30r31.lo = -64[$r28r29r30r31.z] 	#Opcode-lvx_v1-LWS_variant_registerW_signed10_registerZ_simple
 	;;
-	lws.us $r29 = -8589934592[$r28r29.hi] 	#Opcode-lvx_v1-LWS_variant_registerW_upper27_lower10_registerZ_double
+	lws.us $r31 = -8589934592[$r30r31.hi] 	#Opcode-lvx_v1-LWS_variant_registerW_upper27_lower10_registerZ_double
 	;;
-	lwz $r28r29r30r31.y = 2305843009213693951[$r30] 	#Opcode-lvx_v1-LWZ_variant_registerW_extend27_upper27_lower10_registerZ_triple
+	lwz $r28r29r30r31.t = 2305843009213693951[$r32] 	#Opcode-lvx_v1-LWZ_variant_registerW_extend27_upper27_lower10_registerZ_triple
 	;;
-	lwz.s $r30r31.lo = $r28r29r30r31.z[$r31] 	#Opcode-lvx_v1-LWZ_variant_registerW_registerY_registerZ_simple
+	lwz.s $r32r33.lo = $r32r33r34r35.x[$r33] 	#Opcode-lvx_v1-LWZ_variant_registerW_registerY_registerZ_simple
 	;;
-	lwz.u $r30r31.hi = -64[$r28r29r30r31.t] 	#Opcode-lvx_v1-LWZ_variant_registerW_signed10_registerZ_simple
+	lwz.u $r32r33.hi = -64[$r32r33r34r35.y] 	#Opcode-lvx_v1-LWZ_variant_registerW_signed10_registerZ_simple
 	;;
-	lwz.us $r32 = -8589934592[$r32r33.lo] 	#Opcode-lvx_v1-LWZ_variant_registerW_upper27_lower10_registerZ_double
+	lwz.us $r34 = -8589934592[$r34r35.lo] 	#Opcode-lvx_v1-LWZ_variant_registerW_upper27_lower10_registerZ_double
 	;;
-	madddq $r60r61 = $r32r33r34r35.x, $r33 	#Opcode-lvx_v1-MADDDQ_widemult_registerM_registerZ_registerY_simple
+	madddq $r60r61 = $r32r33r34r35.z, $r35 	#Opcode-lvx_v1-MADDDQ_widemult_registerM_registerZ_registerY_simple
 	;;
-	madddt $r60r61r62r63.lo = $r32r33.hi, $r32r33r34r35.y 	#Opcode-lvx_v1-MADDDT_registerM_registerZ_registerY_simple
+	madddt $r60r61r62r63.lo = $r34r35.hi, $r32r33r34r35.t 	#Opcode-lvx_v1-MADDDT_registerM_registerZ_registerY_simple
 	;;
-	maddd $r34 = $r34r35.lo, $r32r33r34r35.z 	#Opcode-lvx_v1-MADDD_highmult_registerW_registerZ_registerY_simple
+	maddd $r36 = $r36r37.lo, $r36r37r38r39.x 	#Opcode-lvx_v1-MADDD_highmult_registerW_registerZ_registerY_simple
 	;;
-	maddd.h $r35 = $r34r35.hi, 536870911 	#Opcode-lvx_v1-MADDD_highmult_registerW_registerZ_upper27_lower5_splat32_double
+	maddd.h $r37 = $r36r37.hi, 536870911 	#Opcode-lvx_v1-MADDD_highmult_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	maddsudt $r62r63 = $r32r33r34r35.t, $r36 	#Opcode-lvx_v1-MADDSUDT_registerM_registerZ_registerY_simple
+	maddsudt $r62r63 = $r36r37r38r39.y, $r38 	#Opcode-lvx_v1-MADDSUDT_registerM_registerZ_registerY_simple
 	;;
-	maddsuwd $r36r37.lo = $r36r37r38r39.x, $r37 	#Opcode-lvx_v1-MADDSUWD_registerW_registerZ_registerY_simple
+	maddsuwd $r38r39.lo = $r36r37r38r39.z, $r39 	#Opcode-lvx_v1-MADDSUWD_registerW_registerZ_registerY_simple
 	;;
-	maddsuwd $r36r37.hi = $r36r37r38r39.y, 536870911 	#Opcode-lvx_v1-MADDSUWD_registerW_registerZ_upper27_lower5_double
+	maddsuwd $r38r39.hi = $r36r37r38r39.t, 536870911 	#Opcode-lvx_v1-MADDSUWD_registerW_registerZ_upper27_lower5_double
 	;;
-	maddudt $r60r61r62r63.hi = $r38, $r38r39.lo 	#Opcode-lvx_v1-MADDUDT_registerM_registerZ_registerY_simple
+	maddudt $r60r61r62r63.hi = $r40, $r40r41.lo 	#Opcode-lvx_v1-MADDUDT_registerM_registerZ_registerY_simple
 	;;
-	madduwd $r36r37r38r39.z = $r39, $r38r39.hi 	#Opcode-lvx_v1-MADDUWD_registerW_registerZ_registerY_simple
+	madduwd $r40r41r42r43.x = $r41, $r40r41.hi 	#Opcode-lvx_v1-MADDUWD_registerW_registerZ_registerY_simple
 	;;
-	madduwd $r36r37r38r39.t = $r40, 536870911 	#Opcode-lvx_v1-MADDUWD_registerW_registerZ_upper27_lower5_double
+	madduwd $r40r41r42r43.y = $r42, 536870911 	#Opcode-lvx_v1-MADDUWD_registerW_registerZ_upper27_lower5_double
 	;;
-	maddwd.u $r40r41.lo = $r40r41r42r43.x, $r41 	#Opcode-lvx_v1-MADDWD_widemult_registerW_registerZ_registerY_simple
+	maddwd.u $r42r43.lo = $r40r41r42r43.z, $r43 	#Opcode-lvx_v1-MADDWD_widemult_registerW_registerZ_registerY_simple
 	;;
-	maddwd.su $r40r41.hi = $r40r41r42r43.y, 536870911.@ 	#Opcode-lvx_v1-MADDWD_widemult_registerW_registerZ_upper27_lower5_splat32_double
+	maddwd.su $r42r43.hi = $r40r41r42r43.t, 536870911.@ 	#Opcode-lvx_v1-MADDWD_widemult_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	maddw.hu.sx $r42 = $r42r43.lo, $r40r41r42r43.z 	#Opcode-lvx_v1-MADDW_highmult_signextw_registerW_registerZ_registerY_simple
+	maddw.hu.sx $r44 = $r44r45.lo, $r44r45r46r47.x 	#Opcode-lvx_v1-MADDW_highmult_signextw_registerW_registerZ_registerY_simple
 	;;
-	maddw.hsu $r43 = $r42r43.hi, 536870911 	#Opcode-lvx_v1-MADDW_highmult_signextw_registerW_registerZ_upper27_lower5_double
+	maddw.hsu $r45 = $r44r45.hi, 536870911 	#Opcode-lvx_v1-MADDW_highmult_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	make $r40r41r42r43.t = 2305843009213693951 	#Opcode-lvx_v1-MAKE_registerW_extend27_upper27_lower10_triple
+	make $r44r45r46r47.y = 2305843009213693951 	#Opcode-lvx_v1-MAKE_registerW_extend27_upper27_lower10_triple
 	;;
-	make $r44 = -549755813888 	#Opcode-lvx_v1-MAKE_registerW_extend6_upper27_lower10_double
+	make $r46 = -549755813888 	#Opcode-lvx_v1-MAKE_registerW_extend6_upper27_lower10_double
 	;;
-	make $r44r45.lo = -4096 	#Opcode-lvx_v1-MAKE_registerW_signed16_simple
+	make $r46r47.lo = -4096 	#Opcode-lvx_v1-MAKE_registerW_signed16_simple
 	;;
-	maxd $r44r45r46r47.x = $r45, 2305843009213693951 	#Opcode-lvx_v1-MAXD_registerW_registerZ_extend27_upper27_lower10_triple
+	maxd $r44r45r46r47.z = $r47, 2305843009213693951 	#Opcode-lvx_v1-MAXD_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	maxd $r44r45.hi = $r44r45r46r47.y, $r46 	#Opcode-lvx_v1-MAXD_registerW_registerZ_registerY_simple
+	maxd $r46r47.hi = $r44r45r46r47.t, $r48 	#Opcode-lvx_v1-MAXD_registerW_registerZ_registerY_simple
 	;;
-	maxd $r46r47.lo = $r44r45r46r47.z, -64 	#Opcode-lvx_v1-MAXD_registerW_registerZ_signed10_simple
+	maxd $r48r49.lo = $r48r49r50r51.x, -64 	#Opcode-lvx_v1-MAXD_registerW_registerZ_signed10_simple
 	;;
-	maxd $r47 = $r46r47.hi, -8589934592 	#Opcode-lvx_v1-MAXD_registerW_registerZ_upper27_lower10_double
+	maxd $r49 = $r48r49.hi, -8589934592 	#Opcode-lvx_v1-MAXD_registerW_registerZ_upper27_lower10_double
 	;;
-	maxud $r44r45r46r47.t = $r48, 2305843009213693951 	#Opcode-lvx_v1-MAXUD_registerW_registerZ_extend27_upper27_lower10_triple
+	maxud $r48r49r50r51.y = $r50, 2305843009213693951 	#Opcode-lvx_v1-MAXUD_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	maxud $r48r49.lo = $r48r49r50r51.x, $r49 	#Opcode-lvx_v1-MAXUD_registerW_registerZ_registerY_simple
+	maxud $r50r51.lo = $r48r49r50r51.z, $r51 	#Opcode-lvx_v1-MAXUD_registerW_registerZ_registerY_simple
 	;;
-	maxud $r48r49.hi = $r48r49r50r51.y, -64 	#Opcode-lvx_v1-MAXUD_registerW_registerZ_signed10_simple
+	maxud $r50r51.hi = $r48r49r50r51.t, -64 	#Opcode-lvx_v1-MAXUD_registerW_registerZ_signed10_simple
 	;;
-	maxud $r50 = $r50r51.lo, -8589934592 	#Opcode-lvx_v1-MAXUD_registerW_registerZ_upper27_lower10_double
+	maxud $r52 = $r52r53.lo, -8589934592 	#Opcode-lvx_v1-MAXUD_registerW_registerZ_upper27_lower10_double
 	;;
-	maxuw.sx $r48r49r50r51.z = $r51, $r50r51.hi 	#Opcode-lvx_v1-MAXUW_signextw_registerW_registerZ_registerY_simple
+	maxuw.sx $r52r53r54r55.x = $r53, $r52r53.hi 	#Opcode-lvx_v1-MAXUW_signextw_registerW_registerZ_registerY_simple
 	;;
-	maxuw $r48r49r50r51.t = $r52, 536870911 	#Opcode-lvx_v1-MAXUW_signextw_registerW_registerZ_upper27_lower5_double
+	maxuw $r52r53r54r55.y = $r54, 536870911 	#Opcode-lvx_v1-MAXUW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	maxw.sx $r52r53.lo = $r52r53r54r55.x, $r53 	#Opcode-lvx_v1-MAXW_signextw_registerW_registerZ_registerY_simple
+	maxw.sx $r54r55.lo = $r52r53r54r55.z, $r55 	#Opcode-lvx_v1-MAXW_signextw_registerW_registerZ_registerY_simple
 	;;
-	maxw $r52r53.hi = $r52r53r54r55.y, 536870911 	#Opcode-lvx_v1-MAXW_signextw_registerW_registerZ_upper27_lower5_double
+	maxw $r54r55.hi = $r52r53r54r55.t, 536870911 	#Opcode-lvx_v1-MAXW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	mind $r54 = $r54r55.lo, 2305843009213693951 	#Opcode-lvx_v1-MIND_registerW_registerZ_extend27_upper27_lower10_triple
+	mind $r56 = $r56r57.lo, 2305843009213693951 	#Opcode-lvx_v1-MIND_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	mind $r52r53r54r55.z = $r55, $r54r55.hi 	#Opcode-lvx_v1-MIND_registerW_registerZ_registerY_simple
+	mind $r56r57r58r59.x = $r57, $r56r57.hi 	#Opcode-lvx_v1-MIND_registerW_registerZ_registerY_simple
 	;;
-	mind $r52r53r54r55.t = $r56, -64 	#Opcode-lvx_v1-MIND_registerW_registerZ_signed10_simple
+	mind $r56r57r58r59.y = $r58, -64 	#Opcode-lvx_v1-MIND_registerW_registerZ_signed10_simple
 	;;
-	mind $r56r57.lo = $r56r57r58r59.x, -8589934592 	#Opcode-lvx_v1-MIND_registerW_registerZ_upper27_lower10_double
+	mind $r58r59.lo = $r56r57r58r59.z, -8589934592 	#Opcode-lvx_v1-MIND_registerW_registerZ_upper27_lower10_double
 	;;
-	minud $r57 = $r56r57.hi, 2305843009213693951 	#Opcode-lvx_v1-MINUD_registerW_registerZ_extend27_upper27_lower10_triple
+	minud $r59 = $r58r59.hi, 2305843009213693951 	#Opcode-lvx_v1-MINUD_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	minud $r56r57r58r59.y = $r58, $r58r59.lo 	#Opcode-lvx_v1-MINUD_registerW_registerZ_registerY_simple
+	minud $r56r57r58r59.t = $r60, $r60r61.lo 	#Opcode-lvx_v1-MINUD_registerW_registerZ_registerY_simple
 	;;
-	minud $r56r57r58r59.z = $r59, -64 	#Opcode-lvx_v1-MINUD_registerW_registerZ_signed10_simple
+	minud $r60r61r62r63.x = $r61, -64 	#Opcode-lvx_v1-MINUD_registerW_registerZ_signed10_simple
 	;;
-	minud $r58r59.hi = $r56r57r58r59.t, -8589934592 	#Opcode-lvx_v1-MINUD_registerW_registerZ_upper27_lower10_double
+	minud $r60r61.hi = $r60r61r62r63.y, -8589934592 	#Opcode-lvx_v1-MINUD_registerW_registerZ_upper27_lower10_double
 	;;
-	minuw.sx $r60 = $r60r61.lo, $r60r61r62r63.x 	#Opcode-lvx_v1-MINUW_signextw_registerW_registerZ_registerY_simple
+	minuw.sx $r62 = $r62r63.lo, $r60r61r62r63.z 	#Opcode-lvx_v1-MINUW_signextw_registerW_registerZ_registerY_simple
 	;;
-	minuw $r61 = $r60r61.hi, 536870911 	#Opcode-lvx_v1-MINUW_signextw_registerW_registerZ_upper27_lower5_double
+	minuw $r63 = $r62r63.hi, 536870911 	#Opcode-lvx_v1-MINUW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	minw.sx $r60r61r62r63.y = $r62, $r62r63.lo 	#Opcode-lvx_v1-MINW_signextw_registerW_registerZ_registerY_simple
+	minw.sx $r60r61r62r63.t = $r0, $r0r1.lo 	#Opcode-lvx_v1-MINW_signextw_registerW_registerZ_registerY_simple
 	;;
-	minw $r60r61r62r63.z = $r63, 536870911 	#Opcode-lvx_v1-MINW_signextw_registerW_registerZ_upper27_lower5_double
+	minw $r0r1r2r3.x = $r1, 536870911 	#Opcode-lvx_v1-MINW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	msbfdq $r0r1 = $r62r63.hi, $r60r61r62r63.t 	#Opcode-lvx_v1-MSBFDQ_widemult_registerM_registerZ_registerY_simple
+	msbfdq $r0r1 = $r0r1.hi, $r0r1r2r3.y 	#Opcode-lvx_v1-MSBFDQ_widemult_registerM_registerZ_registerY_simple
 	;;
-	msbfdt $r0r1r2r3.lo = $r0, $r0r1.lo 	#Opcode-lvx_v1-MSBFDT_registerM_registerZ_registerY_simple
+	msbfdt $r0r1r2r3.lo = $r2, $r2r3.lo 	#Opcode-lvx_v1-MSBFDT_registerM_registerZ_registerY_simple
 	;;
-	msbfd $r0r1r2r3.x = $r1, $r0r1.hi 	#Opcode-lvx_v1-MSBFD_highmult_registerW_registerZ_registerY_simple
+	msbfd $r0r1r2r3.z = $r3, $r2r3.hi 	#Opcode-lvx_v1-MSBFD_highmult_registerW_registerZ_registerY_simple
 	;;
-	msbfd.h $r0r1r2r3.y = $r2, 536870911 	#Opcode-lvx_v1-MSBFD_highmult_registerW_registerZ_upper27_lower5_splat32_double
+	msbfd.h $r0r1r2r3.t = $r4, 536870911 	#Opcode-lvx_v1-MSBFD_highmult_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	msbfsudt $r2r3 = $r2r3.lo, $r0r1r2r3.z 	#Opcode-lvx_v1-MSBFSUDT_registerM_registerZ_registerY_simple
+	msbfsudt $r2r3 = $r4r5.lo, $r4r5r6r7.x 	#Opcode-lvx_v1-MSBFSUDT_registerM_registerZ_registerY_simple
 	;;
-	msbfsuwd $r3 = $r2r3.hi, $r0r1r2r3.t 	#Opcode-lvx_v1-MSBFSUWD_registerW_registerZ_registerY_simple
+	msbfsuwd $r5 = $r4r5.hi, $r4r5r6r7.y 	#Opcode-lvx_v1-MSBFSUWD_registerW_registerZ_registerY_simple
 	;;
-	msbfsuwd $r4 = $r4r5.lo, 536870911 	#Opcode-lvx_v1-MSBFSUWD_registerW_registerZ_upper27_lower5_double
+	msbfsuwd $r6 = $r6r7.lo, 536870911 	#Opcode-lvx_v1-MSBFSUWD_registerW_registerZ_upper27_lower5_double
 	;;
-	msbfudt $r0r1r2r3.hi = $r4r5r6r7.x, $r5 	#Opcode-lvx_v1-MSBFUDT_registerM_registerZ_registerY_simple
+	msbfudt $r0r1r2r3.hi = $r4r5r6r7.z, $r7 	#Opcode-lvx_v1-MSBFUDT_registerM_registerZ_registerY_simple
 	;;
-	msbfuwd $r4r5.hi = $r4r5r6r7.y, $r6 	#Opcode-lvx_v1-MSBFUWD_registerW_registerZ_registerY_simple
+	msbfuwd $r6r7.hi = $r4r5r6r7.t, $r8 	#Opcode-lvx_v1-MSBFUWD_registerW_registerZ_registerY_simple
 	;;
-	msbfuwd $r6r7.lo = $r4r5r6r7.z, 536870911 	#Opcode-lvx_v1-MSBFUWD_registerW_registerZ_upper27_lower5_double
+	msbfuwd $r8r9.lo = $r8r9r10r11.x, 536870911 	#Opcode-lvx_v1-MSBFUWD_registerW_registerZ_upper27_lower5_double
 	;;
-	msbfwd.u $r7 = $r6r7.hi, $r4r5r6r7.t 	#Opcode-lvx_v1-MSBFWD_widemult_registerW_registerZ_registerY_simple
+	msbfwd.u $r9 = $r8r9.hi, $r8r9r10r11.y 	#Opcode-lvx_v1-MSBFWD_widemult_registerW_registerZ_registerY_simple
 	;;
-	msbfwd.su $r8 = $r8r9.lo, 536870911.@ 	#Opcode-lvx_v1-MSBFWD_widemult_registerW_registerZ_upper27_lower5_splat32_double
+	msbfwd.su $r10 = $r10r11.lo, 536870911.@ 	#Opcode-lvx_v1-MSBFWD_widemult_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	msbfw.hu.sx $r8r9r10r11.x = $r9, $r8r9.hi 	#Opcode-lvx_v1-MSBFW_highmult_signextw_registerW_registerZ_registerY_simple
+	msbfw.hu.sx $r8r9r10r11.z = $r11, $r10r11.hi 	#Opcode-lvx_v1-MSBFW_highmult_signextw_registerW_registerZ_registerY_simple
 	;;
-	msbfw.hsu $r8r9r10r11.y = $r10, 536870911 	#Opcode-lvx_v1-MSBFW_highmult_signextw_registerW_registerZ_upper27_lower5_double
+	msbfw.hsu $r8r9r10r11.t = $r12, 536870911 	#Opcode-lvx_v1-MSBFW_highmult_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	muldq $r4r5 = $r10r11.lo, $r8r9r10r11.z 	#Opcode-lvx_v1-MULDQ_widemult_registerM_registerZ_registerY_simple
+	muldq $r4r5 = $sp, $r13 	#Opcode-lvx_v1-MULDQ_widemult_registerM_registerZ_registerY_simple
 	;;
-	muldt $r4r5r6r7.lo = $r11, $r10r11.hi 	#Opcode-lvx_v1-MULDT_registerM_registerZ_registerY_simple
+	muldt $r4r5r6r7.lo = $tp, $r14 	#Opcode-lvx_v1-MULDT_registerM_registerZ_registerY_simple
 	;;
-	muld $r8r9r10r11.t = $r12, $sp 	#Opcode-lvx_v1-MULD_highmult_registerW_registerZ_registerY_simple
+	muld $fp = $r14r15.lo, $r15 	#Opcode-lvx_v1-MULD_highmult_registerW_registerZ_registerY_simple
 	;;
-	muld.h $r13 = $tp, 536870911 	#Opcode-lvx_v1-MULD_highmult_registerW_registerZ_upper27_lower5_splat32_double
+	muld.h $rp = $r14r15.hi, 536870911 	#Opcode-lvx_v1-MULD_highmult_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	mulndq.u $r6r7 = $r14, $fp 	#Opcode-lvx_v1-MULNDQ_widemult_registerM_registerZ_registerY_simple
+	mulndq.u $r6r7 = $r16, $r16r17.lo 	#Opcode-lvx_v1-MULNDQ_widemult_registerM_registerZ_registerY_simple
 	;;
-	mulnd.hu $r14r15.lo = $r15, $rp 	#Opcode-lvx_v1-MULND_highmult_registerW_registerZ_registerY_simple
+	mulnd.hu $r16r17r18r19.x = $r17, $r16r17.hi 	#Opcode-lvx_v1-MULND_highmult_registerW_registerZ_registerY_simple
 	;;
-	mulnd.hsu $r14r15.hi = $r16, 536870911.@ 	#Opcode-lvx_v1-MULND_highmult_registerW_registerZ_upper27_lower5_splat32_double
+	mulnd.hsu $r16r17r18r19.y = $r18, 536870911.@ 	#Opcode-lvx_v1-MULND_highmult_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	mulnwd.su $r16r17.lo = $r16r17r18r19.x, $r17 	#Opcode-lvx_v1-MULNWD_widemult_registerW_registerZ_registerY_simple
+	mulnwd.su $r18r19.lo = $r16r17r18r19.z, $r19 	#Opcode-lvx_v1-MULNWD_widemult_registerW_registerZ_registerY_simple
 	;;
-	mulnwd $r16r17.hi = $r16r17r18r19.y, 536870911 	#Opcode-lvx_v1-MULNWD_widemult_registerW_registerZ_upper27_lower5_splat32_double
+	mulnwd $r18r19.hi = $r16r17r18r19.t, 536870911 	#Opcode-lvx_v1-MULNWD_widemult_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	mulnw.sx $r18 = $r18r19.lo, $r16r17r18r19.z 	#Opcode-lvx_v1-MULNW_highmult_signextw_registerW_registerZ_registerY_simple
+	mulnw.sx $r20 = $r20r21.lo, $r20r21r22r23.x 	#Opcode-lvx_v1-MULNW_highmult_signextw_registerW_registerZ_registerY_simple
 	;;
-	mulnw.h $r19 = $r18r19.hi, 536870911 	#Opcode-lvx_v1-MULNW_highmult_signextw_registerW_registerZ_upper27_lower5_double
+	mulnw.h $r21 = $r20r21.hi, 536870911 	#Opcode-lvx_v1-MULNW_highmult_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	mulsudt $r4r5r6r7.hi = $r16r17r18r19.t, $r20 	#Opcode-lvx_v1-MULSUDT_registerM_registerZ_registerY_simple
+	mulsudt $r4r5r6r7.hi = $r20r21r22r23.y, $r22 	#Opcode-lvx_v1-MULSUDT_registerM_registerZ_registerY_simple
 	;;
-	mulsuwd $r20r21.lo = $r20r21r22r23.x, $r21 	#Opcode-lvx_v1-MULSUWD_registerW_registerZ_registerY_simple
+	mulsuwd $r22r23.lo = $r20r21r22r23.z, $r23 	#Opcode-lvx_v1-MULSUWD_registerW_registerZ_registerY_simple
 	;;
-	mulsuwd $r20r21.hi = $r20r21r22r23.y, 536870911 	#Opcode-lvx_v1-MULSUWD_registerW_registerZ_upper27_lower5_double
+	mulsuwd $r22r23.hi = $r20r21r22r23.t, 536870911 	#Opcode-lvx_v1-MULSUWD_registerW_registerZ_upper27_lower5_double
 	;;
-	muludt $r8r9 = $r22, $r22r23.lo 	#Opcode-lvx_v1-MULUDT_registerM_registerZ_registerY_simple
+	muludt $r8r9 = $r24, $r24r25.lo 	#Opcode-lvx_v1-MULUDT_registerM_registerZ_registerY_simple
 	;;
-	muluwd $r20r21r22r23.z = $r23, $r22r23.hi 	#Opcode-lvx_v1-MULUWD_registerW_registerZ_registerY_simple
+	muluwd $r24r25r26r27.x = $r25, $r24r25.hi 	#Opcode-lvx_v1-MULUWD_registerW_registerZ_registerY_simple
 	;;
-	muluwd $r20r21r22r23.t = $r24, 536870911 	#Opcode-lvx_v1-MULUWD_registerW_registerZ_upper27_lower5_double
+	muluwd $r24r25r26r27.y = $r26, 536870911 	#Opcode-lvx_v1-MULUWD_registerW_registerZ_upper27_lower5_double
 	;;
-	mulwd.u $r24r25.lo = $r24r25r26r27.x, $r25 	#Opcode-lvx_v1-MULWD_widemult_registerW_registerZ_registerY_simple
+	mulwd.u $r26r27.lo = $r24r25r26r27.z, $r27 	#Opcode-lvx_v1-MULWD_widemult_registerW_registerZ_registerY_simple
 	;;
-	mulwd.su $r24r25.hi = $r24r25r26r27.y, 536870911.@ 	#Opcode-lvx_v1-MULWD_widemult_registerW_registerZ_upper27_lower5_splat32_double
+	mulwd.su $r26r27.hi = $r24r25r26r27.t, 536870911.@ 	#Opcode-lvx_v1-MULWD_widemult_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	mulw.hu.sx $r26 = $r26r27.lo, $r24r25r26r27.z 	#Opcode-lvx_v1-MULW_highmult_signextw_registerW_registerZ_registerY_simple
+	mulw.hu.sx $r28 = $r28r29.lo, $r28r29r30r31.x 	#Opcode-lvx_v1-MULW_highmult_signextw_registerW_registerZ_registerY_simple
 	;;
-	mulw.hsu $r27 = $r26r27.hi, 536870911 	#Opcode-lvx_v1-MULW_highmult_signextw_registerW_registerZ_upper27_lower5_double
+	mulw.hsu $r29 = $r28r29.hi, 536870911 	#Opcode-lvx_v1-MULW_highmult_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	nandd $r24r25r26r27.t = $r28, 2305843009213693951 	#Opcode-lvx_v1-NANDD_registerW_registerZ_extend27_upper27_lower10_triple
+	nandd $r28r29r30r31.y = $r30, 2305843009213693951 	#Opcode-lvx_v1-NANDD_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	nandd $r28r29.lo = $r28r29r30r31.x, $r29 	#Opcode-lvx_v1-NANDD_registerW_registerZ_registerY_simple
+	nandd $r30r31.lo = $r28r29r30r31.z, $r31 	#Opcode-lvx_v1-NANDD_registerW_registerZ_registerY_simple
 	;;
-	nandd $r28r29.hi = $r28r29r30r31.y, -64 	#Opcode-lvx_v1-NANDD_registerW_registerZ_signed10_simple
+	nandd $r30r31.hi = $r28r29r30r31.t, -64 	#Opcode-lvx_v1-NANDD_registerW_registerZ_signed10_simple
 	;;
-	nandd $r30 = $r30r31.lo, -8589934592 	#Opcode-lvx_v1-NANDD_registerW_registerZ_upper27_lower10_double
+	nandd $r32 = $r32r33.lo, -8589934592 	#Opcode-lvx_v1-NANDD_registerW_registerZ_upper27_lower10_double
 	;;
 	nandq $r8r9r10r11.lo = $r10r11, $r8r9r10r11.hi 	#Opcode-lvx_v1-NANDQ_registerM_registerP_registerO_simple
 	;;
 	nandq $r12r13 = $r12r13r14r15.lo, 536870911 	#Opcode-lvx_v1-NANDQ_registerM_registerP_upper27_lower5_splat32_double
 	;;
-	nandw.sx $r28r29r30r31.z = $r31, $r30r31.hi 	#Opcode-lvx_v1-NANDW_signextw_registerW_registerZ_registerY_simple
+	nandw.sx $r32r33r34r35.x = $r33, $r32r33.hi 	#Opcode-lvx_v1-NANDW_signextw_registerW_registerZ_registerY_simple
 	;;
-	nandw $r28r29r30r31.t = $r32, 536870911 	#Opcode-lvx_v1-NANDW_signextw_registerW_registerZ_upper27_lower5_double
+	nandw $r32r33r34r35.y = $r34, 536870911 	#Opcode-lvx_v1-NANDW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	negd $r32r33.lo = $r32r33r34r35.x 	#Opcode-lvx_v1-NEGD_registerW_registerZ_simple
+	negd $r34r35.lo = $r32r33r34r35.z 	#Opcode-lvx_v1-NEGD_registerW_registerZ_simple
 	;;
 	negq $r14r15 = $r12r13r14r15.hi 	#Opcode-lvx_v1-NEGQ_registerM_registerP_simple
 	;;
-	negsd $r33 = $r32r33.hi 	#Opcode-lvx_v1-NEGSD_registerW_registerZ_simple
+	negsd $r35 = $r34r35.hi 	#Opcode-lvx_v1-NEGSD_registerW_registerZ_simple
 	;;
-	negsw $r32r33r34r35.y = $r34 	#Opcode-lvx_v1-NEGSW_registerW_registerZ_simple
+	negsw $r32r33r34r35.t = $r36 	#Opcode-lvx_v1-NEGSW_registerW_registerZ_simple
 	;;
-	negw $r34r35.lo = $r32r33r34r35.z 	#Opcode-lvx_v1-NEGW_registerW_registerZ_simple
+	negw $r36r37.lo = $r36r37r38r39.x 	#Opcode-lvx_v1-NEGW_registerW_registerZ_simple
 	;;
-	neord $r35 = $r34r35.hi, 2305843009213693951 	#Opcode-lvx_v1-NEORD_registerW_registerZ_extend27_upper27_lower10_triple
+	neord $r37 = $r36r37.hi, 2305843009213693951 	#Opcode-lvx_v1-NEORD_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	neord $r32r33r34r35.t = $r36, $r36r37.lo 	#Opcode-lvx_v1-NEORD_registerW_registerZ_registerY_simple
+	neord $r36r37r38r39.y = $r38, $r38r39.lo 	#Opcode-lvx_v1-NEORD_registerW_registerZ_registerY_simple
 	;;
-	neord $r36r37r38r39.x = $r37, -64 	#Opcode-lvx_v1-NEORD_registerW_registerZ_signed10_simple
+	neord $r36r37r38r39.z = $r39, -64 	#Opcode-lvx_v1-NEORD_registerW_registerZ_signed10_simple
 	;;
-	neord $r36r37.hi = $r36r37r38r39.y, -8589934592 	#Opcode-lvx_v1-NEORD_registerW_registerZ_upper27_lower10_double
+	neord $r38r39.hi = $r36r37r38r39.t, -8589934592 	#Opcode-lvx_v1-NEORD_registerW_registerZ_upper27_lower10_double
 	;;
 	neorq $r16r17 = $r16r17r18r19.lo, $r18r19 	#Opcode-lvx_v1-NEORQ_registerM_registerP_registerO_simple
 	;;
 	neorq $r16r17r18r19.hi = $r20r21, 536870911.@ 	#Opcode-lvx_v1-NEORQ_registerM_registerP_upper27_lower5_splat32_double
 	;;
-	neorw.sx $r38 = $r38r39.lo, $r36r37r38r39.z 	#Opcode-lvx_v1-NEORW_signextw_registerW_registerZ_registerY_simple
+	neorw.sx $r40 = $r40r41.lo, $r40r41r42r43.x 	#Opcode-lvx_v1-NEORW_signextw_registerW_registerZ_registerY_simple
 	;;
-	neorw $r39 = $r38r39.hi, 536870911 	#Opcode-lvx_v1-NEORW_signextw_registerW_registerZ_upper27_lower5_double
+	neorw $r41 = $r40r41.hi, 536870911 	#Opcode-lvx_v1-NEORW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	niord $r36r37r38r39.t = $r40, 2305843009213693951 	#Opcode-lvx_v1-NIORD_registerW_registerZ_extend27_upper27_lower10_triple
+	niord $r40r41r42r43.y = $r42, 2305843009213693951 	#Opcode-lvx_v1-NIORD_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	niord $r40r41.lo = $r40r41r42r43.x, $r41 	#Opcode-lvx_v1-NIORD_registerW_registerZ_registerY_simple
+	niord $r42r43.lo = $r40r41r42r43.z, $r43 	#Opcode-lvx_v1-NIORD_registerW_registerZ_registerY_simple
 	;;
-	niord $r40r41.hi = $r40r41r42r43.y, -64 	#Opcode-lvx_v1-NIORD_registerW_registerZ_signed10_simple
+	niord $r42r43.hi = $r40r41r42r43.t, -64 	#Opcode-lvx_v1-NIORD_registerW_registerZ_signed10_simple
 	;;
-	niord $r42 = $r42r43.lo, -8589934592 	#Opcode-lvx_v1-NIORD_registerW_registerZ_upper27_lower10_double
+	niord $r44 = $r44r45.lo, -8589934592 	#Opcode-lvx_v1-NIORD_registerW_registerZ_upper27_lower10_double
 	;;
 	niorq $r20r21r22r23.lo = $r22r23, $r20r21r22r23.hi 	#Opcode-lvx_v1-NIORQ_registerM_registerP_registerO_simple
 	;;
 	niorq $r24r25 = $r24r25r26r27.lo, 536870911 	#Opcode-lvx_v1-NIORQ_registerM_registerP_upper27_lower5_splat32_double
 	;;
-	niorw.sx $r40r41r42r43.z = $r43, $r42r43.hi 	#Opcode-lvx_v1-NIORW_signextw_registerW_registerZ_registerY_simple
+	niorw.sx $r44r45r46r47.x = $r45, $r44r45.hi 	#Opcode-lvx_v1-NIORW_signextw_registerW_registerZ_registerY_simple
 	;;
-	niorw $r40r41r42r43.t = $r44, 536870911 	#Opcode-lvx_v1-NIORW_signextw_registerW_registerZ_upper27_lower5_double
+	niorw $r44r45r46r47.y = $r46, 536870911 	#Opcode-lvx_v1-NIORW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
 	nop 	#Opcode-lvx_v1-NOP_simple
 	;;
-	notd $r44r45.lo = $r44r45r46r47.x 	#Opcode-lvx_v1-NOTD_registerW_registerZ_simple
+	notd $r46r47.lo = $r44r45r46r47.z 	#Opcode-lvx_v1-NOTD_registerW_registerZ_simple
 	;;
 	notq $r26r27 = $r24r25r26r27.hi 	#Opcode-lvx_v1-NOTQ_registerM_registerP_simple
 	;;
-	notw $r45 = $r44r45.hi 	#Opcode-lvx_v1-NOTW_registerW_registerZ_simple
+	notw $r47 = $r46r47.hi 	#Opcode-lvx_v1-NOTW_registerW_registerZ_simple
 	;;
-	pcrel $r44r45r46r47.y = 2305843009213693951 	#Opcode-lvx_v1-PCREL_registerW_extend27_upper27_lower10_triple
+	pcrel $r44r45r46r47.t = 2305843009213693951 	#Opcode-lvx_v1-PCREL_registerW_extend27_upper27_lower10_triple
 	;;
-	pcrel $r46 = -549755813888 	#Opcode-lvx_v1-PCREL_registerW_extend6_upper27_lower10_double
+	pcrel $r48 = -549755813888 	#Opcode-lvx_v1-PCREL_registerW_extend6_upper27_lower10_double
 	;;
-	pcrel $r46r47.lo = -4096 	#Opcode-lvx_v1-PCREL_registerW_signed16_simple
+	pcrel $r48r49.lo = -4096 	#Opcode-lvx_v1-PCREL_registerW_signed16_simple
 	;;
 	ret 	#Opcode-lvx_v1-RET_simple
 	;;
 	rfe 	#Opcode-lvx_v1-RFE_simple
 	;;
-	rold $r44r45r46r47.z = $r47, $r46r47.hi 	#Opcode-lvx_v1-ROLD_registerW_registerZ_registerY_simple
+	rold $r48r49r50r51.x = $r49, $r48r49.hi 	#Opcode-lvx_v1-ROLD_registerW_registerZ_registerY_simple
 	;;
-	rold $r44r45r46r47.t = $r48, 7 	#Opcode-lvx_v1-ROLD_registerW_registerZ_unsigned6_simple
+	rold $r48r49r50r51.y = $r50, 7 	#Opcode-lvx_v1-ROLD_registerW_registerZ_unsigned6_simple
 	;;
-	rolw.sx $r48r49.lo = $r48r49r50r51.x, $r49 	#Opcode-lvx_v1-ROLW_signextw_registerW_registerZ_registerY_simple
+	rolw.sx $r50r51.lo = $r48r49r50r51.z, $r51 	#Opcode-lvx_v1-ROLW_signextw_registerW_registerZ_registerY_simple
 	;;
-	rolw $r48r49.hi = $r48r49r50r51.y, 7 	#Opcode-lvx_v1-ROLW_signextw_registerW_registerZ_unsigned6_simple
+	rolw $r50r51.hi = $r48r49r50r51.t, 7 	#Opcode-lvx_v1-ROLW_signextw_registerW_registerZ_unsigned6_simple
 	;;
-	rord $r50 = $r50r51.lo, $r48r49r50r51.z 	#Opcode-lvx_v1-RORD_registerW_registerZ_registerY_simple
+	rord $r52 = $r52r53.lo, $r52r53r54r55.x 	#Opcode-lvx_v1-RORD_registerW_registerZ_registerY_simple
 	;;
-	rord $r51 = $r50r51.hi, 7 	#Opcode-lvx_v1-RORD_registerW_registerZ_unsigned6_simple
+	rord $r53 = $r52r53.hi, 7 	#Opcode-lvx_v1-RORD_registerW_registerZ_unsigned6_simple
 	;;
-	rorw.sx $r48r49r50r51.t = $r52, $r52r53.lo 	#Opcode-lvx_v1-RORW_signextw_registerW_registerZ_registerY_simple
+	rorw.sx $r52r53r54r55.y = $r54, $r54r55.lo 	#Opcode-lvx_v1-RORW_signextw_registerW_registerZ_registerY_simple
 	;;
-	rorw $r52r53r54r55.x = $r53, 7 	#Opcode-lvx_v1-RORW_signextw_registerW_registerZ_unsigned6_simple
+	rorw $r52r53r54r55.z = $r55, 7 	#Opcode-lvx_v1-RORW_signextw_registerW_registerZ_unsigned6_simple
 	;;
-	rswap $r52r53.hi = $mmc 	#Opcode-lvx_v1-RSWAP_registerZ_systemAlone_simple
+	rswap $r54r55.hi = $mmc 	#Opcode-lvx_v1-RSWAP_registerZ_systemAlone_simple
 	;;
-	rswap $r52r53r54r55.y = $s0 	#Opcode-lvx_v1-RSWAP_registerZ_systemS3_simple
+	rswap $r52r53r54r55.t = $s0 	#Opcode-lvx_v1-RSWAP_registerZ_systemS3_simple
 	;;
-	rswap $r54 = $pc 	#Opcode-lvx_v1-RSWAP_registerZ_systemS4_simple
+	rswap $r56 = $pc 	#Opcode-lvx_v1-RSWAP_registerZ_systemS4_simple
 	;;
-	sbfd $r54r55.lo = $r52r53r54r55.z, 2305843009213693951 	#Opcode-lvx_v1-SBFD_registerW_registerZ_extend27_upper27_lower10_triple
+	sbfd $r56r57.lo = $r56r57r58r59.x, 2305843009213693951 	#Opcode-lvx_v1-SBFD_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	sbfd $r55 = $r54r55.hi, $r52r53r54r55.t 	#Opcode-lvx_v1-SBFD_registerW_registerZ_registerY_simple
+	sbfd $r57 = $r56r57.hi, $r56r57r58r59.y 	#Opcode-lvx_v1-SBFD_registerW_registerZ_registerY_simple
 	;;
-	sbfd $r56 = $r56r57.lo, -64 	#Opcode-lvx_v1-SBFD_registerW_registerZ_signed10_simple
+	sbfd $r58 = $r58r59.lo, -64 	#Opcode-lvx_v1-SBFD_registerW_registerZ_signed10_simple
 	;;
-	sbfd $r56r57r58r59.x = $r57, -8589934592 	#Opcode-lvx_v1-SBFD_registerW_registerZ_upper27_lower10_double
+	sbfd $r56r57r58r59.z = $r59, -8589934592 	#Opcode-lvx_v1-SBFD_registerW_registerZ_upper27_lower10_double
 	;;
 	sbfq $r28r29 = $r28r29r30r31.lo, $r30r31 	#Opcode-lvx_v1-SBFQ_registerM_registerP_registerO_simple
 	;;
 	sbfq $r28r29r30r31.hi = $r32r33, 536870911.@ 	#Opcode-lvx_v1-SBFQ_registerM_registerP_upper27_lower5_splat32_double
 	;;
-	sbfsd $r56r57.hi = $r56r57r58r59.y, $r58 	#Opcode-lvx_v1-SBFSD_registerW_registerZ_registerY_simple
+	sbfsd $r58r59.hi = $r56r57r58r59.t, $r60 	#Opcode-lvx_v1-SBFSD_registerW_registerZ_registerY_simple
 	;;
-	sbfsd $r58r59.lo = $r56r57r58r59.z, 536870911 	#Opcode-lvx_v1-SBFSD_registerW_registerZ_upper27_lower5_splat32_double
+	sbfsd $r60r61.lo = $r60r61r62r63.x, 536870911 	#Opcode-lvx_v1-SBFSD_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	sbfsw.sx $r59 = $r58r59.hi, $r56r57r58r59.t 	#Opcode-lvx_v1-SBFSW_signextw_registerW_registerZ_registerY_simple
+	sbfsw.sx $r61 = $r60r61.hi, $r60r61r62r63.y 	#Opcode-lvx_v1-SBFSW_signextw_registerW_registerZ_registerY_simple
 	;;
-	sbfsw $r60 = $r60r61.lo, 536870911 	#Opcode-lvx_v1-SBFSW_signextw_registerW_registerZ_upper27_lower5_double
+	sbfsw $r62 = $r62r63.lo, 536870911 	#Opcode-lvx_v1-SBFSW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	sbfusd $r60r61r62r63.x = $r61, $r60r61.hi 	#Opcode-lvx_v1-SBFUSD_registerW_registerZ_registerY_simple
+	sbfusd $r60r61r62r63.z = $r63, $r62r63.hi 	#Opcode-lvx_v1-SBFUSD_registerW_registerZ_registerY_simple
 	;;
-	sbfusd $r60r61r62r63.y = $r62, 536870911.@ 	#Opcode-lvx_v1-SBFUSD_registerW_registerZ_upper27_lower5_splat32_double
+	sbfusd $r60r61r62r63.t = $r0, 536870911.@ 	#Opcode-lvx_v1-SBFUSD_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	sbfusw.sx $r62r63.lo = $r60r61r62r63.z, $r63 	#Opcode-lvx_v1-SBFUSW_signextw_registerW_registerZ_registerY_simple
+	sbfusw.sx $r0r1.lo = $r0r1r2r3.x, $r1 	#Opcode-lvx_v1-SBFUSW_signextw_registerW_registerZ_registerY_simple
 	;;
-	sbfusw $r62r63.hi = $r60r61r62r63.t, 536870911 	#Opcode-lvx_v1-SBFUSW_signextw_registerW_registerZ_upper27_lower5_double
+	sbfusw $r0r1.hi = $r0r1r2r3.y, 536870911 	#Opcode-lvx_v1-SBFUSW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	sbfw.sx $r0 = $r0r1.lo, $r0r1r2r3.x 	#Opcode-lvx_v1-SBFW_signextw_registerW_registerZ_registerY_simple
+	sbfw.sx $r2 = $r2r3.lo, $r0r1r2r3.z 	#Opcode-lvx_v1-SBFW_signextw_registerW_registerZ_registerY_simple
 	;;
-	sbfw $r1 = $r0r1.hi, 536870911 	#Opcode-lvx_v1-SBFW_signextw_registerW_registerZ_upper27_lower5_double
+	sbfw $r3 = $r2r3.hi, 536870911 	#Opcode-lvx_v1-SBFW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	sbmm8d $r0r1r2r3.y = $r2, 2305843009213693951 	#Opcode-lvx_v1-SBMM8D_registerW_registerZ_extend27_upper27_lower10_triple
+	sbmm8d $r0r1r2r3.t = $r4, 2305843009213693951 	#Opcode-lvx_v1-SBMM8D_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	sbmm8d $r2r3.lo = $r0r1r2r3.z, $r3 	#Opcode-lvx_v1-SBMM8D_registerW_registerZ_registerY_simple
+	sbmm8d $r4r5.lo = $r4r5r6r7.x, $r5 	#Opcode-lvx_v1-SBMM8D_registerW_registerZ_registerY_simple
 	;;
-	sbmm8d $r2r3.hi = $r0r1r2r3.t, -64 	#Opcode-lvx_v1-SBMM8D_registerW_registerZ_signed10_simple
+	sbmm8d $r4r5.hi = $r4r5r6r7.y, -64 	#Opcode-lvx_v1-SBMM8D_registerW_registerZ_signed10_simple
 	;;
-	sbmm8d $r4 = $r4r5.lo, -8589934592 	#Opcode-lvx_v1-SBMM8D_registerW_registerZ_upper27_lower10_double
+	sbmm8d $r6 = $r6r7.lo, -8589934592 	#Opcode-lvx_v1-SBMM8D_registerW_registerZ_upper27_lower10_double
 	;;
-	sbmm8eord $r4r5r6r7.x = $r5, $r4r5.hi 	#Opcode-lvx_v1-SBMM8EORD_registerW_registerZ_registerY_simple
+	sbmm8eord $r4r5r6r7.z = $r7, $r6r7.hi 	#Opcode-lvx_v1-SBMM8EORD_registerW_registerZ_registerY_simple
 	;;
-	sbmm8eord $r4r5r6r7.y = $r6, 536870911 	#Opcode-lvx_v1-SBMM8EORD_registerW_registerZ_upper27_lower5_splat32_double
+	sbmm8eord $r4r5r6r7.t = $r8, 536870911 	#Opcode-lvx_v1-SBMM8EORD_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	sbmm8 $r6r7.lo = $r4r5r6r7.z, 2305843009213693951 	#Opcode-lvx_v1-SBMM8_registerW_registerZ_extend27_upper27_lower10_triple
+	sbmm8 $r8r9.lo = $r8r9r10r11.x, 2305843009213693951 	#Opcode-lvx_v1-SBMM8_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	sbmm8 $r7 = $r6r7.hi, $r4r5r6r7.t 	#Opcode-lvx_v1-SBMM8_registerW_registerZ_registerY_simple
+	sbmm8 $r9 = $r8r9.hi, $r8r9r10r11.y 	#Opcode-lvx_v1-SBMM8_registerW_registerZ_registerY_simple
 	;;
-	sbmm8 $r8 = $r8r9.lo, -64 	#Opcode-lvx_v1-SBMM8_registerW_registerZ_signed10_simple
+	sbmm8 $r10 = $r10r11.lo, -64 	#Opcode-lvx_v1-SBMM8_registerW_registerZ_signed10_simple
 	;;
-	sbmm8 $r8r9r10r11.x = $r9, -8589934592 	#Opcode-lvx_v1-SBMM8_registerW_registerZ_upper27_lower10_double
+	sbmm8 $r8r9r10r11.z = $r11, -8589934592 	#Opcode-lvx_v1-SBMM8_registerW_registerZ_upper27_lower10_double
 	;;
-	sbmmt8d $r8r9.hi = $r8r9r10r11.y, 2305843009213693951 	#Opcode-lvx_v1-SBMMT8D_registerW_registerZ_extend27_upper27_lower10_triple
+	sbmmt8d $r10r11.hi = $r8r9r10r11.t, 2305843009213693951 	#Opcode-lvx_v1-SBMMT8D_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	sbmmt8d $r10 = $r10r11.lo, $r8r9r10r11.z 	#Opcode-lvx_v1-SBMMT8D_registerW_registerZ_registerY_simple
+	sbmmt8d $r12 = $sp, $r13 	#Opcode-lvx_v1-SBMMT8D_registerW_registerZ_registerY_simple
 	;;
-	sbmmt8d $r11 = $r10r11.hi, -64 	#Opcode-lvx_v1-SBMMT8D_registerW_registerZ_signed10_simple
+	sbmmt8d $tp = $r14, -64 	#Opcode-lvx_v1-SBMMT8D_registerW_registerZ_signed10_simple
 	;;
-	sbmmt8d $r8r9r10r11.t = $r12, -8589934592 	#Opcode-lvx_v1-SBMMT8D_registerW_registerZ_upper27_lower10_double
+	sbmmt8d $fp = $r14r15.lo, -8589934592 	#Opcode-lvx_v1-SBMMT8D_registerW_registerZ_upper27_lower10_double
 	;;
-	sbmmt8eord $sp = $r13, $tp 	#Opcode-lvx_v1-SBMMT8EORD_registerW_registerZ_registerY_simple
+	sbmmt8eord $r15 = $rp, $r14r15.hi 	#Opcode-lvx_v1-SBMMT8EORD_registerW_registerZ_registerY_simple
 	;;
-	sbmmt8eord $r14 = $fp, 536870911.@ 	#Opcode-lvx_v1-SBMMT8EORD_registerW_registerZ_upper27_lower5_splat32_double
+	sbmmt8eord $r16 = $r16r17.lo, 536870911.@ 	#Opcode-lvx_v1-SBMMT8EORD_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	sbmmt8 $r14r15.lo = $r15, 2305843009213693951 	#Opcode-lvx_v1-SBMMT8_registerW_registerZ_extend27_upper27_lower10_triple
+	sbmmt8 $r16r17r18r19.x = $r17, 2305843009213693951 	#Opcode-lvx_v1-SBMMT8_registerW_registerZ_extend27_upper27_lower10_triple
 	;;
-	sbmmt8 $rp = $r14r15.hi, $r16 	#Opcode-lvx_v1-SBMMT8_registerW_registerZ_registerY_simple
+	sbmmt8 $r16r17.hi = $r16r17r18r19.y, $r18 	#Opcode-lvx_v1-SBMMT8_registerW_registerZ_registerY_simple
 	;;
-	sbmmt8 $r16r17.lo = $r16r17r18r19.x, -64 	#Opcode-lvx_v1-SBMMT8_registerW_registerZ_signed10_simple
+	sbmmt8 $r18r19.lo = $r16r17r18r19.z, -64 	#Opcode-lvx_v1-SBMMT8_registerW_registerZ_signed10_simple
 	;;
-	sbmmt8 $r17 = $r16r17.hi, -8589934592 	#Opcode-lvx_v1-SBMMT8_registerW_registerZ_upper27_lower10_double
+	sbmmt8 $r19 = $r18r19.hi, -8589934592 	#Opcode-lvx_v1-SBMMT8_registerW_registerZ_upper27_lower10_double
 	;;
-	sb 2305843009213693951[$r16r17r18r19.y] = $r18 	#Opcode-lvx_v1-SB_extend27_upper27_lower10_registerZ_registerT_triple
+	sb 2305843009213693951[$r16r17r18r19.t] = $r20 	#Opcode-lvx_v1-SB_extend27_upper27_lower10_registerZ_registerT_triple
 	;;
-	sb $r18r19.lo[$r16r17r18r19.z] = $r19 	#Opcode-lvx_v1-SB_registerY_registerZ_registerT_simple
+	sb $r20r21.lo[$r20r21r22r23.x] = $r21 	#Opcode-lvx_v1-SB_registerY_registerZ_registerT_simple
 	;;
-	sb -64[$r18r19.hi] = $r16r17r18r19.t 	#Opcode-lvx_v1-SB_signed10_registerZ_registerT_simple
+	sb -64[$r20r21.hi] = $r20r21r22r23.y 	#Opcode-lvx_v1-SB_signed10_registerZ_registerT_simple
 	;;
-	sb -8589934592[$r20] = $r20r21.lo 	#Opcode-lvx_v1-SB_upper27_lower10_registerZ_registerT_double
+	sb -8589934592[$r22] = $r22r23.lo 	#Opcode-lvx_v1-SB_upper27_lower10_registerZ_registerT_double
 	;;
-	scall $r20r21r22r23.x 	#Opcode-lvx_v1-SCALL_registerZ_simple
+	scall $r20r21r22r23.z 	#Opcode-lvx_v1-SCALL_registerZ_simple
 	;;
 	scall 511 	#Opcode-lvx_v1-SCALL_sysnumber_simple
 	;;
-	sd 2305843009213693951[$r21] = $r20r21.hi 	#Opcode-lvx_v1-SD_extend27_upper27_lower10_registerZ_registerT_triple
+	sd 2305843009213693951[$r23] = $r22r23.hi 	#Opcode-lvx_v1-SD_extend27_upper27_lower10_registerZ_registerT_triple
 	;;
-	sd $r20r21r22r23.y[$r22] = $r22r23.lo 	#Opcode-lvx_v1-SD_registerY_registerZ_registerT_simple
+	sd $r20r21r22r23.t[$r24] = $r24r25.lo 	#Opcode-lvx_v1-SD_registerY_registerZ_registerT_simple
 	;;
-	sd -64[$r20r21r22r23.z] = $r23 	#Opcode-lvx_v1-SD_signed10_registerZ_registerT_simple
+	sd -64[$r24r25r26r27.x] = $r25 	#Opcode-lvx_v1-SD_signed10_registerZ_registerT_simple
 	;;
-	sd -8589934592[$r22r23.hi] = $r20r21r22r23.t 	#Opcode-lvx_v1-SD_upper27_lower10_registerZ_registerT_double
+	sd -8589934592[$r24r25.hi] = $r24r25r26r27.y 	#Opcode-lvx_v1-SD_upper27_lower10_registerZ_registerT_double
 	;;
-	set $s28 = $r24 	#Opcode-lvx_v1-SET_systemAlone_registerZ_simple
+	set $s28 = $r26 	#Opcode-lvx_v1-SET_systemAlone_registerZ_simple
 	;;
-	set $ra = $r24r25.lo 	#Opcode-lvx_v1-SET_systemRA_registerZ_simple
+	set $ra = $r26r27.lo 	#Opcode-lvx_v1-SET_systemRA_registerZ_simple
 	;;
-	set $ps = $r24r25r26r27.x 	#Opcode-lvx_v1-SET_systemT3_registerZ_simple
+	set $ps = $r24r25r26r27.z 	#Opcode-lvx_v1-SET_systemT3_registerZ_simple
 	;;
-	set $ps = $r25 	#Opcode-lvx_v1-SET_systemT4_registerZ_simple
+	set $ps = $r27 	#Opcode-lvx_v1-SET_systemT4_registerZ_simple
 	;;
-	sh 2305843009213693951[$r24r25.hi] = $r24r25r26r27.y 	#Opcode-lvx_v1-SH_extend27_upper27_lower10_registerZ_registerT_triple
+	sh 2305843009213693951[$r26r27.hi] = $r24r25r26r27.t 	#Opcode-lvx_v1-SH_extend27_upper27_lower10_registerZ_registerT_triple
 	;;
-	sh $r26[$r26r27.lo] = $r24r25r26r27.z 	#Opcode-lvx_v1-SH_registerY_registerZ_registerT_simple
+	sh $r28[$r28r29.lo] = $r28r29r30r31.x 	#Opcode-lvx_v1-SH_registerY_registerZ_registerT_simple
 	;;
-	sh -64[$r27] = $r26r27.hi 	#Opcode-lvx_v1-SH_signed10_registerZ_registerT_simple
+	sh -64[$r29] = $r28r29.hi 	#Opcode-lvx_v1-SH_signed10_registerZ_registerT_simple
 	;;
-	sh -8589934592[$r24r25r26r27.t] = $r28 	#Opcode-lvx_v1-SH_upper27_lower10_registerZ_registerT_double
+	sh -8589934592[$r28r29r30r31.y] = $r30 	#Opcode-lvx_v1-SH_upper27_lower10_registerZ_registerT_double
 	;;
-	signd $r28r29.lo = $r28r29r30r31.x, $r29 	#Opcode-lvx_v1-SIGND_registerW_registerZ_registerY_simple
+	signd $r30r31.lo = $r28r29r30r31.z, $r31 	#Opcode-lvx_v1-SIGND_registerW_registerZ_registerY_simple
 	;;
-	signd $r28r29.hi = $r28r29r30r31.y, 536870911 	#Opcode-lvx_v1-SIGND_registerW_registerZ_upper27_lower5_splat32_double
+	signd $r30r31.hi = $r28r29r30r31.t, 536870911 	#Opcode-lvx_v1-SIGND_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	signsd $r30 = $r30r31.lo, $r28r29r30r31.z 	#Opcode-lvx_v1-SIGNSD_registerW_registerZ_registerY_simple
+	signsd $r32 = $r32r33.lo, $r32r33r34r35.x 	#Opcode-lvx_v1-SIGNSD_registerW_registerZ_registerY_simple
 	;;
-	signsd $r31 = $r30r31.hi, 536870911.@ 	#Opcode-lvx_v1-SIGNSD_registerW_registerZ_upper27_lower5_splat32_double
+	signsd $r33 = $r32r33.hi, 536870911.@ 	#Opcode-lvx_v1-SIGNSD_registerW_registerZ_upper27_lower5_splat32_double
 	;;
-	signsw.sx $r28r29r30r31.t = $r32, $r32r33.lo 	#Opcode-lvx_v1-SIGNSW_signextw_registerW_registerZ_registerY_simple
+	signsw.sx $r32r33r34r35.y = $r34, $r34r35.lo 	#Opcode-lvx_v1-SIGNSW_signextw_registerW_registerZ_registerY_simple
 	;;
-	signsw $r32r33r34r35.x = $r33, 536870911 	#Opcode-lvx_v1-SIGNSW_signextw_registerW_registerZ_upper27_lower5_double
+	signsw $r32r33r34r35.z = $r35, 536870911 	#Opcode-lvx_v1-SIGNSW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
-	signw.sx $r32r33.hi = $r32r33r34r35.y, $r34 	#Opcode-lvx_v1-SIGNW_signextw_registerW_registerZ_registerY_simple
+	signw.sx $r34r35.hi = $r32r33r34r35.t, $r36 	#Opcode-lvx_v1-SIGNW_signextw_registerW_registerZ_registerY_simple
 	;;
-	signw $r34r35.lo = $r32r33r34r35.z, 536870911 	#Opcode-lvx_v1-SIGNW_signextw_registerW_registerZ_upper27_lower5_double
+	signw $r36r37.lo = $r36r37r38r39.x, 536870911 	#Opcode-lvx_v1-SIGNW_signextw_registerW_registerZ_upper27_lower5_double
 	;;
 	sleep 	#Opcode-lvx_v1-SLEEP_simple
 	;;
-	slld $r35 = $r34r35.hi, $r32r33r34r35.t 	#Opcode-lvx_v1-SLLD_registerW_registerZ_registerY_simple
+	slld $r37 = $r36r37.hi, $r36r37r38r39.y 	#Opcode-lvx_v1-SLLD_registerW_registerZ_registerY_simple
 	;;
-	slld $r36 = $r36r37.lo, 7 	#Opcode-lvx_v1-SLLD_registerW_registerZ_unsigned6_simple
+	slld $r38 = $r38r39.lo, 7 	#Opcode-lvx_v1-SLLD_registerW_registerZ_unsigned6_simple
 	;;
-	sllw.sx $r36r37r38r39.x = $r37, $r36r37.hi 	#Opcode-lvx_v1-SLLW_signextw_registerW_registerZ_registerY_simple
+	sllw.sx $r36r37r38r39.z = $r39, $r38r39.hi 	#Opcode-lvx_v1-SLLW_signextw_registerW_registerZ_registerY_simple
 	;;
-	sllw $r36r37r38r39.y = $r38, 7 	#Opcode-lvx_v1-SLLW_signextw_registerW_registerZ_unsigned6_simple
+	sllw $r36r37r38r39.t = $r40, 7 	#Opcode-lvx_v1-SLLW_signextw_registerW_registerZ_unsigned6_simple
 	;;
-	slsd $r38r39.lo = $r36r37r38r39.z, $r39 	#Opcode-lvx_v1-SLSD_registerW_registerZ_registerY_simple
+	slsd $r40r41.lo = $r40r41r42r43.x, $r41 	#Opcode-lvx_v1-SLSD_registerW_registerZ_registerY_simple
 	;;
-	slsd $r38r39.hi = $r36r37r38r39.t, 7 	#Opcode-lvx_v1-SLSD_registerW_registerZ_unsigned6_simple
+	slsd $r40r41.hi = $r40r41r42r43.y, 7 	#Opcode-lvx_v1-SLSD_registerW_registerZ_unsigned6_simple
 	;;
-	slsw.sx $r40 = $r40r41.lo, $r40r41r42r43.x 	#Opcode-lvx_v1-SLSW_signextw_registerW_registerZ_registerY_simple
+	slsw.sx $r42 = $r42r43.lo, $r40r41r42r43.z 	#Opcode-lvx_v1-SLSW_signextw_registerW_registerZ_registerY_simple
 	;;
-	slsw $r41 = $r40r41.hi, 7 	#Opcode-lvx_v1-SLSW_signextw_registerW_registerZ_unsigned6_simple
+	slsw $r43 = $r42r43.hi, 7 	#Opcode-lvx_v1-SLSW_signextw_registerW_registerZ_unsigned6_simple
 	;;
-	slusd $r40r41r42r43.y = $r42, $r42r43.lo 	#Opcode-lvx_v1-SLUSD_registerW_registerZ_registerY_simple
+	slusd $r40r41r42r43.t = $r44, $r44r45.lo 	#Opcode-lvx_v1-SLUSD_registerW_registerZ_registerY_simple
 	;;
-	slusd $r40r41r42r43.z = $r43, 7 	#Opcode-lvx_v1-SLUSD_registerW_registerZ_unsigned6_simple
+	slusd $r44r45r46r47.x = $r45, 7 	#Opcode-lvx_v1-SLUSD_registerW_registerZ_unsigned6_simple
 	;;
-	slusw.sx $r42r43.hi = $r40r41r42r43.t, $r44 	#Opcode-lvx_v1-SLUSW_signextw_registerW_registerZ_registerY_simple
+	slusw.sx $r44r45.hi = $r44r45r46r47.y, $r46 	#Opcode-lvx_v1-SLUSW_signextw_registerW_registerZ_registerY_simple
 	;;
-	slusw $r44r45.lo = $r44r45r46r47.x, 7 	#Opcode-lvx_v1-SLUSW_signextw_registerW_registerZ_unsigned6_simple
+	slusw $r46r47.lo = $r44r45r46r47.z, 7 	#Opcode-lvx_v1-SLUSW_signextw_registerW_registerZ_unsigned6_simple
 	;;
-	so 2305843009213693951[$r45] = $r36r37r38r39 	#Opcode-lvx_v1-SO_extend27_upper27_lower10_registerZ_registerV_triple
+	so 2305843009213693951[$r47] = $r36r37r38r39 	#Opcode-lvx_v1-SO_extend27_upper27_lower10_registerZ_registerV_triple
 	;;
-	so $r44r45.hi[$r44r45r46r47.y] = $r40r41r42r43 	#Opcode-lvx_v1-SO_registerY_registerZ_registerV_simple
+	so $r46r47.hi[$r44r45r46r47.t] = $r40r41r42r43 	#Opcode-lvx_v1-SO_registerY_registerZ_registerV_simple
 	;;
-	so -64[$r46] = $r44r45r46r47 	#Opcode-lvx_v1-SO_signed10_registerZ_registerV_simple
+	so -64[$r48] = $r44r45r46r47 	#Opcode-lvx_v1-SO_signed10_registerZ_registerV_simple
 	;;
-	so -8589934592[$r46r47.lo] = $r48r49r50r51 	#Opcode-lvx_v1-SO_upper27_lower10_registerZ_registerV_double
+	so -8589934592[$r48r49.lo] = $r48r49r50r51 	#Opcode-lvx_v1-SO_upper27_lower10_registerZ_registerV_double
 	;;
-	sq 2305843009213693951[$r44r45r46r47.z] = $r32r33r34r35.lo 	#Opcode-lvx_v1-SQ_extend27_upper27_lower10_registerZ_registerU_triple
+	sq 2305843009213693951[$r48r49r50r51.x] = $r32r33r34r35.lo 	#Opcode-lvx_v1-SQ_extend27_upper27_lower10_registerZ_registerU_triple
 	;;
-	sq $r47[$r46r47.hi] = $r34r35 	#Opcode-lvx_v1-SQ_registerY_registerZ_registerU_simple
+	sq $r49[$r48r49.hi] = $r34r35 	#Opcode-lvx_v1-SQ_registerY_registerZ_registerU_simple
 	;;
-	sq -64[$r44r45r46r47.t] = $r32r33r34r35.hi 	#Opcode-lvx_v1-SQ_signed10_registerZ_registerU_simple
+	sq -64[$r48r49r50r51.y] = $r32r33r34r35.hi 	#Opcode-lvx_v1-SQ_signed10_registerZ_registerU_simple
 	;;
-	sq -8589934592[$r48] = $r36r37 	#Opcode-lvx_v1-SQ_upper27_lower10_registerZ_registerU_double
+	sq -8589934592[$r50] = $r36r37 	#Opcode-lvx_v1-SQ_upper27_lower10_registerZ_registerU_double
 	;;
-	srad $r48r49.lo = $r48r49r50r51.x, $r49 	#Opcode-lvx_v1-SRAD_registerW_registerZ_registerY_simple
+	srad $r50r51.lo = $r48r49r50r51.z, $r51 	#Opcode-lvx_v1-SRAD_registerW_registerZ_registerY_simple
 	;;
-	srad $r48r49.hi = $r48r49r50r51.y, 7 	#Opcode-lvx_v1-SRAD_registerW_registerZ_unsigned6_simple
+	srad $r50r51.hi = $r48r49r50r51.t, 7 	#Opcode-lvx_v1-SRAD_registerW_registerZ_unsigned6_simple
 	;;
-	sraw.sx $r50 = $r50r51.lo, $r48r49r50r51.z 	#Opcode-lvx_v1-SRAW_signextw_registerW_registerZ_registerY_simple
+	sraw.sx $r52 = $r52r53.lo, $r52r53r54r55.x 	#Opcode-lvx_v1-SRAW_signextw_registerW_registerZ_registerY_simple
 	;;
-	sraw $r51 = $r50r51.hi, 7 	#Opcode-lvx_v1-SRAW_signextw_registerW_registerZ_unsigned6_simple
+	sraw $r53 = $r52r53.hi, 7 	#Opcode-lvx_v1-SRAW_signextw_registerW_registerZ_unsigned6_simple
 	;;
-	srld $r48r49r50r51.t = $r52, $r52r53.lo 	#Opcode-lvx_v1-SRLD_registerW_registerZ_registerY_simple
+	srld $r52r53r54r55.y = $r54, $r54r55.lo 	#Opcode-lvx_v1-SRLD_registerW_registerZ_registerY_simple
 	;;
-	srld $r52r53r54r55.x = $r53, 7 	#Opcode-lvx_v1-SRLD_registerW_registerZ_unsigned6_simple
+	srld $r52r53r54r55.z = $r55, 7 	#Opcode-lvx_v1-SRLD_registerW_registerZ_unsigned6_simple
 	;;
-	srlw.sx $r52r53.hi = $r52r53r54r55.y, $r54 	#Opcode-lvx_v1-SRLW_signextw_registerW_registerZ_registerY_simple
+	srlw.sx $r54r55.hi = $r52r53r54r55.t, $r56 	#Opcode-lvx_v1-SRLW_signextw_registerW_registerZ_registerY_simple
 	;;
-	srlw $r54r55.lo = $r52r53r54r55.z, 7 	#Opcode-lvx_v1-SRLW_signextw_registerW_registerZ_unsigned6_simple
+	srlw $r56r57.lo = $r56r57r58r59.x, 7 	#Opcode-lvx_v1-SRLW_signextw_registerW_registerZ_unsigned6_simple
 	;;
-	srsd $r55 = $r54r55.hi, $r52r53r54r55.t 	#Opcode-lvx_v1-SRSD_registerW_registerZ_registerY_simple
+	srsd $r57 = $r56r57.hi, $r56r57r58r59.y 	#Opcode-lvx_v1-SRSD_registerW_registerZ_registerY_simple
 	;;
-	srsd $r56 = $r56r57.lo, 7 	#Opcode-lvx_v1-SRSD_registerW_registerZ_unsigned6_simple
+	srsd $r58 = $r58r59.lo, 7 	#Opcode-lvx_v1-SRSD_registerW_registerZ_unsigned6_simple
 	;;
-	srsw.sx $r56r57r58r59.x = $r57, $r56r57.hi 	#Opcode-lvx_v1-SRSW_signextw_registerW_registerZ_registerY_simple
+	srsw.sx $r56r57r58r59.z = $r59, $r58r59.hi 	#Opcode-lvx_v1-SRSW_signextw_registerW_registerZ_registerY_simple
 	;;
-	srsw $r56r57r58r59.y = $r58, 7 	#Opcode-lvx_v1-SRSW_signextw_registerW_registerZ_unsigned6_simple
+	srsw $r56r57r58r59.t = $r60, 7 	#Opcode-lvx_v1-SRSW_signextw_registerW_registerZ_unsigned6_simple
 	;;
 	stop 	#Opcode-lvx_v1-STOP_simple
 	;;
-	stsud $r58r59.lo = $r56r57r58r59.z, $r59 	#Opcode-lvx_v1-STSUD_registerW_registerZ_registerY_simple
+	stsud $r60r61.lo = $r60r61r62r63.x, $r61 	#Opcode-lvx_v1-STSUD_registerW_registerZ_registerY_simple
 	;;
-	stsuw.sx $r58r59.hi = $r56r57r58r59.t, $r60 	#Opcode-lvx_v1-STSUW_signextw_registerW_registerZ_registerY_simple
+	stsuw.sx $r60r61.hi = $r60r61r62r63.y, $r62 	#Opcode-lvx_v1-STSUW_signextw_registerW_registerZ_registerY_simple
 	;;
-	sw 2305843009213693951[$r60r61.lo] = $r60r61r62r63.x 	#Opcode-lvx_v1-SW_extend27_upper27_lower10_registerZ_registerT_triple
+	sw 2305843009213693951[$r62r63.lo] = $r60r61r62r63.z 	#Opcode-lvx_v1-SW_extend27_upper27_lower10_registerZ_registerT_triple
 	;;
-	sw $r61[$r60r61.hi] = $r60r61r62r63.y 	#Opcode-lvx_v1-SW_registerY_registerZ_registerT_simple
+	sw $r63[$r62r63.hi] = $r60r61r62r63.t 	#Opcode-lvx_v1-SW_registerY_registerZ_registerT_simple
 	;;
-	sw -64[$r62] = $r62r63.lo 	#Opcode-lvx_v1-SW_signed10_registerZ_registerT_simple
+	sw -64[$r0] = $r0r1.lo 	#Opcode-lvx_v1-SW_signed10_registerZ_registerT_simple
 	;;
-	sw -8589934592[$r60r61r62r63.z] = $r63 	#Opcode-lvx_v1-SW_upper27_lower10_registerZ_registerT_double
+	sw -8589934592[$r0r1r2r3.x] = $r1 	#Opcode-lvx_v1-SW_upper27_lower10_registerZ_registerT_double
 	;;
-	sxbd $r62r63.hi = $r60r61r62r63.t 	#Opcode-lvx_v1-SXBD_registerW_registerZ_simple
+	sxbd $r0r1.hi = $r0r1r2r3.y 	#Opcode-lvx_v1-SXBD_registerW_registerZ_simple
 	;;
-	sxhd $r0 = $r0r1.lo 	#Opcode-lvx_v1-SXHD_registerW_registerZ_simple
+	sxhd $r2 = $r2r3.lo 	#Opcode-lvx_v1-SXHD_registerW_registerZ_simple
 	;;
-	sxwd $r0r1r2r3.x = $r1 	#Opcode-lvx_v1-SXWD_registerW_registerZ_simple
+	sxwd $r0r1r2r3.z = $r3 	#Opcode-lvx_v1-SXWD_registerW_registerZ_simple
 	;;
-	syncgroup $r0r1.hi 	#Opcode-lvx_v1-SYNCGROUP_registerZ_simple
+	syncgroup $r2r3.hi 	#Opcode-lvx_v1-SYNCGROUP_registerZ_simple
 	;;
 	tlbdinval 	#Opcode-lvx_v1-TLBDINVAL_simple
 	;;
@@ -1703,25 +1715,25 @@ main:
 	;;
 	tlbwrite 	#Opcode-lvx_v1-TLBWRITE_simple
 	;;
-	waitit $r0r1r2r3.y 	#Opcode-lvx_v1-WAITIT_registerZ_simple
+	waitit $r0r1r2r3.t 	#Opcode-lvx_v1-WAITIT_registerZ_simple
 	;;
-	wfxl $ps, $r2 	#Opcode-lvx_v1-WFXL_systemAlone_registerZ_simple
+	wfxl $ps, $r4 	#Opcode-lvx_v1-WFXL_systemAlone_registerZ_simple
 	;;
-	wfxl $pcr, $r2r3.lo 	#Opcode-lvx_v1-WFXL_systemT2_registerZ_simple
+	wfxl $pcr, $r4r5.lo 	#Opcode-lvx_v1-WFXL_systemT2_registerZ_simple
 	;;
-	wfxl $s1, $r0r1r2r3.z 	#Opcode-lvx_v1-WFXL_systemT4_registerZ_simple
+	wfxl $s1, $r4r5r6r7.x 	#Opcode-lvx_v1-WFXL_systemT4_registerZ_simple
 	;;
-	wfxm $s1, $r3 	#Opcode-lvx_v1-WFXM_systemAlone_registerZ_simple
+	wfxm $s1, $r5 	#Opcode-lvx_v1-WFXM_systemAlone_registerZ_simple
 	;;
-	wfxm $s2, $r2r3.hi 	#Opcode-lvx_v1-WFXM_systemT2_registerZ_simple
+	wfxm $s2, $r4r5.hi 	#Opcode-lvx_v1-WFXM_systemT2_registerZ_simple
 	;;
-	wfxm $pcr, $r0r1r2r3.t 	#Opcode-lvx_v1-WFXM_systemT4_registerZ_simple
+	wfxm $pcr, $r4r5r6r7.y 	#Opcode-lvx_v1-WFXM_systemT4_registerZ_simple
 	;;
-	zxbd $r4 = $r4r5.lo 	#Opcode-lvx_v1-ZXBD_registerW_registerZ_simple
+	zxbd $r6 = $r6r7.lo 	#Opcode-lvx_v1-ZXBD_registerW_registerZ_simple
 	;;
-	zxhd $r4r5r6r7.x = $r5 	#Opcode-lvx_v1-ZXHD_registerW_registerZ_simple
+	zxhd $r4r5r6r7.z = $r7 	#Opcode-lvx_v1-ZXHD_registerW_registerZ_simple
 	;;
-	zxwd $r4r5.hi = $r4r5r6r7.y 	#Opcode-lvx_v1-ZXWD_registerW_registerZ_simple
+	zxwd $r6r7.hi = $r4r5r6r7.t 	#Opcode-lvx_v1-ZXWD_registerW_registerZ_simple
 	;;
 	.endp	main
 	.section .text

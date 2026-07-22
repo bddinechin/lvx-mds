@@ -1949,9 +1949,31 @@ Decode_Decoding_lvx_v1_simple(const void *buffer)
         case 0x00000012:
           return Opcode_lvx_v1_RSWAP_registerZ_systemS4_simple;
         case 0x00000013:
-          return Opcode_lvx_v1_CSRRW_registerZ_csrnumber_simple;
+          switch ((codeWord_0 >> 6) & 0x00000fff) {
+          case 0x00000001:
+            return Opcode_lvx_v1_FSFLAGS_registerZ_simple;
+          case 0x00000002:
+            return Opcode_lvx_v1_FSRM_registerZ_simple;
+          case 0x00000003:
+            return Opcode_lvx_v1_FSCSR_registerZ_simple;
+          default:
+            return Opcode_lvx_v1_CSRRW_registerZ_csrnumber_simple;
+            break;
+          }
+          return Opcode__UNDEF;
         case 0x00000014:
-          return Opcode_lvx_v1_CSRRS_registerZ_csrnumber_simple;
+          switch ((codeWord_0 >> 6) & 0x00000fff) {
+          case 0x00000001:
+            return Opcode_lvx_v1_FRFLAGS_registerZ_simple;
+          case 0x00000002:
+            return Opcode_lvx_v1_FRRM_registerZ_simple;
+          case 0x00000003:
+            return Opcode_lvx_v1_FRCSR_registerZ_simple;
+          default:
+            return Opcode_lvx_v1_CSRRS_registerZ_csrnumber_simple;
+            break;
+          }
+          return Opcode__UNDEF;
         case 0x00000015:
           return Opcode_lvx_v1_CSRRC_registerZ_csrnumber_simple;
         case 0x00000016:

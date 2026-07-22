@@ -301,3 +301,69 @@ _THROW(OPCODE);
   values=	"2 0"
   what=	"alias of MSBFWD.SU"
 />
+<Synthetic
+  ID=	"Synthetic-lvx-BCU:FRCSR"
+  forced=	"%2"
+  formats=	"Format-lvx-BCU_CSR"
+  instruction=	"Instruction-lvx-BCU:CSRRS"
+  mnemonic=	"frcsr"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1"
+  values=	"3"
+  what=	"Read \texttt{fcsr} (pseudo of \texttt{csrrs} on \texttt{fcsr})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-BCU:FSCSR"
+  forced=	"%2"
+  formats=	"Format-lvx-BCU_CSR"
+  instruction=	"Instruction-lvx-BCU:CSRRW"
+  mnemonic=	"fscsr"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1"
+  values=	"3"
+  what=	"Write \texttt{fcsr} (pseudo of \texttt{csrrw} on \texttt{fcsr})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-BCU:FRFLAGS"
+  forced=	"%2"
+  formats=	"Format-lvx-BCU_CSR"
+  instruction=	"Instruction-lvx-BCU:CSRRS"
+  mnemonic=	"frflags"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1"
+  values=	"1"
+  what=	"Read \texttt{fflags} (pseudo of \texttt{csrrs} on \texttt{fflags})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-BCU:FSFLAGS"
+  forced=	"%2"
+  formats=	"Format-lvx-BCU_CSR"
+  instruction=	"Instruction-lvx-BCU:CSRRW"
+  mnemonic=	"fsflags"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1"
+  values=	"1"
+  what=	"Write \texttt{fflags} (pseudo of \texttt{csrrw} on \texttt{fflags})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-BCU:FRRM"
+  forced=	"%2"
+  formats=	"Format-lvx-BCU_CSR"
+  instruction=	"Instruction-lvx-BCU:CSRRS"
+  mnemonic=	"frrm"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1"
+  values=	"2"
+  what=	"Read \texttt{frm} (pseudo of \texttt{csrrs} on \texttt{frm})"
+/>
+<Synthetic
+  ID=	"Synthetic-lvx-BCU:FSRM"
+  forced=	"%2"
+  formats=	"Format-lvx-BCU_CSR"
+  instruction=	"Instruction-lvx-BCU:CSRRW"
+  mnemonic=	"fsrm"
+  processors=	"Processor-lvx_v1-cpu Processor-lvx_v2-cpu"
+  syntax=	"%0 %1"
+  values=	"2"
+  what=	"Write \texttt{frm} (pseudo of \texttt{csrrw} on \texttt{frm})"
+/>

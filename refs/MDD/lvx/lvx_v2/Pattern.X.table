@@ -224,3 +224,33 @@
   fields=	"BitField-lvx_v2-splat32"
   values=	"0b0"
 />
+<Pattern
+  ID=	"Pattern-lvx_v2-BCU_CSR:BCU:FRCSR.csrnumber"
+  fields=	"BitField-lvx_v2-csrnumber"
+  values=	"0b000000000011"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v2-BCU_CSR:BCU:FSCSR.csrnumber"
+  fields=	"BitField-lvx_v2-csrnumber"
+  values=	"0b000000000011"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v2-BCU_CSR:BCU:FRFLAGS.csrnumber"
+  fields=	"BitField-lvx_v2-csrnumber"
+  values=	"0b000000000001"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v2-BCU_CSR:BCU:FSFLAGS.csrnumber"
+  fields=	"BitField-lvx_v2-csrnumber"
+  values=	"0b000000000001"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v2-BCU_CSR:BCU:FRRM.csrnumber"
+  fields=	"BitField-lvx_v2-csrnumber"
+  values=	"0b000000000010"
+/>
+<Pattern
+  ID=	"Pattern-lvx_v2-BCU_CSR:BCU:FSRM.csrnumber"
+  fields=	"BitField-lvx_v2-csrnumber"
+  values=	"0b000000000010"
+/>

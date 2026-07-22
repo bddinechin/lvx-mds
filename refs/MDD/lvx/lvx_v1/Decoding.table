@@ -946,8 +946,18 @@
           <Decode case="0x00000010" opcodes="Opcode-lvx_v1-SET_systemT3_registerZ_simple Opcode-lvx_v1-SET_systemAlone_registerZ_simple Opcode-lvx_v1-SET_systemRA_registerZ_simple Opcode-lvx_v1-SET_systemT4_registerZ_simple"/>
           <Decode case="0x00000011" opcodes="Opcode-lvx_v1-GET_registerZ_systemS2_simple Opcode-lvx_v1-GET_registerZ_systemS3_simple"/>
           <Decode case="0x00000012" opcodes="Opcode-lvx_v1-RSWAP_registerZ_systemS4_simple Opcode-lvx_v1-RSWAP_registerZ_systemAlone_simple Opcode-lvx_v1-RSWAP_registerZ_systemS3_simple"/>
-          <Decode case="0x00000013" opcodes="Opcode-lvx_v1-CSRRW_registerZ_csrnumber_simple"/>
-          <Decode case="0x00000014" opcodes="Opcode-lvx_v1-CSRRS_registerZ_csrnumber_simple"/>
+          <Decode case="0x00000013" shift="6" mask="0x00000fff">
+            <Decode case="0x00000001" opcodes="Opcode-lvx_v1-FSFLAGS_registerZ_simple"/>
+            <Decode case="0x00000002" opcodes="Opcode-lvx_v1-FSRM_registerZ_simple"/>
+            <Decode case="0x00000003" opcodes="Opcode-lvx_v1-FSCSR_registerZ_simple"/>
+            <Decode case="default" opcodes="Opcode-lvx_v1-CSRRW_registerZ_csrnumber_simple"/>
+          </Decode>
+          <Decode case="0x00000014" shift="6" mask="0x00000fff">
+            <Decode case="0x00000001" opcodes="Opcode-lvx_v1-FRFLAGS_registerZ_simple"/>
+            <Decode case="0x00000002" opcodes="Opcode-lvx_v1-FRRM_registerZ_simple"/>
+            <Decode case="0x00000003" opcodes="Opcode-lvx_v1-FRCSR_registerZ_simple"/>
+            <Decode case="default" opcodes="Opcode-lvx_v1-CSRRS_registerZ_csrnumber_simple"/>
+          </Decode>
           <Decode case="0x00000015" opcodes="Opcode-lvx_v1-CSRRC_registerZ_csrnumber_simple"/>
           <Decode case="0x00000016" opcodes="Opcode-lvx_v1-IGET_registerZ_simple"/>
           <Decode case="0x00000017" opcodes="Opcode-lvx_v1-RET_simple"/>
