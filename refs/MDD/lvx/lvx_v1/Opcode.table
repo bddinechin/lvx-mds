@@ -1487,6 +1487,14 @@ stage 2:
     result1 = (result1 &gt;&gt; 5) &amp; 7;
   } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
     result1 = 0;
+  } else if (argument2 == 0x341) {
+    result1 = SPC; SPC = argument1;
+  } else if (argument2 == 0x343) {
+    result1 = EA; EA = argument1;
+  } else if (argument2 == 0x305) {
+    result1 = EV; EV = argument1;
+  } else if (argument2 == 0x340) {
+    result1 = SR; SR = argument1;
   } else {
     _THROW(OPCODE);
   }
@@ -1934,7 +1942,99 @@ stage 2:
               (CONST.1))
             (I2F.64
               (CONST.0)))
-          (THROW.0.OPCODE))))))
+          (IF
+            (EQ
+              (READ.argument2(*hi:4095,lo:0*))
+              (CONST.833))
+            (SEQ
+              (WRITE.oldval
+                (F2I.64
+                  (LOAD.2
+                    (AGGL.SFR
+                      (CONST.128)
+                      (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+              (STORE.2
+                (AGGL.SFR
+                  (CONST.128)
+                  (CONST.1))
+                (I2F.64
+                  (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+              (STORE.2
+                (AGGL.GPR
+                  (METHOD.%1(*hi:63,lo:0*))
+                  (CONST.1))
+                (I2F.64
+                  (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+            (IF
+              (EQ
+                (READ.argument2(*hi:4095,lo:0*))
+                (CONST.835))
+              (SEQ
+                (WRITE.oldval
+                  (F2I.64
+                    (LOAD.2
+                      (AGGL.SFR
+                        (CONST.136)
+                        (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                (STORE.2
+                  (AGGL.SFR
+                    (CONST.136)
+                    (CONST.1))
+                  (I2F.64
+                    (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                (STORE.2
+                  (AGGL.GPR
+                    (METHOD.%1(*hi:63,lo:0*))
+                    (CONST.1))
+                  (I2F.64
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+              (IF
+                (EQ
+                  (READ.argument2(*hi:4095,lo:0*))
+                  (CONST.773))
+                (SEQ
+                  (WRITE.oldval
+                    (F2I.64
+                      (LOAD.2
+                        (AGGL.SFR
+                          (CONST.140)
+                          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                  (STORE.2
+                    (AGGL.SFR
+                      (CONST.140)
+                      (CONST.1))
+                    (I2F.64
+                      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                  (STORE.2
+                    (AGGL.GPR
+                      (METHOD.%1(*hi:63,lo:0*))
+                      (CONST.1))
+                    (I2F.64
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                (IF
+                  (EQ
+                    (READ.argument2(*hi:4095,lo:0*))
+                    (CONST.832))
+                  (SEQ
+                    (WRITE.oldval
+                      (F2I.64
+                        (LOAD.2
+                          (AGGL.SFR
+                            (CONST.144)
+                            (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                    (STORE.2
+                      (AGGL.SFR
+                        (CONST.144)
+                        (CONST.1))
+                      (I2F.64
+                        (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                    (STORE.2
+                      (AGGL.GPR
+                        (METHOD.%1(*hi:63,lo:0*))
+                        (CONST.1))
+                      (I2F.64
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                  (THROW.0.OPCODE))))))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-CSRRS_registerZ_csrnumber_simple"
@@ -1978,6 +2078,14 @@ stage 2:
     result1 = (result1 &gt;&gt; 5) &amp; 7;
   } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
     result1 = 0;
+  } else if (argument2 == 0x341) {
+    result1 = SPC; SPC = SPC | argument1;
+  } else if (argument2 == 0x343) {
+    result1 = EA; EA = EA | argument1;
+  } else if (argument2 == 0x305) {
+    result1 = EV; EV = EV | argument1;
+  } else if (argument2 == 0x340) {
+    result1 = SR; SR = SR | argument1;
   } else {
     _THROW(OPCODE);
   }
@@ -2435,7 +2543,111 @@ stage 2:
               (CONST.1))
             (I2F.64
               (CONST.0)))
-          (THROW.0.OPCODE))))))
+          (IF
+            (EQ
+              (READ.argument2(*hi:4095,lo:0*))
+              (CONST.833))
+            (SEQ
+              (WRITE.oldval
+                (F2I.64
+                  (LOAD.2
+                    (AGGL.SFR
+                      (CONST.128)
+                      (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+              (STORE.2
+                (AGGL.SFR
+                  (CONST.128)
+                  (CONST.1))
+                (I2F.64
+                  (IOR
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                    (ZX.64
+                      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+              (STORE.2
+                (AGGL.GPR
+                  (METHOD.%1(*hi:63,lo:0*))
+                  (CONST.1))
+                (I2F.64
+                  (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+            (IF
+              (EQ
+                (READ.argument2(*hi:4095,lo:0*))
+                (CONST.835))
+              (SEQ
+                (WRITE.oldval
+                  (F2I.64
+                    (LOAD.2
+                      (AGGL.SFR
+                        (CONST.136)
+                        (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                (STORE.2
+                  (AGGL.SFR
+                    (CONST.136)
+                    (CONST.1))
+                  (I2F.64
+                    (IOR
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                      (ZX.64
+                        (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                (STORE.2
+                  (AGGL.GPR
+                    (METHOD.%1(*hi:63,lo:0*))
+                    (CONST.1))
+                  (I2F.64
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+              (IF
+                (EQ
+                  (READ.argument2(*hi:4095,lo:0*))
+                  (CONST.773))
+                (SEQ
+                  (WRITE.oldval
+                    (F2I.64
+                      (LOAD.2
+                        (AGGL.SFR
+                          (CONST.140)
+                          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                  (STORE.2
+                    (AGGL.SFR
+                      (CONST.140)
+                      (CONST.1))
+                    (I2F.64
+                      (IOR
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                        (ZX.64
+                          (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                  (STORE.2
+                    (AGGL.GPR
+                      (METHOD.%1(*hi:63,lo:0*))
+                      (CONST.1))
+                    (I2F.64
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                (IF
+                  (EQ
+                    (READ.argument2(*hi:4095,lo:0*))
+                    (CONST.832))
+                  (SEQ
+                    (WRITE.oldval
+                      (F2I.64
+                        (LOAD.2
+                          (AGGL.SFR
+                            (CONST.144)
+                            (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                    (STORE.2
+                      (AGGL.SFR
+                        (CONST.144)
+                        (CONST.1))
+                      (I2F.64
+                        (IOR
+                          (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                          (ZX.64
+                            (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                    (STORE.2
+                      (AGGL.GPR
+                        (METHOD.%1(*hi:63,lo:0*))
+                        (CONST.1))
+                      (I2F.64
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                  (THROW.0.OPCODE))))))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-CSRRC_registerZ_csrnumber_simple"
@@ -2479,6 +2691,14 @@ stage 2:
     result1 = (result1 &gt;&gt; 5) &amp; 7;
   } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
     result1 = 0;
+  } else if (argument2 == 0x341) {
+    result1 = SPC; SPC = SPC &amp; ~argument1;
+  } else if (argument2 == 0x343) {
+    result1 = EA; EA = EA &amp; ~argument1;
+  } else if (argument2 == 0x305) {
+    result1 = EV; EV = EV &amp; ~argument1;
+  } else if (argument2 == 0x340) {
+    result1 = SR; SR = SR &amp; ~argument1;
   } else {
     _THROW(OPCODE);
   }
@@ -2939,7 +3159,115 @@ stage 2:
               (CONST.1))
             (I2F.64
               (CONST.0)))
-          (THROW.0.OPCODE))))))
+          (IF
+            (EQ
+              (READ.argument2(*hi:4095,lo:0*))
+              (CONST.833))
+            (SEQ
+              (WRITE.oldval
+                (F2I.64
+                  (LOAD.2
+                    (AGGL.SFR
+                      (CONST.128)
+                      (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+              (STORE.2
+                (AGGL.SFR
+                  (CONST.128)
+                  (CONST.1))
+                (I2F.64
+                  (AND
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                    (NOT
+                      (ZX.64
+                        (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:-1,lo:-18446744073709551616*))(*dm:64,hi:18446744073709551615,lo:0*))))
+              (STORE.2
+                (AGGL.GPR
+                  (METHOD.%1(*hi:63,lo:0*))
+                  (CONST.1))
+                (I2F.64
+                  (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+            (IF
+              (EQ
+                (READ.argument2(*hi:4095,lo:0*))
+                (CONST.835))
+              (SEQ
+                (WRITE.oldval
+                  (F2I.64
+                    (LOAD.2
+                      (AGGL.SFR
+                        (CONST.136)
+                        (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                (STORE.2
+                  (AGGL.SFR
+                    (CONST.136)
+                    (CONST.1))
+                  (I2F.64
+                    (AND
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                      (NOT
+                        (ZX.64
+                          (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:-1,lo:-18446744073709551616*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                (STORE.2
+                  (AGGL.GPR
+                    (METHOD.%1(*hi:63,lo:0*))
+                    (CONST.1))
+                  (I2F.64
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+              (IF
+                (EQ
+                  (READ.argument2(*hi:4095,lo:0*))
+                  (CONST.773))
+                (SEQ
+                  (WRITE.oldval
+                    (F2I.64
+                      (LOAD.2
+                        (AGGL.SFR
+                          (CONST.140)
+                          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                  (STORE.2
+                    (AGGL.SFR
+                      (CONST.140)
+                      (CONST.1))
+                    (I2F.64
+                      (AND
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                        (NOT
+                          (ZX.64
+                            (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:-1,lo:-18446744073709551616*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                  (STORE.2
+                    (AGGL.GPR
+                      (METHOD.%1(*hi:63,lo:0*))
+                      (CONST.1))
+                    (I2F.64
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                (IF
+                  (EQ
+                    (READ.argument2(*hi:4095,lo:0*))
+                    (CONST.832))
+                  (SEQ
+                    (WRITE.oldval
+                      (F2I.64
+                        (LOAD.2
+                          (AGGL.SFR
+                            (CONST.144)
+                            (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                    (STORE.2
+                      (AGGL.SFR
+                        (CONST.144)
+                        (CONST.1))
+                      (I2F.64
+                        (AND
+                          (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                          (NOT
+                            (ZX.64
+                              (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:-1,lo:-18446744073709551616*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                    (STORE.2
+                      (AGGL.GPR
+                        (METHOD.%1(*hi:63,lo:0*))
+                        (CONST.1))
+                      (I2F.64
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                  (THROW.0.OPCODE))))))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-WAITIT_registerZ_simple"
@@ -68037,6 +68365,14 @@ stage 2:
     result1 = (result1 &gt;&gt; 5) &amp; 7;
   } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
     result1 = 0;
+  } else if (argument2 == 0x341) {
+    result1 = SPC; SPC = SPC | argument1;
+  } else if (argument2 == 0x343) {
+    result1 = EA; EA = EA | argument1;
+  } else if (argument2 == 0x305) {
+    result1 = EV; EV = EV | argument1;
+  } else if (argument2 == 0x340) {
+    result1 = SR; SR = SR | argument1;
   } else {
     _THROW(OPCODE);
   }
@@ -68493,7 +68829,111 @@ stage 2:
               (CONST.1))
             (I2F.64
               (CONST.0)))
-          (THROW.0.OPCODE))))))
+          (IF
+            (EQ
+              (READ.argument2(*hi:3,lo:3*))
+              (CONST.833))
+            (SEQ
+              (WRITE.oldval
+                (F2I.64
+                  (LOAD.2
+                    (AGGL.SFR
+                      (CONST.128)
+                      (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+              (STORE.2
+                (AGGL.SFR
+                  (CONST.128)
+                  (CONST.1))
+                (I2F.64
+                  (IOR
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                    (ZX.64
+                      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+              (STORE.2
+                (AGGL.GPR
+                  (METHOD.%1(*hi:63,lo:0*))
+                  (CONST.1))
+                (I2F.64
+                  (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+            (IF
+              (EQ
+                (READ.argument2(*hi:3,lo:3*))
+                (CONST.835))
+              (SEQ
+                (WRITE.oldval
+                  (F2I.64
+                    (LOAD.2
+                      (AGGL.SFR
+                        (CONST.136)
+                        (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                (STORE.2
+                  (AGGL.SFR
+                    (CONST.136)
+                    (CONST.1))
+                  (I2F.64
+                    (IOR
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                      (ZX.64
+                        (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                (STORE.2
+                  (AGGL.GPR
+                    (METHOD.%1(*hi:63,lo:0*))
+                    (CONST.1))
+                  (I2F.64
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+              (IF
+                (EQ
+                  (READ.argument2(*hi:3,lo:3*))
+                  (CONST.773))
+                (SEQ
+                  (WRITE.oldval
+                    (F2I.64
+                      (LOAD.2
+                        (AGGL.SFR
+                          (CONST.140)
+                          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                  (STORE.2
+                    (AGGL.SFR
+                      (CONST.140)
+                      (CONST.1))
+                    (I2F.64
+                      (IOR
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                        (ZX.64
+                          (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                  (STORE.2
+                    (AGGL.GPR
+                      (METHOD.%1(*hi:63,lo:0*))
+                      (CONST.1))
+                    (I2F.64
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                (IF
+                  (EQ
+                    (READ.argument2(*hi:3,lo:3*))
+                    (CONST.832))
+                  (SEQ
+                    (WRITE.oldval
+                      (F2I.64
+                        (LOAD.2
+                          (AGGL.SFR
+                            (CONST.144)
+                            (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                    (STORE.2
+                      (AGGL.SFR
+                        (CONST.144)
+                        (CONST.1))
+                      (I2F.64
+                        (IOR
+                          (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                          (ZX.64
+                            (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                    (STORE.2
+                      (AGGL.GPR
+                        (METHOD.%1(*hi:63,lo:0*))
+                        (CONST.1))
+                      (I2F.64
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                  (THROW.0.OPCODE))))))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FSCSR_registerZ_simple"
@@ -68537,6 +68977,14 @@ stage 2:
     result1 = (result1 &gt;&gt; 5) &amp; 7;
   } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
     result1 = 0;
+  } else if (argument2 == 0x341) {
+    result1 = SPC; SPC = argument1;
+  } else if (argument2 == 0x343) {
+    result1 = EA; EA = argument1;
+  } else if (argument2 == 0x305) {
+    result1 = EV; EV = argument1;
+  } else if (argument2 == 0x340) {
+    result1 = SR; SR = argument1;
   } else {
     _THROW(OPCODE);
   }
@@ -68983,7 +69431,99 @@ stage 2:
               (CONST.1))
             (I2F.64
               (CONST.0)))
-          (THROW.0.OPCODE))))))
+          (IF
+            (EQ
+              (READ.argument2(*hi:3,lo:3*))
+              (CONST.833))
+            (SEQ
+              (WRITE.oldval
+                (F2I.64
+                  (LOAD.2
+                    (AGGL.SFR
+                      (CONST.128)
+                      (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+              (STORE.2
+                (AGGL.SFR
+                  (CONST.128)
+                  (CONST.1))
+                (I2F.64
+                  (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+              (STORE.2
+                (AGGL.GPR
+                  (METHOD.%1(*hi:63,lo:0*))
+                  (CONST.1))
+                (I2F.64
+                  (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+            (IF
+              (EQ
+                (READ.argument2(*hi:3,lo:3*))
+                (CONST.835))
+              (SEQ
+                (WRITE.oldval
+                  (F2I.64
+                    (LOAD.2
+                      (AGGL.SFR
+                        (CONST.136)
+                        (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                (STORE.2
+                  (AGGL.SFR
+                    (CONST.136)
+                    (CONST.1))
+                  (I2F.64
+                    (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                (STORE.2
+                  (AGGL.GPR
+                    (METHOD.%1(*hi:63,lo:0*))
+                    (CONST.1))
+                  (I2F.64
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+              (IF
+                (EQ
+                  (READ.argument2(*hi:3,lo:3*))
+                  (CONST.773))
+                (SEQ
+                  (WRITE.oldval
+                    (F2I.64
+                      (LOAD.2
+                        (AGGL.SFR
+                          (CONST.140)
+                          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                  (STORE.2
+                    (AGGL.SFR
+                      (CONST.140)
+                      (CONST.1))
+                    (I2F.64
+                      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                  (STORE.2
+                    (AGGL.GPR
+                      (METHOD.%1(*hi:63,lo:0*))
+                      (CONST.1))
+                    (I2F.64
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                (IF
+                  (EQ
+                    (READ.argument2(*hi:3,lo:3*))
+                    (CONST.832))
+                  (SEQ
+                    (WRITE.oldval
+                      (F2I.64
+                        (LOAD.2
+                          (AGGL.SFR
+                            (CONST.144)
+                            (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                    (STORE.2
+                      (AGGL.SFR
+                        (CONST.144)
+                        (CONST.1))
+                      (I2F.64
+                        (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                    (STORE.2
+                      (AGGL.GPR
+                        (METHOD.%1(*hi:63,lo:0*))
+                        (CONST.1))
+                      (I2F.64
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                  (THROW.0.OPCODE))))))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FRFLAGS_registerZ_simple"
@@ -69027,6 +69567,14 @@ stage 2:
     result1 = (result1 &gt;&gt; 5) &amp; 7;
   } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
     result1 = 0;
+  } else if (argument2 == 0x341) {
+    result1 = SPC; SPC = SPC | argument1;
+  } else if (argument2 == 0x343) {
+    result1 = EA; EA = EA | argument1;
+  } else if (argument2 == 0x305) {
+    result1 = EV; EV = EV | argument1;
+  } else if (argument2 == 0x340) {
+    result1 = SR; SR = SR | argument1;
   } else {
     _THROW(OPCODE);
   }
@@ -69483,7 +70031,111 @@ stage 2:
               (CONST.1))
             (I2F.64
               (CONST.0)))
-          (THROW.0.OPCODE))))))
+          (IF
+            (EQ
+              (READ.argument2(*hi:1,lo:1*))
+              (CONST.833))
+            (SEQ
+              (WRITE.oldval
+                (F2I.64
+                  (LOAD.2
+                    (AGGL.SFR
+                      (CONST.128)
+                      (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+              (STORE.2
+                (AGGL.SFR
+                  (CONST.128)
+                  (CONST.1))
+                (I2F.64
+                  (IOR
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                    (ZX.64
+                      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+              (STORE.2
+                (AGGL.GPR
+                  (METHOD.%1(*hi:63,lo:0*))
+                  (CONST.1))
+                (I2F.64
+                  (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+            (IF
+              (EQ
+                (READ.argument2(*hi:1,lo:1*))
+                (CONST.835))
+              (SEQ
+                (WRITE.oldval
+                  (F2I.64
+                    (LOAD.2
+                      (AGGL.SFR
+                        (CONST.136)
+                        (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                (STORE.2
+                  (AGGL.SFR
+                    (CONST.136)
+                    (CONST.1))
+                  (I2F.64
+                    (IOR
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                      (ZX.64
+                        (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                (STORE.2
+                  (AGGL.GPR
+                    (METHOD.%1(*hi:63,lo:0*))
+                    (CONST.1))
+                  (I2F.64
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+              (IF
+                (EQ
+                  (READ.argument2(*hi:1,lo:1*))
+                  (CONST.773))
+                (SEQ
+                  (WRITE.oldval
+                    (F2I.64
+                      (LOAD.2
+                        (AGGL.SFR
+                          (CONST.140)
+                          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                  (STORE.2
+                    (AGGL.SFR
+                      (CONST.140)
+                      (CONST.1))
+                    (I2F.64
+                      (IOR
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                        (ZX.64
+                          (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                  (STORE.2
+                    (AGGL.GPR
+                      (METHOD.%1(*hi:63,lo:0*))
+                      (CONST.1))
+                    (I2F.64
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                (IF
+                  (EQ
+                    (READ.argument2(*hi:1,lo:1*))
+                    (CONST.832))
+                  (SEQ
+                    (WRITE.oldval
+                      (F2I.64
+                        (LOAD.2
+                          (AGGL.SFR
+                            (CONST.144)
+                            (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                    (STORE.2
+                      (AGGL.SFR
+                        (CONST.144)
+                        (CONST.1))
+                      (I2F.64
+                        (IOR
+                          (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                          (ZX.64
+                            (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                    (STORE.2
+                      (AGGL.GPR
+                        (METHOD.%1(*hi:63,lo:0*))
+                        (CONST.1))
+                      (I2F.64
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                  (THROW.0.OPCODE))))))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FSFLAGS_registerZ_simple"
@@ -69527,6 +70179,14 @@ stage 2:
     result1 = (result1 &gt;&gt; 5) &amp; 7;
   } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
     result1 = 0;
+  } else if (argument2 == 0x341) {
+    result1 = SPC; SPC = argument1;
+  } else if (argument2 == 0x343) {
+    result1 = EA; EA = argument1;
+  } else if (argument2 == 0x305) {
+    result1 = EV; EV = argument1;
+  } else if (argument2 == 0x340) {
+    result1 = SR; SR = argument1;
   } else {
     _THROW(OPCODE);
   }
@@ -69973,7 +70633,99 @@ stage 2:
               (CONST.1))
             (I2F.64
               (CONST.0)))
-          (THROW.0.OPCODE))))))
+          (IF
+            (EQ
+              (READ.argument2(*hi:1,lo:1*))
+              (CONST.833))
+            (SEQ
+              (WRITE.oldval
+                (F2I.64
+                  (LOAD.2
+                    (AGGL.SFR
+                      (CONST.128)
+                      (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+              (STORE.2
+                (AGGL.SFR
+                  (CONST.128)
+                  (CONST.1))
+                (I2F.64
+                  (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+              (STORE.2
+                (AGGL.GPR
+                  (METHOD.%1(*hi:63,lo:0*))
+                  (CONST.1))
+                (I2F.64
+                  (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+            (IF
+              (EQ
+                (READ.argument2(*hi:1,lo:1*))
+                (CONST.835))
+              (SEQ
+                (WRITE.oldval
+                  (F2I.64
+                    (LOAD.2
+                      (AGGL.SFR
+                        (CONST.136)
+                        (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                (STORE.2
+                  (AGGL.SFR
+                    (CONST.136)
+                    (CONST.1))
+                  (I2F.64
+                    (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                (STORE.2
+                  (AGGL.GPR
+                    (METHOD.%1(*hi:63,lo:0*))
+                    (CONST.1))
+                  (I2F.64
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+              (IF
+                (EQ
+                  (READ.argument2(*hi:1,lo:1*))
+                  (CONST.773))
+                (SEQ
+                  (WRITE.oldval
+                    (F2I.64
+                      (LOAD.2
+                        (AGGL.SFR
+                          (CONST.140)
+                          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                  (STORE.2
+                    (AGGL.SFR
+                      (CONST.140)
+                      (CONST.1))
+                    (I2F.64
+                      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                  (STORE.2
+                    (AGGL.GPR
+                      (METHOD.%1(*hi:63,lo:0*))
+                      (CONST.1))
+                    (I2F.64
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                (IF
+                  (EQ
+                    (READ.argument2(*hi:1,lo:1*))
+                    (CONST.832))
+                  (SEQ
+                    (WRITE.oldval
+                      (F2I.64
+                        (LOAD.2
+                          (AGGL.SFR
+                            (CONST.144)
+                            (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                    (STORE.2
+                      (AGGL.SFR
+                        (CONST.144)
+                        (CONST.1))
+                      (I2F.64
+                        (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                    (STORE.2
+                      (AGGL.GPR
+                        (METHOD.%1(*hi:63,lo:0*))
+                        (CONST.1))
+                      (I2F.64
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                  (THROW.0.OPCODE))))))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FRRM_registerZ_simple"
@@ -70017,6 +70769,14 @@ stage 2:
     result1 = (result1 &gt;&gt; 5) &amp; 7;
   } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
     result1 = 0;
+  } else if (argument2 == 0x341) {
+    result1 = SPC; SPC = SPC | argument1;
+  } else if (argument2 == 0x343) {
+    result1 = EA; EA = EA | argument1;
+  } else if (argument2 == 0x305) {
+    result1 = EV; EV = EV | argument1;
+  } else if (argument2 == 0x340) {
+    result1 = SR; SR = SR | argument1;
   } else {
     _THROW(OPCODE);
   }
@@ -70473,7 +71233,111 @@ stage 2:
               (CONST.1))
             (I2F.64
               (CONST.0)))
-          (THROW.0.OPCODE))))))
+          (IF
+            (EQ
+              (READ.argument2(*hi:2,lo:2*))
+              (CONST.833))
+            (SEQ
+              (WRITE.oldval
+                (F2I.64
+                  (LOAD.2
+                    (AGGL.SFR
+                      (CONST.128)
+                      (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+              (STORE.2
+                (AGGL.SFR
+                  (CONST.128)
+                  (CONST.1))
+                (I2F.64
+                  (IOR
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                    (ZX.64
+                      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+              (STORE.2
+                (AGGL.GPR
+                  (METHOD.%1(*hi:63,lo:0*))
+                  (CONST.1))
+                (I2F.64
+                  (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+            (IF
+              (EQ
+                (READ.argument2(*hi:2,lo:2*))
+                (CONST.835))
+              (SEQ
+                (WRITE.oldval
+                  (F2I.64
+                    (LOAD.2
+                      (AGGL.SFR
+                        (CONST.136)
+                        (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                (STORE.2
+                  (AGGL.SFR
+                    (CONST.136)
+                    (CONST.1))
+                  (I2F.64
+                    (IOR
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                      (ZX.64
+                        (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                (STORE.2
+                  (AGGL.GPR
+                    (METHOD.%1(*hi:63,lo:0*))
+                    (CONST.1))
+                  (I2F.64
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+              (IF
+                (EQ
+                  (READ.argument2(*hi:2,lo:2*))
+                  (CONST.773))
+                (SEQ
+                  (WRITE.oldval
+                    (F2I.64
+                      (LOAD.2
+                        (AGGL.SFR
+                          (CONST.140)
+                          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                  (STORE.2
+                    (AGGL.SFR
+                      (CONST.140)
+                      (CONST.1))
+                    (I2F.64
+                      (IOR
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                        (ZX.64
+                          (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                  (STORE.2
+                    (AGGL.GPR
+                      (METHOD.%1(*hi:63,lo:0*))
+                      (CONST.1))
+                    (I2F.64
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                (IF
+                  (EQ
+                    (READ.argument2(*hi:2,lo:2*))
+                    (CONST.832))
+                  (SEQ
+                    (WRITE.oldval
+                      (F2I.64
+                        (LOAD.2
+                          (AGGL.SFR
+                            (CONST.144)
+                            (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                    (STORE.2
+                      (AGGL.SFR
+                        (CONST.144)
+                        (CONST.1))
+                      (I2F.64
+                        (IOR
+                          (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*))
+                          (ZX.64
+                            (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))(*dm:64,hi:18446744073709551615,lo:0*))))
+                    (STORE.2
+                      (AGGL.GPR
+                        (METHOD.%1(*hi:63,lo:0*))
+                        (CONST.1))
+                      (I2F.64
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                  (THROW.0.OPCODE))))))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FSRM_registerZ_simple"
@@ -70517,6 +71381,14 @@ stage 2:
     result1 = (result1 &gt;&gt; 5) &amp; 7;
   } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
     result1 = 0;
+  } else if (argument2 == 0x341) {
+    result1 = SPC; SPC = argument1;
+  } else if (argument2 == 0x343) {
+    result1 = EA; EA = argument1;
+  } else if (argument2 == 0x305) {
+    result1 = EV; EV = argument1;
+  } else if (argument2 == 0x340) {
+    result1 = SR; SR = argument1;
   } else {
     _THROW(OPCODE);
   }
@@ -70963,5 +71835,97 @@ stage 2:
               (CONST.1))
             (I2F.64
               (CONST.0)))
-          (THROW.0.OPCODE))))))
+          (IF
+            (EQ
+              (READ.argument2(*hi:2,lo:2*))
+              (CONST.833))
+            (SEQ
+              (WRITE.oldval
+                (F2I.64
+                  (LOAD.2
+                    (AGGL.SFR
+                      (CONST.128)
+                      (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+              (STORE.2
+                (AGGL.SFR
+                  (CONST.128)
+                  (CONST.1))
+                (I2F.64
+                  (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+              (STORE.2
+                (AGGL.GPR
+                  (METHOD.%1(*hi:63,lo:0*))
+                  (CONST.1))
+                (I2F.64
+                  (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+            (IF
+              (EQ
+                (READ.argument2(*hi:2,lo:2*))
+                (CONST.835))
+              (SEQ
+                (WRITE.oldval
+                  (F2I.64
+                    (LOAD.2
+                      (AGGL.SFR
+                        (CONST.136)
+                        (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                (STORE.2
+                  (AGGL.SFR
+                    (CONST.136)
+                    (CONST.1))
+                  (I2F.64
+                    (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                (STORE.2
+                  (AGGL.GPR
+                    (METHOD.%1(*hi:63,lo:0*))
+                    (CONST.1))
+                  (I2F.64
+                    (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+              (IF
+                (EQ
+                  (READ.argument2(*hi:2,lo:2*))
+                  (CONST.773))
+                (SEQ
+                  (WRITE.oldval
+                    (F2I.64
+                      (LOAD.2
+                        (AGGL.SFR
+                          (CONST.140)
+                          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                  (STORE.2
+                    (AGGL.SFR
+                      (CONST.140)
+                      (CONST.1))
+                    (I2F.64
+                      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                  (STORE.2
+                    (AGGL.GPR
+                      (METHOD.%1(*hi:63,lo:0*))
+                      (CONST.1))
+                    (I2F.64
+                      (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                (IF
+                  (EQ
+                    (READ.argument2(*hi:2,lo:2*))
+                    (CONST.832))
+                  (SEQ
+                    (WRITE.oldval
+                      (F2I.64
+                        (LOAD.2
+                          (AGGL.SFR
+                            (CONST.144)
+                            (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+                    (STORE.2
+                      (AGGL.SFR
+                        (CONST.144)
+                        (CONST.1))
+                      (I2F.64
+                        (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+                    (STORE.2
+                      (AGGL.GPR
+                        (METHOD.%1(*hi:63,lo:0*))
+                        (CONST.1))
+                      (I2F.64
+                        (READ.oldval(*dm:64,hi:18446744073709551615,lo:0*)))))
+                  (THROW.0.OPCODE))))))))))
 </Behavior></Opcode>

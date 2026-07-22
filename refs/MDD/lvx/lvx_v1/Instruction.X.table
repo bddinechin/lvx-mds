@@ -1071,6 +1071,14 @@ if (argument2 == 0x003) {
   result1 = (result1 &gt;&gt; 5) &amp; 7;
 } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
   result1 = 0;
+} else if (argument2 == 0x341) {
+  result1 = SPC; SPC = SPC | argument1;
+} else if (argument2 == 0x343) {
+  result1 = EA; EA = EA | argument1;
+} else if (argument2 == 0x305) {
+  result1 = EV; EV = EV | argument1;
+} else if (argument2 == 0x340) {
+  result1 = SR; SR = SR | argument1;
 } else {
   _THROW(OPCODE);
 }
@@ -1111,7 +1119,27 @@ if (argument2 == 0x003) {
           (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
         (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
           (COMMIT.E1.%1 (CONST.0))
-          (THROW.ID.OPCODE))))))
+          (IF (EQ (READ.argument2) (CONST.0x341))
+            (SEQ
+              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+              (COMMIT.E1.%1 (READ.oldval)))
+            (IF (EQ (READ.argument2) (CONST.0x343))
+              (SEQ
+                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                (COMMIT.E1.%1 (READ.oldval)))
+              (IF (EQ (READ.argument2) (CONST.0x305))
+                (SEQ
+                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                  (COMMIT.E1.%1 (READ.oldval)))
+                (IF (EQ (READ.argument2) (CONST.0x340))
+                  (SEQ
+                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                    (COMMIT.E1.%1 (READ.oldval)))
+                  (THROW.ID.OPCODE))))))))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:FSCSR"
@@ -1148,6 +1176,14 @@ if (argument2 == 0x003) {
   result1 = (result1 &gt;&gt; 5) &amp; 7;
 } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
   result1 = 0;
+} else if (argument2 == 0x341) {
+  result1 = SPC; SPC = argument1;
+} else if (argument2 == 0x343) {
+  result1 = EA; EA = argument1;
+} else if (argument2 == 0x305) {
+  result1 = EV; EV = argument1;
+} else if (argument2 == 0x340) {
+  result1 = SR; SR = argument1;
 } else {
   _THROW(OPCODE);
 }
@@ -1188,7 +1224,27 @@ if (argument2 == 0x003) {
           (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
         (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
           (COMMIT.E1.%1 (CONST.0))
-          (THROW.ID.OPCODE))))))
+          (IF (EQ (READ.argument2) (CONST.0x341))
+            (SEQ
+              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+              (COMMIT.E1.%1 (READ.oldval)))
+            (IF (EQ (READ.argument2) (CONST.0x343))
+              (SEQ
+                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                (COMMIT.E1.%1 (READ.oldval)))
+              (IF (EQ (READ.argument2) (CONST.0x305))
+                (SEQ
+                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                  (COMMIT.E1.%1 (READ.oldval)))
+                (IF (EQ (READ.argument2) (CONST.0x340))
+                  (SEQ
+                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                    (COMMIT.E1.%1 (READ.oldval)))
+                  (THROW.ID.OPCODE))))))))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:FRFLAGS"
@@ -1225,6 +1281,14 @@ if (argument2 == 0x003) {
   result1 = (result1 &gt;&gt; 5) &amp; 7;
 } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
   result1 = 0;
+} else if (argument2 == 0x341) {
+  result1 = SPC; SPC = SPC | argument1;
+} else if (argument2 == 0x343) {
+  result1 = EA; EA = EA | argument1;
+} else if (argument2 == 0x305) {
+  result1 = EV; EV = EV | argument1;
+} else if (argument2 == 0x340) {
+  result1 = SR; SR = SR | argument1;
 } else {
   _THROW(OPCODE);
 }
@@ -1265,7 +1329,27 @@ if (argument2 == 0x003) {
           (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
         (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
           (COMMIT.E1.%1 (CONST.0))
-          (THROW.ID.OPCODE))))))
+          (IF (EQ (READ.argument2) (CONST.0x341))
+            (SEQ
+              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+              (COMMIT.E1.%1 (READ.oldval)))
+            (IF (EQ (READ.argument2) (CONST.0x343))
+              (SEQ
+                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                (COMMIT.E1.%1 (READ.oldval)))
+              (IF (EQ (READ.argument2) (CONST.0x305))
+                (SEQ
+                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                  (COMMIT.E1.%1 (READ.oldval)))
+                (IF (EQ (READ.argument2) (CONST.0x340))
+                  (SEQ
+                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                    (COMMIT.E1.%1 (READ.oldval)))
+                  (THROW.ID.OPCODE))))))))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:FSFLAGS"
@@ -1302,6 +1386,14 @@ if (argument2 == 0x003) {
   result1 = (result1 &gt;&gt; 5) &amp; 7;
 } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
   result1 = 0;
+} else if (argument2 == 0x341) {
+  result1 = SPC; SPC = argument1;
+} else if (argument2 == 0x343) {
+  result1 = EA; EA = argument1;
+} else if (argument2 == 0x305) {
+  result1 = EV; EV = argument1;
+} else if (argument2 == 0x340) {
+  result1 = SR; SR = argument1;
 } else {
   _THROW(OPCODE);
 }
@@ -1342,7 +1434,27 @@ if (argument2 == 0x003) {
           (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
         (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
           (COMMIT.E1.%1 (CONST.0))
-          (THROW.ID.OPCODE))))))
+          (IF (EQ (READ.argument2) (CONST.0x341))
+            (SEQ
+              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+              (COMMIT.E1.%1 (READ.oldval)))
+            (IF (EQ (READ.argument2) (CONST.0x343))
+              (SEQ
+                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                (COMMIT.E1.%1 (READ.oldval)))
+              (IF (EQ (READ.argument2) (CONST.0x305))
+                (SEQ
+                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                  (COMMIT.E1.%1 (READ.oldval)))
+                (IF (EQ (READ.argument2) (CONST.0x340))
+                  (SEQ
+                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                    (COMMIT.E1.%1 (READ.oldval)))
+                  (THROW.ID.OPCODE))))))))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:FRRM"
@@ -1379,6 +1491,14 @@ if (argument2 == 0x003) {
   result1 = (result1 &gt;&gt; 5) &amp; 7;
 } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
   result1 = 0;
+} else if (argument2 == 0x341) {
+  result1 = SPC; SPC = SPC | argument1;
+} else if (argument2 == 0x343) {
+  result1 = EA; EA = EA | argument1;
+} else if (argument2 == 0x305) {
+  result1 = EV; EV = EV | argument1;
+} else if (argument2 == 0x340) {
+  result1 = SR; SR = SR | argument1;
 } else {
   _THROW(OPCODE);
 }
@@ -1419,7 +1539,27 @@ if (argument2 == 0x003) {
           (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
         (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
           (COMMIT.E1.%1 (CONST.0))
-          (THROW.ID.OPCODE))))))
+          (IF (EQ (READ.argument2) (CONST.0x341))
+            (SEQ
+              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+              (COMMIT.E1.%1 (READ.oldval)))
+            (IF (EQ (READ.argument2) (CONST.0x343))
+              (SEQ
+                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                (COMMIT.E1.%1 (READ.oldval)))
+              (IF (EQ (READ.argument2) (CONST.0x305))
+                (SEQ
+                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                  (COMMIT.E1.%1 (READ.oldval)))
+                (IF (EQ (READ.argument2) (CONST.0x340))
+                  (SEQ
+                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                    (COMMIT.E1.%1 (READ.oldval)))
+                  (THROW.ID.OPCODE))))))))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:FSRM"
@@ -1456,6 +1596,14 @@ if (argument2 == 0x003) {
   result1 = (result1 &gt;&gt; 5) &amp; 7;
 } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
   result1 = 0;
+} else if (argument2 == 0x341) {
+  result1 = SPC; SPC = argument1;
+} else if (argument2 == 0x343) {
+  result1 = EA; EA = argument1;
+} else if (argument2 == 0x305) {
+  result1 = EV; EV = argument1;
+} else if (argument2 == 0x340) {
+  result1 = SR; SR = argument1;
 } else {
   _THROW(OPCODE);
 }
@@ -1496,5 +1644,25 @@ if (argument2 == 0x003) {
           (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
         (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
           (COMMIT.E1.%1 (CONST.0))
-          (THROW.ID.OPCODE))))))
+          (IF (EQ (READ.argument2) (CONST.0x341))
+            (SEQ
+              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+              (COMMIT.E1.%1 (READ.oldval)))
+            (IF (EQ (READ.argument2) (CONST.0x343))
+              (SEQ
+                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                (COMMIT.E1.%1 (READ.oldval)))
+              (IF (EQ (READ.argument2) (CONST.0x305))
+                (SEQ
+                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                  (COMMIT.E1.%1 (READ.oldval)))
+                (IF (EQ (READ.argument2) (CONST.0x340))
+                  (SEQ
+                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                    (COMMIT.E1.%1 (READ.oldval)))
+                  (THROW.ID.OPCODE))))))))))
 </Behavior></Instruction>

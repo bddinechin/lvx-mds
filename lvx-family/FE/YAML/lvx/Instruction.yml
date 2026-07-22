@@ -425,7 +425,10 @@ Instruction:
       untouched. The read-only machine ID CSRs
       \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13),
       \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of
-      csrrw/csrrs/csrrc returns the value). Any other %2 raises an OPCODE exception.
+      csrrw/csrrs/csrrc returns the value). The machine trap CSRs \texttt{mepc} (0x341),
+      \texttt{mtval} (0x343), \texttt{mtvec} (0x305) and \texttt{mscratch} (0x340) are full 64-bit
+      read/write views of the LVX \textbf{SPC}, \textbf{EA}, \textbf{EV} and \textbf{SR}
+      registers respectively. Any other %2 raises an OPCODE exception.
     execution: |
       stage E1:
       new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
@@ -452,6 +455,14 @@ Instruction:
         result1 = (result1 >> 5) & 7;
       } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
         result1 = 0;
+      } else if (argument2 == 0x341) {
+        result1 = SPC; SPC = argument1;
+      } else if (argument2 == 0x343) {
+        result1 = EA; EA = argument1;
+      } else if (argument2 == 0x305) {
+        result1 = EV; EV = argument1;
+      } else if (argument2 == 0x340) {
+        result1 = SR; SR = argument1;
       } else {
         _THROW(OPCODE);
       }
@@ -492,7 +503,27 @@ Instruction:
                 (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
               (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
                 (COMMIT.E1.%1 (CONST.0))
-                (THROW.ID.OPCODE))))))
+                (IF (EQ (READ.argument2) (CONST.0x341))
+                  (SEQ
+                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+                    (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                    (COMMIT.E1.%1 (READ.oldval)))
+                  (IF (EQ (READ.argument2) (CONST.0x343))
+                    (SEQ
+                      (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+                      (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                      (COMMIT.E1.%1 (READ.oldval)))
+                    (IF (EQ (READ.argument2) (CONST.0x305))
+                      (SEQ
+                        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+                        (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                        (COMMIT.E1.%1 (READ.oldval)))
+                      (IF (EQ (READ.argument2) (CONST.0x340))
+                        (SEQ
+                          (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+                          (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+                          (COMMIT.E1.%1 (READ.oldval)))
+                        (THROW.ID.OPCODE))))))))))
 
   - ID: CSRRS
     what: RISC-V CSR Read/Set (atomic) of the fcsr view of Compute Status
@@ -506,7 +537,10 @@ Instruction:
       the flags untouched. The read-only machine ID CSRs
       \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13),
       \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of
-      csrrw/csrrs/csrrc returns the value). Any other %2 raises an OPCODE exception.
+      csrrw/csrrs/csrrc returns the value). The machine trap CSRs \texttt{mepc} (0x341),
+      \texttt{mtval} (0x343), \texttt{mtvec} (0x305) and \texttt{mscratch} (0x340) are full 64-bit
+      read/write views of the LVX \textbf{SPC}, \textbf{EA}, \textbf{EV} and \textbf{SR}
+      registers respectively. Any other %2 raises an OPCODE exception.
     execution: |
       stage E1:
       new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
@@ -533,6 +567,14 @@ Instruction:
         result1 = (result1 >> 5) & 7;
       } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
         result1 = 0;
+      } else if (argument2 == 0x341) {
+        result1 = SPC; SPC = SPC | argument1;
+      } else if (argument2 == 0x343) {
+        result1 = EA; EA = EA | argument1;
+      } else if (argument2 == 0x305) {
+        result1 = EV; EV = EV | argument1;
+      } else if (argument2 == 0x340) {
+        result1 = SR; SR = SR | argument1;
       } else {
         _THROW(OPCODE);
       }
@@ -573,7 +615,27 @@ Instruction:
                 (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
               (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
                 (COMMIT.E1.%1 (CONST.0))
-                (THROW.ID.OPCODE))))))
+                (IF (EQ (READ.argument2) (CONST.0x341))
+                  (SEQ
+                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+                    (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                    (COMMIT.E1.%1 (READ.oldval)))
+                  (IF (EQ (READ.argument2) (CONST.0x343))
+                    (SEQ
+                      (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+                      (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                      (COMMIT.E1.%1 (READ.oldval)))
+                    (IF (EQ (READ.argument2) (CONST.0x305))
+                      (SEQ
+                        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+                        (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                        (COMMIT.E1.%1 (READ.oldval)))
+                      (IF (EQ (READ.argument2) (CONST.0x340))
+                        (SEQ
+                          (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+                          (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+                          (COMMIT.E1.%1 (READ.oldval)))
+                        (THROW.ID.OPCODE))))))))))
 
   - ID: CSRRC
     what: RISC-V CSR Read/Clear (atomic) of the fcsr view of Compute Status
@@ -587,7 +649,10 @@ Instruction:
       the flags untouched. The read-only machine ID CSRs
       \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13),
       \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of
-      csrrw/csrrs/csrrc returns the value). Any other %2 raises an OPCODE exception.
+      csrrw/csrrs/csrrc returns the value). The machine trap CSRs \texttt{mepc} (0x341),
+      \texttt{mtval} (0x343), \texttt{mtvec} (0x305) and \texttt{mscratch} (0x340) are full 64-bit
+      read/write views of the LVX \textbf{SPC}, \textbf{EA}, \textbf{EV} and \textbf{SR}
+      registers respectively. Any other %2 raises an OPCODE exception.
     execution: |
       stage E1:
       new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
@@ -614,6 +679,14 @@ Instruction:
         result1 = (result1 >> 5) & 7;
       } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
         result1 = 0;
+      } else if (argument2 == 0x341) {
+        result1 = SPC; SPC = SPC & ~argument1;
+      } else if (argument2 == 0x343) {
+        result1 = EA; EA = EA & ~argument1;
+      } else if (argument2 == 0x305) {
+        result1 = EV; EV = EV & ~argument1;
+      } else if (argument2 == 0x340) {
+        result1 = SR; SR = SR & ~argument1;
       } else {
         _THROW(OPCODE);
       }
@@ -654,7 +727,27 @@ Instruction:
                 (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
               (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
                 (COMMIT.E1.%1 (CONST.0))
-                (THROW.ID.OPCODE))))))
+                (IF (EQ (READ.argument2) (CONST.0x341))
+                  (SEQ
+                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+                    (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (AND (READ.oldval) (NOT (ZX.64 (READ.argument1))))))
+                    (COMMIT.E1.%1 (READ.oldval)))
+                  (IF (EQ (READ.argument2) (CONST.0x343))
+                    (SEQ
+                      (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+                      (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (AND (READ.oldval) (NOT (ZX.64 (READ.argument1))))))
+                      (COMMIT.E1.%1 (READ.oldval)))
+                    (IF (EQ (READ.argument2) (CONST.0x305))
+                      (SEQ
+                        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+                        (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (AND (READ.oldval) (NOT (ZX.64 (READ.argument1))))))
+                        (COMMIT.E1.%1 (READ.oldval)))
+                      (IF (EQ (READ.argument2) (CONST.0x340))
+                        (SEQ
+                          (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+                          (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (AND (READ.oldval) (NOT (ZX.64 (READ.argument1))))))
+                          (COMMIT.E1.%1 (READ.oldval)))
+                        (THROW.ID.OPCODE))))))))))
 
   - ID: WAITIT
     what: Wait for Interrupt

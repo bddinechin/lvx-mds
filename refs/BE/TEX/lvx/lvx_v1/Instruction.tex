@@ -304,7 +304,7 @@ stage RR:
 
 \paragraph{Syntax} \texttt{csrrc} \emph{registerZ} = \emph{csrnumber}
 
-\paragraph{Description} RISC-V \texttt{csrrc} for the FP CSRs. With \emph{csrnumber} = 0x003 (\texttt{fcsr}), \emph{registerZ} receives the old \texttt{fcsr} and the CS FP fields are set to (old fcsr AND NOT the old \emph{registerZ}) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. \emph{csrnumber} = 0x001 (\texttt{fflags}) clears only the 5 flag bits, leaving CS_RM untouched; \emph{csrnumber} = 0x002 (\texttt{frm}) clears only the rounding mode, right-aligned in bits 0..2, leaving the flags untouched. The read-only machine ID CSRs \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13), \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of csrrw/csrrs/csrrc returns the value). Any other \emph{csrnumber} raises an OPCODE exception.
+\paragraph{Description} RISC-V \texttt{csrrc} for the FP CSRs. With \emph{csrnumber} = 0x003 (\texttt{fcsr}), \emph{registerZ} receives the old \texttt{fcsr} and the CS FP fields are set to (old fcsr AND NOT the old \emph{registerZ}) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. \emph{csrnumber} = 0x001 (\texttt{fflags}) clears only the 5 flag bits, leaving CS_RM untouched; \emph{csrnumber} = 0x002 (\texttt{frm}) clears only the rounding mode, right-aligned in bits 0..2, leaving the flags untouched. The read-only machine ID CSRs \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13), \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of csrrw/csrrs/csrrc returns the value). The machine trap CSRs \texttt{mepc} (0x341), \texttt{mtval} (0x343), \texttt{mtvec} (0x305) and \texttt{mscratch} (0x340) are full 64-bit read/write views of the LVX \textbf{SPC}, \textbf{EA}, \textbf{EV} and \textbf{SR} registers respectively. Any other \emph{csrnumber} raises an OPCODE exception.
 
 
 \paragraph{Execution} {Reservation table \textsf{BCU2\_TINY\_LSU} (Section~\ref{sec:reservation-BCU2-TINY-LSU})}
@@ -338,6 +338,22 @@ stage E1:
     GPR[registerZ] = (result1 >> 5) & 7;
   } else if (((((argument2 == 0xF11) || (argument2 == 0xF12)) || (argument2 == 0xF13)) || (argument2 == 0xF14)) || (argument2 == 0x301)) {
     GPR[registerZ] = 0;
+  } else if (argument2 == 0x341) {
+    new oldval = SFR[128];
+    SFR[128] = oldval & ~_ZX_64(argument1);
+    GPR[registerZ] = oldval;
+  } else if (argument2 == 0x343) {
+    oldval = SFR[136];
+    SFR[136] = oldval & ~_ZX_64(argument1);
+    GPR[registerZ] = oldval;
+  } else if (argument2 == 0x305) {
+    oldval = SFR[140];
+    SFR[140] = oldval & ~_ZX_64(argument1);
+    GPR[registerZ] = oldval;
+  } else if (argument2 == 0x340) {
+    oldval = SFR[144];
+    SFR[144] = oldval & ~_ZX_64(argument1);
+    GPR[registerZ] = oldval;
   } else {
     _THROW(OPCODE);
   }
@@ -353,7 +369,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{csrrs} \emph{registerZ} = \emph{csrnumber}
 
-\paragraph{Description} RISC-V \texttt{csrrs} for the FP CSRs. With \emph{csrnumber} = 0x003 (\texttt{fcsr}), \emph{registerZ} receives the old \texttt{fcsr} and the CS FP fields are set to (old fcsr OR the old \emph{registerZ}) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. \emph{csrnumber} = 0x001 (\texttt{fflags}) sets only the 5 flag bits, leaving CS_RM untouched; \emph{csrnumber} = 0x002 (\texttt{frm}) sets only the rounding mode, right-aligned in bits 0..2, leaving the flags untouched. The read-only machine ID CSRs \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13), \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of csrrw/csrrs/csrrc returns the value). Any other \emph{csrnumber} raises an OPCODE exception.
+\paragraph{Description} RISC-V \texttt{csrrs} for the FP CSRs. With \emph{csrnumber} = 0x003 (\texttt{fcsr}), \emph{registerZ} receives the old \texttt{fcsr} and the CS FP fields are set to (old fcsr OR the old \emph{registerZ}) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. \emph{csrnumber} = 0x001 (\texttt{fflags}) sets only the 5 flag bits, leaving CS_RM untouched; \emph{csrnumber} = 0x002 (\texttt{frm}) sets only the rounding mode, right-aligned in bits 0..2, leaving the flags untouched. The read-only machine ID CSRs \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13), \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of csrrw/csrrs/csrrc returns the value). The machine trap CSRs \texttt{mepc} (0x341), \texttt{mtval} (0x343), \texttt{mtvec} (0x305) and \texttt{mscratch} (0x340) are full 64-bit read/write views of the LVX \textbf{SPC}, \textbf{EA}, \textbf{EV} and \textbf{SR} registers respectively. Any other \emph{csrnumber} raises an OPCODE exception.
 
 
 \paragraph{Execution} {Reservation table \textsf{BCU2\_TINY\_LSU} (Section~\ref{sec:reservation-BCU2-TINY-LSU})}
@@ -387,6 +403,22 @@ stage E1:
     GPR[registerZ] = (result1 >> 5) & 7;
   } else if (((((argument2 == 0xF11) || (argument2 == 0xF12)) || (argument2 == 0xF13)) || (argument2 == 0xF14)) || (argument2 == 0x301)) {
     GPR[registerZ] = 0;
+  } else if (argument2 == 0x341) {
+    new oldval = SFR[128];
+    SFR[128] = oldval | _ZX_64(argument1);
+    GPR[registerZ] = oldval;
+  } else if (argument2 == 0x343) {
+    oldval = SFR[136];
+    SFR[136] = oldval | _ZX_64(argument1);
+    GPR[registerZ] = oldval;
+  } else if (argument2 == 0x305) {
+    oldval = SFR[140];
+    SFR[140] = oldval | _ZX_64(argument1);
+    GPR[registerZ] = oldval;
+  } else if (argument2 == 0x340) {
+    oldval = SFR[144];
+    SFR[144] = oldval | _ZX_64(argument1);
+    GPR[registerZ] = oldval;
   } else {
     _THROW(OPCODE);
   }
@@ -402,7 +434,7 @@ stage E1:
 
 \paragraph{Syntax} \texttt{csrrw} \emph{registerZ} = \emph{csrnumber}
 
-\paragraph{Description} RISC-V \texttt{csrrw} for the FP CSRs. With the CSR number \emph{csrnumber} = 0x003 (\texttt{fcsr}), \emph{registerZ} receives the old \texttt{fcsr} -- \texttt{fflags} in bits 0..4 (NX,UF,OF,DZ,NV: the CS IEEE flags CS_IN,CS_UN,CS_OV,CS_DZ,CS_IO in reversed RISC-V order) and \texttt{frm} in bits 5..7 (from CS_RM) -- and the CS FP fields are written from the old \emph{registerZ} in the same layout, preserving CS_IC, CS_XMF and CS_CC. \emph{csrnumber} = 0x001 (\texttt{fflags}) is the same but restricted to the 5 flag bits, leaving CS_RM untouched; \emph{csrnumber} = 0x002 (\texttt{frm}) accesses only the rounding mode, right-aligned in bits 0..2 (to/from CS_RM), leaving the flags untouched. The read-only machine ID CSRs \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13), \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of csrrw/csrrs/csrrc returns the value). Any other \emph{csrnumber} raises an OPCODE exception.
+\paragraph{Description} RISC-V \texttt{csrrw} for the FP CSRs. With the CSR number \emph{csrnumber} = 0x003 (\texttt{fcsr}), \emph{registerZ} receives the old \texttt{fcsr} -- \texttt{fflags} in bits 0..4 (NX,UF,OF,DZ,NV: the CS IEEE flags CS_IN,CS_UN,CS_OV,CS_DZ,CS_IO in reversed RISC-V order) and \texttt{frm} in bits 5..7 (from CS_RM) -- and the CS FP fields are written from the old \emph{registerZ} in the same layout, preserving CS_IC, CS_XMF and CS_CC. \emph{csrnumber} = 0x001 (\texttt{fflags}) is the same but restricted to the 5 flag bits, leaving CS_RM untouched; \emph{csrnumber} = 0x002 (\texttt{frm}) accesses only the rounding mode, right-aligned in bits 0..2 (to/from CS_RM), leaving the flags untouched. The read-only machine ID CSRs \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13), \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of csrrw/csrrs/csrrc returns the value). The machine trap CSRs \texttt{mepc} (0x341), \texttt{mtval} (0x343), \texttt{mtvec} (0x305) and \texttt{mscratch} (0x340) are full 64-bit read/write views of the LVX \textbf{SPC}, \textbf{EA}, \textbf{EV} and \textbf{SR} registers respectively. Any other \emph{csrnumber} raises an OPCODE exception.
 
 
 \paragraph{Execution} {Reservation table \textsf{BCU2\_TINY\_LSU} (Section~\ref{sec:reservation-BCU2-TINY-LSU})}
@@ -436,6 +468,22 @@ stage E1:
     GPR[registerZ] = (result1 >> 5) & 7;
   } else if (((((argument2 == 0xF11) || (argument2 == 0xF12)) || (argument2 == 0xF13)) || (argument2 == 0xF14)) || (argument2 == 0x301)) {
     GPR[registerZ] = 0;
+  } else if (argument2 == 0x341) {
+    new oldval = SFR[128];
+    SFR[128] = argument1;
+    GPR[registerZ] = oldval;
+  } else if (argument2 == 0x343) {
+    oldval = SFR[136];
+    SFR[136] = argument1;
+    GPR[registerZ] = oldval;
+  } else if (argument2 == 0x305) {
+    oldval = SFR[140];
+    SFR[140] = argument1;
+    GPR[registerZ] = oldval;
+  } else if (argument2 == 0x340) {
+    oldval = SFR[144];
+    SFR[144] = argument1;
+    GPR[registerZ] = oldval;
   } else {
     _THROW(OPCODE);
   }
