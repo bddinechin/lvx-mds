@@ -458,6 +458,8 @@ if (argument2 == 0x003) {
   newval = argument1;
   CS.RM = newval &amp; 7;
   result1 = (result1 &gt;&gt; 5) &amp; 7;
+} else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+  result1 = 0;
 } else {
   _THROW(OPCODE);
 }
@@ -496,7 +498,9 @@ if (argument2 == 0x003) {
           (WRITE.newval (READ.argument1))
           (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
           (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-        (THROW.ID.OPCODE)))))
+        (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
+          (COMMIT.E1.%1 (CONST.0))
+          (THROW.ID.OPCODE))))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:CSRRS"
@@ -529,6 +533,8 @@ if (argument2 == 0x003) {
   newval = ((result1 &gt;&gt; 5) &amp; 7) | argument1;
   CS.RM = newval &amp; 7;
   result1 = (result1 &gt;&gt; 5) &amp; 7;
+} else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+  result1 = 0;
 } else {
   _THROW(OPCODE);
 }
@@ -567,7 +573,9 @@ if (argument2 == 0x003) {
           (WRITE.newval (IOR (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (READ.argument1)))
           (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
           (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-        (THROW.ID.OPCODE)))))
+        (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
+          (COMMIT.E1.%1 (CONST.0))
+          (THROW.ID.OPCODE))))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:CSRRC"
@@ -600,6 +608,8 @@ if (argument2 == 0x003) {
   newval = ((result1 &gt;&gt; 5) &amp; 7) &amp; ~argument1;
   CS.RM = newval &amp; 7;
   result1 = (result1 &gt;&gt; 5) &amp; 7;
+} else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+  result1 = 0;
 } else {
   _THROW(OPCODE);
 }
@@ -638,7 +648,9 @@ if (argument2 == 0x003) {
           (WRITE.newval (AND (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (NOT (READ.argument1))))
           (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
           (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-        (THROW.ID.OPCODE)))))
+        (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
+          (COMMIT.E1.%1 (CONST.0))
+          (THROW.ID.OPCODE))))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:WAITIT"

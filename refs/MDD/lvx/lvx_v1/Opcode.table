@@ -1485,6 +1485,8 @@ stage 2:
     newval = argument1;
     CS.RM = newval &amp; 7;
     result1 = (result1 &gt;&gt; 5) &amp; 7;
+  } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+    result1 = 0;
   } else {
     _THROW(OPCODE);
   }
@@ -1906,7 +1908,33 @@ stage 2:
                   (READ.result1(*hi:255,lo:0*))
                   (CONST.5)(*dm:64,hi:7,lo:0*))
                 (CONST.7)(*dm:64,hi:7,lo:0*)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2(*hi:4095,lo:0*))
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2(*hi:4095,lo:0*))
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2(*hi:4095,lo:0*))
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2(*hi:4095,lo:0*))
+                (CONST.3860)))
+            (EQ
+              (READ.argument2(*hi:4095,lo:0*))
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1(*hi:63,lo:0*))
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-CSRRS_registerZ_csrnumber_simple"
@@ -1948,6 +1976,8 @@ stage 2:
     newval = ((result1 &gt;&gt; 5) &amp; 7) | argument1;
     CS.RM = newval &amp; 7;
     result1 = (result1 &gt;&gt; 5) &amp; 7;
+  } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+    result1 = 0;
   } else {
     _THROW(OPCODE);
   }
@@ -2379,7 +2409,33 @@ stage 2:
                   (READ.result1(*hi:255,lo:0*))
                   (CONST.5)(*dm:64,hi:7,lo:0*))
                 (CONST.7)(*dm:64,hi:7,lo:0*)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2(*hi:4095,lo:0*))
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2(*hi:4095,lo:0*))
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2(*hi:4095,lo:0*))
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2(*hi:4095,lo:0*))
+                (CONST.3860)))
+            (EQ
+              (READ.argument2(*hi:4095,lo:0*))
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1(*hi:63,lo:0*))
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-CSRRC_registerZ_csrnumber_simple"
@@ -2421,6 +2477,8 @@ stage 2:
     newval = ((result1 &gt;&gt; 5) &amp; 7) &amp; ~argument1;
     CS.RM = newval &amp; 7;
     result1 = (result1 &gt;&gt; 5) &amp; 7;
+  } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+    result1 = 0;
   } else {
     _THROW(OPCODE);
   }
@@ -2855,7 +2913,33 @@ stage 2:
                   (READ.result1(*hi:255,lo:0*))
                   (CONST.5)(*dm:64,hi:7,lo:0*))
                 (CONST.7)(*dm:64,hi:7,lo:0*)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2(*hi:4095,lo:0*))
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2(*hi:4095,lo:0*))
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2(*hi:4095,lo:0*))
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2(*hi:4095,lo:0*))
+                (CONST.3860)))
+            (EQ
+              (READ.argument2(*hi:4095,lo:0*))
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1(*hi:63,lo:0*))
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-WAITIT_registerZ_simple"
@@ -67951,6 +68035,8 @@ stage 2:
     newval = ((result1 &gt;&gt; 5) &amp; 7) | argument1;
     CS.RM = newval &amp; 7;
     result1 = (result1 &gt;&gt; 5) &amp; 7;
+  } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+    result1 = 0;
   } else {
     _THROW(OPCODE);
   }
@@ -68381,7 +68467,33 @@ stage 2:
                   (READ.result1(*hi:255,lo:0*))
                   (CONST.5)(*dm:64,hi:7,lo:0*))
                 (CONST.7)(*dm:64,hi:7,lo:0*)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2(*hi:3,lo:3*))
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2(*hi:3,lo:3*))
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2(*hi:3,lo:3*))
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2(*hi:3,lo:3*))
+                (CONST.3860)))
+            (EQ
+              (READ.argument2(*hi:3,lo:3*))
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1(*hi:63,lo:0*))
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FSCSR_registerZ_simple"
@@ -68423,6 +68535,8 @@ stage 2:
     newval = argument1;
     CS.RM = newval &amp; 7;
     result1 = (result1 &gt;&gt; 5) &amp; 7;
+  } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+    result1 = 0;
   } else {
     _THROW(OPCODE);
   }
@@ -68843,7 +68957,33 @@ stage 2:
                   (READ.result1(*hi:255,lo:0*))
                   (CONST.5)(*dm:64,hi:7,lo:0*))
                 (CONST.7)(*dm:64,hi:7,lo:0*)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2(*hi:3,lo:3*))
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2(*hi:3,lo:3*))
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2(*hi:3,lo:3*))
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2(*hi:3,lo:3*))
+                (CONST.3860)))
+            (EQ
+              (READ.argument2(*hi:3,lo:3*))
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1(*hi:63,lo:0*))
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FRFLAGS_registerZ_simple"
@@ -68885,6 +69025,8 @@ stage 2:
     newval = ((result1 &gt;&gt; 5) &amp; 7) | argument1;
     CS.RM = newval &amp; 7;
     result1 = (result1 &gt;&gt; 5) &amp; 7;
+  } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+    result1 = 0;
   } else {
     _THROW(OPCODE);
   }
@@ -69315,7 +69457,33 @@ stage 2:
                   (READ.result1(*hi:255,lo:0*))
                   (CONST.5)(*dm:64,hi:7,lo:0*))
                 (CONST.7)(*dm:64,hi:7,lo:0*)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2(*hi:1,lo:1*))
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2(*hi:1,lo:1*))
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2(*hi:1,lo:1*))
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2(*hi:1,lo:1*))
+                (CONST.3860)))
+            (EQ
+              (READ.argument2(*hi:1,lo:1*))
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1(*hi:63,lo:0*))
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FSFLAGS_registerZ_simple"
@@ -69357,6 +69525,8 @@ stage 2:
     newval = argument1;
     CS.RM = newval &amp; 7;
     result1 = (result1 &gt;&gt; 5) &amp; 7;
+  } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+    result1 = 0;
   } else {
     _THROW(OPCODE);
   }
@@ -69777,7 +69947,33 @@ stage 2:
                   (READ.result1(*hi:255,lo:0*))
                   (CONST.5)(*dm:64,hi:7,lo:0*))
                 (CONST.7)(*dm:64,hi:7,lo:0*)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2(*hi:1,lo:1*))
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2(*hi:1,lo:1*))
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2(*hi:1,lo:1*))
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2(*hi:1,lo:1*))
+                (CONST.3860)))
+            (EQ
+              (READ.argument2(*hi:1,lo:1*))
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1(*hi:63,lo:0*))
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FRRM_registerZ_simple"
@@ -69819,6 +70015,8 @@ stage 2:
     newval = ((result1 &gt;&gt; 5) &amp; 7) | argument1;
     CS.RM = newval &amp; 7;
     result1 = (result1 &gt;&gt; 5) &amp; 7;
+  } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+    result1 = 0;
   } else {
     _THROW(OPCODE);
   }
@@ -70249,7 +70447,33 @@ stage 2:
                   (READ.result1(*hi:255,lo:0*))
                   (CONST.5)(*dm:64,hi:7,lo:0*))
                 (CONST.7)(*dm:64,hi:7,lo:0*)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2(*hi:2,lo:2*))
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2(*hi:2,lo:2*))
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2(*hi:2,lo:2*))
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2(*hi:2,lo:2*))
+                (CONST.3860)))
+            (EQ
+              (READ.argument2(*hi:2,lo:2*))
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1(*hi:63,lo:0*))
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-FSRM_registerZ_simple"
@@ -70291,6 +70515,8 @@ stage 2:
     newval = argument1;
     CS.RM = newval &amp; 7;
     result1 = (result1 &gt;&gt; 5) &amp; 7;
+  } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+    result1 = 0;
   } else {
     _THROW(OPCODE);
   }
@@ -70711,5 +70937,31 @@ stage 2:
                   (READ.result1(*hi:255,lo:0*))
                   (CONST.5)(*dm:64,hi:7,lo:0*))
                 (CONST.7)(*dm:64,hi:7,lo:0*)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2(*hi:2,lo:2*))
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2(*hi:2,lo:2*))
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2(*hi:2,lo:2*))
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2(*hi:2,lo:2*))
+                (CONST.3860)))
+            (EQ
+              (READ.argument2(*hi:2,lo:2*))
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1(*hi:63,lo:0*))
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 </Behavior></Opcode>

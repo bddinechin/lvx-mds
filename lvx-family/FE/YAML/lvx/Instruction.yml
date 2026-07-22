@@ -422,7 +422,10 @@ Instruction:
       CS_XMF and CS_CC. %2 = 0x001 (\texttt{fflags}) is the same but restricted to the
       5 flag bits, leaving CS_RM untouched; %2 = 0x002 (\texttt{frm}) accesses only the
       rounding mode, right-aligned in bits 0..2 (to/from CS_RM), leaving the flags
-      untouched. Any other %2 raises an OPCODE exception.
+      untouched. The read-only machine ID CSRs
+      \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13),
+      \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of
+      csrrw/csrrs/csrrc returns the value). Any other %2 raises an OPCODE exception.
     execution: |
       stage E1:
       new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
@@ -447,6 +450,8 @@ Instruction:
         newval = argument1;
         CS.RM = newval & 7;
         result1 = (result1 >> 5) & 7;
+      } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+        result1 = 0;
       } else {
         _THROW(OPCODE);
       }
@@ -485,7 +490,9 @@ Instruction:
                 (WRITE.newval (READ.argument1))
                 (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
                 (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-              (THROW.ID.OPCODE)))))
+              (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
+                (COMMIT.E1.%1 (CONST.0))
+                (THROW.ID.OPCODE))))))
 
   - ID: CSRRS
     what: RISC-V CSR Read/Set (atomic) of the fcsr view of Compute Status
@@ -496,7 +503,10 @@ Instruction:
       old %1) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. %2 = 0x001
       (\texttt{fflags}) sets only the 5 flag bits, leaving CS_RM untouched; %2 = 0x002
       (\texttt{frm}) sets only the rounding mode, right-aligned in bits 0..2, leaving
-      the flags untouched. Any other %2 raises an OPCODE exception.
+      the flags untouched. The read-only machine ID CSRs
+      \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13),
+      \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of
+      csrrw/csrrs/csrrc returns the value). Any other %2 raises an OPCODE exception.
     execution: |
       stage E1:
       new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
@@ -521,6 +531,8 @@ Instruction:
         newval = ((result1 >> 5) & 7) | argument1;
         CS.RM = newval & 7;
         result1 = (result1 >> 5) & 7;
+      } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+        result1 = 0;
       } else {
         _THROW(OPCODE);
       }
@@ -559,7 +571,9 @@ Instruction:
                 (WRITE.newval (IOR (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (READ.argument1)))
                 (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
                 (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-              (THROW.ID.OPCODE)))))
+              (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
+                (COMMIT.E1.%1 (CONST.0))
+                (THROW.ID.OPCODE))))))
 
   - ID: CSRRC
     what: RISC-V CSR Read/Clear (atomic) of the fcsr view of Compute Status
@@ -570,7 +584,10 @@ Instruction:
       the old %1) in RISC-V layout, preserving CS_IC, CS_XMF and CS_CC. %2 = 0x001
       (\texttt{fflags}) clears only the 5 flag bits, leaving CS_RM untouched; %2 = 0x002
       (\texttt{frm}) clears only the rounding mode, right-aligned in bits 0..2, leaving
-      the flags untouched. Any other %2 raises an OPCODE exception.
+      the flags untouched. The read-only machine ID CSRs
+      \texttt{mvendorid} (0xF11), \texttt{marchid} (0xF12), \texttt{mimpid} (0xF13),
+      \texttt{mhartid} (0xF14) and \texttt{misa} (0x301) read as 0 (writes ignored, so any of
+      csrrw/csrrs/csrrc returns the value). Any other %2 raises an OPCODE exception.
     execution: |
       stage E1:
       new result1 = (CS.IN << 0) | (CS.UN << 1) | (CS.OV << 2) | (CS.DZ << 3) | (CS.IO << 4) | (CS.RM << 5);
@@ -595,6 +612,8 @@ Instruction:
         newval = ((result1 >> 5) & 7) & ~argument1;
         CS.RM = newval & 7;
         result1 = (result1 >> 5) & 7;
+      } else if (argument2 == 0xF11 || argument2 == 0xF12 || argument2 == 0xF13 || argument2 == 0xF14 || argument2 == 0x301) {
+        result1 = 0;
       } else {
         _THROW(OPCODE);
       }
@@ -633,7 +652,9 @@ Instruction:
                 (WRITE.newval (AND (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (NOT (READ.argument1))))
                 (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
                 (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-              (THROW.ID.OPCODE)))))
+              (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
+                (COMMIT.E1.%1 (CONST.0))
+                (THROW.ID.OPCODE))))))
 
   - ID: WAITIT
     what: Wait for Interrupt

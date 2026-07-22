@@ -1663,7 +1663,33 @@ execute_lvx_v1_CSRRW_registerZ_csrnumber_simple(void *this, OperandDecoded *deco
                   (READ.result1)
                   (CONST.5))
                 (CONST.7)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2)
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2)
+                (CONST.3860)))
+            (EQ
+              (READ.argument2)
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1)
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 */
   Int256_ argument1 = Int256_zero;
   Int256_ argument2 = Int256_zero;
@@ -2188,7 +2214,51 @@ execute_lvx_v1_CSRRW_registerZ_csrnumber_simple(void *this, OperandDecoded *deco
         ;
       }
       else {
-        HELPER(throw_OPCODE)(this);
+        if (
+          (
+            (
+              (
+                (
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf11ULL)
+                  ) == 0
+                   || 
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf12ULL)
+                  ) == 0
+                )
+                 || 
+                Int256_cmp(
+                  argument2, 
+                  Int256_fromUInt64(0xf13ULL)
+                ) == 0
+              )
+               || 
+              Int256_cmp(
+                argument2, 
+                Int256_fromUInt64(0xf14ULL)
+              ) == 0
+            )
+             || 
+            Int256_cmp(
+              argument2, 
+              Int256_fromUInt64(0x301ULL)
+            ) == 0
+          )
+        )
+        {
+          HELPER(operandFromValue)(this, 1, 0, 0, 
+            Int256_zx(
+              Int256_fromUInt64(0ULL), 64
+            )
+          );
+        }
+        else {
+          HELPER(throw_OPCODE)(this);
+        }
+        ;
       }
       ;
     }
@@ -2635,7 +2705,33 @@ execute_lvx_v1_CSRRS_registerZ_csrnumber_simple(void *this, OperandDecoded *deco
                   (READ.result1)
                   (CONST.5))
                 (CONST.7)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2)
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2)
+                (CONST.3860)))
+            (EQ
+              (READ.argument2)
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1)
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 */
   Int256_ argument1 = Int256_zero;
   Int256_ argument2 = Int256_zero;
@@ -3175,7 +3271,51 @@ execute_lvx_v1_CSRRS_registerZ_csrnumber_simple(void *this, OperandDecoded *deco
         ;
       }
       else {
-        HELPER(throw_OPCODE)(this);
+        if (
+          (
+            (
+              (
+                (
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf11ULL)
+                  ) == 0
+                   || 
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf12ULL)
+                  ) == 0
+                )
+                 || 
+                Int256_cmp(
+                  argument2, 
+                  Int256_fromUInt64(0xf13ULL)
+                ) == 0
+              )
+               || 
+              Int256_cmp(
+                argument2, 
+                Int256_fromUInt64(0xf14ULL)
+              ) == 0
+            )
+             || 
+            Int256_cmp(
+              argument2, 
+              Int256_fromUInt64(0x301ULL)
+            ) == 0
+          )
+        )
+        {
+          HELPER(operandFromValue)(this, 1, 0, 0, 
+            Int256_zx(
+              Int256_fromUInt64(0ULL), 64
+            )
+          );
+        }
+        else {
+          HELPER(throw_OPCODE)(this);
+        }
+        ;
       }
       ;
     }
@@ -3616,7 +3756,33 @@ execute_lvx_v1_CSRRC_registerZ_csrnumber_simple(void *this, OperandDecoded *deco
                   (READ.result1)
                   (CONST.5))
                 (CONST.7)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2)
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2)
+                (CONST.3860)))
+            (EQ
+              (READ.argument2)
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1)
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 */
   Int256_ argument1 = Int256_zero;
   Int256_ argument2 = Int256_zero;
@@ -4162,7 +4328,51 @@ execute_lvx_v1_CSRRC_registerZ_csrnumber_simple(void *this, OperandDecoded *deco
         ;
       }
       else {
-        HELPER(throw_OPCODE)(this);
+        if (
+          (
+            (
+              (
+                (
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf11ULL)
+                  ) == 0
+                   || 
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf12ULL)
+                  ) == 0
+                )
+                 || 
+                Int256_cmp(
+                  argument2, 
+                  Int256_fromUInt64(0xf13ULL)
+                ) == 0
+              )
+               || 
+              Int256_cmp(
+                argument2, 
+                Int256_fromUInt64(0xf14ULL)
+              ) == 0
+            )
+             || 
+            Int256_cmp(
+              argument2, 
+              Int256_fromUInt64(0x301ULL)
+            ) == 0
+          )
+        )
+        {
+          HELPER(operandFromValue)(this, 1, 0, 0, 
+            Int256_zx(
+              Int256_fromUInt64(0ULL), 64
+            )
+          );
+        }
+        else {
+          HELPER(throw_OPCODE)(this);
+        }
+        ;
       }
       ;
     }
@@ -109401,7 +109611,33 @@ execute_lvx_v1_FRCSR_registerZ_simple(void *this, OperandDecoded *decoded, Proce
                   (READ.result1)
                   (CONST.5))
                 (CONST.7)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2)
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2)
+                (CONST.3860)))
+            (EQ
+              (READ.argument2)
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1)
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 */
   Int256_ argument1 __attribute__((unused))= Int256_zero;
   Int256_ argument2 __attribute__((unused))= Int256_zero;
@@ -109939,7 +110175,51 @@ execute_lvx_v1_FRCSR_registerZ_simple(void *this, OperandDecoded *decoded, Proce
         ;
       }
       else {
-        HELPER(throw_OPCODE)(this);
+        if (
+          (
+            (
+              (
+                (
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf11ULL)
+                  ) == 0
+                   || 
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf12ULL)
+                  ) == 0
+                )
+                 || 
+                Int256_cmp(
+                  argument2, 
+                  Int256_fromUInt64(0xf13ULL)
+                ) == 0
+              )
+               || 
+              Int256_cmp(
+                argument2, 
+                Int256_fromUInt64(0xf14ULL)
+              ) == 0
+            )
+             || 
+            Int256_cmp(
+              argument2, 
+              Int256_fromUInt64(0x301ULL)
+            ) == 0
+          )
+        )
+        {
+          HELPER(operandFromValue)(this, 1, 0, 0, 
+            Int256_zx(
+              Int256_fromUInt64(0ULL), 64
+            )
+          );
+        }
+        else {
+          HELPER(throw_OPCODE)(this);
+        }
+        ;
       }
       ;
     }
@@ -110366,7 +110646,33 @@ execute_lvx_v1_FSCSR_registerZ_simple(void *this, OperandDecoded *decoded, Proce
                   (READ.result1)
                   (CONST.5))
                 (CONST.7)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2)
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2)
+                (CONST.3860)))
+            (EQ
+              (READ.argument2)
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1)
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 */
   Int256_ argument1 __attribute__((unused))= Int256_zero;
   Int256_ argument2 __attribute__((unused))= Int256_zero;
@@ -110889,7 +111195,51 @@ execute_lvx_v1_FSCSR_registerZ_simple(void *this, OperandDecoded *decoded, Proce
         ;
       }
       else {
-        HELPER(throw_OPCODE)(this);
+        if (
+          (
+            (
+              (
+                (
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf11ULL)
+                  ) == 0
+                   || 
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf12ULL)
+                  ) == 0
+                )
+                 || 
+                Int256_cmp(
+                  argument2, 
+                  Int256_fromUInt64(0xf13ULL)
+                ) == 0
+              )
+               || 
+              Int256_cmp(
+                argument2, 
+                Int256_fromUInt64(0xf14ULL)
+              ) == 0
+            )
+             || 
+            Int256_cmp(
+              argument2, 
+              Int256_fromUInt64(0x301ULL)
+            ) == 0
+          )
+        )
+        {
+          HELPER(operandFromValue)(this, 1, 0, 0, 
+            Int256_zx(
+              Int256_fromUInt64(0ULL), 64
+            )
+          );
+        }
+        else {
+          HELPER(throw_OPCODE)(this);
+        }
+        ;
       }
       ;
     }
@@ -111326,7 +111676,33 @@ execute_lvx_v1_FRFLAGS_registerZ_simple(void *this, OperandDecoded *decoded, Pro
                   (READ.result1)
                   (CONST.5))
                 (CONST.7)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2)
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2)
+                (CONST.3860)))
+            (EQ
+              (READ.argument2)
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1)
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 */
   Int256_ argument1 __attribute__((unused))= Int256_zero;
   Int256_ argument2 __attribute__((unused))= Int256_zero;
@@ -111864,7 +112240,51 @@ execute_lvx_v1_FRFLAGS_registerZ_simple(void *this, OperandDecoded *decoded, Pro
         ;
       }
       else {
-        HELPER(throw_OPCODE)(this);
+        if (
+          (
+            (
+              (
+                (
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf11ULL)
+                  ) == 0
+                   || 
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf12ULL)
+                  ) == 0
+                )
+                 || 
+                Int256_cmp(
+                  argument2, 
+                  Int256_fromUInt64(0xf13ULL)
+                ) == 0
+              )
+               || 
+              Int256_cmp(
+                argument2, 
+                Int256_fromUInt64(0xf14ULL)
+              ) == 0
+            )
+             || 
+            Int256_cmp(
+              argument2, 
+              Int256_fromUInt64(0x301ULL)
+            ) == 0
+          )
+        )
+        {
+          HELPER(operandFromValue)(this, 1, 0, 0, 
+            Int256_zx(
+              Int256_fromUInt64(0ULL), 64
+            )
+          );
+        }
+        else {
+          HELPER(throw_OPCODE)(this);
+        }
+        ;
       }
       ;
     }
@@ -112291,7 +112711,33 @@ execute_lvx_v1_FSFLAGS_registerZ_simple(void *this, OperandDecoded *decoded, Pro
                   (READ.result1)
                   (CONST.5))
                 (CONST.7)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2)
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2)
+                (CONST.3860)))
+            (EQ
+              (READ.argument2)
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1)
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 */
   Int256_ argument1 __attribute__((unused))= Int256_zero;
   Int256_ argument2 __attribute__((unused))= Int256_zero;
@@ -112814,7 +113260,51 @@ execute_lvx_v1_FSFLAGS_registerZ_simple(void *this, OperandDecoded *decoded, Pro
         ;
       }
       else {
-        HELPER(throw_OPCODE)(this);
+        if (
+          (
+            (
+              (
+                (
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf11ULL)
+                  ) == 0
+                   || 
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf12ULL)
+                  ) == 0
+                )
+                 || 
+                Int256_cmp(
+                  argument2, 
+                  Int256_fromUInt64(0xf13ULL)
+                ) == 0
+              )
+               || 
+              Int256_cmp(
+                argument2, 
+                Int256_fromUInt64(0xf14ULL)
+              ) == 0
+            )
+             || 
+            Int256_cmp(
+              argument2, 
+              Int256_fromUInt64(0x301ULL)
+            ) == 0
+          )
+        )
+        {
+          HELPER(operandFromValue)(this, 1, 0, 0, 
+            Int256_zx(
+              Int256_fromUInt64(0ULL), 64
+            )
+          );
+        }
+        else {
+          HELPER(throw_OPCODE)(this);
+        }
+        ;
       }
       ;
     }
@@ -113251,7 +113741,33 @@ execute_lvx_v1_FRRM_registerZ_simple(void *this, OperandDecoded *decoded, Proces
                   (READ.result1)
                   (CONST.5))
                 (CONST.7)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2)
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2)
+                (CONST.3860)))
+            (EQ
+              (READ.argument2)
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1)
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 */
   Int256_ argument1 __attribute__((unused))= Int256_zero;
   Int256_ argument2 __attribute__((unused))= Int256_zero;
@@ -113789,7 +114305,51 @@ execute_lvx_v1_FRRM_registerZ_simple(void *this, OperandDecoded *decoded, Proces
         ;
       }
       else {
-        HELPER(throw_OPCODE)(this);
+        if (
+          (
+            (
+              (
+                (
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf11ULL)
+                  ) == 0
+                   || 
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf12ULL)
+                  ) == 0
+                )
+                 || 
+                Int256_cmp(
+                  argument2, 
+                  Int256_fromUInt64(0xf13ULL)
+                ) == 0
+              )
+               || 
+              Int256_cmp(
+                argument2, 
+                Int256_fromUInt64(0xf14ULL)
+              ) == 0
+            )
+             || 
+            Int256_cmp(
+              argument2, 
+              Int256_fromUInt64(0x301ULL)
+            ) == 0
+          )
+        )
+        {
+          HELPER(operandFromValue)(this, 1, 0, 0, 
+            Int256_zx(
+              Int256_fromUInt64(0ULL), 64
+            )
+          );
+        }
+        else {
+          HELPER(throw_OPCODE)(this);
+        }
+        ;
       }
       ;
     }
@@ -114216,7 +114776,33 @@ execute_lvx_v1_FSRM_registerZ_simple(void *this, OperandDecoded *decoded, Proces
                   (READ.result1)
                   (CONST.5))
                 (CONST.7)))))
-        (THROW.0.OPCODE)))))
+        (IF
+          (IORL
+            (IORL
+              (IORL
+                (IORL
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3857))
+                  (EQ
+                    (READ.argument2)
+                    (CONST.3858)))
+                (EQ
+                  (READ.argument2)
+                  (CONST.3859)))
+              (EQ
+                (READ.argument2)
+                (CONST.3860)))
+            (EQ
+              (READ.argument2)
+              (CONST.769)))
+          (STORE.2
+            (AGGL.GPR
+              (METHOD.%1)
+              (CONST.1))
+            (I2F.64
+              (CONST.0)))
+          (THROW.0.OPCODE))))))
 */
   Int256_ argument1 __attribute__((unused))= Int256_zero;
   Int256_ argument2 __attribute__((unused))= Int256_zero;
@@ -114739,7 +115325,51 @@ execute_lvx_v1_FSRM_registerZ_simple(void *this, OperandDecoded *decoded, Proces
         ;
       }
       else {
-        HELPER(throw_OPCODE)(this);
+        if (
+          (
+            (
+              (
+                (
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf11ULL)
+                  ) == 0
+                   || 
+                  Int256_cmp(
+                    argument2, 
+                    Int256_fromUInt64(0xf12ULL)
+                  ) == 0
+                )
+                 || 
+                Int256_cmp(
+                  argument2, 
+                  Int256_fromUInt64(0xf13ULL)
+                ) == 0
+              )
+               || 
+              Int256_cmp(
+                argument2, 
+                Int256_fromUInt64(0xf14ULL)
+              ) == 0
+            )
+             || 
+            Int256_cmp(
+              argument2, 
+              Int256_fromUInt64(0x301ULL)
+            ) == 0
+          )
+        )
+        {
+          HELPER(operandFromValue)(this, 1, 0, 0, 
+            Int256_zx(
+              Int256_fromUInt64(0ULL), 64
+            )
+          );
+        }
+        else {
+          HELPER(throw_OPCODE)(this);
+        }
+        ;
       }
       ;
     }
