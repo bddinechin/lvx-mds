@@ -261,9 +261,10 @@ Instruction:
         \item The \textbf{LC} register is decremented if its value is not already zero.
         \end{itemize}
       \end{itemize}
-      According to these rules, the LOOPDO instruction loops forever whenever the value of the %1 is zero, as the
-      the value of the \textbf{LC} register ${}-1$ is always non-zero, while the \textbf{LC} register is never decremented.
-      This instruction is provided for counted loops which iterate at least once, and while loops by setting the counter to zero.
+      If the value of the %1 is zero when the instruction executes, the loop body is skipped entirely:
+      the next bundle \textbf{PC} is set to the \textbf{LE} register (as in Tensilica's LOOPNEZ), rather than
+      looping forever as in KVX. The \textbf{LC} register is still set to zero. This instruction thus supports
+      counted loops iterating zero or more times.
     execution: |
       stage ID:
       if (!PS.HLE) {
@@ -272,6 +273,9 @@ Instruction:
         LS = NPC;
         LE = PC + _SX_32(argument2);
         LC = _ZX_64(argument1);
+        if (argument1 == 0) {
+          NPC = LE;
+        }
       }
     behavior: |
       (SEQ
@@ -287,7 +291,14 @@ Instruction:
               (SX.32 (READ.argument2)))))
         (EFFECT.ID.invalpfb)
         (STORE.ID (AGGL.SFR (CONST.LC) (CONST.1))
-          (I2F.64 (ZX.64 (READ.argument1))))))
+          (I2F.64 (ZX.64 (READ.argument1))))
+        (IF (EQ (READ.argument1) (CONST.0))
+          (STORE.ID (AGGL.NPC (CONST.0) (CONST.1))
+            (I2F.64
+              (ADD
+                (F2I.64 (LOAD.ID (AGGL.PC (CONST.0) (CONST.1))))
+                (SX.32 (READ.argument2)))))
+          (SKIP))))
 
   - ID: WFXL
     what: Effects on Least Significant Word System Register

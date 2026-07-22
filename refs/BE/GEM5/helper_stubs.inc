@@ -113,7 +113,6 @@ void HELPER(guard)(void *this, uint8_t opnd1, uint64_t opnd2, uint8_t opnd3) { l
 void HELPER(idle)(void *this, uint8_t opnd1) { lvx_behavior_unimpl(); }
 void HELPER(invaldtlb)(void *this) { lvx_behavior_unimpl(); }
 void HELPER(invalitlb)(void *this) { lvx_behavior_unimpl(); }
-void HELPER(invalpfb)(void *this) { lvx_behavior_unimpl(); }
 void HELPER(probetlb)(void *this) { lvx_behavior_unimpl(); }
 void HELPER(readtlb)(void *this) { lvx_behavior_unimpl(); }
 void HELPER(rfe)(void *this) { lvx_behavior_unimpl(); }

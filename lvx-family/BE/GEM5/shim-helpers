@@ -13,6 +13,7 @@ MEM_load
 MEM_store
 syscall
 branch_info
+invalpfb
 bcucond
 srhpc_update
 get

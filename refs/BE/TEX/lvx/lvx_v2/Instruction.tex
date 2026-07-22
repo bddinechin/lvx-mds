@@ -595,7 +595,7 @@ stage RR:
   the value of the \textbf{LE} register, unless a branch is taken in the current bundle (in which case the next bundle \textbf{PC} is the branch target bundle \textbf{PC}).
   \item The \textbf{LC} register is decremented if its value is not already zero.
   \end{itemize}
-\end{itemize} According to these rules, the LOOPDO instruction loops forever whenever the value of the \emph{registerZ} is zero, as the the value of the \textbf{LC} register ${}-1$ is always non-zero, while the \textbf{LC} register is never decremented. This instruction is provided for counted loops which iterate at least once, and while loops by setting the counter to zero.
+\end{itemize} If the value of the \emph{registerZ} is zero when the instruction executes, the loop body is skipped entirely: the next bundle \textbf{PC} is set to the \textbf{LE} register (as in Tensilica's LOOPNEZ), rather than looping forever as in KVX. The \textbf{LC} register is still set to zero. This instruction thus supports counted loops iterating zero or more times.
 
 
 \paragraph{Execution} {Reservation table \textsf{ALL} (Section~\ref{sec:reservation-ALL})}
@@ -609,6 +609,9 @@ stage ID:
   }
   invalpfb();
   LC = argument1;
+  if (argument1 == 0) {
+    NPC = PC + _SX_32(argument2);
+  }
 stage E2:
   LS = NPC;
   LE = PC + _SX_32(argument2);

@@ -280,6 +280,9 @@ if (!PS.HLE) {
   LS = NPC;
   LE = PC + _SX_32(argument2);
   LC = _ZX_64(argument1);
+  if (argument1 == 0) {
+    NPC = LE;
+  }
 }
 </Execution><Behavior>
 (SEQ
@@ -295,7 +298,14 @@ if (!PS.HLE) {
         (SX.32 (READ.argument2)))))
   (EFFECT.ID.invalpfb)
   (STORE.ID (AGGL.SFR (CONST.LC) (CONST.1))
-    (I2F.64 (ZX.64 (READ.argument1))))))
+    (I2F.64 (ZX.64 (READ.argument1))))
+  (IF (EQ (READ.argument1) (CONST.0))
+    (STORE.ID (AGGL.NPC (CONST.0) (CONST.1))
+      (I2F.64
+        (ADD
+          (F2I.64 (LOAD.ID (AGGL.PC (CONST.0) (CONST.1))))
+          (SX.32 (READ.argument2)))))
+    (SKIP))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-BCU:WFXL"

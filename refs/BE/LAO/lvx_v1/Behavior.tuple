@@ -606,7 +606,25 @@ execute_lvx_v1_LOOPDO_registerZ_pcrel17s2_simple(void *this, OperandDecoded *dec
       (CONST.9)
       (CONST.1))
     (I2F.64
-      (READ.argument1))))
+      (READ.argument1)))
+  (IF
+    (EQ
+      (READ.argument1)
+      (CONST.0))
+    (STORE.0
+      (AGGL.NPC
+        (CONST.0)
+        (CONST.1))
+      (I2F.64
+        (ADD
+          (F2I.64
+            (LOAD.0
+              (AGGL.PC
+                (CONST.0)
+                (CONST.1))))
+          (SX.32
+            (READ.argument2)))))
+    (SKIP)))
 */
   Int256_ argument1 = Int256_zero;
   Int256_ argument2 = Int256_zero;
@@ -662,18 +680,31 @@ execute_lvx_v1_LOOPDO_registerZ_pcrel17s2_simple(void *this, OperandDecoded *dec
     Int256_zx(
       argument1, 64
     )
-  );;
+  );
+  if (
+    Int256_cmp(
+      argument1, 
+      Int256_fromUInt64(0ULL)
+    ) == 0
+  )
+  {
+    HELPER(writeToStorage_NPC)(this, 0, 0, 1, 64, 
+      Int256_zx(
+        Int256_add(
+          Int256_zx(
+            HELPER(readFromStorage_PC)(this, 0, 0, 1, 64), 64
+          ), 
+          Int256_sx(
+            argument2, 32
+          )
+        ), 64
+      )
+    );
+  }
+;;
 
 }
 #endif /* Behavior_EXECUTE */
-#ifdef Behavior_COMMIT
-static void
-commit_lvx_v1_LOOPDO_registerZ_pcrel17s2_simple(void *this, __attribute__((unused)) OperandDecoded *decoded, __attribute__((unused)) Processor processor)
-{
-  /* Commits of: SFR */
-  HELPER(commitRegFiles)(this);
-}
-#endif /* Behavior_COMMIT */
 #ifdef Behavior_FETCH
 static void
 fetch_lvx_v1_WFXL_systemT2_registerZ_simple(void *this, OperandDecoded *decoded, __attribute__((unused)) Processor processor)
@@ -107730,7 +107761,7 @@ Behavior(lvx_v1_IGOTO_registerZ_simple,FETCH(fetch_lvx_v1_IGOTO_registerZ_simple
 Behavior(lvx_v1_ICALL_registerZ_simple,FETCH(fetch_lvx_v1_IGOTO_registerZ_simple),EXECUTE(execute_lvx_v1_ICALL_registerZ_simple),COMMIT(commit_lvx_v1_ICALL_registerZ_simple))
 Behavior(lvx_v1_SCALL_registerZ_simple,FETCH(fetch_lvx_v1_IGOTO_registerZ_simple),EXECUTE(execute_lvx_v1_SCALL_registerZ_simple),COMMIT(commit_lvx_v1_AWAIT_simple))
 Behavior(lvx_v1_SCALL_sysnumber_simple,FETCH(fetch_lvx_v1_BREAK_brknumber_simple),EXECUTE(execute_lvx_v1_SCALL_sysnumber_simple),COMMIT(commit_lvx_v1_AWAIT_simple))
-Behavior(lvx_v1_LOOPDO_registerZ_pcrel17s2_simple,FETCH(fetch_lvx_v1_LOOPDO_registerZ_pcrel17s2_simple),EXECUTE(execute_lvx_v1_LOOPDO_registerZ_pcrel17s2_simple),COMMIT(commit_lvx_v1_LOOPDO_registerZ_pcrel17s2_simple))
+Behavior(lvx_v1_LOOPDO_registerZ_pcrel17s2_simple,FETCH(fetch_lvx_v1_LOOPDO_registerZ_pcrel17s2_simple),EXECUTE(execute_lvx_v1_LOOPDO_registerZ_pcrel17s2_simple),COMMIT(commit_lvx_v1_ICALL_registerZ_simple))
 Behavior(lvx_v1_WFXL_systemT2_registerZ_simple,FETCH(fetch_lvx_v1_WFXL_systemT2_registerZ_simple),EXECUTE(execute_lvx_v1_WFXL_systemT2_registerZ_simple),COMMIT(commit_lvx_v1_WFXL_systemT2_registerZ_simple))
 Behavior(lvx_v1_WFXL_systemAlone_registerZ_simple,FETCH(fetch_lvx_v1_WFXL_systemT2_registerZ_simple),EXECUTE(execute_lvx_v1_WFXL_systemT2_registerZ_simple),COMMIT(commit_lvx_v1_WFXL_systemT2_registerZ_simple))
 Behavior(lvx_v1_WFXL_systemT4_registerZ_simple,FETCH(fetch_lvx_v1_WFXL_systemT2_registerZ_simple),EXECUTE(execute_lvx_v1_WFXL_systemT2_registerZ_simple),COMMIT(commit_lvx_v1_WFXL_systemT2_registerZ_simple))

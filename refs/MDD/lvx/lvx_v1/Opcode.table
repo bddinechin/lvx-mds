@@ -487,6 +487,9 @@ stage 0:
     LS = NPC;
     LE = PC + _SX_32(argument2);
     LC = _ZX_64(argument1);
+    if (argument1 == 0) {
+      NPC = LE;
+    }
   }
 </Execution><Behavior
   methods=	"RegClass-lvx_v1-singleReg Immediate-lvx_v1-pcrel17s2"
@@ -498,7 +501,7 @@ stage 0:
       (LOAD.0
         (AGGL.GPR
           (METHOD.%1(*hi:63,lo:0*))
-          (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*)))
+          (CONST.1)))(*hi:18446744073709551615,lo:0*)))
   (WRITE.argument2
     (SX.19
       (METHOD.%2(*dm:19*))(*dm:32,hi:262143,lo:-262144*)))
@@ -544,7 +547,25 @@ stage 0:
       (CONST.9)
       (CONST.1))
     (I2F.64
-      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*)))))
+      (READ.argument1(*dm:64,hi:18446744073709551615,lo:0*))))
+  (IF
+    (EQ
+      (READ.argument1(*hi:18446744073709551615,lo:0*))
+      (CONST.0))
+    (STORE.0
+      (AGGL.NPC
+        (CONST.0)
+        (CONST.1))
+      (I2F.64
+        (ADD
+          (F2I.64
+            (LOAD.0
+              (AGGL.PC
+                (CONST.0)
+                (CONST.1)))(*dm:64,hi:18446744073709551615,lo:0*))
+          (SX.32
+            (READ.argument2(*dm:32,hi:262143,lo:-262144*))(*dm:64,hi:2147483647,lo:-2147483648*))(*dm:64,hi:18446744075857035262,lo:-2147483648*))))
+    (SKIP)))
 </Behavior></Opcode>
 <Opcode
   ID=	"Opcode-lvx_v1-WFXL_systemT2_registerZ_simple"
