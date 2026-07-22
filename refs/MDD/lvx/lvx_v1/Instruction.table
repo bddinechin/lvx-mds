@@ -437,14 +437,27 @@ new result1 = _ZX_64(argument2);
 ><Execution>
 stage E1:
 new result1 = (CS.IN &lt;&lt; 0) | (CS.UN &lt;&lt; 1) | (CS.OV &lt;&lt; 2) | (CS.DZ &lt;&lt; 3) | (CS.IO &lt;&lt; 4) | (CS.RM &lt;&lt; 5);
+new newval = 0;
 if (argument2 == 0x003) {
-  new newval = argument1;
+  newval = argument1;
   CS.IN = (newval &gt;&gt; 0) &amp; 1;
   CS.UN = (newval &gt;&gt; 1) &amp; 1;
   CS.OV = (newval &gt;&gt; 2) &amp; 1;
   CS.DZ = (newval &gt;&gt; 3) &amp; 1;
   CS.IO = (newval &gt;&gt; 4) &amp; 1;
   CS.RM = (newval &gt;&gt; 5) &amp; 7;
+} else if (argument2 == 0x001) {
+  newval = argument1;
+  CS.IN = (newval &gt;&gt; 0) &amp; 1;
+  CS.UN = (newval &gt;&gt; 1) &amp; 1;
+  CS.OV = (newval &gt;&gt; 2) &amp; 1;
+  CS.DZ = (newval &gt;&gt; 3) &amp; 1;
+  CS.IO = (newval &gt;&gt; 4) &amp; 1;
+  result1 = result1 &amp; 0x1f;
+} else if (argument2 == 0x002) {
+  newval = argument1;
+  CS.RM = newval &amp; 7;
+  result1 = (result1 &gt;&gt; 5) &amp; 7;
 } else {
   _THROW(OPCODE);
 }
@@ -469,7 +482,21 @@ if (argument2 == 0x003) {
       (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
       (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
       (COMMIT.E1.%1 (READ.result1)))
-    (THROW.ID.OPCODE)))
+    (IF (EQ (READ.argument2) (CONST.1))
+      (SEQ
+        (WRITE.newval (READ.argument1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31))))
+      (IF (EQ (READ.argument2) (CONST.2))
+        (SEQ
+          (WRITE.newval (READ.argument1))
+          (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
+          (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
+        (THROW.ID.OPCODE)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:CSRRS"
@@ -481,14 +508,27 @@ if (argument2 == 0x003) {
 ><Execution>
 stage E1:
 new result1 = (CS.IN &lt;&lt; 0) | (CS.UN &lt;&lt; 1) | (CS.OV &lt;&lt; 2) | (CS.DZ &lt;&lt; 3) | (CS.IO &lt;&lt; 4) | (CS.RM &lt;&lt; 5);
+new newval = 0;
 if (argument2 == 0x003) {
-  new newval = result1 | argument1;
+  newval = result1 | argument1;
   CS.IN = (newval &gt;&gt; 0) &amp; 1;
   CS.UN = (newval &gt;&gt; 1) &amp; 1;
   CS.OV = (newval &gt;&gt; 2) &amp; 1;
   CS.DZ = (newval &gt;&gt; 3) &amp; 1;
   CS.IO = (newval &gt;&gt; 4) &amp; 1;
   CS.RM = (newval &gt;&gt; 5) &amp; 7;
+} else if (argument2 == 0x001) {
+  newval = result1 | argument1;
+  CS.IN = (newval &gt;&gt; 0) &amp; 1;
+  CS.UN = (newval &gt;&gt; 1) &amp; 1;
+  CS.OV = (newval &gt;&gt; 2) &amp; 1;
+  CS.DZ = (newval &gt;&gt; 3) &amp; 1;
+  CS.IO = (newval &gt;&gt; 4) &amp; 1;
+  result1 = result1 &amp; 0x1f;
+} else if (argument2 == 0x002) {
+  newval = ((result1 &gt;&gt; 5) &amp; 7) | argument1;
+  CS.RM = newval &amp; 7;
+  result1 = (result1 &gt;&gt; 5) &amp; 7;
 } else {
   _THROW(OPCODE);
 }
@@ -513,7 +553,21 @@ if (argument2 == 0x003) {
       (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
       (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
       (COMMIT.E1.%1 (READ.result1)))
-    (THROW.ID.OPCODE)))
+    (IF (EQ (READ.argument2) (CONST.1))
+      (SEQ
+        (WRITE.newval (IOR (READ.result1) (READ.argument1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31))))
+      (IF (EQ (READ.argument2) (CONST.2))
+        (SEQ
+          (WRITE.newval (IOR (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (READ.argument1)))
+          (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
+          (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
+        (THROW.ID.OPCODE)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:CSRRC"
@@ -525,14 +579,27 @@ if (argument2 == 0x003) {
 ><Execution>
 stage E1:
 new result1 = (CS.IN &lt;&lt; 0) | (CS.UN &lt;&lt; 1) | (CS.OV &lt;&lt; 2) | (CS.DZ &lt;&lt; 3) | (CS.IO &lt;&lt; 4) | (CS.RM &lt;&lt; 5);
+new newval = 0;
 if (argument2 == 0x003) {
-  new newval = result1 &amp; ~argument1;
+  newval = result1 &amp; ~argument1;
   CS.IN = (newval &gt;&gt; 0) &amp; 1;
   CS.UN = (newval &gt;&gt; 1) &amp; 1;
   CS.OV = (newval &gt;&gt; 2) &amp; 1;
   CS.DZ = (newval &gt;&gt; 3) &amp; 1;
   CS.IO = (newval &gt;&gt; 4) &amp; 1;
   CS.RM = (newval &gt;&gt; 5) &amp; 7;
+} else if (argument2 == 0x001) {
+  newval = result1 &amp; ~argument1;
+  CS.IN = (newval &gt;&gt; 0) &amp; 1;
+  CS.UN = (newval &gt;&gt; 1) &amp; 1;
+  CS.OV = (newval &gt;&gt; 2) &amp; 1;
+  CS.DZ = (newval &gt;&gt; 3) &amp; 1;
+  CS.IO = (newval &gt;&gt; 4) &amp; 1;
+  result1 = result1 &amp; 0x1f;
+} else if (argument2 == 0x002) {
+  newval = ((result1 &gt;&gt; 5) &amp; 7) &amp; ~argument1;
+  CS.RM = newval &amp; 7;
+  result1 = (result1 &gt;&gt; 5) &amp; 7;
 } else {
   _THROW(OPCODE);
 }
@@ -557,7 +624,21 @@ if (argument2 == 0x003) {
       (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
       (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
       (COMMIT.E1.%1 (READ.result1)))
-    (THROW.ID.OPCODE)))
+    (IF (EQ (READ.argument2) (CONST.1))
+      (SEQ
+        (WRITE.newval (AND (READ.result1) (NOT (READ.argument1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31))))
+      (IF (EQ (READ.argument2) (CONST.2))
+        (SEQ
+          (WRITE.newval (AND (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (NOT (READ.argument1))))
+          (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
+          (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
+        (THROW.ID.OPCODE)))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v1-BCU:WAITIT"
