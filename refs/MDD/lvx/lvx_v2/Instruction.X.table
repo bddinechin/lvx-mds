@@ -1093,17 +1093,8 @@ if (argument2 == 0x003) {
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
       (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
-  (IF (EQ (READ.argument2) (CONST.3))
-    (SEQ
-      (WRITE.newval (IOR (READ.result1) (READ.argument1)))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-      (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
-      (COMMIT.E1.%1 (READ.result1)))
-    (IF (EQ (READ.argument2) (CONST.1))
+  (SWITCH (READ.argument2)
+    (CASE.3
       (SEQ
         (WRITE.newval (IOR (READ.result1) (READ.argument1)))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
@@ -1111,35 +1102,48 @@ if (argument2 == 0x003) {
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31))))
-      (IF (EQ (READ.argument2) (CONST.2))
-        (SEQ
-          (WRITE.newval (IOR (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (READ.argument1)))
-          (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
-          (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-        (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
-          (COMMIT.E1.%1 (CONST.0))
-          (IF (EQ (READ.argument2) (CONST.0x341))
-            (SEQ
-              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
-              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-              (COMMIT.E1.%1 (READ.oldval)))
-            (IF (EQ (READ.argument2) (CONST.0x343))
-              (SEQ
-                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
-                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-                (COMMIT.E1.%1 (READ.oldval)))
-              (IF (EQ (READ.argument2) (CONST.0x305))
-                (SEQ
-                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
-                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-                  (COMMIT.E1.%1 (READ.oldval)))
-                (IF (EQ (READ.argument2) (CONST.0x340))
-                  (SEQ
-                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
-                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-                    (COMMIT.E1.%1 (READ.oldval)))
-                  (THROW.ID.OPCODE))))))))))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+        (COMMIT.E1.%1 (READ.result1))))
+    (CASE.1
+      (SEQ
+        (WRITE.newval (IOR (READ.result1) (READ.argument1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31)))))
+    (CASE.2
+      (SEQ
+        (WRITE.newval (IOR (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (READ.argument1)))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
+        (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7)))))
+    (CASE.0xF11 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF12 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF13 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF14 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x301 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x341
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x343
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x305
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x340
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (DEFAULT (THROW.ID.OPCODE))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-BCU:FSCSR"
@@ -1198,17 +1202,8 @@ if (argument2 == 0x003) {
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
       (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
-  (IF (EQ (READ.argument2) (CONST.3))
-    (SEQ
-      (WRITE.newval (READ.argument1))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-      (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
-      (COMMIT.E1.%1 (READ.result1)))
-    (IF (EQ (READ.argument2) (CONST.1))
+  (SWITCH (READ.argument2)
+    (CASE.3
       (SEQ
         (WRITE.newval (READ.argument1))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
@@ -1216,35 +1211,48 @@ if (argument2 == 0x003) {
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31))))
-      (IF (EQ (READ.argument2) (CONST.2))
-        (SEQ
-          (WRITE.newval (READ.argument1))
-          (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
-          (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-        (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
-          (COMMIT.E1.%1 (CONST.0))
-          (IF (EQ (READ.argument2) (CONST.0x341))
-            (SEQ
-              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
-              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-              (COMMIT.E1.%1 (READ.oldval)))
-            (IF (EQ (READ.argument2) (CONST.0x343))
-              (SEQ
-                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
-                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-                (COMMIT.E1.%1 (READ.oldval)))
-              (IF (EQ (READ.argument2) (CONST.0x305))
-                (SEQ
-                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
-                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-                  (COMMIT.E1.%1 (READ.oldval)))
-                (IF (EQ (READ.argument2) (CONST.0x340))
-                  (SEQ
-                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
-                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-                    (COMMIT.E1.%1 (READ.oldval)))
-                  (THROW.ID.OPCODE))))))))))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+        (COMMIT.E1.%1 (READ.result1))))
+    (CASE.1
+      (SEQ
+        (WRITE.newval (READ.argument1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31)))))
+    (CASE.2
+      (SEQ
+        (WRITE.newval (READ.argument1))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
+        (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7)))))
+    (CASE.0xF11 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF12 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF13 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF14 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x301 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x341
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x343
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x305
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x340
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (DEFAULT (THROW.ID.OPCODE))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-BCU:FRFLAGS"
@@ -1303,17 +1311,8 @@ if (argument2 == 0x003) {
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
       (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
-  (IF (EQ (READ.argument2) (CONST.3))
-    (SEQ
-      (WRITE.newval (IOR (READ.result1) (READ.argument1)))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-      (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
-      (COMMIT.E1.%1 (READ.result1)))
-    (IF (EQ (READ.argument2) (CONST.1))
+  (SWITCH (READ.argument2)
+    (CASE.3
       (SEQ
         (WRITE.newval (IOR (READ.result1) (READ.argument1)))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
@@ -1321,35 +1320,48 @@ if (argument2 == 0x003) {
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31))))
-      (IF (EQ (READ.argument2) (CONST.2))
-        (SEQ
-          (WRITE.newval (IOR (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (READ.argument1)))
-          (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
-          (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-        (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
-          (COMMIT.E1.%1 (CONST.0))
-          (IF (EQ (READ.argument2) (CONST.0x341))
-            (SEQ
-              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
-              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-              (COMMIT.E1.%1 (READ.oldval)))
-            (IF (EQ (READ.argument2) (CONST.0x343))
-              (SEQ
-                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
-                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-                (COMMIT.E1.%1 (READ.oldval)))
-              (IF (EQ (READ.argument2) (CONST.0x305))
-                (SEQ
-                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
-                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-                  (COMMIT.E1.%1 (READ.oldval)))
-                (IF (EQ (READ.argument2) (CONST.0x340))
-                  (SEQ
-                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
-                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-                    (COMMIT.E1.%1 (READ.oldval)))
-                  (THROW.ID.OPCODE))))))))))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+        (COMMIT.E1.%1 (READ.result1))))
+    (CASE.1
+      (SEQ
+        (WRITE.newval (IOR (READ.result1) (READ.argument1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31)))))
+    (CASE.2
+      (SEQ
+        (WRITE.newval (IOR (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (READ.argument1)))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
+        (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7)))))
+    (CASE.0xF11 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF12 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF13 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF14 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x301 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x341
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x343
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x305
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x340
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (DEFAULT (THROW.ID.OPCODE))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-BCU:FSFLAGS"
@@ -1408,17 +1420,8 @@ if (argument2 == 0x003) {
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
       (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
-  (IF (EQ (READ.argument2) (CONST.3))
-    (SEQ
-      (WRITE.newval (READ.argument1))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-      (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
-      (COMMIT.E1.%1 (READ.result1)))
-    (IF (EQ (READ.argument2) (CONST.1))
+  (SWITCH (READ.argument2)
+    (CASE.3
       (SEQ
         (WRITE.newval (READ.argument1))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
@@ -1426,35 +1429,48 @@ if (argument2 == 0x003) {
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31))))
-      (IF (EQ (READ.argument2) (CONST.2))
-        (SEQ
-          (WRITE.newval (READ.argument1))
-          (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
-          (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-        (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
-          (COMMIT.E1.%1 (CONST.0))
-          (IF (EQ (READ.argument2) (CONST.0x341))
-            (SEQ
-              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
-              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-              (COMMIT.E1.%1 (READ.oldval)))
-            (IF (EQ (READ.argument2) (CONST.0x343))
-              (SEQ
-                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
-                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-                (COMMIT.E1.%1 (READ.oldval)))
-              (IF (EQ (READ.argument2) (CONST.0x305))
-                (SEQ
-                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
-                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-                  (COMMIT.E1.%1 (READ.oldval)))
-                (IF (EQ (READ.argument2) (CONST.0x340))
-                  (SEQ
-                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
-                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-                    (COMMIT.E1.%1 (READ.oldval)))
-                  (THROW.ID.OPCODE))))))))))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+        (COMMIT.E1.%1 (READ.result1))))
+    (CASE.1
+      (SEQ
+        (WRITE.newval (READ.argument1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31)))))
+    (CASE.2
+      (SEQ
+        (WRITE.newval (READ.argument1))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
+        (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7)))))
+    (CASE.0xF11 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF12 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF13 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF14 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x301 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x341
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x343
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x305
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x340
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (DEFAULT (THROW.ID.OPCODE))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-BCU:FRRM"
@@ -1513,17 +1529,8 @@ if (argument2 == 0x003) {
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
       (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
-  (IF (EQ (READ.argument2) (CONST.3))
-    (SEQ
-      (WRITE.newval (IOR (READ.result1) (READ.argument1)))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-      (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
-      (COMMIT.E1.%1 (READ.result1)))
-    (IF (EQ (READ.argument2) (CONST.1))
+  (SWITCH (READ.argument2)
+    (CASE.3
       (SEQ
         (WRITE.newval (IOR (READ.result1) (READ.argument1)))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
@@ -1531,35 +1538,48 @@ if (argument2 == 0x003) {
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31))))
-      (IF (EQ (READ.argument2) (CONST.2))
-        (SEQ
-          (WRITE.newval (IOR (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (READ.argument1)))
-          (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
-          (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-        (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
-          (COMMIT.E1.%1 (CONST.0))
-          (IF (EQ (READ.argument2) (CONST.0x341))
-            (SEQ
-              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
-              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-              (COMMIT.E1.%1 (READ.oldval)))
-            (IF (EQ (READ.argument2) (CONST.0x343))
-              (SEQ
-                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
-                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-                (COMMIT.E1.%1 (READ.oldval)))
-              (IF (EQ (READ.argument2) (CONST.0x305))
-                (SEQ
-                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
-                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-                  (COMMIT.E1.%1 (READ.oldval)))
-                (IF (EQ (READ.argument2) (CONST.0x340))
-                  (SEQ
-                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
-                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
-                    (COMMIT.E1.%1 (READ.oldval)))
-                  (THROW.ID.OPCODE))))))))))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+        (COMMIT.E1.%1 (READ.result1))))
+    (CASE.1
+      (SEQ
+        (WRITE.newval (IOR (READ.result1) (READ.argument1)))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31)))))
+    (CASE.2
+      (SEQ
+        (WRITE.newval (IOR (AND (SHR (READ.result1) (CONST.5)) (CONST.7)) (READ.argument1)))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
+        (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7)))))
+    (CASE.0xF11 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF12 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF13 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF14 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x301 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x341
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x343
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x305
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x340
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (IOR (READ.oldval) (ZX.64 (READ.argument1)))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (DEFAULT (THROW.ID.OPCODE))))
 </Behavior></Instruction>
 <Instruction
   ID=	"Instruction-lvx_v2-BCU:FSRM"
@@ -1618,17 +1638,8 @@ if (argument2 == 0x003) {
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)))) (CONST.3)))
         (SHL (F2I.1 (LOAD.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)))) (CONST.4)))
       (SHL (F2I.3 (LOAD.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)))) (CONST.5))))
-  (IF (EQ (READ.argument2) (CONST.3))
-    (SEQ
-      (WRITE.newval (READ.argument1))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
-      (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-      (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
-      (COMMIT.E1.%1 (READ.result1)))
-    (IF (EQ (READ.argument2) (CONST.1))
+  (SWITCH (READ.argument2)
+    (CASE.3
       (SEQ
         (WRITE.newval (READ.argument1))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
@@ -1636,33 +1647,46 @@ if (argument2 == 0x003) {
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
         (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
-        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31))))
-      (IF (EQ (READ.argument2) (CONST.2))
-        (SEQ
-          (WRITE.newval (READ.argument1))
-          (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
-          (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7))))
-        (IF (IORL (IORL (IORL (IORL (EQ (READ.argument2) (CONST.0xF11)) (EQ (READ.argument2) (CONST.0xF12))) (EQ (READ.argument2) (CONST.0xF13))) (EQ (READ.argument2) (CONST.0xF14))) (EQ (READ.argument2) (CONST.0x301)))
-          (COMMIT.E1.%1 (CONST.0))
-          (IF (EQ (READ.argument2) (CONST.0x341))
-            (SEQ
-              (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
-              (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-              (COMMIT.E1.%1 (READ.oldval)))
-            (IF (EQ (READ.argument2) (CONST.0x343))
-              (SEQ
-                (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
-                (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-                (COMMIT.E1.%1 (READ.oldval)))
-              (IF (EQ (READ.argument2) (CONST.0x305))
-                (SEQ
-                  (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
-                  (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-                  (COMMIT.E1.%1 (READ.oldval)))
-                (IF (EQ (READ.argument2) (CONST.0x340))
-                  (SEQ
-                    (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
-                    (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
-                    (COMMIT.E1.%1 (READ.oldval)))
-                  (THROW.ID.OPCODE))))))))))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (SHR (READ.newval) (CONST.5)) (CONST.7))))
+        (COMMIT.E1.%1 (READ.result1))))
+    (CASE.1
+      (SEQ
+        (WRITE.newval (READ.argument1))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IN)) (I2F.1 (AND (READ.newval) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_UN)) (I2F.1 (AND (SHR (READ.newval) (CONST.1)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_OV)) (I2F.1 (AND (SHR (READ.newval) (CONST.2)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_DZ)) (I2F.1 (AND (SHR (READ.newval) (CONST.3)) (CONST.1))))
+        (STORE.E1 (SLICE.1 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_IO)) (I2F.1 (AND (SHR (READ.newval) (CONST.4)) (CONST.1))))
+        (COMMIT.E1.%1 (AND (READ.result1) (CONST.31)))))
+    (CASE.2
+      (SEQ
+        (WRITE.newval (READ.argument1))
+        (STORE.E1 (SLICE.3 (AGGL.SRS (CONST.4) (CONST.1)) (CONST.CS_RM)) (I2F.3 (AND (READ.newval) (CONST.7))))
+        (COMMIT.E1.%1 (AND (SHR (READ.result1) (CONST.5)) (CONST.7)))))
+    (CASE.0xF11 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF12 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF13 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0xF14 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x301 (COMMIT.E1.%1 (CONST.0)))
+    (CASE.0x341
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.128) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.128) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x343
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.136) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.136) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x305
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.140) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.140) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (CASE.0x340
+      (SEQ
+        (WRITE.oldval (F2I.64 (LOAD.E1 (AGGL.SFR (CONST.144) (CONST.1)))))
+        (STORE.E1 (AGGL.SFR (CONST.144) (CONST.1)) (I2F.64 (ZX.64 (READ.argument1))))
+        (COMMIT.E1.%1 (READ.oldval))))
+    (DEFAULT (THROW.ID.OPCODE))))
 </Behavior></Instruction>

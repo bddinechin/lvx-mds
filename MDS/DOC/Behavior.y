@@ -1,5 +1,6 @@
 %token INTNUM SYMNUM IDENT PROXY
 %token SEQ IF EFFECT STORE COMMIT WRITE BIND THROW MACRO SKIP CANCEL LOAD ACCESS READ PROBE AGGL AGGB SLICE
+%token SWITCH CASE DEFAULT
 %token UNDEF PROPERTY CONST METHOD APPLY F2I SX ZX SAT SATU CLZ CLS CTZ CBS SWAP ROR ROL
 %token SELECT ADD SUB MUL DIV REM MOD SHR SHL AND IOR XOR MIN MAX NOT ABS NEG B2I
 %token TRUE FALSE TEST NE EQ GT LE GE LT ANDL IORL XORL NOTL I2B I2F
@@ -23,6 +24,7 @@ Command
 	| '(' BIND '.' Variables Tuple ')'
 	| '(' MACRO '.' Ident ')'
         | '(' FOR '.' Variable Sequence Commands ')'
+	| '(' SWITCH Integer Cases Default ')'
 	| '(' SKIP Arguments ')'
 	| '(' CANCEL ')'
 	;
@@ -30,6 +32,23 @@ Command
 Commands
 	: Command
 	| Commands Command
+	;
+
+Cases
+	: Case
+	| Cases Case
+	;
+
+Case
+	: '(' CASE '.' Label Command ')'
+	;
+
+Label
+	: INTNUM
+	;
+
+Default
+	: '(' DEFAULT Command ')'
 	;
 
 Arguments

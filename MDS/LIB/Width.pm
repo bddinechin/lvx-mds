@@ -754,6 +754,22 @@ sub _cmd {
         _cmd($this->[3], $else);
         %{$env} = %{_merge($then, $else)};
 
+    } elsif ($operator eq 'SWITCH') {
+        # The subject, then the arms -- each a separate path, so clone the env into
+        # each and join them all (like IF's two branches, N-ary).
+        _int($this->[1], $env);
+        my @envs;
+        for my $i (2 .. $#{$this}) {
+            my $arm = $this->[$i];			# a CASE or the DEFAULT
+            my $bi = $arm->[0] eq 'CASE' ? 2 : 1;	# body index
+            my $clone = _clone($env);
+            _cmd($arm->[$bi], $clone);
+            push @envs, $clone;
+        }
+        my $merged = shift @envs;
+        $merged = _merge($merged, $_) foreach @envs;
+        %{$env} = %{$merged};
+
     } elsif ($operator eq 'FOR') {
         _for($this, $env);
 
@@ -1208,6 +1224,25 @@ sub _dcmd {
         foreach my $name (keys %then) {		# union of the two paths
             _dwant($name, $then{$name});
         }
+        _dexpr($this->[1], $BOX);
+
+    } elsif ($operator eq 'SWITCH') {
+        # The arms are alternatives: each starts from the demand after the switch,
+        # and a variable's demand is the max over the arms that read it.  The subject
+        # is read in full.
+        my %after = %Demand;
+        my %union;
+        for my $i (2 .. $#{$this}) {
+            my $arm = $this->[$i];			# a CASE or the DEFAULT
+            my $bi = $arm->[0] eq 'CASE' ? 2 : 1;	# body index
+            %Demand = %after;
+            _dcmd($arm->[$bi]);
+            foreach my $name (keys %Demand) {
+                $union{$name} = $Demand{$name}
+                  if !defined $union{$name} || $Demand{$name} > $union{$name};
+            }
+        }
+        %Demand = %union;
         _dexpr($this->[1], $BOX);
 
     } elsif ($operator eq 'FOR') {

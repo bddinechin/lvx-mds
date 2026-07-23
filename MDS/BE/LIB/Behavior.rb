@@ -296,6 +296,21 @@ DEFAULT_FORMS = {
              else
                 xelse.lispeval(env, forms, sign)
              end},
+  # SWITCH subject (CASE label body)... (DEFAULT body): evaluate the subject once,
+  # run the first arm whose label equals it, else the DEFAULT.  No fall-through.
+  :SWITCH => lambda {|env, forms, sign, subject, *arms|
+             v, discard = subject.lispeval(env, forms, sign)
+             chosen = nil
+             default = nil
+             arms.each do |arm|
+               a = arm.arrayify
+               if a[0].to_s == 'CASE'
+                 chosen = a[2] if chosen.nil? && Integer(a[1].to_s) == v
+               else
+                 default = a[1]
+               end
+             end
+             (chosen || default).lispeval(env, forms, sign) unless (chosen || default).nil?},
   :WRITE => lambda {|env, forms, sign, sym, value|
                      v, discard = value.lispeval(env, forms, sign)
                      env.define(sym, v)},

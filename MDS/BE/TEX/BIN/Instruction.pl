@@ -499,6 +499,29 @@ sub execution_slot_for_stage {
         }
         $res .= "\n" . " " x $indent;
         $res .= "}";
+    } elsif ($node_type eq 'SWITCH') {
+        $indent = 2 if $indent == 0;
+        $res .= " " x $indent unless $skip_indent;
+        $res .= "switch (";
+        $res .= &execution_slot_for_stage($node[1], 0, 0, 1);
+        $res .= ") {\n";
+        for (my $i = 2; $i <= $#node; $i++) {
+            my $arm = $node[$i];
+            next unless ref $arm eq 'ARRAY';
+            my $body;
+            if ($arm->[0] eq 'CASE') {
+                my $lbl = $arm->[1] >= 10 ? sprintf("0x%X", $arm->[1]) : $arm->[1];
+                $res .= " " x ($indent + 2) . "case $lbl:\n";
+                $body = $arm->[2];
+            } else {
+                $res .= " " x ($indent + 2) . "default:\n";
+                $body = $arm->[1];
+            }
+            $res .= &execution_slot_for_stage($body, $indent + 4);
+            $res .= ';' unless $body->[0] eq 'SEQ';
+            $res .= "\n" . " " x ($indent + 4) . "break;\n";
+        }
+        $res .= " " x $indent . "}";
     } elsif ($node_type eq 'CANCEL') {
         $res .= " " x $indent;
         $res .= "cancel()";
