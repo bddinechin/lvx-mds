@@ -1,8 +1,11 @@
 - [LVX roadmap](lvx-roadmap.md) — overall goal, validation strategy, near/medium/long sequencing; ISS-first, native-x86 oracle
 - [gem5 runs compiled C](gem5-callret-blocker.md) — call/ret helpers + onlysetReg decode fixed; ISS now passes branches/loops/shifts vs native x86
+- [gem5 hardware loop](gem5-hardware-loop.md) — LOOPDO runs in the ISS with LOOPNEZ skip-if-zero; loop-back engine in static_inst.cc; SFR→SRS refactor landed in the gem5 shim
 - [KVX reference in epi-csw](kvx-reference-epi-csw.md) — use ../epi-csw for KVX issues; Behavior-helper runtime in ../epi-csw/lao/LAO
 - [Operand-attributed Location](operand-attributed-location.md) — AGGL.storage.proxy/blockExpand for run-time-indexed XACCESSO/XALIGN reads; done+verified, and it's FINAL — SLICE can't replace it (XVR regs are Int256-sized)
 - [Named constants, not magic numbers](feedback-named-constants.md) — latencies/stages as an LVX-prefixed enum from a backend-generated header; neutral stage names, not semantic
 - [Mirror memory in lvx-mds](feedback-mirror-memory-in-lvx-mds.md) — refresh the tracked lvx-mds/memory/ copy from the ~/.claude store before committing memory changes there
 - [Behavior SLICE plan](behavior-slice-plan.md) — λ-RTL SLICE done: SFR unified onto SRS (CS/PS bit-fields), cmove Mask→SLICE + Mask path deleted; XACCESSO stays on slot-4 proxy
 - [RISC-V CSR unification](risc-v-csr-unification.md) — SFR→RISC-V CSRs (FP first); CSRRW/CSRRS/CSRRC + csrnumber immediate give fcsr(0x003) access to CS as a SLICE view (else THROW), RSWAP-shaped; bcucode3 block renumbered
+- [Behavior SWITCH statement](behavior-switch-statement.md) — first-class C-style SWITCH/CASE.const/DEFAULT in the Behavior language; CSRRW/CSRRS/CSRRC use it; touch-point map (which passes need N-ary arms vs generic); gem5 generated/ is gitignored
+- [lvx-gdb binutils untrusted](lvx-gdb-binutils-untrusted.md) — only lvx-binutils' as/objdump are authoritative; lvx-gdb's bundled binutils/lvx-dis.c lags and lies
