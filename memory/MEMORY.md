@@ -8,4 +8,5 @@
 - [Behavior SLICE plan](behavior-slice-plan.md) — λ-RTL SLICE done: SFR unified onto SRS (CS/PS bit-fields), cmove Mask→SLICE + Mask path deleted; XACCESSO stays on slot-4 proxy
 - [RISC-V CSR unification](risc-v-csr-unification.md) — SFR→RISC-V CSRs (FP first); CSRRW/CSRRS/CSRRC + csrnumber immediate give fcsr(0x003) access to CS as a SLICE view (else THROW), RSWAP-shaped; bcucode3 block renumbered
 - [Behavior SWITCH statement](behavior-switch-statement.md) — first-class C-style SWITCH/CASE.const/DEFAULT in the Behavior language; CSRRW/CSRRS/CSRRC use it; touch-point map (which passes need N-ary arms vs generic); gem5 generated/ is gitignored
+- [native-x86 diff harness](native-x86-diff-harness.md) — the roadmap oracle exists (lvx-gem5/tests/lvx/diff/): compile C both ways, run ISS, diff exit code; freestanding (no newlib); -O2 baseline 9/10 vs native; found addx2wp -O2 asm bug + -O0 gcc ICE
 - [lvx-gdb binutils untrusted](lvx-gdb-binutils-untrusted.md) — only lvx-binutils' as/objdump are authoritative; lvx-gdb's bundled binutils/lvx-dis.c lags and lies
