@@ -1872,7 +1872,7 @@ if test ${with_ref_path+y}
 then :
   withval=$with_ref_path; REFDIR="$with_ref_path"
 else case e in #(
-  e) REFDIR="`(cd $ABSPATH/..; pwd)`/refs" ;;
+  e) REFDIR="`(cd $ABSPATH/..; pwd)`/lvx-refs" ;;
 esac
 fi
 

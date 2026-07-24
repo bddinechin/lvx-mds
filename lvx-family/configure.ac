@@ -80,7 +80,7 @@ AC_SUBST(ARCHDIR)
 AC_ARG_WITH([ref_path],
   [AS_HELP_STRING([--with-ref-path],[Set path for committed generated-output references (refs/diff/check), separate from the architecture description sources])],
   [REFDIR="$with_ref_path"],
-  [REFDIR="`(cd $ABSPATH/..; pwd)`/refs"])
+  [REFDIR="`(cd $ABSPATH/..; pwd)`/lvx-refs"])
 AC_SUBST(REFDIR)
 
 AC_ARG_WITH([lao_path],

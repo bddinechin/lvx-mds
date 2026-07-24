@@ -31,7 +31,7 @@ FAMILY=lvx CORES="lvx_v1 lvx_v2" ruby gen-parse-table.rb  \
   (`_lvx_v1` / `_lvx_v2`).
 - **Output**: `gas/config/lvx-parse.h`, ~960 KB, installed by `BE/GBU install`
   into both `lvx-binutils` and `lvx-gdb`. Committed reference:
-  `refs/BE/GBU/lvx/gas/config/lvx-parse.h`.
+  `lvx-refs/BE/GBU/lvx/gas/config/lvx-parse.h`.
 - **Build rule**: `MDS/BE/GBU/Makefile.in:117` (currently `$(RUBY)`; the port
   flips this to `$(PERL) $(PERLINC)` like every other `gbu-*.pl`).
 - **Consumer**: `lvx-binutils/gas/config/lvx-parse.c` (+ `tc-lvx.h` for the
@@ -310,7 +310,7 @@ block gated by `if false` — do not port it (or port it behind the same dead ga
 The port is correct iff the driver built against the new header assembles the
 same programs. Available oracles, in increasing realism:
 
-1. **Generated regression assembly** — `refs/BE/GBU/lvx/lvx_v1/LVX_OPCODE_FLAG_MODE64.s`
+1. **Generated regression assembly** — `lvx-refs/BE/GBU/lvx/lvx_v1/LVX_OPCODE_FLAG_MODE64.s`
    and `.../lvx_v2/LVX_OPCODE_FLAG_MODE64.s` exercise (close to) every opcode/format.
    Assemble with `lvx-mbr-as` built from a `lvx-binutils` that has the **old**
    header, then again with the **new** header, and compare the object output
@@ -322,7 +322,7 @@ same programs. Available oracles, in increasing realism:
    modifiers, immediates of varying width, register classes) the way a programmer
    does, so they stress the backtracking/promotion paths the synthetic `.s` may not.
 3. **The committed header itself** — a `diff` against
-   `refs/BE/GBU/lvx/gas/config/lvx-parse.h` is a *sufficient* check if it happens
+   `lvx-refs/BE/GBU/lvx/gas/config/lvx-parse.h` is a *sufficient* check if it happens
    to be clean, but is **not required**. Expect and accept differences in rule
    *numbering*, table *ordering*, and factorisation choices as long as (1)/(2) pass.
 

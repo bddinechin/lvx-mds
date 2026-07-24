@@ -952,7 +952,7 @@ conclusion the `lvx_v2` byte-lane `ZX.256` reached (§3). No new width rule is r
 natural-width cell; the `width:1 count:64` control-register storages collapse to
 `width:64 count:1`, their fields becoming slices. Because the *state* is bit-identical and
 only its declaration changed, the acceptance bar is the same one every schema change here
-answers to: `BE/LAO/TEST` **0 trace diffs on both cores**, and `refs/BE/` **byte-identical**
+answers to: `BE/LAO/TEST` **0 trace diffs on both cores**, and `lvx-refs/BE/` **byte-identical**
 except where an emitted register table legitimately reflects the storage-width change
-(`refs/MDD/` free to move). The XACCESSO/XALIGNO gem5 dependency tracking must still fire —
+(`lvx-refs/MDD/` free to move). The XACCESSO/XALIGNO gem5 dependency tracking must still fire —
 now through the offset operand's `READ` rather than the proxy.

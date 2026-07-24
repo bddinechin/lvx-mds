@@ -150,7 +150,7 @@ for my $i (0 .. $#Cores) {
   means you can't probe for an attribute that might not be in the DTD; if the
   attribute is optional, it's in `%ATTLIST` and returns `undef`, so use `//`.
 - **`emit` sorts attributes and drops `undef`.** Any back-end that round-trips
-  or compares against `refs/` depends on this being the canonical order; don't
+  or compares against `lvx-refs/` depends on this being the canonical order; don't
   reimplement serialisation.
 - **Placeholders (`Foo-lvx_v1-`) are already excluded** from `@<Element>::table`
   (they land in `@<Element>::noname`). Don't re-filter on a trailing `-`; do

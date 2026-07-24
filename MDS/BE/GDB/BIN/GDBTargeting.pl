@@ -5,7 +5,7 @@
 #
 # Perl port of the Ruby GDBTargeting.rb (+ its Registers.rb helper), using the shared
 # MDS.pm object model instead of a second one in Ruby.  Verified byte-identical against
-# the reference the Ruby produced (refs/BE/GDB/lvx/lvx-mds-tdep.c).
+# the reference the Ruby produced (lvx-refs/BE/GDB/lvx/lvx-mds-tdep.c).
 #
 # The register/regfile/storage/processor/convention model, and the two derived facts the
 # Ruby computed in Registers.rb -- a storage's address->register map (GDBStorage) and a

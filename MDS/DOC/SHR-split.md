@@ -10,7 +10,7 @@ A design note for retiring the one place `DOC/Behavior.md §3` still calls the
 > (signed operand) vs `Int256_shru` (non-negative), mirroring the native path. The
 > container width no longer enters any shift's meaning. Behaviour-preserving:
 > lvx_v1 differential test 0/870 (old-vs-new and boxed-vs-unboxed); only the
-> `Opcode.table` intervals and `Behavior.tuple` shift emission moved in `refs/`.
+> `Opcode.table` intervals and `Behavior.tuple` shift emission moved in `lvx-refs/`.
 > A second `SHRU` operator was **not** added — see "Do we need `SHRU`" below.
 
 ## The problem
@@ -138,14 +138,14 @@ Byte-identity of behavior: `Int256_shr(sx(x,w),n) == Int256_shru(sx(x,w),n)` on
 the demanded bits (both shift the same sign in), and logical sites keep
 `Int256_shru` — so the differential test stays **0/870** and **0/1453**. The
 `.tuple` *text* moves (`Int256_shru` → `Int256_shr` at the arithmetic sites), so
-`refs/BE/LAO` must be regenerated; the *behaviour* does not move.
+`lvx-refs/BE/LAO` must be regenerated; the *behaviour* does not move.
 
 ## Sequencing, and a coupling caveat
 
 1. **Machinery** (this note's step 1): grammar + `Behavior.pa` + `Width.pm`.
 2. **Migration**: the YAML `SHR`→`SHRU` reclassification above.
 3. Rebuild; run `BE/LAO/TEST` on **both** cores (require 0/870, 0/1453);
-   regenerate `refs/BE/LAO`.
+   regenerate `lvx-refs/BE/LAO`.
 4. Only after (3) is green: the `Int256→Int512` widening for lvx_v3.
 
 **The caveat found while drafting:** steps 1 and 2 are *coupled*. Making `SHR`
