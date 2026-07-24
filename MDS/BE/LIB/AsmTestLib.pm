@@ -56,45 +56,15 @@ sub init_bundlings {
 
     return if $bundlings_initialized;
 
-    # Build %contains table to map $dispersalID to @bundlingIDs.
-    my %contains;
+    # Template/Dispersal were removed from the MDS. Those tables had degenerate,
+    # single-dispersal-at-offset-0 contents (see the "TEMPLATES NO LONGER USED"
+    # hack in makeBundle.pl), so every Bundling sat at even alignment only and
+    # none was strictly non-leading. Reproduce that directly from the Bundling
+    # table so the generated asm tests are byte-for-byte unchanged.
     foreach my $bundling (@Bundling::table) {
         my $bundlingID = $bundling->attribute("ID");
-        my @dispersalIDs = split ' ', $bundling->attribute("dispersals");
-        map {push @{$contains{$_}}, $bundlingID} @dispersalIDs;
-    }
-
-    # Find the set of bundlings that appear first in a bundle.
-    foreach my $template (@Template::table) {
-        my @dispersalIDs = split ' ', $template->attribute("dispersals");
-        my $first_dispersalID = shift @dispersalIDs;
-        foreach my $bundlingID (@{$contains{$first_dispersalID}}) {
-            $leading_bundlings{$bundlingID} = 1;
-        }
-        foreach my $dispersalID (@dispersalIDs) {
-            foreach my $bundlingID (@{$contains{$dispersalID}}) {
-                $non_leading_bundlings{$bundlingID} = 1;
-            }
-        }
-    }
-
-    # Find the set of bundlings that are odd/even aligned.
-    foreach my $template (@Template::table) {
-        my ($bias, $base) = ($template->attribute("alignBias"),
-            $template->attribute("alignBase"));
-        my $address = $bias*8;
-        foreach my $dispersalID (split ' ', $template->attribute("dispersals")) {
-            my $dispersal = &MDS::fetch($dispersalID);
-            foreach my $bundlingID (@{$contains{$dispersalID}}) {
-                # Issue 1: Hard-code instruction word width.
-                if (($address % (32 * 2)) != 0) {
-                    $odd_bundlings{$bundlingID} = 1;
-                } else {
-                    $even_bundlings{$bundlingID} = 1;
-                }
-            }
-            $address += dispersal_width ($dispersal);
-        }
+        $leading_bundlings{$bundlingID} = 1;
+        $even_bundlings{$bundlingID} = 1;
     }
     $bundlings_initialized = 1;
 }

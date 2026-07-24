@@ -105,8 +105,6 @@ MDD_names=" \
   Synthetic.table \
   Simulated.table \
   Generic.table \
-  Template.table \
-  Dispersal.table \
   Bundling.table \
   Resource.table \
   Scheduling.table \
@@ -125,8 +123,6 @@ MDE_names=" \
   Pattern.X.table \
   Opcode.table \
   Decoding.table \
-  Template.X.table \
-  Bundle.table \
   Operator.table \
   Opcode.X.table \
   Register.X.table \
@@ -152,15 +148,11 @@ MDT_names=" \
   Convention.table \
   Pattern.table \
   Pattern.X.table \
-  Template.table \
-  Template.X.table \
-  Dispersal.table \
   Bundling.table \
   Resource.table \
   Reservation.table \
   Scheduling.table \
   Access.table \
-  Bundle.table \
   Encoding.table \
   Operand.table \
   Format.table \

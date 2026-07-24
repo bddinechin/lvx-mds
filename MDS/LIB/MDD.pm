@@ -15,7 +15,7 @@ sub IDs {
     [ map { &ID($type, $_) } @names ];
 }
 
-@ELEMENTS = ( 'Access', 'Behavior', 'BitField', 'Builtin', 'Bundle', 'Bundling', 'Convention', 'Declaration', 'Decode', 'Decoding', 'Definition', 'Dispersal', 'Encoding', 'Execution', 'Format', 'Generic', 'Helper', 'Immediate', 'Instruction', 'Modifier', 'NativeType', 'Opcode', 'Operand', 'Operator', 'Parameter', 'Pattern', 'Platform', 'Processor', 'RegClass', 'RegField', 'RegMask', 'Register', 'Relocation', 'Reservation', 'Resource', 'Scheduling', 'Simulated', 'Storage', 'Synthetic', 'Template' );
+@ELEMENTS = ( 'Access', 'Behavior', 'BitField', 'Builtin', 'Bundling', 'Convention', 'Declaration', 'Decode', 'Decoding', 'Definition', 'Encoding', 'Execution', 'Format', 'Generic', 'Helper', 'Immediate', 'Instruction', 'Modifier', 'NativeType', 'Opcode', 'Operand', 'Operator', 'Parameter', 'Pattern', 'Platform', 'Processor', 'RegClass', 'RegField', 'RegMask', 'Register', 'Relocation', 'Reservation', 'Resource', 'Scheduling', 'Simulated', 'Storage', 'Synthetic' );
 
 package Access;
 @ISA = ( "MDS" );
@@ -130,44 +130,12 @@ sub enter {
     }
 }
 
-package Bundle;
-@ISA = ( "MDS" );
-sub ID { &MDD::ID("Bundle", $_[0]) }
-sub IDs { &MDD::IDs("Bundle", $_[0]) }
-%ATTLIST = (
-    ID=>	[ 'ID', '#REQUIRED', 'undef', '', '' ],
-    alignBase=>	[ 'NMTOKEN', '#REQUIRED', 'undef', '', '' ],
-    alignBias=>	[ 'NMTOKEN', '#REQUIRED', 'undef', '', '' ],
-    canonic=>	[ 'IDREFS', '#IMPLIED', 'undef', '', '' ],
-    contents=>	[ 'IDREFS', '#IMPLIED', 'undef', '', '' ],
-    inverse=>	[ 'NMTOKENS', '#IMPLIED', 'undef', '', '' ],
-    template=>	[ 'IDREF', '#REQUIRED', 'undef', '', '' ],
-  );
-@CHILD_ELEMENTS = (  );
-sub attlist { return \%ATTLIST; }
-sub childElements { return \@CHILD_ELEMENTS; }
-@table = ();
-@noname = ();
-sub enter {
-    my ($self) = @_;
-    my $ID = $self->{ATTRIBUTES}->{ID};
-    if (defined $ID) {
-        my $name = (split '-', $ID)[2];
-        if (defined $name) {
-            push @table, $self
-        } else {
-            push @noname, $self
-        }
-    }
-}
-
 package Bundling;
 @ISA = ( "MDS" );
 sub ID { &MDD::ID("Bundling", $_[0]) }
 sub IDs { &MDD::IDs("Bundling", $_[0]) }
 %ATTLIST = (
     ID=>	[ 'ID', '#REQUIRED', 'undef', '', '' ],
-    dispersals=>	[ 'IDREFS', '#REQUIRED', 'undef', 'Dispersal', 'IDs' ],
     what=>	[ 'CDATA', '#IMPLIED', 'undef', '', '' ],
   );
 @CHILD_ELEMENTS = (  );
@@ -318,36 +286,6 @@ package Definition;
 sub ID { &MDD::ID("Definition", $_[0]) }
 sub IDs { &MDD::IDs("Definition", $_[0]) }
 %ATTLIST = (
-  );
-@CHILD_ELEMENTS = (  );
-sub attlist { return \%ATTLIST; }
-sub childElements { return \@CHILD_ELEMENTS; }
-@table = ();
-@noname = ();
-sub enter {
-    my ($self) = @_;
-    my $ID = $self->{ATTRIBUTES}->{ID};
-    if (defined $ID) {
-        my $name = (split '-', $ID)[2];
-        if (defined $name) {
-            push @table, $self
-        } else {
-            push @noname, $self
-        }
-    }
-}
-
-package Dispersal;
-@ISA = ( "MDS" );
-sub ID { &MDD::ID("Dispersal", $_[0]) }
-sub IDs { &MDD::IDs("Dispersal", $_[0]) }
-%ATTLIST = (
-    ID=>	[ 'ID', '#REQUIRED', 'undef', '', '' ],
-    distance=>	[ 'NMTOKEN', '#REQUIRED', 'undef', '', '' ],
-    fromFields=>	[ 'IDREFS', '#REQUIRED', 'undef', 'BitField', 'IDs' ],
-    nopValues=>	[ 'NMTOKEN', '#IMPLIED', 'undef', '', '' ],
-    toFields=>	[ 'IDREFS', '#REQUIRED', 'undef', 'BitField', 'IDs' ],
-    what=>	[ 'CDATA', '#IMPLIED', 'undef', '', '' ],
   );
 @CHILD_ELEMENTS = (  );
 sub attlist { return \%ATTLIST; }
@@ -1205,41 +1143,6 @@ sub IDs { &MDD::IDs("Synthetic", $_[0]) }
     what=>	[ 'CDATA', '#IMPLIED', 'undef', '', '' ],
   );
 @CHILD_ELEMENTS = ( 'Execution', 'Behavior' );
-sub attlist { return \%ATTLIST; }
-sub childElements { return \@CHILD_ELEMENTS; }
-@table = ();
-@noname = ();
-sub enter {
-    my ($self) = @_;
-    my $ID = $self->{ATTRIBUTES}->{ID};
-    if (defined $ID) {
-        my $name = (split '-', $ID)[2];
-        if (defined $name) {
-            push @table, $self
-        } else {
-            push @noname, $self
-        }
-    }
-}
-
-package Template;
-@ISA = ( "MDS" );
-sub ID { &MDD::ID("Template", $_[0]) }
-sub IDs { &MDD::IDs("Template", $_[0]) }
-%ATTLIST = (
-    ID=>	[ 'ID', '#REQUIRED', 'undef', '', '' ],
-    alignBase=>	[ 'NMTOKEN', '#REQUIRED', 'undef', '', '' ],
-    alignBias=>	[ 'NMTOKEN', '#REQUIRED', 'undef', '', '' ],
-    dispersals=>	[ 'IDREFS', '#IMPLIED', 'undef', 'Dispersal', 'IDs' ],
-    increment=>	[ 'NMTOKEN', '#REQUIRED', 'undef', '', '' ],
-    nopAllow=>	[ 'NMTOKEN', '#IMPLIED', 'undef', '', '' ],
-    nopified=>	[ 'IDREFS', '#IMPLIED', 'undef', 'Dispersal', 'IDs' ],
-    original=>	[ 'IDREF', '#IMPLIED', 'undef', 'Template', 'ID' ],
-    patterns=>	[ 'IDREFS', '#REQUIRED', 'undef', 'Pattern', 'IDs' ],
-    what=>	[ 'CDATA', '#IMPLIED', 'undef', '', '' ],
-    wordWidth=>	[ 'NMTOKEN', '#REQUIRED', 'undef', '', '' ],
-  );
-@CHILD_ELEMENTS = (  );
 sub attlist { return \%ATTLIST; }
 sub childElements { return \@CHILD_ELEMENTS; }
 @table = ();

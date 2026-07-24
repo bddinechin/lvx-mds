@@ -25,22 +25,6 @@ use PatternX;
 &MDS::parse(*ARGV);
 
 my %pattern;
-foreach my $template (@Template::table) {
-    my @dispersals = $template->access("dispersals");
-    foreach my $dispersal (@dispersals) {
-        my $nopValues = $dispersal->attribute("nopValues");
-        if (defined $nopValues) {
-            my $dispersalName = $dispersal->name();
-            my $toFields = $dispersal->attribute("toFields");
-            my $ID = &Pattern::ID("NOP.$dispersalName");
-            print MDS::make("Pattern", {
-                    ID=>	$ID,
-                    fields=>	$toFields,
-                    values=>	$nopValues,
-                })->emit() unless $pattern{$ID}++;
-        }
-    }
-}
 
 foreach my $synthetic (@Synthetic::table) {
     my @formats = $synthetic->access("formats");

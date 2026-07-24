@@ -44,8 +44,6 @@ MDT_tuples:=	\
 		Operator.tuple \
 		Decoding.tuple \
 		Bundling.tuple \
-		Template.tuple \
-		Bundle.tuple \
 		Resource.tuple \
 		Reservation.tuple \
 		Scheduling.tuple \

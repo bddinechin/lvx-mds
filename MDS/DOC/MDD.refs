@@ -15,7 +15,6 @@
 
 Builtin      formats        Format       IDs
 Builtin      instruction    Instruction  ID
-Bundling     dispersals     Dispersal    IDs
 Convention   argument       Register     IDs
 Convention   callee         Register     IDs
 Convention   caller         Register     IDs
@@ -36,8 +35,6 @@ Convention   true           Register     IDs
 Convention   veneer         Register     IDs
 Convention   wired          Register     IDs
 Convention   zero           Register     IDs
-Dispersal    fromFields     BitField     IDs
-Dispersal    toFields       BitField     IDs
 Format       encoding       Encoding     ID
 Format       operands       Operand      IDs
 Format       patterns       Pattern      IDs
@@ -75,7 +72,3 @@ Simulated    scheduling     Scheduling   ID
 Synthetic    formats        Format       IDs
 Synthetic    instruction    Instruction  ID
 Synthetic    schedulings    Scheduling   IDs
-Template     dispersals     Dispersal    IDs
-Template     nopified       Dispersal    IDs
-Template     original       Template     ID
-Template     patterns       Pattern      IDs

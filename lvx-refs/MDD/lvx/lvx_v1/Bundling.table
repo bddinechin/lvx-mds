@@ -1,93 +1,70 @@
 
 <Bundling
   ID=	"Bundling-lvx_v1-"
-  dispersals=	"Dispersal-lvx_v1-"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-ALL"
-  dispersals=	"Dispersal-lvx_v1-ALL.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-BCU2"
-  dispersals=	"Dispersal-lvx_v1-BCU2.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-BCU2.X"
-  dispersals=	"Dispersal-lvx_v1-BCU2.X.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-BCU0"
-  dispersals=	"Dispersal-lvx_v1-BCU0.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-BCU"
-  dispersals=	"Dispersal-lvx_v1-BCU.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-FULL"
-  dispersals=	"Dispersal-lvx_v1-FULL.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-FULL.X"
-  dispersals=	"Dispersal-lvx_v1-FULL.X.0.1 Dispersal-lvx_v1-FULL.X.0.2 Dispersal-lvx_v1-FULL.X.0.3 Dispersal-lvx_v1-FULL.X.0.4 Dispersal-lvx_v1-FULL.X.0.5"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-FULL.Y"
-  dispersals=	"Dispersal-lvx_v1-FULL.Y.0.1.2 Dispersal-lvx_v1-FULL.Y.0.2.3 Dispersal-lvx_v1-FULL.Y.0.3.4 Dispersal-lvx_v1-FULL.Y.0.4.5 Dispersal-lvx_v1-FULL.Y.0.5.6"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-LITE"
-  dispersals=	"Dispersal-lvx_v1-LITE.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-LITE.X"
-  dispersals=	"Dispersal-lvx_v1-LITE.X.0.1 Dispersal-lvx_v1-LITE.X.0.2 Dispersal-lvx_v1-LITE.X.0.3 Dispersal-lvx_v1-LITE.X.0.4 Dispersal-lvx_v1-LITE.X.0.5"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-LITE.Y"
-  dispersals=	"Dispersal-lvx_v1-LITE.Y.0.1.2 Dispersal-lvx_v1-LITE.Y.0.2.3 Dispersal-lvx_v1-LITE.Y.0.3.4 Dispersal-lvx_v1-LITE.Y.0.4.5 Dispersal-lvx_v1-LITE.Y.0.5.6"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-LSU0"
-  dispersals=	"Dispersal-lvx_v1-LSU0.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-LSU0.X"
-  dispersals=	"Dispersal-lvx_v1-LSU0.X.0.1 Dispersal-lvx_v1-LSU0.X.0.2 Dispersal-lvx_v1-LSU0.X.0.3"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-LSU0.Y"
-  dispersals=	"Dispersal-lvx_v1-LSU0.Y.0.1.2 Dispersal-lvx_v1-LSU0.Y.0.2.3 Dispersal-lvx_v1-LSU0.Y.0.3.4"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-LSU"
-  dispersals=	"Dispersal-lvx_v1-LSU.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-LSU.X"
-  dispersals=	"Dispersal-lvx_v1-LSU.X.0.1 Dispersal-lvx_v1-LSU.X.0.2"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-LSU.Y"
-  dispersals=	"Dispersal-lvx_v1-LSU.Y.0.1.2 Dispersal-lvx_v1-LSU.Y.0.2.3"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-TINY"
-  dispersals=	"Dispersal-lvx_v1-TINY.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-TINY.X"
-  dispersals=	"Dispersal-lvx_v1-TINY.X.0.1 Dispersal-lvx_v1-TINY.X.0.2 Dispersal-lvx_v1-TINY.X.0.3 Dispersal-lvx_v1-TINY.X.0.4 Dispersal-lvx_v1-TINY.X.0.5"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-TINY.Y"
-  dispersals=	"Dispersal-lvx_v1-TINY.Y.0.1.2 Dispersal-lvx_v1-TINY.Y.0.2.3 Dispersal-lvx_v1-TINY.Y.0.3.4 Dispersal-lvx_v1-TINY.Y.0.4.5 Dispersal-lvx_v1-TINY.Y.0.5.6"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-EXT"
-  dispersals=	"Dispersal-lvx_v1-EXT.0"
 />
 <Bundling
   ID=	"Bundling-lvx_v1-NOP"
-  dispersals=	"Dispersal-lvx_v1-NOP.0"
 />

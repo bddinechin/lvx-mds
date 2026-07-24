@@ -107,17 +107,16 @@ sub enumerate {
 }
 #die "TemplateCounter = $TemplateCounter\n";
 
-# For all Template(s), generate attributes.
-print "\nTemplate:\n\n";
+# Walk the Template(s) to populate %Dispersal, %Pattern and $EncodeMax. Template and
+# Dispersal are no longer emitted (they were removed from the MDS), but their
+# enumeration still defines the Pattern(s) and the ENCODE BitField extent that the
+# Opcode encoding depends on, so the computation is kept -- only the printing is gone.
 foreach my $templateID (sort keys %Template) {
-    print "  - ID: $templateID\n";
     my $template = $Template{$templateID};
     my $contents = $$template{CONTENTS};
     my $wordCount = 0;
     map { $wordCount += $Bundling{$_}{BASEWORDS} } @$contents;
     my $immxOffset = $wordCount;
-    my @extraPatterns = ();
-    print "    dispersals: [";
     my ($dispersalWhere, @immxList) = (0);
     foreach my $bundlingID (@$contents) {
         my $immxWords = $Bundling{$bundlingID}{IMMXWORDS};
@@ -140,69 +139,35 @@ foreach my $templateID (sort keys %Template) {
                 $dispersalID .= ".$offset";
             }
         }
-        $Bundling{$bundlingID}{DISPERSAL}{$dispersalID}++;
         $Dispersal{$dispersalID} = $dispersal;
-        print " $dispersalID,";
         $dispersalWhere += $Bundling{$bundlingID}{BASEWORDS};
         $immxOffset += $immxWords;
         last; # TEMPLATES NO LONGER USED!
     }
-    print " ]\n";
     my $count = $immxOffset;
-    my $pattern = { TYPE=>'Parallel', COUNT=>$count };
     my $patternID = "Parallel.$count";
-    $Pattern{$patternID} = $pattern;
-    print "    patterns: [";
-    print " $patternID,";
+    $Pattern{$patternID} = { TYPE=>'Parallel', COUNT=>$count };
     for (my $index = 0; $index < @immxList; $index++) {
         my $immxOffset = $dispersalWhere + $index;
         my $immxItem = $immxList[$index];
         my $immxExuNum = $$immxItem{EXUNUM};
-        my $pattern = { TYPE=>'IMMX', EXUNUM=>$immxExuNum, OFFSET=>$immxOffset };
         my $patternID = "IMMX.$immxOffset.$immxExuNum";
-        $Pattern{$patternID} = $pattern;
-        print " $patternID,";
+        $Pattern{$patternID} = { TYPE=>'IMMX', EXUNUM=>$immxExuNum, OFFSET=>$immxOffset };
     }
-    foreach my $patternID (@extraPatterns) {
-        print " $patternID,";
-    }
-    print " ]\n";
-    print "    wordWidth: $WordWidth\n";
-    print "    alignBase: 4\n";
-    print "    alignBias: 0\n";
-    print "    increment: ", $count*$WordBytes, "\n";
-    print "\n";
 }
-print STDERR "Generated ", scalar(keys %Template), " Template(s)\n";
 
-# For all Dispersal(s), generate attributes.
-print "\nDispersal:\n\n";
+# Compute $EncodeMax from the Dispersal(s) (sizes the ENCODE BitField(s) below).
 foreach my $dispersalID (sort keys %Dispersal) {
-    my $index = 0;
-    print "  - ID: $dispersalID\n";
     my $dispersal = $Dispersal{$dispersalID};
     my $immxList = $$dispersal{IMMXLIST};
     my @immxList = $immxList? @{$immxList}: ();
     my $where = $$dispersal{WHERE};
     $EncodeMax = $where if $EncodeMax < $where;
-    print "    fromFields: \[ ENCODE.$index";
-    foreach my $immxItem (@immxList) {
-        ++$index;
-        print ", ENCODE.$index";
-    }
-    print " \]\n";
-    print "    toFields: \[ ENCODE.$where";
     foreach my $immxItem (@immxList) {
         my $offset = $$immxItem{OFFSET};
-        print ", ENCODE.$offset";
         $EncodeMax = $offset if $EncodeMax < $offset;
     }
-    print " \]\n";
-    my $distance = $where*4;
-    print "    distance: $distance\n";
-    print "\n";
 }
-print STDERR "Generated ", scalar(keys %Dispersal), " Dispersal(s)\n";
 
 # For all Pattern(s), generate attributes.
 print "\nPattern:\n\n";
@@ -282,18 +247,6 @@ EOT
 print "\nBundling:\n\n";
 foreach my $bundlingID (sort { $Bundling{$a}{ORDERING} <=> $Bundling{$b}{ORDERING} } keys %Bundling) {
     print "  - ID: $bundlingID\n";
-    print "    dispersals: \[";
-    my $dispersal = $Bundling{$bundlingID}{DISPERSAL};
-    foreach my $dispersalID (sort keys %$dispersal) {
-        print " $dispersalID,";
-    }
-    print " \]\n";
-    my $resources = $Bundling{$bundlingID}{RESOURCES};
-    if ($resources) {
-        print "    resources \[";
-        my @resources = split ' ', $resources;
-        print " \]\n";
-    }
     print "\n";
 }
 print STDERR "Generated ", scalar(keys %Bundling), " Bundling(s)\n";

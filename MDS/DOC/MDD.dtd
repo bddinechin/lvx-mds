@@ -742,63 +742,6 @@
 -->
 
 <!--
-  <dfn>Template</dfn> A Template describes how the Instruction Opcode(s) are
-  encoded into Bundle(s).
--->
-<!ELEMENT Template EMPTY>
-<!ATTLIST Template
-  ID		ID		#REQUIRED
-  what		CDATA		#IMPLIED
-  wordWidth	NMTOKEN		#REQUIRED
-  alignBase	NMTOKEN		#REQUIRED
-  alignBias	NMTOKEN		#REQUIRED
-  dispersals	IDREFS		#IMPLIED
-  patterns	IDREFS		#REQUIRED
-  increment	NMTOKEN		#REQUIRED
-  nopAllow	NMTOKEN		#IMPLIED
-  nopified	IDREFS		#IMPLIED
-  original	IDREF		#IMPLIED
->
-<!--
-  <description>
-    <term>wordWidth</term> The bit width of words used for encoding this Template.
-    <term>alignBase</term> The alignment base in bytes required for this Template.
-    <term>alignBias</term> The alignment bias in bytes required for this Template.
-    <term>dispersals</term> The list of Dispersal(s) for this Template.
-    <term>patterns</term> List of Pattern(s) that select this Template.
-    <term>increment</term> PC increment after encoding this Template.
-    <term>nopAllow</term> Maximum number of NOP Dispersals allowed in this Template.
-    <term>nopified</term> List of Dispersals that are actually filled with a NOP.
-    <term>original</term> The original Template in case this Template is nopified.
-  </description>
--->
-
-<!--
-  <dfn>Dispersal</dfn> A Dispersal is the container used to slot an encoded
-  Opcode into a Template. Precisely, the encoded value of an Opcode is
-  distributed into the bit fields that encode a Bundle according to the Dispersal.
--->
-<!ELEMENT Dispersal EMPTY>
-<!ATTLIST Dispersal
-  ID		ID		#REQUIRED
-  what		CDATA		#IMPLIED
-  fromFields	IDREFS		#REQUIRED
-  toFields	IDREFS		#REQUIRED
-  nopValues	NMTOKEN		#IMPLIED
-  distance	NMTOKEN		#REQUIRED
->
-<!--
-  <description>
-    <term>fromFields</term> This Dispersal list of source BitField(s) in the
-      Opcode encoding.
-    <term>toFields</term> This Dispersal list of target BitField(s) in the
-      encoded Bundle.
-    <term>nopValues</term> Values to encode in <code>fields</code> in case of NOP.
-    <term>distance</term> PC distance of this Dispersal from start of Bundle.
-  </description>
--->
-
-<!--
   <dfn>Bundling</dfn> Bundling class of an Instruction Opcode. The Bundling
   class abstracts the instruction as far as instruction bundling is concerned.
   Precisely, given an instruction group that must issue in parallel, this group
@@ -812,13 +755,7 @@
 <!ATTLIST Bundling
   ID		ID		#REQUIRED
   what		CDATA		#IMPLIED
-  dispersals	IDREFS		#REQUIRED
 >
-<!--
-  <description>
-    <term>dispersals</term> The Dispersal(s) this Bundling class may use.
-  </description>
--->
 
 <!--
   <subsection title="Instruction Scheduling"/>
@@ -1112,36 +1049,6 @@
     <term>scheduling</term> Scheduling class of this Simulated instruction.
     <term>mnemonic</term> This Simulated instruction mnemonic.
     <term>syntax</term> This Simulated instruction syntax string.
-  </description>
--->
-
-<!--
-  <dfn>Bundle</dfn> A Bundle is an instance of a Template with regards to
-  Bundling classes.
--->
-<!ELEMENT Bundle EMPTY>
-<!ATTLIST Bundle
-  ID		ID		#REQUIRED
-  alignBase	NMTOKEN		#REQUIRED
-  alignBias	NMTOKEN		#REQUIRED
-  template	IDREF		#REQUIRED
-  contents	IDREFS		#IMPLIED
-  canonic	IDREFS		#IMPLIED
-  inverse	NMTOKENS	#IMPLIED
->
-<!--
-  <description>
-    <term>alignBase</term> The alignment base in bytes required for this Bundle.
-    <term>alignBias</term> The alignment bias in bytes required for this Bundle.
-    <term>template</term> The Template for this Bundle.
-    <term>contents</term> The contents of this Bundle as a list of Bundling
-      classes. Should be ordered by issue lane (or execution unit).
-    <term>canonic</term> The <term>contents</term> in canonic order, that is,
-      sorted in non-decreasing Bundling class order.
-    <term>inverse</term> The inverse of the permutation that sorts the
-      <term>contents</term> to <code>canonic</code>. For instance if
-      <code>contents</code> is "C A B" and <code>canonic</code> is
-      "A B C" then <code>inverse</code> is "2 0 1".
   </description>
 -->
 

@@ -23,7 +23,6 @@ use MDS;
 
 print MDS::make("Bundling", {
         ID=>	&Bundling::ID(""),
-        dispersals=>	&Dispersal::ID(""),
     })->emit();
 
 1;

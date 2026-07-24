@@ -227,8 +227,7 @@ sub maybe_merge {
                     || $name eq "processors") {
                     # Append attributes.
                     $$this_attributes{$name} .= " $that_value" if ($do_merge);
-                } elsif (   ($element eq 'Dispersal' && $name eq 'contains')
-                    || ($element eq 'Register' && $name =~ /^(classes|aliases)$/)) {
+                } elsif (($element eq 'Register' && $name =~ /^(classes|aliases)$/)) {
                     # Union attributes.
                     my @this_value = split ' ', $this_value;
                     my @that_value = split ' ', $that_value;

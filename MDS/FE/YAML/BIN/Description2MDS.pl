@@ -1158,24 +1158,6 @@ foreach my $format (@{$$Description{Format}}) {
     }
 }
 
-# Process the Dispersal section
-my $Dispersal_number = 0;
-foreach my $dispersal (@{$$Description{Dispersal}}) {
-    #print STDERR Dumper($dispersal);
-    my $what = $$dispersal{what};
-    my $ID = $$dispersal{ID} || die "Missing ID for Dispersal";
-    my $fromFields = get_required_attribute("Dispersal",$ID,$dispersal,"fromFields");
-    my $toFields = get_required_attribute("Dispersal",$ID,$dispersal,"toFields");
-    my $nopValues = get_implied_attribute("Dispersal",$ID,$dispersal,"nopValues");
-    my $distance = get_required_attribute("Dispersal",$ID,$dispersal,"distance");
-    $Section{Dispersal}{$ID}{what} = $what;
-    $Section{Dispersal}{$ID}{number} = $Dispersal_number++;
-    $Section{Dispersal}{$ID}{fromFields} = $fromFields;
-    $Section{Dispersal}{$ID}{toFields} = $toFields;
-    $Section{Dispersal}{$ID}{nopValues} = $nopValues;
-    $Section{Dispersal}{$ID}{distance} = $distance;
-}
-
 
 # Process the Resource section
 my $Resource_number = 0;
@@ -1214,10 +1196,8 @@ foreach my $bundling (@{$$Description{Bundling}}) {
     #print STDERR Dumper($bundling);
     my $what = $$bundling{what};
     my $ID = $$bundling{ID} || die "Missing ID for Bundling";
-    my $dispersals = get_required_attribute("Bundling",$ID,$bundling,"dispersals");
     $Section{Bundling}{$ID}{what} = $what;
     $Section{Bundling}{$ID}{number} = $Bundling_number++;
-    $Section{Bundling}{$ID}{dispersals} = $dispersals;
 }
 
 
@@ -1530,7 +1510,7 @@ foreach my $builtin (@{$$Description{Builtin}}) {
 
 
 my @Fixup = qw(
-  BitField Convention NativeType Pattern Platform Processor Template
+  BitField Convention NativeType Pattern Platform Processor
   );
 
 foreach my $fixup (@Fixup) {
@@ -1557,7 +1537,7 @@ my @Tables = qw(
   BitField Bundling Convention Encoding Format Generic Immediate Instruction
   Modifier NativeType Operand Pattern Platform Processor RegClass RegField
   Register RegMask Relocation Reservation Resource Scheduling Simulated
-  Storage Dispersal Synthetic Template Builtin Helper
+  Storage Synthetic Builtin Helper
   );
 
 foreach my $table (@Tables) {

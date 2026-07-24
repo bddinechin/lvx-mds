@@ -119,7 +119,6 @@ endef
 
 # All tables with .X extension
 $(eval $(call generate,Pattern))
-$(eval $(call generate,Template))
 $(eval $(call generate_for_cyclic_dependencies,Register))
 $(eval $(call generate_for_cyclic_dependencies,Synthetic))
 $(eval $(call generate_for_cyclic_dependencies,Instruction))
