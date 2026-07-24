@@ -27,7 +27,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"ps\" regnum=\"%d\" bitsize=\"32\" type=\"ps_type\" />"}, /* regno=1 */
 	{"pcr", ""
@@ -439,7 +438,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"pm6\" start=\"44\" end=\"45\" />\n"
 			"<field name=\"pm7\" start=\"46\" end=\"47\" />\n"
 			"<field name=\"srhpc\" start=\"48\" end=\"49\" />\n"
-			"<field name=\"rvc\" start=\"50\" end=\"51\" />\n"
 		"</struct>\n"
 		"<reg name=\"mo\" regnum=\"%d\" bitsize=\"64\" type=\"mo_type\" />"}, /* regno=36 */
 	{"pso", ""
@@ -468,7 +466,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"pmj2\" start=\"44\" end=\"45\" />\n"
 			"<field name=\"pmj3\" start=\"46\" end=\"47\" />\n"
 			"<field name=\"mmup\" start=\"48\" end=\"49\" />\n"
-			"<field name=\"rv\" start=\"50\" end=\"51\" />\n"
 		"</struct>\n"
 		"<reg name=\"pso\" regnum=\"%d\" bitsize=\"64\" type=\"pso_type\" />"}, /* regno=37 */
 	{"tpcm0", ""
@@ -481,11 +478,7 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"tpcm_1\" start=\"0\" end=\"63\" />\n"
 		"</struct>\n"
 		"<reg name=\"tpcm1\" regnum=\"%d\" bitsize=\"64\" type=\"tpcm1_type\" />"}, /* regno=39 */
-	{"rvc", ""
-		"<struct id=\"rvc_type\" size=\"4\">\n"
-			"<field name=\"ecrid\" start=\"0\" end=\"4\" />\n"
-		"</struct>\n"
-		"<reg name=\"rvc\" regnum=\"%d\" bitsize=\"32\" type=\"rvc_type\" />"}, /* regno=40 */
+	{"res40", "<reg name=\"res40\" regnum=\"%d\" bitsize=\"64\" type=\"int\" />"}, /* regno=40 */
 	{"dba0", ""
 		"<struct id=\"dba0_type\" size=\"8\">\n"
 			"<field name=\"dba0\" start=\"0\" end=\"63\" />\n"
@@ -653,7 +646,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps_pl0\" regnum=\"%d\" bitsize=\"32\" type=\"sps_pl0_type\" />"}, /* regno=68 */
 	{"sps_pl1", ""
@@ -677,7 +669,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps_pl1\" regnum=\"%d\" bitsize=\"32\" type=\"sps_pl1_type\" />"}, /* regno=69 */
 	{"sps_pl2", ""
@@ -701,7 +692,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps_pl2\" regnum=\"%d\" bitsize=\"32\" type=\"sps_pl2_type\" />"}, /* regno=70 */
 	{"sps_pl3", ""
@@ -725,7 +715,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps_pl3\" regnum=\"%d\" bitsize=\"32\" type=\"sps_pl3_type\" />"}, /* regno=71 */
 	{"ea_pl0", "<reg name=\"ea_pl0\" regnum=\"%d\" bitsize=\"64\" type=\"int\" />"}, /* regno=72 */
@@ -992,7 +981,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"pm6\" start=\"44\" end=\"45\" />\n"
 			"<field name=\"pm7\" start=\"46\" end=\"47\" />\n"
 			"<field name=\"srhpc\" start=\"48\" end=\"49\" />\n"
-			"<field name=\"rvc\" start=\"50\" end=\"51\" />\n"
 		"</struct>\n"
 		"<reg name=\"mow\" regnum=\"%d\" bitsize=\"64\" type=\"mow_type\" />"}, /* regno=100 */
 	{"psow", ""
@@ -1021,7 +1009,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"pmj2\" start=\"44\" end=\"45\" />\n"
 			"<field name=\"pmj3\" start=\"46\" end=\"47\" />\n"
 			"<field name=\"mmup\" start=\"48\" end=\"49\" />\n"
-			"<field name=\"rv\" start=\"50\" end=\"51\" />\n"
 		"</struct>\n"
 		"<reg name=\"psow\" regnum=\"%d\" bitsize=\"64\" type=\"psow_type\" />"}, /* regno=101 */
 	{"res102", "<reg name=\"res102\" regnum=\"%d\" bitsize=\"64\" type=\"int\" />"}, /* regno=102 */
@@ -1091,7 +1078,6 @@ struct reg_desc lvx_v1_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps\" regnum=\"%d\" bitsize=\"32\" type=\"sps_type\" />"}, /* regno=132 */
 	{"res133", "<reg name=\"res133\" regnum=\"%d\" bitsize=\"64\" type=\"int\" />"}, /* regno=133 */
@@ -1519,7 +1505,7 @@ int lvx_v1_mds_registers_size[] = {
 	64 /*ipe*/,64 /*men*/,64 /*pmc*/,64 /*pm0*/,64 /*pm1*/,64 /*pm2*/,64 /*pm3*/,64 /*pmsa*/,32 /*tcr*/,64 /*t0v*/,
 	64 /*t1v*/,64 /*t0r*/,64 /*t1r*/,64 /*wdv*/,64 /*wdr*/,64 /*ile*/,64 /*ill*/,64 /*ilr*/,32 /*mmc*/,64 /*tel*/,
 	64 /*teh*/,32 /*ixc*/,32 /*syo*/,32 /*hto*/,64 /*ito*/,32 /*do*/,64 /*mo*/,64 /*pso*/,64 /*tpcm0*/,64 /*tpcm1*/,
-	32 /*rvc*/,64 /*dba0*/,64 /*dba1*/,64 /*dwa0*/,64 /*dwa1*/,32 /*mes*/,32 /*ws*/,64 /*dc0*/,64 /*dc1*/,64 /*dc2*/,
+	64 /*res40*/,64 /*dba0*/,64 /*dba1*/,64 /*dwa0*/,64 /*dwa1*/,32 /*mes*/,32 /*ws*/,64 /*dc0*/,64 /*dc1*/,64 /*dc2*/,
 	64 /*dc3*/,64 /*dba2*/,64 /*dba3*/,64 /*dwa2*/,64 /*dwa3*/,64 /*tpcm2*/,64 /*tpcmc*/,64 /*pm4*/,64 /*pm5*/,64 /*pm6*/,
 	64 /*pm7*/,64 /*pmc2*/,64 /*srhpc*/,64 /*frcc*/,64 /*spc_pl0*/,64 /*spc_pl1*/,64 /*spc_pl2*/,64 /*spc_pl3*/,32 /*sps_pl0*/,32 /*sps_pl1*/,
 	32 /*sps_pl2*/,32 /*sps_pl3*/,64 /*ea_pl0*/,64 /*ea_pl1*/,64 /*ea_pl2*/,64 /*ea_pl3*/,64 /*ev_pl0*/,64 /*ev_pl1*/,64 /*ev_pl2*/,64 /*ev_pl3*/,
@@ -1593,7 +1579,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"ps\" regnum=\"%d\" bitsize=\"32\" type=\"ps_type\" />"}, /* regno=1 */
 	{"pcr", ""
@@ -2005,7 +1990,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"pm6\" start=\"44\" end=\"45\" />\n"
 			"<field name=\"pm7\" start=\"46\" end=\"47\" />\n"
 			"<field name=\"srhpc\" start=\"48\" end=\"49\" />\n"
-			"<field name=\"rvc\" start=\"50\" end=\"51\" />\n"
 		"</struct>\n"
 		"<reg name=\"mo\" regnum=\"%d\" bitsize=\"64\" type=\"mo_type\" />"}, /* regno=36 */
 	{"pso", ""
@@ -2034,7 +2018,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"pmj2\" start=\"44\" end=\"45\" />\n"
 			"<field name=\"pmj3\" start=\"46\" end=\"47\" />\n"
 			"<field name=\"mmup\" start=\"48\" end=\"49\" />\n"
-			"<field name=\"rv\" start=\"50\" end=\"51\" />\n"
 		"</struct>\n"
 		"<reg name=\"pso\" regnum=\"%d\" bitsize=\"64\" type=\"pso_type\" />"}, /* regno=37 */
 	{"tpcm0", ""
@@ -2047,11 +2030,7 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"tpcm_1\" start=\"0\" end=\"63\" />\n"
 		"</struct>\n"
 		"<reg name=\"tpcm1\" regnum=\"%d\" bitsize=\"64\" type=\"tpcm1_type\" />"}, /* regno=39 */
-	{"rvc", ""
-		"<struct id=\"rvc_type\" size=\"4\">\n"
-			"<field name=\"ecrid\" start=\"0\" end=\"4\" />\n"
-		"</struct>\n"
-		"<reg name=\"rvc\" regnum=\"%d\" bitsize=\"32\" type=\"rvc_type\" />"}, /* regno=40 */
+	{"res40", "<reg name=\"res40\" regnum=\"%d\" bitsize=\"64\" type=\"int\" />"}, /* regno=40 */
 	{"dba0", ""
 		"<struct id=\"dba0_type\" size=\"8\">\n"
 			"<field name=\"dba0\" start=\"0\" end=\"63\" />\n"
@@ -2219,7 +2198,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps_pl0\" regnum=\"%d\" bitsize=\"32\" type=\"sps_pl0_type\" />"}, /* regno=68 */
 	{"sps_pl1", ""
@@ -2243,7 +2221,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps_pl1\" regnum=\"%d\" bitsize=\"32\" type=\"sps_pl1_type\" />"}, /* regno=69 */
 	{"sps_pl2", ""
@@ -2267,7 +2244,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps_pl2\" regnum=\"%d\" bitsize=\"32\" type=\"sps_pl2_type\" />"}, /* regno=70 */
 	{"sps_pl3", ""
@@ -2291,7 +2267,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps_pl3\" regnum=\"%d\" bitsize=\"32\" type=\"sps_pl3_type\" />"}, /* regno=71 */
 	{"ea_pl0", "<reg name=\"ea_pl0\" regnum=\"%d\" bitsize=\"64\" type=\"int\" />"}, /* regno=72 */
@@ -2558,7 +2533,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"pm6\" start=\"44\" end=\"45\" />\n"
 			"<field name=\"pm7\" start=\"46\" end=\"47\" />\n"
 			"<field name=\"srhpc\" start=\"48\" end=\"49\" />\n"
-			"<field name=\"rvc\" start=\"50\" end=\"51\" />\n"
 		"</struct>\n"
 		"<reg name=\"mow\" regnum=\"%d\" bitsize=\"64\" type=\"mow_type\" />"}, /* regno=100 */
 	{"psow", ""
@@ -2587,7 +2561,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"pmj2\" start=\"44\" end=\"45\" />\n"
 			"<field name=\"pmj3\" start=\"46\" end=\"47\" />\n"
 			"<field name=\"mmup\" start=\"48\" end=\"49\" />\n"
-			"<field name=\"rv\" start=\"50\" end=\"51\" />\n"
 		"</struct>\n"
 		"<reg name=\"psow\" regnum=\"%d\" bitsize=\"64\" type=\"psow_type\" />"}, /* regno=101 */
 	{"res102", "<reg name=\"res102\" regnum=\"%d\" bitsize=\"64\" type=\"int\" />"}, /* regno=102 */
@@ -2657,7 +2630,6 @@ struct reg_desc lvx_v2_mds_registers_description[] = {
 			"<field name=\"smr\" start=\"19\" end=\"19\" />\n"
 			"<field name=\"pmj\" start=\"20\" end=\"23\" />\n"
 			"<field name=\"mmup\" start=\"24\" end=\"24\" />\n"
-			"<field name=\"rv\" start=\"25\" end=\"25\" />\n"
 		"</struct>\n"
 		"<reg name=\"sps\" regnum=\"%d\" bitsize=\"32\" type=\"sps_type\" />"}, /* regno=132 */
 	{"res133", "<reg name=\"res133\" regnum=\"%d\" bitsize=\"64\" type=\"int\" />"}, /* regno=133 */
@@ -3085,7 +3057,7 @@ int lvx_v2_mds_registers_size[] = {
 	64 /*ipe*/,64 /*men*/,64 /*pmc*/,64 /*pm0*/,64 /*pm1*/,64 /*pm2*/,64 /*pm3*/,64 /*pmsa*/,32 /*tcr*/,64 /*t0v*/,
 	64 /*t1v*/,64 /*t0r*/,64 /*t1r*/,64 /*wdv*/,64 /*wdr*/,64 /*ile*/,64 /*ill*/,64 /*ilr*/,32 /*mmc*/,64 /*tel*/,
 	64 /*teh*/,32 /*ixc*/,32 /*syo*/,32 /*hto*/,64 /*ito*/,32 /*do*/,64 /*mo*/,64 /*pso*/,64 /*tpcm0*/,64 /*tpcm1*/,
-	32 /*rvc*/,64 /*dba0*/,64 /*dba1*/,64 /*dwa0*/,64 /*dwa1*/,32 /*mes*/,32 /*ws*/,64 /*dc0*/,64 /*dc1*/,64 /*dc2*/,
+	64 /*res40*/,64 /*dba0*/,64 /*dba1*/,64 /*dwa0*/,64 /*dwa1*/,32 /*mes*/,32 /*ws*/,64 /*dc0*/,64 /*dc1*/,64 /*dc2*/,
 	64 /*dc3*/,64 /*dba2*/,64 /*dba3*/,64 /*dwa2*/,64 /*dwa3*/,64 /*tpcm2*/,64 /*tpcmc*/,64 /*pm4*/,64 /*pm5*/,64 /*pm6*/,
 	64 /*pm7*/,64 /*pmc2*/,64 /*srhpc*/,64 /*frcc*/,64 /*spc_pl0*/,64 /*spc_pl1*/,64 /*spc_pl2*/,64 /*spc_pl3*/,32 /*sps_pl0*/,32 /*sps_pl1*/,
 	32 /*sps_pl2*/,32 /*sps_pl3*/,64 /*ea_pl0*/,64 /*ea_pl1*/,64 /*ea_pl2*/,64 /*ea_pl3*/,64 /*ev_pl0*/,64 /*ev_pl1*/,64 /*ev_pl2*/,64 /*ev_pl3*/,

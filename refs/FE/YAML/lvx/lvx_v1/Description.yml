@@ -19955,7 +19955,7 @@ RegClass:
     execution: "SFR[%0]"
   - ID: onlyfxReg
     what: Only FX System Registers without PS
-    registers: [ PCR, CS, CSIT, IPE, MEN, PMC, TCR, ILE, ILL, ILR, MMC, TEL, TEH, DC, IXC, MES, WS, DC0, DC1, DC2, DC3, PMC2, [ SPS_PL<i>, 0..3 ], [ ES_PL<r>, 0..3 ], SPS, ES , [ TPCC_PL<r>, 0..3 ], TPCC ]
+    registers: [ PCR, CS, CSIT, IPE, MEN, PMC, TCR, ILE, ILL, ILR, MMC, TEL, TEH, IXC, MES, WS, DC0, DC1, DC2, DC3, PMC2, [ SPS_PL<i>, 0..3 ], [ ES_PL<r>, 0..3 ], SPS, ES , [ TPCC_PL<r>, 0..3 ], TPCC ]
     execution: "SFR[%0]"
   - ID: worddRegE
     what: Accelerator Registers Even Numbered
@@ -21803,11 +21803,6 @@ RegField:
     location: [ SRS, 48..49 ]
     register: MO
     reset: 0
-  - ID: MO_RVC
-    what: RVC instruction owner.
-    location: [ SRS, 50..51 ]
-    register: MO
-    reset: 0
 ################ MOW ################
   - ID: MOW_MMI
     what: Memory Management Instructions owner.
@@ -22009,14 +22004,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     register: MOW
     reset: 0
-  - ID: MOW_RVC
-    what: RVC instruction owner.
-    location: [ SRS, 50..51 ]
-    owners: [ MO_RVC ]
-    rerrors: [ TRAP_PRIVILEGE ]
-    werrors: [ TRAP_PRIVILEGE ]
-    register: MOW
-    reset: 0
 ################ PS ################
   - ID: PS_PL
     what: Current Privilege Level
@@ -22169,14 +22156,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0x1
-  - ID: PS_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: PS
-    owners: [ PSO_RV ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
 ################ SPS ################
   - ID: SPS_PL
     what: Current Privilege Level
@@ -22326,14 +22305,6 @@ RegField:
     location: [ SRS, 24 ]
     register: SPS
     owners: [ PSO_MMUP ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
-  - ID: SPS_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS
-    owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
@@ -22489,14 +22460,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-  - ID: SPS_PL0_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS_PL0
-    owners: [ PSO_RV ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
 ################ SPS_PL1 ################
   - ID: SPS_PL1_PL
     what: Current Privilege Level
@@ -22646,14 +22609,6 @@ RegField:
     location: [ SRS, 24 ]
     register: SPS_PL1
     owners: [ PSO_MMUP ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
-  - ID: SPS_PL1_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS_PL1
-    owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
@@ -22809,14 +22764,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-  - ID: SPS_PL2_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS_PL2
-    owners: [ PSO_RV ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
 ################ SPS_PL3 ################
   - ID: SPS_PL3_PL
     what: Current Privilege Level
@@ -22969,14 +22916,6 @@ RegField:
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-  - ID: SPS_PL3_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS_PL3
-    owners: [ PSO_RV ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
 ################ PSO ################
   - ID: PSO_PL0
     what: Current Privilege Level bit 0 owner
@@ -23096,11 +23035,6 @@ RegField:
   - ID: PSO_MMUP
     what: Privileged on MMU owner.
     location: [ SRS, 48..49 ]
-    register: PSO
-    reset: 0
-  - ID: PSO_RV
-    what: RiscV mode owner
-    location: [ SRS, 50..51 ]
     register: PSO
     reset: 0
 ################ PSOW ################
@@ -23292,14 +23226,6 @@ RegField:
     what: Privileged on MMU owner.
     location: [ SRS, 48..49 ]
     owners: [ PSO_MMUP ]
-    rerrors: [ TRAP_PRIVILEGE ]
-    werrors: [ TRAP_PRIVILEGE ]
-    register: PSOW
-    reset: 0
-  - ID: PSOW_RV
-    what: RiscV mode owner
-    location: [ SRS, 50..51 ]
-    owners: [ PSO_RV ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
     register: PSOW
@@ -24508,15 +24434,6 @@ RegField:
     reset: 0
     description: >
       PC of the last sequence rupture, when applicable
-################ RVC ################
-  - ID: RVC_ECRID
-    what: The GPR register to be used by the RISC-V ecall for LVX scall
-    location: [ SRS, 0..4 ]
-    register: DC
-    owners: [ MO_RVC ]
-    rerrors: [ READ0 ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
 ################ PMSA ################
   - ID: PMSA_PMSA
     what: Performance Monitor Saved Address
@@ -25129,7 +25046,6 @@ RegField:
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-################ DC ################
 ################ DC0 ################
   - ID: DC0_BE
     what: Breakpoint 0 Enable
@@ -25503,7 +25419,7 @@ RegFile:
       - { ID: PSO, location: [ SRS, 37 ], names: [ "$pso", "$s37" ], reset: "0x00000000", raccess: "GET", waccess: "NONE", width: 64, what: "PS register fields Owners"}
       - { ID: TPCM0, location: [ SRS, 38 ], names: [ "$tpcm0", "$s38" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message register 0"}
       - { ID: TPCM1, location: [ SRS, 39 ], names: [ "$tpcm1", "$s39" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ MO_TPCM ], what: "Trace PC message register 1"}
-      - { ID: DC, location: [ SRS, 40 ], names: [ "$rvc", "$s40" ], reset: "0x00000000", raccess: "GET", waccess: "WFX", width: 32, what: "RISC-V configuration (FIXME rename to RVC)"}
+      - { ID: RES40, location: [ SRS, 40 ], names: [ "$res40", "$s40" ], reset: "0x00000000", raccess: "NONE", waccess: "NONE", width: 64, what: "Reserved"}
       - { ID: DBA0, location: [ SRS, 41 ], names: [ "$dba0", "$s41" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_B0 ], what: "Breakpoint Address 0"}
       - { ID: DBA1, location: [ SRS, 42 ], names: [ "$dba1", "$s42" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_B1 ], what: "Breakpoint Address 1"}
       - { ID: DWA0, location: [ SRS, 43 ], names: [ "$dwa0", "$s43" ], reset: "0x00000000", raccess: "GET", waccess: "SET", width: 64, owners: [ DO_W0 ], what: "Watchpoint Address 0"}
@@ -26350,113 +26266,6 @@ RegFile:
     regClass: buffer64Reg
     shortName: l
     execution: "X64R[%0]"
-  - ID: RV_BIR
-    what: RISC-V Base Integer Registers
-    width: 64
-    dwarfIds: 1024..1055
-    registers:
-      - { ID: X0, location: [ GRS, 0 ], names: [ "$_zero", "$_x0" ] }
-      - { ID: X1, location: [ GRS, 1 ], names: [ "$_ra", "$_x1" ] }
-      - { ID: X2, location: [ GRS, 2 ], names: [ "$_sp", "$_x2" ] }
-      - { ID: X3, location: [ GRS, 3 ], names: [ "$_gp", "$_x3" ] }
-      - { ID: X4, location: [ GRS, 4 ], names: [ "$_tp", "$_x4" ] }
-      - { ID: X5, location: [ GRS, 5 ], names: [ "$_t0", "$_x5" ] }
-      - { ID: X6, location: [ GRS, 6 ], names: [ "$_t1", "$_x6" ] }
-      - { ID: X7, location: [ GRS, 7 ], names: [ "$_t2", "$_x7" ] }
-      - { ID: X8, location: [ GRS, 8 ], names: [ "$_s0", "$_x8" ] }
-      - { ID: X9, location: [ GRS, 9 ], names: [ "$_s1", "$_x9" ] }
-      - { ID: X10, location: [ GRS, 10 ], names: [ "$_a0", "$_x10" ] }
-      - { ID: X11, location: [ GRS, 11 ], names: [ "$_a1", "$_x11" ] }
-      - { ID: X12, location: [ GRS, 12 ], names: [ "$_a2", "$_x12" ] }
-      - { ID: X13, location: [ GRS, 13 ], names: [ "$_a3", "$_x13" ] }
-      - { ID: X14, location: [ GRS, 14 ], names: [ "$_a4", "$_x14" ] }
-      - { ID: X15, location: [ GRS, 15 ], names: [ "$_a5", "$_x15" ] }
-      - { ID: X16, location: [ GRS, 16 ], names: [ "$_a6", "$_x16" ] }
-      - { ID: X17, location: [ GRS, 17 ], names: [ "$_a7", "$_x17" ] }
-      - { ID: X18, location: [ GRS, 18 ], names: [ "$_s2", "$_x18" ] }
-      - { ID: X19, location: [ GRS, 19 ], names: [ "$_s3", "$_x19" ] }
-      - { ID: X20, location: [ GRS, 20 ], names: [ "$_s4", "$_x20" ] }
-      - { ID: X21, location: [ GRS, 21 ], names: [ "$_s5", "$_x21" ] }
-      - { ID: X22, location: [ GRS, 22 ], names: [ "$_s6", "$_x22" ] }
-      - { ID: X23, location: [ GRS, 23 ], names: [ "$_s7", "$_x23" ] }
-      - { ID: X24, location: [ GRS, 24 ], names: [ "$_s8", "$_x24" ] }
-      - { ID: X25, location: [ GRS, 25 ], names: [ "$_s9", "$_x25" ] }
-      - { ID: X26, location: [ GRS, 26 ], names: [ "$_s10", "$_x26" ] }
-      - { ID: X27, location: [ GRS, 27 ], names: [ "$_s11", "$_x27" ] }
-      - { ID: X28, location: [ GRS, 28 ], names: [ "$_t3", "$_x28" ] }
-      - { ID: X29, location: [ GRS, 29 ], names: [ "$_t4", "$_x29" ] }
-      - { ID: X30, location: [ GRS, 30 ], names: [ "$_t5", "$_x30" ] }
-      - { ID: X31, location: [ GRS, 31 ], names: [ "$_t6", "$_x31" ] }
-    nativeTypes: [ Int32, UInt32, Int64, UInt64 ]
-    regClass: mainReg
-    shortName: x
-    execution: "BIR[%0]"
-  - ID: RV_FPR
-    what: RISC-V Floating-Point Registers
-    width: 64
-    dwarfIds: 1056..1087
-    registers:
-      - { ID: F0, location: [ GRS, 32 ], names: [ "$_ft0", "$_f0" ] }
-      - { ID: F1, location: [ GRS, 33 ], names: [ "$_ft1", "$_f1" ] }
-      - { ID: F2, location: [ GRS, 34 ], names: [ "$_ft2", "$_f2" ] }
-      - { ID: F3, location: [ GRS, 35 ], names: [ "$_ft3", "$_f3" ] }
-      - { ID: F4, location: [ GRS, 36 ], names: [ "$_ft4", "$_f4" ] }
-      - { ID: F5, location: [ GRS, 37 ], names: [ "$_ft5", "$_f5" ] }
-      - { ID: F6, location: [ GRS, 38 ], names: [ "$_ft6", "$_f6" ] }
-      - { ID: F7, location: [ GRS, 39 ], names: [ "$_ft7", "$_f7" ] }
-      - { ID: F8, location: [ GRS, 40 ], names: [ "$_fs0", "$_f8" ] }
-      - { ID: F9, location: [ GRS, 41 ], names: [ "$_fs1", "$_f9" ] }
-      - { ID: F10, location: [ GRS, 42 ], names: [ "$_fa0", "$_f10" ] }
-      - { ID: F11, location: [ GRS, 43 ], names: [ "$_fa1", "$_f11" ] }
-      - { ID: F12, location: [ GRS, 44 ], names: [ "$_fa2", "$_f12" ] }
-      - { ID: F13, location: [ GRS, 45 ], names: [ "$_fa3", "$_f13" ] }
-      - { ID: F14, location: [ GRS, 46 ], names: [ "$_fa4", "$_f14" ] }
-      - { ID: F15, location: [ GRS, 47 ], names: [ "$_fa5", "$_f15" ] }
-      - { ID: F16, location: [ GRS, 48 ], names: [ "$_fa6", "$_f16" ] }
-      - { ID: F17, location: [ GRS, 49 ], names: [ "$_fa7", "$_f17" ] }
-      - { ID: F18, location: [ GRS, 50 ], names: [ "$_fs2", "$_f18" ] }
-      - { ID: F19, location: [ GRS, 51 ], names: [ "$_fs3", "$_f19" ] }
-      - { ID: F20, location: [ GRS, 52 ], names: [ "$_fs4", "$_f20" ] }
-      - { ID: F21, location: [ GRS, 53 ], names: [ "$_fs5", "$_f21" ] }
-      - { ID: F22, location: [ GRS, 54 ], names: [ "$_fs6", "$_f22" ] }
-      - { ID: F23, location: [ GRS, 55 ], names: [ "$_fs7", "$_f23" ] }
-      - { ID: F24, location: [ GRS, 56 ], names: [ "$_fs8", "$_f24" ] }
-      - { ID: F25, location: [ GRS, 57 ], names: [ "$_fs9", "$_f25" ] }
-      - { ID: F26, location: [ GRS, 58 ], names: [ "$_fs10", "$_f26" ] }
-      - { ID: F27, location: [ GRS, 59 ], names: [ "$_fs11", "$_f27" ] }
-      - { ID: F28, location: [ GRS, 60 ], names: [ "$_ft8", "$_f28" ] }
-      - { ID: F29, location: [ GRS, 61 ], names: [ "$_ft9", "$_f29" ] }
-      - { ID: F30, location: [ GRS, 62 ], names: [ "$_ft10", "$_f30" ] }
-      - { ID: F31, location: [ GRS, 63 ], names: [ "$_ft11", "$_f31" ] }
-    nativeTypes: [ Int32, UInt32, Int64, UInt64 ]
-    regClass: floatReg
-    shortName: f
-    execution: "FPR[%0]"
-  - ID: RV_BIRP
-    what: RISC-V Base Integer Register Pairs
-    width: 128
-    dwarfIds: 1088..1103
-    registers:
-      - { ID: X0X0, location: [ ZERO, 0, 1 ], names: [ "$_x0x0" ] }
-      - { ID: X2X3, location: [ GRS, 2, 3 ], names: [ "$_x2x3" ] }
-      - { ID: X4X5, location: [ GRS, 4, 5 ], names: [ "$_x4x5" ] }
-      - { ID: X6X7, location: [ GRS, 6, 7 ], names: [ "$_x6x7" ] }
-      - { ID: X8X9, location: [ GRS, 8, 9 ], names: [ "$_x8x9" ] }
-      - { ID: X10X11, location: [ GRS, 10, 11 ], names: [ "$_x10x11" ] }
-      - { ID: X12X13, location: [ GRS, 12, 13 ], names: [ "$_x12x13" ] }
-      - { ID: X14X15, location: [ GRS, 14, 15 ], names: [ "$_x14x15" ] }
-      - { ID: X16X17, location: [ GRS, 16, 17 ], names: [ "$_x16x17" ] }
-      - { ID: X18X19, location: [ GRS, 18, 19 ], names: [ "$_x18x19" ] }
-      - { ID: X20X21, location: [ GRS, 20, 21 ], names: [ "$_x20x21" ] }
-      - { ID: X22X23, location: [ GRS, 22, 23 ], names: [ "$_x22x23" ] }
-      - { ID: X24X25, location: [ GRS, 24, 25 ], names: [ "$_x24x25" ] }
-      - { ID: X26X27, location: [ GRS, 26, 27 ], names: [ "$_x26x27" ] }
-      - { ID: X28X29, location: [ GRS, 28, 29 ], names: [ "$_x28x29" ] }
-      - { ID: X30X31, location: [ GRS, 30, 31 ], names: [ "$_x30x31" ] }
-    nativeTypes: [ Int128, UInt128 ]
-    regClass: mainRegPair
-    execution: "BIRP[%0]"
-    multi: [ mainReg, mainReg ]
 Relocation:
   - ID: rel16
     what: 16 bits relocation on symbol + addend
@@ -27596,11 +27405,6 @@ Storage:
     kind: Register
     width: 64
     count: 64
-  - ID: ZERO
-    what: RiscV x0 Register Storage
-    kind: Register
-    width: 64
-    count: 2
   - ID: XRS
     what: Extension Register Storage
     kind: Register

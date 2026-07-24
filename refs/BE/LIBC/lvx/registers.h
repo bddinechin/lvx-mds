@@ -73,7 +73,7 @@
 #define LVX_SFR_PSO               37  // $pso $s37
 #define LVX_SFR_TPCM0             38  // $tpcm0 $s38
 #define LVX_SFR_TPCM1             39  // $tpcm1 $s39
-#define LVX_SFR_DC                40  // $rvc $s40
+#define LVX_SFR_RES40             40  // $res40 $s40
 #define LVX_SFR_DBA0              41  // $dba0 $s41
 #define LVX_SFR_DBA1              42  // $dba1 $s42
 #define LVX_SFR_DWA0              43  // $dwa0 $s43
@@ -265,8 +265,6 @@
 #define LVX_SFR_PS_PMJ_WIDTH      4
 #define LVX_SFR_PS_MMUP_SHIFT      24
 #define LVX_SFR_PS_MMUP_WIDTH      1
-#define LVX_SFR_PS_RV_SHIFT      25
-#define LVX_SFR_PS_RV_WIDTH      1
 
 /* PCR bit-field offsets */
 #define LVX_SFR_PCR_PID_SHIFT      0
@@ -895,8 +893,6 @@
 #define LVX_SFR_MO_PM7_WIDTH      2
 #define LVX_SFR_MO_SRHPC_SHIFT      48
 #define LVX_SFR_MO_SRHPC_WIDTH      2
-#define LVX_SFR_MO_RVC_SHIFT      50
-#define LVX_SFR_MO_RVC_WIDTH      2
 
 /* PSO bit-field offsets */
 #define LVX_SFR_PSO_PL0_SHIFT      0
@@ -947,8 +943,6 @@
 #define LVX_SFR_PSO_PMJ3_WIDTH      2
 #define LVX_SFR_PSO_MMUP_SHIFT      48
 #define LVX_SFR_PSO_MMUP_WIDTH      2
-#define LVX_SFR_PSO_RV_SHIFT      50
-#define LVX_SFR_PSO_RV_WIDTH      2
 
 /* TPCM0 bit-field offsets */
 #define LVX_SFR_TPCM_0_SHIFT      0
@@ -957,10 +951,6 @@
 /* TPCM1 bit-field offsets */
 #define LVX_SFR_TPCM_1_SHIFT      0
 #define LVX_SFR_TPCM_1_WIDTH      64
-
-/* DC bit-field offsets */
-#define LVX_SFR_RVC_ECRID_SHIFT      0
-#define LVX_SFR_RVC_ECRID_WIDTH      5
 
 /* DBA0 bit-field offsets */
 #define LVX_SFR_DBA0_DBA0_SHIFT      0
@@ -1151,8 +1141,6 @@
 #define LVX_SFR_SPS_PL0_PMJ_WIDTH      4
 #define LVX_SFR_SPS_PL0_MMUP_SHIFT      24
 #define LVX_SFR_SPS_PL0_MMUP_WIDTH      1
-#define LVX_SFR_SPS_PL0_RV_SHIFT      25
-#define LVX_SFR_SPS_PL0_RV_WIDTH      1
 
 /* SPS_PL1 bit-field offsets */
 #define LVX_SFR_SPS_PL1_PL_SHIFT      0
@@ -1193,8 +1181,6 @@
 #define LVX_SFR_SPS_PL1_PMJ_WIDTH      4
 #define LVX_SFR_SPS_PL1_MMUP_SHIFT      24
 #define LVX_SFR_SPS_PL1_MMUP_WIDTH      1
-#define LVX_SFR_SPS_PL1_RV_SHIFT      25
-#define LVX_SFR_SPS_PL1_RV_WIDTH      1
 
 /* SPS_PL2 bit-field offsets */
 #define LVX_SFR_SPS_PL2_PL_SHIFT      0
@@ -1235,8 +1221,6 @@
 #define LVX_SFR_SPS_PL2_PMJ_WIDTH      4
 #define LVX_SFR_SPS_PL2_MMUP_SHIFT      24
 #define LVX_SFR_SPS_PL2_MMUP_WIDTH      1
-#define LVX_SFR_SPS_PL2_RV_SHIFT      25
-#define LVX_SFR_SPS_PL2_RV_WIDTH      1
 
 /* SPS_PL3 bit-field offsets */
 #define LVX_SFR_SPS_PL3_PL_SHIFT      0
@@ -1277,8 +1261,6 @@
 #define LVX_SFR_SPS_PL3_PMJ_WIDTH      4
 #define LVX_SFR_SPS_PL3_MMUP_SHIFT      24
 #define LVX_SFR_SPS_PL3_MMUP_WIDTH      1
-#define LVX_SFR_SPS_PL3_RV_SHIFT      25
-#define LVX_SFR_SPS_PL3_RV_WIDTH      1
 
 /* ES_PL0 bit-field offsets */
 #define LVX_SFR_ES_PL0_EC_SHIFT      0
@@ -1701,8 +1683,6 @@
 #define LVX_SFR_MOW_PM7_WIDTH      2
 #define LVX_SFR_MOW_SRHPC_SHIFT      48
 #define LVX_SFR_MOW_SRHPC_WIDTH      2
-#define LVX_SFR_MOW_RVC_SHIFT      50
-#define LVX_SFR_MOW_RVC_WIDTH      2
 
 /* PSOW bit-field offsets */
 #define LVX_SFR_PSOW_PL0_SHIFT      0
@@ -1753,8 +1733,6 @@
 #define LVX_SFR_PSOW_PMJ3_WIDTH      2
 #define LVX_SFR_PSOW_MMUP_SHIFT      48
 #define LVX_SFR_PSOW_MMUP_WIDTH      2
-#define LVX_SFR_PSOW_RV_SHIFT      50
-#define LVX_SFR_PSOW_RV_WIDTH      2
 
 /* TPCC_PL0 bit-field offsets */
 #define LVX_SFR_TPCC_PL0_TPCC_SHIFT      0
@@ -1811,8 +1789,6 @@
 #define LVX_SFR_SPS_PMJ_WIDTH      4
 #define LVX_SFR_SPS_MMUP_SHIFT      24
 #define LVX_SFR_SPS_MMUP_WIDTH      1
-#define LVX_SFR_SPS_RV_SHIFT      25
-#define LVX_SFR_SPS_RV_WIDTH      1
 
 /* ES bit-field offsets */
 #define LVX_SFR_ES_EC_SHIFT      0
@@ -1924,9 +1900,6 @@
 #define LVX_SFR_PS_MMUP_WFXL_MASK  0x1000000LL
 #define LVX_SFR_PS_MMUP_WFXL_CLEAR 0x1000000LL
 #define LVX_SFR_PS_MMUP_WFXL_SET   0x100000000000000LL
-#define LVX_SFR_PS_RV_WFXL_MASK  0x2000000LL
-#define LVX_SFR_PS_RV_WFXL_CLEAR 0x2000000LL
-#define LVX_SFR_PS_RV_WFXL_SET   0x200000000000000LL
 
 /* PCR __builtin_lvx_wfxl() masks */
 #define LVX_SFR_PCR_COE_WFXL_MASK  0x10000000000000LL
@@ -2437,9 +2410,6 @@
 #define LVX_SFR_SPS_PL0_MMUP_WFXL_MASK  0x1000000LL
 #define LVX_SFR_SPS_PL0_MMUP_WFXL_CLEAR 0x1000000LL
 #define LVX_SFR_SPS_PL0_MMUP_WFXL_SET   0x100000000000000LL
-#define LVX_SFR_SPS_PL0_RV_WFXL_MASK  0x2000000LL
-#define LVX_SFR_SPS_PL0_RV_WFXL_CLEAR 0x2000000LL
-#define LVX_SFR_SPS_PL0_RV_WFXL_SET   0x200000000000000LL
 
 /* SPS_PL1 __builtin_lvx_wfxl() masks */
 #define LVX_SFR_SPS_PL1_ET_WFXL_MASK  0x4LL
@@ -2487,9 +2457,6 @@
 #define LVX_SFR_SPS_PL1_MMUP_WFXL_MASK  0x1000000LL
 #define LVX_SFR_SPS_PL1_MMUP_WFXL_CLEAR 0x1000000LL
 #define LVX_SFR_SPS_PL1_MMUP_WFXL_SET   0x100000000000000LL
-#define LVX_SFR_SPS_PL1_RV_WFXL_MASK  0x2000000LL
-#define LVX_SFR_SPS_PL1_RV_WFXL_CLEAR 0x2000000LL
-#define LVX_SFR_SPS_PL1_RV_WFXL_SET   0x200000000000000LL
 
 /* SPS_PL2 __builtin_lvx_wfxl() masks */
 #define LVX_SFR_SPS_PL2_ET_WFXL_MASK  0x4LL
@@ -2537,9 +2504,6 @@
 #define LVX_SFR_SPS_PL2_MMUP_WFXL_MASK  0x1000000LL
 #define LVX_SFR_SPS_PL2_MMUP_WFXL_CLEAR 0x1000000LL
 #define LVX_SFR_SPS_PL2_MMUP_WFXL_SET   0x100000000000000LL
-#define LVX_SFR_SPS_PL2_RV_WFXL_MASK  0x2000000LL
-#define LVX_SFR_SPS_PL2_RV_WFXL_CLEAR 0x2000000LL
-#define LVX_SFR_SPS_PL2_RV_WFXL_SET   0x200000000000000LL
 
 /* SPS_PL3 __builtin_lvx_wfxl() masks */
 #define LVX_SFR_SPS_PL3_ET_WFXL_MASK  0x4LL
@@ -2587,9 +2551,6 @@
 #define LVX_SFR_SPS_PL3_MMUP_WFXL_MASK  0x1000000LL
 #define LVX_SFR_SPS_PL3_MMUP_WFXL_CLEAR 0x1000000LL
 #define LVX_SFR_SPS_PL3_MMUP_WFXL_SET   0x100000000000000LL
-#define LVX_SFR_SPS_PL3_RV_WFXL_MASK  0x2000000LL
-#define LVX_SFR_SPS_PL3_RV_WFXL_CLEAR 0x2000000LL
-#define LVX_SFR_SPS_PL3_RV_WFXL_SET   0x200000000000000LL
 
 /* ES_PL0 __builtin_lvx_wfxl() masks */
 #define LVX_SFR_ES_PL0_SFRT_WFXL_MASK  0x20000LL
@@ -2717,9 +2678,6 @@
 #define LVX_SFR_SPS_MMUP_WFXL_MASK  0x1000000LL
 #define LVX_SFR_SPS_MMUP_WFXL_CLEAR 0x1000000LL
 #define LVX_SFR_SPS_MMUP_WFXL_SET   0x100000000000000LL
-#define LVX_SFR_SPS_RV_WFXL_MASK  0x2000000LL
-#define LVX_SFR_SPS_RV_WFXL_CLEAR 0x2000000LL
-#define LVX_SFR_SPS_RV_WFXL_SET   0x200000000000000LL
 
 /* ES __builtin_lvx_wfxl() masks */
 #define LVX_SFR_ES_SFRT_WFXL_MASK  0x20000LL

@@ -127,7 +127,7 @@ Register(lvx_TPCM0, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($tpcm0) NAME(
 Register(lvx_TPCM1, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($tpcm1) NAME($s39)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($tpcm1) NAME($s39))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_SFR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_SFR)),
          WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_SRS39)),
          MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),1)))
-Register(lvx_DC, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($rvc) NAME($s40)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($rvc) NAME($s40))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_SFR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_SFR)),
+Register(lvx_RES40, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($res40) NAME($s40)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($res40) NAME($s40))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_SFR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_SFR)),
          WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_SRS40)),
          MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),1)))
 Register(lvx_DBA0, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($dba0) NAME($s41)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($dba0) NAME($s41))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_SFR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_SFR)),
@@ -3556,246 +3556,6 @@ Register(lvx_K1, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($a32..a63)) PNAM
 Register(lvx_L0, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($a0..a63)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($a0..a63))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_X64R) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_X64R)),
          WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_XRS0)),
          MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X0, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_zero) NAME($_x0)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_zero) NAME($_x0))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS0)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X1, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ra) NAME($_x1)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ra) NAME($_x1))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS1)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X2, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_sp) NAME($_x2)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_sp) NAME($_x2))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS2)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X3, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_gp) NAME($_x3)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_gp) NAME($_x3))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS3)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X4, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_tp) NAME($_x4)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_tp) NAME($_x4))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS4)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X5, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_t0) NAME($_x5)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_t0) NAME($_x5))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS5)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X6, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_t1) NAME($_x6)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_t1) NAME($_x6))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS6)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X7, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_t2) NAME($_x7)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_t2) NAME($_x7))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS7)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X8, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s0) NAME($_x8)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s0) NAME($_x8))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS8)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X9, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s1) NAME($_x9)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s1) NAME($_x9))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS9)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X10, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_a0) NAME($_x10)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_a0) NAME($_x10))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS10)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X11, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_a1) NAME($_x11)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_a1) NAME($_x11))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS11)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X12, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_a2) NAME($_x12)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_a2) NAME($_x12))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS12)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X13, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_a3) NAME($_x13)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_a3) NAME($_x13))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS13)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X14, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_a4) NAME($_x14)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_a4) NAME($_x14))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS14)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X15, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_a5) NAME($_x15)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_a5) NAME($_x15))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS15)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X16, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_a6) NAME($_x16)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_a6) NAME($_x16))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS16)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X17, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_a7) NAME($_x17)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_a7) NAME($_x17))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS17)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X18, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s2) NAME($_x18)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s2) NAME($_x18))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS18)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X19, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s3) NAME($_x19)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s3) NAME($_x19))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS19)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X20, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s4) NAME($_x20)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s4) NAME($_x20))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS20)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X21, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s5) NAME($_x21)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s5) NAME($_x21))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS21)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X22, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s6) NAME($_x22)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s6) NAME($_x22))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS22)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X23, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s7) NAME($_x23)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s7) NAME($_x23))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS23)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X24, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s8) NAME($_x24)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s8) NAME($_x24))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS24)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X25, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s9) NAME($_x25)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s9) NAME($_x25))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS25)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X26, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s10) NAME($_x26)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s10) NAME($_x26))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS26)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X27, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_s11) NAME($_x27)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_s11) NAME($_x27))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS27)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X28, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_t3) NAME($_x28)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_t3) NAME($_x28))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS28)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X29, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_t4) NAME($_x29)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_t4) NAME($_x29))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS29)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X30, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_t5) NAME($_x30)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_t5) NAME($_x30))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS30)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X31, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_t6) NAME($_x31)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_t6) NAME($_x31))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS31)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F0, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft0) NAME($_f0)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft0) NAME($_f0))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS32)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F1, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft1) NAME($_f1)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft1) NAME($_f1))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS33)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F2, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft2) NAME($_f2)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft2) NAME($_f2))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS34)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F3, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft3) NAME($_f3)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft3) NAME($_f3))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS35)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F4, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft4) NAME($_f4)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft4) NAME($_f4))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS36)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F5, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft5) NAME($_f5)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft5) NAME($_f5))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS37)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F6, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft6) NAME($_f6)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft6) NAME($_f6))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS38)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F7, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft7) NAME($_f7)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft7) NAME($_f7))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS39)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F8, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs0) NAME($_f8)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs0) NAME($_f8))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS40)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F9, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs1) NAME($_f9)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs1) NAME($_f9))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS41)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F10, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fa0) NAME($_f10)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fa0) NAME($_f10))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS42)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F11, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fa1) NAME($_f11)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fa1) NAME($_f11))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS43)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F12, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fa2) NAME($_f12)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fa2) NAME($_f12))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS44)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F13, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fa3) NAME($_f13)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fa3) NAME($_f13))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS45)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F14, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fa4) NAME($_f14)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fa4) NAME($_f14))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS46)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F15, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fa5) NAME($_f15)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fa5) NAME($_f15))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS47)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F16, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fa6) NAME($_f16)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fa6) NAME($_f16))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS48)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F17, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fa7) NAME($_f17)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fa7) NAME($_f17))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS49)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F18, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs2) NAME($_f18)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs2) NAME($_f18))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS50)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F19, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs3) NAME($_f19)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs3) NAME($_f19))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS51)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F20, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs4) NAME($_f20)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs4) NAME($_f20))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS52)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F21, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs5) NAME($_f21)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs5) NAME($_f21))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS53)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F22, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs6) NAME($_f22)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs6) NAME($_f22))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS54)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F23, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs7) NAME($_f23)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs7) NAME($_f23))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS55)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F24, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs8) NAME($_f24)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs8) NAME($_f24))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS56)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F25, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs9) NAME($_f25)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs9) NAME($_f25))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS57)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F26, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs10) NAME($_f26)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs10) NAME($_f26))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS58)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F27, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_fs11) NAME($_f27)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_fs11) NAME($_f27))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS59)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F28, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft8) NAME($_f28)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft8) NAME($_f28))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS60)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F29, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft9) NAME($_f29)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft9) NAME($_f29))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS61)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F30, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft10) NAME($_f30)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft10) NAME($_f30))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS62)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_F31, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 2, NAME($_ft11) NAME($_f31)) PNAMES(PROCESSOR(lvx_v2_cpu), 2, NAME($_ft11) NAME($_f31))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_FPR) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_FPR)),
-         WIRED(false), STORAGECELLS(1, STORAGECELL(lvx_GRS63)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X0X0, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x0x0)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x0x0))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_ZERO0) STORAGECELL(lvx_ZERO1)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X2X3, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x2x3)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x2x3))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS2) STORAGECELL(lvx_GRS3)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X4X5, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x4x5)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x4x5))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS4) STORAGECELL(lvx_GRS5)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X6X7, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x6x7)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x6x7))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS6) STORAGECELL(lvx_GRS7)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X8X9, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x8x9)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x8x9))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS8) STORAGECELL(lvx_GRS9)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X10X11, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x10x11)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x10x11))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS10) STORAGECELL(lvx_GRS11)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X12X13, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x12x13)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x12x13))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS12) STORAGECELL(lvx_GRS13)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X14X15, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x14x15)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x14x15))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS14) STORAGECELL(lvx_GRS15)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X16X17, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x16x17)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x16x17))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS16) STORAGECELL(lvx_GRS17)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X18X19, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x18x19)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x18x19))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS18) STORAGECELL(lvx_GRS19)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X20X21, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x20x21)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x20x21))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS20) STORAGECELL(lvx_GRS21)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X22X23, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x22x23)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x22x23))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS22) STORAGECELL(lvx_GRS23)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X24X25, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x24x25)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x24x25))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS24) STORAGECELL(lvx_GRS25)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X26X27, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x26x27)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x26x27))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS26) STORAGECELL(lvx_GRS27)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X28X29, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x28x29)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x28x29))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS28) STORAGECELL(lvx_GRS29)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
-Register(lvx_X30X31, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x30x31)) PNAMES(PROCESSOR(lvx_v2_cpu), 1, NAME($_x30x31))), REGFILES(REGFILE(PROCESSOR(lvx_v1_cpu),lvx_RV_BIRP) REGFILE(PROCESSOR(lvx_v2_cpu),lvx_RV_BIRP)),
-         WIRED(false), STORAGECELLS(2, STORAGECELL(lvx_GRS30) STORAGECELL(lvx_GRS31)),
-         MINREADSTAGES(MINREADSTAGE(PROCESSOR(lvx_v1_cpu),(unsigned)-1) MINREADSTAGE(PROCESSOR(lvx_v2_cpu),(unsigned)-1)))
 #endif/*Register*/
 #undef Register
 
@@ -3804,7 +3564,7 @@ Register(lvx_X30X31, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x30x31)) P
 #endif/*RegisterStorageCells_MAXCOUNT*/
 
 #ifndef RegisterList_MAXCOUNT
-#define RegisterList_MAXCOUNT 1263
+#define RegisterList_MAXCOUNT 1183
 #endif/*RegisterList_MAXCOUNT*/
 
 #ifndef RegisterSet_WORDBITS
@@ -3817,7 +3577,7 @@ Register(lvx_X30X31, NAMES(2, PNAMES(PROCESSOR(lvx_v1_cpu), 1, NAME($_x30x31)) P
 #define RegisterSet_MINOR(member)   ((Register)(member)&(RegisterSet_WORDBITS - 1))
 #endif/*RegisterSet_MINOR*/
 #ifndef RegisterSet_WORDCOUNT
-#define RegisterSet_WORDCOUNT       (RegisterSet_MAJOR(1263) + 1)
+#define RegisterSet_WORDCOUNT       (RegisterSet_MAJOR(1183) + 1)
 #endif/*RegisterSet_WORDCOUNT*/
 
 #ifndef Register_NAMES_MAX

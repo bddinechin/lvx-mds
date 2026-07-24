@@ -168,7 +168,7 @@ static int init_lvx_v1_dwarf2gdb(struct gdbarch *gdbarch)
 	dwarf2gdb[102].gdb_regno = 38;
 	dwarf2gdb[103].name = "tpcm1";
 	dwarf2gdb[103].gdb_regno = 39;
-	dwarf2gdb[104].name = "rvc";
+	dwarf2gdb[104].name = "res40";
 	dwarf2gdb[104].gdb_regno = 40;
 	dwarf2gdb[105].name = "dba0";
 	dwarf2gdb[105].gdb_regno = 41;
@@ -1261,7 +1261,7 @@ static int init_lvx_v2_dwarf2gdb(struct gdbarch *gdbarch)
 	dwarf2gdb[102].gdb_regno = 38;
 	dwarf2gdb[103].name = "tpcm1";
 	dwarf2gdb[103].gdb_regno = 39;
-	dwarf2gdb[104].name = "rvc";
+	dwarf2gdb[104].name = "res40";
 	dwarf2gdb[104].gdb_regno = 40;
 	dwarf2gdb[105].name = "dba0";
 	dwarf2gdb[105].gdb_regno = 41;

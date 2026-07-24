@@ -18,12 +18,6 @@ Storage:
     width: 64
     count: 64
 
-  - ID: ZERO
-    what: RiscV x0 Register Storage
-    kind: Register
-    width: 64
-    count: 2
-
   - ID: XRS
     what: Extension Register Storage
     kind: Register

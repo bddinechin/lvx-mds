@@ -50,7 +50,7 @@ enum reg_class {
 
 #define LVX_MDS_REGISTERS 512
 #define FIRST_PSEUDO_REGISTER (LVX_MDS_REGISTERS)
-#define LVX_FRAME_POINTER_VIRT_REGNO (LVX_SFR_FIRST_REGNO + 102)
+#define LVX_FRAME_POINTER_VIRT_REGNO (LVX_SFR_FIRST_REGNO + 40)
 
 #define LVX_SFR_FAKE_GPR_COUNT 16
 #define LVX_SFR_FAKE_GPR_MASK (LVX_SFR_FAKE_GPR_COUNT - 1)
@@ -178,7 +178,7 @@ enum reg_class {
 	"pso", \
 	"tpcm0", \
 	"tpcm1", \
-	"rvc", \
+	"res40", \
 	"dba0", \
 	"dba1", \
 	"dwa0", \

@@ -26,13 +26,6 @@
   width=	"64"
 />
 <Storage
-  ID=	"Storage-lvx-ZERO"
-  count=	"2"
-  kind=	"Register"
-  what=	"RiscV x0 Register Storage"
-  width=	"64"
-/>
-<Storage
   ID=	"Storage-lvx-XRS"
   count=	"256"
   kind=	"Register"

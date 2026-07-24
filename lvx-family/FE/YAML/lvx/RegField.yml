@@ -2053,12 +2053,6 @@ RegField:
     register: MO
     reset: 0
 
-  - ID: MO_RVC
-    what: RVC instruction owner.
-    location: [ SRS, 50..51 ]
-    register: MO
-    reset: 0
-
 ################ MOW ################
 
   - ID: MOW_MMI
@@ -2288,15 +2282,6 @@ RegField:
     reset: 0
 
 
-  - ID: MOW_RVC
-    what: RVC instruction owner.
-    location: [ SRS, 50..51 ]
-    owners: [ MO_RVC ]
-    rerrors: [ TRAP_PRIVILEGE ]
-    werrors: [ TRAP_PRIVILEGE ]
-    register: MOW
-    reset: 0
-
 ################ PS ################
 
   - ID: PS_PL
@@ -2469,15 +2454,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0x1
 
-  - ID: PS_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: PS
-    owners: [ PSO_RV ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
-
 ################ SPS ################
 
   - ID: SPS_PL
@@ -2646,15 +2622,6 @@ RegField:
     location: [ SRS, 24 ]
     register: SPS
     owners: [ PSO_MMUP ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
-
-  - ID: SPS_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS
-    owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
@@ -2831,15 +2798,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
 
-  - ID: SPS_PL0_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS_PL0
-    owners: [ PSO_RV ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
-
 ################ SPS_PL1 ################
 
   - ID: SPS_PL1_PL
@@ -3008,15 +2966,6 @@ RegField:
     location: [ SRS, 24 ]
     register: SPS_PL1
     owners: [ PSO_MMUP ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
-
-  - ID: SPS_PL1_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS_PL1
-    owners: [ PSO_RV ]
     rerrors: [ READ ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
@@ -3193,15 +3142,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
 
-  - ID: SPS_PL2_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS_PL2
-    owners: [ PSO_RV ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
-
 ################ SPS_PL3 ################
 
   - ID: SPS_PL3_PL
@@ -3374,15 +3314,6 @@ RegField:
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
 
-  - ID: SPS_PL3_RV
-    what: RiscV mode.
-    location: [ SRS, 25 ]
-    register: SPS_PL3
-    owners: [ PSO_RV ]
-    rerrors: [ READ ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
-
 ################ PSO ################
 
   - ID: PSO_PL0
@@ -3526,12 +3457,6 @@ RegField:
   - ID: PSO_MMUP
     what: Privileged on MMU owner.
     location: [ SRS, 48..49 ]
-    register: PSO
-    reset: 0
-
-  - ID: PSO_RV
-    what: RiscV mode owner
-    location: [ SRS, 50..51 ]
     register: PSO
     reset: 0
 
@@ -3748,15 +3673,6 @@ RegField:
     what: Privileged on MMU owner.
     location: [ SRS, 48..49 ]
     owners: [ PSO_MMUP ]
-    rerrors: [ TRAP_PRIVILEGE ]
-    werrors: [ TRAP_PRIVILEGE ]
-    register: PSOW
-    reset: 0
-
-  - ID: PSOW_RV
-    what: RiscV mode owner
-    location: [ SRS, 50..51 ]
-    owners: [ PSO_RV ]
     rerrors: [ TRAP_PRIVILEGE ]
     werrors: [ TRAP_PRIVILEGE ]
     register: PSOW
@@ -5194,17 +5110,6 @@ RegField:
       PC of the last sequence rupture, when applicable
 
 
-################ RVC ################
-  - ID: RVC_ECRID
-    what: The GPR register to be used by the RISC-V ecall for LVX scall
-    location: [ SRS, 0..4 ]
-    register: DC
-    owners: [ MO_RVC ]
-    rerrors: [ READ0 ]
-    werrors: [ TRAP_PRIVILEGE ]
-    reset: 0
-
-
 ################ PMSA ################
 
   - ID: PMSA_PMSA
@@ -5894,8 +5799,6 @@ RegField:
     rerrors: [ READ0 ]
     werrors: [ TRAP_PRIVILEGE ]
     reset: 0
-
-################ DC ################
 
 ################ DC0 ################
   - ID: DC0_BE

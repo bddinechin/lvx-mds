@@ -24,7 +24,7 @@ RegClass:
 
   - ID: onlyfxReg
     what: Only FX System Registers without PS
-    registers: [  PCR, CS, CSIT, IPE, MEN, PMC, TCR, ILE, ILL, ILR, MMC, TEL, TEH, DC, IXC, MES, WS, DC0, DC1, DC2, DC3, PMC2, [ SPS_PL<i>, 0..3 ], [ ES_PL<r>, 0..3 ], SPS, ES , [ TPCC_PL<r>, 0..3 ], TPCC ]
+    registers: [  PCR, CS, CSIT, IPE, MEN, PMC, TCR, ILE, ILL, ILR, MMC, TEL, TEH, IXC, MES, WS, DC0, DC1, DC2, DC3, PMC2, [ SPS_PL<i>, 0..3 ], [ ES_PL<r>, 0..3 ], SPS, ES , [ TPCC_PL<r>, 0..3 ], TPCC ]
     execution: "SFR[%0]"
 
   - ID: worddRegE

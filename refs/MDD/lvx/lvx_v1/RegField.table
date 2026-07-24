@@ -2520,14 +2520,6 @@
   width=	"2"
 />
 <RegField
-  ID=	"RegField-lvx_v1-MO_RVC"
-  offset=	"50"
-  register=	"Register-lvx_v1-MO"
-  reset=	"0"
-  what=	"RVC instruction owner."
-  width=	"2"
-/>
-<RegField
   ID=	"RegField-lvx_v1-MOW_MMI"
   offset=	"0"
   owners=	"RegField-lvx_v1-MO_MMI"
@@ -2803,17 +2795,6 @@
   width=	"2"
 />
 <RegField
-  ID=	"RegField-lvx_v1-MOW_RVC"
-  offset=	"50"
-  owners=	"RegField-lvx_v1-MO_RVC"
-  register=	"Register-lvx_v1-MOW"
-  rerrors=	"TRAP_PRIVILEGE"
-  reset=	"0"
-  werrors=	"TRAP_PRIVILEGE"
-  what=	"RVC instruction owner."
-  width=	"2"
-/>
-<RegField
   ID=	"RegField-lvx_v1-PS_PL"
   offset=	"0"
   owners=	"RegField-lvx_v1-PSO_PL0 RegField-lvx_v1-PSO_PL1"
@@ -3017,17 +2998,6 @@
   reset=	"0x1"
   werrors=	"TRAP_PRIVILEGE"
   what=	"Privileged on MMU."
-  width=	"1"
-/>
-<RegField
-  ID=	"RegField-lvx_v1-PS_RV"
-  offset=	"25"
-  owners=	"RegField-lvx_v1-PSO_RV"
-  register=	"Register-lvx_v1-PS"
-  rerrors=	"READ"
-  reset=	"0"
-  werrors=	"TRAP_PRIVILEGE"
-  what=	"RiscV mode."
   width=	"1"
 />
 <RegField
@@ -3237,17 +3207,6 @@
   width=	"1"
 />
 <RegField
-  ID=	"RegField-lvx_v1-SPS_RV"
-  offset=	"25"
-  owners=	"RegField-lvx_v1-PSO_RV"
-  register=	"Register-lvx_v1-SPS"
-  rerrors=	"READ"
-  reset=	"0"
-  werrors=	"TRAP_PRIVILEGE"
-  what=	"RiscV mode."
-  width=	"1"
-/>
-<RegField
   ID=	"RegField-lvx_v1-SPS_PL0_PL"
   offset=	"0"
   owners=	"RegField-lvx_v1-PSO_PL0 RegField-lvx_v1-PSO_PL1"
@@ -3451,17 +3410,6 @@
   reset=	"0"
   werrors=	"TRAP_PRIVILEGE"
   what=	"Privileged on MMU."
-  width=	"1"
-/>
-<RegField
-  ID=	"RegField-lvx_v1-SPS_PL0_RV"
-  offset=	"25"
-  owners=	"RegField-lvx_v1-PSO_RV"
-  register=	"Register-lvx_v1-SPS_PL0"
-  rerrors=	"READ"
-  reset=	"0"
-  werrors=	"TRAP_PRIVILEGE"
-  what=	"RiscV mode."
   width=	"1"
 />
 <RegField
@@ -3671,17 +3619,6 @@
   width=	"1"
 />
 <RegField
-  ID=	"RegField-lvx_v1-SPS_PL1_RV"
-  offset=	"25"
-  owners=	"RegField-lvx_v1-PSO_RV"
-  register=	"Register-lvx_v1-SPS_PL1"
-  rerrors=	"READ"
-  reset=	"0"
-  werrors=	"TRAP_PRIVILEGE"
-  what=	"RiscV mode."
-  width=	"1"
-/>
-<RegField
   ID=	"RegField-lvx_v1-SPS_PL2_PL"
   offset=	"0"
   owners=	"RegField-lvx_v1-PSO_PL0 RegField-lvx_v1-PSO_PL1"
@@ -3885,17 +3822,6 @@
   reset=	"0"
   werrors=	"TRAP_PRIVILEGE"
   what=	"Privileged on MMU."
-  width=	"1"
-/>
-<RegField
-  ID=	"RegField-lvx_v1-SPS_PL2_RV"
-  offset=	"25"
-  owners=	"RegField-lvx_v1-PSO_RV"
-  register=	"Register-lvx_v1-SPS_PL2"
-  rerrors=	"READ"
-  reset=	"0"
-  werrors=	"TRAP_PRIVILEGE"
-  what=	"RiscV mode."
   width=	"1"
 />
 <RegField
@@ -4105,17 +4031,6 @@
   width=	"1"
 />
 <RegField
-  ID=	"RegField-lvx_v1-SPS_PL3_RV"
-  offset=	"25"
-  owners=	"RegField-lvx_v1-PSO_RV"
-  register=	"Register-lvx_v1-SPS_PL3"
-  rerrors=	"READ"
-  reset=	"0"
-  werrors=	"TRAP_PRIVILEGE"
-  what=	"RiscV mode."
-  width=	"1"
-/>
-<RegField
   ID=	"RegField-lvx_v1-PSO_PL0"
   offset=	"0"
   register=	"Register-lvx_v1-PSO"
@@ -4305,14 +4220,6 @@
   register=	"Register-lvx_v1-PSO"
   reset=	"0"
   what=	"Privileged on MMU owner."
-  width=	"2"
-/>
-<RegField
-  ID=	"RegField-lvx_v1-PSO_RV"
-  offset=	"50"
-  register=	"Register-lvx_v1-PSO"
-  reset=	"0"
-  what=	"RiscV mode owner"
   width=	"2"
 />
 <RegField
@@ -4577,17 +4484,6 @@
   reset=	"0"
   werrors=	"TRAP_PRIVILEGE"
   what=	"Privileged on MMU owner."
-  width=	"2"
-/>
-<RegField
-  ID=	"RegField-lvx_v1-PSOW_RV"
-  offset=	"50"
-  owners=	"RegField-lvx_v1-PSO_RV"
-  register=	"Register-lvx_v1-PSOW"
-  rerrors=	"TRAP_PRIVILEGE"
-  reset=	"0"
-  werrors=	"TRAP_PRIVILEGE"
-  what=	"RiscV mode owner"
   width=	"2"
 />
 <RegField
@@ -6206,17 +6102,6 @@
   werrors=	"TRAP_PRIVILEGE"
   what=	"Sequence rupture helper PC"
   width=	"64"
-/>
-<RegField
-  ID=	"RegField-lvx_v1-RVC_ECRID"
-  offset=	"0"
-  owners=	"RegField-lvx_v1-MO_RVC"
-  register=	"Register-lvx_v1-DC"
-  rerrors=	"READ0"
-  reset=	"0"
-  werrors=	"TRAP_PRIVILEGE"
-  what=	"The GPR register to be used by the RISC-V ecall for LVX scall"
-  width=	"5"
 />
 <RegField
   ID=	"RegField-lvx_v1-PMSA_PMSA"
