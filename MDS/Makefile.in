@@ -19,8 +19,11 @@ endif
 #Express dependencies between targets, so that parallel build can 
 #run at least the backends in parallel
 @FEDIR@-all: DOC-all
-	# force non-parallel build, because this module isn't safe
-	$(MAKE) -j1 -C @FEDIR@ all
+	# FE/YAML is now parallel-safe: the per-element .yml are a single grouped target
+	# (Description2MDS.pl runs once), MDS.yml is built before the per-table recursion so
+	# children never re-run that rule, and the per-core dir is an order-only prereq.
+	# The leading '+' shares the jobserver so this honours the top-level -j.
+	+$(MAKE) -C @FEDIR@ all
 
 MDD/MDE-all: @FEDIR@-all
 	# force non-parallel build, because this module isn't safe

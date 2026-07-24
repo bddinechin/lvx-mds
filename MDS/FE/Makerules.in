@@ -26,7 +26,14 @@ install:
 	-
 
 define maketables
-$(TOPDIR)/$(MDD)/$(FAMILY)/$(1)/%.table:
+# Depend on MDS.yml (a grouped target that builds EVERY per-element .yml in one
+# Description2MDS.pl run) so the whole .yml set is produced once, here in the parent
+# process, before the per-table recursion below. Otherwise each recursive
+# `$(MAKE) $*.table` child would re-trigger that grouped rule, and parallel children
+# would clobber one another's .yml (partial reads -> YAML load errors / corrupt tables).
+# With the .yml already up-to-date, each child only runs the per-file yml2pl + table
+# generation, which is parallel-safe.
+$(TOPDIR)/$(MDD)/$(FAMILY)/$(1)/%.table: $(FAMILY)/$(1)/MDS.yml
 	mkdir -p $(FAMILY)/$(1)
 	$(MAKE) $(addprefix $(FAMILY)/$(1)/, $$*.table)
 	mkdir -p $(TOPDIR)/MDD/$(FAMILY)/$(1)
